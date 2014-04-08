@@ -1,0 +1,24 @@
+﻿@using MirGames.Models
+@model MirGames.Controllers.UsersController.CommentsPageViewModel
+@{
+    ViewBag.Title = Model.User.Login;
+    AddPageCssClass("user-comments-page");
+}
+
+@section Nav
+{
+    @Html.Partial("_ProfileMenu", Model.User)
+}
+
+<h3>@Model.User.Login</h3>
+@Html.Partial("_UserInfo", Model.User)
+
+@Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
+<div class="comments-list">
+    @foreach(var comment in Model.Comments)
+    {
+        <a href="@Url.Action("Topic", "Topics", new { topicId = comment.TopicId })" class="topic-title">@comment.TopicTitle</a>
+        @Html.Partial("../Topics/_Comment", comment)
+    }
+</div>
+@Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)

@@ -1,0 +1,34 @@
+﻿@model MirGames.Domain.Users.ViewModels.UserViewModel
+
+@{
+    Layout = "~/Views/Shared/_Nav.cshtml";
+}
+
+@section SectionTitle { @Model.Login }
+@section SectionMenu
+{
+    <a href="@Url.Action("Profile", "Users", new { userId = Model.Id })" class="@(ViewBag.SectionMode == "Profile" ? "selected" : string.Empty)"><i class="fa fa-info-circle"></i>Профиль</a>
+
+    @if (UserEntity != null && UserEntity.Id == Model.Id)
+    {
+        <a href="@Url.Action("Settings", "Users")" class="@(ViewBag.SectionMode == "Settings" ? "selected" : string.Empty)"><i class="fa fa-cog"></i>Настройки</a>
+    }
+
+    <a href="@Url.Action("Topics", "Users", new { userId = Model.Id })" class="@(ViewBag.SectionMode == "Topics" ? "selected" : string.Empty)">Топики пользователя</a>
+    <a href="@Url.Action("Comments", "Users", new { userId = Model.Id })" class="@(ViewBag.SectionMode == "Comments" ? "selected" : string.Empty)">Комментарии пользователя</a>
+    <a href="@Url.Action("Forum", "Users", new { userId = Model.Id })" class="@(ViewBag.SectionMode == "Forum" ? "selected" : string.Empty)">Ответы на форуме</a>
+
+    @if (Model.CanReceiveMessage)
+    {
+@*        <a href="">Отправить сообщение</a>*@
+    }
+    @if (Model.CanBeDeleted)
+    {
+        <a href="javascript:void(0);" ng-click="delete()">Удалить</a>
+    }
+
+    @if (User.IsInRole("Administrator"))
+    {
+        <a href="javascript:void(0);" ng-click="switchUser()">Войти как пользователь</a>
+    }
+}

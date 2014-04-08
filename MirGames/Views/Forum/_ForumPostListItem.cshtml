@@ -1,0 +1,38 @@
+﻿@model MirGames.Domain.Forum.ViewModels.ForumPostsListItemViewModel
+
+<article post-id="@Model.PostId" id="@(Model.FirstUnread ? "first-unread": null )" @Html.Css("message").Add("unread", !Model.IsRead).Add("first-post", Model.IsFirstPost)>
+    @if (!Model.IsFirstPost)
+    {
+        <a class="message-index" href="#@Model.Index" id="@Model.Index">#@Model.Index</a>
+    }
+    @Author.UserAvatarLink(Model.Author, "avatar-small")
+    <header>
+        @Author.UserLink(Model.Author, "user-login")
+        <span class="comment-date">(@Html.DisplayFor(m => m.CreatedDate))</span>
+        <div class="message-bar">
+            @if (Model.CanBeEdited)
+            {
+                <a class="edit-post" href="javascript:void(0);" dialog="@Url.Action("EditPostDialog", "Forum")" title="Редактировать"
+                    dialog-close="reloadPost(@Model.PostId, @(Model.IsFirstPost ? "true" : "false"))"
+                    resolve="{ 'post-id': @Model.PostId }" dialog-controller="MirGames.Forum.EditPostDialogController"><i class="fa fa-pencil-square-o"></i></a>
+            }
+            @if (Model.CanBeDeleted)
+            {
+                <a class="delete-post" href="javascript:void(0);" title="Удалить" dialog="@Url.Action("DeletePostDialog", "Forum")"
+                   dialog-close="hidePost(@Model.PostId)" resolve="{ 'post-id': @Model.PostId }"
+                   dialog-controller="MirGames.Forum.DeletePostDialogController"><i class="fa fa-times"></i></a>
+            }
+            @if (Model.UpdatedDate > Model.CreatedDate)
+            {
+                <div class="edited">Отредактировано: @Html.DisplayFor(m => m.UpdatedDate)</div>
+            }
+        </div>
+    </header>
+    <div class="text">
+        @Html.Raw(Model.Text)
+    </div>
+    @if (Model.IsFirstPost)
+    {
+        @Html.Partial("_SocialButtons")
+    }
+</article>

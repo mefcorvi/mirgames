@@ -1,0 +1,271 @@
+﻿body {} @import "../settings.less";
+
+.message() {
+    & > .message {
+        .page-block();
+        @login-width: 150px;
+        @date-width: 80px;
+        padding-top: @indent/2;
+        padding-bottom: @indent/2;
+        overflow: hidden;
+        position: relative;
+        border: 0;
+        margin-bottom: @indent/4;
+
+        &:hover {
+            outline: 1px dashed rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+
+        &.message-chain {
+            border-top: 0;
+            border-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        &.own-message {
+            border-left: 5px solid mix(@date-color, @background-color, 20%);
+
+            & > header {
+                width: @login-width - 5;
+            }
+
+            & > .text {
+                margin-left: @login-width - 5 + @indent;
+            }
+
+            & > header > .user-login {
+                color: #666;
+            }
+        }
+
+        &.first-unread {
+            border-top: 1px dashed #999;
+        }
+
+        &.system-message .text {
+            .font-size(1.1);
+            color: #999;
+        }
+
+        &.editing {
+            background: mix(@date-color, @background-color, 10%);
+        }
+
+        & > header {
+            width: @login-width;
+            float: left;
+            text-align: right;
+
+            & > .user-login {
+                margin-right: @indent;
+                line-height: @avatar-tiny;
+                font-weight: bold;
+            }
+
+            & > .avatar-link {
+                float: right;
+
+                & > img {
+                    float: none;
+                }
+            }
+        }
+
+        & > .date {
+            margin-top: 2px;
+            .font-size(1.1);
+            padding: 3px;
+            background: @date-color;
+            text-align: right;
+            color: @background-color;
+            float: right;
+        }
+
+        & > .edit-date {
+            margin-top: 2px;
+            .font-size(1.1);
+            padding: 3px;
+            background: spin(@date-color, 120);
+            text-align: right;
+            color: @background-color;
+            margin-left: 1px;
+            float: right;
+        }
+
+        & > .message-toolbar {
+            float: right;
+            margin-right: 5px;
+            .font-size(1.3);
+            line-height: 24px;
+        }
+
+        & > .text {
+            padding-top: 2px;
+            margin-left: @login-width + @indent;
+            margin-right: @date-width;
+        }
+
+        @media (max-width: @screen-sm-max) {
+            &.own-message > header, & > header {
+                float: none;
+                width: auto;
+            }
+
+            & > .message-toolbar {
+                text-align: right;
+            }
+
+            & > header {
+                text-align: left;
+                height: 27px;
+
+                & > .user-login {
+                    margin-left: 10px;
+                }
+
+                & > .avatar-link {
+                    float: left;
+                }
+            }
+
+            &.own-message > header {
+                text-align: right;
+                
+                & > .user-login {
+                    margin-left: 0px;
+                }
+
+                & > .avatar-link {
+                    float: right;
+                }
+            }
+
+            & > .date, & > .edit-date, & > .message-toolbar {
+                float: none;
+            }
+
+            & > .date, & > .edit-date {
+                float: left;
+                text-align: left;
+                margin: 0;
+                margin-right: 5px;
+            }
+
+            &.own-message {
+                padding-left: @indent/2;
+            }
+
+            &.own-message > .text, & > .text {
+                margin-left: 0;
+                margin-right: 0;
+                clear: both;
+            }
+        }
+    }
+}
+
+.chat-room-page {
+    @sidebar-background: @background-color;
+    padding-bottom: 155px;
+
+    & > footer {
+        display: block;
+        bottom: 0;
+        height: 155px;
+        border-top: 1px solid darken(@sidebar-background, 10%);
+        position: absolute;
+        background: @sidebar-background;
+        left: 0px;
+        right: 0;
+        .box-sizing(border-box);
+        .indent();
+        z-index: 2;
+        overflow: hidden;
+
+        @media (max-width: @screen-xs-max) {
+            width: 100%;
+            width: 100vw;
+        }
+
+        .buttons {
+            margin-top: @indent/2;
+
+            .button {
+                .button();
+            }
+
+            .button.mute {
+                min-width: inherit;
+                width: 20px;
+                height: 20px;
+                display: block;
+                float: right;
+                .font-size(1.6);
+                line-height: 20px;
+                text-align: center;
+            }
+
+            .button.sendKey {
+                float: right;
+            }
+        }
+
+        textarea {
+            height: 50px;
+        }
+
+        & .mdd_preview, & .mdd_resizer_wrap {
+            display: none;
+        }
+
+        & .buttons > a {
+            line-height: 20px;
+            height: 20px;
+        }
+    }
+
+    & > section {
+        & > header {
+            .indent();
+            padding-bottom: 0;
+
+            & > h3 {
+                .page-title();
+            }
+        }
+
+        & > .toolbar {
+            padding-left: @indent;
+            padding-right: @indent;
+            margin-top: @indent/2;
+            margin-bottom: @indent/2;
+            overflow: hidden;
+
+            & .button {
+                .button();
+            }
+        }
+
+        & > .chat-messages {
+            .indent();
+            padding-top: 0;
+            .message();
+        }
+
+        & > h4 {
+            .header-font();
+            .font-size(2);
+            margin-top: 10px;
+        }
+    }
+}
+
+.chat-room-page.read-only {
+    padding-bottom: @indent + 30px;
+
+    & > footer {
+        height: @indent + 30px;
+        line-height: 30px;
+    }
+}

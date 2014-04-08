@@ -1,0 +1,33 @@
+﻿@using MirGames.Models
+@model IEnumerable<MirGames.Domain.Wip.ViewModels.WipProjectViewModel>
+
+@{
+    ViewBag.Title = ViewBag.SectionTitle ?? "Проекты в разработке";
+    AddPageCssClass("wip-page");
+}
+
+@section Nav { @Html.Partial("_WipMenu") }
+
+<h3>@(ViewBag.SectionTitle ?? "Проекты в разработке")</h3>
+
+<form ng-controller="MirGames.Users.SearchPanelController" ng-submit="search()" class="search-panel">
+    <div class="form-field">
+        <input type="text" placeholder="Поиск..." ng-model="searchQuery" />
+    </div>
+</form>
+
+@if (!Model.Any())
+{
+    <div class="projects-not-found">
+        Проекты не найдены
+    </div>
+}
+
+@Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
+<div class="projects-list">
+@foreach (var user in Model)
+{
+    @Html.Partial("_ProjectListItem", user)
+}
+</div>
+@Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)

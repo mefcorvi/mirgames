@@ -1,0 +1,43 @@
+﻿@using MirGames.Domain.Wip.ViewModels
+
+@model WipProjectViewModel
+@{
+    var file = (WipProjectFileViewModel)this.ViewBag.File;
+    ViewBag.Title = file.FileName + " / " + Model.Title;
+    
+    string parentFolder = this.ViewBag.ParentFolder ?? string.Empty;
+    string[] parentFolders = new[] { this.Model.Title }.Concat(parentFolder.Split(new[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries)).ToArray();
+    string currentFolder = parentFolders.Last();
+    
+    PageScriptController = "MirGames.Wip.ProjectCodeFilePage";
+    AddPageCssClass("wip-code-file-page");
+    Func<string, string> getFileUrl =
+        path => string.Format(@"{0}/{1}", Url.Action("Code", "Projects", new { projectAlias = Model.Alias, path = "/" }), path.TrimStart('/'));
+}
+
+@section Nav
+{
+    @Html.Partial("_ProjectMenu", Model)
+}
+
+@Html.Partial("_ProjectInfo", Model)
+
+<h4>
+    @{ string currentPath = "/"; }
+    <ul class="parent-folders">
+        @for (int index = 0; index < parentFolders.Length; index++)
+        {
+            var folder = parentFolders[index];
+            if (index > 0)
+            {
+                currentPath += folder + "/";
+            }
+            <li><a href="@getFileUrl(currentPath)">@folder</a></li>
+        }
+            <li class="file-name">@file.FileName</li>
+    </ul>
+</h4>
+<div class="file-block">
+    @file.UpdatedDate
+    <pre><code @Html.Css("file-content").Add(Path.GetExtension(file.FileName).TrimStart('.'))>@file.Content</code></pre>
+</div>

@@ -1,0 +1,32 @@
+﻿.edit-topic-page > nav a.switch-preview.on .fa-check-square-o {
+  display: none;
+}
+.edit-topic-page > nav a.switch-preview.off .fa-square-o {
+  display: none;
+}
+.edit-topic-page > section {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.edit-topic-page > section > h3 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+.edit-topic-page .topic-editor-field {
+  overflow: hidden;
+}
+.edit-topic-page .topic-show-preview .topic-editor {
+  float: left;
+  width: 49%;
+  margin-right: 10px;
+}
+.edit-topic-page .topic-show-preview .topic-preview {
+  margin-left: 50%;
+  overflow: auto;
+}
+/*# sourceMappingURL=edit-topic.css.map */

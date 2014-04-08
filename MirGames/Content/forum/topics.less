@@ -1,0 +1,28 @@
+﻿body {} @import "../settings.less";
+@import "mixins.less";
+
+.forum-topics-page
+{
+    & > section {
+        .indent();
+        .forum-topic-list();
+
+        & > .topics-not-found {
+            .page-block();
+        }
+
+        & > form {
+            margin-bottom: @indent/2;
+        }
+
+        & > h3 {
+            .page-title();
+            overflow: hidden;
+        }
+
+        & > .pagination {
+            padding-left: @indent;
+            padding-right: @indent;
+        }
+   }
+}

@@ -1,0 +1,25 @@
+﻿@model MirGames.Domain.Topics.ViewModels.TopicForEditViewModel
+
+@{
+    Title = "Редактирование топика";
+    PageScriptController = "MirGames.Topics.EditTopicPage";
+    AddPageCssClass("edit-topic-page");
+}
+
+@section Nav { @Html.Partial("_EditTopicMenu", Model) }
+
+<h3 ng-bind="title">...</h3>
+<form class="new-topic-form">
+    <div class="form-field">
+        <label>Заголовок</label>
+        <input type="text" class="topic-title" ng-model="title" />
+    </div>
+    <div class="form-field">
+        <label>Тэги</label>
+        <input type="text" class="topic-tags" ng-model="tags" />
+    </div>
+    <div class="form-field">
+        <label>Текст</label>
+        <texteditor text="text" show-preview="showPreview" post="save()" attachments="attachments" entity-type="topic" />
+    </div>
+</form>

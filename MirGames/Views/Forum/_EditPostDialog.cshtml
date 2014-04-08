@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "~/Views/Shared/_Dialog.cshtml";
+}
+
+@section DialogTitle
+{
+    Редактирование поста
+}
+
+@section DialogNotifications
+{
+}
+
+@section DialogContent
+{
+    <form class="edit-post-form" ng-submit="savePost()" novalidate name="editPostForm">
+        <div class="form-field" ng-show="canChangeTitle">
+            <label>Заголовок</label>
+            <input type="text" class="topic-title" ng-model="title" ng-maxlength="128" ng-focused="isTitleFocused" required />
+            <div class="form-field-description">Заголовок должен быть коротким, но осмысленным и соответствующим содержимому поста.</div>
+        </div>
+        <div class="form-field" ng-show="canChangeTags">
+            <label>Метки</label>
+            <input type="text" class="topic-tags" ng-model="tags" ng-maxlength="128" required />
+            <div class="form-field-description">
+                Пожалуйста, выберите от 1 до 5 меток. Пост будет доступен только по выбранным меткам. Метки разделяются запятыми.
+            </div>
+        </div>
+        <div class="form-field">
+            <label ng-show="canChangeTags || canChangeTitle">Текст</label>
+            <texteditor text="text" show-preview="true" post="savePost()" focus="isFocused" attachments="attachments" entity-type="forumPost" />
+        </div>
+    </form>
+}
+
+@section DialogButtons
+{
+    <a href="javascript:void(0)" ng-class="{ 'button-disabled': loginForm.$invalid }" ng-click="savePost()">Сохранить</a>
+    <a href="javascript:void(0)" class="cancel" ng-click="close()">Отмена</a>
+}

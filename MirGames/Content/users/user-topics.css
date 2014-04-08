@@ -1,0 +1,142 @@
+﻿.user-topics-page > section {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.user-topics-page > section > h3 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+  padding-bottom: 0;
+  text-shadow: 1px 1px 4px #ffffff;
+}
+.user-topics-page > section > .user-info {
+  background: #ffffff;
+  padding: 20px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+.user-topics-page > section > .user-info .user-rating {
+  display: inline;
+  margin-left: 10px;
+  font-size: 15px;
+  background: #485b69;
+  padding: 3px;
+  color: #ffffff;
+}
+.user-topics-page > section > .user-info > img.avatar {
+  float: left;
+  margin-right: 10px;
+}
+.user-topics-page > section > .user-info > h4 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.user-topics-page > section > .topics-list > .message {
+  background: #ffffff;
+  padding: 20px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.user-topics-page > section > .topics-list > .message > .message-content {
+  overflow: hidden;
+}
+.user-topics-page > section > .topics-list > .message > .message-content > header {
+  font-size: 12px;
+  position: relative;
+  padding-right: 90px;
+}
+.user-topics-page > section > .topics-list > .message > .message-content > header a.topic-title {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 18px;
+  color: #2f7eb8;
+}
+.user-topics-page > section > .topics-list > .message > .message-content > header a.topic-title:active,
+.user-topics-page > section > .topics-list > .message > .message-content > header a.topic-title:hover,
+.user-topics-page > section > .topics-list > .message > .message-content > header a.topic-title:focus {
+  color: #b82f7e;
+}
+.user-topics-page > section > .topics-list > .message > .message-content > header span {
+  font-size: 10px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  color: #8c8c0c;
+}
+.user-topics-page > section > .topics-list > .message > .message-content > footer {
+  position: relative;
+  overflow: hidden;
+  font-size: 11px;
+}
+.user-topics-page > section > .topics-list > .message > .message-content > footer .user-login {
+  float: left;
+  display: block;
+  height: 24px;
+  line-height: 24px;
+  margin-right: 15px;
+  font-weight: bold;
+}
+.user-topics-page > section > .topics-list > .message > .message-content > footer .answers-link {
+  float: left;
+  display: block;
+  height: 24px;
+  line-height: 24px;
+}
+.user-topics-page > section > .topics-list > .message > .message-content > footer > ul {
+  overflow: hidden;
+  list-style-type: none;
+  font-size: 11px;
+  float: right;
+}
+.user-topics-page > section > .topics-list > .message > .message-content > footer > ul > li {
+  float: left;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  display: block;
+}
+.user-topics-page > section > .topics-list > .message > .message-content > footer > ul > li a {
+  background: #838f97;
+  color: #ffffff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 3px;
+  max-width: 150px;
+  display: block;
+  overflow: hidden;
+  text-decoration: none;
+}
+.user-topics-page > section > .topics-list > .message > .message-content > footer > ul > li a:active,
+.user-topics-page > section > .topics-list > .message > .message-content > footer > ul > li a:hover,
+.user-topics-page > section > .topics-list > .message > .message-content > footer > ul > li a:focus {
+  color: #ffffff;
+}
+.user-topics-page > section > .topics-list > .message > .message-content > footer > ul > li a:hover,
+.user-topics-page > section > .topics-list > .message > .message-content > footer > ul > li a:active,
+.user-topics-page > section > .topics-list > .message > .message-content > footer > ul > li a:focus {
+  background: #525b62;
+  color: #ffffff;
+}
+.user-topics-page > section > .topics-list > .message > .message-content > footer > ul > li:last-child {
+  margin-right: 0;
+}
+.user-topics-page > section > .topics-list > .message > .message-content p {
+  line-height: 140%;
+  margin-bottom: 10px;
+}
+.user-topics-page > section > .topics-list > .message > .message-content > div {
+  margin: 5px 0px 10px 0px;
+}
+.user-topics-page > section > .topics-list > .message > .avatar {
+  float: left;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #dcdcdc;
+}
+/*# sourceMappingURL=user-topics.css.map */

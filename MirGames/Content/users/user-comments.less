@@ -1,0 +1,31 @@
+﻿body {} @import "../settings.less";
+@import "mixins.less";
+@import "../topics/mixins.less";
+
+.user-comments-page {
+    & > section {
+        .indent();
+
+        & > h3 {
+            .page-title()
+        }
+
+        & > .user-info {
+            .user-info();
+        }
+
+        & > .comments-list {
+            .topic-title {
+                .header-font();
+                .font-size(1.5);
+            }
+
+            .comments-list-item();
+
+            & > .comment {
+                margin-top: @indent/4;
+                margin-bottom: @indent/2;
+            }
+        }
+    }
+}

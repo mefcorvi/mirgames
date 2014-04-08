@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "~/Views/Shared/_Dialog.cshtml";
+}
+
+@section DialogTitle
+{
+    Редактирование комментария
+}
+
+@section DialogNotifications
+{
+}
+
+@section DialogContent
+{
+    <form class="edit-post-form" ng-submit="saveComment()" novalidate name="editCommentForm">
+        <div class="form-field">
+            <texteditor text="text" show-preview="true" post="saveComment()" focus="isFocused" attachments="attachments" entity-type="comment" />
+        </div>
+    </form>
+}
+
+@section DialogButtons
+{
+    <a href="javascript:void(0)" ng-class="{ 'button-disabled': editCommentForm.$invalid }" ng-click="saveComment()">Сохранить</a>
+    <a href="javascript:void(0)" class="cancel" ng-click="close()">Отмена</a>
+}

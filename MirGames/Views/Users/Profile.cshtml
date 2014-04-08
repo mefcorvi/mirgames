@@ -1,0 +1,30 @@
+﻿@model MirGames.Controllers.UsersController.ProfileViewModel
+@{
+    ViewBag.Title = Model.User.Login;
+    PageScriptController = "MirGames.Users.ProfilePage";
+    AddPageCssClass("user-page");
+}
+
+@section Nav
+{
+    @Html.Partial("_ProfileMenu", Model.User)
+}
+
+<h3>@Model.User.Login</h3>
+@Html.Partial("_UserInfo", Model.User)
+
+@*<div class="wall-records">
+    @if (Model.User.WallRecordCanBeAdded)
+    {
+        <div class="new-wall-record">
+            <tinyeditor text="newRecord.text" entity-type="wallRecord"></tinyeditor>
+            <div class="buttons">
+                <a href="javascript:void(0)" ng-click="newRecord.post()">Оставить запись</a>
+            </div>
+        </div>
+    }
+    @foreach (var wallRecord in Model.WallRecords)
+    {
+        @Html.Partial("_WallRecord", wallRecord)
+    }
+</div>*@

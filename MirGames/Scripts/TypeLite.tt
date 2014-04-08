@@ -1,0 +1,57 @@
+﻿<#@ template debug="false" hostspecific="True" language="C#" #>
+<#@ assembly name="$(TargetDir)TypeLite.dll" #>
+<#@ assembly name="$(TargetDir)TypeLite.Net4.dll" #>
+<#@ assembly name="$(TargetDir)MirGames.Infrastructure.dll" #>
+<#@ assembly name="$(TargetDir)MirGames.Domain.Tools.Public.dll" #>
+<#@ assembly name="$(TargetDir)MirGames.Domain.Topics.Public.dll" #>
+<#@ assembly name="$(TargetDir)MirGames.Domain.Users.Public.dll" #>
+<#@ assembly name="$(TargetDir)MirGames.Domain.Forum.Public.dll" #>
+<#@ assembly name="$(TargetDir)MirGames.Domain.Chat.Public.dll" #>
+<#@ assembly name="$(TargetDir)MirGames.Domain.Attachments.Public.dll" #>
+<#@ assembly name="$(TargetDir)MirGames.Domain.Wip.Public.dll" #>
+<#@ assembly name="$(TargetDir)$(TargetFileName)" #>
+
+<#@ import namespace="TypeLite" #> 
+<#@ import namespace="TypeLite.Net4" #> 
+<#@output extension=".d.ts"#>
+
+<#
+    var definitions = TypeScript.Definitions();
+    definitions.For<MirGames.Infrastructure.Commands.Command>();
+    definitions.For<MirGames.Infrastructure.Queries.Query>();
+    definitions.WithFormatter((string typeName, bool isTypeCollection) => {
+        if (typeName.StartsWith("System.Collections.Generic")) {
+            return "any";
+        }
+
+        return typeName + (isTypeCollection ? "[]" : "");
+    });
+    definitions.WithFormatter((type, f) => {
+        var tsClass = (TypeLite.TsModels.TsClass)type;
+        Type clrType = tsClass.ClrType;
+
+        if (clrType.IsGenericType) {
+            var argument = clrType.GetGenericArguments()[0];
+            return clrType.Name.Replace("`", "");
+        }
+
+        return tsClass.Name;
+    });
+
+    foreach (System.Reflection.Assembly assembly in AppDomain.CurrentDomain.GetAssemblies()) {
+        if (assembly.FullName.Contains(".Public") && assembly.FullName.Contains("MirGames.Domain")) {
+            foreach (System.Type type in assembly.GetTypes()) {
+                if (type.FullName.EndsWith("ViewModel")) {
+                    definitions.For(type);
+                }
+
+                if ((type.FullName.EndsWith("Command") || type.FullName.EndsWith("Query"))
+                && type.GetCustomAttributes(typeof(MirGames.Infrastructure.Commands.ApiAttribute), true).Length > 0) {
+                    definitions.For(type);
+                }
+            }                                                                               
+        }
+    }    
+    
+ #>
+<#=definitions.Generate()#>

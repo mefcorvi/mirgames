@@ -1,0 +1,34 @@
+﻿body {} @import "../settings.less";
+
+.new-forum-topic-page {
+    & > nav {
+        a.switch-preview {
+            &.on {
+                .fa-check-square-o {
+                    display: none;
+                }
+            }
+            
+            &.off {
+                .fa-square-o {
+                    display: none;
+                }
+            }
+        }
+
+        a.save-topic {
+        }
+    }
+
+    & > section {
+        .indent();
+
+        & > form {
+            .page-block(@indent/2, @indent);
+        }
+
+        & > h3 {
+            .page-title();
+        }
+    }
+}

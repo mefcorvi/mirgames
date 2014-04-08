@@ -1,0 +1,61 @@
+﻿@using MirGames.Domain.Wip.ViewModels
+@using MirGames.Infrastructure
+@using System.Linq
+
+@model WipProjectViewModel
+@{
+    ViewBag.Title = "Исходный код / " + Model.Title;
+    PageScriptController = "MirGames.Wip.ProjectPage";
+    AddPageCssClass("wip-code-page");
+    var files = (IEnumerable<WipProjectRepositoryItemViewModel>)this.ViewBag.Files;
+    
+    string parentFolder = this.ViewBag.ParentFolder ?? string.Empty;
+    string[] parentFolders = new [] { this.Model.Title }.Concat(parentFolder.Split(new[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries)).ToArray();
+    string currentFolder = parentFolders.Last();
+    
+    
+    Func<string, string> getFileUrl =
+        path => string.Format(@"{0}/{1}", Url.Action("Code", "Projects", new { projectAlias = Model.Alias, path = "/" }), path.TrimStart('/'));
+}
+
+@section Nav
+{
+    @Html.Partial("_ProjectMenu", Model)
+}
+
+@Html.Partial("_ProjectInfo", Model)
+
+<h4>
+    @{ string currentPath = "/"; }
+    <ul class="parent-folders">
+        @for (int index = 0; index < parentFolders.Length - 1; index++)
+        {
+            var folder = parentFolders[index];
+            if (index > 0)
+            {
+                currentPath += folder + "/";
+            }
+            <li><a href="@getFileUrl(currentPath)">@folder</a></li>
+        }
+        @if (!currentFolder.IsNullOrEmpty())
+        {
+            <li>@currentFolder</li>
+        }
+    </ul>
+</h4>
+<div class="files">
+    @foreach (var file in files)
+    {
+        <div class="file">
+            @if (file.ItemType == WipProjectRepositoryItemType.Directory)
+            {
+                        <i class="fa fa-folder"></i>
+            }
+            else
+            {
+                        <i class="fa fa-file-o"></i>
+            }
+            <a href="@getFileUrl(file.Path)">@file.Name</a>
+        </div>
+    }
+</div>

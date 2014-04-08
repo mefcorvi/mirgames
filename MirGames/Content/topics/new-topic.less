@@ -1,0 +1,31 @@
+﻿body {} @import "../settings.less";
+
+.new-topic-page {
+    & > nav {
+        a.switch-preview {
+            &.on {
+                .fa-check-square-o {
+                    display: none;
+                }
+            }
+            
+            &.off {
+                .fa-square-o {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    & > section {
+        .indent();
+
+        & > h3 {
+            .page-title();
+        }
+
+        & > form {
+            .page-block(@indent/2);
+        }
+    }
+}

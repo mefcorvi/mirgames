@@ -1,0 +1,14 @@
+﻿<ul class="share">
+	<li class="twitter">
+		<a href="http://twitter.com/intent/tweet?text=@Url.Encode(ViewBag.Title + " " + this.Request.Url.ToString() + " via @mirgames")" title="Опубликовать ссылку в Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+	</li>
+	<li class="vkontakte">
+		<a href="http://vk.com/share.php?url=@Url.Encode(this.Request.Url.ToString())" title="Опубликовать ссылку во ВКонтакте" onclick="window.open(this.href, 'Опубликовать ссылку во Вконтакте', 'width=800,height=300'); return false;"><i class="fa fa-vk"></i></a>
+	</li>
+	<li class="facebook">
+		<a href="https://www.facebook.com/sharer/sharer.php?u=@Url.Encode(this.Request.Url.ToString())" title="Опубликовать ссылку в Facebook" onclick="window.open(this.href, 'Опубликовать ссылку в Facebook', 'width=640,height=436,toolbar=0,status=0'); return false;"><i class="fa fa-facebook"></i></a>
+	</li>
+	<li class="googleplus">
+		<a href="https://plus.google.com/share?url=@Url.Encode(this.Request.Url.ToString())" title="Опубликовать ссылку в Google Plus" onclick="window.open(this.href, 'Опубликовать ссылку в Google Plus', 'width=800,height=300'); return false;"><i class="fa fa-google-plus"></i></a>
+	</li>
+</ul>

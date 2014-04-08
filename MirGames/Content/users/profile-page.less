@@ -1,0 +1,102 @@
+﻿body {} @import "../settings.less";
+@import "mixins.less";
+
+.account-profile-page {
+    & > section {
+        .indent();
+
+        & > h3 {
+            .page-title();
+        }
+
+        & > h4 {
+            .page-subtitle();
+        }
+
+        & > .user-info {
+            .user-info();
+        }
+
+        form {
+            .page-block();
+            margin-bottom: @indent;
+            
+            .form-field input[type=text]{
+                max-width: 600px;
+            }
+        }
+
+        .connected-accounts-form {
+            .oauth-provider {
+                overflow: hidden;
+                max-width: 600px;
+                height: 40px;
+                line-height: 40px;
+                border-bottom: 1px solid #eee;
+
+                .provider-logo {
+                    height: 32px;
+                    width: 32px;
+                    margin-right: @indent/2;
+                    float: left;
+                    margin-top: 4px;
+
+                    .oauth-providers();
+                }
+
+                h3 {
+                    .font-size(1.5);
+                    .header-font();
+                }
+
+                .button {
+                    float: right;
+                    min-width: 90px;
+                    text-decoration: none;
+                    line-height: 40px;
+
+                    &.unlink-button {
+                        opacity: 0.3;
+
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+
+                    i {
+                        margin-right: 5px;
+                        .font-size(1.7);
+                        line-height: 40px;
+                        vertical-align: -1px;
+                    }
+                }
+            }
+        }
+
+        .profile-settings-form {
+            .avatar-upload {
+                position: relative;
+
+                & > .avatar {
+                    .avatar(100px);
+                }
+
+                & > .upload-file {
+                    position: absolute;
+                    left: 110px;
+                    margin-top: -18px;
+                    top: 50%;
+                    padding: 5px;
+
+                    &.drag-over {
+                        outline: 1px dashed #999;
+                        opacity: 0.5;
+                    }
+                }
+            }
+        }
+
+        .account-settings-form {
+        }
+    }
+}

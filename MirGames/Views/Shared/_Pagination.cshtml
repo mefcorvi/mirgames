@@ -1,0 +1,70 @@
+﻿@model MirGames.Models.PaginationViewModel
+@if (Model.PagesCount > 1)
+{
+<div class="pagination">
+    <ol>
+        @if (Model.ShowPrevNextNavigation)
+        {
+            if (Model.LeftBoundary > 1)
+            {
+                 <li class="first-page">
+                     <a href="@Model.UrlFactory.Invoke(1)">первая</a>
+                 </li>
+            }
+            <li class="previous-page">
+                @if (Model.HasPreviousPage)
+                {
+                    <a href="@Model.UrlFactory.Invoke(Model.PageNumber - 1)" rel="prev">← предыдущая</a>
+                }
+                else
+                {
+                    <span>← предыдущая</span>
+                }
+            </li>
+        } else if (Model.LeftBoundary > 1)
+        {
+            <li class="first-page">
+                <a href="@Model.UrlFactory.Invoke(1)">1</a>
+            </li>
+        }
+        @for (var i = Model.LeftBoundary; i <= Model.RightBoundary; i++)
+        {
+            <li class="page">
+                @if (i == Model.PageNumber && Model.HightlightCurrentPage)
+                {
+                    <span class="current-page">@i</span>
+                }
+                else
+                {
+                    <a href="@Model.UrlFactory.Invoke(i)">@i</a>
+                }
+            </li>
+        }
+        @if (Model.ShowPrevNextNavigation)
+        {
+            <li class="next-page">
+                @if (Model.HasNextPage)
+                {
+                    <a href="@Model.UrlFactory.Invoke(Model.PageNumber + 1)" rel="next">следующая →</a>
+                }
+                else
+                {
+                    <span>следующая →</span>
+                }
+            </li>
+            if (Model.RightBoundary < Model.PagesCount)
+            {
+                 <li class="last-page">
+                     <a href="@Model.UrlFactory.Invoke(Model.PagesCount)">последняя</a>
+                 </li>
+            }
+        }
+        else if (Model.RightBoundary < Model.PagesCount)
+        {
+                <li class="last-page">
+                    <a href="@Model.UrlFactory.Invoke(Model.PagesCount)">@Model.PagesCount</a>
+                </li>
+        }
+    </ol>
+</div>
+}

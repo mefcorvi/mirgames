@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D87C5194-343F-4EAC-A5BB-FE9E5F0E57A3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MirGames.Domain.Users</RootNamespace>
+    <AssemblyName>MirGames.Domain.Users</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>False</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>False</CodeContractsRedundantAssumptions>
+    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
+    <CodeContractsInferRequires>True</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestRequires>True</CodeContractsSuggestRequires>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>DoNotBuild</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.3.0\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageResizer">
+      <HintPath>..\packages\ImageResizer.3.4.2\lib\ImageResizer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccessRules\AccountSwitchUserAccessRule.cs" />
+    <Compile Include="AccessRules\UserCanSendMessageAccessRule.cs" />
+    <Compile Include="AccessRules\UserDeleteAccessRule.cs" />
+    <Compile Include="AccessRules\UserPostNewWallRecordAccessRule.cs" />
+    <Compile Include="AvatarProvider.cs" />
+    <Compile Include="CommandHandlers\ActivateUserCommandHandler.cs" />
+    <Compile Include="CommandHandlers\AttachOAuthProviderCommandHandler.cs" />
+    <Compile Include="CommandHandlers\DetachOAuthProviderCommandHandler.cs" />
+    <Compile Include="CommandHandlers\OAuthLoginCommandHandler.cs" />
+    <Compile Include="CommandHandlers\ResendActivationCommandHandler.cs" />
+    <Compile Include="CommandHandlers\SaveAccountSettingsCommandHandler.cs" />
+    <Compile Include="CommandHandlers\RequestPasswordRestoreCommandHandler.cs" />
+    <Compile Include="CommandHandlers\RestorePasswordCommandHandler.cs" />
+    <Compile Include="CommandHandlers\SaveUserProfileCommandHandler.cs" />
+    <Compile Include="CommandHandlers\SetUserAvatarCommandHandler.cs" />
+    <Compile Include="CommandHandlers\DeleteUserCommandHandler.cs" />
+    <Compile Include="CommandHandlers\LoginAsUserCommandHandler.cs" />
+    <Compile Include="CommandHandlers\LoginCommandHandler.cs" />
+    <Compile Include="CommandHandlers\LogoutCommandHandler.cs" />
+    <Compile Include="CommandHandlers\PostWallRecordCommandHandler.cs" />
+    <Compile Include="CommandHandlers\SettingsCommandHandler.cs" />
+    <Compile Include="CommandHandlers\SignUpCommandHandler.cs" />
+    <Compile Include="Entities\OAuthProvider.cs" />
+    <Compile Include="Entities\OAuthToken.cs" />
+    <Compile Include="Entities\OAuthTokenData.cs" />
+    <Compile Include="Entities\PasswordRestoreRequest.cs" />
+    <Compile Include="EventListeners\PasswordRestoreRequestedEventListener.cs" />
+    <Compile Include="EventListeners\UserAvatarChangedEventListener.cs" />
+    <Compile Include="IAvatarProvider.cs" />
+    <Compile Include="IOnlineUsersManager.cs" />
+    <Compile Include="Localization.Designer.cs">
+      <DependentUpon>Localization.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Mapping\OAuthProviderMap.cs" />
+    <Compile Include="Mapping\OAuthTokenDataMap.cs" />
+    <Compile Include="Mapping\OAuthTokenMap.cs" />
+    <Compile Include="Mapping\PasswordRestoreRequestMap.cs" />
+    <Compile Include="Notifications\ActivationRequestedNotification.cs" />
+    <Compile Include="Notifications\PasswordRestoreRequestedNotification.cs" />
+    <Compile Include="OnlineUsersManager.cs" />
+    <Compile Include="CommandHandlers\AddOnlineUserTagCommandHandler.cs" />
+    <Compile Include="CommandHandlers\RemoveOnlineUserTagCommandHandler.cs" />
+    <Compile Include="QueryHandlers\GetCurrentUserClaimsQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetOAuthProvidersQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetOnlineUsersQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetOnlineUserTagsQueryHandler.cs" />
+    <Compile Include="Security\IPrincipalCache.cs" />
+    <Compile Include="Security\PrincipalCache.cs" />
+    <Compile Include="Services\UserAvatarUploadProcessor.cs" />
+    <Compile Include="UsersDomainModule.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\UserAdministrator.cs" />
+    <Compile Include="Entities\UserSession.cs" />
+    <Compile Include="Entities\WallRecord.cs" />
+    <Compile Include="EntityMapper.cs" />
+    <Compile Include="Mapping\UserAdministratorMap.cs" />
+    <Compile Include="Mapping\UserMap.cs" />
+    <Compile Include="Mapping\UserSessionMap.cs" />
+    <Compile Include="Mapping\WallRecordMap.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryHandlers\GetAuthorQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetCurrentUserQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetUserByIdQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetUsersQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetUserWallRecordsQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetWallRecordByIdQueryHandler.cs" />
+    <Compile Include="QueryHandlers\ResolveAuthorsQueryHandler.cs" />
+    <Compile Include="Security\AuthenticationProvider.cs" />
+    <Compile Include="UserSettings\TimeZoneSetting.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MirGames.Domain.Attachments.Public\MirGames.Domain.Attachments.Public.csproj">
+      <Project>{fd93f5af-07f1-4a80-81a6-850d70b5ea79}</Project>
+      <Name>MirGames.Domain.Attachments.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MirGames.Domain.Users.Public\MirGames.Domain.Users.Public.csproj">
+      <Project>{630bd3d7-d7c8-40e0-bc01-2cf139c16051}</Project>
+      <Name>MirGames.Domain.Users.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MirGames.Domain\MirGames.Domain.csproj">
+      <Project>{ade8bb72-97c1-4e4e-9112-b81a1f6d4384}</Project>
+      <Name>MirGames.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MirGames.Infrastructure\MirGames.Infrastructure.csproj">
+      <Project>{587353bc-37ef-4172-98f2-dc65428e2740}</Project>
+      <Name>MirGames.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Localization.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localization.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

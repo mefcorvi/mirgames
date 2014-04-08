@@ -1,0 +1,164 @@
+﻿body > nav > h1 {
+  position: relative;
+}
+body > nav > h1 .syndication {
+  position: absolute;
+  text-indent: 1000px;
+  overflow: hidden;
+  background: url("../images/rss.png") no-repeat center center;
+  width: 32px;
+  height: 32px;
+  top: 50%;
+  right: 10px;
+  margin-top: -20px;
+  opacity: 0.3;
+  -moz-transition-property: opacity;
+  -o-transition-property: opacity;
+  -webkit-transition-property: opacity;
+  transition-property: opacity;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -moz-transition-timing-function: ease;
+  -o-transition-timing-function: ease;
+  -webkit-transition-timing-function: ease;
+  transition-timing-function: ease;
+}
+body > nav > h1 .syndication:hover {
+  opacity: 1;
+}
+.topics-page > section {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.topics-page > section > .topics-list > .message {
+  background: #ffffff;
+  padding: 20px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.topics-page > section > .topics-list > .message > .message-content {
+  overflow: hidden;
+}
+.topics-page > section > .topics-list > .message > .message-content > header {
+  font-size: 12px;
+  position: relative;
+  padding-right: 90px;
+}
+.topics-page > section > .topics-list > .message > .message-content > header a.topic-title {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 18px;
+  color: #2f7eb8;
+}
+.topics-page > section > .topics-list > .message > .message-content > header a.topic-title:active,
+.topics-page > section > .topics-list > .message > .message-content > header a.topic-title:hover,
+.topics-page > section > .topics-list > .message > .message-content > header a.topic-title:focus {
+  color: #b82f7e;
+}
+.topics-page > section > .topics-list > .message > .message-content > header span {
+  font-size: 10px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  color: #8c8c0c;
+}
+.topics-page > section > .topics-list > .message > .message-content > footer {
+  position: relative;
+  overflow: hidden;
+  font-size: 11px;
+}
+.topics-page > section > .topics-list > .message > .message-content > footer .user-login {
+  float: left;
+  display: block;
+  height: 24px;
+  line-height: 24px;
+  margin-right: 15px;
+  font-weight: bold;
+}
+.topics-page > section > .topics-list > .message > .message-content > footer .answers-link {
+  float: left;
+  display: block;
+  height: 24px;
+  line-height: 24px;
+}
+.topics-page > section > .topics-list > .message > .message-content > footer > ul {
+  overflow: hidden;
+  list-style-type: none;
+  font-size: 11px;
+  float: right;
+}
+.topics-page > section > .topics-list > .message > .message-content > footer > ul > li {
+  float: left;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  display: block;
+}
+.topics-page > section > .topics-list > .message > .message-content > footer > ul > li a {
+  background: #838f97;
+  color: #ffffff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 3px;
+  max-width: 150px;
+  display: block;
+  overflow: hidden;
+  text-decoration: none;
+}
+.topics-page > section > .topics-list > .message > .message-content > footer > ul > li a:active,
+.topics-page > section > .topics-list > .message > .message-content > footer > ul > li a:hover,
+.topics-page > section > .topics-list > .message > .message-content > footer > ul > li a:focus {
+  color: #ffffff;
+}
+.topics-page > section > .topics-list > .message > .message-content > footer > ul > li a:hover,
+.topics-page > section > .topics-list > .message > .message-content > footer > ul > li a:active,
+.topics-page > section > .topics-list > .message > .message-content > footer > ul > li a:focus {
+  background: #525b62;
+  color: #ffffff;
+}
+.topics-page > section > .topics-list > .message > .message-content > footer > ul > li:last-child {
+  margin-right: 0;
+}
+.topics-page > section > .topics-list > .message > .message-content p {
+  line-height: 140%;
+  margin-bottom: 10px;
+}
+.topics-page > section > .topics-list > .message > .message-content > div {
+  margin: 5px 0px 10px 0px;
+}
+.topics-page > section > .topics-list > .message > .avatar {
+  float: left;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #dcdcdc;
+}
+.topics-page > section > .topics-list > .message {
+  padding: 13.33333333px;
+}
+.topics-page > section > .topics-list > .message > .message-content > header {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.topics-page > section > h3 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 4px #ffffff;
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.topics-page  > .message  > .message-content  > footer  > ul  > li a:hover,
+.topics-page  > .message  > .message-content  > footer  > ul  > li a:active,
+.topics-page  > .message  > .message-content  > footer  > ul  > li a:focus {
+  color: #006bbb;
+}
+.topics-page  > .message  > .message-content  > footer  > a:hover,
+.topics-page  > .message  > .message-content  > footer  > a:focus,
+.topics-page  > .message  > .message-content  > footer  > a:active {
+  color: #006bbb;
+}
+/*# sourceMappingURL=topics.css.map */

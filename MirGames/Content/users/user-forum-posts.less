@@ -1,0 +1,47 @@
+﻿body {} @import "../settings.less";
+@import "mixins.less";
+
+.user-forum-posts-page {
+    & > section {
+        .indent();
+
+        & > h3 {
+            .page-title()
+        }
+
+        & > .user-info {
+            .user-info();
+        }
+
+        & > .posts-list {
+            & > .message {
+                .page-block(@indent/2, @indent);
+                overflow: hidden;
+                position: relative;
+                margin-bottom: @indent/2;
+
+                & > header {
+                    margin-left: 0px;
+                    margin-bottom: @indent/2;
+                    overflow: hidden;
+
+                    .topic-title {
+                        .header-font();
+                        .font-size(1.5);
+                    }
+
+                    .comment-date {
+                        .date-small();
+                        line-height: 15px;
+                        display: block;
+                        margin-top: 8px;
+                    }
+                }
+
+                & > .text {
+                    margin-left: 0px;
+                }
+            }
+        }
+    }
+}

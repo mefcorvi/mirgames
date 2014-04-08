@@ -1,0 +1,29 @@
+﻿@model MirGames.Domain.Topics.Commands.AddNewTopicCommand
+
+@{
+    Title = "Новая тема";
+    PageScriptController = "MirGames.Topics.NewTopicPage";
+    AddPageCssClass("new-topic-page");
+}
+
+@section Nav { @Html.Partial("_NewTopicMenu") }
+
+<h3>Новая тема</h3>
+<form class="new-topic-form">
+    <div class="form-field">
+        <label>Заголовок</label>
+        <input type="text" class="topic-title" ng-model="title" ng-focused="isTitleFocused" />
+        <div class="form-field-description">Заголовок должен быть коротким, но осмысленным и соответствующим содержимому поста.</div>
+    </div>
+    <div class="form-field">
+        <label>Метки</label>
+        <input type="text" class="topic-tags" ng-model="tags" />
+        <div class="form-field-description">
+            Пожалуйста, выберите от 1 до 5 меток. Пост будет доступен только по выбранным меткам. Метки разделяются запятыми.
+        </div>
+    </div>
+    <div class="form-field">
+        <label>Текст</label>
+        <texteditor text="text" show-preview="showPreview" post="save()" attachments="attachments" entity-type="topic" />
+    </div>
+</form>

@@ -1,0 +1,11 @@
+﻿@using MirGames.Domain.Security
+
+<div class="profile-section">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a href="@Url.Action("Logout", "Account")" class="account-signout">Выйти</a>
+    } else {
+        <a href="javascript:void(0)" class="account-signin" dialog="@Url.Action("Login", "Account")" dialog-controller="Account.LoginFormController">Войти</a>
+        <a href="javascript:void(0)" class="account-signup" dialog="@Url.Action("SignUp", "Account")" dialog-controller="Account.SignUpFormController">Зарегистрироваться</a>
+    }
+</div>

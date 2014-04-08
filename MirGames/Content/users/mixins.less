@@ -1,0 +1,30 @@
+﻿body {} @import "../settings.less";
+
+.user-info() {
+    .page-block();
+    overflow: hidden;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+
+    & .user-rating {
+        display: inline;
+        margin-left: 10px;
+        .font-size(1.5);
+        background: desaturate(@header-background, 20%);
+        padding: 3px;
+        color: contrast(desaturate(@header-background, 20%));
+    }
+
+    & > img.avatar {
+        float: left;
+        margin-right: 10px;
+    }
+
+    & > h4 {
+        .header-font();
+        .font-size(2);
+        margin-bottom: 10px;
+    }
+}
+        

@@ -1,0 +1,23 @@
+﻿@using MirGames.Models
+@model MirGames.Controllers.UsersController.TopicsPageViewModel
+@{
+    ViewBag.Title = Model.User.Login;
+    AddPageCssClass("user-topics-page");
+}
+
+@section Nav
+{
+    @Html.Partial("_ProfileMenu", Model.User)
+}
+
+<h3>@Model.User.Login</h3>
+@Html.Partial("_UserInfo", Model.User)
+
+@Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
+<div class="topics-list">
+    @foreach(var topic in Model.Topics)
+    {
+        @Html.Partial("../Topics/_TopicListItem", topic)
+    }
+</div>
+@Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)

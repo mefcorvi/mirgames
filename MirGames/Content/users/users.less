@@ -1,0 +1,80 @@
+﻿body {} @import "../settings.less";
+
+.users-page {
+    & > section {
+        .indent();
+
+        & > h3 {
+            .page-title();
+        }
+
+        & > .users-list {
+            .page-block();
+
+            & > .user {
+                overflow: hidden;
+                padding-top: @indent/2;
+                padding-bottom: @indent/2;
+                border-bottom: 1px solid #eee;
+
+                &:first-child {
+                    padding-top: 0;
+                }
+
+                &:last-child {
+                    padding-bottom: 0;
+                    border-bottom: 0;
+                }
+
+                & > .avatar-link {
+                    float: left;
+                    margin-right: 10px;
+                }
+
+                & > .user-info {
+                    margin-left: 45px;
+
+                    & > .user-login {
+                        .header-font();
+                        .font-size(1.5);
+                        float: left;
+                        width: 150px;
+                        line-height: 30px;
+                    }
+
+                    & > .user-rating {
+                        .header-font();
+                        float: left;
+                        width: 150px;
+                        line-height: 30px;
+
+                        &.user-rating-negative {
+                            color: red;
+                        }
+
+                        &.user-rating-zero {
+                            opacity: 0.3;
+                        }
+                    }
+
+                    & > .user-last-visit {
+                        color: #8c8c0c;
+                        line-height: 30px;
+                    }
+                }
+            }
+
+            & > .user-online {
+                & > .user-info {
+                    margin-left: 45px;
+
+                    & > .user-login {
+                        .header-font();
+                        .font-size(1.5);
+                        color: @link-color-hover;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,108 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ include file="T4Toolbox.tt" #>
+<#@ assembly name="EnvDTE" #>
+<#@ assembly name="Microsoft.VisualStudio.Shell.11.0" #>
+<#@ assembly name="Microsoft.VisualStudio.Shell.Interop" #>
+<#@ import namespace="EnvDTE" #>
+<#@ import namespace="Microsoft.VisualStudio.Shell" #>
+<#@ import namespace="Microsoft.VisualStudio.Shell.Interop" #><#@ output extension=".ts" #>
+/// <reference path="_references.ts" />
+module MirGames.Domain {
+    export class Command {
+        public data: any;
+        public static name: string;
+
+        constructor() {
+            this.data = {};
+        }
+    }
+
+<#
+    DTE dte = (DTE)TransformationContext.Current.GetService(typeof(DTE));
+    List<Project> projects = dte.Solution.Projects.Cast<Project>().Where(item => item.Name.StartsWith("MirGames.Domain")).ToList();
+    List<ProjectItem> commandFiles = new List<ProjectItem>();
+
+    foreach (Project project in projects) {
+        Queue<ProjectItem> queue = new Queue<ProjectItem>(project.ProjectItems.Cast<ProjectItem>().Where(item => item.Name == "Commands"));
+
+        while (queue.Count > 0) {
+            ProjectItem item = queue.Dequeue();
+              foreach (ProjectItem child in item.ProjectItems) {
+                if (child.ProjectItems.Count == 0 && child.Name.EndsWith("Command.cs")) {
+                    commandFiles.Add(child);
+                } else {
+                    queue.Enqueue(child);
+                }
+            }
+        }
+    }
+
+    foreach (var commandFile in commandFiles) {
+        var elements = commandFile.FileCodeModel.CodeElements;
+        var command = FindClass(elements);
+#>
+    export class <#= command.Name #> extends Command {
+        public static name: string = '<#= command.Name #>';
+
+<#
+        foreach (CodeProperty property in command.Children.OfType<CodeProperty>()) {
+            if (property.Access == vsCMAccess.vsCMAccessPublic) {#>
+        get <#= CamelCase(property.Name) #>(): any {
+            return this.data['command.<#= property.Name #>'];
+        }
+
+        set <#= CamelCase(property.Name) #>(value: any) {
+            this.data['command.<#= property.Name #>'] = value;
+        }
+<#
+            }
+        }#>
+    }
+
+<#
+    }
+#>
+}
+<#
+    // CompileTypeScriptFile(Path.ChangeExtension(TransformationContext.Current.Host.TemplateFile, "cs"));
+#>
+<#+
+     private CodeClass FindClass(CodeElements elements)
+     {
+        foreach (CodeElement element in elements)
+        {
+          CodeClass item = element as CodeClass;
+          if (item != null)
+            return item;
+          item = FindClass(element.Children);
+          if (item != null)
+            return item;
+        }
+        return null;
+    }
+
+    void CompileTypeScriptFile(string fullFileName)
+    {
+        var process = new System.Diagnostics.Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = "tsc.exe",
+                Arguments = "--target ES5 \"" + fullFileName + "\""
+
+            }
+        };
+        process.Start();
+        process.WaitForExit();
+    }
+
+    private string CamelCase(string name) {
+        return name.Substring(0, 1).ToLower() + name.Substring(1);
+    }
+#>

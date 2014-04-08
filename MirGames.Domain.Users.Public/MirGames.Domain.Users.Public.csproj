@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{630BD3D7-D7C8-40E0-BC01-2CF139C16051}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MirGames.Domain.Users</RootNamespace>
+    <AssemblyName>MirGames.Domain.Users.Public</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands\ActivateUserCommand.cs" />
+    <Compile Include="Commands\AddOnlineUserTagCommand.cs" />
+    <Compile Include="Commands\AttachOAuthProviderCommand.cs" />
+    <Compile Include="Commands\DetachOAuthProviderCommand.cs" />
+    <Compile Include="Commands\OAuthLoginCommand.cs" />
+    <Compile Include="Commands\RequestPasswordRestoreCommand.cs" />
+    <Compile Include="Commands\RemoveOnlineUserTagCommand.cs" />
+    <Compile Include="Commands\DeleteUserCommand.cs" />
+    <Compile Include="Commands\LoginAsUserCommand.cs" />
+    <Compile Include="Commands\LoginCommand.cs" />
+    <Compile Include="Commands\LogoutCommand.cs" />
+    <Compile Include="Commands\PostWallRecordCommand.cs" />
+    <Compile Include="Commands\ResendActivationCommand.cs" />
+    <Compile Include="Commands\RestorePasswordCommand.cs" />
+    <Compile Include="Commands\SaveAccountSettingsCommand.cs" />
+    <Compile Include="Commands\SaveUserProfileCommand.cs" />
+    <Compile Include="Commands\SetUserAvatarCommand.cs" />
+    <Compile Include="Commands\SignUpCommand.cs" />
+    <Compile Include="Events\OnlineUserTagAddedEvent.cs" />
+    <Compile Include="Events\OnlineUserTagRemovedEvent.cs" />
+    <Compile Include="Events\PasswordRestoredEvent.cs" />
+    <Compile Include="Events\PasswordRestoreRequestedEvent.cs" />
+    <Compile Include="Events\UserAvatarChangedEvent.cs" />
+    <Compile Include="Events\UserOfflineEvent.cs" />
+    <Compile Include="Events\UserOnlineEvent.cs" />
+    <Compile Include="Exceptions\UserAlreadyRegisteredException.cs" />
+    <Compile Include="Exceptions\UserSettingIsNotRegisteredException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\GetCurrentUserClaimsQuery.cs" />
+    <Compile Include="Queries\GetOAuthProvidersQuery.cs" />
+    <Compile Include="Queries\GetOnlineUsersQuery.cs" />
+    <Compile Include="Queries\GetAuthorQuery.cs" />
+    <Compile Include="Queries\GetCurrentUserQuery.cs" />
+    <Compile Include="Queries\GetOnlineUserTagsQuery.cs" />
+    <Compile Include="Queries\GetUserByIdQuery.cs" />
+    <Compile Include="Queries\GetUsersQuery.cs" />
+    <Compile Include="Queries\GetUserWallRecordsQuery.cs" />
+    <Compile Include="Queries\GetWallRecordByIdQuery.cs" />
+    <Compile Include="ViewModels\OAuthProviderViewModel.cs" />
+    <Compile Include="Queries\ResolveAuthorsQuery.cs" />
+    <Compile Include="Services\IUserSettingHandler.cs" />
+    <Compile Include="ViewModels\AuthorViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewModels\OnlineUserViewModel.cs" />
+    <Compile Include="ViewModels\CurrentUserViewModel.cs" />
+    <Compile Include="ViewModels\UserClaimViewModel.cs" />
+    <Compile Include="ViewModels\UserListItemViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="ViewModels\UserWallRecordViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MirGames.Infrastructure\MirGames.Infrastructure.csproj">
+      <Project>{587353bc-37ef-4172-98f2-dc65428e2740}</Project>
+      <Name>MirGames.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

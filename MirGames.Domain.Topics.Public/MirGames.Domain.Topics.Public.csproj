@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8B957815-7F29-4D6E-B983-B527342D8DA5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MirGames.Domain.Topics</RootNamespace>
+    <AssemblyName>MirGames.Domain.Topics.Public</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands\AddNewBlogCommand.cs" />
+    <Compile Include="Commands\AddNewTopicCommand.cs" />
+    <Compile Include="Commands\DeleteCommentCommand.cs" />
+    <Compile Include="Commands\DeleteTopicCommand.cs" />
+    <Compile Include="Commands\EditCommentCommand.cs" />
+    <Compile Include="Commands\PostNewCommentCommand.cs" />
+    <Compile Include="Commands\ReindexTopicsCommand.cs" />
+    <Compile Include="Commands\SaveTopicCommand.cs" />
+    <Compile Include="Events\CommentDeletedEvent.cs" />
+    <Compile Include="Events\CommentEditedEvent.cs" />
+    <Compile Include="Events\TopicDeletedEvent.cs" />
+    <Compile Include="Events\TopicCreatedEvent.cs" />
+    <Compile Include="Exceptions\BlogAlreadyRegisteredException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\GetCommentForEditQuery.cs" />
+    <Compile Include="Queries\GetCommentsQuery.cs" />
+    <Compile Include="Queries\GetCommentByIdQuery.cs" />
+    <Compile Include="Queries\GetForumTagsQuery.cs" />
+    <Compile Include="Queries\GetTopicForEditQuery.cs" />
+    <Compile Include="Queries\GetTopicQuery.cs" />
+    <Compile Include="Queries\GetTopicsByUserQuery.cs" />
+    <Compile Include="Queries\GetTopicsQuery.cs" />
+    <Compile Include="ViewModels\CommentForEditViewModel.cs" />
+    <Compile Include="ViewModels\CommentViewModel.cs" />
+    <Compile Include="ViewModels\TopicForEditViewModel.cs" />
+    <Compile Include="ViewModels\TopicsListItem.cs" />
+    <Compile Include="ViewModels\TopicViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MirGames.Domain.Users.Public\MirGames.Domain.Users.Public.csproj">
+      <Project>{630bd3d7-d7c8-40e0-bc01-2cf139c16051}</Project>
+      <Name>MirGames.Domain.Users.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MirGames.Infrastructure\MirGames.Infrastructure.csproj">
+      <Project>{587353bc-37ef-4172-98f2-dc65428e2740}</Project>
+      <Name>MirGames.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

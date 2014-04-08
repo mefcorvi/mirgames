@@ -1,0 +1,49 @@
+﻿@model IEnumerable<MirGames.Domain.Users.ViewModels.OAuthProviderViewModel>
+@{
+    Layout = "~/Views/Shared/_Dialog.cshtml";
+}
+
+@section DialogTitle
+{
+    <span ng-show="isLoginMode" ng-cloak>Войти</span>
+    <span ng-show="isRestoreMode" ng-cloak>Восстановление пароля</span>
+}
+
+@section DialogNotifications
+{
+    <div class="error dialog-notification" ng-show="wrongLoginOrPassword" ng-cloak>Неверные логин или пароль</div>
+    <div class="error dialog-notification" ng-show="wrongLogin" ng-cloak>Неверный логин</div>
+}
+
+@section DialogContent
+{
+    <form class="login-form" ng-submit="processLogin('@Url.Action("ProcessLogin", "Account")')" novalidate name="loginForm" ng-show="!restoreRequestSent">
+        <div class="form-field">
+            <label for="emailOrLogin">E-mail или логин</label>
+            <input type="text" ng-model="emailOrLogin" maxlength="50" required ng-focused="isFocused" name="emailOrLogin" ng-autofill />
+        </div>
+        <div class="form-field">
+            <label for="password" ng-show="isLoginMode">Пароль</label>
+            <label for="password" ng-show="isRestoreMode">Новый пароль</label>
+            <input type="password" ng-model="password" required name="password" ng-autofill />
+        </div>
+        <div class="oauth-providers">
+            @foreach (var provider in Model)
+            {
+                <a href="javascript:void(0);" @Html.Css("provider").Add(provider.ProviderName) ng-click="auth('@provider.ProviderName')" title="Войти через @provider.DisplayName">&nbsp;</a>
+            }
+        </div>
+    </form>
+    <div ng-show="restoreRequestSent" ng-cloak>Инструкции по восстановлению высланы на указанный адрес электронной почты</div>
+}
+
+@section DialogButtons
+{
+    <a href="javascript:void(0)" ng-class="{ 'button-disabled': loginForm.$invalid }"
+        ng-click="processLogin('@Url.Action("ProcessLogin", "Account")')" ng-show="isLoginMode" ng-cloak>Войти</a>
+    <a href="javascript:void(0)" ng-class="{ 'button-disabled': loginForm.$invalid }"
+        ng-click="processRestore()" ng-show="isRestoreMode && !restoreRequestSent" ng-cloak>Восстановить</a>
+    <a href="javascript:void(0)" class="cancel" ng-click="close()" ng-show="!restoreRequestSent">Отмена</a>
+    <a href="javascript:void(0)" class="cancel" ng-click="close()" ng-show="restoreRequestSent">Ок</a>
+    <a href="javascript:void(0)" ng-show="isLoginMode" class="password-restore button-right" ng-click="restorePassword()">Забыли пароль?</a>
+}

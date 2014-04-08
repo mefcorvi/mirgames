@@ -1,0 +1,21 @@
+﻿body {} @import "../settings.less";
+@import "mixins.less";
+@import "../topics/mixins.less";
+
+.user-topics-page {
+    & > section {
+        .indent();
+
+        & > h3 {
+            .page-title()
+        }
+
+        & > .user-info {
+            .user-info();
+        }
+
+        & > .topics-list {
+            .topics-list-item();
+        }
+    }
+}

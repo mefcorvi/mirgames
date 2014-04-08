@@ -1,0 +1,103 @@
+﻿body {} @import "../settings.less";
+
+.event-log-page {
+    & > section {
+        .indent();
+
+        & > h3 {
+            .page-title();
+        }
+
+        & > form {
+            .page-block();
+            margin-bottom: @indent/2;
+        }
+
+        & .event-log-item {
+            .page-block(@indent/4, @indent);
+            margin-bottom: @indent/6;
+            overflow: hidden;
+
+            &.event-log-error {
+                color: #f00;
+
+                span {
+                    color: #f00;
+                }
+            }
+
+            &.event-log-warning {
+                color: #793200;
+            }
+
+            &.event-log-verbose {
+                & > .event-log-type {
+                    color: #aaa;
+                }
+            }
+
+            &:hover {
+                background: rgba(39, 67, 89, 0.03);
+
+                & > .message-content {
+                    border-bottom: 1px solid transparent;
+                }
+            }
+
+            & span {
+                display: block;
+                min-height: 1px;
+            }
+
+            & > .event-log-id {
+                float: left;
+                width: 30px;
+                text-align: left;
+                color: #999;
+                text-align: center;
+            }
+
+            & > .event-log-date {
+                color: @date-color;
+                float: left;
+                width: 150px;
+                text-align: center;
+            }
+
+            & > .event-log-source {
+                float: left;
+                width: 100px;
+                margin-right: 5px;
+                text-align: center;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            & > .event-log-type {
+                float: left;
+                width: 70px;
+                text-align: center;
+                text-overflow: ellipsis;
+            }
+
+            & > .event-log-user {
+                float: left;
+                width: 100px;
+                text-align: center;
+                text-overflow: ellipsis;
+            }
+
+            & > .event-log-message {
+                margin-left: 455px;
+            }
+
+            & > .event-log-details {
+                clear: left;
+                margin-left: 455px;
+                padding-top: 5px;
+                .font-size(1.1);
+                color: #999;
+            }
+        }
+    }
+}

@@ -1,0 +1,78 @@
+﻿.user-page > section {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.user-page > section > h3 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+  padding-bottom: 0;
+  text-shadow: 1px 1px 4px #ffffff;
+}
+.user-page > section > h4 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+.user-page > section > .user-info {
+  background: #ffffff;
+  padding: 20px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+.user-page > section > .user-info .user-rating {
+  display: inline;
+  margin-left: 10px;
+  font-size: 15px;
+  background: #485b69;
+  padding: 3px;
+  color: #ffffff;
+}
+.user-page > section > .user-info > img.avatar {
+  float: left;
+  margin-right: 10px;
+}
+.user-page > section > .user-info > h4 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.user-page > section > .wall-records > .wall-record {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+.user-page > section > .wall-records > .wall-record > .record-author {
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+.user-page > section > .wall-records > .wall-record > .record-author a {
+  float: left;
+  display: block;
+  margin-right: 15px;
+}
+.user-page > section > .wall-records > .wall-record > .record-author a img {
+  float: left;
+}
+.user-page > section > .wall-records > .wall-record > .record-author a span {
+  display: block;
+  float: left;
+  margin-left: 5px;
+  line-height: 32px;
+}
+.user-page > section > .wall-records > .wall-record > .record-author > .record-date {
+  float: left;
+  font-size: 12px;
+  color: #8c8c0c;
+  display: block;
+  height: 32px;
+  line-height: 32px;
+}
+/*# sourceMappingURL=user.css.map */

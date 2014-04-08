@@ -1,0 +1,54 @@
+﻿@model MirGames.Domain.Topics.Commands.AddNewTopicCommand
+
+@{
+    Title = "Новый проект";
+    PageScriptController = "MirGames.Wip.NewProjectPage";
+    AddPageCssClass("new-project-page");
+    string baseUrl = new Uri(Request.Url, Url.Action("Project", "Projects", new { projectAlias = "!" })).ToString();
+}
+
+<h3>Новый проект</h3>
+<form class="new-project-form" name="newProjectForm">
+    <div class="form-field">
+        <label>Название</label>
+        <input type="text" class="topic-title" ng-model="title" ng-focused="isTitleFocused" required="required" maxlength="50" />
+        <div class="form-field-description">Название вашего проекта.</div>
+    </div>
+    <div class="form-field">
+        <label>Адрес</label>
+        <span>@baseUrl.TrimEnd('!')</span>
+        <input class="project-address" type="text" name="projectName" ng-model="name" required="required" maxlength="50" pattern="[a-z0-9]+" unique-project-name />
+        <div class="form-field-description">Выберите адрес для вашего проекта. Могут быть использованы только латинские буквы и цифры.</div>
+        <div class="error" ng-show="newProjectForm.projectName.$error.uniqueProjectName" ng-cloak>Проект с таким адресом уже зарегистрирован.</div>
+    </div>
+    <div class="form-field">
+        <label>Метки</label>
+        <input type="text" class="topic-tags" ng-model="tags" required="required" pattern="([^,]+,?){1,5}" />
+        <div class="form-field-description">
+            Пожалуйста, выберите от 1 до 5 меток. Метки разделяются запятыми.
+        </div>
+    </div>
+    <div class="form-field">
+        <label>Репозиторий</label>
+        <div>
+            <input type="radio" value="" checked="checked" ng-model="repository" id="noRepository" /><label for="noRepository">Не создавать</label>
+        </div>
+        <div>
+            <input type="radio" value="git" ng-model="repository" id="gitRepository" /><label for="gitRepository">Git</label>
+        </div>
+    </div>
+    <div class="form-field logo-field">
+        <label>Логотип</label>
+        <div class="logo-upload">
+            <img ng-src="{{logoUrl}}" class="logo" /> <file uploaded="fileUploaded($attachmentId)" entity-type="project-logo"></file>
+        </div>
+    </div>
+    <div class="form-field">
+        <label>Описание</label>
+        <texteditor text="description" show-preview="showPreview" post="save()" attachments="attachments" entity-type="project-description" />
+    </div>
+    <div class="buttons">
+        <a class="button" href="javascript:void(0)" ng-click="save()" ng-class="{ 'button-disabled': newProjectForm.$invalid }">Создать</a>
+        <a class="button" href="@Url.Action("Index", "Projects")">Отмена</a>
+    </div>
+</form>

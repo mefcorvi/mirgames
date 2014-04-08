@@ -1,0 +1,30 @@
+﻿.body {} @import "../settings.less";
+
+.user-notification-block {
+    display: block;
+    position: fixed;
+    top: 2px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 15;
+    text-align: center;
+
+    & .user-notification {
+        opacity: 1;
+        margin: 1px auto;
+        .transition(opacity, 1000ms);
+
+        & > span {
+            display: inline-block;
+            width: auto;
+            padding: 5px;
+            max-width: 600px;
+            background: fadeout(mix(@background-color, @link-color, 70%), 20%);
+        }
+
+        &.is-hiding {
+            opacity: 0;
+        }
+    }
+}

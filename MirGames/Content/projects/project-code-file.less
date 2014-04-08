@@ -1,0 +1,48 @@
+﻿body {} @import "../settings.less";
+@import "mixins.less";
+
+.wip-code-file-page {
+    & > section {
+        .indent();
+
+        .project-info();
+
+        h3 {
+            .page-title();
+        }
+
+        h4 {
+            .page-subtitle();
+
+            .parent-folders {
+                list-style: none;
+                overflow: hidden;
+
+                li {
+                    display: inline-block;
+                    float: left;
+                    margin-right: 2px;
+
+                    &:after {
+                        content: "/";
+                        margin-left: 2px;
+                    }
+
+                    &.file-name {
+                        &:after {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+
+        & > .file-block {
+            .page-block(@indent/2);
+
+            & > .file-content {
+                overflow: auto;
+            }
+        }
+    }
+}

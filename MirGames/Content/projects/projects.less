@@ -1,0 +1,170 @@
+﻿body {} @import "../settings.less";
+
+.wip-page {
+    & > section {
+        .indent();
+
+        & > h3 {
+            .page-title();
+        }
+
+        & > .projects-list {
+            .fa {
+                margin-right: 5px;
+            }
+
+            & > .project {
+                .page-block(@indent/2, @indent);
+                overflow: hidden;
+                margin-bottom: @indent/2;
+                .make-row();
+
+                & > .logo {
+                    .make-xs-column(2);
+                    .make-sm-column(2);
+                    .make-md-column(1);
+                    text-align: center;
+
+                    & > img {
+                        max-width: 100%;
+                        max-height: 200px;
+                    }
+
+                    & > .version {
+                        margin-top: 5px;
+                        .header-font();
+                        .font-size-xs(1.2);
+                        .font-size-lg(1.4);
+                        text-align: center;
+
+                        b {
+                            @bgr: mix(@header-background, @background-color, 20%);
+                            background: @bgr;
+                            font-weight: normal;
+                            color: contrast(@bgr);
+                            padding: 3px;
+                            white-space: nowrap;
+
+                            & > .fa {
+                                .hidden-sm();
+                            }
+                        }
+
+                        & > .updated-date {
+                            display: block;
+                            margin-top: 5px;
+                            .font-size-xs(1.0);
+                            .font-size-lg(1.2);
+                            color: @date-color;
+                        }
+                    }
+                }
+
+                & > .project-info {
+                    overflow: hidden;
+                    .make-xs-column(10);
+                    .make-sm-column(8);
+                    .make-md-column(9);
+                    padding-left: @indent/2;
+                    padding-right: @indent/2;
+
+                    & > h1 {
+                        .header-font();
+                        .font-size(1.8);
+                    }
+
+                    & > .project-description {
+                        padding: @indent/2 0;
+                        max-height: 200px;
+                    }
+
+                    & > footer {
+                        .make-row();
+                        .font-size(1.1);
+
+                        & > .user-login {
+                            overflow: hidden;
+                            .make-xs-column(12);
+                            .make-sm-column(12);
+                            .make-md-column(3);
+
+                            @media (min-width: @screen-md-min) {
+                                max-width: 150px;
+                            }
+
+                            @media (max-width: @screen-xs-max) {
+                                & > .avatar {
+                                    display: none;
+                                }
+
+                                & > span {
+                                    margin-left: 0;
+                                }
+                            }
+
+                            font-weight: bold;
+
+                            span {
+                                margin-top: 3px;
+                            }
+                        }
+
+                        & > .creation-date {
+                            .make-xs-column(8);
+                            .make-sm-column(5);
+                            .make-md-column(2);
+                            max-width: 100px;
+                            color: #999;
+                        }
+
+                        & > .followers-count {
+                            .make-xs-column(2);
+                            .make-sm-column(2);
+                            .make-md-column(1);
+                            .header-font();
+                            .font-size-xs(1.1);
+                            .font-size-sm(1.2);
+                            max-width: 50px;
+                            text-align: center;
+                        }
+
+                        & > .votes {
+                            .make-xs-column(2);
+                            .make-sm-column(2);
+                            .make-md-column(1);
+                            .header-font();
+                            .font-size-xs(1.1);
+                            .font-size-sm(1.2);
+                            max-width: 50px;
+                            text-align: center;
+                        }
+
+                        & > ul.tags {
+                            overflow: hidden;
+                            list-style-type: none;
+                            .font-size(1.1);
+                            margin-top: 5px;
+                            margin-bottom: 5px;
+
+                            & > li {
+                                float: left;
+                                margin-right: 2px;
+                                margin-bottom: 2px;
+                                display: block;
+                                .tag-link(150px);
+
+                                &:last-child {
+                                    margin-right: 0;
+                                }
+                            }
+
+                            .make-xs-column(12);
+                            .make-sm-column(12);
+                            .make-md-column(5);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

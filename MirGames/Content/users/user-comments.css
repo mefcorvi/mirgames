@@ -1,0 +1,131 @@
+﻿.user-comments-page > section {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.user-comments-page > section > h3 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+  padding-bottom: 0;
+  text-shadow: 1px 1px 4px #ffffff;
+}
+.user-comments-page > section > .user-info {
+  background: #ffffff;
+  padding: 20px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+.user-comments-page > section > .user-info .user-rating {
+  display: inline;
+  margin-left: 10px;
+  font-size: 15px;
+  background: #485b69;
+  padding: 3px;
+  color: #ffffff;
+}
+.user-comments-page > section > .user-info > img.avatar {
+  float: left;
+  margin-right: 10px;
+}
+.user-comments-page > section > .user-info > h4 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.user-comments-page > section > .comments-list .topic-title {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 15px;
+}
+.user-comments-page > section > .comments-list > .comment {
+  background: #ffffff;
+  padding: 10px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  margin-bottom: 5px;
+}
+.user-comments-page > section > .comments-list > .comment:last-child {
+  border-bottom: 0;
+  margin-bottom: 0;
+}
+.user-comments-page > section > .comments-list > .comment > header {
+  overflow: hidden;
+}
+.user-comments-page > section > .comments-list > .comment > header .avatar-link {
+  float: left;
+}
+.user-comments-page > section > .comments-list > .comment > header .avatar-link img {
+  background-size: cover;
+  background-clip: content-box;
+  background-position: top center;
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.user-comments-page > section > .comments-list > .comment > header .user-login {
+  margin-right: 20px;
+  margin-left: 10px;
+  font-weight: bold;
+  float: left;
+  margin-top: 8px;
+}
+.user-comments-page > section > .comments-list > .comment > header .comment-date {
+  font-size: 12px;
+  color: #8c8c0c;
+  float: left;
+  margin-top: 8px;
+}
+.user-comments-page > section > .comments-list > .comment > header .message-bar {
+  font-size: 15px;
+  float: left;
+  margin-top: 7px;
+}
+.user-comments-page > section > .comments-list > .comment > header .message-bar > .edited {
+  margin-left: 10px;
+  font-size: 11px;
+  color: #999;
+  margin-top: 2px;
+  float: left;
+}
+.user-comments-page > section > .comments-list > .comment > header .message-bar a {
+  margin-left: 20px;
+  float: left;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  opacity: 0.5;
+}
+.user-comments-page > section > .comments-list > .comment > header .message-bar a:hover {
+  opacity: 1;
+  -moz-transition-property: opacity;
+  -o-transition-property: opacity;
+  -webkit-transition-property: opacity;
+  transition-property: opacity;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -moz-transition-timing-function: ease;
+  -o-transition-timing-function: ease;
+  -webkit-transition-timing-function: ease;
+  transition-timing-function: ease;
+}
+.user-comments-page > section > .comments-list > .comment > header .message-bar a.delete-comment {
+  color: #900;
+  float: right;
+}
+.user-comments-page > section > .comments-list > .comment > .text {
+  margin-left: 42px;
+}
+.user-comments-page > section > .comments-list > .comment {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+/*# sourceMappingURL=user-comments.css.map */

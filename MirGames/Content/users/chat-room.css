@@ -1,0 +1,104 @@
+.chat-room-page > section > footer {
+  position: fixed;
+  background: #ffffff;
+  left: 180px;
+  right: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  z-index: 2;
+  -moz-transition-property: left;
+  -o-transition-property: left;
+  -webkit-transition-property: left;
+  transition-property: left;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -moz-transition-timing-function: ease;
+  -o-transition-timing-function: ease;
+  -webkit-transition-timing-function: ease;
+  transition-timing-function: ease;
+}
+.chat-room-page > section > header {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 0;
+}
+.chat-room-page > section > header > h3 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+.chat-room-page > section > footer {
+  bottom: 0;
+  height: 130px;
+  border-top: 1px solid #e6e6e6;
+}
+.chat-room-page > section > footer textarea {
+  height: 50px;
+}
+.chat-room-page > section > footer .mdd_preview,
+.chat-room-page > section > footer .mdd_resizer_wrap {
+  display: none;
+}
+.chat-room-page > section > footer .buttons > a {
+  line-height: 20px;
+  height: 20px;
+}
+.chat-room-page > section > .chat-messages {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 0;
+  padding-bottom: 155px;
+}
+.chat-room-page > section > .chat-messages > .message {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 1px solid #eeeeee;
+}
+.chat-room-page > section > .chat-messages > .message > header {
+  width: 150px;
+  float: left;
+  text-align: right;
+}
+.chat-room-page > section > .chat-messages > .message > header > .user-login {
+  margin-right: 20px;
+  line-height: 24px;
+  font-weight: bold;
+}
+.chat-room-page > section > .chat-messages > .message > header > .avatar-link {
+  float: right;
+}
+.chat-room-page > section > .chat-messages > .message > header > .avatar-link > img {
+  float: none;
+}
+.chat-room-page > section > .chat-messages > .message > .text {
+  margin-left: 170px;
+}
+.chat-room-page > section > h4 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 20px;
+  margin-top: 10px;
+}
+.chat-room-page.read-only > section > .chat-messages {
+  padding-bottom: 20px;
+}
+.nav-hidden > section > footer {
+  left: 185px;
+}
+.menu-collapsed > section > footer {
+  left: 250px;
+}
+.menu-collapsed.nav-hidden > section > footer {
+  left: 5px;
+}

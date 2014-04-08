@@ -1,0 +1,31 @@
+﻿@using MirGames.Models
+@model MirGames.Controllers.UsersController.ForumPageViewModel
+@{
+    ViewBag.Title = Model.User.Login;
+    AddPageCssClass("user-forum-posts-page");
+}
+
+@section Nav
+{
+    @Html.Partial("_ProfileMenu", Model.User)
+}
+
+<h3>@Model.User.Login</h3>
+@Html.Partial("_UserInfo", Model.User)
+
+@Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
+<div class="posts-list">
+    @foreach(var post in Model.Posts)
+    {
+        <article class="message">
+            <header>
+                <span class="comment-date">@post.CreatedDate.Format()</span>
+                <a href="@Url.Action("Topic", "Forum", new { topicId = post.TopicId })" class="topic-title">@post.TopicTitle</a>
+            </header>
+            <div class="text">
+                @Html.Raw(post.Text)
+            </div>
+        </article>
+    }
+</div>
+@Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)

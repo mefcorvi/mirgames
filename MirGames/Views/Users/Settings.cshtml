@@ -1,0 +1,105 @@
+﻿@model MirGames.Domain.Users.ViewModels.UserViewModel
+@{
+    ViewBag.Title = "Настройки аккаунта";
+    AddPageCssClass("account-profile-page");
+    PageScriptController = "MirGames.Account.AccountSettingsPage";
+}
+@section Nav
+{
+    @Html.Partial("_ProfileMenu", Model)
+}
+
+<h3>Настройки</h3>
+
+<h4>Редактирование профиля</h4>
+<form class="profile-settings-form">
+    <div class="form-field avatar-field">
+        <label>Аватарка</label>
+        <div class="avatar-upload">
+            <img ng-src="{{avatarUrl}}" class="avatar" /> <file uploaded="fileUploaded($attachmentId)" entity-type="userAvatar"></file>
+        </div>
+        <div class="form-field-description">Лучший результат будет при использовании картинки 100x100 пикселей.</div>
+    </div>
+    <div class="form-field">
+        <label>Имя</label>
+        <input type="text" ng-model="profile.name" />
+    </div>
+    <div class="form-field">
+        <label>Город</label>
+        <input type="text" ng-model="profile.city" />
+    </div>
+    <div class="form-field">
+        <label>День рождения</label>
+        <datepicker ng-model="profile.birthday" disable-timepicker="true" date-format="dd.MM.yyyy" disable-clear-button="true" date-filter="birthdayDate"></datepicker>
+    </div>
+@*    <div class="form-field">
+        <label>Компания</label>
+        <input type="text" ng-model="profile.company" />
+    </div>
+    <div class="form-field">
+        <label>Род деятельности</label>
+        <input type="text" ng-model="profile.career" />
+    </div>*@
+    <div class="form-field">
+        <label>О себе</label>
+        <input type="text" ng-model="profile.about" />
+    </div>
+@*    <div class="form-field">
+        <label>Профиль на GitHub</label>
+        <input type="text" ng-model="profile.github" />
+    </div>
+    <div class="form-field">
+        <label>Профиль на BitBucket</label>
+        <input type="text" ng-model="profile.bitbucket" />
+    </div>
+    <div class="form-field">
+        <label>Профиль на Habrahabr</label>
+        <input type="text" ng-model="profile.habrahabr" />
+    </div>*@
+    <div class="buttons">
+        <a class="button" ng-click="saveProfile()" href="javascript:void(0);">Сохранить</a>
+    </div>
+</form>
+
+<h4>Привязанные аккаунты</h4>
+<form class="connected-accounts-form">
+    <div class="text"><p>Для упрощения входа на сайт, вы можете привязать аккаунты к вашему профилю на MirGames.</p></div>
+    <div class="oauth-provider" ng-repeat="provider in oauthProviders" ng-cloak>
+        <div class="provider-logo {{provider.ProviderName}}"></div>
+        <a class="button" ng-click="linkAuthProvider(provider)" href="javascript:void(0);" ng-show="!provider.IsLinked"><i class="fa fa-plus-circle"></i>Привязать</a>
+        <a class="button unlink-button" ng-click="unlinkAuthProvider(provider)" href="javascript:void(0);" ng-show="provider.IsLinked"><i class="fa fa-minus-circle"></i>Отвязать</a>
+        <h3>{{provider.DisplayName}}</h3>
+    </div>
+</form>
+
+<h4>Настройки аккаунта</h4>
+<form class="account-settings-form">
+    <div class="form-field">
+        <label>Быстрые клавиши</label>
+        <input type="checkbox" ng-model="useEnterToSendChatMessage" id="useEnterToSendChatMessage" />
+        <label for="useEnterToSendChatMessage">Отправлять сообщения в чате по нажатию Enter.</label>
+    </div>
+    <div class="form-field">
+        <label>Веб-сокеты</label>
+        <input type="checkbox" ng-model="useWebSocket" id="useWebSocket" />
+        <label for="useWebSocket">Использовать веб-сокеты для взаимодействия с сервером. При проблемах связи с сервером мы рекомендуем отключить эту функцию.</label>
+    </div>
+    <div class="form-field">
+        <label>Бесконечная лента сообщений в постах форума</label>
+        <input type="checkbox" ng-model="forumContiniousPagination" id="forumContiniousPagination" />
+        <label for="forumContiniousPagination">При достижении конца страницы, сообщения в постах форума будут автоматически загружаться.</label>
+    </div>
+    <div class="form-field">
+        <label>Часовой пояс</label>
+        <select ng-model="timeZone" ng-cloak>
+            @foreach (var timeZone in TimeZoneInfo.GetSystemTimeZones())
+            {
+                <option value="@timeZone.Id">@timeZone.DisplayName</option>
+            }
+        </select>
+        <div class="form-field-description">Все даты на сайте будут отображаться с учетом указанного часового пояса.</div>
+    </div>
+    <div class="buttons">
+        <a class="button" ng-click="save()" href="javascript:void(0);">Сохранить</a>
+    </div>
+</form>

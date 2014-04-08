@@ -1,0 +1,38 @@
+﻿@model MirGames.Domain.Topics.ViewModels.TopicViewModel
+@{ Layout = "~/Views/Shared/_Nav.cshtml"; }
+
+@section SectionTitle { @Model.Title }
+@section SectionMenu
+{
+    <div class="topic-menu">
+        <a href="@ViewBag.BackUrl" class="back-to-topics"><i class="fa fa-arrow-left"></i>Вернуться к темам</a>
+        <div class="topic-info subsection">
+            <a class="avatar-link author-info" href="@Url.Action("Profile", "Users", new { userId = Model.Author.Id })">
+                <img src="@Model.Author.AvatarUrl" class="avatar avatar-small" />
+                <span>@Model.Author.Login</span>
+            </a>
+        </div>
+        
+@*        @if (User.IsInRole("User"))
+        {
+            <a href="javascript:void(0);" class="add-to-favorite"><i class="fa fa-star"></i>В избранное</a>
+        }*@
+
+        <a href="@Url.Action("Topic", new { topicId = Model.Id })#comments" class="comments"><i class="fa fa-comments"></i>Комментарии <span class="comments-count counter">@Model.CommentsCount</span></a>
+        
+        @if (Model.CanBeCommented)
+        {
+            <a href="@Url.Action("Topic", new { topicId = Model.Id })#new-comment" class="comment"><i class="fa fa-comment"></i>Комментировать</a>
+        }
+
+        @if (Model.CanBeEdited)
+        {
+            <a href="@Url.Action("Edit", new { topicId = Model.Id })" class="edit-topic"><i class="fa fa-pencil-square-o"></i>Редактировать</a>
+        }
+        
+        @if (Model.CanBeDeleted)
+        {
+            <a href="javascript:void(0);" ng-click="deleteTopic()" class="delete-topic"><i class="fa fa-times"></i>Удалить</a>
+        }
+    </div>
+}

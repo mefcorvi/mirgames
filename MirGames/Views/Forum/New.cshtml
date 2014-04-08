@@ -1,0 +1,28 @@
+﻿@{
+    Title = "Новое обсуждение / Форум";
+    PageScriptController = "MirGames.Forum.NewTopicPage";
+    AddPageCssClass("new-forum-topic-page");
+}
+
+<h3>Форум / Новое обсуждение</h3>
+<form class="new-topic-form" name="newTopicForm">
+    <div class="form-field">
+        <label>Заголовок</label>
+        <input type="text" class="topic-title" ng-model="title" ng-focused="isTitleFocused" ng-maxlength="128" required />
+        <div class="form-field-description">Заголовок должен быть коротким, но осмысленным и соответствующим содержимому поста.</div>
+    </div>
+    <div class="form-field">
+        <label>Метки</label>
+        <input type="text" class="topic-tags" ng-model="tags" required ng-maxlength="128" />
+        <div class="form-field-description">
+            Пожалуйста, выберите от 1 до 5 меток. Пост будет доступен только по выбранным меткам. Метки разделяются запятыми.
+        </div>
+    </div>
+    <div class="form-field">
+        <label>Текст</label>
+        <texteditor text="text" show-preview="showPreview" post="post()" attachments="attachments" entity-type="forumPost" />
+    </div>
+    <div class="buttons">
+        <a href="javascript:void(0);" ng-click="post()" class="button" ng-class="{ 'button-disabled': newTopicForm.$invalid }">Отправить</a>
+    </div>
+</form>

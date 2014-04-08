@@ -1,0 +1,19 @@
+﻿@model IEnumerable<OnlineUserViewModel>
+@using MirGames.Domain.Users.ViewModels
+
+<div @Html.Css("online-users").Add("ng-hide", ViewBag.OnlineUsers.Count == 0) ng-controller="MirGames.OnlineUsersController" ng-show="users.length > 0">
+    <h3>Онлайн</h3>
+    @foreach (OnlineUserViewModel user in Model.Reverse())
+    {
+        <div class="user" ng-show="false">
+            <a href="@Url.Action("Profile", "Users", new { userId = user.Id })" title="@user.Login"><img src="@user.AvatarUrl" class="avatar avatar-small" /></a>
+        </div>
+    }
+    <div ng-class="{ 'user': 1, 'user-in-chat': user.tags.indexOf('in-chat') != -1, 'chat-writing': user.tags.indexOf('chat-writing') != -1 }" class="user" ng-repeat="user in users" ng-cloak>
+        <a href="{{user.userUrl}}" title="{{user.login}}">
+            <img ng-src="{{user.avatarUrl}}" class="avatar avatar-small" />
+            <i class="fa fa-comments"></i>
+            <i class="fa fa-pencil"></i>
+        </a>
+    </div>
+</div>

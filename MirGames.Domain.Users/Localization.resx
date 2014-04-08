@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivationRequestedNotification.Body" xml:space="preserve">
+    <value>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+    &lt;meta name="viewport" content="width=320, target-densitydpi=device-dpi"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;table width="100%" cellpadding="0" cellspacing="0" border="0" data-mobile="true" dir="ltr" data-width="600" style="background-color: rgb(255, 255, 255);"&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;td align="center" valign="top" style="padding: 0; margin: 0;"&gt;
+
+                    &lt;table align="center" bgcolor="#ffffff" border="0" cellspacing="0" cellpadding="0" width="600" class="wrapper" style="width: 600px;"&gt;
+                        &lt;tbody&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;
+                                    &lt;table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" data-editable="text" style="margin-right: auto; margin-left: auto;"&gt;
+                                        &lt;tbody&gt;
+                                            &lt;tr&gt;
+                                                &lt;td align="left" valign="top" style="padding: 0px 0px 5px; font-family: Arial, Helvetica, sans-serif; color: rgb(38, 38, 38); border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(221, 221, 221);"&gt;
+                                                    &lt;div style="text-align: left;"&gt;&lt;span style="font-family: Tahoma, sans-serif; background-color: transparent;"&gt;&lt;font size="24" style="font-size: 24px;"&gt;MirGames&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;
+                                                &lt;/td&gt;
+                                            &lt;/tr&gt;
+                                        &lt;/tbody&gt;
+                                    &lt;/table&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td align="left" valign="top" style="margin: 0; padding: 0;"&gt;
+
+                                    &lt;table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" data-editable="text" style="margin-right: 0px; margin-left: 0px;"&gt;
+                                        &lt;tbody&gt;
+                                            &lt;tr&gt;
+                                                &lt;td style="padding: 10px 0px 0px; margin: 0px; font-family: Arial, Helvetica, sans-serif; color: rgb(38, 38, 38); border: 0px none transparent;"&gt;&lt;span style="font-family: Tahoma, sans-serif;"&gt;&lt;font size="13" style="font-size: 13px;"&gt;Здравствуйте,&lt;/font&gt;&lt;/span&gt;
+                                                    &lt;div style=""&gt;
+                                                        &lt;span style="font-family: Tahoma, sans-serif;"&gt;
+                                                            &lt;font size="13" style="font-size: 13px;"&gt;&lt;br&gt;
+                                                                Для продолжения регистрации на сайте mirgames.ru необходимо подтвердить ваш e-mail адрес.&lt;br&gt;
+                                                                Для этого вам необходимо перейти по ссылке &lt;a href="@Model.ActivationLink"&gt;@Model.ActivationLink&lt;/a&gt;.
+                                                                &lt;br&gt;&lt;br&gt;С уважением,
+                                                                &lt;br&gt;Робот MirGames.ru.
+                                                            &lt;/font&gt;
+                                                        &lt;/span&gt;
+                                                    &lt;/div&gt;
+                                                &lt;/td&gt;
+                                            &lt;/tr&gt;
+                                        &lt;/tbody&gt;
+                                    &lt;/table&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                        &lt;/tbody&gt;
+                    &lt;/table&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="ActivationRequestedNotification.Title" xml:space="preserve">
+    <value>Подтверждение регистрации на сайте mirgames.ru</value>
+  </data>
+  <data name="PasswordRestoreRequestedNotification.Body" xml:space="preserve">
+    <value>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+    &lt;meta name="viewport" content="width=320, target-densitydpi=device-dpi"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;table width="100%" cellpadding="0" cellspacing="0" border="0" data-mobile="true" dir="ltr" data-width="600" style="background-color: rgb(255, 255, 255);"&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;td align="center" valign="top" style="padding: 0; margin: 0;"&gt;
+
+                    &lt;table align="center" bgcolor="#ffffff" border="0" cellspacing="0" cellpadding="0" width="600" class="wrapper" style="width: 600px;"&gt;
+                        &lt;tbody&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;
+                                    &lt;table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" data-editable="text" style="margin-right: auto; margin-left: auto;"&gt;
+                                        &lt;tbody&gt;
+                                            &lt;tr&gt;
+                                                &lt;td align="left" valign="top" style="padding: 0px 0px 5px; font-family: Arial, Helvetica, sans-serif; color: rgb(38, 38, 38); border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(221, 221, 221);"&gt;
+                                                    &lt;div style="text-align: left;"&gt;&lt;span style="font-family: Tahoma, sans-serif; background-color: transparent;"&gt;&lt;font size="24" style="font-size: 24px;"&gt;MirGames&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;
+                                                &lt;/td&gt;
+                                            &lt;/tr&gt;
+                                        &lt;/tbody&gt;
+                                    &lt;/table&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td align="left" valign="top" style="margin: 0; padding: 0;"&gt;
+
+                                    &lt;table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" data-editable="text" style="margin-right: 0px; margin-left: 0px;"&gt;
+                                        &lt;tbody&gt;
+                                            &lt;tr&gt;
+                                                &lt;td style="padding: 10px 0px 0px; margin: 0px; font-family: Arial, Helvetica, sans-serif; color: rgb(38, 38, 38); border: 0px none transparent;"&gt;&lt;span style="font-family: Tahoma, sans-serif;"&gt;&lt;font size="13" style="font-size: 13px;"&gt;Здравствуйте,&lt;/font&gt;&lt;/span&gt;
+                                                    &lt;div style=""&gt;
+                                                        &lt;span style="font-family: Tahoma, sans-serif;"&gt;
+                                                            &lt;font size="13" style="font-size: 13px;"&gt;&lt;br&gt;
+                                                                Для восстановления пароля вам необходимо перейти по ссылке &lt;a href="@Model.RestoreLink"&gt;@Model.RestoreLink&lt;/a&gt;.&lt;br&gt;&lt;br&gt;Если вам не требуется восстановление пароля, просто проигнорируйте это сообщение.
+                                                                &lt;br&gt;&lt;br&gt;С уважением,
+                                                                &lt;br&gt;Робот MirGames.ru.
+                                                            &lt;/font&gt;
+                                                        &lt;/span&gt;
+                                                    &lt;/div&gt;
+                                                &lt;/td&gt;
+                                            &lt;/tr&gt;
+                                        &lt;/tbody&gt;
+                                    &lt;/table&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                        &lt;/tbody&gt;
+                    &lt;/table&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="PasswordRestoreRequestedNotification.Title" xml:space="preserve">
+    <value>Восстановление пароля на сайте mirgames.ru</value>
+  </data>
+</root>

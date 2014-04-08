@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0FA4F765-957F-490D-A91B-F77EB98C42C2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MirGames.Domain.Wip</RootNamespace>
+    <AssemblyName>MirGames.Domain.Wip</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.3.0\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageResizer">
+      <HintPath>..\packages\ImageResizer.3.4.2\lib\ImageResizer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccessRules\ProjectCreateAccessRule.cs" />
+    <Compile Include="ClaimsProviders\WipClaimsProvider.cs" />
+    <Compile Include="CommandHandlers\CreateNewWipProjectCommandHandler.cs" />
+    <Compile Include="Entities\ProjectTag.cs" />
+    <Compile Include="Entities\ProjectFollower.cs" />
+    <Compile Include="Entities\Project.cs" />
+    <Compile Include="Entities\ProjectWorkItem.cs" />
+    <Compile Include="Entities\WorkItemState.cs" />
+    <Compile Include="Entities\WorkItemType.cs" />
+    <Compile Include="EntityMapper.cs" />
+    <Compile Include="Mapping\ProjectTagMap.cs" />
+    <Compile Include="Mapping\ProjectMap.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryHandlers\GetWipProjectCommitsQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetWipProjectFileQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetWipProjectFilesQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetIsProjectNameUniqueQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetWipProjectQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetWipProjectTopicsQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetWipTagsQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetWipProjectsQueryHandler.cs" />
+    <Compile Include="Services\ProjectLogoUploadProcessor.cs" />
+    <Compile Include="WipDomainModule.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MirGames.Domain.Attachments.Public\MirGames.Domain.Attachments.Public.csproj">
+      <Project>{fd93f5af-07f1-4a80-81a6-850d70b5ea79}</Project>
+      <Name>MirGames.Domain.Attachments.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MirGames.Domain.Topics.Public\MirGames.Domain.Topics.Public.csproj">
+      <Project>{8b957815-7f29-4d6e-b983-b527342d8da5}</Project>
+      <Name>MirGames.Domain.Topics.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MirGames.Domain.Users.Public\MirGames.Domain.Users.Public.csproj">
+      <Project>{630bd3d7-d7c8-40e0-bc01-2cf139c16051}</Project>
+      <Name>MirGames.Domain.Users.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MirGames.Domain.Wip.Public\MirGames.Domain.Wip.Public.csproj">
+      <Project>{3b411f1b-008e-47af-9be2-0c58217def13}</Project>
+      <Name>MirGames.Domain.Wip.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MirGames.Domain\MirGames.Domain.csproj">
+      <Project>{ade8bb72-97c1-4e4e-9112-b81a1f6d4384}</Project>
+      <Name>MirGames.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MirGames.Infrastructure\MirGames.Infrastructure.csproj">
+      <Project>{587353bc-37ef-4172-98f2-dc65428e2740}</Project>
+      <Name>MirGames.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MirGames.Services.Git.Public\MirGames.Services.Git.Public.csproj">
+      <Project>{50d692ce-23e2-4ca9-b48e-742db8944097}</Project>
+      <Name>MirGames.Services.Git.Public</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="EventListeners\" />
+    <Folder Include="Notifications\" />
+    <Folder Include="Security\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

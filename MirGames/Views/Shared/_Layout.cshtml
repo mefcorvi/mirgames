@@ -1,0 +1,106 @@
+﻿@using System.Diagnostics
+@using MirGames.Domain.Users.ViewModels
+@{
+    Debug.Assert(Request.Url != null, "Request.Url != null");
+    IEnumerable<OnlineUserViewModel> onlineUsers = ViewBag.OnlineUsers;
+}
+<!DOCTYPE html>
+<html ng-app="mirgames">
+    <head>
+        <title>@(string.IsNullOrWhiteSpace(this.Title) ? "" : string.Format("{0} / ", this.Title))MirGames - сообщество разработчиков игр</title>
+        <meta charset="utf-8" />
+        @Styles.Render("~/Content/css")
+        <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/zenburn.min.css">
+        @if (!string.IsNullOrEmpty(ViewBag.RssUrl))
+        {
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="@ViewBag.RssUrl" />
+        }
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-35567208-1']);
+            _gaq.push(['_setDomainName', 'mirgames.ru']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            
+            if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+                var msViewportStyle = document.createElement("style");
+                msViewportStyle.appendChild(document.createTextNode("@@-ms-viewport{width:auto!important}"));
+                document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+            }
+        </script>
+    </head>
+    <body ng-controller="@this.PageScriptController" @Html.Css(string.Join(" ", this.CssClasses)).Add("nav-hidden", !this.IsSectionDefined("Nav"))>
+        <div class="ajax-request" ng-class="{ 'ajax-request': 1, 'ajax-request-executing': requestsExecutingCount > 0 }" ng-controller="MirGames.RequestNotificationController">
+            <div class="ajax-request-notification">&nbsp;</div>
+        </div>
+        <div class="user-notification-block" ng-controller="MirGames.UserNotificationController" ng-cloak>
+            <div class="user-notification" ng-class="{ 'is-hiding': notification.isHiding }" ng-repeat="notification in notifications">
+                <span class="text">{{notification.text}}</span>
+            </div>
+        </div>
+        @Html.AntiForgeryToken()
+        <header class="header-font">
+            <h1>@Html.ActionLink("MirGames", "Index", "Dashboard", new { Area = "" }, new { title = "На главную" })</h1>
+            <nav>
+                @Html.Partial("_Menu")
+                @Html.Partial("_UserMenu")
+            </nav>
+            @Html.Partial("_OnlineUsers", onlineUsers)
+        </header>
+        <nav class="header-font">
+            @RenderSection("Nav", required: false)
+        </nav>
+        @if (this.UserEntity != null && !this.UserEntity.IsActivated)
+        {
+            <div ng-controller="MirGames.ActivationNotificationController" class="notification-block">
+                <div class="notification-sent" ng-show="notificationSent" ng-cloak>Выслано повторное письмо с ключем активации.</div>
+                <div class="activation-notification">
+                    <p>Вы успешно зарегистрировались на сайте MirGames.ru. На указанный вами адрес электронной почты было выслано письмо с ключем активации.</p>
+                    <p>В данный момент ваш аккаунт неактивирован, поэтому большинство функций не доступны.</p>
+                    <p>Если вы не получили письмо, и не обнаружили его даже в папке "Спам", <a href="javascript:void(0);" ng-click="sendNotification()">нажмите здесь для повторной отправки.</a></p>
+                </div>
+            </div>
+        }
+        <section>
+            <script type="text/javascript">
+                (function() {
+                    var oldScroll = sessionStorage.getItem("window.scrollLeft") * 1;
+                    window.pageXOffset = oldScroll;
+                    document.body.scrollLeft = oldScroll;
+                    document.documentElement.scrollLeft = oldScroll;
+
+                    window.addEventListener('scroll', function() {
+                        var newScroll = window.pageXOffset;
+                        sessionStorage.setItem("window.scrollLeft", newScroll.toString());
+                    });
+                })();
+            </script>
+            @RenderBody()
+        </section>
+        @RenderSection("SectionFooter", required: false)
+        <input type="hidden" id="page-data" value="@Html.ToJson((object)this.ViewBag.PageData).ToString()"/>
+        <script type="text/javascript">
+            window.config = {
+                rootUrl: '@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))',
+                antiForgery: document.getElementsByName('__RequestVerificationToken')[0].value
+            };
+            window.pageData = JSON.parse(document.getElementById('page-data').value);
+        </script>
+        <script src="@string.Format("{0}://{1}", Request.Url.Scheme, "yandex.st/highlightjs/7.3/highlight.min.js")"></script>
+        <script type="text/javascript" src="@string.Format("{0}://{1}", Request.Url.Scheme, "www.google.com/recaptcha/api/js/recaptcha_ajax.js")"></script>
+        @Scripts.Render("~/Scripts/js")
+        <script src="~/signalr/hubs"></script>
+        @RenderSection("scripts", required: false)
+        <script src="@RouteJs.RouteJsHandler.HandlerUrl"></script>
+        <script type="text/javascript">
+            hljs.initHighlightingOnLoad();
+        </script>
+    </body>
+</html>

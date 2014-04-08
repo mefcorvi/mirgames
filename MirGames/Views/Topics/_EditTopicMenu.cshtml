@@ -1,0 +1,13 @@
+﻿@model MirGames.Domain.Topics.ViewModels.TopicForEditViewModel
+@{
+    Layout = "~/Views/Shared/_Nav.cshtml";
+}
+
+@section SectionTitle { Редактирование топика }
+
+@section SectionMenu
+{
+    <a href="@Url.Action("Topic", new { topicId = Model.Id  })" class="back-to-topic"><i class="fa fa-arrow-left"></i>Вернуться к топику</a>
+    <a href="javascript:void(0);" ng-click="switchPreviewMode()" ng-class="{ 'switch-preview': 1, 'on': !showPreview, 'off': showPreview }"><i class="fa fa-square-o"></i><i class="fa fa-check-square-o"></i>Предпросмотр</a>
+    <a href="javascript:void(0);" ng-click="save()" class="save-topic"><i class="fa fa-floppy-o"></i>Сохранить</a>
+}

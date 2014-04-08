@@ -1,0 +1,35 @@
+﻿@model MirGames.Controllers.DashboardController.DashboardViewModel
+@{
+    ViewBag.Title = "";
+    // PageScriptController = "MirGames.Chat.ChatRoomPage";
+    AddPageCssClass("dashboard-page");
+
+    if (!User.IsInRole("User"))
+    {
+        AddPageCssClass("read-only");
+    }
+}
+
+<article class="welcome">
+    <h3>MirGames</h3>
+    <p class="text">Добро пожаловать на MirGames.ru, сайт для тех, чьим хобби или профессией является создание игр. Наше сообщество существует с 2003 года на голом энтузиазме. У нас вы можете <a href="@Url.Action("Index", "Topics")">поделиться чем-нибудь интересным</a>, <a href="@Url.Action("Index", "Forum")">обсудить возникшие вопросы</a>, или <a href="@Url.Action("Index", "Chat")">просто пообщаться</a> с такими же разработчиками.</p>
+</article>
+
+<section class="blog-subsection">
+    <h3>Блог</h3>
+    <div class="topics-list">
+    @foreach(var topic in Model.Topics)
+    {
+        @Html.Partial("../Topics/_TopicListItem", topic)
+    }
+    </div>
+</section>
+<section class="forum-subsection">
+    <h3>Форум</h3>
+    <div class="forum-topics-list">
+    @foreach (var topic in Model.ForumTopics)
+    {
+        @Html.Partial("../Forum/_ForumTopicListItem", topic)
+    }
+    </div>
+</section>

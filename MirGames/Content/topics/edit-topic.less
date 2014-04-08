@@ -1,0 +1,51 @@
+﻿body {} @import "../settings.less";
+
+.edit-topic-page {
+    & > nav {
+        a.switch-preview {
+            &.on {
+                .fa-check-square-o {
+                    display: none;
+                }
+            }
+            
+            &.off {
+                .fa-square-o {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    & > section {
+        .indent();
+
+        & > h3 {
+            .header-font();
+            .font-size(2.4);
+            margin-bottom: 10px;
+            padding-bottom: 7px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+    }
+
+    .topic-editor-field {
+        overflow: hidden;
+    }
+
+    .topic-preview {
+    }
+
+    .topic-show-preview {
+        .topic-editor {
+            float: left;
+            width: 49%;
+            margin-right: 10px;
+        }
+
+        .topic-preview {
+            margin-left: 50%;
+            overflow: auto;
+        }
+    }
+}

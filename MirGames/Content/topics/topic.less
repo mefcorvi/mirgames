@@ -1,0 +1,125 @@
+﻿body {} @import "../settings.less";
+@import "mixins.less";
+
+.topic-page {
+    & > nav {
+        .topic-info {
+            .scrollbar {
+                position: absolute;
+                left: 0;
+                top: 0;
+                background: rgba(0, 0, 0, 0.2);
+                width: 3px;
+                display: none;
+            }
+        }
+
+        a.add-to-favorite {
+            .fa {
+                color: #ffd800;
+                text-shadow: 0px 0px 1px #000;
+            }
+        }
+
+        a.back-to-topics {
+        }
+
+        a.comment {
+        }
+
+        a.comments {
+        }
+
+        a.edit-topic {
+        }
+
+        a.delete-topic {
+            .fa {
+                color: #f00;
+                text-shadow: 0px 0px 1px #000;
+            }
+        }
+    }
+
+    & > section {
+        .indent();
+
+        & > header {
+            .header-with-tags();
+        }
+
+        & > h4 {
+            .page-subtitle();
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        & > article {
+            .page-block();
+            margin: @indent 0px;
+
+            .topic-text {
+                margin-bottom: 20px;
+            }
+
+            & > footer {
+                overflow: hidden;
+                line-height: @avatar-tiny;
+                border-top: 1px solid #eee;
+                padding-top: @indent/2;
+
+                .avatar-link {
+                    overflow: hidden;
+                    float: left;
+                    margin-right: @indent/2;
+
+                    img {
+                        margin-right: @indent/2;
+                    }
+                }
+
+                .creation-date {
+                    .date-small();
+                    float: left;
+                    margin-right: @indent/2;
+                }
+
+                .share {
+                    float: right;
+                }
+
+                & > ul.tags {
+                    overflow: hidden;
+                    list-style-type: none;
+                    float: left;
+                    line-height: normal;
+                    .font-size(1.1);
+
+                    & > li {
+                        float: left;
+                        margin-right: 2px;
+                        display: block;
+                        .tag-link(none);
+                    }
+
+                        & > li:last-child {
+                            margin-right: 0;
+                        }
+                }
+            }
+        }
+
+        .comments-list {
+            .comments-list-item();
+            margin-bottom: @indent;
+        }
+
+        .comment-form {
+            .page-block(@indent/2);
+
+            .text-editor-field div.mdd_editor_wrap textarea {
+                height: 100px;
+            }
+        }
+    }
+}

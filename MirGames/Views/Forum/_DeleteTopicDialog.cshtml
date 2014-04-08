@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "~/Views/Shared/_Dialog.cshtml";
+}
+
+@section DialogTitle
+{
+    Удаление обсуждения
+}
+
+@section DialogNotifications
+{
+}
+
+@section DialogContent
+{
+    Вы уверены, что хотите удалить это обсуждение?
+}
+
+@section DialogButtons
+{
+    <a href="javascript:void(0)" ng-click="deleteTopic()">Удалить</a>
+    <a href="javascript:void(0)" class="cancel" ng-click="close()">Отмена</a>
+}

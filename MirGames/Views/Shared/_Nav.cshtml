@@ -1,0 +1,12 @@
+﻿<h1 ng-click="changeMenuState()" title="{{headerTooltip}}">
+    @RenderSection("SectionTitle", required: true)
+    @if (!string.IsNullOrEmpty(ViewBag.RssUrl))
+    {
+        <a href="@ViewBag.RssUrl" class="syndication" title="RSS">RSS</a>
+    }
+</h1>
+<div class="section-content nano">
+    <div class="content">
+        @RenderSection("SectionMenu", required: true)
+    </div>
+</div>

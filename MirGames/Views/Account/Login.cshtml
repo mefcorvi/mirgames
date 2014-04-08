@@ -1,0 +1,13 @@
+﻿@model MirGames.Domain.Commands.LoginCommand
+@{
+    Title = "Авторизация";
+}
+
+@using (Html.BeginForm("Login", "Account"))
+{
+    @Html.AntiForgeryToken()
+    @Html.TextBox("command.EmailOrLogin")
+    @Html.Password("command.Password")
+    @Html.Hidden("returnUrl", (string)ViewBag.ReturnUrl)
+    <input type="submit" value="Login" />
+}

@@ -1,0 +1,62 @@
+﻿body {} @import "../settings.less";
+@import "mixins.less";
+
+.user-page {
+    & > section {
+        .indent();
+
+        & > h3 {
+            .page-title();
+        }
+
+        & > h4 {
+            .header-font();
+            .font-size(2);
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        & > .user-info {
+            .user-info();
+        }
+
+        & > .wall-records {
+            & > .wall-record {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                margin-bottom: 10px;
+                margin-top: 10px;
+                padding-bottom: 10px;
+
+                & > .record-author {
+                    overflow: hidden;
+                    margin-bottom: 5px;
+
+                    & a {
+                        float: left;
+                        display: block;
+                        margin-right: 15px;
+
+                        img {
+                            float: left;
+                        }
+
+                        span {
+                            display: block;
+                            float: left;
+                            margin-left: 5px;
+                            line-height: @avatar-small;
+                        }
+                    }
+
+                    & > .record-date {
+                        float: left;
+                        .date-small();
+                        display: block;
+                        height: @avatar-small;
+                        line-height: @avatar-small;
+                    }
+                }
+            }
+        }
+    }
+}

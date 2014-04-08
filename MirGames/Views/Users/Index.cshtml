@@ -1,0 +1,33 @@
+﻿@using MirGames.Models
+@model IEnumerable<MirGames.Domain.Users.ViewModels.UserListItemViewModel>
+
+@{
+    ViewBag.Title = ViewBag.SectionTitle ?? "Пользователи";
+    AddPageCssClass("users-page");
+}
+
+@section Nav { @Html.Partial("_UsersMenu") }
+
+<h3>@(ViewBag.SectionTitle ?? "Пользователи")</h3>
+
+<form ng-controller="MirGames.Users.SearchPanelController" ng-submit="search()" class="search-panel">
+    <div class="form-field">
+        <input type="text" placeholder="Поиск..." ng-model="searchQuery" />
+    </div>
+</form>
+
+@if (!Model.Any())
+{
+    <div class="users-not-found">
+        Пользователи не найдены
+    </div>
+}
+
+@Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
+<div class="users-list">
+@foreach (var user in Model)
+{
+    @Html.Partial("_UserListItem", user)
+}
+</div>
+@Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)

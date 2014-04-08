@@ -1,0 +1,59 @@
+﻿body {} @import "../settings.less";
+@import "mixins.less";
+
+body > nav > h1 {
+    position: relative;
+
+    .syndication {
+        position: absolute;
+        text-indent: 1000px;
+        overflow: hidden;
+        background: url("../images/rss.png") no-repeat center center;
+        width: 32px;
+        height: 32px;
+        top: 50%;
+        right: 10px;
+        margin-top: -20px;
+        opacity: 0.3;
+        .transition(opacity);
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+
+
+.topics-page
+{
+    & > section {
+        .indent();
+
+        & > .topics-list {
+            .topics-list-item();
+
+            & > .message {
+                padding: @indent/3*2;
+            }
+
+            & > .message > .message-content > header {
+                .font-size(2);
+                margin-bottom: @indent/2;
+            }
+        }
+
+        & > h3 {
+            .page-title();
+            text-shadow: 1px 1px 4px @background-color;
+            border-bottom: 0;
+            padding-bottom: 0;
+        }
+    }
+}
+.topics-page &>.message &>.message-content &>footer &>ul &>li a:hover,.topics-page &>.message &>.message-content &>footer &>ul &>li a:active,.topics-page &>.message &>.message-content &>footer &>ul &>li a:focus {
+    color: #006bbb;
+}
+.topics-page &>.message &>.message-content &>footer &>a:hover,.topics-page &>.message &>.message-content &>footer &>a:focus,.topics-page &>.message &>.message-content &>footer &>a:active {
+    color: #006bbb;
+}

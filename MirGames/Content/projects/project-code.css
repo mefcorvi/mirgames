@@ -1,0 +1,377 @@
+﻿.wip-code-page > section {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.wip-code-page > section > .project-description {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  margin-bottom: 20px;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.wip-code-page > section > .project-description .fa {
+  margin-right: 5px;
+}
+.wip-code-page > section > .project-description > .logo {
+  float: left;
+  width: 16.66666667%;
+  position: relative;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .wip-code-page > section > .project-description > .logo {
+    float: left;
+    width: 16.66666667%;
+  }
+}
+@media (min-width: 992px) {
+  .wip-code-page > section > .project-description > .logo {
+    float: left;
+    width: 8.33333333%;
+  }
+}
+.wip-code-page > section > .project-description > .logo > img {
+  max-width: 100%;
+  max-height: 200px;
+}
+.wip-code-page > section > .project-description > .logo > .version {
+  margin-top: 5px;
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  text-align: center;
+}
+@media (min-width: 480px) {
+  .wip-code-page > section > .project-description > .logo > .version {
+    font-size: 12px;
+  }
+}
+@media (min-width: 1200px) {
+  .wip-code-page > section > .project-description > .logo > .version {
+    font-size: 14px;
+  }
+}
+.wip-code-page > section > .project-description > .logo > .version b {
+  background: #d7dfe5;
+  font-weight: normal;
+  color: #000000;
+  padding: 3px;
+  white-space: nowrap;
+}
+@media (max-width: 991px) {
+  .wip-code-page > section > .project-description > .logo > .version b > .fa {
+    display: none;
+  }
+}
+.wip-code-page > section > .project-description > .logo > .version > .updated-date {
+  display: block;
+  margin-top: 5px;
+  color: #8c8c0c;
+}
+@media (min-width: 480px) {
+  .wip-code-page > section > .project-description > .logo > .version > .updated-date {
+    font-size: 10px;
+  }
+}
+@media (min-width: 1200px) {
+  .wip-code-page > section > .project-description > .logo > .version > .updated-date {
+    font-size: 12px;
+  }
+}
+.wip-code-page > section > .project-description > .project-info {
+  overflow: hidden;
+  float: left;
+  width: 83.33333333%;
+  position: relative;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+@media (min-width: 768px) {
+  .wip-code-page > section > .project-description > .project-info {
+    float: left;
+    width: 66.66666667%;
+  }
+}
+@media (min-width: 992px) {
+  .wip-code-page > section > .project-description > .project-info {
+    float: left;
+    width: 75%;
+  }
+}
+.wip-code-page > section > .project-description > .project-info > h1 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 18px;
+}
+.wip-code-page > section > .project-description > .project-info > .project-description {
+  padding: 10px 0;
+  max-height: 200px;
+}
+.wip-code-page > section > .project-description > .project-info > footer {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  font-size: 11px;
+}
+.wip-code-page > section > .project-description > .project-info > footer > .user-login {
+  overflow: hidden;
+  float: left;
+  width: 100%;
+  position: relative;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  font-weight: bold;
+}
+@media (min-width: 768px) {
+  .wip-code-page > section > .project-description > .project-info > footer > .user-login {
+    float: left;
+    width: 100%;
+  }
+}
+@media (min-width: 992px) {
+  .wip-code-page > section > .project-description > .project-info > footer > .user-login {
+    float: left;
+    width: 25%;
+  }
+}
+@media (min-width: 992px) {
+  .wip-code-page > section > .project-description > .project-info > footer > .user-login {
+    max-width: 150px;
+  }
+}
+@media (max-width: 767px) {
+  .wip-code-page > section > .project-description > .project-info > footer > .user-login > .avatar {
+    display: none;
+  }
+  .wip-code-page > section > .project-description > .project-info > footer > .user-login > span {
+    margin-left: 0;
+  }
+}
+.wip-code-page > section > .project-description > .project-info > footer > .user-login span {
+  margin-top: 3px;
+}
+.wip-code-page > section > .project-description > .project-info > footer > .creation-date {
+  float: left;
+  width: 66.66666667%;
+  position: relative;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  max-width: 100px;
+  color: #999;
+}
+@media (min-width: 768px) {
+  .wip-code-page > section > .project-description > .project-info > footer > .creation-date {
+    float: left;
+    width: 41.66666667%;
+  }
+}
+@media (min-width: 992px) {
+  .wip-code-page > section > .project-description > .project-info > footer > .creation-date {
+    float: left;
+    width: 16.66666667%;
+  }
+}
+.wip-code-page > section > .project-description > .project-info > footer > .followers-count {
+  float: left;
+  width: 16.66666667%;
+  position: relative;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  max-width: 50px;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .wip-code-page > section > .project-description > .project-info > footer > .followers-count {
+    float: left;
+    width: 16.66666667%;
+  }
+}
+@media (min-width: 992px) {
+  .wip-code-page > section > .project-description > .project-info > footer > .followers-count {
+    float: left;
+    width: 8.33333333%;
+  }
+}
+@media (min-width: 480px) {
+  .wip-code-page > section > .project-description > .project-info > footer > .followers-count {
+    font-size: 11px;
+  }
+}
+@media (min-width: 768px) {
+  .wip-code-page > section > .project-description > .project-info > footer > .followers-count {
+    font-size: 12px;
+  }
+}
+.wip-code-page > section > .project-description > .project-info > footer > .votes {
+  float: left;
+  width: 16.66666667%;
+  position: relative;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  max-width: 50px;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .wip-code-page > section > .project-description > .project-info > footer > .votes {
+    float: left;
+    width: 16.66666667%;
+  }
+}
+@media (min-width: 992px) {
+  .wip-code-page > section > .project-description > .project-info > footer > .votes {
+    float: left;
+    width: 8.33333333%;
+  }
+}
+@media (min-width: 480px) {
+  .wip-code-page > section > .project-description > .project-info > footer > .votes {
+    font-size: 11px;
+  }
+}
+@media (min-width: 768px) {
+  .wip-code-page > section > .project-description > .project-info > footer > .votes {
+    font-size: 12px;
+  }
+}
+.wip-code-page > section > .project-description > .project-info > footer > ul.tags {
+  overflow: hidden;
+  list-style-type: none;
+  font-size: 11px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  float: left;
+  width: 100%;
+  position: relative;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.wip-code-page > section > .project-description > .project-info > footer > ul.tags > li {
+  float: left;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  display: block;
+}
+.wip-code-page > section > .project-description > .project-info > footer > ul.tags > li a {
+  background: #838f97;
+  color: #ffffff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 3px;
+  max-width: 150px;
+  display: block;
+  overflow: hidden;
+  text-decoration: none;
+}
+.wip-code-page > section > .project-description > .project-info > footer > ul.tags > li a:active,
+.wip-code-page > section > .project-description > .project-info > footer > ul.tags > li a:hover,
+.wip-code-page > section > .project-description > .project-info > footer > ul.tags > li a:focus {
+  color: #ffffff;
+}
+.wip-code-page > section > .project-description > .project-info > footer > ul.tags > li a:hover,
+.wip-code-page > section > .project-description > .project-info > footer > ul.tags > li a:active,
+.wip-code-page > section > .project-description > .project-info > footer > ul.tags > li a:focus {
+  background: #525b62;
+  color: #ffffff;
+}
+.wip-code-page > section > .project-description > .project-info > footer > ul.tags > li:last-child {
+  margin-right: 0;
+}
+@media (min-width: 768px) {
+  .wip-code-page > section > .project-description > .project-info > footer > ul.tags {
+    float: left;
+    width: 100%;
+  }
+}
+@media (min-width: 992px) {
+  .wip-code-page > section > .project-description > .project-info > footer > ul.tags {
+    float: left;
+    width: 41.66666667%;
+  }
+}
+.wip-code-page > section h3 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+  padding-bottom: 0;
+  text-shadow: 1px 1px 4px #ffffff;
+}
+.wip-code-page > section h4 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 4px #ffffff;
+  border: none;
+  text-transform: uppercase;
+  font-size: 16px;
+  padding-bottom: 0;
+}
+.wip-code-page > section h4 .parent-folders {
+  list-style: none;
+  overflow: hidden;
+}
+.wip-code-page > section h4 .parent-folders li {
+  display: inline-block;
+  float: left;
+  margin-right: 2px;
+}
+.wip-code-page > section h4 .parent-folders li:after {
+  content: "/";
+  margin-left: 2px;
+}
+.wip-code-page > section > .files {
+  background: #ffffff;
+  padding: 10px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+.wip-code-page > section > .files i {
+  font-size: 15px;
+  margin-right: 3.33333333px;
+}
+.wip-code-page > section > .files > .file {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+/*# sourceMappingURL=project-code.css.map */

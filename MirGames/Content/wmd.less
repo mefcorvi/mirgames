@@ -1,0 +1,205 @@
+﻿body {} @import "settings.less";
+
+.tiny-editor {
+    &.drag-over {
+        outline: 1px dashed #999;
+        opacity: 0.5;
+    }
+
+    div.mdd_modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        display: none;
+        font-size: 10pt;
+        background-image: url(mdd_modal_background.png);
+    }
+
+    div.mdd_modal_frame {
+        width: 650px;
+        height: 400px;
+        background-color: White;
+        z-index: 2000;
+        margin: 0 auto;
+        margin-top: 60px;
+        border: solid 5px #808080;
+        position: relative;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+    }
+
+    div.mdd_modal_button {
+        position: absolute;
+        top: -33px;
+        right: -5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 4px;
+        padding-bottom: 0px;
+        height: 20px;
+        background-color: #808080;
+        z-index: 1999;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        line-height: 1em;
+    }
+
+        div.mdd_modal_button a {
+            color: White;
+            text-decoration: none;
+        }
+
+            div.mdd_modal_button a:hover {
+                color: Orange;
+            }
+
+    div.mdd_modal_content {
+        overflow: scroll;
+        overflow-x: hidden;
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    div.mdd_ajax_loader {
+        background-position: center center;
+        background-image: url(mdd_ajax_loader.gif);
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 200px;
+    }
+
+    div.mdd_syntax {
+        font-size: 12pt;
+        padding: 10px;
+    }
+
+        div.mdd_syntax h2 {
+            font-size: 14pt;
+        }
+
+        div.mdd_syntax h3 {
+            font-size: 12pt;
+        }
+
+        div.mdd_syntax pre {
+            font-size: 10pt;
+            border: solid 1px silver;
+            padding: 4px;
+            background-color: #f8f8f8;
+        }
+
+    div.mdd_toolbar_wrap {
+        width: 100%;
+    }
+
+    div.mdd_toolbar {
+        padding: 5px;
+    }
+
+        div.mdd_toolbar ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        div.mdd_toolbar li {
+            float: left;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        div.mdd_toolbar a.mdd_button {
+            @transition: background-color, border, color;
+            .font-size(1.4);
+            line-height: 24px;
+            width: 24px;
+            height: 24px;
+            text-align: center;
+            display: block;
+            color: lighten(desaturate(@link-color, 30%), 10%);
+            border: 1px solid transparent;
+            .transition(@transition, 0.25s);
+            outline: 0;
+
+            &.selected, &.selected:hover {
+                background-color: darken(desaturate(@link-color, 30%), 10%);
+                color: @background-color;
+            }
+
+            &:hover {
+                color: #000;
+                background-color: lighten(desaturate(@link-color, 30%), 60%);
+                border: 1px solid lighten(desaturate(@link-color, 30%), 30%);
+            }
+        }
+
+    span.mdd_sep {
+        width: 5px;
+        height: 24px;
+        display: block;
+        border-left: solid 1px #808080;
+        margin-left: 5px;
+    }
+
+    div.mdd_links {
+        float: right;
+    }
+
+        div.mdd_links a {
+            .font-size(1.4);
+            height: 24px;
+            line-height: 24px;
+            text-decoration: none;
+            color: #404040;
+
+            &:hover {
+                color: @link-color-hover;
+            }
+        }
+
+    textarea.mdd_editor {
+        width: 100%;
+        resize: none;
+        margin: 0;
+        outline: 0;
+        .form-input();
+        padding: 10px;
+        .font-size(1.3);
+        .box-sizing(border-box);
+    }
+
+    div.mdd_resizer_wrap {
+        width: 100%;
+    }
+
+    div.mdd_resizer {
+        background: #f8f8f8;
+        padding-left: 2px;
+        padding-right: 2px;
+        height: 3px;
+        border: solid 1px #d0d0d0;
+        margin-top: -1px;
+        cursor: n-resize;
+    }
+
+    div.mdd_preview {
+        margin-top: @indent/2;
+    }
+
+    & form.upload-file {
+        margin-top: 3px;
+        margin-bottom: 3px;
+
+        span {
+            .date-small();
+        }
+    }
+}

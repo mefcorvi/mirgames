@@ -1,0 +1,6 @@
+﻿@model IEnumerable<MirGames.Domain.Topics.ViewModels.TopicsListItem>
+
+@foreach (var topic in Model)
+{
+    @Html.Partial("_TopicListItem", topic)
+}

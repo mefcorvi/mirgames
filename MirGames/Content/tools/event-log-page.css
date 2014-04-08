@@ -1,0 +1,92 @@
+﻿.event-log-page > section {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.event-log-page > section > h3 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+  padding-bottom: 0;
+  text-shadow: 1px 1px 4px #ffffff;
+}
+.event-log-page > section > form {
+  background: #ffffff;
+  padding: 20px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  margin-bottom: 10px;
+}
+.event-log-page > section .event-log-item {
+  background: #ffffff;
+  padding: 5px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  margin-bottom: 3.33333333px;
+  overflow: hidden;
+}
+.event-log-page > section .event-log-item.event-log-error {
+  color: #f00;
+}
+.event-log-page > section .event-log-item.event-log-error span {
+  color: #f00;
+}
+.event-log-page > section .event-log-item.event-log-warning {
+  color: #793200;
+}
+.event-log-page > section .event-log-item.event-log-verbose > .event-log-type {
+  color: #aaa;
+}
+.event-log-page > section .event-log-item:hover {
+  background: rgba(39, 67, 89, 0.03);
+}
+.event-log-page > section .event-log-item:hover > .message-content {
+  border-bottom: 1px solid transparent;
+}
+.event-log-page > section .event-log-item span {
+  display: block;
+  min-height: 1px;
+}
+.event-log-page > section .event-log-item > .event-log-id {
+  float: left;
+  width: 30px;
+  text-align: left;
+  color: #999;
+  text-align: center;
+}
+.event-log-page > section .event-log-item > .event-log-date {
+  color: #8c8c0c;
+  float: left;
+  width: 150px;
+  text-align: center;
+}
+.event-log-page > section .event-log-item > .event-log-source {
+  float: left;
+  width: 100px;
+  margin-right: 5px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.event-log-page > section .event-log-item > .event-log-type {
+  float: left;
+  width: 70px;
+  text-align: center;
+  text-overflow: ellipsis;
+}
+.event-log-page > section .event-log-item > .event-log-user {
+  float: left;
+  width: 100px;
+  text-align: center;
+  text-overflow: ellipsis;
+}
+.event-log-page > section .event-log-item > .event-log-message {
+  margin-left: 455px;
+}
+.event-log-page > section .event-log-item > .event-log-details {
+  clear: left;
+  margin-left: 455px;
+  padding-top: 5px;
+  font-size: 11px;
+  color: #999;
+}
+/*# sourceMappingURL=event-log-page.css.map */
