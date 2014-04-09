@@ -40,12 +40,15 @@
             }
 
             & > .file {
-
                 padding-top: @indent/2;
                 padding-bottom: @indent/2;
                 border-bottom: 1px solid #eee;
 
                 .make-row();
+
+                .fa-folder {
+                    color: @date-color;
+                }
 
                 & > .file-name {
                     .make-md-column(2);

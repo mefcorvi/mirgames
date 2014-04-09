@@ -387,6 +387,9 @@
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
+.wip-code-page > section > .files > .file .fa-folder {
+  color: #8c8c0c;
+}
 .wip-code-page > section > .files > .file > .file-name {
   position: relative;
   float: left;
