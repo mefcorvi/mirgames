@@ -391,6 +391,9 @@
   overflow: hidden;
   margin-bottom: 20px;
 }
+.wip-project-page > section .aside-section .commits .commit:last-child {
+  margin-bottom: 0;
+}
 .wip-project-page > section .aside-section .commits .commit .user-name {
   color: #808080;
 }
