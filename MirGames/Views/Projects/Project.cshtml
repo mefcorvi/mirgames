@@ -61,7 +61,7 @@
             @foreach (var commit in commits)
             {
                 <div class="commit">
-                    <span class="date">@commit.Date</span>
+                    <span class="date">@commit.Date.Format()</span>
                     <div class="text">
                         @commit.Message
                     </div>
