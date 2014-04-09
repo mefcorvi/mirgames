@@ -615,7 +615,6 @@
     <Content Include="NativeBinaries\x86\git2-65e9dc6.pdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="README.txt" />
     <Content Include="Scripts\Commands.ts">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
