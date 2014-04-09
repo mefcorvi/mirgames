@@ -59,7 +59,7 @@
                     {
                         Author = commit.Author.Name,
                         Message = commit.Message.Trim(),
-                        Date = commit.Author.When.DateTime,
+                        Date = commit.Author.When.UtcDateTime,
                     });
         }
 

@@ -40,6 +40,15 @@
         & > .file-block {
             .page-block(@indent/2);
 
+            & > .message {
+                display: block;
+                color: mix(@background-color, @font-color, 50%);
+            }
+
+            & > .date {
+                color: @date-color;
+            }
+
             & > .file-content {
                 overflow: auto;
             }

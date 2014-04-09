@@ -10,6 +10,7 @@ namespace MirGames.Services.Git.QueryHandlers
     using MirGames.Domain.Exceptions;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Queries;
+    using MirGames.Services.Git.Extensions;
     using MirGames.Services.Git.Public.Exceptions;
     using MirGames.Services.Git.Public.Queries;
     using MirGames.Services.Git.Public.ViewModels;
@@ -67,12 +68,15 @@ namespace MirGames.Services.Git.QueryHandlers
             if (treeEntry.TargetType == TreeEntryTargetType.Blob)
             {
                 var blob = (Blob)treeEntry.Target;
+                var commit = gitRepository.GetCommit(treeEntry);
 
                 return new GitRepositoryFileViewModel
                 {
                     FileName = treeEntry.Name,
                     Content = blob.GetContentText(),
-                    UpdatedDate = DateTime.Now
+                    CommitId = commit.Sha,
+                    Message = commit.MessageShort,
+                    UpdatedDate = commit.Author.When.UtcDateTime
                 };
             }
 

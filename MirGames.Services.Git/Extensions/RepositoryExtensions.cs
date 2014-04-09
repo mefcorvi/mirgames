@@ -1,6 +1,7 @@
 ﻿namespace MirGames.Services.Git.Extensions
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     using LibGit2Sharp;
 
@@ -12,7 +13,7 @@
         /// <param name="repository">The repository.</param>
         /// <param name="tree">The tree.</param>
         /// <returns>The tree commits.</returns>
-        public static IEnumerable<KeyValuePair<TreeEntry, Commit>> GetTreeCommits(this Repository repository, Tree tree)
+        public static IEnumerable<KeyValuePair<TreeEntry, Commit>> GetCommits(this Repository repository, IEnumerable<TreeEntry> tree)
         {
             var treeItems = new List<TreeEntry>(tree);
             var result = new List<KeyValuePair<TreeEntry, Commit>>(treeItems.Count);
@@ -61,6 +62,17 @@
             }
 
             return result;
-        } 
+        }
+
+        /// <summary>
+        /// Gets the tree commits.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="tree">The tree.</param>
+        /// <returns>The tree commits.</returns>
+        public static Commit GetCommit(this Repository repository, TreeEntry tree)
+        {
+            return repository.GetCommits(new[] { tree }).First().Value;
+        }
     }
 }

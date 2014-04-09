@@ -5,7 +5,6 @@
 @model WipProjectViewModel
 @{
     ViewBag.Title = "Исходный код / " + Model.Title;
-    PageScriptController = "MirGames.Wip.ProjectPage";
     AddPageCssClass("wip-code-page");
     var files = (IEnumerable<WipProjectRepositoryItemViewModel>)ViewBag.Files;
     

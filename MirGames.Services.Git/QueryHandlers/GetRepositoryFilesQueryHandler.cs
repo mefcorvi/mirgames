@@ -94,7 +94,7 @@ namespace MirGames.Services.Git.QueryHandlers
                 }
             }
 
-            var entriesWithCommits = gitRepository.GetTreeCommits(tree);
+            var entriesWithCommits = gitRepository.GetCommits(tree);
 
             return entriesWithCommits.Select(
                 indexEntry => new GitRepositoryFileItemViewModel
@@ -104,7 +104,7 @@ namespace MirGames.Services.Git.QueryHandlers
                     ItemType = GetItemType(indexEntry.Key),
                     CommitId = indexEntry.Value.Sha,
                     Message = indexEntry.Value.MessageShort,
-                    UpdatedDate = indexEntry.Value.Author.When.DateTime
+                    UpdatedDate = indexEntry.Value.Author.When.UtcDateTime
                 })
                 .OrderByDescending(fileItem => fileItem.ItemType)
                 .ThenBy(fileItem => fileItem.Name);

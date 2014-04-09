@@ -368,6 +368,13 @@
   padding: 10px 10px;
   border: 1px solid rgba(0, 0, 0, 0.15);
 }
+.wip-code-file-page > section > .file-block > .message {
+  display: block;
+  color: #808080;
+}
+.wip-code-file-page > section > .file-block > .date {
+  color: #8c8c0c;
+}
 .wip-code-file-page > section > .file-block > .file-content {
   overflow: auto;
 }

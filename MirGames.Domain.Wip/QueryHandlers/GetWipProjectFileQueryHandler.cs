@@ -59,6 +59,8 @@ namespace MirGames.Domain.Wip.QueryHandlers
                         Content = gitFile.Content,
                         FileName = gitFile.FileName,
                         UpdatedDate = gitFile.UpdatedDate,
+                        CommitId = gitFile.CommitId,
+                        Message = gitFile.Message
                     };
 
                 default:
