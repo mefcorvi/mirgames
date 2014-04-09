@@ -11,6 +11,7 @@ namespace MirGames.Services.Git.QueryHandlers
     using MirGames.Domain.Exceptions;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Queries;
+    using MirGames.Services.Git.Extensions;
     using MirGames.Services.Git.Public.Exceptions;
     using MirGames.Services.Git.Public.Queries;
     using MirGames.Services.Git.Public.ViewModels;
@@ -93,13 +94,17 @@ namespace MirGames.Services.Git.QueryHandlers
                 }
             }
 
-            return tree.Select(
-                indexEntry =>
-                new GitRepositoryFileItemViewModel
+            var entriesWithCommits = gitRepository.GetTreeCommits(tree);
+
+            return entriesWithCommits.Select(
+                indexEntry => new GitRepositoryFileItemViewModel
                 {
-                    Path = string.Format("{0}/{1}{2}", query.RelativePath.TrimEnd('/'), indexEntry.Name, indexEntry.TargetType == TreeEntryTargetType.Tree ? "/" : string.Empty),
-                    Name = indexEntry.Name,
-                    ItemType = GetItemType(indexEntry)
+                    Path = string.Format("{0}/{1}{2}", query.RelativePath.TrimEnd('/'), indexEntry.Key.Name, indexEntry.Key.TargetType == TreeEntryTargetType.Tree ? "/" : string.Empty),
+                    Name = indexEntry.Key.Name,
+                    ItemType = GetItemType(indexEntry.Key),
+                    CommitId = indexEntry.Value.Sha,
+                    Message = indexEntry.Value.MessageShort,
+                    UpdatedDate = indexEntry.Value.Author.When.DateTime
                 })
                 .OrderByDescending(fileItem => fileItem.ItemType)
                 .ThenBy(fileItem => fileItem.Name);

@@ -23,7 +23,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
         private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetWipProjectCommitsQueryHandler" /> class.
+        /// Initializes a new instance of the <see cref="GetWipProjectFilesQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         public GetWipProjectFilesQueryHandler(IQueryProcessor queryProcessor)
@@ -60,7 +60,10 @@ namespace MirGames.Domain.Wip.QueryHandlers
                                {
                                    Name = h.Name,
                                    Path = h.Path,
-                                   ItemType = GetGitItemType(h.ItemType)
+                                   ItemType = GetGitItemType(h.ItemType),
+                                   CommitId = h.CommitId,
+                                   Message = h.Message,
+                                   UpdatedDate = h.UpdatedDate
                                });
                 default:
                     throw new IndexOutOfRangeException(string.Format("{0} is not supported type of repositories.", project.RepositoryType));

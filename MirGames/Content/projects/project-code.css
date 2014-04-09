@@ -373,5 +373,72 @@
   padding-top: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.wip-code-page > section > .files > .file > .file-name {
+  position: relative;
+  float: left;
+  width: 33.33333333%;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+@media (min-width: 992px) {
+  .wip-code-page > section > .files > .file > .file-name {
+    float: left;
+    width: 16.66666667%;
+  }
+}
+.wip-code-page > section > .files > .file > .message {
+  color: #808080;
+  position: relative;
+  float: left;
+  width: 50%;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+@media (min-width: 992px) {
+  .wip-code-page > section > .files > .file > .message {
+    float: left;
+    width: 75%;
+  }
+}
+.wip-code-page > section > .files > .file > .date {
+  color: #8c8c0c;
+  position: relative;
+  float: left;
+  width: 16.66666667%;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  overflow: hidden;
+}
+@media (min-width: 992px) {
+  .wip-code-page > section > .files > .file > .date {
+    float: left;
+    width: 8.33333333%;
+  }
 }
 /*# sourceMappingURL=project-code.css.map */

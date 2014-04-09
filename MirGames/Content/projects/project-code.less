@@ -44,6 +44,32 @@
                 padding-top: @indent/2;
                 padding-bottom: @indent/2;
                 border-bottom: 1px solid #eee;
+
+                .make-row();
+
+                & > .file-name {
+                    .make-md-column(2);
+                    .make-xs-column(4);
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+                
+                & > .message {
+                    color: mix(@background-color, @font-color, 50%);
+                    .make-md-column(9);
+                    .make-xs-column(6);
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+                
+                & > .date {
+                    color: @date-color;
+                    .make-md-column(1);
+                    .make-xs-column(2);
+                    overflow: hidden;
+                }
             }
         }
     }

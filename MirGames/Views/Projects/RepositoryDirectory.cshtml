@@ -7,10 +7,10 @@
     ViewBag.Title = "Исходный код / " + Model.Title;
     PageScriptController = "MirGames.Wip.ProjectPage";
     AddPageCssClass("wip-code-page");
-    var files = (IEnumerable<WipProjectRepositoryItemViewModel>)this.ViewBag.Files;
+    var files = (IEnumerable<WipProjectRepositoryItemViewModel>)ViewBag.Files;
     
-    string parentFolder = this.ViewBag.ParentFolder ?? string.Empty;
-    string[] parentFolders = new [] { this.Model.Title }.Concat(parentFolder.Split(new[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries)).ToArray();
+    string parentFolder = ViewBag.ParentFolder ?? string.Empty;
+    string[] parentFolders = new [] { Model.Title }.Concat(parentFolder.Split(new[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries)).ToArray();
     string currentFolder = parentFolders.Last();
     
     
@@ -47,15 +47,19 @@
     @foreach (var file in files)
     {
         <div class="file">
-            @if (file.ItemType == WipProjectRepositoryItemType.Directory)
-            {
-                        <i class="fa fa-folder"></i>
-            }
-            else
-            {
-                        <i class="fa fa-file-o"></i>
-            }
-            <a href="@getFileUrl(file.Path)">@file.Name</a>
+            <span class="file-name">
+                @if (file.ItemType == WipProjectRepositoryItemType.Directory)
+                {
+                    <i class="fa fa-folder"></i>
+                }
+                else
+                {
+                    <i class="fa fa-file-o"></i>
+                }
+                <a href="@getFileUrl(file.Path)">@file.Name</a>
+            </span>
+            <span class="message">@file.Message</span>
+            <span class="date">@file.UpdatedDate.Format()</span>
         </div>
     }
 </div>

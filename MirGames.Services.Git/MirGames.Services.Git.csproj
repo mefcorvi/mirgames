@@ -99,6 +99,7 @@
     <Compile Include="Entities\RepositoryAccess.cs" />
     <Compile Include="Entities\RepositoryAccessLevel.cs" />
     <Compile Include="EntityMapper.cs" />
+    <Compile Include="Extensions\RepositoryExtensions.cs" />
     <Compile Include="Mapping\RepositoryAccessMap.cs" />
     <Compile Include="Mapping\RepositoryMap.cs" />
     <Compile Include="QueryHandlers\GetRepositoryQueryHandler.cs" />
