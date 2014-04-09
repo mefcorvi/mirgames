@@ -234,6 +234,7 @@ var MirGames;
                 this.editMessage(lastOwnMessage);
             };
 
+            /** Cancels the editing. */
             ChatRoomPage.prototype.cancelEdit = function () {
                 var _this = this;
                 if (!this.$scope.editMode) {
@@ -470,6 +471,7 @@ var MirGames;
                 return scopeMessage;
             };
 
+            /** Checks whether user still have an access to the message */
             ChatRoomPage.prototype.updateAccessRight = function (message) {
                 var _this = this;
                 var messageCreatedMoment = moment(message.date);

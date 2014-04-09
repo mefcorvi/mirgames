@@ -211,6 +211,7 @@ module MirGames.Chat {
             this.editMessage(lastOwnMessage);
         }
 
+        /** Cancels the editing. */
         private cancelEdit(): void {
             if (!this.$scope.editMode) {
                 return;
@@ -440,6 +441,7 @@ module MirGames.Chat {
             return scopeMessage;
         }
 
+        /** Checks whether user still have an access to the message */
         private updateAccessRight(message: IChatMessageScope) {
             var messageCreatedMoment = moment(message.date);
             var isMessageFrozen = messageCreatedMoment.add('m', 5).isBefore();

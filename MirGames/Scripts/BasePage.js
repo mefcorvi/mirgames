@@ -34,7 +34,7 @@ var MirGames;
             var position = item.offset();
 
             if (position) {
-                $('body > section').animate({ scrollTop: position.top }, duration);
+                $('body > section').animate({ scrollTop: position.top + $("body > section").scrollTop() }, duration);
             }
         };
 
