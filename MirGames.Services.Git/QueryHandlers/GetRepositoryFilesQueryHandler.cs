@@ -78,14 +78,15 @@ namespace MirGames.Services.Git.QueryHandlers
             }
 
             var tree = gitRepository.Head.Tip.Tree;
-
-            if (!string.IsNullOrEmpty(query.RelativePath))
+            var relativePath = query.RelativePath.TrimEnd('/', '\\');
+            
+            if (!string.IsNullOrEmpty(relativePath))
             {
-                var treeEntry = gitRepository.Head.Tip[query.RelativePath];
+                var treeEntry = gitRepository.Head.Tip[relativePath];
 
                 if (treeEntry == null)
                 {
-                    throw new RepositoryPathNotFoundException(query.RelativePath);
+                    throw new RepositoryPathNotFoundException(relativePath);
                 }
 
                 if (treeEntry.TargetType == TreeEntryTargetType.Tree)
@@ -99,7 +100,7 @@ namespace MirGames.Services.Git.QueryHandlers
             return entriesWithCommits.Select(
                 indexEntry => new GitRepositoryFileItemViewModel
                 {
-                    Path = string.Format("{0}/{1}{2}", query.RelativePath.TrimEnd('/'), indexEntry.Key.Name, indexEntry.Key.TargetType == TreeEntryTargetType.Tree ? "/" : string.Empty),
+                    Path = string.Format("{0}{1}", indexEntry.Key.Path, indexEntry.Key.TargetType == TreeEntryTargetType.Tree ? "/" : string.Empty),
                     Name = indexEntry.Key.Name,
                     ItemType = GetItemType(indexEntry.Key),
                     CommitId = indexEntry.Value.Sha,
