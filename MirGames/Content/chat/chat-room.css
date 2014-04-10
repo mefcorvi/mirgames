@@ -164,7 +164,7 @@
   overflow: hidden;
   position: relative;
   border: 0;
-  margin-bottom: 5px;
+  margin-bottom: 1px;
 }
 .chat-room-page > section > .chat-messages > .message:hover {
   outline: 1px dashed rgba(0, 0, 0, 0.1);

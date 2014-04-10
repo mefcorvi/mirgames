@@ -458,6 +458,36 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
 }
+.dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .topic-title-block {
+  float: left;
+  width: 66.66666667%;
+  position: relative;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+@media (min-width: 1200px) {
+  .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .topic-title-block {
+    float: left;
+    width: 83.33333333%;
+  }
+}
+.dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .replies-count {
+  float: left;
+  width: 33.33333333%;
+  position: relative;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+@media (min-width: 1200px) {
+  .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .replies-count {
+    float: left;
+    width: 16.66666667%;
+  }
+}
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content:first-child {
   border-top: 0px;
 }

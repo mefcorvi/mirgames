@@ -27,7 +27,7 @@
             padding: @indent;
             .make-xs-column(12);
             .make-sm-column(6);
-            
+
             & > h3 {
                 .page-subtitle();
             }
@@ -55,7 +55,6 @@
 
                     & > .message {
                         .page-block(@indent/4);
-
                         padding-left: @indent - @indent/4;
                         padding-right: @indent - @indent/4;
                         margin-bottom: @indent/3;
@@ -69,15 +68,25 @@
                             border-bottom: 0px;
                             .box-sizing(border-box);
 
+                            & > .topic-title-block {
+                                .make-xs-column(8);
+                                .make-lg-column(10);
+                            }
+
+                            & > .replies-count {
+                                .make-xs-column(4);
+                                .make-lg-column(2);
+                            }
+
                             &:first-child {
                                 border-top: 0px;
                             }
                         }
                     }
 
-                    & > .message:nth-child(odd) {
-                        background: @background-color;
-                    }
+                        & > .message:nth-child(odd) {
+                            background: @background-color;
+                        }
                 }
             }
         }
