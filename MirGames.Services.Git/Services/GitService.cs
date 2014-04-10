@@ -3,8 +3,11 @@ namespace MirGames.Services.Git.Services
     using System;
     using System.Diagnostics.Contracts;
     using System.IO;
+    using System.Linq;
 
     using MirGames.Infrastructure;
+    using MirGames.Infrastructure.Events;
+    using MirGames.Services.Git.Public.Events;
     using MirGames.Services.Git.Public.Services;
 
     using Repository = LibGit2Sharp.Repository;
@@ -27,20 +30,40 @@ namespace MirGames.Services.Git.Services
         private readonly IRepositorySecurity repositorySecurity;
 
         /// <summary>
+        /// The event bus.
+        /// </summary>
+        private readonly IEventBus eventBus;
+
+        /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GitService" /> class.
         /// </summary>
         /// <param name="repositoryPathProvider">The repository path provider.</param>
         /// <param name="settings">The settings.</param>
         /// <param name="repositorySecurity">The repository security.</param>
-        public GitService(IRepositoryPathProvider repositoryPathProvider, ISettings settings, IRepositorySecurity repositorySecurity)
+        /// <param name="eventBus">The event bus.</param>
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GitService(
+            IRepositoryPathProvider repositoryPathProvider,
+            ISettings settings,
+            IRepositorySecurity repositorySecurity,
+            IEventBus eventBus,
+            IReadContextFactory readContextFactory)
         {
             Contract.Requires(repositoryPathProvider != null);
             Contract.Requires(settings != null);
             Contract.Requires(repositorySecurity != null);
+            Contract.Requires(eventBus != null);
 
             this.repositoryPathProvider = repositoryPathProvider;
             this.settings = settings;
             this.repositorySecurity = repositorySecurity;
+            this.eventBus = eventBus;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
@@ -56,6 +79,9 @@ namespace MirGames.Services.Git.Services
             EnsureIsRepository(repositoryPath);
             
             this.RunGitCmd("receive-pack", false, repositoryPath, input, output);
+
+            int repositoryId = this.GetRepositoryId(repositoryName);
+            this.eventBus.Raise(new RepositoryUpdatedEvent { RepositoryId = repositoryId });
         }
 
         /// <inheritdoc />
@@ -101,6 +127,12 @@ namespace MirGames.Services.Git.Services
             }
 
             this.RunGitCmd(service.Substring(4), true, repositoryPath, input, output);
+
+            if (!service.EqualsIgnoreCase("git-upload-pack"))
+            {
+                int repositoryId = this.GetRepositoryId(repositoryName);
+                this.eventBus.Raise(new RepositoryUpdatedEvent { RepositoryId = repositoryId });
+            }
         }
 
         private static void EnsureIsRepository(string repositoryPath)
@@ -192,6 +224,19 @@ namespace MirGames.Services.Git.Services
                 }
 
                 process.WaitForExit();
+            }
+        }
+
+        /// <summary>
+        /// Gets the repository identifier.
+        /// </summary>
+        /// <param name="repositoryName">Name of the repository.</param>
+        /// <returns>The repository identifier.</returns>
+        private int GetRepositoryId(string repositoryName)
+        {
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return readContext.Query<Entities.Repository>().First(r => r.Name == repositoryName).Id;
             }
         }
     }

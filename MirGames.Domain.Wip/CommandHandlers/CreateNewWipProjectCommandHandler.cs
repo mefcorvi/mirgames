@@ -71,6 +71,7 @@
                     AuthorId = userId,
                     BlogId = blogId,
                     CreationDate = DateTime.UtcNow,
+                    UpdatedDate = DateTime.UtcNow,
                     Description = command.Description,
                     FollowersCount = 0,
                     RepositoryId = repositoryId,

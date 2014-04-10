@@ -42,6 +42,7 @@
     <Compile Include="Commands\ArchiveRepositoryCommand.cs" />
     <Compile Include="Commands\DeleteRepositoryCommand.cs" />
     <Compile Include="Commands\InitRepositoryCommand.cs" />
+    <Compile Include="Events\RepositoryUpdatedEvent.cs" />
     <Compile Include="Exceptions\RepositoryAlreadyExistException.cs" />
     <Compile Include="Exceptions\RepositoryPathNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -44,7 +44,7 @@ namespace MirGames.Domain.Wip.Entities
         /// Gets or sets the updated date.
         /// </summary>
         [DateTimeKind(DateTimeKind.Utc)]
-        public DateTime? UpdatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
 
         /// <summary>
         /// Gets or sets the version.

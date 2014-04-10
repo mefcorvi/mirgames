@@ -58,6 +58,7 @@
     <Compile Include="Entities\WorkItemState.cs" />
     <Compile Include="Entities\WorkItemType.cs" />
     <Compile Include="EntityMapper.cs" />
+    <Compile Include="EventListeners\RepositoryUpdatedEventLIstener.cs" />
     <Compile Include="Mapping\ProjectTagMap.cs" />
     <Compile Include="Mapping\ProjectMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,7 +104,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="EventListeners\" />
     <Folder Include="Notifications\" />
     <Folder Include="Security\" />
   </ItemGroup>
