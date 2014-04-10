@@ -405,14 +405,14 @@
 @media (min-width: 992px) {
   .wip-code-page > section > .files > .file > .file-name {
     float: left;
-    width: 16.66666667%;
+    width: 25%;
   }
 }
 .wip-code-page > section > .files > .file > .message {
   color: #808080;
   position: relative;
   float: left;
-  width: 50%;
+  width: 41.66666667%;
   min-height: 1px;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -424,7 +424,7 @@
 @media (min-width: 992px) {
   .wip-code-page > section > .files > .file > .message {
     float: left;
-    width: 75%;
+    width: 66.66666667%;
   }
 }
 .wip-code-page > section > .files > .file > .date {
