@@ -82,8 +82,12 @@
   padding: 3px;
   white-space: nowrap;
 }
+.wip-page > section > .projects-list > .project > .logo > .version b > small {
+  font-size: 10px;
+  color: #6b6f72;
+}
 @media (max-width: 991px) {
-  .wip-page > section > .projects-list > .project > .logo > .version b > .fa {
+  .wip-page > section > .projects-list > .project > .logo > .version b > small {
     display: none;
   }
 }

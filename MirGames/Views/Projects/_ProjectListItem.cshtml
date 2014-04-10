@@ -3,7 +3,7 @@
     <div class="logo">
         <img src="@Model.LogoUrl"/>
         <div class="version" title="Текущая версия">
-            <b><i class="fa fa-gavel"></i>@Model.Version</b>
+            <b><small>v.</small> @Model.Version</b>
             <span class="updated-date">@(Model.UpdatedDate.HasValue ? Html.DisplayFor(m => m.UpdatedDate) : Html.DisplayFor(m => m.CreationDate))</span>
         </div>
     </div>
