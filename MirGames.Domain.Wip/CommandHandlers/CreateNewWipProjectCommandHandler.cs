@@ -54,6 +54,7 @@
 
             command.Alias = command.Alias;
             int userId = principal.GetUserId().GetValueOrDefault();
+            Project project;
 
             using (var writeContext = this.writeContextFactory.Create())
             {
@@ -65,7 +66,7 @@
                 int blogId = this.CreateBlog(command);
                 int repositoryId = this.CreateRepository(command);
                 
-                var project = new Project
+                project = new Project
                 {
                     Alias = command.Alias,
                     AuthorId = userId,
@@ -86,22 +87,27 @@
                 writeContext.Set<Project>().Add(project);
                 writeContext.SaveChanges();
 
-                this.commandProcessor.Execute(new PublishAttachmentsCommand
+                foreach (var tag in command.Tags.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    EntityId = project.ProjectId,
-                    Identifiers = new[] { command.LogoAttachmentId }
-                });
-                
-                this.commandProcessor.Execute(new PublishAttachmentsCommand
-                {
-                    EntityId = project.ProjectId,
-                    Identifiers = command.Attachments
-                });
+                    writeContext.Set<ProjectTag>().Add(new ProjectTag { TagText = tag.Trim(), ProjectId = project.ProjectId });
+                }
 
                 writeContext.SaveChanges();
-
-                return project.Alias;
             }
+
+            this.commandProcessor.Execute(new PublishAttachmentsCommand
+            {
+                EntityId = project.ProjectId,
+                Identifiers = new[] { command.LogoAttachmentId }
+            });
+
+            this.commandProcessor.Execute(new PublishAttachmentsCommand
+            {
+                EntityId = project.ProjectId,
+                Identifiers = command.Attachments
+            });
+
+            return project.Alias;
         }
 
         /// <summary>
