@@ -12,7 +12,7 @@
         @Styles.Render("~/Content/css")
         <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/zenburn.min.css">
+        <link rel="stylesheet" href="@string.Format("{0}://{1}", Request.Url.Scheme, "yandex.st/highlightjs/7.3/styles/zenburn.min.css")">
         @if (!string.IsNullOrEmpty(ViewBag.RssUrl))
         {
             <link rel="alternate" type="application/rss+xml" title="RSS" href="@ViewBag.RssUrl" />

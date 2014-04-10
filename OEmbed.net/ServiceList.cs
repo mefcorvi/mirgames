@@ -12,7 +12,7 @@ namespace OEmbed.Net
         {
             get
             { 
-                return new Service{ApiEndpoint = "http://www.flickr.com/services/oembed/" };
+                return new Service{ApiEndpoint = "https://www.flickr.com/services/oembed/" };
             }
         }
 
@@ -20,7 +20,7 @@ namespace OEmbed.Net
         {
             get
             {
-                return new Service { ApiEndpoint = "http://www.youtube.com/oembed" };
+                return new Service { ApiEndpoint = "https://www.youtube.com/oembed" };
             }
         }
 
@@ -28,7 +28,7 @@ namespace OEmbed.Net
         {
             get
             {
-                return new Service { ApiEndpoint = "http://lab.viddler.com/services/oembed/" };
+                return new Service { ApiEndpoint = "https://lab.viddler.com/services/oembed/" };
             }
         }
 
@@ -36,7 +36,7 @@ namespace OEmbed.Net
         {
             get
             {
-                return new Service { ApiEndpoint = "http://revision3.com/api/oembed/" };
+                return new Service { ApiEndpoint = "https://revision3.com/api/oembed/" };
             }
         }
 
@@ -44,7 +44,7 @@ namespace OEmbed.Net
         {
             get
             {
-                return new Service { ApiEndpoint = "http://revision3.com/api/oembed/" };
+                return new Service { ApiEndpoint = "https://revision3.com/api/oembed/" };
             }
         }
 
@@ -52,7 +52,7 @@ namespace OEmbed.Net
         {
             get
             {
-                return new Service { ApiEndpoint = "http://www.hulu.com/api/oembed.json" };
+                return new Service { ApiEndpoint = "https://www.hulu.com/api/oembed.json" };
             }
         }
 
@@ -60,7 +60,7 @@ namespace OEmbed.Net
         {
             get
             {
-                return new Service { ApiEndpoint = "http://www.vimeo.com/api/oembed.json" };
+                return new Service { ApiEndpoint = "https://www.vimeo.com/api/oembed.json" };
             }
         }
 
@@ -68,7 +68,7 @@ namespace OEmbed.Net
         {
             get
             {
-                return new Service { ApiEndpoint = "http://oohembed.com/oohembed/" };
+                return new Service { ApiEndpoint = "https://oohembed.com/oohembed/" };
             }
         }
 
@@ -76,7 +76,7 @@ namespace OEmbed.Net
         {
             get
             {
-                return new Service { ApiEndpoint = "http://www.polleverywhere.com/services/oembed/" };
+                return new Service { ApiEndpoint = "https://www.polleverywhere.com/services/oembed/" };
             }
         }
 
@@ -84,7 +84,7 @@ namespace OEmbed.Net
         {
             get
             {
-                return new Service { ApiEndpoint = "http://my.opera.com/service/oembed" };
+                return new Service { ApiEndpoint = "https://my.opera.com/service/oembed" };
             }
         }
 
@@ -92,7 +92,7 @@ namespace OEmbed.Net
         {
             get
             {
-                return new Service { ApiEndpoint = "http://widgets.clearspring.com/widget/v1/oembed/" };
+                return new Service { ApiEndpoint = "https://widgets.clearspring.com/widget/v1/oembed/" };
             }
         }
     }

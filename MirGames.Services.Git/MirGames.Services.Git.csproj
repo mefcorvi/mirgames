@@ -79,20 +79,27 @@
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="LibGit2Sharp">
       <HintPath>..\packages\LibGit2Sharp.0.16.0.0\lib\net35\LibGit2Sharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessRules\RepositoryCreateAccessRule.cs" />
+    <Compile Include="CommandHandlers\ArchiveRepositoryCommandHandler.cs" />
     <Compile Include="CommandHandlers\DeleteRepositoryCommandHandler.cs" />
     <Compile Include="CommandHandlers\InitRepositoryCommandHandler.cs" />
     <Compile Include="Entities\Repository.cs" />
@@ -106,6 +113,7 @@
     <Compile Include="QueryHandlers\GetRepositoryFileQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetRepositoryFilesQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetRepositoryHistoryQueryHandler.cs" />
+    <Compile Include="Services\ZipArchiver.cs" />
     <Compile Include="Services\IRepositorySecurity.cs" />
     <Compile Include="Services\RepositoryPathProvider.cs" />
     <Compile Include="Services\IRepositoryPathProvider.cs" />

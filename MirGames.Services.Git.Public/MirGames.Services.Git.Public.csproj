@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\ArchiveRepositoryCommand.cs" />
     <Compile Include="Commands\DeleteRepositoryCommand.cs" />
     <Compile Include="Commands\InitRepositoryCommand.cs" />
     <Compile Include="Exceptions\RepositoryAlreadyExistException.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="ViewModels\GitRepositoryFileItemViewModel.cs" />
     <Compile Include="ViewModels\GitRepositoryHistoryItemViewModel.cs" />
     <Compile Include="Services\IGitService.cs" />
+    <Compile Include="ViewModels\GitRepositoryArchive.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MirGames.Infrastructure\MirGames.Infrastructure.csproj">

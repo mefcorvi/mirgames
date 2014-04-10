@@ -140,6 +140,11 @@
                 new { controller = "Projects", action = "Project" });
 
             routes.MapRouteLowercase(
+                "WipProjectArchive",
+                "project/{projectAlias}/archive",
+                new { controller = "Projects", action = "Archive" });
+
+            routes.MapRouteLowercase(
                 "WipProjectCode",
                 "project/{projectAlias}/code",
                 new { controller = "Projects", action = "Code" });

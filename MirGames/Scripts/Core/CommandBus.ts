@@ -26,11 +26,11 @@ module Core {
             for (var key in obj) {
                 var item = obj[key];
                 if (obj.hasOwnProperty(key) && Utils.isArray(item)) {
-                    delete obj[key];
-
                     for (var i = 0; i < obj[key].length; i++) {
                         obj[key + "[" + i + "]"] = item[i];
                     }
+
+                    delete obj[key];
                 }
             }
         }

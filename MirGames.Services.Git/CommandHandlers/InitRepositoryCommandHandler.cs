@@ -1,6 +1,5 @@
 ﻿namespace MirGames.Services.Git.CommandHandlers
 {
-    using System;
     using System.Diagnostics.Contracts;
     using System.IO;
     using System.Linq;

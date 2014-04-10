@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\ArchiveProjectRepositoryCommand.cs" />
     <Compile Include="Commands\CreateNewWipProjectCommand.cs" />
     <Compile Include="Exceptions\ProjectAlreadyCreatedException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

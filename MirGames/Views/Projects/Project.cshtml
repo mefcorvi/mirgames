@@ -27,6 +27,7 @@
             <span>Адрес репозитория:</span>
             <input type="text" value="@Model.RepositoryUrl" readonly="true" />
             <pre><code>git clone @Model.RepositoryUrl</code></pre>
+            <a href="@Url.Action("Archive", "Projects", new { projectAlias = Model.Alias })">Скачать ZIP архив</a>
         </div>
     }
     @if (topics.Any())

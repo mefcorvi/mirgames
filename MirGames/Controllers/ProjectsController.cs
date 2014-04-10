@@ -4,6 +4,7 @@
     using System.Web.Mvc;
 
     using MirGames.Domain.Attachments.Queries;
+    using MirGames.Domain.Wip.Commands;
     using MirGames.Domain.Wip.Queries;
     using MirGames.Domain.Wip.ViewModels;
     using MirGames.Infrastructure;
@@ -87,6 +88,20 @@
             return View(project);
         }
 
+        /// <inheritdoc />
+        public ActionResult Archive(string projectAlias)
+        {
+            var stream = new MemoryStream();
+            this.CommandProcessor.Execute(new ArchiveProjectRepositoryCommand
+            {
+                OutputStream = stream,
+                ProjectAlias = projectAlias
+            });
+
+            stream.Position = 0;
+            return this.File(stream, "application/zip", projectAlias + ".zip");
+        }
+        
         /// <inheritdoc />
         [Authorize(Roles = "User")]
         public ActionResult New()
