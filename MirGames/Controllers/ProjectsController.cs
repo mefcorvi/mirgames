@@ -101,6 +101,17 @@
             stream.Position = 0;
             return this.File(stream, "application/zip", projectAlias + ".zip");
         }
+
+        /// <inheritdoc />
+        public ActionResult WorkItems(string projectAlias)
+        {
+            var workItems = this.QueryProcessor.Process(new GetProjectWorkItemsQuery
+            {
+                ProjectAlias = projectAlias
+            });
+
+            return this.View(workItems);
+        }
         
         /// <inheritdoc />
         [Authorize(Roles = "User")]

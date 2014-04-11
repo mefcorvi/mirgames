@@ -39,6 +39,8 @@
     <Compile Include="Exceptions\ProjectAlreadyCreatedException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetIsProjectNameUniqueQuery.cs" />
+    <Compile Include="Queries\GetProjectIdQuery.cs" />
+    <Compile Include="Queries\GetProjectWorkItemsQuery.cs" />
     <Compile Include="Queries\GetWipProjectTopicsQuery.cs" />
     <Compile Include="Queries\GetWipProjectCommitsQuery.cs" />
     <Compile Include="Queries\GetWipProjectFileQuery.cs" />
@@ -46,11 +48,14 @@
     <Compile Include="Queries\GetWipProjectQuery.cs" />
     <Compile Include="Queries\GetWipProjectsQuery.cs" />
     <Compile Include="Queries\GetWipTagsQuery.cs" />
+    <Compile Include="ViewModels\ProjectWorkItemViewModel.cs" />
     <Compile Include="ViewModels\WipProjectRepositoryItemViewModel.cs" />
     <Compile Include="ViewModels\WipProjectRepositoryItemType.cs" />
     <Compile Include="ViewModels\WipProjectCommitViewModel.cs" />
     <Compile Include="ViewModels\WipProjectFileViewModel.cs" />
     <Compile Include="ViewModels\WipProjectViewModel.cs" />
+    <Compile Include="ViewModels\WorkItemState.cs" />
+    <Compile Include="ViewModels\WorkItemType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MirGames.Domain.Topics.Public\MirGames.Domain.Topics.Public.csproj">

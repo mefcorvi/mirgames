@@ -1,9 +1,9 @@
-namespace MirGames.Domain.Wip.Entities
+namespace MirGames.Domain.Wip.ViewModels
 {
     /// <summary>
     /// The work item state.
     /// </summary>
-    internal enum WorkItemState
+    public enum WorkItemState
     {
         /// <summary>
         /// The undefined.

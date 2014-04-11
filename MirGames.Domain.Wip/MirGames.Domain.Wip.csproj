@@ -55,13 +55,14 @@
     <Compile Include="Entities\ProjectFollower.cs" />
     <Compile Include="Entities\Project.cs" />
     <Compile Include="Entities\ProjectWorkItem.cs" />
-    <Compile Include="Entities\WorkItemState.cs" />
-    <Compile Include="Entities\WorkItemType.cs" />
     <Compile Include="EntityMapper.cs" />
     <Compile Include="EventListeners\RepositoryUpdatedEventLIstener.cs" />
     <Compile Include="Mapping\ProjectTagMap.cs" />
     <Compile Include="Mapping\ProjectMap.cs" />
+    <Compile Include="Mapping\ProjectWorkItemMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryHandlers\GetProjectIdQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetProjectWorkItemsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetWipProjectCommitsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetWipProjectFileQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetWipProjectFilesQueryHandler.cs" />

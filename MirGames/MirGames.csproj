@@ -905,6 +905,7 @@
     <Content Include="Views\Projects\RepositoryFile.cshtml" />
     <Content Include="Views\Projects\_ProjectInfo.cshtml" />
     <Content Include="Views\Projects\New.cshtml" />
+    <Content Include="Views\Projects\WorkItems.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,13 +1,8 @@
-﻿namespace MirGames.Domain.Wip.Entities
+﻿namespace MirGames.Domain.Wip.ViewModels
 {
     using System;
 
-    using MirGames.Domain.Wip.ViewModels;
-
-    /// <summary>
-    /// The project work item.
-    /// </summary>
-    internal sealed class ProjectWorkItem
+    public class ProjectWorkItemViewModel
     {
         /// <summary>
         /// Gets or sets the work item unique identifier.
