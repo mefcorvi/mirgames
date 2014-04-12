@@ -1,5 +1,5 @@
-﻿@model IEnumerable<OnlineUserViewModel>
-@using MirGames.Domain.Users.ViewModels
+﻿@using MirGames.Domain.Users.ViewModels
+@model IEnumerable<OnlineUserViewModel>
 
 <div @Html.Css("online-users").Add("ng-hide", ViewBag.OnlineUsers.Count == 0) ng-controller="MirGames.OnlineUsersController" ng-show="users.length > 0">
     <h3>Онлайн</h3>

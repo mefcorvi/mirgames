@@ -14,6 +14,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OEmbed.Net", "OEmbed.net\OEmbed.Net.csproj", "{05776309-1B77-4270-91EF-5AF0165DF408}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{51E6A10C-8DA3-44F1-8803-2875B2D1EBF2}"
+	ProjectSection(SolutionItems) = preProject
+		License.md = License.md
+		MirGames.sln.DotSettings = MirGames.sln.DotSettings
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirgames.Domain.Attachments", "Mirgames.Domain.Attachments\Mirgames.Domain.Attachments.csproj", "{0FF05985-BED2-4C23-9236-3E8DBB5738DD}"
 EndProject
