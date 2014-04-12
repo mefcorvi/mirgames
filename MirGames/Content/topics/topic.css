@@ -44,7 +44,7 @@
   display: block;
 }
 .topic-page > section > header > ul.tags > li a {
-  background: #838f97;
+  background: #818d96;
   color: #ffffff;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -62,7 +62,7 @@
 .topic-page > section > header > ul.tags > li a:hover,
 .topic-page > section > header > ul.tags > li a:active,
 .topic-page > section > header > ul.tags > li a:focus {
-  background: #525b62;
+  background: #515a60;
   color: #ffffff;
 }
 .topic-page > section > header > ul.tags > li:last-child {
@@ -124,7 +124,7 @@
   display: block;
 }
 .topic-page > section > article > footer > ul.tags > li a {
-  background: #838f97;
+  background: #818d96;
   color: #ffffff;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -142,7 +142,7 @@
 .topic-page > section > article > footer > ul.tags > li a:hover,
 .topic-page > section > article > footer > ul.tags > li a:active,
 .topic-page > section > article > footer > ul.tags > li a:focus {
-  background: #525b62;
+  background: #515a60;
   color: #ffffff;
 }
 .topic-page > section > article > footer > ul.tags > li:last-child {

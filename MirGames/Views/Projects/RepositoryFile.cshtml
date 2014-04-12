@@ -21,27 +21,29 @@
 
 @Html.Partial("_ProjectInfo", Model)
 
-<h4>
-    @{ string currentPath = "/"; }
-    <ul class="parent-folders">
-        @for (int index = 0; index < parentFolders.Length; index++)
-        {
-            var folder = parentFolders[index];
-            if (index > 0)
+<section>
+    <h4>
+        @{ string currentPath = "/"; }
+        <ul class="parent-folders">
+            @for (int index = 0; index < parentFolders.Length; index++)
             {
-                currentPath += folder + "/";
+                var folder = parentFolders[index];
+                if (index > 0)
+                {
+                    currentPath += folder + "/";
+                }
+                <li><a href="@getFileUrl(currentPath)">@folder</a></li>
             }
-            <li><a href="@getFileUrl(currentPath)">@folder</a></li>
-        }
-        <li class="file-name">@file.FileName</li>
-    </ul>
-</h4>
-<div class="file-block">
-    <span class="message">
-        @file.Message
-    </span>
-    <span class="date">
-        @file.UpdatedDate.Format()
-    </span>
-    <pre><code @Html.Css("file-content").Add(Path.GetExtension(file.FileName).TrimStart('.'))>@file.Content</code></pre>
-</div>
+            <li class="file-name">@file.FileName</li>
+        </ul>
+    </h4>
+    <div class="file-block">
+        <span class="message">
+            @file.Message
+        </span>
+        <span class="date">
+            @file.UpdatedDate.Format()
+        </span>
+        <pre><code @Html.Css("file-content").Add(Path.GetExtension(file.FileName).TrimStart('.'))>@file.Content</code></pre>
+    </div>
+</section>

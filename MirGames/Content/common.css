@@ -145,12 +145,12 @@ body > .notification-block {
 }
 body > .notification-block a {
   text-decoration: underline;
-  color: #25628f;
+  color: #24618d;
 }
 body > .notification-block a:active,
 body > .notification-block a:hover,
 body > .notification-block a:focus {
-  color: #d04a97;
+  color: #d04796;
 }
 body > .notification-block a:hover,
 body > .notification-block a:focus,
@@ -169,7 +169,7 @@ body > .notification-block > .notification-sent {
   padding-bottom: 10px;
   padding-left: 20px;
   padding-right: 20px;
-  background: #8f2562;
+  background: #8d2461;
   color: #ffffff;
 }
 body > section {
@@ -181,8 +181,7 @@ body > section {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   margin-left: 430px;
-  background: #ffffff;
-  background: rgba(39, 67, 89, 0.15);
+  background: #ebeff2 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHklEQVQIW2NkQAU8jEh8HiD7C0wAzAFJggTgHJAAAEXuAxENWNU1AAAAAElFTkSuQmCC) repeat;
   z-index: 5;
   position: relative;
   margin-top: 0;
@@ -195,12 +194,12 @@ body > section {
 }
 body > section a {
   text-decoration: underline;
-  color: #25628f;
+  color: #24618d;
 }
 body > section a:active,
 body > section a:hover,
 body > section a:focus {
-  color: #d04a97;
+  color: #d04796;
 }
 body > section a:hover,
 body > section a:focus,
@@ -266,7 +265,7 @@ body > header > nav > .profile-section > a .counter {
   top: 50%;
   right: 5px;
   padding: 5px;
-  background: #8f2562;
+  background: #8d2461;
   color: #ffffff;
   line-height: 1em;
   margin-top: -11px;
@@ -274,7 +273,7 @@ body > header > nav > .profile-section > a .counter {
 }
 body > header > nav > a .counter:hover,
 body > header > nav > .profile-section > a .counter:hover {
-  background: #661b46;
+  background: #641a45;
 }
 body > header > nav > a.disabled,
 body > header > nav > .profile-section > a.disabled {
@@ -288,7 +287,7 @@ body > header > nav > a:focus,
 body > header > nav > .profile-section > a:focus,
 body > header > nav > a.selected,
 body > header > nav > .profile-section > a.selected {
-  color: #d04a97;
+  color: #d04796;
   outline: 0;
 }
 body > header > nav > a.add-topic .fa,
@@ -380,7 +379,7 @@ body > nav .subsection a.avatar-link img {
 }
 body > nav a > .counter {
   float: right;
-  background: #8c8c8c;
+  background: #8b8b8b;
   color: #ffffff;
   width: 20px;
   height: 20px;
@@ -423,7 +422,7 @@ body > nav > .section-content a:active,
 body > nav > .section-content a:focus {
   background: rgba(255, 255, 255, 0.7);
   outline: 0;
-  color: #d04a97;
+  color: #d04796;
 }
 body > nav > .section-content a:hover.selected,
 body > nav > .section-content a:active.selected,
@@ -493,7 +492,7 @@ body.nav-hidden > footer {
   bottom: 7px;
   overflow: auto;
   padding: 10px 10px 10px 25px;
-  background: #f9fbfc;
+  background: #f7f9fb;
   z-index: 2;
 }
 .avatar-small {
@@ -544,7 +543,7 @@ body.nav-hidden > footer {
   color: #ffffff;
 }
 .pagination a:hover {
-  color: #d04a97;
+  color: #d04796;
 }
 .pagination span {
   color: #999;
@@ -568,11 +567,11 @@ body.nav-hidden > footer {
   height: 100%;
 }
 .pagination > ol > li > a:hover {
-  background: #f6f0f4;
+  background: #f5eef2;
 }
 .pagination > ol > li.page > span.current-page {
-  background: #405e74;
-  border: 1px solid #25628f;
+  background: #3f5d72;
+  border: 1px solid #24618d;
   color: #ffffff;
 }
 ul.share {
@@ -594,12 +593,12 @@ ul.share > li > a {
   height: 14px;
   text-align: center;
   line-height: 14px;
-  background: #375f7d;
+  background: #365e7b;
   color: #ffffff;
   padding: 5px;
 }
 ul.share > li > a:hover {
-  background: #d04a97;
+  background: #d04796;
   color: #ffffff;
 }
 [ng\:cloak],
@@ -621,7 +620,7 @@ body > header > .online-users > .user {
   margin-right: 4px;
 }
 body > header > .online-users > .user.user-in-chat img {
-  border: 1px solid #72aedb;
+  border: 1px solid #70adda;
 }
 body > header > .online-users > .user.user-in-chat .fa-comments {
   display: block;
@@ -630,7 +629,7 @@ body > header > .online-users > .user.user-in-chat .fa-pencil {
   display: none;
 }
 body > header > .online-users > .user.chat-writing img {
-  border: 1px solid #d04a97;
+  border: 1px solid #d04796;
 }
 body > header > .online-users > .user.chat-writing .fa-comments {
   display: none;
@@ -648,13 +647,19 @@ body > header > .online-users > .user i.fa {
   font-size: 15px;
 }
 body > header > .online-users > .user .fa-comments {
-  color: #c3ddf0;
+  color: #c1dcef;
 }
 body > header > .online-users > .user .fa-pencil {
   color: #f3f371;
 }
 body > header > .online-users > h3 {
   margin-bottom: 5px;
+}
+.data-loading {
+  width: 130px;
+  text-align: center;
+  padding: 5px;
+  background: url("images/ajax-loader.gif") no-repeat center center;
 }
 .page-notification {
   position: fixed;

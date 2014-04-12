@@ -1,0 +1,62 @@
+﻿body {} @import "../settings.less";
+@import "mixins.less";
+
+.wip-workitems-page {
+    & > section {
+        .project-info();
+
+        & > section {
+            .indent();
+
+            h3 {
+                .page-title();
+            }
+
+            h4 {
+                .page-subtitle();
+            }
+
+            .tracker-items {
+                .page-block();
+
+                .tracker-item {
+                    padding-top: @indent/2;
+                    padding-bottom: @indent/2;
+                    border-bottom: 1px solid @border-color;
+                    .make-row();
+
+                    & > .item-type {
+                        .make-xs-column(1);
+                        width: 20px;
+                    }
+
+                    & > .item-state {
+                        .make-xs-column(1);
+                    }
+
+                    & > .title {
+                        .make-xs-column(9);
+                        .flex-grow(1);
+                    }
+
+                    & > .internal-id {
+                        .make-xs-column(1);
+                        text-align: right;
+                    }
+
+                    &.Bug {
+                    }
+
+                    &.Task {
+                    }
+
+                    &.Open {
+                    }
+
+                    &.Close {
+                    }
+                }
+            }
+        }
+    }
+}

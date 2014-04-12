@@ -54,7 +54,7 @@
 }
 .modal > .dialog-container .dialog-notification {
   padding: 10px 20px;
-  background: #d4d9dc;
+  background: #d4d9db;
   border-top: 1px solid #b9bfc4;
   border-bottom: 1px solid #9da6ad;
   color: #000000;
@@ -72,12 +72,12 @@
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 12px;
   display: block;
-  background: #6c92ae;
+  background: #6a91ad;
   float: left;
   padding: 5px 10px;
   text-decoration: none;
   color: #ffffff;
-  border: 1px solid #527995;
+  border: 1px solid #517793;
   text-shadow: 0px 0px 4px #000;
   margin-right: 4px;
   line-height: 20px;
@@ -89,8 +89,8 @@
 .buttons > a:hover,
 .buttons > a:active,
 .buttons > a:focus {
-  background: #ae6c92;
-  border: 1px solid #955279;
+  background: #ad6a91;
+  border: 1px solid #935177;
   color: #ffffff;
   text-decoration: none;
 }

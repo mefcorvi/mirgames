@@ -1,16 +1,43 @@
 ﻿@using MirGames.Domain.Wip.ViewModels
-@model IEnumerable<ProjectWorkItemViewModel>
+@model WipProjectViewModel
+@{
+    ViewBag.Title = "Баг-трекер / " + Model.Title;
+    AddPageCssClass("wip-workitems-page");
+    PageScriptController = "MirGames.Wip.ProjectWorkItemPage";
+}
 
 @section Nav
 {
+    @Html.Partial("_ProjectMenu", Model)
 }
+    
+@Html.Partial("_ProjectInfo", Model)
 
-<h3>Work Items</h3>
-@foreach (var workItem in Model)
-{
-    <div>
-        @workItem.CreatedDate
-        @workItem.Title
-        @workItem.Description
+<section>
+    <h4>Баг-трекер</h4>
+    <div class="tracker-items">
+        <div ng-class="['tracker-item', item.type, item.state]" ng-repeat="item in items" ng-cloak>
+            <div class="item-type">
+                <span class="bug-type" title="Баг" ng-show="item.type == 'Bug'"><i class="fa fa-bug"></i></span>
+                <span class="task-type" title="Задача" ng-show="item.type == 'Task'"><i class="fa fa-tasks"></i></span>
+            </div>
+            <div class="item-state dropdown">
+                <a class="dropdown-toggle" ng-show="item.state == 'Open'">Открыто</a>
+                <a class="dropdown-toggle" ng-show="item.state == 'Closed'">Закрыто</a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a>Открыто</a>
+                        <a>Закрыто</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="title">
+                {{item.title}}
+            </div>
+            <div class="internal-id">
+                #{{item.internalId}}
+            </div>
+        </div>
+        <div class="data-loading" ng-hide="dataLoaded"></div>
     </div>
-}
+</section>

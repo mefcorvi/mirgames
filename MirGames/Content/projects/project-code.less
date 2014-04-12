@@ -3,75 +3,76 @@
 
 .wip-code-page {
     & > section {
-        .indent();
-
         .project-info();
 
-        h3 {
-            .page-title();
-        }
+        & > section {
+            .indent();
 
-        h4 {
-            .page-subtitle();
+            h3 {
+                .page-title();
+            }
 
-            .parent-folders {
-                list-style: none;
-                overflow: hidden;
+            h4 {
+                .page-subtitle();
 
-                li {
-                    display: inline-block;
-                    float: left;
-                    margin-right: 2px;
+                .parent-folders {
+                    list-style: none;
+                    overflow: hidden;
 
-                    &:after {
-                        content: "/";
-                        margin-left: 2px;
+                    li {
+                        display: inline-block;
+                        float: left;
+                        margin-right: 2px;
+
+                        &:after {
+                            content: "/";
+                            margin-left: 2px;
+                        }
                     }
                 }
             }
-        }
 
-        & > .files {
-            .page-block(@indent/2);
+            & > .files {
+                .page-block(@indent/2);
 
-            i {
-                .font-size(1.5);
-                margin-right: @indent/6;
-            }
-
-            & > .file {
-                padding-top: @indent/2;
-                padding-bottom: @indent/2;
-                border-bottom: 1px solid #eee;
-
-                .make-row();
-
-                .fa-folder {
-                    color: @date-color;
+                i {
+                    .font-size(1.5);
+                    margin-right: @indent/6;
                 }
 
-                & > .file-name {
-                    .make-md-column(3);
-                    .make-xs-column(4);
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                    white-space: nowrap;
-                }
-                
-                & > .message {
-                    color: mix(@background-color, @font-color, 50%);
-                    .make-md-column(8);
-                    .make-xs-column(5);
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                    white-space: nowrap;
-                }
-                
-                & > .date {
-                    color: @date-color;
-                    .make-md-column(1);
-                    .make-xs-column(2);
-                    overflow: hidden;
+                & > .file {
+                    padding-top: @indent/2;
+                    padding-bottom: @indent/2;
+                    border-bottom: 1px solid #eee;
+                    .make-row();
+
+                    .fa-folder {
+                        color: @date-color;
+                    }
+
+                    & > .file-name {
+                        .make-md-column(3);
+                        .make-xs-column(4);
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
+
+                    & > .message {
+                        color: mix(@background-color, @font-color, 50%);
+                        .make-md-column(8);
+                        .make-xs-column(5);
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
+
+                    & > .date {
+                        color: @date-color;
+                        .make-md-column(1);
+                        .make-xs-column(2);
+                        overflow: hidden;
+                    }
                 }
             }
         }

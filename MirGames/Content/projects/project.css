@@ -1,15 +1,12 @@
-﻿.wip-project-page > section {
+﻿.wip-project-page > section > .project-info-block > .project-description {
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 20px;
   padding-right: 20px;
-}
-.wip-project-page > section > .project-description {
   background: #ffffff;
-  padding: 10px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-bottom: 5px solid #c3cfd7;
+  border-bottom: 0;
   overflow: hidden;
-  margin-bottom: 20px;
   display: -webkit-flex;
   display: -moz-flex;
   display: -ms-flexbox;
@@ -24,10 +21,17 @@
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
-.wip-project-page > section > .project-description .fa {
+.wip-project-page > section > .project-info-block > .project-description > h3 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+  padding-bottom: 0;
+  text-shadow: 1px 1px 4px #ffffff;
+}
+.wip-project-page > section > .project-info-block > .project-description .fa {
   margin-right: 5px;
 }
-.wip-project-page > section > .project-description > .logo {
+.wip-project-page > section > .project-info-block > .project-description > .logo {
   float: left;
   width: 16.66666667%;
   position: relative;
@@ -36,66 +40,30 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   text-align: center;
+  padding-right: 20px;
 }
 @media (min-width: 768px) {
-  .wip-project-page > section > .project-description > .logo {
+  .wip-project-page > section > .project-info-block > .project-description > .logo {
     float: left;
     width: 16.66666667%;
   }
 }
 @media (min-width: 992px) {
-  .wip-project-page > section > .project-description > .logo {
+  .wip-project-page > section > .project-info-block > .project-description > .logo {
     float: left;
     width: 8.33333333%;
   }
 }
-.wip-project-page > section > .project-description > .logo > img {
+.wip-project-page > section > .project-info-block > .project-description > .logo > img {
   max-width: 100%;
   max-height: 200px;
+  border: 1px solid #eeeeee;
+  padding: 2px;
+  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
 }
-.wip-project-page > section > .project-description > .logo > .version {
-  margin-top: 5px;
-  font-family: "Droid Sans", Tahoma, sans-serif;
-  text-align: center;
-}
-@media (min-width: 480px) {
-  .wip-project-page > section > .project-description > .logo > .version {
-    font-size: 12px;
-  }
-}
-@media (min-width: 1200px) {
-  .wip-project-page > section > .project-description > .logo > .version {
-    font-size: 14px;
-  }
-}
-.wip-project-page > section > .project-description > .logo > .version b {
-  background: #d7dfe5;
-  font-weight: normal;
-  color: #000000;
-  padding: 3px;
-  white-space: nowrap;
-}
-@media (max-width: 991px) {
-  .wip-project-page > section > .project-description > .logo > .version b > .fa {
-    display: none;
-  }
-}
-.wip-project-page > section > .project-description > .logo > .version > .updated-date {
-  display: block;
-  margin-top: 5px;
-  color: #8c8c0c;
-}
-@media (min-width: 480px) {
-  .wip-project-page > section > .project-description > .logo > .version > .updated-date {
-    font-size: 10px;
-  }
-}
-@media (min-width: 1200px) {
-  .wip-project-page > section > .project-description > .logo > .version > .updated-date {
-    font-size: 12px;
-  }
-}
-.wip-project-page > section > .project-description > .project-info {
+.wip-project-page > section > .project-info-block > .project-description > .project-info {
   overflow: hidden;
   float: left;
   width: 83.33333333%;
@@ -104,30 +72,29 @@
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  padding-left: 10px;
   padding-right: 10px;
 }
 @media (min-width: 768px) {
-  .wip-project-page > section > .project-description > .project-info {
+  .wip-project-page > section > .project-info-block > .project-description > .project-info {
     float: left;
     width: 66.66666667%;
   }
 }
 @media (min-width: 992px) {
-  .wip-project-page > section > .project-description > .project-info {
+  .wip-project-page > section > .project-info-block > .project-description > .project-info {
     float: left;
     width: 75%;
   }
 }
-.wip-project-page > section > .project-description > .project-info > h1 {
+.wip-project-page > section > .project-info-block > .project-description > .project-info > h1 {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 18px;
 }
-.wip-project-page > section > .project-description > .project-info > .project-description {
+.wip-project-page > section > .project-info-block > .project-description > .project-info > .project-description {
   padding: 10px 0;
   max-height: 200px;
 }
-.wip-project-page > section > .project-description > .project-info > footer {
+.wip-project-page > section > .project-info-block > .project-description > .project-info > footer {
   display: -webkit-flex;
   display: -moz-flex;
   display: -ms-flexbox;
@@ -143,7 +110,7 @@
   flex-wrap: wrap;
   font-size: 11px;
 }
-.wip-project-page > section > .project-description > .project-info > footer > .user-login {
+.wip-project-page > section > .project-info-block > .project-description > .project-info > footer > .user-login {
   overflow: hidden;
   float: left;
   width: 100%;
@@ -155,34 +122,34 @@
   font-weight: bold;
 }
 @media (min-width: 768px) {
-  .wip-project-page > section > .project-description > .project-info > footer > .user-login {
+  .wip-project-page > section > .project-info-block > .project-description > .project-info > footer > .user-login {
     float: left;
     width: 100%;
   }
 }
 @media (min-width: 992px) {
-  .wip-project-page > section > .project-description > .project-info > footer > .user-login {
+  .wip-project-page > section > .project-info-block > .project-description > .project-info > footer > .user-login {
     float: left;
     width: 25%;
   }
 }
 @media (min-width: 992px) {
-  .wip-project-page > section > .project-description > .project-info > footer > .user-login {
+  .wip-project-page > section > .project-info-block > .project-description > .project-info > footer > .user-login {
     max-width: 150px;
   }
 }
 @media (max-width: 767px) {
-  .wip-project-page > section > .project-description > .project-info > footer > .user-login > .avatar {
+  .wip-project-page > section > .project-info-block > .project-description > .project-info > footer > .user-login > .avatar {
     display: none;
   }
-  .wip-project-page > section > .project-description > .project-info > footer > .user-login > span {
+  .wip-project-page > section > .project-info-block > .project-description > .project-info > footer > .user-login > span {
     margin-left: 0;
   }
 }
-.wip-project-page > section > .project-description > .project-info > footer > .user-login span {
+.wip-project-page > section > .project-info-block > .project-description > .project-info > footer > .user-login span {
   margin-top: 3px;
 }
-.wip-project-page > section > .project-description > .project-info > footer > .creation-date {
+.wip-project-page > section > .project-info-block > .project-description > .project-info > footer > .creation-date {
   float: left;
   width: 66.66666667%;
   position: relative;
@@ -194,21 +161,105 @@
   color: #999;
 }
 @media (min-width: 768px) {
-  .wip-project-page > section > .project-description > .project-info > footer > .creation-date {
+  .wip-project-page > section > .project-info-block > .project-description > .project-info > footer > .creation-date {
     float: left;
     width: 41.66666667%;
   }
 }
 @media (min-width: 992px) {
-  .wip-project-page > section > .project-description > .project-info > footer > .creation-date {
+  .wip-project-page > section > .project-info-block > .project-description > .project-info > footer > .creation-date {
     float: left;
     width: 16.66666667%;
   }
 }
-.wip-project-page > section > .project-description > .project-info > footer > .followers-count {
+.wip-project-page > section > .project-info-block > .project-short-info {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  margin-bottom: 10px;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  background: #f5f7f8;
+  border: 0;
+  border-top: 1px solid #ebeff2;
+  border-bottom: 5px solid #c3cfd7;
+}
+.wip-project-page > section > .project-info-block > .project-short-info .fa {
+  margin-right: 5px;
+}
+.wip-project-page > section > .project-info-block > .project-short-info > .version {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  position: relative;
   float: left;
   width: 16.66666667%;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  width: auto;
+  margin-right: 10px;
+}
+@media (min-width: 480px) {
+  .wip-project-page > section > .project-info-block > .project-short-info > .version {
+    font-size: 12px;
+  }
+}
+@media (min-width: 1200px) {
+  .wip-project-page > section > .project-info-block > .project-short-info > .version {
+    font-size: 14px;
+  }
+}
+.wip-project-page > section > .project-info-block > .project-short-info > .version b {
+  background: #d7dfe5;
+  font-weight: normal;
+  color: #000000;
+  padding: 3px;
+  white-space: nowrap;
+}
+@media (max-width: 991px) {
+  .wip-project-page > section > .project-info-block > .project-short-info > .version b > .fa {
+    display: none;
+  }
+}
+.wip-project-page > section > .project-info-block > .project-short-info > .updated-date {
+  display: block;
   position: relative;
+  float: left;
+  width: 16.66666667%;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  color: #8c8c0c;
+  width: auto;
+  margin-right: 10px;
+}
+@media (min-width: 480px) {
+  .wip-project-page > section > .project-info-block > .project-short-info > .updated-date {
+    font-size: 10px;
+  }
+}
+@media (min-width: 1200px) {
+  .wip-project-page > section > .project-info-block > .project-short-info > .updated-date {
+    font-size: 12px;
+  }
+}
+.wip-project-page > section > .project-info-block > .project-short-info > .followers-count {
+  position: relative;
+  float: left;
+  width: 16.66666667%;
   min-height: 1px;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -216,33 +267,23 @@
   font-family: "Droid Sans", Tahoma, sans-serif;
   max-width: 50px;
   text-align: center;
-}
-@media (min-width: 768px) {
-  .wip-project-page > section > .project-description > .project-info > footer > .followers-count {
-    float: left;
-    width: 16.66666667%;
-  }
-}
-@media (min-width: 992px) {
-  .wip-project-page > section > .project-description > .project-info > footer > .followers-count {
-    float: left;
-    width: 8.33333333%;
-  }
+  width: auto;
+  margin-right: 10px;
 }
 @media (min-width: 480px) {
-  .wip-project-page > section > .project-description > .project-info > footer > .followers-count {
+  .wip-project-page > section > .project-info-block > .project-short-info > .followers-count {
     font-size: 11px;
   }
 }
 @media (min-width: 768px) {
-  .wip-project-page > section > .project-description > .project-info > footer > .followers-count {
+  .wip-project-page > section > .project-info-block > .project-short-info > .followers-count {
     font-size: 12px;
   }
 }
-.wip-project-page > section > .project-description > .project-info > footer > .votes {
+.wip-project-page > section > .project-info-block > .project-short-info > .votes {
+  position: relative;
   float: left;
   width: 16.66666667%;
-  position: relative;
   min-height: 1px;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -250,51 +291,43 @@
   font-family: "Droid Sans", Tahoma, sans-serif;
   max-width: 50px;
   text-align: center;
-}
-@media (min-width: 768px) {
-  .wip-project-page > section > .project-description > .project-info > footer > .votes {
-    float: left;
-    width: 16.66666667%;
-  }
-}
-@media (min-width: 992px) {
-  .wip-project-page > section > .project-description > .project-info > footer > .votes {
-    float: left;
-    width: 8.33333333%;
-  }
+  width: auto;
+  margin-right: 10px;
 }
 @media (min-width: 480px) {
-  .wip-project-page > section > .project-description > .project-info > footer > .votes {
+  .wip-project-page > section > .project-info-block > .project-short-info > .votes {
     font-size: 11px;
   }
 }
 @media (min-width: 768px) {
-  .wip-project-page > section > .project-description > .project-info > footer > .votes {
+  .wip-project-page > section > .project-info-block > .project-short-info > .votes {
     font-size: 12px;
   }
 }
-.wip-project-page > section > .project-description > .project-info > footer > ul.tags {
+.wip-project-page > section > .project-info-block > .project-short-info > ul.tags {
   overflow: hidden;
   list-style-type: none;
   font-size: 11px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  float: left;
-  width: 100%;
   position: relative;
+  float: left;
+  width: 33.33333333%;
   min-height: 1px;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  -webkit-flex-grow: 1;
+  -moz-flex-grow: 1;
+  -ms-flex-grow: 1;
+  flex-grow: 1;
 }
-.wip-project-page > section > .project-description > .project-info > footer > ul.tags > li {
-  float: left;
+.wip-project-page > section > .project-info-block > .project-short-info > ul.tags > li {
+  float: right;
   margin-right: 2px;
   margin-bottom: 2px;
   display: block;
 }
-.wip-project-page > section > .project-description > .project-info > footer > ul.tags > li a {
-  background: #838f97;
+.wip-project-page > section > .project-info-block > .project-short-info > ul.tags > li a {
+  background: #818d96;
   color: #ffffff;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -304,40 +337,34 @@
   overflow: hidden;
   text-decoration: none;
 }
-.wip-project-page > section > .project-description > .project-info > footer > ul.tags > li a:active,
-.wip-project-page > section > .project-description > .project-info > footer > ul.tags > li a:hover,
-.wip-project-page > section > .project-description > .project-info > footer > ul.tags > li a:focus {
+.wip-project-page > section > .project-info-block > .project-short-info > ul.tags > li a:active,
+.wip-project-page > section > .project-info-block > .project-short-info > ul.tags > li a:hover,
+.wip-project-page > section > .project-info-block > .project-short-info > ul.tags > li a:focus {
   color: #ffffff;
 }
-.wip-project-page > section > .project-description > .project-info > footer > ul.tags > li a:hover,
-.wip-project-page > section > .project-description > .project-info > footer > ul.tags > li a:active,
-.wip-project-page > section > .project-description > .project-info > footer > ul.tags > li a:focus {
-  background: #525b62;
+.wip-project-page > section > .project-info-block > .project-short-info > ul.tags > li a:hover,
+.wip-project-page > section > .project-info-block > .project-short-info > ul.tags > li a:active,
+.wip-project-page > section > .project-info-block > .project-short-info > ul.tags > li a:focus {
+  background: #515a60;
   color: #ffffff;
 }
-.wip-project-page > section > .project-description > .project-info > footer > ul.tags > li:last-child {
+.wip-project-page > section > .project-info-block > .project-short-info > ul.tags > li:last-child {
   margin-right: 0;
 }
-@media (min-width: 768px) {
-  .wip-project-page > section > .project-description > .project-info > footer > ul.tags {
-    float: left;
-    width: 100%;
-  }
+.wip-project-page > section > section {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
-@media (min-width: 992px) {
-  .wip-project-page > section > .project-description > .project-info > footer > ul.tags {
-    float: left;
-    width: 41.66666667%;
-  }
-}
-.wip-project-page > section h3 {
+.wip-project-page > section > section h3 {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 24px;
   margin-bottom: 10px;
   padding-bottom: 0;
   text-shadow: 1px 1px 4px #ffffff;
 }
-.wip-project-page > section h4 {
+.wip-project-page > section > section h4 {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 24px;
   margin-bottom: 10px;
@@ -347,7 +374,7 @@
   font-size: 16px;
   padding-bottom: 0;
 }
-.wip-project-page > section .screenshots {
+.wip-project-page > section > section .screenshots {
   background: #ffffff;
   padding: 20px 20px;
   border: 1px solid rgba(0, 0, 0, 0.15);
@@ -357,7 +384,7 @@
   list-style-type: none;
   white-space: nowrap;
 }
-.wip-project-page > section .screenshots li {
+.wip-project-page > section > section .screenshots li {
   display: inline-block;
   padding: 5px;
   box-sizing: border-box;
@@ -365,11 +392,11 @@
   -moz-box-sizing: border-box;
   max-width: 20%;
 }
-.wip-project-page > section .screenshots li img {
+.wip-project-page > section > section .screenshots li img {
   min-width: 128px;
   height: 128px;
 }
-.wip-project-page > section .aside-section {
+.wip-project-page > section > section .aside-section {
   position: relative;
   min-height: 1px;
   box-sizing: border-box;
@@ -377,36 +404,36 @@
   -moz-box-sizing: border-box;
 }
 @media (min-width: 1200px) {
-  .wip-project-page > section .aside-section {
+  .wip-project-page > section > section .aside-section {
     float: left;
     width: 25%;
   }
 }
-.wip-project-page > section .aside-section .commits {
+.wip-project-page > section > section .aside-section .commits {
   background: #ffffff;
   padding: 20px 20px;
   border: 1px solid rgba(0, 0, 0, 0.15);
 }
-.wip-project-page > section .aside-section .commits .commit {
+.wip-project-page > section > section .aside-section .commits .commit {
   overflow: hidden;
   margin-bottom: 20px;
 }
-.wip-project-page > section .aside-section .commits .commit:last-child {
+.wip-project-page > section > section .aside-section .commits .commit:last-child {
   margin-bottom: 0;
 }
-.wip-project-page > section .aside-section .commits .commit .user-name {
+.wip-project-page > section > section .aside-section .commits .commit .user-name {
   color: #808080;
 }
-.wip-project-page > section .aside-section .commits .commit .date {
+.wip-project-page > section > section .aside-section .commits .commit .date {
   color: #8c8c0c;
 }
-.wip-project-page > section .repository-url {
+.wip-project-page > section > section .repository-url {
   background: #ffffff;
   padding: 20px 20px;
   border: 1px solid rgba(0, 0, 0, 0.15);
   margin-bottom: 20px;
 }
-.wip-project-page > section .repository-url input {
+.wip-project-page > section > section .repository-url input {
   margin-top: 5px;
   color: #808080;
   width: 100%;
@@ -429,25 +456,25 @@
   -webkit-transition-timing-function: ease;
   transition-timing-function: ease;
 }
-.wip-project-page > section .repository-url input.ng-invalid,
-.wip-project-page > section .repository-url input:invalid {
+.wip-project-page > section > section .repository-url input.ng-invalid,
+.wip-project-page > section > section .repository-url input:invalid {
   border: 1px solid rgba(150, 0, 0, 0.2);
 }
-.wip-project-page > section .repository-url input:active,
-.wip-project-page > section .repository-url input:focus {
+.wip-project-page > section > section .repository-url input:active,
+.wip-project-page > section > section .repository-url input:focus {
   -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.01), 0 0 5px rgba(54, 94, 123, 0.3);
   -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.01), 0 0 5px rgba(54, 94, 123, 0.3);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.01), 0 0 5px rgba(54, 94, 123, 0.3);
 }
-.wip-project-page > section .repository-url input:active.ng-invalid,
-.wip-project-page > section .repository-url input:focus.ng-invalid,
-.wip-project-page > section .repository-url input:active:invalid,
-.wip-project-page > section .repository-url input:focus:invalid {
+.wip-project-page > section > section .repository-url input:active.ng-invalid,
+.wip-project-page > section > section .repository-url input:focus.ng-invalid,
+.wip-project-page > section > section .repository-url input:active:invalid,
+.wip-project-page > section > section .repository-url input:focus:invalid {
   -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.01), 0 0 5px rgba(150, 0, 0, 0.2);
   -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.01), 0 0 5px rgba(150, 0, 0, 0.2);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.01), 0 0 5px rgba(150, 0, 0, 0.2);
 }
-.wip-project-page > section .main-section {
+.wip-project-page > section > section .main-section {
   position: relative;
   min-height: 1px;
   box-sizing: border-box;
@@ -456,12 +483,12 @@
   padding-right: 20px;
 }
 @media (min-width: 1200px) {
-  .wip-project-page > section .main-section {
+  .wip-project-page > section > section .main-section {
     float: left;
     width: 75%;
   }
 }
-.wip-project-page > section .blog-posts > .message {
+.wip-project-page > section > section .blog-posts > .message {
   background: #ffffff;
   padding: 20px 20px;
   border: 1px solid rgba(0, 0, 0, 0.15);
@@ -469,37 +496,37 @@
   margin-bottom: 10px;
   margin-top: 10px;
 }
-.wip-project-page > section .blog-posts > .message > .message-content {
+.wip-project-page > section > section .blog-posts > .message > .message-content {
   overflow: hidden;
 }
-.wip-project-page > section .blog-posts > .message > .message-content > header {
+.wip-project-page > section > section .blog-posts > .message > .message-content > header {
   font-size: 12px;
   position: relative;
   padding-right: 90px;
 }
-.wip-project-page > section .blog-posts > .message > .message-content > header a.topic-title {
+.wip-project-page > section > section .blog-posts > .message > .message-content > header a.topic-title {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 18px;
-  color: #2f7eb8;
+  color: #2f7db5;
 }
-.wip-project-page > section .blog-posts > .message > .message-content > header a.topic-title:active,
-.wip-project-page > section .blog-posts > .message > .message-content > header a.topic-title:hover,
-.wip-project-page > section .blog-posts > .message > .message-content > header a.topic-title:focus {
-  color: #b82f7e;
+.wip-project-page > section > section .blog-posts > .message > .message-content > header a.topic-title:active,
+.wip-project-page > section > section .blog-posts > .message > .message-content > header a.topic-title:hover,
+.wip-project-page > section > section .blog-posts > .message > .message-content > header a.topic-title:focus {
+  color: #b52f7d;
 }
-.wip-project-page > section .blog-posts > .message > .message-content > header span {
+.wip-project-page > section > section .blog-posts > .message > .message-content > header span {
   font-size: 10px;
   position: absolute;
   right: 0px;
   top: 0px;
   color: #8c8c0c;
 }
-.wip-project-page > section .blog-posts > .message > .message-content > footer {
+.wip-project-page > section > section .blog-posts > .message > .message-content > footer {
   position: relative;
   overflow: hidden;
   font-size: 11px;
 }
-.wip-project-page > section .blog-posts > .message > .message-content > footer .user-login {
+.wip-project-page > section > section .blog-posts > .message > .message-content > footer .user-login {
   float: left;
   display: block;
   height: 24px;
@@ -507,26 +534,26 @@
   margin-right: 15px;
   font-weight: bold;
 }
-.wip-project-page > section .blog-posts > .message > .message-content > footer .answers-link {
+.wip-project-page > section > section .blog-posts > .message > .message-content > footer .answers-link {
   float: left;
   display: block;
   height: 24px;
   line-height: 24px;
 }
-.wip-project-page > section .blog-posts > .message > .message-content > footer > ul {
+.wip-project-page > section > section .blog-posts > .message > .message-content > footer > ul {
   overflow: hidden;
   list-style-type: none;
   font-size: 11px;
   float: right;
 }
-.wip-project-page > section .blog-posts > .message > .message-content > footer > ul > li {
+.wip-project-page > section > section .blog-posts > .message > .message-content > footer > ul > li {
   float: left;
   margin-right: 2px;
   margin-bottom: 2px;
   display: block;
 }
-.wip-project-page > section .blog-posts > .message > .message-content > footer > ul > li a {
-  background: #838f97;
+.wip-project-page > section > section .blog-posts > .message > .message-content > footer > ul > li a {
+  background: #818d96;
   color: #ffffff;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -536,28 +563,28 @@
   overflow: hidden;
   text-decoration: none;
 }
-.wip-project-page > section .blog-posts > .message > .message-content > footer > ul > li a:active,
-.wip-project-page > section .blog-posts > .message > .message-content > footer > ul > li a:hover,
-.wip-project-page > section .blog-posts > .message > .message-content > footer > ul > li a:focus {
+.wip-project-page > section > section .blog-posts > .message > .message-content > footer > ul > li a:active,
+.wip-project-page > section > section .blog-posts > .message > .message-content > footer > ul > li a:hover,
+.wip-project-page > section > section .blog-posts > .message > .message-content > footer > ul > li a:focus {
   color: #ffffff;
 }
-.wip-project-page > section .blog-posts > .message > .message-content > footer > ul > li a:hover,
-.wip-project-page > section .blog-posts > .message > .message-content > footer > ul > li a:active,
-.wip-project-page > section .blog-posts > .message > .message-content > footer > ul > li a:focus {
-  background: #525b62;
+.wip-project-page > section > section .blog-posts > .message > .message-content > footer > ul > li a:hover,
+.wip-project-page > section > section .blog-posts > .message > .message-content > footer > ul > li a:active,
+.wip-project-page > section > section .blog-posts > .message > .message-content > footer > ul > li a:focus {
+  background: #515a60;
   color: #ffffff;
 }
-.wip-project-page > section .blog-posts > .message > .message-content > footer > ul > li:last-child {
+.wip-project-page > section > section .blog-posts > .message > .message-content > footer > ul > li:last-child {
   margin-right: 0;
 }
-.wip-project-page > section .blog-posts > .message > .message-content p {
+.wip-project-page > section > section .blog-posts > .message > .message-content p {
   line-height: 140%;
   margin-bottom: 10px;
 }
-.wip-project-page > section .blog-posts > .message > .message-content > div {
+.wip-project-page > section > section .blog-posts > .message > .message-content > div {
   margin: 5px 0px 10px 0px;
 }
-.wip-project-page > section .blog-posts > .message > .avatar {
+.wip-project-page > section > section .blog-posts > .message > .avatar {
   float: left;
   width: 30px;
   height: 30px;

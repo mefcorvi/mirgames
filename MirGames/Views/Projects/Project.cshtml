@@ -19,57 +19,59 @@
 
 @Html.Partial("_ProjectInfo", Model)
 
-<div class="main-section">
-    @if (!string.IsNullOrEmpty(Model.RepositoryUrl))
-    {
-        <h4>Репозиторий</h4>
-        <div class="repository-url">
-            <span>Адрес репозитория:</span>
-            <input type="text" value="@Model.RepositoryUrl" readonly="true" />
-            <pre><code>git clone @Model.RepositoryUrl</code></pre>
-            <a href="@Url.Action("Archive", "Projects", new { projectAlias = Model.Alias })">Скачать ZIP архив</a>
-        </div>
-    }
-    @if (topics.Any())
-    {
-        <h4>Блог</h4>
-        <div class="blog-posts">
-            @foreach (var topic in topics)
-            {
-                @Html.Partial("../Topics/_TopicListItem", topic)
-            }
-        </div>
-    }
-</div>
+<section>
+    <div class="main-section">
+        @if (!string.IsNullOrEmpty(Model.RepositoryUrl))
+        {
+            <h4>Репозиторий</h4>
+            <div class="repository-url">
+                <span>Адрес репозитория:</span>
+                <input type="text" value="@Model.RepositoryUrl" readonly="true" />
+                <pre><code>git clone @Model.RepositoryUrl</code></pre>
+                <a href="@Url.Action("Archive", "Projects", new { projectAlias = Model.Alias })">Скачать ZIP архив</a>
+            </div>
+        }
+        @if (topics.Any())
+        {
+            <h4>Блог</h4>
+            <div class="blog-posts">
+                @foreach (var topic in topics)
+                {
+                    @Html.Partial("../Topics/_TopicListItem", topic)
+                }
+            </div>
+        }
+    </div>
 
-<div class="aside-section">
-    @if (images.Any())
-    {
-        <h4>Скриншоты</h4>
-        <ul class="screenshots">
-            @foreach (var attachment in images)
-            {
-                <li>
-                    <img src="@attachment.AttachmentUrl" />
-                </li>
-            }
-        </ul>
-    }
-    @if (commits.Any())
-    {
-        <h4>История</h4>
-        <div class="commits">
-            @foreach (var commit in commits)
-            {
-                <div class="commit">
-                    <span class="date">@commit.Date.Format()</span>
-                    <div class="text">
-                        @commit.Message
+    <div class="aside-section">
+        @if (images.Any())
+        {
+            <h4>Скриншоты</h4>
+            <ul class="screenshots">
+                @foreach (var attachment in images)
+                {
+                    <li>
+                        <img src="@attachment.AttachmentUrl" />
+                    </li>
+                }
+            </ul>
+        }
+        @if (commits.Any())
+        {
+            <h4>История</h4>
+            <div class="commits">
+                @foreach (var commit in commits)
+                {
+                    <div class="commit">
+                        <span class="date">@commit.Date.Format()</span>
+                        <div class="text">
+                            @commit.Message
+                        </div>
+                        <span class="user-name">@commit.Author.Login</span>
+                        @*<a href="@Url.Action("Profile", "Users", new { userId = commit.Author.Id })" class="user-login avatar-link"><img src="@commit.Author.AvatarUrl" class="avatar avatar-tiny" /><span>@commit.Author.Login</span></a>*@
                     </div>
-                    <span class="user-name">@commit.Author.Login</span>
-                    @*<a href="@Url.Action("Profile", "Users", new { userId = commit.Author.Id })" class="user-login avatar-link"><img src="@commit.Author.AvatarUrl" class="avatar avatar-tiny" /><span>@commit.Author.Login</span></a>*@
-                </div>
-            }
-        </div>
-    }
-</div>
+                }
+            </div>
+        }
+    </div>
+</section>

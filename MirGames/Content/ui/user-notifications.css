@@ -29,7 +29,7 @@
   width: auto;
   padding: 5px;
   max-width: 600px;
-  background: rgba(190, 208, 221, 0.8);
+  background: rgba(189, 208, 221, 0.8);
 }
 .user-notification-block .user-notification.is-hiding {
   opacity: 0;

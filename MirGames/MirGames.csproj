@@ -433,6 +433,9 @@
     <Content Include="Content\common.css.map">
       <DependentUpon>common.css</DependentUpon>
     </Content>
+    <Content Include="Content\projects\project-work-items.css">
+      <DependentUpon>project-work-items.less</DependentUpon>
+    </Content>
     <Content Include="Content\quick-date.css.map">
       <DependentUpon>quick-date.css</DependentUpon>
     </Content>
@@ -460,6 +463,9 @@
     <Content Include="Content\quick-date.less" />
     <Content Include="Content\quick-date.css">
       <DependentUpon>quick-date.less</DependentUpon>
+    </Content>
+    <Content Include="Content\ui\dropdown.css">
+      <DependentUpon>dropdown.less</DependentUpon>
     </Content>
     <Content Include="Content\ui\user-notifications.css">
       <DependentUpon>user-notifications.less</DependentUpon>
@@ -584,6 +590,7 @@
     <TypeScriptCompile Include="Scripts\Account\SignUpFormController.ts" />
     <TypeScriptCompile Include="Scripts\Libs\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\projects\NewProjectPage.ts" />
+    <TypeScriptCompile Include="Scripts\projects\ProjectWorkItemPage.ts" />
     <TypeScriptCompile Include="Scripts\Topics\Topic.ts" />
     <TypeScriptCompile Include="Scripts\Settings.ts" />
     <TypeScriptCompile Include="Scripts\Core\Config.ts" />
@@ -592,6 +599,11 @@
     <TypeScriptCompile Include="Scripts\RequestNotificationController.ts" />
     <TypeScriptCompile Include="Scripts\Forum\TopicsPage.ts" />
     <TypeScriptCompile Include="Scripts\Forum\TopicPage.ts" />
+    <TypeScriptCompile Include="Scripts\TypeLite.d.ts">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TypeLite.tt</DependentUpon>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Scripts\UI\TextEditor.ts" />
     <TypeScriptCompile Include="Scripts\Forum\NewTopic.ts" />
     <TypeScriptCompile Include="Scripts\Forum\SearchPanelController.ts" />
@@ -684,11 +696,6 @@
     <TypeScriptCompile Include="Scripts\Tools\EventLogPage.ts" />
     <TypeScriptCompile Include="Scripts\Topics\DeleteCommentDialogController.ts" />
     <TypeScriptCompile Include="Scripts\Topics\EditCommentDialogController.ts" />
-    <Content Include="Scripts\TypeLite.d.ts">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TypeLite.tt</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\UI\NotificationService.ts" />
     <TypeScriptCompile Include="Scripts\UI\DateInput.ts" />
     <TypeScriptCompile Include="Scripts\UI\File.ts" />
@@ -813,6 +820,32 @@
     <Content Include="Content\projects\project-new.less" />
     <Content Include="Content\projects\project-new.css.map">
       <DependentUpon>project-new.css</DependentUpon>
+    </Content>
+    <Content Include="Content\projects\project-work-items.less" />
+    <Content Include="Content\projects\project-work-items.css.map">
+      <DependentUpon>project-work-items.css</DependentUpon>
+    </Content>
+    <Content Include="Content\ui\dropdown.less" />
+    <Content Include="Content\ui\dropdown.css.map">
+      <DependentUpon>dropdown.css</DependentUpon>
+    </Content>
+    <Content Include="Content\settings.css.map">
+      <DependentUpon>settings.css</DependentUpon>
+    </Content>
+    <Content Include="Content\topics\mixins.css.map">
+      <DependentUpon>mixins.css</DependentUpon>
+    </Content>
+    <Content Include="Content\users\mixins.css.map">
+      <DependentUpon>mixins.css</DependentUpon>
+    </Content>
+    <Content Include="Content\projects\mixins.css.map">
+      <DependentUpon>mixins.css</DependentUpon>
+    </Content>
+    <Content Include="Content\dashboard\mixins.css.map">
+      <DependentUpon>mixins.css</DependentUpon>
+    </Content>
+    <Content Include="Content\forum\mixins.css.map">
+      <DependentUpon>mixins.css</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <Content Include="Scripts\Commands.tt">

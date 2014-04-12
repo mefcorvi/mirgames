@@ -24,41 +24,43 @@
 
 @Html.Partial("_ProjectInfo", Model)
 
-<h4>
-    @{ string currentPath = "/"; }
-    <ul class="parent-folders">
-        @for (int index = 0; index < parentFolders.Length - 1; index++)
-        {
-            var folder = parentFolders[index];
-            if (index > 0)
+<section>
+    <h4>
+        @{ string currentPath = "/"; }
+        <ul class="parent-folders">
+            @for (int index = 0; index < parentFolders.Length - 1; index++)
             {
-                currentPath += folder + "/";
+                var folder = parentFolders[index];
+                if (index > 0)
+                {
+                    currentPath += folder + "/";
+                }
+                <li><a href="@getFileUrl(currentPath)">@folder</a></li>
             }
-            <li><a href="@getFileUrl(currentPath)">@folder</a></li>
-        }
-        @if (!currentFolder.IsNullOrEmpty())
+            @if (!currentFolder.IsNullOrEmpty())
+            {
+                <li>@currentFolder</li>
+            }
+        </ul>
+    </h4>
+    <div class="files">
+        @foreach (var file in files)
         {
-            <li>@currentFolder</li>
+            <div class="file">
+                <span class="file-name">
+                    @if (file.ItemType == WipProjectRepositoryItemType.Directory)
+                    {
+                        <i class="fa fa-folder"></i>
+                    }
+                    else
+                    {
+                        <i class="fa fa-file-o"></i>
+                    }
+                    <a href="@getFileUrl(file.Path)">@file.Name</a>
+                </span>
+                <span class="message">@file.Message</span>
+                <span class="date">@file.UpdatedDate.Format()</span>
+            </div>
         }
-    </ul>
-</h4>
-<div class="files">
-    @foreach (var file in files)
-    {
-        <div class="file">
-            <span class="file-name">
-                @if (file.ItemType == WipProjectRepositoryItemType.Directory)
-                {
-                    <i class="fa fa-folder"></i>
-                }
-                else
-                {
-                    <i class="fa fa-file-o"></i>
-                }
-                <a href="@getFileUrl(file.Path)">@file.Name</a>
-            </span>
-            <span class="message">@file.Message</span>
-            <span class="date">@file.UpdatedDate.Format()</span>
-        </div>
-    }
-</div>
+    </div>
+</section>

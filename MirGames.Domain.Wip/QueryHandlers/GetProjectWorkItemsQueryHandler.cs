@@ -6,6 +6,7 @@
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace MirGames.Domain.Wip.QueryHandlers
 {
     using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Users.ViewModels;
     using MirGames.Domain.Wip.Entities;
     using MirGames.Domain.Wip.Queries;
     using MirGames.Domain.Wip.ViewModels;
@@ -56,13 +58,19 @@ namespace MirGames.Domain.Wip.QueryHandlers
             {
                 CreatedDate = x.CreatedDate,
                 Description = x.Description,
+                InternalId = x.InternalId,
                 ItemType = x.ItemType,
                 ProjectId = x.ProjectId,
                 State = x.State,
                 TagsList = x.TagsList,
                 Title = x.Title,
                 UpdatedDate = x.UpdatedDate,
-                WorkItemId = x.WorkItemId
+                WorkItemId = x.WorkItemId,
+                Author = new AuthorViewModel { Id = x.AuthorId },
+                Duration = x.Duration,
+                EndDate = x.EndDate,
+                ParentId = x.ParentId,
+                StartDate = x.StartDate
             });
         }
 

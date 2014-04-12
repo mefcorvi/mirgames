@@ -48,6 +48,8 @@ interface SingleItemQuery1 extends MirGames.Infrastructure.Queries.Query1 {
 }
 interface Query1 extends MirGames.Infrastructure.Queries.Query {
 }
+interface Query1 extends MirGames.Infrastructure.Queries.Query {
+}
 }
 declare module MirGames.Domain.Tools.Queries {
 interface GetEventLogQuery extends MirGames.Infrastructure.Queries.Query1 {
@@ -406,16 +408,52 @@ declare module MirGames.Domain.Wip.Queries {
 interface GetIsProjectNameUniqueQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
   Alias: string;
 }
+interface GetProjectWorkItemsQuery extends MirGames.Infrastructure.Queries.Query1 {
+  ProjectAlias: string;
+}
 }
 declare module MirGames.Domain.Wip.ViewModels {
+enum WorkItemState {
+  Undefined = 0,
+  Open = 1,
+  Closed = 2,
+  Active = 3,
+  Queued = 4
+}
+enum WorkItemType {
+  Undefined = 0,
+  Bug = 1,
+  Task = 2,
+  Feature = 3
+}
 enum WipProjectRepositoryItemType {
   Other = 0,
   File = 1,
   Directory = 2
 }
+interface ProjectWorkItemViewModel {
+  WorkItemId: number;
+  InternalId: number;
+  ProjectId: number;
+  Title: string;
+  Description: string;
+  TagsList: string;
+  State: MirGames.Domain.Wip.ViewModels.WorkItemState;
+  CreatedDate: Date;
+  UpdatedDate: Date;
+  ItemType: MirGames.Domain.Wip.ViewModels.WorkItemType;
+  StartDate: Date;
+  EndDate: Date;
+  Duration: System.TimeSpan;
+  ParentId: number;
+  Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
+}
 interface WipProjectRepositoryItemViewModel {
   Path: string;
   Name: string;
+  UpdatedDate: Date;
+  CommitId: string;
+  Message: string;
   ItemType: MirGames.Domain.Wip.ViewModels.WipProjectRepositoryItemType;
 }
 interface WipProjectCommitViewModel {
@@ -426,6 +464,8 @@ interface WipProjectCommitViewModel {
 interface WipProjectFileViewModel {
   FileName: string;
   UpdatedDate: Date;
+  CommitId: string;
+  Message: string;
   Content: string;
   IsPreview: boolean;
 }
@@ -444,6 +484,21 @@ interface WipProjectViewModel {
   Votes: number;
   FollowersCount: number;
   RepositoryUrl: string;
+}
+}
+declare module System {
+interface TimeSpan {
+  Ticks: number;
+  Days: number;
+  Hours: number;
+  Milliseconds: number;
+  Minutes: number;
+  Seconds: number;
+  TotalDays: number;
+  TotalHours: number;
+  TotalMilliseconds: number;
+  TotalMinutes: number;
+  TotalSeconds: number;
 }
 }
 declare module MirGames.Infrastructure.Logging {

@@ -56,12 +56,12 @@
 .user-topics-page > section > .topics-list > .message > .message-content > header a.topic-title {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 18px;
-  color: #2f7eb8;
+  color: #2f7db5;
 }
 .user-topics-page > section > .topics-list > .message > .message-content > header a.topic-title:active,
 .user-topics-page > section > .topics-list > .message > .message-content > header a.topic-title:hover,
 .user-topics-page > section > .topics-list > .message > .message-content > header a.topic-title:focus {
-  color: #b82f7e;
+  color: #b52f7d;
 }
 .user-topics-page > section > .topics-list > .message > .message-content > header span {
   font-size: 10px;
@@ -102,7 +102,7 @@
   display: block;
 }
 .user-topics-page > section > .topics-list > .message > .message-content > footer > ul > li a {
-  background: #838f97;
+  background: #818d96;
   color: #ffffff;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -120,7 +120,7 @@
 .user-topics-page > section > .topics-list > .message > .message-content > footer > ul > li a:hover,
 .user-topics-page > section > .topics-list > .message > .message-content > footer > ul > li a:active,
 .user-topics-page > section > .topics-list > .message > .message-content > footer > ul > li a:focus {
-  background: #525b62;
+  background: #515a60;
   color: #ffffff;
 }
 .user-topics-page > section > .topics-list > .message > .message-content > footer > ul > li:last-child {

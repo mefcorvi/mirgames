@@ -104,7 +104,7 @@
   height: 24px;
   text-align: center;
   display: block;
-  color: #527995;
+  color: #517793;
   border: 1px solid transparent;
   -moz-transition-property: background-color, border, color;
   -o-transition-property: background-color, border, color;
@@ -122,13 +122,13 @@
 }
 .tiny-editor div.mdd_toolbar a.mdd_button.selected,
 .tiny-editor div.mdd_toolbar a.mdd_button.selected:hover {
-  background-color: #2e4353;
+  background-color: #2d4251;
   color: #ffffff;
 }
 .tiny-editor div.mdd_toolbar a.mdd_button:hover {
   color: #000;
-  background-color: #f0f4f6;
-  border: 1px solid #8daac0;
+  background-color: #eef2f5;
+  border: 1px solid #8ba9bf;
 }
 .tiny-editor span.mdd_sep {
   width: 5px;
@@ -148,7 +148,7 @@
   color: #404040;
 }
 .tiny-editor div.mdd_links a:hover {
-  color: #d04a97;
+  color: #d04796;
 }
 .tiny-editor textarea.mdd_editor {
   resize: none;

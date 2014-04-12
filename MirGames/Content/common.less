@@ -132,8 +132,7 @@ body {
         height: 100%;
         .box-sizing(border-box);
         margin-left: @menu-width + @section-width;
-        background: @background-color;
-        background: rgba(39, 67, 89, 0.15);
+        background: mix(@background-color, @header-background, 90%) url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHklEQVQIW2NkQAU8jEh8HiD7C0wAzAFJggTgHJAAAEXuAxENWNU1AAAAAElFTkSuQmCC) repeat;
         z-index: 5;
         position: relative;
         margin-top: 0;
@@ -589,6 +588,13 @@ body > header > .online-users {
     & > h3 {
         margin-bottom: 5px;
     }
+}
+
+.data-loading {
+    width: 130px;
+    text-align: center;
+    padding: 5px;
+    background: url("images/ajax-loader.gif") no-repeat center center;
 }
 
 .page-notification {

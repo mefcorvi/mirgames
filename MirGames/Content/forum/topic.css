@@ -15,7 +15,7 @@
 }
 .forum-topic-page > section > .topic-posts > .message.unread {
   padding-left: 5px;
-  border-left: 5px solid #ddd6da;
+  border-left: 5px solid #dbd4d9;
 }
 .forum-topic-page > section > .topic-posts > .message > .message-index {
   display: block;
@@ -23,14 +23,14 @@
   margin-top: 9px;
   right: 5px;
   font-size: 11px;
-  color: #25628f;
+  color: #24618d;
   width: 30px;
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .forum-topic-page > section > .topic-posts > .message > .message-index:hover {
-  color: #d04a97;
+  color: #d04796;
 }
 .forum-topic-page > section > .topic-posts > .message > header {
   margin-left: 42px;
@@ -151,7 +151,7 @@
   display: block;
 }
 .forum-topic-page > section > header > ul.tags > li a {
-  background: #838f97;
+  background: #818d96;
   color: #ffffff;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -169,7 +169,7 @@
 .forum-topic-page > section > header > ul.tags > li a:hover,
 .forum-topic-page > section > header > ul.tags > li a:active,
 .forum-topic-page > section > header > ul.tags > li a:focus {
-  background: #525b62;
+  background: #515a60;
   color: #ffffff;
 }
 .forum-topic-page > section > header > ul.tags > li:last-child {

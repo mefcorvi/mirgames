@@ -305,7 +305,7 @@
   display: block;
 }
 .wip-page > section > .projects-list > .project > .project-info > footer > ul.tags > li a {
-  background: #838f97;
+  background: #818d96;
   color: #ffffff;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -323,7 +323,7 @@
 .wip-page > section > .projects-list > .project > .project-info > footer > ul.tags > li a:hover,
 .wip-page > section > .projects-list > .project > .project-info > footer > ul.tags > li a:active,
 .wip-page > section > .projects-list > .project > .project-info > footer > ul.tags > li a:focus {
-  background: #525b62;
+  background: #515a60;
   color: #ffffff;
 }
 .wip-page > section > .projects-list > .project > .project-info > footer > ul.tags > li:last-child {

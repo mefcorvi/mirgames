@@ -1,0 +1,103 @@
+﻿.dropdown {
+  position: relative;
+}
+.dropdown-toggle {
+  cursor: pointer;
+}
+.dropdown-toggle:focus {
+  outline: 0;
+}
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: -10px;
+  z-index: 1000;
+  opacity: 0;
+  float: left;
+  padding: 0;
+  visibility: hidden;
+  margin: 2px 0 0;
+  font-size: 12px;
+  list-style: none;
+  background-color: #f9fafb;
+  border: 1px solid #c3cfd7;
+  background-clip: padding-box;
+  -moz-transition: visibility 0s linear 0.1s, opacity 0.1s ease-in;
+  -o-transition: visibility 0s linear 0.1s, opacity 0.1s ease-in;
+  -webkit-transition: visibility 0s linear 0.1s, opacity 0.1s ease-in;
+  transition: visibility 0s linear 0.1s, opacity 0.1s ease-in;
+}
+.dropdown-menu.pull-right {
+  right: 0;
+  left: auto;
+}
+.dropdown-menu .divider {
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #ebeff2;
+}
+.dropdown-menu > li > a {
+  display: block;
+  padding: 5px 10px;
+  clear: both;
+  white-space: nowrap;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  cursor: pointer;
+  text-decoration: none;
+  background-color: #f1f4f6;
+}
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #428bca;
+  outline: 0;
+}
+.dropdown-menu > .disabled > a,
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
+  color: #999;
+}
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:hover:hover,
+.dropdown-menu > .disabled > a:focus:hover,
+.dropdown-menu > .disabled > a:focus,
+.dropdown-menu > .disabled > a:hover:focus,
+.dropdown-menu > .disabled > a:focus:focus {
+  text-decoration: none;
+  cursor: not-allowed;
+  background-color: transparent;
+  background-image: none;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+.open > .dropdown-menu {
+  -moz-transition-delay: 0s;
+  -o-transition-delay: 0s;
+  -webkit-transition-delay: 0s;
+  transition-delay: 0s;
+  visibility: visible;
+  opacity: 1;
+}
+.open > a {
+  outline: 0;
+}
+.dropdown-header {
+  display: block;
+  padding: 3px 20px;
+  font-size: 12px;
+  line-height: 1.428571429;
+  color: #999;
+}
+.dropdown-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 990;
+}
+/*# sourceMappingURL=dropdown.css.map */

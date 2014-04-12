@@ -6,6 +6,7 @@
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace MirGames.Domain.Wip.Entities
 {
     using System;
@@ -21,6 +22,11 @@ namespace MirGames.Domain.Wip.Entities
         /// Gets or sets the work item unique identifier.
         /// </summary>
         public int WorkItemId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the internal identifier.
+        /// </summary>
+        public int InternalId { get; set; }
 
         /// <summary>
         /// Gets or sets the project unique identifier.
@@ -73,9 +79,18 @@ namespace MirGames.Domain.Wip.Entities
         public DateTime? EndDate { get; set; }
 
         /// <summary>
+        /// Gets or sets the duration in ticks.
+        /// </summary>
+        public int? DurationInSeconds { get; set; }
+
+        /// <summary>
         /// Gets or sets the duration.
         /// </summary>
-        public int? Duration { get; set; }
+        public TimeSpan? Duration
+        {
+            get { return this.DurationInSeconds == null ? (TimeSpan?)null : TimeSpan.FromSeconds(this.DurationInSeconds.Value); }
+            set { this.DurationInSeconds = value == null ? null : (int?)value.Value.TotalSeconds; }
+        }
 
         /// <summary>
         /// Gets or sets the parent identifier.

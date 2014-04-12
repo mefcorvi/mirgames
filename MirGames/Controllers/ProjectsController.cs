@@ -113,12 +113,23 @@ namespace MirGames.Controllers
         /// <inheritdoc />
         public ActionResult WorkItems(string projectAlias)
         {
+            var project = this.QueryProcessor.Process(
+                new GetWipProjectQuery
+                {
+                    Alias = projectAlias
+                });
+
             var workItems = this.QueryProcessor.Process(new GetProjectWorkItemsQuery
             {
                 ProjectAlias = projectAlias
             });
 
-            return this.View(workItems);
+            this.ViewBag.SubSection = "WorkItems";
+
+            this.PageData["projectAlias"] = project.Alias;
+            this.PageData["workItems"] = workItems;
+
+            return this.View(project);
         }
         
         /// <inheritdoc />

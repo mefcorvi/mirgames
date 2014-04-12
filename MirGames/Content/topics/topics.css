@@ -53,12 +53,12 @@ body > nav > h1 .syndication:hover {
 .topics-page > section > .topics-list > .message > .message-content > header a.topic-title {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 18px;
-  color: #2f7eb8;
+  color: #2f7db5;
 }
 .topics-page > section > .topics-list > .message > .message-content > header a.topic-title:active,
 .topics-page > section > .topics-list > .message > .message-content > header a.topic-title:hover,
 .topics-page > section > .topics-list > .message > .message-content > header a.topic-title:focus {
-  color: #b82f7e;
+  color: #b52f7d;
 }
 .topics-page > section > .topics-list > .message > .message-content > header span {
   font-size: 10px;
@@ -99,7 +99,7 @@ body > nav > h1 .syndication:hover {
   display: block;
 }
 .topics-page > section > .topics-list > .message > .message-content > footer > ul > li a {
-  background: #838f97;
+  background: #818d96;
   color: #ffffff;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -117,7 +117,7 @@ body > nav > h1 .syndication:hover {
 .topics-page > section > .topics-list > .message > .message-content > footer > ul > li a:hover,
 .topics-page > section > .topics-list > .message > .message-content > footer > ul > li a:active,
 .topics-page > section > .topics-list > .message > .message-content > footer > ul > li a:focus {
-  background: #525b62;
+  background: #515a60;
   color: #ffffff;
 }
 .topics-page > section > .topics-list > .message > .message-content > footer > ul > li:last-child {

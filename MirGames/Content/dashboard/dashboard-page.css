@@ -27,8 +27,19 @@
   text-shadow: 1px 1px 4px #ffffff;
 }
 .dashboard-page > section > .welcome {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
   background: #ffffff;
   border-bottom: 5px solid #c3cfd7;
+}
+.dashboard-page > section > .welcome > h3 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+  padding-bottom: 0;
+  text-shadow: 1px 1px 4px #ffffff;
 }
 .dashboard-page > section > section {
   overflow: hidden;
@@ -90,12 +101,12 @@
 .dashboard-page > section > section.blog-subsection > .topics-list > .message > .message-content > header a.topic-title {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 18px;
-  color: #2f7eb8;
+  color: #2f7db5;
 }
 .dashboard-page > section > section.blog-subsection > .topics-list > .message > .message-content > header a.topic-title:active,
 .dashboard-page > section > section.blog-subsection > .topics-list > .message > .message-content > header a.topic-title:hover,
 .dashboard-page > section > section.blog-subsection > .topics-list > .message > .message-content > header a.topic-title:focus {
-  color: #b82f7e;
+  color: #b52f7d;
 }
 .dashboard-page > section > section.blog-subsection > .topics-list > .message > .message-content > header span {
   font-size: 10px;
@@ -136,7 +147,7 @@
   display: block;
 }
 .dashboard-page > section > section.blog-subsection > .topics-list > .message > .message-content > footer > ul > li a {
-  background: #838f97;
+  background: #818d96;
   color: #ffffff;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -154,7 +165,7 @@
 .dashboard-page > section > section.blog-subsection > .topics-list > .message > .message-content > footer > ul > li a:hover,
 .dashboard-page > section > section.blog-subsection > .topics-list > .message > .message-content > footer > ul > li a:active,
 .dashboard-page > section > section.blog-subsection > .topics-list > .message > .message-content > footer > ul > li a:focus {
-  background: #525b62;
+  background: #515a60;
   color: #ffffff;
 }
 .dashboard-page > section > section.blog-subsection > .topics-list > .message > .message-content > footer > ul > li:last-child {
@@ -201,14 +212,14 @@
   margin-bottom: 5px;
 }
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message .fa-envelope {
-  color: #d04a97;
+  color: #d04796;
   position: absolute;
   top: 50%;
   left: 0px;
   margin-top: -0.5em;
 }
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message .fa-envelope-o {
-  color: #838f97;
+  color: #818d96;
   position: absolute;
   top: 50%;
   left: 0px;
@@ -218,10 +229,10 @@
   display: none;
 }
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message.read > .message-content > .topic-title-block > .topic-title {
-  color: #2f7eb8;
+  color: #2f7db5;
 }
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message.unread {
-  border-left: 5px solid #97838f;
+  border-left: 5px solid #96818d;
   padding-left: 15px;
 }
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message.unread .fa-envelope-o {
@@ -273,15 +284,15 @@
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .topic-title-block > .topic-title {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 15px;
-  color: #25628f;
+  color: #24618d;
 }
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .topic-title-block > .topic-title:active,
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .topic-title-block > .topic-title:hover,
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .topic-title-block > .topic-title:focus {
-  color: #b82f7e;
+  color: #b52f7d;
 }
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .topic-title-block .new-reply {
-  background: #8f2562;
+  background: #8d2461;
   font-size: 12px;
   margin-left: 5px;
   text-decoration: none;
@@ -290,7 +301,7 @@
 }
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .topic-title-block .new-reply:hover {
   color: #ffffff;
-  background: #d04a97;
+  background: #d04796;
 }
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .topic-title-block > .topic-pagination {
   display: inline-block;
@@ -310,11 +321,11 @@
   height: 2em;
 }
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .topic-title-block > .topic-pagination > .pagination > ol > li > a {
-  color: #25628f;
+  color: #24618d;
   padding: 3px 6px;
 }
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .topic-title-block > .topic-pagination > .pagination > ol > li > a:hover {
-  color: #d04a97;
+  color: #d04796;
 }
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .replies-count {
   font-family: "Droid Sans", Tahoma, sans-serif;
@@ -399,7 +410,7 @@
   display: block;
 }
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > ul.tags > li a {
-  background: #838f97;
+  background: #818d96;
   color: #ffffff;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -417,7 +428,7 @@
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > ul.tags > li a:hover,
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > ul.tags > li a:active,
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > ul.tags > li a:focus {
-  background: #525b62;
+  background: #515a60;
   color: #ffffff;
 }
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > ul.tags > li:last-child {

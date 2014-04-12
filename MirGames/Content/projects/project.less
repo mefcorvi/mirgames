@@ -4,84 +4,86 @@
 
 .wip-project-page {
     & > section {
-        .indent();
-
         .project-info();
 
-        h3 {
-            .page-title();
-        }
+        & > section {
+            .indent();
 
-        h4 {
-            .page-subtitle();
-        }
-
-        .screenshots {
-            .page-block();
-            margin-bottom: @indent;
-            overflow: hidden;
-            padding: @indent/4;
-            list-style-type: none;
-            white-space: nowrap;
-
-            li {
-                display: inline-block;
-                padding: @indent/4;
-                .box-sizing(border-box);
-                max-width: 20%;
-                
-                img {
-                    min-width: 128px;
-                    height: 128px;
-                }
+            h3 {
+                .page-title();
             }
-        }
 
-        .aside-section {
-            .make-lg-column(3);
+            h4 {
+                .page-subtitle();
+            }
 
-            .commits {
+            .screenshots {
                 .page-block();
+                margin-bottom: @indent;
+                overflow: hidden;
+                padding: @indent/4;
+                list-style-type: none;
+                white-space: nowrap;
 
-                .commit {
-                    overflow: hidden;
-                    margin-bottom: @indent;
+                li {
+                    display: inline-block;
+                    padding: @indent/4;
+                    .box-sizing(border-box);
+                    max-width: 20%;
 
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
-
-                    .user-name {
-                        color: mix(@font-color, @background-color, 50%);
-                    }
-
-                    .date {
-                        color: @date-color;
+                    img {
+                        min-width: 128px;
+                        height: 128px;
                     }
                 }
             }
-        }
 
-        .repository-url {
-            .page-block();
-            margin-bottom: @indent;
+            .aside-section {
+                .make-lg-column(3);
 
-            input {
-                width: 100%;
-                margin-top: @indent/4;
-                .box-sizing(border-box);
-                color: mix(@font-color, @background-color, 50%);
-                .form-input();
+                .commits {
+                    .page-block();
+
+                    .commit {
+                        overflow: hidden;
+                        margin-bottom: @indent;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+
+                        .user-name {
+                            color: mix(@font-color, @background-color, 50%);
+                        }
+
+                        .date {
+                            color: @date-color;
+                        }
+                    }
+                }
             }
-        }
 
-        .main-section {
-            .make-lg-column(9);
-            padding-right: @indent;
-        }
+            .repository-url {
+                .page-block();
+                margin-bottom: @indent;
 
-        .blog-posts {
-            .topics-list-item();
+                input {
+                    width: 100%;
+                    margin-top: @indent/4;
+                    .box-sizing(border-box);
+                    color: mix(@font-color, @background-color, 50%);
+                    .form-input();
+                }
+            }
+
+            .main-section {
+                .make-lg-column(9);
+                padding-right: @indent;
+            }
+
+            .blog-posts {
+                .topics-list-item();
+            }
         }
     }
 }

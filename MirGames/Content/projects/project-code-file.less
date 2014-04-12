@@ -3,54 +3,56 @@
 
 .wip-code-file-page {
     & > section {
-        .indent();
-
         .project-info();
 
-        h3 {
-            .page-title();
-        }
+        & > section {
+            .indent();
 
-        h4 {
-            .page-subtitle();
+            h3 {
+                .page-title();
+            }
 
-            .parent-folders {
-                list-style: none;
-                overflow: hidden;
+            h4 {
+                .page-subtitle();
 
-                li {
-                    display: inline-block;
-                    float: left;
-                    margin-right: 2px;
+                .parent-folders {
+                    list-style: none;
+                    overflow: hidden;
 
-                    &:after {
-                        content: "/";
-                        margin-left: 2px;
-                    }
+                    li {
+                        display: inline-block;
+                        float: left;
+                        margin-right: 2px;
 
-                    &.file-name {
                         &:after {
-                            display: none;
+                            content: "/";
+                            margin-left: 2px;
+                        }
+
+                        &.file-name {
+                            &:after {
+                                display: none;
+                            }
                         }
                     }
                 }
             }
-        }
 
-        & > .file-block {
-            .page-block(@indent/2);
+            & > .file-block {
+                .page-block(@indent/2);
 
-            & > .message {
-                display: block;
-                color: mix(@background-color, @font-color, 50%);
-            }
+                & > .message {
+                    display: block;
+                    color: mix(@background-color, @font-color, 50%);
+                }
 
-            & > .date {
-                color: @date-color;
-            }
+                & > .date {
+                    color: @date-color;
+                }
 
-            & > .file-content {
-                overflow: auto;
+                & > .file-content {
+                    overflow: auto;
+                }
             }
         }
     }

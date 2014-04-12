@@ -14,14 +14,14 @@
   margin-bottom: 5px;
 }
 .forum-topics-page > section > .message .fa-envelope {
-  color: #d04a97;
+  color: #d04796;
   position: absolute;
   top: 50%;
   left: 0px;
   margin-top: -0.5em;
 }
 .forum-topics-page > section > .message .fa-envelope-o {
-  color: #838f97;
+  color: #818d96;
   position: absolute;
   top: 50%;
   left: 0px;
@@ -31,10 +31,10 @@
   display: none;
 }
 .forum-topics-page > section > .message.read > .message-content > .topic-title-block > .topic-title {
-  color: #2f7eb8;
+  color: #2f7db5;
 }
 .forum-topics-page > section > .message.unread {
-  border-left: 5px solid #97838f;
+  border-left: 5px solid #96818d;
   padding-left: 15px;
 }
 .forum-topics-page > section > .message.unread .fa-envelope-o {
@@ -86,15 +86,15 @@
 .forum-topics-page > section > .message > .message-content > .topic-title-block > .topic-title {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 15px;
-  color: #25628f;
+  color: #24618d;
 }
 .forum-topics-page > section > .message > .message-content > .topic-title-block > .topic-title:active,
 .forum-topics-page > section > .message > .message-content > .topic-title-block > .topic-title:hover,
 .forum-topics-page > section > .message > .message-content > .topic-title-block > .topic-title:focus {
-  color: #b82f7e;
+  color: #b52f7d;
 }
 .forum-topics-page > section > .message > .message-content > .topic-title-block .new-reply {
-  background: #8f2562;
+  background: #8d2461;
   font-size: 12px;
   margin-left: 5px;
   text-decoration: none;
@@ -103,7 +103,7 @@
 }
 .forum-topics-page > section > .message > .message-content > .topic-title-block .new-reply:hover {
   color: #ffffff;
-  background: #d04a97;
+  background: #d04796;
 }
 .forum-topics-page > section > .message > .message-content > .topic-title-block > .topic-pagination {
   display: inline-block;
@@ -123,11 +123,11 @@
   height: 2em;
 }
 .forum-topics-page > section > .message > .message-content > .topic-title-block > .topic-pagination > .pagination > ol > li > a {
-  color: #25628f;
+  color: #24618d;
   padding: 3px 6px;
 }
 .forum-topics-page > section > .message > .message-content > .topic-title-block > .topic-pagination > .pagination > ol > li > a:hover {
-  color: #d04a97;
+  color: #d04796;
 }
 .forum-topics-page > section > .message > .message-content > .replies-count {
   font-family: "Droid Sans", Tahoma, sans-serif;
@@ -210,7 +210,7 @@
   display: block;
 }
 .forum-topics-page > section > .message > .message-content > ul.tags > li a {
-  background: #838f97;
+  background: #818d96;
   color: #ffffff;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -228,7 +228,7 @@
 .forum-topics-page > section > .message > .message-content > ul.tags > li a:hover,
 .forum-topics-page > section > .message > .message-content > ul.tags > li a:active,
 .forum-topics-page > section > .message > .message-content > ul.tags > li a:focus {
-  background: #525b62;
+  background: #515a60;
   color: #ffffff;
 }
 .forum-topics-page > section > .message > .message-content > ul.tags > li:last-child {

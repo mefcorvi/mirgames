@@ -8,6 +8,7 @@ angular.module('mirgames', [
     'ui.notification',
     'ui.dateinput',
     'ui.file',
+    'ui.bootstrap.dropdownToggle',
     'ngQuickDate',
     'core.config',
     'core.currentUser',
