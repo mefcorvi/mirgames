@@ -34,6 +34,11 @@ namespace MirGames.Domain.Wip.Mapping
             this.Property(t => t.CreatedDate).HasColumnName("created_date");
             this.Property(t => t.UpdatedDate).HasColumnName("updated_date");
             this.Property(t => t.ItemType).HasColumnName("work_item_type");
+            this.Property(t => t.StartDate).HasColumnName("start_date");
+            this.Property(t => t.EndDate).HasColumnName("end_date");
+            this.Property(t => t.Duration).HasColumnName("duration");
+            this.Property(t => t.ParentId).HasColumnName("parent_work_item_id");
+            this.Property(t => t.AuthorId).HasColumnName("author_id");
         }
     }
 }
