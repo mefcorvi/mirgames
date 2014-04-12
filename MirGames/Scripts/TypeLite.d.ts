@@ -447,6 +447,8 @@ interface ProjectWorkItemViewModel {
   Duration: System.TimeSpan;
   ParentId: number;
   Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
+  CanBeDeleted: boolean;
+  CanBeEdited: boolean;
 }
 interface WipProjectRepositoryItemViewModel {
   Path: string;

@@ -89,5 +89,15 @@ namespace MirGames.Domain.Wip.ViewModels
         /// Gets or sets the author identifier.
         /// </summary>
         public AuthorViewModel Author { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance can be edited.
+        /// </summary>
+        public bool CanBeDeleted { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance can be edited.
+        /// </summary>
+        public bool CanBeEdited { get; set; }
     }
 }

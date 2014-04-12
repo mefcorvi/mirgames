@@ -1,0 +1,24 @@
+﻿body {} @import "../settings.less";
+@import "mixins.less";
+
+.wip-workitem-page {
+    & > section {
+        .project-info();
+
+        & > section {
+            .indent();
+
+            h3 {
+                .page-title();
+            }
+
+            h4 {
+                .page-subtitle();
+            }
+
+            .work-item {
+                .page-block();
+            }
+        }
+    }
+}

@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessRules\ProjectCreateAccessRule.cs" />
+    <Compile Include="AccessRules\ProjectWorkItemEditAccessRule.cs" />
+    <Compile Include="AccessRules\ProjectWorkItemDeleteAccessRule.cs" />
     <Compile Include="ClaimsProviders\WipClaimsProvider.cs" />
     <Compile Include="CommandHandlers\ArchiveProjectRepositoryCommandHandler.cs" />
     <Compile Include="CommandHandlers\CreateNewWipProjectCommandHandler.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="Mapping\ProjectWorkItemMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryHandlers\GetProjectIdQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetProjectWorkItemQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetProjectWorkItemsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetWipProjectCommitsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetWipProjectFileQueryHandler.cs" />

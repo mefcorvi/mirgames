@@ -153,6 +153,16 @@ namespace MirGames
                 new { controller = "Projects", action = "Archive" });
 
             routes.MapRouteLowercase(
+                "WipProjectWorkItems",
+                "project/{projectAlias}/workitems",
+                new { controller = "Projects", action = "WorkItems" });
+
+            routes.MapRouteLowercase(
+                "WipProjectWorkItem",
+                "project/{projectAlias}/workitems/{workItemId}",
+                new { controller = "Projects", action = "WorkItem" });
+
+            routes.MapRouteLowercase(
                 "WipProjectCode",
                 "project/{projectAlias}/code",
                 new { controller = "Projects", action = "Code" });

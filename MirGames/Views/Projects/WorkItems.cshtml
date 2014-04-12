@@ -1,4 +1,5 @@
-﻿@using MirGames.Domain.Wip.ViewModels
+﻿@using MirGames.Domain.Security
+@using MirGames.Domain.Wip.ViewModels
 @model WipProjectViewModel
 @{
     ViewBag.Title = "Баг-трекер / " + Model.Title;
@@ -21,23 +22,35 @@
                 <span class="bug-type" title="Баг" ng-show="item.type == 'Bug'"><i class="fa fa-bug"></i></span>
                 <span class="task-type" title="Задача" ng-show="item.type == 'Task'"><i class="fa fa-tasks"></i></span>
             </div>
-            <div class="item-state dropdown">
-                <a class="dropdown-toggle" ng-show="item.state == 'Open'">Открыто</a>
-                <a class="dropdown-toggle" ng-show="item.state == 'Closed'">Закрыто</a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a>Открыто</a>
-                        <a>Закрыто</a>
-                    </li>
-                </ul>
-            </div>
             <div class="title">
-                {{item.title}}
+                <a href="{{item.url}}">
+                    {{item.title}}
+                </a>
             </div>
             <div class="internal-id">
                 #{{item.internalId}}
             </div>
         </div>
+        <div ng-show="!items.length">
+            В проекте пока нет ни задач, ни багов.
+        </div>
         <div class="data-loading" ng-hide="dataLoaded"></div>
     </div>
+    @if (User.Can("CreateWorkItem", "WipProject", Model.ProjectId))
+    {
+        <h4>Новая задача</h4>
+        <form class="new-item-form" name="newItemForm">
+            <div class="form-field">
+                <label>Заголовок</label>
+                <input type="text" ng-model="newItem.title" />
+            </div>
+            <div class="form-field">
+                <label>Описание</label>
+                <texteditor text="newItem.text" show-preview="true" post="newItem.post()" attachments="newItem.attachments" focus="newItem.focus" entity-type="wipProjectWorkItem"></texteditor>
+            </div>
+            <div class="buttons">
+                <a href="javascript:void(0);" ng-click="newItem.post()" ng-class="{ 'button-disabled': newItemForm.$invalid }" class="button">Отправить</a>
+            </div>
+        </form>
+    }
 </section>

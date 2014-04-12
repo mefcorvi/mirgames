@@ -9,10 +9,13 @@
 namespace MirGames.Domain.Wip.ClaimsProviders
 {
     using System.Collections.Generic;
+    using System.Diagnostics.Contracts;
+    using System.Linq;
     using System.Security.Claims;
 
     using MirGames.Domain.Security;
     using MirGames.Domain.Wip.Entities;
+    using MirGames.Infrastructure;
     using MirGames.Infrastructure.Security;
 
     /// <summary>
@@ -26,17 +29,48 @@ namespace MirGames.Domain.Wip.ClaimsProviders
         private readonly IAuthorizationManager authorizationManager;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="WipClaimsProvider"/> class.
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WipClaimsProvider" /> class.
         /// </summary>
         /// <param name="authorizationManager">The authorization manager.</param>
-        public WipClaimsProvider(IAuthorizationManager authorizationManager)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public WipClaimsProvider(IAuthorizationManager authorizationManager, IReadContextFactory readContextFactory)
         {
+            Contract.Requires(readContextFactory != null);
+            Contract.Requires(authorizationManager != null);
+
             this.authorizationManager = authorizationManager;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
         public IEnumerable<Claim> GetAdditionalClaims(ClaimsPrincipal principal)
         {
+            var userId = principal.GetUserId();
+
+            if (userId.HasValue)
+            {
+                using (var readContext = this.readContextFactory.Create())
+                {
+                    var projects = readContext
+                        .Query<Project>()
+                        .Where(p => p.AuthorId == userId.Value)
+                        .Select(p => p.ProjectId)
+                        .ToList();
+
+                    foreach (var projectId in projects)
+                    {
+                        yield return ClaimsPrincipalExtensions.CreateActionClaim("CreateWorkItem", "WipProject", projectId);
+                        yield return ClaimsPrincipalExtensions.CreateActionClaim("Edit", "WipProject", projectId);
+                        yield return ClaimsPrincipalExtensions.CreateActionClaim("Delete", "WipProject", projectId);
+                    }
+                }
+            }
+
             if (this.authorizationManager.CheckAccess(principal, "Create", new Project()))
             {
                 yield return ClaimsPrincipalExtensions.CreateActionClaim("Create", "WipProject");

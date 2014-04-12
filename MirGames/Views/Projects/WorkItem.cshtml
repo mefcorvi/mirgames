@@ -1,0 +1,22 @@
+﻿@using MirGames.Domain.Wip.ViewModels
+@model WipProjectViewModel
+
+@{
+    var workItem = (ProjectWorkItemViewModel)ViewBag.WorkItem;
+    ViewBag.Title = string.Format("#{0} {1} / {2}", workItem.InternalId, workItem.Title, Model.Title);
+    AddPageCssClass("wip-workitem-page");
+}
+
+@section Nav
+{
+    @Html.Partial("_ProjectMenu", Model)
+}
+
+@Html.Partial("_ProjectInfo", Model)
+
+<section>
+    <h4>@workItem.Title</h4>
+    <div class="work-item">
+        @workItem.Description
+    </div>
+</section>

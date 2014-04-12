@@ -8,6 +8,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Controllers
 {
+    using System;
     using System.IO;
     using System.Web.Mvc;
 
@@ -85,11 +86,12 @@ namespace MirGames.Controllers
                 new PaginationSettings(0, 5));
 
             var topics = this.QueryProcessor.Process(new GetWipProjectTopicsQuery { Alias = projectAlias }, new PaginationSettings(0, 10));
-            var commits = this.QueryProcessor.Process(new GetWipProjectCommitsQuery { Alias = projectAlias });
 
+            var commits = this.QueryProcessor.Process(new GetWipProjectCommitsQuery { Alias = projectAlias });
+            this.ViewBag.Commits = commits;
             this.ViewBag.Topics = topics;
             this.ViewBag.Images = images;
-            this.ViewBag.Commits = commits;
+            
             this.ViewBag.BackUrl = this.GetBackUrl();
             this.ViewBag.SubSection = "Project";
 
@@ -128,8 +130,33 @@ namespace MirGames.Controllers
 
             this.PageData["projectAlias"] = project.Alias;
             this.PageData["workItems"] = workItems;
+            this.ViewBag.BackUrl = this.GetBackUrl();
 
             return this.View(project);
+        }
+
+        /// <inheritdoc />
+        public ActionResult WorkItem(string projectAlias, int workItemId)
+        {
+            var project = this.QueryProcessor.Process(
+                new GetWipProjectQuery
+                {
+                    Alias = projectAlias
+                });
+
+            var workItem = this.QueryProcessor.Process(new GetProjectWorkItemQuery
+            {
+                ProjectAlias = projectAlias,
+                InternalId = workItemId
+            });
+
+            this.PageData["projectAlias"] = project.Alias;
+
+            this.ViewBag.SubSection = "WorkItems";
+            this.ViewBag.WorkItem = workItem;
+            this.ViewBag.BackUrl = this.GetBackUrl();
+
+            return this.View(project);            
         }
         
         /// <inheritdoc />

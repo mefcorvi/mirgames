@@ -14,12 +14,14 @@ namespace MirGames.Domain.Wip.QueryHandlers
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
     using MirGames.Domain.Wip.Entities;
     using MirGames.Domain.Wip.Queries;
     using MirGames.Domain.Wip.ViewModels;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Queries;
+    using MirGames.Infrastructure.Security;
 
     internal sealed class GetProjectWorkItemsQueryHandler : QueryHandler<GetProjectWorkItemsQuery, ProjectWorkItemViewModel>
     {
@@ -29,14 +31,22 @@ namespace MirGames.Domain.Wip.QueryHandlers
         private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
+        /// The authorization manager.
+        /// </summary>
+        private readonly IAuthorizationManager authorizationManager;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetProjectWorkItemsQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
-        public GetProjectWorkItemsQueryHandler(IQueryProcessor queryProcessor)
+        /// <param name="authorizationManager">The authorization manager.</param>
+        public GetProjectWorkItemsQueryHandler(IQueryProcessor queryProcessor, IAuthorizationManager authorizationManager)
         {
             Contract.Requires(queryProcessor != null);
+            Contract.Requires(authorizationManager != null);
 
             this.queryProcessor = queryProcessor;
+            this.authorizationManager = authorizationManager;
         }
 
         /// <inheritdoc />
@@ -54,24 +64,35 @@ namespace MirGames.Domain.Wip.QueryHandlers
         {
             var workItems = this.ApplyPagination(this.GetQuery(readContext, query), pagination).ToList();
 
-            return workItems.Select(x => new ProjectWorkItemViewModel
+            var workItemViewModels = workItems
+                .Select(x => new ProjectWorkItemViewModel
+                {
+                    CreatedDate = x.CreatedDate,
+                    Description = x.Description,
+                    InternalId = x.InternalId,
+                    ItemType = x.ItemType,
+                    ProjectId = x.ProjectId,
+                    State = x.State,
+                    TagsList = x.TagsList,
+                    Title = x.Title,
+                    UpdatedDate = x.UpdatedDate,
+                    WorkItemId = x.WorkItemId,
+                    Author = new AuthorViewModel { Id = x.AuthorId },
+                    Duration = x.Duration,
+                    EndDate = x.EndDate,
+                    ParentId = x.ParentId,
+                    StartDate = x.StartDate,
+                    CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", x),
+                    CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", x),
+                })
+                .ToList();
+
+            this.queryProcessor.Process(new ResolveAuthorsQuery
             {
-                CreatedDate = x.CreatedDate,
-                Description = x.Description,
-                InternalId = x.InternalId,
-                ItemType = x.ItemType,
-                ProjectId = x.ProjectId,
-                State = x.State,
-                TagsList = x.TagsList,
-                Title = x.Title,
-                UpdatedDate = x.UpdatedDate,
-                WorkItemId = x.WorkItemId,
-                Author = new AuthorViewModel { Id = x.AuthorId },
-                Duration = x.Duration,
-                EndDate = x.EndDate,
-                ParentId = x.ParentId,
-                StartDate = x.StartDate
+                Authors = workItemViewModels.Select(x => x.Author)
             });
+
+            return workItemViewModels;
         }
 
         /// <summary>

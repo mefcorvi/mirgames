@@ -1,0 +1,451 @@
+﻿.wip-workitems-page > section > .project-info-block > .project-description {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background: #ffffff;
+  border-bottom: 5px solid #c3cfd7;
+  border-bottom: 0;
+  overflow: hidden;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.wip-workitems-page > section > .project-info-block > .project-description > h3 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+  padding-bottom: 0;
+  text-shadow: 1px 1px 4px #ffffff;
+}
+.wip-workitems-page > section > .project-info-block > .project-description .fa {
+  margin-right: 5px;
+}
+.wip-workitems-page > section > .project-info-block > .project-description > .logo {
+  float: left;
+  width: 16.66666667%;
+  position: relative;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  text-align: center;
+  padding-right: 20px;
+}
+@media (min-width: 768px) {
+  .wip-workitems-page > section > .project-info-block > .project-description > .logo {
+    float: left;
+    width: 16.66666667%;
+  }
+}
+@media (min-width: 992px) {
+  .wip-workitems-page > section > .project-info-block > .project-description > .logo {
+    float: left;
+    width: 8.33333333%;
+  }
+}
+.wip-workitems-page > section > .project-info-block > .project-description > .logo > img {
+  max-width: 100%;
+  max-height: 200px;
+  border: 1px solid #eeeeee;
+  padding: 2px;
+  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+}
+.wip-workitems-page > section > .project-info-block > .project-description > .project-info {
+  overflow: hidden;
+  float: left;
+  width: 83.33333333%;
+  position: relative;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding-right: 10px;
+}
+@media (min-width: 768px) {
+  .wip-workitems-page > section > .project-info-block > .project-description > .project-info {
+    float: left;
+    width: 66.66666667%;
+  }
+}
+@media (min-width: 992px) {
+  .wip-workitems-page > section > .project-info-block > .project-description > .project-info {
+    float: left;
+    width: 75%;
+  }
+}
+.wip-workitems-page > section > .project-info-block > .project-description > .project-info > h1 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 18px;
+}
+.wip-workitems-page > section > .project-info-block > .project-description > .project-info > .project-description {
+  padding: 10px 0;
+  max-height: 200px;
+}
+.wip-workitems-page > section > .project-info-block > .project-description > .project-info > footer {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  font-size: 11px;
+}
+.wip-workitems-page > section > .project-info-block > .project-description > .project-info > footer > .user-login {
+  overflow: hidden;
+  float: left;
+  width: 100%;
+  position: relative;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  font-weight: bold;
+}
+@media (min-width: 768px) {
+  .wip-workitems-page > section > .project-info-block > .project-description > .project-info > footer > .user-login {
+    float: left;
+    width: 100%;
+  }
+}
+@media (min-width: 992px) {
+  .wip-workitems-page > section > .project-info-block > .project-description > .project-info > footer > .user-login {
+    float: left;
+    width: 25%;
+  }
+}
+@media (min-width: 992px) {
+  .wip-workitems-page > section > .project-info-block > .project-description > .project-info > footer > .user-login {
+    max-width: 150px;
+  }
+}
+@media (max-width: 767px) {
+  .wip-workitems-page > section > .project-info-block > .project-description > .project-info > footer > .user-login > .avatar {
+    display: none;
+  }
+  .wip-workitems-page > section > .project-info-block > .project-description > .project-info > footer > .user-login > span {
+    margin-left: 0;
+  }
+}
+.wip-workitems-page > section > .project-info-block > .project-description > .project-info > footer > .user-login span {
+  margin-top: 3px;
+}
+.wip-workitems-page > section > .project-info-block > .project-description > .project-info > footer > .creation-date {
+  float: left;
+  width: 66.66666667%;
+  position: relative;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  max-width: 100px;
+  color: #999;
+}
+@media (min-width: 768px) {
+  .wip-workitems-page > section > .project-info-block > .project-description > .project-info > footer > .creation-date {
+    float: left;
+    width: 41.66666667%;
+  }
+}
+@media (min-width: 992px) {
+  .wip-workitems-page > section > .project-info-block > .project-description > .project-info > footer > .creation-date {
+    float: left;
+    width: 16.66666667%;
+  }
+}
+.wip-workitems-page > section > .project-info-block > .project-short-info {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  margin-bottom: 10px;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  background: #f5f7f8;
+  border: 0;
+  border-top: 1px solid #ebeff2;
+  border-bottom: 5px solid #c3cfd7;
+}
+.wip-workitems-page > section > .project-info-block > .project-short-info .fa {
+  margin-right: 5px;
+}
+.wip-workitems-page > section > .project-info-block > .project-short-info > .version {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  position: relative;
+  float: left;
+  width: 16.66666667%;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  width: auto;
+  margin-right: 10px;
+}
+@media (min-width: 480px) {
+  .wip-workitems-page > section > .project-info-block > .project-short-info > .version {
+    font-size: 12px;
+  }
+}
+@media (min-width: 1200px) {
+  .wip-workitems-page > section > .project-info-block > .project-short-info > .version {
+    font-size: 14px;
+  }
+}
+.wip-workitems-page > section > .project-info-block > .project-short-info > .version b {
+  background: #d7dfe5;
+  font-weight: normal;
+  color: #000000;
+  padding: 3px;
+  white-space: nowrap;
+}
+@media (max-width: 991px) {
+  .wip-workitems-page > section > .project-info-block > .project-short-info > .version b > .fa {
+    display: none;
+  }
+}
+.wip-workitems-page > section > .project-info-block > .project-short-info > .updated-date {
+  display: block;
+  position: relative;
+  float: left;
+  width: 16.66666667%;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  color: #8c8c0c;
+  width: auto;
+  margin-right: 10px;
+}
+@media (min-width: 480px) {
+  .wip-workitems-page > section > .project-info-block > .project-short-info > .updated-date {
+    font-size: 10px;
+  }
+}
+@media (min-width: 1200px) {
+  .wip-workitems-page > section > .project-info-block > .project-short-info > .updated-date {
+    font-size: 12px;
+  }
+}
+.wip-workitems-page > section > .project-info-block > .project-short-info > .followers-count {
+  position: relative;
+  float: left;
+  width: 16.66666667%;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  max-width: 50px;
+  text-align: center;
+  width: auto;
+  margin-right: 10px;
+}
+@media (min-width: 480px) {
+  .wip-workitems-page > section > .project-info-block > .project-short-info > .followers-count {
+    font-size: 11px;
+  }
+}
+@media (min-width: 768px) {
+  .wip-workitems-page > section > .project-info-block > .project-short-info > .followers-count {
+    font-size: 12px;
+  }
+}
+.wip-workitems-page > section > .project-info-block > .project-short-info > .votes {
+  position: relative;
+  float: left;
+  width: 16.66666667%;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  max-width: 50px;
+  text-align: center;
+  width: auto;
+  margin-right: 10px;
+}
+@media (min-width: 480px) {
+  .wip-workitems-page > section > .project-info-block > .project-short-info > .votes {
+    font-size: 11px;
+  }
+}
+@media (min-width: 768px) {
+  .wip-workitems-page > section > .project-info-block > .project-short-info > .votes {
+    font-size: 12px;
+  }
+}
+.wip-workitems-page > section > .project-info-block > .project-short-info > ul.tags {
+  overflow: hidden;
+  list-style-type: none;
+  font-size: 11px;
+  position: relative;
+  float: left;
+  width: 33.33333333%;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-flex-grow: 1;
+  -moz-flex-grow: 1;
+  -ms-flex-grow: 1;
+  flex-grow: 1;
+}
+.wip-workitems-page > section > .project-info-block > .project-short-info > ul.tags > li {
+  float: right;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  display: block;
+}
+.wip-workitems-page > section > .project-info-block > .project-short-info > ul.tags > li a {
+  background: #818d96;
+  color: #ffffff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 3px;
+  max-width: 150px;
+  display: block;
+  overflow: hidden;
+  text-decoration: none;
+}
+.wip-workitems-page > section > .project-info-block > .project-short-info > ul.tags > li a:active,
+.wip-workitems-page > section > .project-info-block > .project-short-info > ul.tags > li a:hover,
+.wip-workitems-page > section > .project-info-block > .project-short-info > ul.tags > li a:focus {
+  color: #ffffff;
+}
+.wip-workitems-page > section > .project-info-block > .project-short-info > ul.tags > li a:hover,
+.wip-workitems-page > section > .project-info-block > .project-short-info > ul.tags > li a:active,
+.wip-workitems-page > section > .project-info-block > .project-short-info > ul.tags > li a:focus {
+  background: #515a60;
+  color: #ffffff;
+}
+.wip-workitems-page > section > .project-info-block > .project-short-info > ul.tags > li:last-child {
+  margin-right: 0;
+}
+.wip-workitems-page > section > section {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.wip-workitems-page > section > section h3 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+  padding-bottom: 0;
+  text-shadow: 1px 1px 4px #ffffff;
+}
+.wip-workitems-page > section > section h4 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 4px #ffffff;
+  border: none;
+  text-transform: uppercase;
+  font-size: 16px;
+  padding-bottom: 0;
+}
+.wip-workitems-page > section > section .tracker-items {
+  background: #ffffff;
+  padding: 20px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  margin-bottom: 20px;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eeeeee;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item > .item-type {
+  position: relative;
+  float: left;
+  width: 8.33333333%;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  width: 20px;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item > .item-state {
+  position: relative;
+  float: left;
+  width: 8.33333333%;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item > .title {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 13px;
+  position: relative;
+  float: left;
+  width: 75%;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-flex-grow: 1;
+  -moz-flex-grow: 1;
+  -ms-flex-grow: 1;
+  flex-grow: 1;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item > .internal-id {
+  position: relative;
+  float: left;
+  width: 8.33333333%;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  text-align: right;
+  color: #999999;
+}
+.wip-workitems-page > section > section .new-item-form {
+  background: #ffffff;
+  padding: 20px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+/*# sourceMappingURL=project-work-items.css.map */

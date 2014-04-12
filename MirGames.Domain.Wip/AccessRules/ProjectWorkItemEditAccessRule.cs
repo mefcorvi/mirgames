@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="ProjectCreateAccessRule.cs">
+// <copyright company="MirGames" file="ProjectWorkItemEditAccessRule.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -11,24 +11,22 @@ namespace MirGames.Domain.Wip.AccessRules
 {
     using System.Security.Claims;
 
+    using MirGames.Domain.Security;
     using MirGames.Domain.Wip.Entities;
     using MirGames.Infrastructure.Security;
 
-    /// <summary>
-    /// Determines the access to project view model.
-    /// </summary>
-    internal sealed class ProjectCreateAccessRule : AccessRule<Project>
+    internal sealed class ProjectWorkItemEditAccessRule : AccessRule<ProjectWorkItem>
     {
-        /// <inheritdoc />
         protected override string Action
         {
-            get { return "Create"; }
+            get { return "Edit"; }
         }
 
         /// <inheritdoc />
-        protected override bool CheckAccess(ClaimsPrincipal principal, Project resource)
+        protected override bool CheckAccess(ClaimsPrincipal principal, ProjectWorkItem resource)
         {
-            return principal.IsInRole("User");
+            return (principal.GetUserId().HasValue && principal.GetUserId() == resource.AuthorId)
+                   || principal.Can("Edit", "Project");
         }
     }
 }

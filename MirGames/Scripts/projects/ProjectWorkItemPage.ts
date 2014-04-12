@@ -23,16 +23,21 @@ module MirGames.Wip {
             this.$scope.dataLoaded = true;
         }
 
+        /** Converts DTO to the scope object */
         private convertItemsToScope(items: Domain.Wip.ViewModels.ProjectWorkItemViewModel[]): IProjectWorkItemScope[] {
             return Enumerable.from(items).select(item => this.convertItemToScope(item)).toArray();
         }
 
+        /** Converts DTO to the scope object */
         private convertItemToScope(item: Domain.Wip.ViewModels.ProjectWorkItemViewModel): IProjectWorkItemScope {
             return {
                 type: WorkItemType[item.ItemType],
                 internalId: item.InternalId,
                 state: WorkItemState[item.State],
-                title: item.Title
+                title: item.Title,
+                canBeEdited: item.CanBeEdited,
+                canBeDeleted: item.CanBeDeleted,
+                url: Router.action("Projects", "WorkItem", { projectAlias: this.pageData.projectAlias, workItemId: item.InternalId })
             };
         }
     }
@@ -42,6 +47,9 @@ module MirGames.Wip {
         state: string;
         title: string;
         internalId: number;
+        canBeEdited: boolean;
+        canBeDeleted: boolean;
+        url: string;
     }
 
     export interface IProjectWorkItemPageScope extends IPageScope {

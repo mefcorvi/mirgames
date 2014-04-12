@@ -433,6 +433,9 @@
     <Content Include="Content\common.css.map">
       <DependentUpon>common.css</DependentUpon>
     </Content>
+    <Content Include="Content\projects\project-work-item.css">
+      <DependentUpon>project-work-item.less</DependentUpon>
+    </Content>
     <Content Include="Content\projects\project-work-items.css">
       <DependentUpon>project-work-items.less</DependentUpon>
     </Content>
@@ -847,6 +850,10 @@
     <Content Include="Content\forum\mixins.css.map">
       <DependentUpon>mixins.css</DependentUpon>
     </Content>
+    <Content Include="Content\projects\project-work-item.less" />
+    <Content Include="Content\projects\project-work-item.css.map">
+      <DependentUpon>project-work-item.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <Content Include="Scripts\Commands.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -939,6 +946,7 @@
     <Content Include="Views\Projects\_ProjectInfo.cshtml" />
     <Content Include="Views\Projects\New.cshtml" />
     <Content Include="Views\Projects\WorkItems.cshtml" />
+    <Content Include="Views\Projects\WorkItem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
