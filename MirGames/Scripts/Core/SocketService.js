@@ -14,7 +14,7 @@ var Core;
         };
 
         SocketService.prototype.executeCommand = function (commandType, command) {
-            command.type = commandType;
+            command.$_type = commandType;
 
             var hubProxy = this.getProxy("CommandsHub");
 

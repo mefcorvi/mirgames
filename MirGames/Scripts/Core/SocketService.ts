@@ -23,7 +23,7 @@ module Core {
         }
 
         public executeCommand(commandType: string, command: any): void {
-            command.type = commandType;
+            command.$_type = commandType;
 
             var hubProxy = this.getProxy("CommandsHub");
 
