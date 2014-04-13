@@ -58,11 +58,13 @@
     <Compile Include="Entities\ProjectFollower.cs" />
     <Compile Include="Entities\Project.cs" />
     <Compile Include="Entities\ProjectWorkItem.cs" />
+    <Compile Include="Entities\ProjectWorkItemTag.cs" />
     <Compile Include="EntityMapper.cs" />
     <Compile Include="EventListeners\RepositoryUpdatedEventLIstener.cs" />
     <Compile Include="Mapping\ProjectTagMap.cs" />
     <Compile Include="Mapping\ProjectMap.cs" />
     <Compile Include="Mapping\ProjectWorkItemMap.cs" />
+    <Compile Include="Mapping\ProjectWorkItemTagMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryHandlers\GetProjectIdQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetProjectWorkItemQueryHandler.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="QueryHandlers\GetWipTagsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetWipProjectsQueryHandler.cs" />
     <Compile Include="Services\ProjectLogoUploadProcessor.cs" />
+    <Compile Include="Services\ProjectWorkItemUploadProcessor.cs" />
     <Compile Include="WipDomainModule.cs" />
   </ItemGroup>
   <ItemGroup>

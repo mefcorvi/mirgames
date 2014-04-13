@@ -102,12 +102,12 @@ namespace MirGames.Domain.Wip.CommandHandlers
                 writeContext.Set<ProjectWorkItem>().Add(projectWorkItem);
                 writeContext.SaveChanges();
 
-                /*foreach (var tag in command.Tags.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries))
+                foreach (var tag in command.Tags.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    writeContext.Set<ProjectTag>().Add(new ProjectTag { TagText = tag.Trim(), ProjectId = project.ProjectId });
+                    writeContext.Set<ProjectWorkItemTag>().Add(new ProjectWorkItemTag { TagText = tag.Trim(), WorkItemId = projectWorkItem.WorkItemId });
                 }
 
-                writeContext.SaveChanges();*/
+                writeContext.SaveChanges();
             }
 
             this.commandProcessor.Execute(new PublishAttachmentsCommand

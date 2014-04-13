@@ -26,6 +26,7 @@ var MirGames;
                     post: function () {
                         return _this.postNewItem();
                     },
+                    tags: '',
                     text: '',
                     title: ''
                 };
@@ -90,7 +91,7 @@ var MirGames;
                 var command = {
                     ProjectAlias: this.pageData.projectAlias,
                     Title: this.$scope.newItem.title,
-                    Tags: '',
+                    Tags: this.$scope.newItem.tags,
                     Type: 2 /* Task */,
                     Attachments: this.$scope.newItem.attachments,
                     Description: this.$scope.newItem.text
@@ -116,6 +117,7 @@ var MirGames;
             WorkItemState[WorkItemState["Closed"] = 2] = "Closed";
             WorkItemState[WorkItemState["Active"] = 3] = "Active";
             WorkItemState[WorkItemState["Queued"] = 4] = "Queued";
+            WorkItemState[WorkItemState["Removed"] = 5] = "Removed";
         })(WorkItemState || (WorkItemState = {}));
 
         var WorkItemType;

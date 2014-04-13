@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="ProjectTag.cs">
+// <copyright company="MirGames" file="ProjectWorkItemTag.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -10,9 +10,9 @@
 namespace MirGames.Domain.Wip.Entities
 {
     /// <summary>
-    /// Link between project and tags.
+    /// Link between project work items and tags.
     /// </summary>
-    internal sealed class ProjectTag
+    internal sealed class ProjectWorkItemTag
     {
         /// <summary>
         /// Gets or sets the id.
@@ -20,9 +20,9 @@ namespace MirGames.Domain.Wip.Entities
         public int Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the project id.
+        /// Gets or sets the work item id.
         /// </summary>
-        public int ProjectId { get; set; }
+        public int WorkItemId { get; set; }
 
         /// <summary>
         /// Gets or sets the tag text.

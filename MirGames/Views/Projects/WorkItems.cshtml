@@ -42,11 +42,15 @@
         <form class="new-item-form" name="newItemForm">
             <div class="form-field">
                 <label>Заголовок</label>
-                <input type="text" ng-model="newItem.title" ng-focused="newItem.focus" />
+                <input type="text" ng-model="newItem.title" ng-focused="newItem.focus" required="required" maxlength="256" />
+            </div>
+            <div class="form-field">
+                <label>Тэги</label>
+                <input type="text" ng-model="newItem.tags" required="required" pattern="([^,]+,?){1,5}" />
             </div>
             <div class="form-field">
                 <label>Описание</label>
-                <texteditor text="newItem.text" show-preview="true" post="newItem.post()" focus="false" attachments="newItem.attachments" entity-type="wipProjectWorkItem"></texteditor>
+                <texteditor text="newItem.text" show-preview="true" post="newItem.post()" focus="false" attachments="newItem.attachments" entity-type="project-work-item"></texteditor>
             </div>
             <div class="buttons">
                 <a href="javascript:void(0);" ng-click="newItem.post()" ng-class="{ 'button-disabled': newItemForm.$invalid }" class="button">Отправить</a>

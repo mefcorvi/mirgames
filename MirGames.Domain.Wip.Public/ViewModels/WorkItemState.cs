@@ -36,6 +36,11 @@ namespace MirGames.Domain.Wip.ViewModels
         /// <summary>
         /// The queued.
         /// </summary>
-        Queued = 4
+        Queued = 4,
+
+        /// <summary>
+        /// The removed.
+        /// </summary>
+        Removed = 5
     }
 }

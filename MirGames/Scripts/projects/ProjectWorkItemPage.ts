@@ -14,11 +14,12 @@ module MirGames.Wip {
         private getEmptyNewItem(): IProjectNewWorkItemScope {
             return {
                 attachments: [],
-                    focus: false,
-                    post: () => this.postNewItem(),
-                    text: '',
-                    title: ''
-                };
+                focus: false,
+                post: () => this.postNewItem(),
+                tags: '',
+                text: '',
+                title: ''
+            };
         }
 
         /** Loads the list of work items */
@@ -74,7 +75,7 @@ module MirGames.Wip {
             var command: Domain.Wip.Commands.CreateNewProjectWorkItemCommand = {
                 ProjectAlias: this.pageData.projectAlias,
                 Title: this.$scope.newItem.title,
-                Tags: '',
+                Tags: this.$scope.newItem.tags,
                 Type: Domain.Wip.ViewModels.WorkItemType.Task,
                 Attachments: this.$scope.newItem.attachments,
                 Description: this.$scope.newItem.text
@@ -109,6 +110,7 @@ module MirGames.Wip {
     export interface IProjectNewWorkItemScope {
         title: string;
         text: string;
+        tags: string;
         post: () => void ;
         attachments: number[];
         focus: boolean;
@@ -123,7 +125,8 @@ module MirGames.Wip {
         Open = 1,
         Closed = 2,
         Active = 3,
-        Queued = 4
+        Queued = 4,
+        Removed = 5
     }
 
     enum WorkItemType {

@@ -117,7 +117,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
 
             return readContext
                 .Query<ProjectWorkItem>()
-                .Where(p => p.ProjectId == projectId);
+                .Where(p => p.ProjectId == projectId && p.State != WorkItemState.Removed);
         }
     }
 }

@@ -22,6 +22,7 @@ namespace MirGames.Domain.Wip
             registry.Register(new ProjectMap());
             registry.Register(new ProjectTagMap());
             registry.Register(new ProjectWorkItemMap());
+            registry.Register(new ProjectWorkItemTagMap());
         }
     }
 }
