@@ -20,5 +20,10 @@ namespace MirGames.Domain.Wip.Queries
         /// Gets or sets the project alias.
         /// </summary>
         public string ProjectAlias { get; set; }
+
+        /// <summary>
+        /// Gets or sets the tag.
+        /// </summary>
+        public string Tag { get; set; }
     }
 }

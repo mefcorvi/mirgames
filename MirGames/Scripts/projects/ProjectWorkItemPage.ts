@@ -66,7 +66,25 @@ module MirGames.Wip {
                 title: item.Title,
                 canBeEdited: item.CanBeEdited,
                 canBeDeleted: item.CanBeDeleted,
+                tags: this.convertTagsToScope(item.TagsList),
                 url: Router.action("Projects", "WorkItem", { projectAlias: this.pageData.projectAlias, workItemId: item.InternalId })
+            };
+        }
+
+        /** Converts tag to the scope item */
+        private convertTagsToScope(item: string): IProjectWorkItemTagScope[] {
+            return Enumerable
+                .from((item || '').split(','))
+                .where(t => t != null && t != '')
+                .select(tag => this.convertTagToScope(tag))
+                .toArray();
+        }
+
+        /** Converts tag to the scope item */
+        private convertTagToScope(item: string): IProjectWorkItemTagScope {
+            return {
+                text: item.trim(),
+                url: Router.action("Projects", "WorkItems", { projectAlias: this.pageData.projectAlias, tag: item.trim() })
             };
         }
 
@@ -98,6 +116,12 @@ module MirGames.Wip {
         internalId: number;
         canBeEdited: boolean;
         canBeDeleted: boolean;
+        url: string;
+        tags: IProjectWorkItemTagScope[];
+    }
+
+    export interface IProjectWorkItemTagScope {
+        text: string;
         url: string;
     }
 

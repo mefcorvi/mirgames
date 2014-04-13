@@ -422,7 +422,7 @@
   font-size: 13px;
   position: relative;
   float: left;
-  width: 75%;
+  width: 58.33333333%;
   min-height: 1px;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -440,8 +440,54 @@
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  width: auto;
+  padding-left: 10px;
   text-align: right;
   color: #999999;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item > .tags {
+  position: relative;
+  float: left;
+  width: 16.66666667%;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  width: auto;
+  overflow: hidden;
+  list-style-type: none;
+  font-size: 11px;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item > .tags > li {
+  float: left;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  display: block;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item > .tags > li a {
+  background: #818d96;
+  color: #ffffff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 3px;
+  max-width: 50px;
+  display: block;
+  overflow: hidden;
+  text-decoration: none;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item > .tags > li a:active,
+.wip-workitems-page > section > section .tracker-items .tracker-item > .tags > li a:hover,
+.wip-workitems-page > section > section .tracker-items .tracker-item > .tags > li a:focus {
+  color: #ffffff;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item > .tags > li a:hover,
+.wip-workitems-page > section > section .tracker-items .tracker-item > .tags > li a:active,
+.wip-workitems-page > section > section .tracker-items .tracker-item > .tags > li a:focus {
+  background: #515a60;
+  color: #ffffff;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item > .tags > li:last-child {
+  margin-right: 0;
 }
 .wip-workitems-page > section > section .new-item-form {
   background: #ffffff;

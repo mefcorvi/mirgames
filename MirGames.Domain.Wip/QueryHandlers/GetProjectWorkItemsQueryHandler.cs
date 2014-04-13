@@ -115,9 +115,21 @@ namespace MirGames.Domain.Wip.QueryHandlers
         {
             var projectId = this.GetProjectId(query);
 
-            return readContext
+            var workItems = readContext
                 .Query<ProjectWorkItem>()
                 .Where(p => p.ProjectId == projectId && p.State != WorkItemState.Removed);
+
+            if (!string.IsNullOrEmpty(query.Tag))
+            {
+                var tags = readContext.Query<ProjectWorkItemTag>().Where(t => t.TagText == query.Tag);
+                workItems = workItems.Join(
+                    tags,
+                    workItem => workItem.WorkItemId,
+                    tag => tag.WorkItemId,
+                    (topic, tag) => topic);
+            }
+
+            return workItems;
         }
     }
 }

@@ -8,7 +8,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Controllers
 {
-    using System;
     using System.IO;
     using System.Web.Mvc;
 
@@ -113,7 +112,7 @@ namespace MirGames.Controllers
         }
 
         /// <inheritdoc />
-        public ActionResult WorkItems(string projectAlias)
+        public ActionResult WorkItems(string projectAlias, string tag)
         {
             var project = this.QueryProcessor.Process(
                 new GetWipProjectQuery
@@ -123,7 +122,8 @@ namespace MirGames.Controllers
 
             var workItems = this.QueryProcessor.Process(new GetProjectWorkItemsQuery
             {
-                ProjectAlias = projectAlias
+                ProjectAlias = projectAlias,
+                Tag = tag
             });
 
             this.ViewBag.SubSection = "WorkItems";

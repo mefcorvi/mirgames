@@ -27,6 +27,9 @@
                     {{item.title}}
                 </a>
             </div>
+            <ul class="tags">
+                <li ng-repeat="tag in item.tags"><a href="{{tag.url}}">{{tag.text}}</a></li>
+            </ul>
             <div class="internal-id">
                 #{{item.internalId}}
             </div>
@@ -45,8 +48,8 @@
                 <input type="text" ng-model="newItem.title" ng-focused="newItem.focus" required="required" maxlength="256" />
             </div>
             <div class="form-field">
-                <label>Тэги</label>
-                <input type="text" ng-model="newItem.tags" required="required" pattern="([^,]+,?){1,5}" />
+                <label>Тэги <i>(опционально)</i></label>
+                <input type="text" ng-model="newItem.tags" pattern="([^,]+,?){0,5}" />
             </div>
             <div class="form-field">
                 <label>Описание</label>

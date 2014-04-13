@@ -8,6 +8,11 @@ form > .form-field > label:first-child {
   font-weight: bold;
   font-size: 13px;
 }
+form > .form-field > label:first-child i {
+  color: #808080;
+  font-weight: normal;
+  font-style: normal;
+}
 form > .form-field > .error {
   color: #f00;
   font-size: 11px;

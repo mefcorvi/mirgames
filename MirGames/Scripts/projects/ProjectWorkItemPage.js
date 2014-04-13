@@ -1,4 +1,4 @@
-var __extends = this.__extends || function (d, b) {
+﻿var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
@@ -81,7 +81,26 @@ var MirGames;
                     title: item.Title,
                     canBeEdited: item.CanBeEdited,
                     canBeDeleted: item.CanBeDeleted,
+                    tags: this.convertTagsToScope(item.TagsList),
                     url: Router.action("Projects", "WorkItem", { projectAlias: this.pageData.projectAlias, workItemId: item.InternalId })
+                };
+            };
+
+            /** Converts tag to the scope item */
+            ProjectWorkItemPage.prototype.convertTagsToScope = function (item) {
+                var _this = this;
+                return Enumerable.from((item || '').split(',')).where(function (t) {
+                    return t != null && t != '';
+                }).select(function (tag) {
+                    return _this.convertTagToScope(tag);
+                }).toArray();
+            };
+
+            /** Converts tag to the scope item */
+            ProjectWorkItemPage.prototype.convertTagToScope = function (item) {
+                return {
+                    text: item.trim(),
+                    url: Router.action("Projects", "WorkItems", { projectAlias: this.pageData.projectAlias, tag: item.trim() })
                 };
             };
 
