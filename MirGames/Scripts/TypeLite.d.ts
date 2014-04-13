@@ -48,6 +48,8 @@ interface SingleItemQuery1 extends MirGames.Infrastructure.Queries.Query1 {
 }
 interface Query1 extends MirGames.Infrastructure.Queries.Query {
 }
+interface SingleItemQuery1 extends MirGames.Infrastructure.Queries.Query1 {
+}
 interface Query1 extends MirGames.Infrastructure.Queries.Query {
 }
 }
@@ -394,6 +396,14 @@ interface AttachmentViewModel {
 }
 }
 declare module MirGames.Domain.Wip.Commands {
+interface CreateNewProjectWorkItemCommand extends MirGames.Infrastructure.Commands.Command1 {
+  ProjectAlias: string;
+  Title: string;
+  Tags: string;
+  Type: MirGames.Domain.Wip.ViewModels.WorkItemType;
+  Attachments: number[];
+  Description: string;
+}
 interface CreateNewWipProjectCommand extends MirGames.Infrastructure.Commands.Command1 {
   Title: string;
   Alias: string;
@@ -408,23 +418,27 @@ declare module MirGames.Domain.Wip.Queries {
 interface GetIsProjectNameUniqueQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
   Alias: string;
 }
+interface GetProjectWorkItemQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
+  ProjectAlias: string;
+  InternalId: number;
+}
 interface GetProjectWorkItemsQuery extends MirGames.Infrastructure.Queries.Query1 {
   ProjectAlias: string;
 }
 }
 declare module MirGames.Domain.Wip.ViewModels {
+enum WorkItemType {
+  Undefined = 0,
+  Bug = 1,
+  Task = 2,
+  Feature = 3
+}
 enum WorkItemState {
   Undefined = 0,
   Open = 1,
   Closed = 2,
   Active = 3,
   Queued = 4
-}
-enum WorkItemType {
-  Undefined = 0,
-  Bug = 1,
-  Task = 2,
-  Feature = 3
 }
 enum WipProjectRepositoryItemType {
   Other = 0,

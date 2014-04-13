@@ -588,6 +588,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <TypeScriptCompile Include="Scripts\BasePage.ts" />
+    <TypeScriptCompile Include="Scripts\Commands.ts" />
     <TypeScriptCompile Include="Scripts\Core\Application.ts" />
     <TypeScriptCompile Include="Scripts\Account\LoginFormController.ts" />
     <TypeScriptCompile Include="Scripts\Account\SignUpFormController.ts" />
@@ -629,11 +630,6 @@
     </Content>
     <Content Include="NativeBinaries\x86\git2-65e9dc6.pdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Scripts\Commands.ts">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Commands.tt</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\Forum\DeletePostDialogController.ts" />
     <TypeScriptCompile Include="Scripts\Core\SocketService.ts" />
@@ -855,11 +851,6 @@
       <DependentUpon>project-work-item.css</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
-    <Content Include="Scripts\Commands.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Commands.ts</LastGenOutput>
-      <LastOutputs>.\Commands.ts</LastOutputs>
-    </Content>
     <None Include="Scripts\Libs\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\Libs\jquery-1.7.1.js" />
     <Content Include="Scripts\Libs\jquery-1.7.1.min.js" />

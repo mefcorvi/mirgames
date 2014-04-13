@@ -11,17 +11,17 @@ module Core {
         }
 
         public getAll(queryType: string, query: any, pageNum: number, pageSize: number, callback: (result: any[]) => void, blockInput: boolean = true): void {
-            query.type = queryType;
+            query.$_type = queryType;
             this.invokeQuery('all', query, { pageNum: pageNum, pageSize: pageSize }, (res: any) => callback(res), blockInput);
         }
 
         public getOne(queryType: string, query: any, callback: (result: any) => void, blockInput: boolean = true): void {
-            query.type = queryType;
+            query.$_type = queryType;
             this.invokeQuery('one', query, {}, (res: any) => callback(res), blockInput);
         }
 
         public executeCommand(commandType: string, command: any, callback?: (result: any) => void, blockInput: boolean = true): void {
-            command.type = commandType;
+            command.$_type = commandType;
 
             if (blockInput) {
                 this.eventBus.emit('ajax-request.executing');

@@ -38,6 +38,8 @@ namespace MirGames.Domain.Wip.Mapping
             this.Property(t => t.DurationInSeconds).HasColumnName("duration");
             this.Property(t => t.ParentId).HasColumnName("parent_work_item_id");
             this.Property(t => t.AuthorId).HasColumnName("author_id");
+
+            this.Ignore(t => t.Duration);
         }
     }
 }

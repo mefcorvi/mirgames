@@ -61,7 +61,7 @@ namespace MirGames.Domain.Wip.Entities
         /// <summary>
         /// Gets or sets the updated date.
         /// </summary>
-        public DateTime? UpdatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the item.

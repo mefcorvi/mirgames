@@ -8,7 +8,7 @@ var Core;
         }
         ApiService.prototype.getAll = function (queryType, query, pageNum, pageSize, callback, blockInput) {
             if (typeof blockInput === "undefined") { blockInput = true; }
-            query.type = queryType;
+            query.$_type = queryType;
             this.invokeQuery('all', query, { pageNum: pageNum, pageSize: pageSize }, function (res) {
                 return callback(res);
             }, blockInput);
@@ -16,7 +16,7 @@ var Core;
 
         ApiService.prototype.getOne = function (queryType, query, callback, blockInput) {
             if (typeof blockInput === "undefined") { blockInput = true; }
-            query.type = queryType;
+            query.$_type = queryType;
             this.invokeQuery('one', query, {}, function (res) {
                 return callback(res);
             }, blockInput);
@@ -25,7 +25,7 @@ var Core;
         ApiService.prototype.executeCommand = function (commandType, command, callback, blockInput) {
             var _this = this;
             if (typeof blockInput === "undefined") { blockInput = true; }
-            command.type = commandType;
+            command.$_type = commandType;
 
             if (blockInput) {
                 this.eventBus.emit('ajax-request.executing');

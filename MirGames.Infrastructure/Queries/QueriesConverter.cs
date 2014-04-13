@@ -77,7 +77,7 @@ namespace MirGames.Infrastructure.Queries
 
             JObject jsonObject = JObject.Load(reader);
 
-            var typeToken = jsonObject.GetValue("type");
+            var typeToken = jsonObject.GetValue("$_type");
             if (typeToken.Type != JTokenType.String)
             {
                 throw new JsonReaderException("Type of the query isn't specified.");

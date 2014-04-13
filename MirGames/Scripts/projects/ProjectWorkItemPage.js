@@ -15,7 +15,22 @@ var MirGames;
                 this.apiService = apiService;
                 this.$scope.items = this.convertItemsToScope(this.pageData.workItems);
                 this.$scope.dataLoaded = true;
+
+                this.$scope.newItem = this.getEmptyNewItem();
             }
+            ProjectWorkItemPage.prototype.getEmptyNewItem = function () {
+                var _this = this;
+                return {
+                    attachments: [],
+                    focus: false,
+                    post: function () {
+                        return _this.postNewItem();
+                    },
+                    text: '',
+                    title: ''
+                };
+            };
+
             /** Loads the list of work items */
             ProjectWorkItemPage.prototype.loadWorkItems = function () {
                 var _this = this;
@@ -26,9 +41,26 @@ var MirGames;
                 this.apiService.getAll("GetProjectWorkItemsQuery", query, 0, 20, function (result) {
                     _this.$scope.$apply(function () {
                         _this.$scope.items = result;
+                        _this.$scope.dataLoaded = true;
                     });
                 });
-                this.$scope.dataLoaded = true;
+            };
+
+            ProjectWorkItemPage.prototype.loadWorkItem = function (internalId) {
+                var _this = this;
+                var query = {
+                    ProjectAlias: this.pageData.projectAlias,
+                    InternalId: internalId
+                };
+
+                this.$scope.dataLoaded = false;
+
+                this.apiService.getOne("GetProjectWorkItemQuery", query, function (result) {
+                    _this.$scope.$apply(function () {
+                        _this.$scope.items.push(_this.convertItemToScope(result));
+                        _this.$scope.dataLoaded = true;
+                    });
+                });
             };
 
             /** Converts DTO to the scope object */
@@ -50,6 +82,27 @@ var MirGames;
                     canBeDeleted: item.CanBeDeleted,
                     url: Router.action("Projects", "WorkItem", { projectAlias: this.pageData.projectAlias, workItemId: item.InternalId })
                 };
+            };
+
+            /** Posts the new item */
+            ProjectWorkItemPage.prototype.postNewItem = function () {
+                var _this = this;
+                var command = {
+                    ProjectAlias: this.pageData.projectAlias,
+                    Title: this.$scope.newItem.title,
+                    Tags: '',
+                    Type: 2 /* Task */,
+                    Attachments: this.$scope.newItem.attachments,
+                    Description: this.$scope.newItem.text
+                };
+
+                this.apiService.executeCommand('CreateNewProjectWorkItemCommand', command, function (internalId) {
+                    _this.loadWorkItem(internalId);
+                    _this.$scope.$apply(function () {
+                        _this.$scope.newItem = _this.getEmptyNewItem();
+                        _this.$scope.newItem.focus = true;
+                    });
+                });
             };
             ProjectWorkItemPage.$inject = ['$scope', 'eventBus', 'apiService'];
             return ProjectWorkItemPage;

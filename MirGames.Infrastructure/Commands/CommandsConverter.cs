@@ -76,7 +76,7 @@ namespace MirGames.Infrastructure.Commands
 
             JObject jsonObject = JObject.Load(reader);
 
-            var typeToken = jsonObject.GetValue("type");
+            var typeToken = jsonObject.GetValue("$_type");
             if (typeToken.Type != JTokenType.String)
             {
                 throw new JsonReaderException("Type of the command isn't specified.");
