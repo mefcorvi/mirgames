@@ -6,9 +6,11 @@ module MirGames.Wip {
         constructor($scope: IProjectWorkItemPageScope, eventBus: Core.IEventBus, private apiService: Core.IApiService) {
             super($scope, eventBus);
             this.$scope.comment = this.getCommentForm();
+            this.$scope.comments = [];
+            this.$scope.commentsLoading = false;
         }
 
-        getCommentForm(): IProjectNewWorkItemCommentScope {
+        private getCommentForm(): IProjectNewWorkItemCommentScope {
             return {
                 attachments: [],
                 focus: false,
@@ -17,7 +19,7 @@ module MirGames.Wip {
             };
         }
 
-        postComment(): void {
+        private postComment(): void {
             var command: Domain.Wip.Commands.PostWorkItemCommentCommand = {
                 Attachments: this.$scope.comment.attachments,
                 Text: this.$scope.comment.text,
@@ -26,14 +28,31 @@ module MirGames.Wip {
 
             this.apiService.executeCommand('PostWorkItemCommentCommand', command, (commentId: number) => {
                 this.$scope.$apply(() => {
+                    this.loadComment(commentId);
                     this.$scope.comment = this.getCommentForm();
                 });
+            });
+        }
+
+        private loadComment(commentId: number): void {
+            var query: Domain.Wip.Queries.GetProjectWorkItemCommentQuery = {
+                CommentId: commentId
+            };
+
+            this.$scope.commentsLoading = true;
+
+            this.apiService.getOne('GetProjectWorkItemCommentQuery', query, (comment: Domain.Wip.ViewModels.ProjectWorkItemCommentViewModel) => {
+                this.$scope.comments.push(comment);
+                this.$scope.commentsLoading = false;
+                this.$scope.$apply();
             });
         }
     }
 
     export interface IProjectWorkItemPageScope extends IPageScope {
         comment: IProjectNewWorkItemCommentScope;
+        comments: MirGames.Domain.Wip.ViewModels.ProjectWorkItemCommentViewModel[];
+        commentsLoading: boolean;
     }
 
     export interface IProjectNewWorkItemCommentScope {

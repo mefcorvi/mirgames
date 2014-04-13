@@ -77,9 +77,10 @@ namespace MirGames.Domain.Wip.CommandHandlers
                 }
 
                 var newInternalId = writeContext
-                                         .Set<ProjectWorkItem>()
-                                         .Where(p => p.ProjectId == project.ProjectId)
-                                         .Max(p => p.InternalId) + 1;
+                                        .Set<ProjectWorkItem>()
+                                        .Where(p => p.ProjectId == project.ProjectId)
+                                        .Max(p => (int?)p.InternalId)
+                                        .GetValueOrDefault() + 1;
 
                 projectWorkItem = new ProjectWorkItem
                 {

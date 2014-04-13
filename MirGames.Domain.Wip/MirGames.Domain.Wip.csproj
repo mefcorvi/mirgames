@@ -71,6 +71,7 @@
     <Compile Include="Mapping\ProjectWorkItemTagMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryHandlers\GetProjectIdQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetProjectWorkItemCommentQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetProjectWorkItemCommentsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetProjectWorkItemQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetProjectWorkItemsQueryHandler.cs" />

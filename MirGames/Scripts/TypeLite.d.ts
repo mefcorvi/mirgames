@@ -48,6 +48,8 @@ interface SingleItemQuery1 extends MirGames.Infrastructure.Queries.Query1 {
 }
 interface Query1 extends MirGames.Infrastructure.Queries.Query {
 }
+interface SingleItemQuery1 extends MirGames.Infrastructure.Queries.Query1 {
+}
 interface Query1 extends MirGames.Infrastructure.Queries.Query {
 }
 interface SingleItemQuery1 extends MirGames.Infrastructure.Queries.Query1 {
@@ -424,6 +426,9 @@ interface PostWorkItemCommentCommand extends MirGames.Infrastructure.Commands.Co
 declare module MirGames.Domain.Wip.Queries {
 interface GetIsProjectNameUniqueQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
   Alias: string;
+}
+interface GetProjectWorkItemCommentQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
+  CommentId: number;
 }
 interface GetProjectWorkItemCommentsQuery extends MirGames.Infrastructure.Queries.Query1 {
   WorkItemId: number;

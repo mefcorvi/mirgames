@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="GetProjectWorkItemCommentsQuery.cs">
+// <copyright company="MirGames" file="GetProjectWorkItemCommentQuery.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -14,11 +14,11 @@ namespace MirGames.Domain.Wip.Queries
     using MirGames.Infrastructure.Queries;
 
     [Api]
-    public sealed class GetProjectWorkItemCommentsQuery : Query<ProjectWorkItemCommentViewModel>
+    public sealed class GetProjectWorkItemCommentQuery : SingleItemQuery<ProjectWorkItemCommentViewModel>
     {
         /// <summary>
         /// Gets or sets the work item identifier.
         /// </summary>
-        public int WorkItemId { get; set; }
+        public int CommentId { get; set; }
     }
 }

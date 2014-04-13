@@ -42,6 +42,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetIsProjectNameUniqueQuery.cs" />
     <Compile Include="Queries\GetProjectIdQuery.cs" />
+    <Compile Include="Queries\GetProjectWorkItemCommentQuery.cs" />
     <Compile Include="Queries\GetProjectWorkItemCommentsQuery.cs" />
     <Compile Include="Queries\GetProjectWorkItemQuery.cs" />
     <Compile Include="Queries\GetProjectWorkItemsQuery.cs" />

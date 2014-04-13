@@ -14,6 +14,8 @@ var MirGames;
                 _super.call(this, $scope, eventBus);
                 this.apiService = apiService;
                 this.$scope.comment = this.getCommentForm();
+                this.$scope.comments = [];
+                this.$scope.commentsLoading = false;
             }
             ProjectWorkItemPage.prototype.getCommentForm = function () {
                 var _this = this;
@@ -37,8 +39,24 @@ var MirGames;
 
                 this.apiService.executeCommand('PostWorkItemCommentCommand', command, function (commentId) {
                     _this.$scope.$apply(function () {
+                        _this.loadComment(commentId);
                         _this.$scope.comment = _this.getCommentForm();
                     });
+                });
+            };
+
+            ProjectWorkItemPage.prototype.loadComment = function (commentId) {
+                var _this = this;
+                var query = {
+                    CommentId: commentId
+                };
+
+                this.$scope.commentsLoading = true;
+
+                this.apiService.getOne('GetProjectWorkItemCommentQuery', query, function (comment) {
+                    _this.$scope.comments.push(comment);
+                    _this.$scope.commentsLoading = false;
+                    _this.$scope.$apply();
                 });
             };
             ProjectWorkItemPage.$inject = ['$scope', 'eventBus', 'apiService'];

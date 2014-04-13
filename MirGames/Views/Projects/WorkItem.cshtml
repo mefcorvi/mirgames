@@ -21,16 +21,33 @@
     <div class="work-item text">
         @Html.Markdown(workItem.Description)
     </div>
-    @if (comments.Any())
-    {
-        <h4>Комментарии</h4>
+        <h4 ng-show ="@(comments.Any() ? "true" : "false") || comments.length">Комментарии</h4>
         <div class="comments-list">
-            @foreach (var comment in comments)
-            {
-                @Html.Partial("_WorkItemComment", comment)
-            }
+        @foreach (var comment in comments)
+        {
+            @Html.Partial("_WorkItemComment", comment)
+        }
+        <div class="data-loading" ng-show="commentsLoading" ng-cloak></div>
+        <div class="comment" comment-id="{{comment.CommentId}}" ng-repeat="comment in comments" ng-cloak>
+            <header id="{{'c' + comment.CommentId}}">
+                <a author-link="comment.Author.AuthorId" class="avatar-link">
+                    <img ng-src="{{comment.Author.AvatarUrl}}" class="avatar" />
+                </a>
+                <a author-link="comment.Author.AuthorId" class="user-login">{{comment.Author.Login}}</a>
+                <span class="comment-date">({{comment.Date | date:'dd.MM.yy HH:mm'}})</span>
+                <div class="message-bar">
+                    <a ng-show="comment.CanBeEdited" class="edit-post" href="javascript:void(0);" dialog="@Url.Action("EditCommentDialog", "Topics")" title="Редактировать"
+                        dialog-close="$parent.reloadComment(comment.CommentId)"
+                        resolve="{ 'comment-id': {{comment.CommentId}} }" dialog-controller="MirGames.Topics.EditCommentDialogController"><i class="fa fa-pencil-square-o"></i></a>
+                    <a ng-show="comment.CanBeDeleted" class="delete-post" href="javascript:void(0);" title="Удалить" dialog="@Url.Action("DeleteCommentDialog", "Topics")"
+                        dialog-close="hideComment(comment.CommentId)" resolve="{ 'comment-id': {{comment.CommentId}} }"
+                        dialog-controller="MirGames.Topics.DeleteCommentDialogController"><i class="fa fa-times"></i></a>
+                    <div ng-show="comment.UpdatedDate > comment.Date" class="edited">Отредактировано: {{comment.UpdatedDate | date:'dd.MM.yy HH:mm'}}</div>
+                </div>
+            </header>
+            <div class="text" ng-bind-html="comment.Text | unsafe"></div>
         </div>
-    }
+    </div>
     
     @if (workItem.CanBeCommented)
     {
