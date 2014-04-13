@@ -595,6 +595,7 @@
     <TypeScriptCompile Include="Scripts\Libs\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\projects\NewProjectPage.ts" />
     <TypeScriptCompile Include="Scripts\projects\ProjectWorkItemPage.ts" />
+    <TypeScriptCompile Include="Scripts\projects\ProjectWorkItemsPage.ts" />
     <TypeScriptCompile Include="Scripts\Topics\Topic.ts" />
     <TypeScriptCompile Include="Scripts\Settings.ts" />
     <TypeScriptCompile Include="Scripts\Core\Config.ts" />

@@ -6,6 +6,7 @@
     var comments = ((IEnumerable<ProjectWorkItemCommentViewModel>)ViewBag.Comments).ToList();
     ViewBag.Title = string.Format("#{0} {1} / {2}", workItem.InternalId, workItem.Title, Model.Title);
     AddPageCssClass("wip-workitem-page");
+    PageScriptController = "MirGames.Wip.ProjectWorkItemPage";
 }
 
 @section Nav
@@ -35,10 +36,10 @@
     {
         <h4 id="new-comment">Новый комментарий</h4>
         <div class="comment-form">
-            <form class="new-comment-form" ng-submit="addComment()" novalidate name="postCommentForm">
-                <texteditor show-preview="true" focus="comment.isFocused" text="comment.text" post="addComment()" attachments="comment.attachments" entity-type="comment"></texteditor>
+            <form class="new-comment-form" ng-submit="comment.post()" novalidate name="postCommentForm">
+                <texteditor show-preview="true" focus="comment.focus" text="comment.text" post="comment.post()" attachments="comment.attachments" entity-type="project-work-item-comment"></texteditor>
                 <div class="buttons">
-                    <a href="javascript:void(0);" ng-click="addComment()" class="button">Оставить комментарий</a>
+                    <a href="javascript:void(0);" ng-click="comment.post()" ng-class="{ 'button-disabled': postCommentForm.$invalid }" class="button">Оставить комментарий</a>
                 </div>
             </form>
         </div>

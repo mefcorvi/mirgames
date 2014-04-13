@@ -156,6 +156,7 @@ namespace MirGames.Controllers
             });
 
             this.PageData["projectAlias"] = project.Alias;
+            this.PageData["workItemId"] = workItem.WorkItemId;
 
             this.ViewBag.SubSection = "WorkItems";
             this.ViewBag.WorkItem = workItem;

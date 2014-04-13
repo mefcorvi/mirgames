@@ -48,6 +48,8 @@ interface SingleItemQuery1 extends MirGames.Infrastructure.Queries.Query1 {
 }
 interface Query1 extends MirGames.Infrastructure.Queries.Query {
 }
+interface Query1 extends MirGames.Infrastructure.Queries.Query {
+}
 interface SingleItemQuery1 extends MirGames.Infrastructure.Queries.Query1 {
 }
 interface Query1 extends MirGames.Infrastructure.Queries.Query {
@@ -413,10 +415,18 @@ interface CreateNewWipProjectCommand extends MirGames.Infrastructure.Commands.Co
   Attachments: number[];
   Description: string;
 }
+interface PostWorkItemCommentCommand extends MirGames.Infrastructure.Commands.Command1 {
+  WorkItemId: number;
+  Text: string;
+  Attachments: number[];
+}
 }
 declare module MirGames.Domain.Wip.Queries {
 interface GetIsProjectNameUniqueQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
   Alias: string;
+}
+interface GetProjectWorkItemCommentsQuery extends MirGames.Infrastructure.Queries.Query1 {
+  WorkItemId: number;
 }
 interface GetProjectWorkItemQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
   ProjectAlias: string;
@@ -424,6 +434,7 @@ interface GetProjectWorkItemQuery extends MirGames.Infrastructure.Queries.Single
 }
 interface GetProjectWorkItemsQuery extends MirGames.Infrastructure.Queries.Query1 {
   ProjectAlias: string;
+  Tag: string;
 }
 }
 declare module MirGames.Domain.Wip.ViewModels {
@@ -438,12 +449,23 @@ enum WorkItemState {
   Open = 1,
   Closed = 2,
   Active = 3,
-  Queued = 4
+  Queued = 4,
+  Removed = 5
 }
 enum WipProjectRepositoryItemType {
   Other = 0,
   File = 1,
   Directory = 2
+}
+interface ProjectWorkItemCommentViewModel {
+  CommentId: number;
+  WorkItemId: number;
+  Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
+  Text: string;
+  Date: Date;
+  UpdatedDate: Date;
+  CanBeEdited: boolean;
+  CanBeDeleted: boolean;
 }
 interface ProjectWorkItemViewModel {
   WorkItemId: number;
@@ -463,6 +485,7 @@ interface ProjectWorkItemViewModel {
   Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
   CanBeDeleted: boolean;
   CanBeEdited: boolean;
+  CanBeCommented: boolean;
 }
 interface WipProjectRepositoryItemViewModel {
   Path: string;

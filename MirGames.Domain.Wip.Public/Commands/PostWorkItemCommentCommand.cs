@@ -1,32 +1,35 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="WipDomainModule.cs">
+// <copyright company="MirGames" file="PostWorkItemCommentCommand.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace MirGames.Domain.Wip
-{
-    using Autofac;
 
-    using MirGames.Domain.Attachments.Services;
-    using MirGames.Domain.Wip.Services;
+namespace MirGames.Domain.Wip.Commands
+{
+    using MirGames.Infrastructure.Commands;
 
     /// <summary>
-    /// The domain module.
+    /// Posts the comment for a work item.
     /// </summary>
-    public sealed class WipDomainModule : DomainModuleBase
+    [Api]
+    public sealed class PostWorkItemCommentCommand : Command<int>
     {
-        /// <inheritdoc />
-        protected override void Load(ContainerBuilder builder)
-        {
-            base.Load(builder);
+        /// <summary>
+        /// Gets or sets the work item identifier.
+        /// </summary>
+        public int WorkItemId { get; set; }
 
-            builder.RegisterType<EntityMapper>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<ProjectLogoUploadProcessor>().As<IUploadProcessor>().SingleInstance();
-            builder.RegisterType<ProjectWorkItemUploadProcessor>().As<IUploadProcessor>().SingleInstance();
-            builder.RegisterType<ProjectWorkItemCommentUploadProcessor>().As<IUploadProcessor>().SingleInstance();
-        }
+        /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
+        public string Text { get; set; }
+
+        /// <summary>
+        /// Gets or sets the attachments.
+        /// </summary>
+        public int[] Attachments { get; set; }
     }
 }

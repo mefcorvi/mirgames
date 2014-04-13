@@ -55,6 +55,7 @@
     <Compile Include="CommandHandlers\ArchiveProjectRepositoryCommandHandler.cs" />
     <Compile Include="CommandHandlers\CreateNewWipProjectCommandHandler.cs" />
     <Compile Include="CommandHandlers\CreateProjectWorkItemCommandHandler.cs" />
+    <Compile Include="CommandHandlers\PostWorkItemCommentCommandHandler.cs" />
     <Compile Include="Entities\ProjectTag.cs" />
     <Compile Include="Entities\ProjectFollower.cs" />
     <Compile Include="Entities\Project.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="QueryHandlers\GetWipTagsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetWipProjectsQueryHandler.cs" />
     <Compile Include="Services\ProjectLogoUploadProcessor.cs" />
+    <Compile Include="Services\ProjectWorkItemCommentUploadProcessor.cs" />
     <Compile Include="Services\ProjectWorkItemUploadProcessor.cs" />
     <Compile Include="WipDomainModule.cs" />
   </ItemGroup>
