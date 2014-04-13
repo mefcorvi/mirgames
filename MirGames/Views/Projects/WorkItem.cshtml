@@ -16,7 +16,7 @@
 
 <section>
     <h4>@workItem.Title</h4>
-    <div class="work-item">
-        @workItem.Description
+    <div class="work-item text">
+        @Html.Markdown(workItem.Description)
     </div>
 </section>

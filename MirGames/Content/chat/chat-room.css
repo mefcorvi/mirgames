@@ -166,10 +166,6 @@
   border: 0;
   margin-bottom: 1px;
 }
-.chat-room-page > section > .chat-messages > .message:hover {
-  outline: 1px dashed rgba(0, 0, 0, 0.1);
-  z-index: 2;
-}
 .chat-room-page > section > .chat-messages > .message.message-chain {
   border-top: 0;
   border-bottom: 0;
