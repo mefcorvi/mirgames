@@ -99,5 +99,10 @@ namespace MirGames.Domain.Wip.ViewModels
         /// Gets or sets a value indicating whether this instance can be edited.
         /// </summary>
         public bool CanBeEdited { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance can be commented.
+        /// </summary>
+        public bool CanBeCommented { get; set; }
     }
 }

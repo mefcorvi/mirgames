@@ -48,7 +48,6 @@
   margin-bottom: 5px;
 }
 .user-comments-page > section > .comments-list > .comment:last-child {
-  border-bottom: 0;
   margin-bottom: 0;
 }
 .user-comments-page > section > .comments-list > .comment > header {

@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessRules\ProjectCreateAccessRule.cs" />
+    <Compile Include="AccessRules\ProjectWorkItemCommentAccessRule.cs" />
     <Compile Include="AccessRules\ProjectWorkItemEditAccessRule.cs" />
     <Compile Include="AccessRules\ProjectWorkItemDeleteAccessRule.cs" />
     <Compile Include="ClaimsProviders\WipClaimsProvider.cs" />
@@ -58,15 +59,18 @@
     <Compile Include="Entities\ProjectFollower.cs" />
     <Compile Include="Entities\Project.cs" />
     <Compile Include="Entities\ProjectWorkItem.cs" />
+    <Compile Include="Entities\ProjectWorkItemComment.cs" />
     <Compile Include="Entities\ProjectWorkItemTag.cs" />
     <Compile Include="EntityMapper.cs" />
     <Compile Include="EventListeners\RepositoryUpdatedEventLIstener.cs" />
     <Compile Include="Mapping\ProjectTagMap.cs" />
     <Compile Include="Mapping\ProjectMap.cs" />
+    <Compile Include="Mapping\ProjectWorkItemCommentMap.cs" />
     <Compile Include="Mapping\ProjectWorkItemMap.cs" />
     <Compile Include="Mapping\ProjectWorkItemTagMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryHandlers\GetProjectIdQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetProjectWorkItemCommentsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetProjectWorkItemQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetProjectWorkItemsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetWipProjectCommitsQueryHandler.cs" />

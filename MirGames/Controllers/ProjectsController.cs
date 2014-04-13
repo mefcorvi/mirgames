@@ -150,11 +150,17 @@ namespace MirGames.Controllers
                 InternalId = workItemId
             });
 
+            var comments = this.QueryProcessor.Process(new GetProjectWorkItemCommentsQuery
+            {
+                WorkItemId = workItem.WorkItemId
+            });
+
             this.PageData["projectAlias"] = project.Alias;
 
             this.ViewBag.SubSection = "WorkItems";
             this.ViewBag.WorkItem = workItem;
             this.ViewBag.BackUrl = this.GetBackUrl();
+            this.ViewBag.Comments = comments;
 
             return this.View(project);            
         }

@@ -41,6 +41,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetIsProjectNameUniqueQuery.cs" />
     <Compile Include="Queries\GetProjectIdQuery.cs" />
+    <Compile Include="Queries\GetProjectWorkItemCommentsQuery.cs" />
     <Compile Include="Queries\GetProjectWorkItemQuery.cs" />
     <Compile Include="Queries\GetProjectWorkItemsQuery.cs" />
     <Compile Include="Queries\GetWipProjectTopicsQuery.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="Queries\GetWipProjectQuery.cs" />
     <Compile Include="Queries\GetWipProjectsQuery.cs" />
     <Compile Include="Queries\GetWipTagsQuery.cs" />
+    <Compile Include="ViewModels\ProjectWorkItemCommentViewModel.cs" />
     <Compile Include="ViewModels\ProjectWorkItemViewModel.cs" />
     <Compile Include="ViewModels\WipProjectRepositoryItemViewModel.cs" />
     <Compile Include="ViewModels\WipProjectRepositoryItemType.cs" />

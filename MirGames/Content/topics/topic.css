@@ -158,7 +158,6 @@
   margin-bottom: 5px;
 }
 .topic-page > section .comments-list > .comment:last-child {
-  border-bottom: 0;
   margin-bottom: 0;
 }
 .topic-page > section .comments-list > .comment > header {

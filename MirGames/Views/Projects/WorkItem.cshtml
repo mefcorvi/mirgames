@@ -3,6 +3,7 @@
 
 @{
     var workItem = (ProjectWorkItemViewModel)ViewBag.WorkItem;
+    var comments = ((IEnumerable<ProjectWorkItemCommentViewModel>)ViewBag.Comments).ToList();
     ViewBag.Title = string.Format("#{0} {1} / {2}", workItem.InternalId, workItem.Title, Model.Title);
     AddPageCssClass("wip-workitem-page");
 }
@@ -15,8 +16,31 @@
 @Html.Partial("_ProjectInfo", Model)
 
 <section>
-    <h4>#@workItem.InternalId @workItem.Title</h4>
+    <h4><small>#@workItem.InternalId</small> @workItem.Title</h4>
     <div class="work-item text">
         @Html.Markdown(workItem.Description)
     </div>
+    @if (comments.Any())
+    {
+        <h4>Комментарии</h4>
+        <div class="comments-list">
+            @foreach (var comment in comments)
+            {
+                @Html.Partial("_WorkItemComment", comment)
+            }
+        </div>
+    }
+    
+    @if (workItem.CanBeCommented)
+    {
+        <h4 id="new-comment">Новый комментарий</h4>
+        <div class="comment-form">
+            <form class="new-comment-form" ng-submit="addComment()" novalidate name="postCommentForm">
+                <texteditor show-preview="true" focus="comment.isFocused" text="comment.text" post="addComment()" attachments="comment.attachments" entity-type="comment"></texteditor>
+                <div class="buttons">
+                    <a href="javascript:void(0);" ng-click="addComment()" class="button">Оставить комментарий</a>
+                </div>
+            </form>
+        </div>
+    }
 </section>

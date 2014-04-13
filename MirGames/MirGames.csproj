@@ -938,6 +938,7 @@
     <Content Include="Views\Projects\New.cshtml" />
     <Content Include="Views\Projects\WorkItems.cshtml" />
     <Content Include="Views\Projects\WorkItem.cshtml" />
+    <Content Include="Views\Projects\_WorkItemComment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -357,14 +357,14 @@
   padding-left: 20px;
   padding-right: 20px;
 }
-.wip-workitem-page > section > section h3 {
+.wip-workitem-page > section > section > h3 {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 24px;
   margin-bottom: 10px;
   padding-bottom: 0;
   text-shadow: 1px 1px 4px #ffffff;
 }
-.wip-workitem-page > section > section h4 {
+.wip-workitem-page > section > section > h4 {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 24px;
   margin-bottom: 10px;
@@ -374,7 +374,101 @@
   font-size: 16px;
   padding-bottom: 0;
 }
-.wip-workitem-page > section > section .work-item {
+.wip-workitem-page > section > section > h4 small {
+  color: #808080;
+}
+.wip-workitem-page > section > section > .work-item {
+  background: #ffffff;
+  padding: 20px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  margin-bottom: 20px;
+}
+.wip-workitem-page > section > section > .comments-list {
+  margin-bottom: 20px;
+}
+.wip-workitem-page > section > section > .comments-list > .comment {
+  background: #ffffff;
+  padding: 10px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  margin-bottom: 5px;
+}
+.wip-workitem-page > section > section > .comments-list > .comment:last-child {
+  margin-bottom: 0;
+}
+.wip-workitem-page > section > section > .comments-list > .comment > header {
+  overflow: hidden;
+}
+.wip-workitem-page > section > section > .comments-list > .comment > header .avatar-link {
+  float: left;
+}
+.wip-workitem-page > section > section > .comments-list > .comment > header .avatar-link img {
+  background-size: cover;
+  background-clip: content-box;
+  background-position: top center;
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.wip-workitem-page > section > section > .comments-list > .comment > header .user-login {
+  margin-right: 20px;
+  margin-left: 10px;
+  font-weight: bold;
+  float: left;
+  margin-top: 8px;
+}
+.wip-workitem-page > section > section > .comments-list > .comment > header .comment-date {
+  font-size: 12px;
+  color: #8c8c0c;
+  float: left;
+  margin-top: 8px;
+}
+.wip-workitem-page > section > section > .comments-list > .comment > header .message-bar {
+  font-size: 15px;
+  float: left;
+  margin-top: 7px;
+}
+.wip-workitem-page > section > section > .comments-list > .comment > header .message-bar > .edited {
+  margin-left: 10px;
+  font-size: 11px;
+  color: #999;
+  margin-top: 2px;
+  float: left;
+}
+.wip-workitem-page > section > section > .comments-list > .comment > header .message-bar a {
+  margin-left: 20px;
+  float: left;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  opacity: 0.5;
+}
+.wip-workitem-page > section > section > .comments-list > .comment > header .message-bar a:hover {
+  opacity: 1;
+  -moz-transition-property: opacity;
+  -o-transition-property: opacity;
+  -webkit-transition-property: opacity;
+  transition-property: opacity;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -moz-transition-timing-function: ease;
+  -o-transition-timing-function: ease;
+  -webkit-transition-timing-function: ease;
+  transition-timing-function: ease;
+}
+.wip-workitem-page > section > section > .comments-list > .comment > header .message-bar a.delete-comment {
+  color: #900;
+  float: right;
+}
+.wip-workitem-page > section > section > .comments-list > .comment > .text {
+  margin-left: 42px;
+}
+.wip-workitem-page > section > section > .comment-form {
   background: #ffffff;
   padding: 20px 20px;
   border: 1px solid rgba(0, 0, 0, 0.15);

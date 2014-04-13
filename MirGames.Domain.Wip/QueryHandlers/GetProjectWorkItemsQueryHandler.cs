@@ -84,6 +84,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
                     StartDate = x.StartDate,
                     CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", x),
                     CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", x),
+                    CanBeCommented = this.authorizationManager.CheckAccess(principal, "Comment", x)
                 })
                 .ToList();
 
