@@ -74,6 +74,61 @@ form > .form-field input[type="email"]:focus:invalid {
   -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.01), 0 0 5px rgba(150, 0, 0, 0.2);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.01), 0 0 5px rgba(150, 0, 0, 0.2);
 }
+form > .form-field .radio-group {
+  overflow: hidden;
+}
+form > .form-field .radio-group .radio {
+  text-shadow: 0 0 4px #000000;
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 12px;
+  display: block;
+  padding: 5px 10px;
+  line-height: 20px;
+  min-width: 75px;
+  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  background: #7d8d98;
+  color: #e5e8ea;
+  border: 1px solid #6f808c;
+  float: left;
+  border-right: 0;
+  outline: 0;
+  margin: 0;
+  cursor: pointer;
+  -moz-transition-property: background;
+  -o-transition-property: background;
+  -webkit-transition-property: background;
+  transition-property: background;
+  -moz-transition-duration: 0.25s;
+  -o-transition-duration: 0.25s;
+  -webkit-transition-duration: 0.25s;
+  transition-duration: 0.25s;
+  -moz-transition-timing-function: ease;
+  -o-transition-timing-function: ease;
+  -webkit-transition-timing-function: ease;
+  transition-timing-function: ease;
+}
+form > .form-field .radio-group .radio .fa {
+  margin-right: 5px;
+  font-size: 14px;
+}
+form > .form-field .radio-group .radio:focus,
+form > .form-field .radio-group .radio:active {
+  background: #728ea3;
+  color: #ffffff;
+}
+form > .form-field .radio-group .radio.active {
+  background: #6690af;
+  color: #ffffff;
+  border: 1px solid #5684a5;
+}
+form > .form-field .radio-group .radio.active + .radio {
+  border-left: 0;
+}
+form > .form-field .radio-group .radio:last-child {
+  border-right: 1px solid #6f808c;
+}
 form > .form-field > .form-field-description {
   color: #999;
   font-size: 11px;

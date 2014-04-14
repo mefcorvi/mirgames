@@ -21,6 +21,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
     using MirGames.Domain.Wip.ViewModels;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Queries;
+    using MirGames.Infrastructure.Security;
     using MirGames.Services.Git.Public.Queries;
 
     /// <summary>
@@ -39,17 +40,25 @@ namespace MirGames.Domain.Wip.QueryHandlers
         private readonly ISettings settings;
 
         /// <summary>
+        /// The authorization manager.
+        /// </summary>
+        private readonly IAuthorizationManager authorizationManager;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetWipProjectQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="settings">The settings.</param>
-        public GetWipProjectQueryHandler(IQueryProcessor queryProcessor, ISettings settings)
+        /// <param name="authorizationManager">The authorization manager.</param>
+        public GetWipProjectQueryHandler(IQueryProcessor queryProcessor, ISettings settings, IAuthorizationManager authorizationManager)
         {
             Contract.Requires(queryProcessor != null);
             Contract.Requires(settings != null);
+            Contract.Requires(authorizationManager != null);
 
             this.queryProcessor = queryProcessor;
             this.settings = settings;
+            this.authorizationManager = authorizationManager;
         }
 
         /// <inheritdoc />
@@ -80,7 +89,10 @@ namespace MirGames.Domain.Wip.QueryHandlers
                     Version = project.Version,
                     Votes = project.Votes,
                     VotesCount = project.VotesCount,
-                    Tags = project.TagsList.Split(',')
+                    Tags = project.TagsList.Split(','),
+                    CanCreateBug = this.authorizationManager.CheckAccess(principal, "CreateBug", project),
+                    CanCreateTask = this.authorizationManager.CheckAccess(principal, "CreateTask", project),
+                    CanCreateFeature = this.authorizationManager.CheckAccess(principal, "CreateFeature", project)
                 };
 
             var attachment = this.queryProcessor.Process(new GetAttachmentsQuery

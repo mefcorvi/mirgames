@@ -1,4 +1,4 @@
-var __extends = this.__extends || function (d, b) {
+﻿var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
@@ -16,6 +16,7 @@ var MirGames;
                 this.$scope.items = this.convertItemsToScope(this.pageData.workItems);
                 this.$scope.dataLoaded = true;
 
+                this.$scope.typeNames = ['Неизвестный', 'Ошибка', 'Задача', 'Фича'];
                 this.$scope.newItem = this.getEmptyNewItem();
             }
             ProjectWorkItemsPage.prototype.getEmptyNewItem = function () {
@@ -28,7 +29,9 @@ var MirGames;
                     },
                     tags: '',
                     text: '',
-                    title: ''
+                    title: '',
+                    type: 1 /* Bug */,
+                    availableItemTypes: this.pageData.availableItemTypes
                 };
             };
 
@@ -112,7 +115,7 @@ var MirGames;
                     ProjectAlias: this.pageData.projectAlias,
                     Title: this.$scope.newItem.title,
                     Tags: this.$scope.newItem.tags,
-                    Type: 2 /* Task */,
+                    Type: this.$scope.newItem.type,
                     Attachments: this.$scope.newItem.attachments,
                     Description: this.$scope.newItem.text
                 };

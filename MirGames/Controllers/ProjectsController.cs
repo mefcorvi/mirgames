@@ -8,10 +8,13 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Controllers
 {
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Web.Mvc;
 
     using MirGames.Domain.Attachments.Queries;
+    using MirGames.Domain.Security;
     using MirGames.Domain.Wip.Commands;
     using MirGames.Domain.Wip.Queries;
     using MirGames.Domain.Wip.ViewModels;
@@ -128,6 +131,24 @@ namespace MirGames.Controllers
 
             this.ViewBag.SubSection = "WorkItems";
 
+            var availableItems = new List<WorkItemType>();
+
+            if (project.CanCreateBug)
+            {
+                availableItems.Add(WorkItemType.Bug);
+            }
+
+            if (project.CanCreateTask)
+            {
+                availableItems.Add(WorkItemType.Task);
+            }
+
+            if (project.CanCreateFeature)
+            {
+                availableItems.Add(WorkItemType.Feature);
+            }
+
+            this.PageData["availableItemTypes"] = availableItems.Cast<int>().ToArray();
             this.PageData["projectAlias"] = project.Alias;
             this.PageData["workItems"] = workItems;
             this.ViewBag.BackUrl = this.GetBackUrl();

@@ -379,6 +379,8 @@
   padding: 20px 20px;
   border: 1px solid rgba(0, 0, 0, 0.15);
   margin-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .wip-workitems-page > section > section .tracker-items .tracker-item {
   padding-top: 10px;
@@ -406,7 +408,19 @@
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  width: 20px;
+  width: 25px;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item > .item-type .fa {
+  font-size: 15px;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item > .item-type .bug-type {
+  color: #8d2461;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item > .item-type .feature-type {
+  color: #24618d;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item > .item-type .task-type {
+  color: #618d24;
 }
 .wip-workitems-page > section > section .tracker-items .tracker-item > .item-state {
   position: relative;

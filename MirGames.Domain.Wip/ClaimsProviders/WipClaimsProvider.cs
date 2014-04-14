@@ -64,7 +64,9 @@ namespace MirGames.Domain.Wip.ClaimsProviders
 
                     foreach (var projectId in projects)
                     {
-                        yield return ClaimsPrincipalExtensions.CreateActionClaim("CreateWorkItem", "WipProject", projectId);
+                        yield return ClaimsPrincipalExtensions.CreateActionClaim("CreateBug", "WipProject", projectId);
+                        yield return ClaimsPrincipalExtensions.CreateActionClaim("CreateTask", "WipProject", projectId);
+                        yield return ClaimsPrincipalExtensions.CreateActionClaim("CreateFeature", "WipProject", projectId);
                         yield return ClaimsPrincipalExtensions.CreateActionClaim("Edit", "WipProject", projectId);
                         yield return ClaimsPrincipalExtensions.CreateActionClaim("Delete", "WipProject", projectId);
                     }

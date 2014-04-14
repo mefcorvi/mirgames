@@ -10,6 +10,7 @@ namespace MirGames.Controllers
 {
     using System;
     using System.Collections.Generic;
+    using System.Security.Claims;
     using System.Web.Mvc;
 
     using MirGames.Domain.Forum.Queries;
@@ -57,6 +58,12 @@ namespace MirGames.Controllers
         /// Gets the current user.
         /// </summary>
         protected CurrentUserViewModel CurrentUser { get; private set; }
+
+        /// <inheritdoc />
+        protected new ClaimsPrincipal User
+        {
+            get { return base.User as ClaimsPrincipal; }
+        }
 
         /// <inheritdoc />
         protected override void OnActionExecuting(ActionExecutingContext filterContext)

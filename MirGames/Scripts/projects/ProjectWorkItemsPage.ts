@@ -1,4 +1,4 @@
-/// <reference path="../_references.ts" />
+﻿/// <reference path="../_references.ts" />
 module MirGames.Wip {
     export class ProjectWorkItemsPage extends MirGames.BasePage<IProjectWorkItemsPageData, IProjectWorkItemsPageScope> {
         static $inject = ['$scope', 'eventBus', 'apiService'];
@@ -8,6 +8,7 @@ module MirGames.Wip {
             this.$scope.items = this.convertItemsToScope(this.pageData.workItems);
             this.$scope.dataLoaded = true;
 
+            this.$scope.typeNames = ['Неизвестный', 'Ошибка', 'Задача', 'Фича'];
             this.$scope.newItem = this.getEmptyNewItem();
         }
 
@@ -18,7 +19,9 @@ module MirGames.Wip {
                 post: () => this.postNewItem(),
                 tags: '',
                 text: '',
-                title: ''
+                title: '',
+                type: Domain.Wip.ViewModels.WorkItemType.Bug,
+                availableItemTypes: this.pageData.availableItemTypes
             };
         }
 
@@ -95,7 +98,7 @@ module MirGames.Wip {
                 ProjectAlias: this.pageData.projectAlias,
                 Title: this.$scope.newItem.title,
                 Tags: this.$scope.newItem.tags,
-                Type: Domain.Wip.ViewModels.WorkItemType.Task,
+                Type: this.$scope.newItem.type,
                 Attachments: this.$scope.newItem.attachments,
                 Description: this.$scope.newItem.text
             };
@@ -130,6 +133,7 @@ module MirGames.Wip {
         items: IProjectWorkItemScope[];
         dataLoaded: boolean;
         newItem: IProjectNewWorkItemScope;
+        typeNames: string[];
     }
 
     export interface IProjectNewWorkItemScope {
@@ -138,11 +142,15 @@ module MirGames.Wip {
         tags: string;
         post: () => void ;
         attachments: number[];
+        type: Domain.Wip.ViewModels.WorkItemType;
+        availableItemTypes: number[];
         focus: boolean;
     }
+
     export interface IProjectWorkItemsPageData {
         projectAlias: string;
         workItems: Domain.Wip.ViewModels.ProjectWorkItemViewModel[];
+        availableItemTypes: number[];
     }
 
     enum WorkItemState {

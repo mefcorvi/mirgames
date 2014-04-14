@@ -90,5 +90,20 @@ namespace MirGames.Domain.Wip.ViewModels
         /// Gets or sets the repository URL.
         /// </summary>
         public string RepositoryUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance can create bug.
+        /// </summary>
+        public bool CanCreateBug { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance can create task.
+        /// </summary>
+        public bool CanCreateTask { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance can create feature.
+        /// </summary>
+        public bool CanCreateFeature { get; set; }
     }
 }

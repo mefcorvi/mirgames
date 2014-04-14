@@ -20,7 +20,8 @@
         <div ng-class="['tracker-item', item.type, item.state]" ng-repeat="item in items" ng-cloak>
             <div class="item-type">
                 <span class="bug-type" title="Баг" ng-show="item.type == 'Bug'"><i class="fa fa-bug"></i></span>
-                <span class="task-type" title="Задача" ng-show="item.type == 'Task'"><i class="fa fa-tasks"></i></span>
+                <span class="task-type" title="Задача" ng-show="item.type == 'Task'"><i class="fa fa-check-square-o"></i></span>
+                <span class="feature-type" title="Задача" ng-show="item.type == 'Feature'"><i class="fa fa-plus-square"></i></span>
             </div>
             <div class="title">
                 <a href="{{item.url}}">
@@ -39,10 +40,20 @@
         </div>
         <div class="data-loading" ng-hide="dataLoaded"></div>
     </div>
-    @if (User.Can("CreateWorkItem", "WipProject", Model.ProjectId))
+    @if (Model.CanCreateBug || Model.CanCreateFeature || Model.CanCreateTask)
     {
-        <h4>Новая задача</h4>
-        <form class="new-item-form" name="newItemForm">
+        <h4 ng-cloak>
+            Новая {{typeNames[newItem.type]}}
+        </h4>
+        <form class="new-item-form" name="newItemForm" ng-cloak>
+            <div class="form-field" ng-show="newItem.availableItemTypes.length > 1">
+                <label>Тип элемента</label>
+                <div class="radio-group">
+                    <button type="button" class="radio" ng-model="newItem.type" ng-show="newItem.availableItemTypes.indexOf(1) + 1" btn-radio="1" ng-click="newItem.focus=true"><i class="fa fa-bug"></i>{{typeNames[1]}}</button>
+                    <button type="button" class="radio" ng-model="newItem.type" ng-show="newItem.availableItemTypes.indexOf(2) + 1" btn-radio="2" ng-click="newItem.focus=true"><i class="fa fa-check-square-o"></i>{{typeNames[2]}}</button>
+                    <button type="button" class="radio" ng-model="newItem.type" ng-show="newItem.availableItemTypes.indexOf(3) + 1" btn-radio="3" ng-click="newItem.focus=true"><i class="fa fa-plus-square"></i>{{typeNames[3]}}</button>
+                </div>
+            </div>
             <div class="form-field">
                 <label>Заголовок</label>
                 <input type="text" ng-model="newItem.title" ng-focused="newItem.focus" required="required" maxlength="256" />

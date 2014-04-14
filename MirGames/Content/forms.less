@@ -25,6 +25,58 @@ form {
             .form-input();
         }
 
+        .radio-group {
+            overflow: hidden;
+
+            .radio {
+                @background: mix(@link-color, @background-color, 70%);
+                @font-color: @background-color;
+                @border-style: 1px solid darken(desaturate(@background, 20%), 5%);
+                text-shadow: 0 0 4px contrast(@font-color);
+
+                .button-font();
+                .font-size(1.2);
+                display: block;
+                padding: @indent/4 @indent/2;
+                line-height: 20px;
+                min-width: 75px;
+                .box-sizing(content-box);
+                background: desaturate(@background, 20%);
+                color: mix(@font-color, desaturate(@background, 20%), 80%);
+                border: @border-style;
+                float: left;
+                border-right: 0;
+                outline: 0;
+                margin: 0;
+                cursor: pointer;
+                .transition(background, 0.25s);
+
+                .fa {
+                    margin-right: @indent/4;
+                    .font-size(1.4);
+                }
+
+                &:focus, &:active {
+                    background: desaturate(@background, 10%);
+                    color: @font-color;
+                }
+
+                &.active {
+                    background: @background;
+                    color: @font-color;
+                    border: 1px solid darken(@background, 5%);
+
+                    & + .radio {
+                        border-left: 0;
+                    }
+                }
+
+                &:last-child {
+                    border-right: @border-style;
+                }
+            }
+        }
+
         & > .form-field-description {
             color: #999;
             .font-size(1.1);

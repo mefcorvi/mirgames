@@ -48,6 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessRules\ProjectCreateAccessRule.cs" />
+    <Compile Include="AccessRules\ProjectCreateBugAccessRule.cs" />
+    <Compile Include="AccessRules\ProjectCreateFeatureAccessRule.cs" />
+    <Compile Include="AccessRules\ProjectCreateTaskAccessRule.cs" />
     <Compile Include="AccessRules\ProjectWorkItemCommentAccessRule.cs" />
     <Compile Include="AccessRules\ProjectWorkItemEditAccessRule.cs" />
     <Compile Include="AccessRules\ProjectWorkItemDeleteAccessRule.cs" />

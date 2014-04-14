@@ -9,6 +9,7 @@
 namespace MirGames.Domain.Wip.QueryHandlers
 {
     using System.Collections.Generic;
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
@@ -20,6 +21,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
     using MirGames.Domain.Wip.ViewModels;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Queries;
+    using MirGames.Infrastructure.Security;
 
     /// <summary>
     /// Returns the WIP projects.
@@ -31,13 +33,20 @@ namespace MirGames.Domain.Wip.QueryHandlers
         /// </summary>
         private readonly IQueryProcessor queryProcessor;
 
+        private readonly IAuthorizationManager authorizationManager;
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetWipProjectsQueryHandler"/> class.
+        /// Initializes a new instance of the <see cref="GetWipProjectsQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
-        public GetWipProjectsQueryHandler(IQueryProcessor queryProcessor)
+        /// <param name="authorizationManager">The authorization manager.</param>
+        public GetWipProjectsQueryHandler(IQueryProcessor queryProcessor, IAuthorizationManager authorizationManager)
         {
+            Contract.Requires(queryProcessor != null);
+            Contract.Requires(authorizationManager != null);
+
             this.queryProcessor = queryProcessor;
+            this.authorizationManager = authorizationManager;
         }
 
         /// <inheritdoc />
@@ -69,7 +78,10 @@ namespace MirGames.Domain.Wip.QueryHandlers
                             Version = p.Version,
                             Votes = p.Votes,
                             VotesCount = p.VotesCount,
-                            Tags = p.TagsList.Split(',')
+                            Tags = p.TagsList.Split(','),
+                            CanCreateBug = this.authorizationManager.CheckAccess(principal, "CreateBug", p),
+                            CanCreateTask = this.authorizationManager.CheckAccess(principal, "CreateTask", p),
+                            CanCreateFeature = this.authorizationManager.CheckAccess(principal, "CreateFeature", p)
                         })
                     .ToList();
 

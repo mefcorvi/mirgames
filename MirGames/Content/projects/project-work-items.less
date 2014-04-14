@@ -19,6 +19,8 @@
             .tracker-items {
                 .page-block();
                 margin-bottom: @indent;
+                padding-top: @indent/2;
+                padding-bottom: @indent/2;
 
                 .tracker-item {
                     padding-top: @indent/2;
@@ -28,7 +30,23 @@
 
                     & > .item-type {
                         .make-xs-column(1);
-                        width: 20px;
+                        width: 25px;
+
+                        .fa {
+                            .font-size(1.5);
+                        }
+
+                        .bug-type {
+                            color: saturate(spin(@header-background, 120), 20%);
+                        }
+                        
+                        .feature-type {
+                            color: saturate(@header-background, 20%);
+                        }
+                        
+                        .task-type {
+                            color: saturate(spin(@header-background, 240), 20%);
+                        }
                     }
 
                     & > .item-state {
