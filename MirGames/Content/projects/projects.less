@@ -13,62 +13,21 @@
                 margin-right: 5px;
             }
 
+            border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+
             & > .project {
-                .page-block(@indent/2, @indent);
+                .page-block(@indent);
                 overflow: hidden;
-                margin-bottom: @indent/2;
-                .make-row();
+                /*margin-bottom: @indent/2;*/
+                border-bottom: 0;
+                border-top-color: #f0f0f0;
 
-                & > .logo {
-                    .make-xs-column(2);
-                    .make-sm-column(2);
-                    .make-md-column(1);
-                    text-align: center;
-
-                    & > img {
-                        max-width: 100%;
-                        max-height: 200px;
-                    }
-
-                    & > .version {
-                        margin-top: 5px;
-                        .header-font();
-                        .font-size-xs(1.2);
-                        .font-size-lg(1.4);
-                        text-align: center;
-
-                        b {
-                            @bgr: mix(@header-background, @background-color, 20%);
-                            background: @bgr;
-                            font-weight: normal;
-                            color: contrast(@bgr);
-                            padding: 3px;
-                            white-space: nowrap;
-
-                            & > small {
-                                .hidden-sm();
-                                .font-size(1.0);
-                                color: mix(@bgr, @font-color, 50%);
-                            }
-                        }
-
-                        & > .updated-date {
-                            display: block;
-                            margin-top: 5px;
-                            .font-size-xs(1.0);
-                            .font-size-lg(1.2);
-                            color: @date-color;
-                        }
-                    }
+                &:first-child {
+                    border-top-color: rgba(0, 0, 0, 0.15);
                 }
 
                 & > .project-info {
                     overflow: hidden;
-                    .make-xs-column(10);
-                    .make-sm-column(8);
-                    .make-md-column(9);
-                    padding-left: @indent/2;
-                    padding-right: @indent/2;
 
                     & > h1 {
                         .header-font();
@@ -116,7 +75,8 @@
                             .make-sm-column(5);
                             .make-md-column(2);
                             max-width: 100px;
-                            color: #999;
+                            .font-size(1.2);
+                            color: @date-color;
                         }
 
                         & > .followers-count {

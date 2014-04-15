@@ -422,6 +422,16 @@
 .wip-workitems-page > section > section .tracker-items .tracker-item > .item-type .task-type {
   color: #618d24;
 }
+.wip-workitems-page > section > section .tracker-items .tracker-item > .author {
+  padding-left: 5px;
+  width: auto;
+  overflow: hidden;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item > .author img {
+  margin-right: 4px;
+  width: 24px;
+  height: 24px;
+}
 .wip-workitems-page > section > section .tracker-items .tracker-item > .item-state {
   position: relative;
   float: left;

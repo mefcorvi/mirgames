@@ -36,16 +36,18 @@
                             .font-size(1.5);
                         }
 
-                        .bug-type {
-                            color: saturate(spin(@header-background, 120), 20%);
-                        }
-                        
-                        .feature-type {
-                            color: saturate(@header-background, 20%);
-                        }
-                        
-                        .task-type {
-                            color: saturate(spin(@header-background, 240), 20%);
+                        .work-item-type();
+                    }
+
+                    & > .author {
+                        padding-left: @indent/4;
+                        width: auto;
+                        overflow: hidden;
+
+                        img {
+                            margin-right: @indent/5;
+                            width: 24px;
+                            height: 24px;
                         }
                     }
 
@@ -72,18 +74,6 @@
                         .make-xs-column(2);
                         width: auto;
                         .tags();
-                    }
-
-                    &.Bug {
-                    }
-
-                    &.Task {
-                    }
-
-                    &.Open {
-                    }
-
-                    &.Close {
                     }
                 }
             }

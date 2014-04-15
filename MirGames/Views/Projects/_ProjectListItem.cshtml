@@ -1,18 +1,11 @@
 ﻿@model MirGames.Domain.Wip.ViewModels.WipProjectViewModel
 <article @Html.Css("project")>
-    <div class="logo">
-        <img src="@Model.LogoUrl"/>
-        <div class="version" title="Текущая версия">
-            <b><small>v.</small> @Model.Version</b>
-            <span class="updated-date">@(Model.UpdatedDate.HasValue ? Html.DisplayFor(m => m.UpdatedDate) : Html.DisplayFor(m => m.CreationDate))</span>
-        </div>
-    </div>
     <div class="project-info">
         <h1><a href="@Url.Action("Project", "Projects", new { projectAlias = Model.Alias })">@Model.Title</a></h1>
         <div class="project-description text">@Html.Markdown(Model.Description)</div>
         <footer>
             <a href="@Url.Action("Profile", "Users", new { userId = Model.Author.Id })" class="user-login avatar-link"><img src="@Model.Author.AvatarUrl" class="avatar avatar-tiny" /><span>@Model.Author.Login</span></a>
-            <span class="creation-date" title="Дата создания"><i class="fa fa-clock-o"></i>@Html.DisplayFor(m => m.CreationDate)</span>
+            <span class="creation-date" title="Дата последнего изменения"><i class="fa fa-clock-o"></i>@Model.UpdatedDate.Format()</span>
             <span class="followers-count" title="Наблюдатели"><i class="fa fa-eye"></i>@Model.FollowersCount</span>
             <span class="votes" title="Рейтинг"><i class="fa fa-thumbs-up"></i>@Model.Votes</span>
             <ul class="tags">

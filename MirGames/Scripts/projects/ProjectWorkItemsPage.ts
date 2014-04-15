@@ -71,7 +71,12 @@ module MirGames.Wip {
                 canBeEdited: item.CanBeEdited,
                 canBeDeleted: item.CanBeDeleted,
                 tags: this.convertTagsToScope(item.TagsList),
-                url: Router.action("Projects", "WorkItem", { projectAlias: this.pageData.projectAlias, workItemId: item.InternalId })
+                url: Router.action("Projects", "WorkItem", { projectAlias: this.pageData.projectAlias, workItemId: item.InternalId }),
+                author: {
+                    avatar: item.Author.AvatarUrl,
+                    id: item.Author.Id,
+                    login: item.Author.Login
+                }
             };
         }
 
@@ -113,6 +118,12 @@ module MirGames.Wip {
         }
     }
 
+    export interface IWorkItemAuthorScope {
+        login: string;
+        avatar: string;
+        id: number;
+    }
+
     export interface IProjectWorkItemScope {
         type: string;
         state: string;
@@ -122,6 +133,7 @@ module MirGames.Wip {
         canBeDeleted: boolean;
         url: string;
         tags: IProjectWorkItemTagScope[];
+        author: IWorkItemAuthorScope;
     }
 
     export interface IProjectWorkItemTagScope {

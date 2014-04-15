@@ -11,124 +11,26 @@
   padding-bottom: 0;
   text-shadow: 1px 1px 4px #ffffff;
 }
+.wip-page > section > .projects-list {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
 .wip-page > section > .projects-list .fa {
   margin-right: 5px;
 }
 .wip-page > section > .projects-list > .project {
   background: #ffffff;
-  padding: 10px 20px;
+  padding: 20px 20px;
   border: 1px solid rgba(0, 0, 0, 0.15);
   overflow: hidden;
-  margin-bottom: 10px;
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  display: -ms-flex;
-  display: flex;
-  -webkit-align-items: center;
-  -moz-align-items: center;
-  -ms-align-items: center;
-  align-items: center;
-  -webkit-flex-wrap: wrap;
-  -moz-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  /*margin-bottom: @indent/2;*/
+  border-bottom: 0;
+  border-top-color: #f0f0f0;
 }
-.wip-page > section > .projects-list > .project > .logo {
-  float: left;
-  width: 16.66666667%;
-  position: relative;
-  min-height: 1px;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  text-align: center;
-}
-@media (min-width: 768px) {
-  .wip-page > section > .projects-list > .project > .logo {
-    float: left;
-    width: 16.66666667%;
-  }
-}
-@media (min-width: 992px) {
-  .wip-page > section > .projects-list > .project > .logo {
-    float: left;
-    width: 8.33333333%;
-  }
-}
-.wip-page > section > .projects-list > .project > .logo > img {
-  max-width: 100%;
-  max-height: 200px;
-}
-.wip-page > section > .projects-list > .project > .logo > .version {
-  margin-top: 5px;
-  font-family: "Droid Sans", Tahoma, sans-serif;
-  text-align: center;
-}
-@media (min-width: 480px) {
-  .wip-page > section > .projects-list > .project > .logo > .version {
-    font-size: 12px;
-  }
-}
-@media (min-width: 1200px) {
-  .wip-page > section > .projects-list > .project > .logo > .version {
-    font-size: 14px;
-  }
-}
-.wip-page > section > .projects-list > .project > .logo > .version b {
-  background: #d7dfe5;
-  font-weight: normal;
-  color: #000000;
-  padding: 3px;
-  white-space: nowrap;
-}
-.wip-page > section > .projects-list > .project > .logo > .version b > small {
-  font-size: 10px;
-  color: #6b6f72;
-}
-@media (max-width: 991px) {
-  .wip-page > section > .projects-list > .project > .logo > .version b > small {
-    display: none;
-  }
-}
-.wip-page > section > .projects-list > .project > .logo > .version > .updated-date {
-  display: block;
-  margin-top: 5px;
-  color: #8c8c0c;
-}
-@media (min-width: 480px) {
-  .wip-page > section > .projects-list > .project > .logo > .version > .updated-date {
-    font-size: 10px;
-  }
-}
-@media (min-width: 1200px) {
-  .wip-page > section > .projects-list > .project > .logo > .version > .updated-date {
-    font-size: 12px;
-  }
+.wip-page > section > .projects-list > .project:first-child {
+  border-top-color: rgba(0, 0, 0, 0.15);
 }
 .wip-page > section > .projects-list > .project > .project-info {
   overflow: hidden;
-  float: left;
-  width: 83.33333333%;
-  position: relative;
-  min-height: 1px;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-@media (min-width: 768px) {
-  .wip-page > section > .projects-list > .project > .project-info {
-    float: left;
-    width: 66.66666667%;
-  }
-}
-@media (min-width: 992px) {
-  .wip-page > section > .projects-list > .project > .project-info {
-    float: left;
-    width: 75%;
-  }
 }
 .wip-page > section > .projects-list > .project > .project-info > h1 {
   font-family: "Droid Sans", Tahoma, sans-serif;
@@ -202,7 +104,8 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   max-width: 100px;
-  color: #999;
+  font-size: 12px;
+  color: #8c8c0c;
 }
 @media (min-width: 768px) {
   .wip-page > section > .projects-list > .project > .project-info > footer > .creation-date {

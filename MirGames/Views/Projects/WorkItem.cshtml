@@ -17,12 +17,39 @@
 @Html.Partial("_ProjectInfo", Model)
 
 <section>
-    <h4><small>#@workItem.InternalId</small> @workItem.Title</h4>
-    <div class="work-item text">
-        @Html.Markdown(workItem.Description)
+    <h3>
+        <small>#@workItem.InternalId</small>
+        @if (workItem.ItemType == WorkItemType.Bug)
+        {
+            <span class="bug-type" title="Баг"><i class="fa fa-bug"></i></span>
+        }
+        @if (workItem.ItemType == WorkItemType.Task)
+        {
+            <span class="task-type" title="Задача"><i class="fa fa-check-square-o"></i></span>
+        }
+        @if (workItem.ItemType == WorkItemType.Feature)
+        {
+            <span class="feature-type" title="Фича"><i class="fa fa-plus-square"></i></span>
+        }
+        @workItem.Title
+    </h3>
+    <div class="work-item">
+        <article class="text">
+            @Html.Markdown(workItem.Description)
+        </article>
+        <footer>
+            @Author.UserAvatarLink(workItem.Author, "avatar-tiny", showLogin: true)
+            <span class="creation-date">@workItem.CreatedDate.Format()</span>
+            <ul class="tags">
+                @foreach (var tag in workItem.Tags)
+                {
+                    <li>@Html.ActionLink(tag, "WorkItems", "Projects", new { projectAlias = Model.Alias, tag }, null)</li>
+                }
+            </ul>
+        </footer>
     </div>
-        <h4 ng-show ="@(comments.Any() ? "true" : "false") || comments.length">Комментарии</h4>
-        <div class="comments-list">
+    <h4 ng-show ="@(comments.Any() ? "true" : "false") || comments.length">Комментарии</h4>
+    <div class="comments-list">
         @foreach (var comment in comments)
         {
             @Html.Partial("_WorkItemComment", comment)

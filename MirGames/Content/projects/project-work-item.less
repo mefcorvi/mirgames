@@ -9,20 +9,68 @@
             .indent();
 
             & > h3 {
-                .page-title();
+                .page-subtitle();
+                text-transform: none;
+                .font-size(2);
+
+                .work-item-type();
+
+                small {
+                    .font-size(1.5);
+                    color: mix(@background-color, @font-color, 50%);
+                }
             }
 
             & > h4 {
                 .page-subtitle();
-
-                small {
-                    color: mix(@background-color, @font-color, 50%);
-                }
             }
 
             & > .work-item {
                 .page-block();
                 margin-bottom: @indent;
+
+                & > footer {
+                    margin-top: @indent/2;
+                    overflow: hidden;
+                    line-height: @avatar-tiny;
+                    border-top: 1px solid #eee;
+                    padding-top: @indent/2;
+
+                    .avatar-link {
+                        overflow: hidden;
+                        float: left;
+                        margin-right: @indent/2;
+
+                        img {
+                            margin-right: @indent/2;
+                        }
+                    }
+
+                    .creation-date {
+                        .date-small();
+                        float: left;
+                        margin-right: @indent/2;
+                    }
+
+                    & > ul.tags {
+                        overflow: hidden;
+                        list-style-type: none;
+                        float: left;
+                        line-height: normal;
+                        .font-size(1.1);
+
+                        & > li {
+                            float: left;
+                            margin-right: 2px;
+                            display: block;
+                            .tag-link(none);
+                        }
+
+                            & > li:last-child {
+                                margin-right: 0;
+                            }
+                    }
+                }
             }
 
             & > .comments-list {

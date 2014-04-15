@@ -10,6 +10,8 @@
 namespace MirGames.Domain.Wip.ViewModels
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     using MirGames.Domain.Users.ViewModels;
 
@@ -104,5 +106,16 @@ namespace MirGames.Domain.Wip.ViewModels
         /// Gets or sets a value indicating whether this instance can be commented.
         /// </summary>
         public bool CanBeCommented { get; set; }
+
+        /// <summary>
+        /// Gets the tags.
+        /// </summary>
+        public IEnumerable<string> Tags
+        {
+            get
+            {
+                return this.TagsList.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(t => t.Trim());
+            }
+        }
     }
 }

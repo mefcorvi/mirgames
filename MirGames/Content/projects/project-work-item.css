@@ -361,8 +361,26 @@
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 24px;
   margin-bottom: 10px;
-  padding-bottom: 0;
   text-shadow: 1px 1px 4px #ffffff;
+  border: none;
+  text-transform: uppercase;
+  font-size: 16px;
+  padding-bottom: 0;
+  text-transform: none;
+  font-size: 20px;
+}
+.wip-workitem-page > section > section > h3 .bug-type {
+  color: #8d2461;
+}
+.wip-workitem-page > section > section > h3 .feature-type {
+  color: #24618d;
+}
+.wip-workitem-page > section > section > h3 .task-type {
+  color: #618d24;
+}
+.wip-workitem-page > section > section > h3 small {
+  font-size: 15px;
+  color: #808080;
 }
 .wip-workitem-page > section > section > h4 {
   font-family: "Droid Sans", Tahoma, sans-serif;
@@ -374,14 +392,69 @@
   font-size: 16px;
   padding-bottom: 0;
 }
-.wip-workitem-page > section > section > h4 small {
-  color: #808080;
-}
 .wip-workitem-page > section > section > .work-item {
   background: #ffffff;
   padding: 20px 20px;
   border: 1px solid rgba(0, 0, 0, 0.15);
   margin-bottom: 20px;
+}
+.wip-workitem-page > section > section > .work-item > footer {
+  margin-top: 10px;
+  overflow: hidden;
+  line-height: 24px;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+.wip-workitem-page > section > section > .work-item > footer .avatar-link {
+  overflow: hidden;
+  float: left;
+  margin-right: 10px;
+}
+.wip-workitem-page > section > section > .work-item > footer .avatar-link img {
+  margin-right: 10px;
+}
+.wip-workitem-page > section > section > .work-item > footer .creation-date {
+  font-size: 12px;
+  color: #8c8c0c;
+  float: left;
+  margin-right: 10px;
+}
+.wip-workitem-page > section > section > .work-item > footer > ul.tags {
+  overflow: hidden;
+  list-style-type: none;
+  float: left;
+  line-height: normal;
+  font-size: 11px;
+}
+.wip-workitem-page > section > section > .work-item > footer > ul.tags > li {
+  float: left;
+  margin-right: 2px;
+  display: block;
+}
+.wip-workitem-page > section > section > .work-item > footer > ul.tags > li a {
+  background: #818d96;
+  color: #ffffff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 3px;
+  max-width: none;
+  display: block;
+  overflow: hidden;
+  text-decoration: none;
+}
+.wip-workitem-page > section > section > .work-item > footer > ul.tags > li a:active,
+.wip-workitem-page > section > section > .work-item > footer > ul.tags > li a:hover,
+.wip-workitem-page > section > section > .work-item > footer > ul.tags > li a:focus {
+  color: #ffffff;
+}
+.wip-workitem-page > section > section > .work-item > footer > ul.tags > li a:hover,
+.wip-workitem-page > section > section > .work-item > footer > ul.tags > li a:active,
+.wip-workitem-page > section > section > .work-item > footer > ul.tags > li a:focus {
+  background: #515a60;
+  color: #ffffff;
+}
+.wip-workitem-page > section > section > .work-item > footer > ul.tags > li:last-child {
+  margin-right: 0;
 }
 .wip-workitem-page > section > section > .comments-list {
   margin-bottom: 20px;
