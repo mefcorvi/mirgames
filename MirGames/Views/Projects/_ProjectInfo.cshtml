@@ -22,7 +22,7 @@
         </div>
         <span class="followers-count" title="Наблюдатели"><i class="fa fa-eye"></i>@Model.FollowersCount</span>
         <span class="votes" title="Рейтинг"><i class="fa fa-thumbs-up"></i>@Model.Votes</span>
-        <span class="updated-date">@(Model.UpdatedDate.HasValue ? Html.DisplayFor(m => m.UpdatedDate) : Html.DisplayFor(m => m.CreationDate))</span>
+        <span class="updated-date">@(Model.UpdatedDate.Format())</span>
         <ul class="tags">
             @foreach (var tag in Model.Tags)
             {

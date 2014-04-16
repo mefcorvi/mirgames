@@ -149,8 +149,13 @@ namespace MirGames
 
             routes.MapRouteLowercase(
                 "WipProjectArchive",
-                "project/{projectAlias}/archive",
+                "projects/{projectAlias}.zip",
                 new { controller = "Projects", action = "Archive" });
+
+            routes.MapRouteLowercase(
+                "WipProjectSettings",
+                "project/{projectAlias}/settings",
+                new { controller = "Projects", action = "Settings" });
 
             routes.MapRouteLowercase(
                 "WipProjectWorkItems",

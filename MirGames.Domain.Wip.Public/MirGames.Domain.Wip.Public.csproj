@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="Commands\ArchiveProjectRepositoryCommand.cs" />
     <Compile Include="Commands\CreateNewProjectWorkItemCommand.cs" />
+    <Compile Include="Commands\SaveWipProjectCommand.cs" />
     <Compile Include="Commands\CreateNewWipProjectCommand.cs" />
     <Compile Include="Commands\PostWorkItemCommentCommand.cs" />
     <Compile Include="Exceptions\ProjectAlreadyCreatedException.cs" />

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="CreateNewWipProjectCommandHandler.cs">
+// <copyright company="MirGames" file="SaveWipProjectCommandHandler.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -14,17 +14,15 @@ namespace MirGames.Domain.Wip.CommandHandlers
     using System.Security.Claims;
 
     using MirGames.Domain.Attachments.Commands;
+    using MirGames.Domain.Exceptions;
     using MirGames.Domain.Security;
-    using MirGames.Domain.Topics.Commands;
     using MirGames.Domain.Wip.Commands;
     using MirGames.Domain.Wip.Entities;
-    using MirGames.Domain.Wip.Exceptions;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Commands;
     using MirGames.Infrastructure.Security;
-    using MirGames.Services.Git.Public.Commands;
 
-    internal sealed class CreateNewWipProjectCommandHandler : CommandHandler<CreateNewWipProjectCommand, string>
+    internal sealed class SaveWipProjectCommandHandler : CommandHandler<SaveWipProjectCommand>
     {
         /// <summary>
         /// The write context factory.
@@ -37,11 +35,11 @@ namespace MirGames.Domain.Wip.CommandHandlers
         private readonly ICommandProcessor commandProcessor;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreateNewWipProjectCommandHandler" /> class.
+        /// Initializes a new instance of the <see cref="SaveWipProjectCommandHandler" /> class.
         /// </summary>
         /// <param name="writeContextFactory">The write context factory.</param>
         /// <param name="commandProcessor">The command processor.</param>
-        public CreateNewWipProjectCommandHandler(
+        public SaveWipProjectCommandHandler(
             IWriteContextFactory writeContextFactory,
             ICommandProcessor commandProcessor)
         {
@@ -53,8 +51,8 @@ namespace MirGames.Domain.Wip.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override string Execute(
-            CreateNewWipProjectCommand command,
+        public override void Execute(
+            SaveWipProjectCommand command,
             ClaimsPrincipal principal,
             IAuthorizationManager authorizationManager)
         {
@@ -62,39 +60,28 @@ namespace MirGames.Domain.Wip.CommandHandlers
             Contract.Requires(command.Alias != null);
 
             command.Alias = command.Alias.ToLowerInvariant();
-            int userId = principal.GetUserId().GetValueOrDefault();
             Project project;
 
             using (var writeContext = this.writeContextFactory.Create())
             {
-                if (writeContext.Set<Project>().Any(p => p.Alias == command.Alias))
+                project = writeContext.Set<Project>().FirstOrDefault(p => p.Alias == command.Alias);
+
+                if (project == null)
                 {
-                    throw new ProjectAlreadyCreatedException(command.Alias);
+                    throw new ItemNotFoundException("Project", command.Alias);
                 }
 
-                int blogId = this.CreateBlog(command);
-                int repositoryId = this.CreateRepository(command);
-                
-                project = new Project
-                {
-                    Alias = command.Alias,
-                    AuthorId = userId,
-                    BlogId = blogId,
-                    CreationDate = DateTime.UtcNow,
-                    UpdatedDate = DateTime.UtcNow,
-                    Description = command.Description,
-                    FollowersCount = 0,
-                    RepositoryId = repositoryId,
-                    RepositoryType = command.RepositoryType,
-                    TagsList = command.Tags,
-                    Title = command.Title,
-                    Version = "1",
-                    Votes = 0,
-                    VotesCount = 0
-                };
+                authorizationManager.EnsureAccess(principal, "Edit", project);
 
-                writeContext.Set<Project>().Add(project);
+                project.Title = command.Title;
+                project.Description = command.Description;
+                project.TagsList = command.Tags;
+                project.UpdatedDate = DateTime.UtcNow;
+
                 writeContext.SaveChanges();
+
+                var oldTags = writeContext.Set<ProjectTag>().Where(p => p.ProjectId == project.ProjectId);
+                writeContext.Set<ProjectTag>().RemoveRange(oldTags);
 
                 foreach (var tag in command.Tags.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries))
                 {
@@ -104,47 +91,25 @@ namespace MirGames.Domain.Wip.CommandHandlers
                 writeContext.SaveChanges();
             }
 
-            this.commandProcessor.Execute(new PublishAttachmentsCommand
+            if (command.LogoAttachmentId.HasValue)
             {
-                EntityId = project.ProjectId,
-                Identifiers = new[] { command.LogoAttachmentId }
-            });
+                this.commandProcessor.Execute(new RemoveAttachmentsCommand
+                {
+                    EntityId = project.ProjectId,
+                    EntityType = "project-logo"
+                });
+
+                this.commandProcessor.Execute(new PublishAttachmentsCommand
+                {
+                    EntityId = project.ProjectId,
+                    Identifiers = new[] { command.LogoAttachmentId.Value }
+                });
+            }
 
             this.commandProcessor.Execute(new PublishAttachmentsCommand
             {
                 EntityId = project.ProjectId,
                 Identifiers = command.Attachments
-            });
-
-            return project.Alias;
-        }
-
-        /// <summary>
-        /// Creates the repository.
-        /// </summary>
-        /// <param name="command">The command.</param>
-        /// <returns>The repository identifier.</returns>
-        private int CreateRepository(CreateNewWipProjectCommand command)
-        {
-            return this.commandProcessor.Execute(new InitRepositoryCommand
-            {
-                RepositoryName = command.Alias,
-                Title = "Репозиторий проекта " + command.Title
-            });
-        }
-
-        /// <summary>
-        /// Creates the blog.
-        /// </summary>
-        /// <param name="command">The command.</param>
-        /// <returns>The blog identifier.</returns>
-        private int CreateBlog(CreateNewWipProjectCommand command)
-        {
-            return this.commandProcessor.Execute(new AddNewBlogCommand
-            {
-                Alias = command.Alias,
-                Description = "Репозиторий проекта " + command.Title,
-                Title = command.Title
             });
         }
     }

@@ -24,11 +24,6 @@ namespace MirGames.Domain.Wip.ClaimsProviders
     internal sealed class WipClaimsProvider : IAdditionalClaimsProvider
     {
         /// <summary>
-        /// The authorization manager.
-        /// </summary>
-        private readonly IAuthorizationManager authorizationManager;
-
-        /// <summary>
         /// The read context factory.
         /// </summary>
         private readonly IReadContextFactory readContextFactory;
@@ -36,14 +31,11 @@ namespace MirGames.Domain.Wip.ClaimsProviders
         /// <summary>
         /// Initializes a new instance of the <see cref="WipClaimsProvider" /> class.
         /// </summary>
-        /// <param name="authorizationManager">The authorization manager.</param>
         /// <param name="readContextFactory">The read context factory.</param>
-        public WipClaimsProvider(IAuthorizationManager authorizationManager, IReadContextFactory readContextFactory)
+        public WipClaimsProvider(IReadContextFactory readContextFactory)
         {
             Contract.Requires(readContextFactory != null);
-            Contract.Requires(authorizationManager != null);
 
-            this.authorizationManager = authorizationManager;
             this.readContextFactory = readContextFactory;
         }
 
@@ -71,11 +63,11 @@ namespace MirGames.Domain.Wip.ClaimsProviders
                         yield return ClaimsPrincipalExtensions.CreateActionClaim("Delete", "WipProject", projectId);
                     }
                 }
-            }
 
-            if (this.authorizationManager.CheckAccess(principal, "Create", new Project()))
-            {
-                yield return ClaimsPrincipalExtensions.CreateActionClaim("Create", "WipProject");
+                if (principal.IsInRole("User"))
+                {
+                    yield return ClaimsPrincipalExtensions.CreateActionClaim("Create", "WipProject");
+                }
             }
         }
     }

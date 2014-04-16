@@ -433,6 +433,9 @@
     <Content Include="Content\common.css.map">
       <DependentUpon>common.css</DependentUpon>
     </Content>
+    <Content Include="Content\projects\project-settings.css">
+      <DependentUpon>project-settings.less</DependentUpon>
+    </Content>
     <Content Include="Content\projects\project-work-item.css">
       <DependentUpon>project-work-item.less</DependentUpon>
     </Content>
@@ -593,6 +596,7 @@
     <TypeScriptCompile Include="Scripts\Account\LoginFormController.ts" />
     <TypeScriptCompile Include="Scripts\Account\SignUpFormController.ts" />
     <TypeScriptCompile Include="Scripts\Libs\jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\projects\ProjectSettingsPage.ts" />
     <TypeScriptCompile Include="Scripts\projects\NewProjectPage.ts" />
     <TypeScriptCompile Include="Scripts\projects\ProjectWorkItemPage.ts" />
     <TypeScriptCompile Include="Scripts\projects\ProjectWorkItemsPage.ts" />
@@ -851,6 +855,10 @@
     <Content Include="Content\projects\project-work-item.css.map">
       <DependentUpon>project-work-item.css</DependentUpon>
     </Content>
+    <Content Include="Content\projects\project-settings.less" />
+    <Content Include="Content\projects\project-settings.css.map">
+      <DependentUpon>project-settings.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\Libs\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\Libs\jquery-1.7.1.js" />
@@ -940,6 +948,7 @@
     <Content Include="Views\Projects\WorkItems.cshtml" />
     <Content Include="Views\Projects\WorkItem.cshtml" />
     <Content Include="Views\Projects\_WorkItemComment.cshtml" />
+    <Content Include="Views\Projects\Settings.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

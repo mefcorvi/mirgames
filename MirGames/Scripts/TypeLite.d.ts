@@ -408,6 +408,14 @@ interface CreateNewProjectWorkItemCommand extends MirGames.Infrastructure.Comman
   Attachments: number[];
   Description: string;
 }
+interface SaveWipProjectCommand extends MirGames.Infrastructure.Commands.Command {
+  Title: string;
+  Alias: string;
+  Tags: string;
+  LogoAttachmentId: number;
+  Attachments: number[];
+  Description: string;
+}
 interface CreateNewWipProjectCommand extends MirGames.Infrastructure.Commands.Command1 {
   Title: string;
   Alias: string;
@@ -491,6 +499,7 @@ interface ProjectWorkItemViewModel {
   CanBeDeleted: boolean;
   CanBeEdited: boolean;
   CanBeCommented: boolean;
+  Tags: string[];
 }
 interface WipProjectRepositoryItemViewModel {
   Path: string;
@@ -528,6 +537,11 @@ interface WipProjectViewModel {
   Votes: number;
   FollowersCount: number;
   RepositoryUrl: string;
+  RepositoryType: string;
+  CanEdit: boolean;
+  CanCreateBug: boolean;
+  CanCreateTask: boolean;
+  CanCreateFeature: boolean;
 }
 }
 declare module System {

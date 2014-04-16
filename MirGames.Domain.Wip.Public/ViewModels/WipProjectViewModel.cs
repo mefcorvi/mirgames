@@ -92,6 +92,16 @@ namespace MirGames.Domain.Wip.ViewModels
         public string RepositoryUrl { get; set; }
 
         /// <summary>
+        /// Gets or sets the type of the repository.
+        /// </summary>
+        public string RepositoryType { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance can edit.
+        /// </summary>
+        public bool CanEdit { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether this instance can create bug.
         /// </summary>
         public bool CanCreateBug { get; set; }

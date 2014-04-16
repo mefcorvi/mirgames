@@ -51,11 +51,13 @@
     <Compile Include="AccessRules\ProjectCreateBugAccessRule.cs" />
     <Compile Include="AccessRules\ProjectCreateFeatureAccessRule.cs" />
     <Compile Include="AccessRules\ProjectCreateTaskAccessRule.cs" />
+    <Compile Include="AccessRules\ProjectEditAccessRule.cs" />
     <Compile Include="AccessRules\ProjectWorkItemCommentAccessRule.cs" />
     <Compile Include="AccessRules\ProjectWorkItemEditAccessRule.cs" />
     <Compile Include="AccessRules\ProjectWorkItemDeleteAccessRule.cs" />
     <Compile Include="ClaimsProviders\WipClaimsProvider.cs" />
     <Compile Include="CommandHandlers\ArchiveProjectRepositoryCommandHandler.cs" />
+    <Compile Include="CommandHandlers\SaveWipProjectCommandHandler.cs" />
     <Compile Include="CommandHandlers\CreateNewWipProjectCommandHandler.cs" />
     <Compile Include="CommandHandlers\CreateProjectWorkItemCommandHandler.cs" />
     <Compile Include="CommandHandlers\PostWorkItemCommentCommandHandler.cs" />

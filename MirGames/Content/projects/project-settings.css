@@ -1,0 +1,57 @@
+﻿.project-settings-page > section {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.project-settings-page > section > h3 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+  padding-bottom: 0;
+  text-shadow: 1px 1px 4px #ffffff;
+}
+.project-settings-page > section > h4 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 4px #ffffff;
+  border: none;
+  text-transform: uppercase;
+  font-size: 16px;
+  padding-bottom: 0;
+}
+.project-settings-page > section > .new-project-form {
+  background: #ffffff;
+  padding: 20px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+.project-settings-page > section > .new-project-form .project-address {
+  width: 200px;
+}
+.project-settings-page > section > .new-project-form .logo-field {
+  position: relative;
+}
+.project-settings-page > section > .new-project-form .logo-field .logo {
+  background-size: cover;
+  background-clip: content-box;
+  background-position: top center;
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 100px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.project-settings-page > section > .new-project-form .logo-field .upload-file {
+  position: absolute;
+  left: 110px;
+  margin-top: -12px;
+  top: 50%;
+  padding: 5px;
+}
+.project-settings-page > section > .new-project-form .logo-field .upload-file.drag-over {
+  outline: 1px dashed #999;
+  opacity: 0.5;
+}
+/*# sourceMappingURL=project-settings.css.map */

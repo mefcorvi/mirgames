@@ -11,6 +11,7 @@ namespace MirGames.Domain.Wip.AccessRules
 {
     using System.Security.Claims;
 
+    using MirGames.Domain.Security;
     using MirGames.Domain.Wip.Entities;
     using MirGames.Infrastructure.Security;
 
@@ -28,7 +29,7 @@ namespace MirGames.Domain.Wip.AccessRules
         /// <inheritdoc />
         protected override bool CheckAccess(ClaimsPrincipal principal, Project resource)
         {
-            return principal.IsInRole("User");
+            return principal.Can("Create", "WipProject");
         }
     }
 }

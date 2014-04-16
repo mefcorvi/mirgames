@@ -195,6 +195,24 @@ namespace MirGames.Controllers
         }
 
         /// <inheritdoc />
+        [Authorize(Roles = "User")]
+        public ActionResult Settings(string projectAlias)
+        {
+            var project = this.QueryProcessor.Process(
+                new GetWipProjectQuery
+                {
+                    Alias = projectAlias
+                });
+
+            this.ViewBag.BackUrl = this.GetBackUrl();
+            this.ViewBag.SubSection = "Settings";
+
+            this.PageData["project"] = project;
+
+            return View(project);
+        }
+
+        /// <inheritdoc />
         public ActionResult Code(string projectAlias, string path = "/")
         {
             var project = this.QueryProcessor.Process(

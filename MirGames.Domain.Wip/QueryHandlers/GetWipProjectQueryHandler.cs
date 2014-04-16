@@ -85,11 +85,13 @@ namespace MirGames.Domain.Wip.QueryHandlers
                     FollowersCount = project.FollowersCount,
                     ProjectId = project.ProjectId,
                     Title = project.Title,
+                    RepositoryType = project.RepositoryType,
                     UpdatedDate = project.UpdatedDate,
                     Version = project.Version,
                     Votes = project.Votes,
                     VotesCount = project.VotesCount,
                     Tags = project.TagsList.Split(','),
+                    CanEdit = this.authorizationManager.CheckAccess(principal, "Edit", project),
                     CanCreateBug = this.authorizationManager.CheckAccess(principal, "CreateBug", project),
                     CanCreateTask = this.authorizationManager.CheckAccess(principal, "CreateTask", project),
                     CanCreateFeature = this.authorizationManager.CheckAccess(principal, "CreateFeature", project)

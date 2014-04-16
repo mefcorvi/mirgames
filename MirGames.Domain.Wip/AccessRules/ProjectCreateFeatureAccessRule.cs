@@ -25,7 +25,7 @@ namespace MirGames.Domain.Wip.AccessRules
         /// <inheritdoc />
         protected override bool CheckAccess(ClaimsPrincipal principal, Project resource)
         {
-            return principal.Can("CreateFeature", "WipProject", resource.ProjectId);
+            return principal.IsInRole("User") || principal.Can("CreateFeature", "WipProject", resource.ProjectId);
         }
     }
 }

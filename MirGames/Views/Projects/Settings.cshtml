@@ -1,0 +1,46 @@
+﻿@using MirGames.Domain.Wip.ViewModels
+@model WipProjectViewModel
+
+@{
+    Title = "Настройки / " + Model.Title;
+    PageScriptController = "MirGames.Wip.ProjectSettingsPage";
+    AddPageCssClass("project-settings-page");
+}
+
+@section Nav
+{
+    @Html.Partial("_ProjectMenu", Model)
+}
+
+<h3>Настройки</h3>
+<form class="new-project-form" name="newProjectForm" ng-cloak>
+    <div class="form-field">
+        <label>Название</label>
+        <input type="text" class="topic-title" ng-model="title" ng-focused="isTitleFocused" required="required" maxlength="50" />
+        <div class="form-field-description">Название вашего проекта.</div>
+    </div>
+    <div class="form-field">
+        <label>Метки</label>
+        <input type="text" class="topic-tags" ng-model="tags" required="required" pattern="([^,]+,?){1,5}" />
+        <div class="form-field-description">
+            Пожалуйста, выберите от 1 до 5 меток. Метки разделяются запятыми.
+        </div>
+    </div>
+    <div class="form-field">
+        <label>Репозиторий</label>
+        <div><b>{{repositoryType}}</b>: {{repositoryUrl}}</div>
+    </div>
+    <div class="form-field logo-field">
+        <label>Логотип</label>
+        <div class="logo-upload">
+            <img ng-src="{{logoUrl}}" class="logo" /> <file uploaded="fileUploaded($attachmentId)" entity-type="project-logo"></file>
+        </div>
+    </div>
+    <div class="form-field">
+        <label>Описание</label>
+        <texteditor text="description" show-preview="showPreview" post="save()" attachments="attachments" entity-type="project-description" />
+    </div>
+    <div class="buttons">
+        <a class="button" href="javascript:void(0)" ng-click="save()" ng-class="{ 'button-disabled': newProjectForm.$invalid }">Сохранить</a>
+    </div>
+</form>
