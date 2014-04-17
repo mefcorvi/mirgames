@@ -90,7 +90,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
                     Version = project.Version,
                     Votes = project.Votes,
                     VotesCount = project.VotesCount,
-                    Tags = project.TagsList.Split(','),
+                    Tags = project.TagsList.Split(',').Select(t => t.Trim()).ToArray(),
                     CanEdit = this.authorizationManager.CheckAccess(principal, "Edit", project),
                     CanCreateBug = this.authorizationManager.CheckAccess(principal, "CreateBug", project),
                     CanCreateTask = this.authorizationManager.CheckAccess(principal, "CreateTask", project),

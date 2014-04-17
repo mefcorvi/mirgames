@@ -152,13 +152,14 @@ var UI;
                 'text': '=text',
                 'attachments': '=attachments',
                 'post': '&post',
+                'required': '=?required',
                 'focus': '=focus',
                 'entityType': '@',
                 'useEnterToPost': '@useEnterToPost'
             },
             controller: TinyEditorController,
             transclude: false,
-            template: '<div class="tiny-editor">' + '<div class="mdd_toolbar_wrap"><div class="mdd_toolbar"></div></div>' + '<form class="upload-file" ng-show="showUploadForm">Добавить файл: <input type="file" multiple> <span>Также вы можете добавить файл, перетащив его в редактор, или вставить картинку из буфера обмена.</span></form>' + '<div class="mdd_editor_wrap"><textarea cols="50" rows="10" class="mdd_editor" ng-model="text" ng-maxlength="65536" required ng-focused="focus"></textarea></div>' + '<div class="mdd_resizer_wrap"></div>' + '<div class="mdd_preview text"></div>' + '</div>'
+            template: '<div class="tiny-editor">' + '<div class="mdd_toolbar_wrap"><div class="mdd_toolbar"></div></div>' + '<form class="upload-file" ng-show="showUploadForm">Добавить файл: <input type="file" multiple> <span>Также вы можете добавить файл, перетащив его в редактор, или вставить картинку из буфера обмена.</span></form>' + '<div class="mdd_editor_wrap"><textarea cols="50" rows="10" class="mdd_editor" ng-model="text" ng-maxlength="65536" ng-required="required" ng-focused="focus"></textarea></div>' + '<div class="mdd_resizer_wrap"></div>' + '<div class="mdd_preview text"></div>' + '</div>'
         };
     });
 })(UI || (UI = {}));

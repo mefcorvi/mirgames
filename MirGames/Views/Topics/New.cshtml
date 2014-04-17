@@ -12,18 +12,18 @@
 <form class="new-topic-form">
     <div class="form-field">
         <label>Заголовок</label>
-        <input type="text" class="topic-title" ng-model="title" ng-focused="isTitleFocused" />
+        <input type="text" class="topic-title" ng-model="title" ng-focused="isTitleFocused" required="required" />
         <div class="form-field-description">Заголовок должен быть коротким, но осмысленным и соответствующим содержимому поста.</div>
     </div>
     <div class="form-field">
         <label>Метки</label>
-        <input type="text" class="topic-tags" ng-model="tags" />
+        <input type="text" class="topic-tags" ng-model="tags" required="required" />
         <div class="form-field-description">
             Пожалуйста, выберите от 1 до 5 меток. Пост будет доступен только по выбранным меткам. Метки разделяются запятыми.
         </div>
     </div>
     <div class="form-field">
         <label>Текст</label>
-        <texteditor text="text" show-preview="showPreview" post="save()" attachments="attachments" entity-type="topic" />
+        <texteditor text="text" required="true" show-preview="showPreview" post="save()" attachments="attachments" entity-type="topic" />
     </div>
 </form>

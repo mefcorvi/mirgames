@@ -20,7 +20,7 @@
     </div>
     <div class="form-field">
         <label>Текст</label>
-        <texteditor text="text" show-preview="showPreview" post="post()" attachments="attachments" entity-type="forumPost" />
+        <texteditor text="text" required="true" show-preview="showPreview" post="post()" attachments="attachments" entity-type="forumPost" />
     </div>
     <div class="buttons">
         <a href="javascript:void(0);" ng-click="post()" class="button" ng-class="{ 'button-disabled': newTopicForm.$invalid }">Отправить</a>

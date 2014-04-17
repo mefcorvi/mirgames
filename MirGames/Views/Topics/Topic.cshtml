@@ -63,7 +63,7 @@
     <h4 id="new-comment">Новый комментарий</h4>
     <div class="comment-form">
         <form class="new-comment-form" ng-submit="addComment()" novalidate name="postCommentForm">
-            <texteditor show-preview="true" focus="comment.isFocused" text="comment.text" post="addComment()" attachments="comment.attachments" entity-type="comment"></texteditor>
+            <texteditor show-preview="true" required="true" focus="comment.isFocused" text="comment.text" post="addComment()" attachments="comment.attachments" entity-type="comment"></texteditor>
             <div class="buttons">
                 <a href="javascript:void(0);" ng-click="addComment()" class="button">Оставить комментарий</a>
             </div>

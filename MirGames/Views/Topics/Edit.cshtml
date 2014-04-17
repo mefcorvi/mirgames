@@ -12,14 +12,14 @@
 <form class="new-topic-form">
     <div class="form-field">
         <label>Заголовок</label>
-        <input type="text" class="topic-title" ng-model="title" />
+        <input type="text" class="topic-title" ng-model="title" required="required" />
     </div>
     <div class="form-field">
         <label>Тэги</label>
-        <input type="text" class="topic-tags" ng-model="tags" />
+        <input type="text" class="topic-tags" ng-model="tags" required="required" />
     </div>
     <div class="form-field">
         <label>Текст</label>
-        <texteditor text="text" show-preview="showPreview" post="save()" attachments="attachments" entity-type="topic" />
+        <texteditor text="text" required="true" show-preview="showPreview" post="save()" attachments="attachments" entity-type="topic" />
     </div>
 </form>

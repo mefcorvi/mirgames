@@ -33,12 +33,13 @@
     <div class="form-field logo-field">
         <label>Логотип</label>
         <div class="logo-upload">
-            <img ng-src="{{logoUrl}}" class="logo" /> <file uploaded="fileUploaded($attachmentId)" entity-type="project-logo"></file>
+            <img ng-src="{{logoUrl}}" class="logo" />
+            <file uploaded="fileUploaded($attachmentId)" entity-type="project-logo"></file>
         </div>
     </div>
     <div class="form-field">
         <label>Описание</label>
-        <texteditor text="description" show-preview="showPreview" post="save()" attachments="attachments" entity-type="project-description" />
+        <texteditor text="description" required="true" show-preview="showPreview" post="save()" attachments="attachments" entity-type="project-description" />
     </div>
     <div class="buttons">
         <a class="button" href="javascript:void(0)" ng-click="save()" ng-class="{ 'button-disabled': newProjectForm.$invalid }">Сохранить</a>

@@ -78,7 +78,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
                             Version = p.Version,
                             Votes = p.Votes,
                             VotesCount = p.VotesCount,
-                            Tags = p.TagsList.Split(','),
+                            Tags = p.TagsList.Split(',').Select(t => t.Trim()).ToArray(),
                             CanEdit = this.authorizationManager.CheckAccess(principal, "Edit", p),
                             CanCreateBug = this.authorizationManager.CheckAccess(principal, "CreateBug", p),
                             CanCreateTask = this.authorizationManager.CheckAccess(principal, "CreateTask", p),

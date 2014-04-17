@@ -42,6 +42,11 @@
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  border: 1px solid #eeeeee;
+  padding: 2px;
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 }
 .project-settings-page > section > .new-project-form .logo-field .upload-file {
   position: absolute;

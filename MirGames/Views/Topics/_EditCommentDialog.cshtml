@@ -15,7 +15,7 @@
 {
     <form class="edit-post-form" ng-submit="saveComment()" novalidate name="editCommentForm">
         <div class="form-field">
-            <texteditor text="text" show-preview="true" post="saveComment()" focus="isFocused" attachments="attachments" entity-type="comment" />
+            <texteditor text="text" required="true" show-preview="true" post="saveComment()" focus="isFocused" attachments="attachments" entity-type="comment" />
         </div>
     </form>
 }

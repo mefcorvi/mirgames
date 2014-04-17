@@ -53,13 +53,14 @@ var UI;
                 'text': '=text',
                 'showPreview': '=showPreview',
                 'attachments': '=attachments',
+                'required': '=?required',
                 'post': '&post',
-                'focus': '=focus',
+                'focus': '=?focus',
                 'entityType': '@',
                 'useEnterToPost': '@useEnterToPost'
             },
             transclude: false,
-            template: '<div ng-class="{ \'text-editor-field\': true, \'text-editor-show-preview\': showPreview }">' + '<tinyeditor text="text" post="post()" focus="focus" attachments="attachments" entity-type="{{entityType}}" use-enter-to-post="{{useEnterToPost}}"></tinyeditor>' + '</div>'
+            template: '<div ng-class="{ \'text-editor-field\': true, \'text-editor-show-preview\': showPreview }">' + '<tinyeditor text="text" post="post()" focus="focus" attachments="attachments" entity-type="{{entityType}}" required="required" use-enter-to-post="{{useEnterToPost}}"></tinyeditor>' + '</div>'
         };
     });
 })(UI || (UI = {}));

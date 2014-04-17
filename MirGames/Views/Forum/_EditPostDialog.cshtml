@@ -28,7 +28,7 @@
         </div>
         <div class="form-field">
             <label ng-show="canChangeTags || canChangeTitle">Текст</label>
-            <texteditor text="text" show-preview="true" post="savePost()" focus="isFocused" attachments="attachments" entity-type="forumPost" />
+            <texteditor text="text" required="true" show-preview="true" post="savePost()" focus="isFocused" attachments="attachments" entity-type="forumPost" />
         </div>
     </form>
 }
