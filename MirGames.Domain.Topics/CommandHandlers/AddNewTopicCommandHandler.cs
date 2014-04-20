@@ -44,14 +44,9 @@ namespace MirGames.Domain.Topics.CommandHandlers
         private readonly IEventBus eventBus;
 
         /// <summary>
-        /// The topics text transform.
-        /// </summary>
-        private readonly ITextTransform topicsTextTransform;
-
-        /// <summary>
         /// The short text extractor.
         /// </summary>
-        private readonly IShortTextExtractor shortTextExtractor;
+        private readonly ITextProcessor textProcessor;
 
         /// <summary>
         /// The command processor.
@@ -64,30 +59,26 @@ namespace MirGames.Domain.Topics.CommandHandlers
         /// <param name="writeContextFactory">The write context factory.</param>
         /// <param name="textHashProvider">The text hash provider.</param>
         /// <param name="eventBus">The event bus.</param>
-        /// <param name="shortTextExtractor">The short text extractor.</param>
+        /// <param name="textProcessor">The short text extractor.</param>
         /// <param name="commandProcessor">The command processor.</param>
-        /// <param name="textTransform">The text transform.</param>
         public AddNewTopicCommandHandler(
             IWriteContextFactory writeContextFactory,
             ITextHashProvider textHashProvider,
             IEventBus eventBus,
-            IShortTextExtractor shortTextExtractor,
-            ICommandProcessor commandProcessor,
-            ITextTransform textTransform)
+            ITextProcessor textProcessor,
+            ICommandProcessor commandProcessor)
         {
             Contract.Requires(writeContextFactory != null);
             Contract.Requires(textHashProvider != null);
             Contract.Requires(eventBus != null);
-            Contract.Requires(shortTextExtractor != null);
+            Contract.Requires(textProcessor != null);
             Contract.Requires(commandProcessor != null);
-            Contract.Requires(textTransform != null);
 
             this.writeContextFactory = writeContextFactory;
             this.textHashProvider = textHashProvider;
             this.eventBus = eventBus;
-            this.shortTextExtractor = shortTextExtractor;
+            this.textProcessor = textProcessor;
             this.commandProcessor = commandProcessor;
-            this.topicsTextTransform = textTransform;
         }
 
         /// <inheritdoc />
@@ -140,9 +131,9 @@ namespace MirGames.Domain.Topics.CommandHandlers
                     new TopicContent
                         {
                             Topic = topic,
-                            TopicText = this.topicsTextTransform.Transform(command.Text),
+                            TopicText = this.textProcessor.GetHtml(command.Text),
                             TopicTextSource = command.Text,
-                            TopicTextShort = this.topicsTextTransform.Transform(this.shortTextExtractor.Extract(command.Text)),
+                            TopicTextShort = this.textProcessor.GetShortHtml(command.Text),
                             TopicExtra = "Read more..."
                         });
 

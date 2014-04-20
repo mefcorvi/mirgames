@@ -33,9 +33,9 @@ namespace MirGames.Domain.Chat.QueryHandlers
         private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
-        /// The text transform.
+        /// The text processor.
         /// </summary>
-        private readonly ITextTransform textTransform;
+        private readonly ITextProcessor textProcessor;
 
         /// <summary>
         /// The authorization manager.
@@ -46,12 +46,12 @@ namespace MirGames.Domain.Chat.QueryHandlers
         /// Initializes a new instance of the <see cref="GetChatMessageQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
-        /// <param name="textTransform">The text transform.</param>
+        /// <param name="textProcessor">The text processor.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
-        public GetChatMessageQueryHandler(IQueryProcessor queryProcessor, ITextTransform textTransform, IAuthorizationManager authorizationManager)
+        public GetChatMessageQueryHandler(IQueryProcessor queryProcessor, ITextProcessor textProcessor, IAuthorizationManager authorizationManager)
         {
             this.queryProcessor = queryProcessor;
-            this.textTransform = textTransform;
+            this.textProcessor = textProcessor;
             this.authorizationManager = authorizationManager;
         }
 
@@ -81,7 +81,7 @@ namespace MirGames.Domain.Chat.QueryHandlers
                 };
 
             this.queryProcessor.Process(new ResolveAuthorsQuery { Authors = new[] { message.Author } });
-            message.Text = this.textTransform.Transform(message.Text);
+            message.Text = this.textProcessor.GetHtml(message.Text);
 
             return message;
         }

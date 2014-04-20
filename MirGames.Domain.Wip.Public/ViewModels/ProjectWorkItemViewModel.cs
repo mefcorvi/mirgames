@@ -38,6 +38,11 @@ namespace MirGames.Domain.Wip.ViewModels
         public string Title { get; set; }
 
         /// <summary>
+        /// Gets or sets the short description.
+        /// </summary>
+        public string ShortDescription { get; set; }
+
+        /// <summary>
         /// Gets or sets the description.
         /// </summary>
         public string Description { get; set; }

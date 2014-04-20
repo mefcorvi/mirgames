@@ -71,6 +71,7 @@ module MirGames.Wip {
                 canBeEdited: item.CanBeEdited,
                 canBeDeleted: item.CanBeDeleted,
                 tags: this.convertTagsToScope(item.TagsList),
+                description: item.ShortDescription,
                 url: Router.action("Projects", "WorkItem", { projectAlias: this.pageData.projectAlias, workItemId: item.InternalId }),
                 author: {
                     avatar: item.Author.AvatarUrl,
@@ -128,6 +129,7 @@ module MirGames.Wip {
         type: string;
         state: string;
         title: string;
+        description: string;
         internalId: number;
         canBeEdited: boolean;
         canBeDeleted: boolean;

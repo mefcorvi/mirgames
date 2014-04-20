@@ -38,21 +38,21 @@ namespace MirGames.Domain.Topics.QueryHandlers
         private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
-        /// The text transform.
+        /// The text processor.
         /// </summary>
-        private readonly ITextTransform textTransform;
+        private readonly ITextProcessor textProcessor;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetTopicQueryHandler" /> class.
         /// </summary>
         /// <param name="authorizationManager">The authorization manager.</param>
         /// <param name="queryProcessor">The query processor.</param>
-        /// <param name="textTransform">The text transform.</param>
-        public GetTopicQueryHandler(IAuthorizationManager authorizationManager, IQueryProcessor queryProcessor, ITextTransform textTransform)
+        /// <param name="textProcessor">The text processor.</param>
+        public GetTopicQueryHandler(IAuthorizationManager authorizationManager, IQueryProcessor queryProcessor, ITextProcessor textProcessor)
         {
             this.authorizationManager = authorizationManager;
             this.queryProcessor = queryProcessor;
-            this.textTransform = textTransform;
+            this.textProcessor = textProcessor;
         }
 
         /// <inheritdoc />
@@ -117,7 +117,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
                                 },
                             CreationDate = c.Date,
                             UpdatedDate = c.UpdatedDate,
-                            Text = c.Text ?? this.textTransform.Transform(c.SourceText),
+                            Text = c.Text ?? this.textProcessor.GetHtml(c.SourceText),
                             Id = c.CommentId,
                             TopicId = c.TopicId,
                             CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", c),

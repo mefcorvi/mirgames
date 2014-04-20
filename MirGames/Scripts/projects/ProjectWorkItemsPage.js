@@ -86,6 +86,7 @@ var MirGames;
                     canBeEdited: item.CanBeEdited,
                     canBeDeleted: item.CanBeDeleted,
                     tags: this.convertTagsToScope(item.TagsList),
+                    description: item.ShortDescription,
                     url: Router.action("Projects", "WorkItem", { projectAlias: this.pageData.projectAlias, workItemId: item.InternalId }),
                     author: {
                         avatar: item.Author.AvatarUrl,

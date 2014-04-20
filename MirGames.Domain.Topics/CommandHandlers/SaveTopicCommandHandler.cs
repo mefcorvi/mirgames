@@ -6,6 +6,7 @@
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace MirGames.Domain.Topics.CommandHandlers
 {
     using System;
@@ -27,7 +28,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
     /// <summary>
     /// Handles the login command.
     /// </summary>
-    internal sealed class SaveCommandHandler : CommandHandler<SaveTopicCommand>
+    internal sealed class SaveTopicCommandHandler : CommandHandler<SaveTopicCommand>
     {
         /// <summary>
         /// The write context factory.
@@ -45,14 +46,9 @@ namespace MirGames.Domain.Topics.CommandHandlers
         private readonly ISearchEngine searchEngine;
 
         /// <summary>
-        /// The topics text transform.
+        /// The text processor.
         /// </summary>
-        private readonly ITextTransform topicsTextTransform;
-
-        /// <summary>
-        /// The short text extractor.
-        /// </summary>
-        private readonly IShortTextExtractor shortTextExtractor;
+        private readonly ITextProcessor textProcessor;
 
         /// <summary>
         /// The command processor.
@@ -60,28 +56,31 @@ namespace MirGames.Domain.Topics.CommandHandlers
         private readonly ICommandProcessor commandProcessor;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SaveCommandHandler" /> class.
+        /// Initializes a new instance of the <see cref="SaveTopicCommandHandler" /> class.
         /// </summary>
         /// <param name="writeContextFactory">The write context factory.</param>
         /// <param name="textHashProvider">The text hash provider.</param>
         /// <param name="searchEngine">The search engine.</param>
-        /// <param name="shortTextExtractor">The short text extractor.</param>
+        /// <param name="textProcessor">The short text extractor.</param>
         /// <param name="commandProcessor">The command processor.</param>
-        /// <param name="textTransform">The text transform.</param>
-        public SaveCommandHandler(IWriteContextFactory writeContextFactory, ITextHashProvider textHashProvider, ISearchEngine searchEngine, IShortTextExtractor shortTextExtractor, ICommandProcessor commandProcessor, ITextTransform textTransform)
+        public SaveTopicCommandHandler(
+            IWriteContextFactory writeContextFactory,
+            ITextHashProvider textHashProvider,
+            ISearchEngine searchEngine,
+            ITextProcessor textProcessor,
+            ICommandProcessor commandProcessor)
         {
             Contract.Requires(writeContextFactory != null);
             Contract.Requires(textHashProvider != null);
             Contract.Requires(searchEngine != null);
-            Contract.Requires(shortTextExtractor != null);
+            Contract.Requires(textProcessor != null);
             Contract.Requires(commandProcessor != null);
 
             this.writeContextFactory = writeContextFactory;
             this.textHashProvider = textHashProvider;
             this.searchEngine = searchEngine;
-            this.shortTextExtractor = shortTextExtractor;
+            this.textProcessor = textProcessor;
             this.commandProcessor = commandProcessor;
-            this.topicsTextTransform = textTransform;
         }
 
         /// <inheritdoc />
@@ -113,9 +112,9 @@ namespace MirGames.Domain.Topics.CommandHandlers
                 }
 
                 var topicContent = writeContext.Set<TopicContent>().Single(content => content.TopicId == command.TopicId);
-                topicContent.TopicText = this.topicsTextTransform.Transform(command.Text);
+                topicContent.TopicText = this.textProcessor.GetHtml(command.Text);
                 topicContent.TopicTextSource = command.Text;
-                topicContent.TopicTextShort = this.topicsTextTransform.Transform(this.shortTextExtractor.Extract(command.Text));
+                topicContent.TopicTextShort = this.textProcessor.GetShortHtml(command.Text);
                 
                 foreach (var tag in command.Tags.Split(','))
                 {

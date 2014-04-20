@@ -422,6 +422,19 @@
 .wip-workitems-page > section > section .tracker-items .tracker-item > .item-type .task-type {
   color: #618d24;
 }
+.wip-workitems-page > section > section .tracker-items .tracker-item > .item-status {
+  position: relative;
+  float: left;
+  width: 8.33333333%;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  width: 25px;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item > .item-status .fa {
+  font-size: 15px;
+}
 .wip-workitems-page > section > section .tracker-items .tracker-item > .author {
   padding-left: 5px;
   width: auto;
@@ -446,7 +459,7 @@
   font-size: 13px;
   position: relative;
   float: left;
-  width: 58.33333333%;
+  width: 50%;
   min-height: 1px;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -455,6 +468,10 @@
   -moz-flex-grow: 1;
   -ms-flex-grow: 1;
   flex-grow: 1;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item > .title > .description {
+  font-size: 11px;
+  color: #999999;
 }
 .wip-workitems-page > section > section .tracker-items .tracker-item > .internal-id {
   position: relative;

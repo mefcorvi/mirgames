@@ -76,6 +76,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -98,9 +101,11 @@
     <Compile Include="Mapping\ConfigItemMap.cs" />
     <Compile Include="Settings\DataStoredSettings.cs" />
     <Compile Include="TextTransform\AutoLinkTextTransform.cs" />
+    <Compile Include="TextTransform\ShortTextExtractor.cs" />
+    <Compile Include="TextTransform\ITextProcessor.cs" />
+    <Compile Include="TextTransform\MarkdownTextProcessor.cs" />
     <Compile Include="TextTransform\NewLinesTextTransform.cs" />
-    <Compile Include="TextTransform\IShortTextExtractor.cs" />
-    <Compile Include="TextTransform\MarkdownShortTextExtractor.cs" />
+    <Compile Include="TextTransform\MarkdownSectionExtractor.cs" />
     <Compile Include="TextTransform\MarkdownTextTransform.cs" />
     <Compile Include="Security\ClaimsPrincipalExtensions.cs" />
     <Compile Include="DomainModule.cs" />
@@ -109,7 +114,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\TextHashProvider.cs" />
     <Compile Include="TextTransform\ITextTransform.cs" />
-    <Compile Include="TextTransform\CommonTextTransform.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

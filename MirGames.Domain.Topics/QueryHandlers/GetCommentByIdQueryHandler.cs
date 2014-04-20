@@ -38,21 +38,21 @@ namespace MirGames.Domain.Topics.QueryHandlers
         private readonly IAuthorizationManager authorizationManager;
 
         /// <summary>
-        /// The text transform.
+        /// The text processor.
         /// </summary>
-        private readonly ITextTransform textTransform;
+        private readonly ITextProcessor textProcessor;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetCommentByIdQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
-        /// <param name="textTransform">The text transform.</param>
-        public GetCommentByIdQueryHandler(IQueryProcessor queryProcessor, IAuthorizationManager authorizationManager, ITextTransform textTransform)
+        /// <param name="textProcessor">The text processor.</param>
+        public GetCommentByIdQueryHandler(IQueryProcessor queryProcessor, IAuthorizationManager authorizationManager, ITextProcessor textProcessor)
         {
             this.queryProcessor = queryProcessor;
             this.authorizationManager = authorizationManager;
-            this.textTransform = textTransform;
+            this.textProcessor = textProcessor;
         }
 
         /// <inheritdoc />
@@ -77,7 +77,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
                         },
                     CreationDate = comment.Date,
                     UpdatedDate = comment.UpdatedDate,
-                    Text = comment.Text ?? this.textTransform.Transform(comment.SourceText),
+                    Text = comment.Text ?? this.textProcessor.GetHtml(comment.SourceText),
                     Id = comment.CommentId,
                     TopicId = comment.TopicId,
                     TopicTitle = comment.Topic.TopicTitle

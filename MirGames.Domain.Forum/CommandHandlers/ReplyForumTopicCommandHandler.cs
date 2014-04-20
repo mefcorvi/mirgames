@@ -51,9 +51,9 @@ namespace MirGames.Domain.Forum.CommandHandlers
         private readonly ICommandProcessor commandProcessor;
 
         /// <summary>
-        /// The text transform.
+        /// The text processor.
         /// </summary>
-        private readonly ITextTransform textTransform;
+        private readonly ITextProcessor textProcessor;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReplyForumTopicCommandHandler" /> class.
@@ -62,13 +62,13 @@ namespace MirGames.Domain.Forum.CommandHandlers
         /// <param name="eventBus">The event bus.</param>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="commandProcessor">The command processor.</param>
-        /// <param name="textTransform">The text transform.</param>
+        /// <param name="textProcessor">The text processor.</param>
         public ReplyForumTopicCommandHandler(
             IWriteContextFactory writeContextFactory,
             IEventBus eventBus,
             IQueryProcessor queryProcessor,
             ICommandProcessor commandProcessor,
-            ITextTransform textTransform)
+            ITextProcessor textProcessor)
         {
             Contract.Requires(writeContextFactory != null);
             Contract.Requires(queryProcessor != null);
@@ -78,7 +78,7 @@ namespace MirGames.Domain.Forum.CommandHandlers
             this.eventBus = eventBus;
             this.queryProcessor = queryProcessor;
             this.commandProcessor = commandProcessor;
-            this.textTransform = textTransform;
+            this.textProcessor = textProcessor;
         }
 
         /// <inheritdoc />
@@ -115,7 +115,7 @@ namespace MirGames.Domain.Forum.CommandHandlers
                     CreatedDate = DateTime.UtcNow,
                     UpdatedDate = DateTime.UtcNow,
                     IsHidden = false,
-                    Text = this.textTransform.Transform(command.Text),
+                    Text = this.textProcessor.GetHtml(command.Text),
                     SourceText = command.Text,
                     TopicId = command.TopicId
                 };

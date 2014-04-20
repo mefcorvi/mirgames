@@ -43,7 +43,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
         /// <summary>
         /// The text transform.
         /// </summary>
-        private readonly ITextTransform textTransform;
+        private readonly ITextProcessor textProcessor;
 
         /// <summary>
         /// The event bus.
@@ -55,18 +55,18 @@ namespace MirGames.Domain.Topics.CommandHandlers
         /// </summary>
         /// <param name="writeContextFactory">The write context factory.</param>
         /// <param name="commandProcessor">The command processor.</param>
-        /// <param name="textTransform">The text transform.</param>
+        /// <param name="textProcessor">The text processor.</param>
         /// <param name="eventBus">The event bus.</param>
-        public EditCommentCommandHandler(IWriteContextFactory writeContextFactory, ICommandProcessor commandProcessor, ITextTransform textTransform, IEventBus eventBus)
+        public EditCommentCommandHandler(IWriteContextFactory writeContextFactory, ICommandProcessor commandProcessor, ITextProcessor textProcessor, IEventBus eventBus)
         {
             Contract.Requires(writeContextFactory != null);
             Contract.Requires(commandProcessor != null);
-            Contract.Requires(textTransform != null);
+            Contract.Requires(textProcessor != null);
             Contract.Requires(eventBus != null);
 
             this.writeContextFactory = writeContextFactory;
             this.commandProcessor = commandProcessor;
-            this.textTransform = textTransform;
+            this.textProcessor = textProcessor;
             this.eventBus = eventBus;
         }
 
@@ -86,7 +86,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
                 }
 
                 comment.SourceText = command.Text;
-                comment.Text = this.textTransform.Transform(command.Text);
+                comment.Text = this.textProcessor.GetHtml(command.Text);
                 comment.UpdatedDate = DateTime.UtcNow;
 
                 writeContext.SaveChanges();

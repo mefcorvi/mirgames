@@ -17,7 +17,21 @@
 <section>
     <h4>Баг-трекер</h4>
     <div class="tracker-items">
+        <form ng-cloak>
+            <div class="form-field" ng-show="newItem.availableItemTypes.length > 1">
+                <div class="radio-group">
+                    <button type="button" class="radio" ng-model="filterByItem" ng-show="newItem.availableItemTypes.indexOf(1) + 1" btn-radio="1"><i class="fa fa-bug"></i>{{typeNames[1]}}</button>
+                    <button type="button" class="radio" ng-model="filterByItem" ng-show="newItem.availableItemTypes.indexOf(2) + 1" btn-radio="2"><i class="fa fa-check-square-o"></i>{{typeNames[2]}}</button>
+                    <button type="button" class="radio" ng-model="filterByItem" ng-show="newItem.availableItemTypes.indexOf(3) + 1" btn-radio="3"><i class="fa fa-plus-square"></i>{{typeNames[3]}}</button>
+                </div>
+            </div>
+        </form>
         <div ng-class="['tracker-item', item.type, item.state]" ng-repeat="item in items" ng-cloak>
+            <div class="item-status">
+                <span class="open-status" title="Доступно" ng-show="item.state == 'Open'"><i class="fa fa-circle-o"></i></span>
+                <span class="active-status" title="В процессе" ng-show="item.state == 'Active'"><i class="fa fa-wrench"></i></span>
+                <span class="closed-status" title="Завершено" ng-show="item.state == 'Closed'"><i class="fa fa-check-circle"></i></span>
+            </div>
             <div class="item-type">
                 <span class="bug-type" title="Баг" ng-show="item.type == 'Bug'"><i class="fa fa-bug"></i></span>
                 <span class="task-type" title="Задача" ng-show="item.type == 'Task'"><i class="fa fa-check-square-o"></i></span>
@@ -27,6 +41,7 @@
                 <a href="{{item.url}}">
                     {{item.title}}
                 </a>
+                <div class="description">{{item.description}}</div>
             </div>
             <ul class="tags">
                 <li ng-repeat="tag in item.tags"><a href="{{tag.url}}">{{tag.text}}</a></li>

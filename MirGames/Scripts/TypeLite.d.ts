@@ -485,6 +485,7 @@ interface ProjectWorkItemViewModel {
   InternalId: number;
   ProjectId: number;
   Title: string;
+  ShortDescription: string;
   Description: string;
   TagsList: string;
   State: MirGames.Domain.Wip.ViewModels.WorkItemState;

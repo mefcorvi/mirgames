@@ -33,9 +33,9 @@ namespace MirGames.Domain.Topics.QueryHandlers
         private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
-        /// The text transform.
+        /// The text processor.
         /// </summary>
-        private readonly ITextTransform textTransform;
+        private readonly ITextProcessor textProcessor;
 
         /// <summary>
         /// The authorization manager.
@@ -46,12 +46,12 @@ namespace MirGames.Domain.Topics.QueryHandlers
         /// Initializes a new instance of the <see cref="GetCommentsQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
-        /// <param name="textTransform">The text transform.</param>
+        /// <param name="textProcessor">The text transform.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
-        public GetCommentsQueryHandler(IQueryProcessor queryProcessor, ITextTransform textTransform, IAuthorizationManager authorizationManager)
+        public GetCommentsQueryHandler(IQueryProcessor queryProcessor, ITextProcessor textProcessor, IAuthorizationManager authorizationManager)
         {
             this.queryProcessor = queryProcessor;
-            this.textTransform = textTransform;
+            this.textProcessor = textProcessor;
             this.authorizationManager = authorizationManager;
         }
 
@@ -81,7 +81,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
                                 },
                             CreationDate = c.Date,
                             UpdatedDate = c.UpdatedDate,
-                            Text = c.Text ?? this.textTransform.Transform(c.SourceText),
+                            Text = c.Text ?? this.textProcessor.GetHtml(c.SourceText),
                             Id = c.CommentId,
                             TopicId = c.TopicId,
                             TopicTitle = topics.ContainsKey(c.TopicId) ? topics[c.TopicId] : null,

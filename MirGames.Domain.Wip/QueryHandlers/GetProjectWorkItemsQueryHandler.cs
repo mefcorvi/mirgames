@@ -14,6 +14,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.TextTransform;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
     using MirGames.Domain.Wip.Entities;
@@ -36,17 +37,24 @@ namespace MirGames.Domain.Wip.QueryHandlers
         private readonly IAuthorizationManager authorizationManager;
 
         /// <summary>
+        /// The text processor.
+        /// </summary>
+        private readonly ITextProcessor textProcessor;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetProjectWorkItemsQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
-        public GetProjectWorkItemsQueryHandler(IQueryProcessor queryProcessor, IAuthorizationManager authorizationManager)
+        /// <param name="textProcessor">The text processor.</param>
+        public GetProjectWorkItemsQueryHandler(IQueryProcessor queryProcessor, IAuthorizationManager authorizationManager, ITextProcessor textProcessor)
         {
             Contract.Requires(queryProcessor != null);
             Contract.Requires(authorizationManager != null);
 
             this.queryProcessor = queryProcessor;
             this.authorizationManager = authorizationManager;
+            this.textProcessor = textProcessor;
         }
 
         /// <inheritdoc />
@@ -69,6 +77,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
                 {
                     CreatedDate = x.CreatedDate,
                     Description = x.Description,
+                    ShortDescription = this.textProcessor.GetShortText(x.Description),
                     InternalId = x.InternalId,
                     ItemType = x.ItemType,
                     ProjectId = x.ProjectId,

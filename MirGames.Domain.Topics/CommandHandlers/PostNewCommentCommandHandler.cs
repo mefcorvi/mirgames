@@ -39,21 +39,21 @@ namespace MirGames.Domain.Topics.CommandHandlers
         private readonly ICommandProcessor commandProcessor;
 
         /// <summary>
-        /// The text transform.
+        /// The text processor.
         /// </summary>
-        private readonly ITextTransform textTransform;
+        private readonly ITextProcessor textProcessor;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PostNewCommentCommandHandler" /> class.
         /// </summary>
         /// <param name="writeContextFactory">The write context factory.</param>
         /// <param name="commandProcessor">The command processor.</param>
-        /// <param name="textTransform">The text transform.</param>
-        public PostNewCommentCommandHandler(IWriteContextFactory writeContextFactory, ICommandProcessor commandProcessor, ITextTransform textTransform)
+        /// <param name="textProcessor">The text processor.</param>
+        public PostNewCommentCommandHandler(IWriteContextFactory writeContextFactory, ICommandProcessor commandProcessor, ITextProcessor textProcessor)
         {
             this.writeContextFactory = writeContextFactory;
             this.commandProcessor = commandProcessor;
-            this.textTransform = textTransform;
+            this.textProcessor = textProcessor;
         }
 
         /// <inheritdoc />
@@ -66,7 +66,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
                 UserId = principal.GetUserId().GetValueOrDefault(),
                 UserLogin = principal.GetUserLogin(),
                 UserIP = principal.GetHostAddress(),
-                Text = this.textTransform.Transform(command.Text),
+                Text = this.textProcessor.GetHtml(command.Text),
                 SourceText = command.Text,
                 Rating = 0,
                 Date = DateTime.UtcNow

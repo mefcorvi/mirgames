@@ -46,9 +46,9 @@ namespace MirGames.Domain.Forum.CommandHandlers
         private readonly ICommandProcessor commandProcessor;
 
         /// <summary>
-        /// The text transform.
+        /// The text processor.
         /// </summary>
-        private readonly ITextTransform textTransform;
+        private readonly ITextProcessor textProcessor;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateForumPostCommandHandler" /> class.
@@ -56,22 +56,22 @@ namespace MirGames.Domain.Forum.CommandHandlers
         /// <param name="writeContextFactory">The write context factory.</param>
         /// <param name="eventBus">The event bus.</param>
         /// <param name="commandProcessor">The command processor.</param>
-        /// <param name="textTransform">The text transform.</param>
+        /// <param name="textProcessor">The text transform.</param>
         public UpdateForumPostCommandHandler(
             IWriteContextFactory writeContextFactory,
             IEventBus eventBus,
             ICommandProcessor commandProcessor,
-            ITextTransform textTransform)
+            ITextProcessor textProcessor)
         {
             Contract.Requires(writeContextFactory != null);
             Contract.Requires(eventBus != null);
             Contract.Requires(commandProcessor != null);
-            Contract.Requires(textTransform != null);
+            Contract.Requires(textProcessor != null);
 
             this.writeContextFactory = writeContextFactory;
             this.eventBus = eventBus;
             this.commandProcessor = commandProcessor;
-            this.textTransform = textTransform;
+            this.textProcessor = textProcessor;
         }
 
         /// <inheritdoc />
@@ -92,7 +92,7 @@ namespace MirGames.Domain.Forum.CommandHandlers
 
                 authorizationManager.EnsureAccess(principal, "Edit", post);
 
-                post.Text = this.textTransform.Transform(command.Text);
+                post.Text = this.textProcessor.GetHtml(command.Text);
                 post.SourceText = command.Text;
                 post.UpdatedDate = DateTime.UtcNow;
 

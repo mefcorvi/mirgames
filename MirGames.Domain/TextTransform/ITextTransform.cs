@@ -11,7 +11,7 @@ namespace MirGames.Domain.TextTransform
     /// <summary>
     /// The text transform rule.
     /// </summary>
-    public interface ITextTransform
+    internal interface ITextTransform
     {
         /// <summary>
         /// Transforms the specified text.

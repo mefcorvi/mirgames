@@ -50,9 +50,9 @@ namespace MirGames.Domain.Forum.CommandHandlers
         private readonly ICommandProcessor commandProcessor;
 
         /// <summary>
-        /// The topics text transform.
+        /// The text processor.
         /// </summary>
-        private readonly ITextTransform textTransform;
+        private readonly ITextProcessor textProcessor;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PostNewForumTopicCommandHandler" /> class.
@@ -61,25 +61,25 @@ namespace MirGames.Domain.Forum.CommandHandlers
         /// <param name="eventBus">The event bus.</param>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="commandProcessor">The command processor.</param>
-        /// <param name="textTransform">The text transform.</param>
+        /// <param name="textProcessor">The text transform.</param>
         public PostNewForumTopicCommandHandler(
             IWriteContextFactory writeContextFactory,
             IEventBus eventBus,
             IQueryProcessor queryProcessor,
             ICommandProcessor commandProcessor,
-            ITextTransform textTransform)
+            ITextProcessor textProcessor)
         {
             Contract.Requires(writeContextFactory != null);
             Contract.Requires(eventBus != null);
             Contract.Requires(queryProcessor != null);
             Contract.Requires(commandProcessor != null);
-            Contract.Requires(textTransform != null);
+            Contract.Requires(textProcessor != null);
 
             this.writeContextFactory = writeContextFactory;
             this.eventBus = eventBus;
             this.queryProcessor = queryProcessor;
             this.commandProcessor = commandProcessor;
-            this.textTransform = textTransform;
+            this.textProcessor = textProcessor;
         }
 
         /// <inheritdoc />
@@ -113,7 +113,7 @@ namespace MirGames.Domain.Forum.CommandHandlers
                     AuthorIP = principal.GetHostAddress(),
                     CreatedDate = DateTime.UtcNow,
                     SourceText = command.Text,
-                    Text = this.textTransform.Transform(command.Text),
+                    Text = this.textProcessor.GetHtml(command.Text),
                     Topic = topic,
                     IsStartPost = true,
                     UpdatedDate = DateTime.UtcNow

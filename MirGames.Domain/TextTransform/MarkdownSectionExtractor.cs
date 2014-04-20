@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="MarkdownShortTextExtractor.cs">
+// <copyright company="MirGames" file="MarkdownSectionExtractor.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -15,10 +15,10 @@ namespace MirGames.Domain.TextTransform
     /// <summary>
     /// The markdown short text extractor.
     /// </summary>
-    internal sealed class MarkdownShortTextExtractor : IShortTextExtractor
+    internal sealed class MarkdownSectionExtractor : ITextTransform
     {
         /// <inheritdoc />
-        public string Extract(string text)
+        public string Transform(string text)
         {
             var userSections = Markdown.SplitUserSections(text).Where(s => !string.IsNullOrEmpty(s)).ToList();
 
