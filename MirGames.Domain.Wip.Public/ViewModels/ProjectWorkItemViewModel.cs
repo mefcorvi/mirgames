@@ -73,6 +73,11 @@ namespace MirGames.Domain.Wip.ViewModels
         public WorkItemType ItemType { get; set; }
 
         /// <summary>
+        /// Gets or sets the priority.
+        /// </summary>
+        public int Priority { get; set; }
+
+        /// <summary>
         /// Gets or sets the start date.
         /// </summary>
         public DateTime? StartDate { get; set; }

@@ -80,6 +80,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
                     ShortDescription = this.textProcessor.GetShortText(x.Description),
                     InternalId = x.InternalId,
                     ItemType = x.ItemType,
+                    Priority = x.Priority,
                     ProjectId = x.ProjectId,
                     State = x.State,
                     TagsList = x.TagsList,
@@ -139,7 +140,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
                     (topic, tag) => topic);
             }
 
-            return workItems;
+            return workItems.OrderByDescending(t => t.Priority).ThenByDescending(t => t.StartDate);
         }
     }
 }

@@ -400,6 +400,21 @@
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
+.wip-workitems-page > section > section .tracker-items .tracker-item.p0 {
+  color: #64803d;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item.p1 {
+  color: #96a017;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item.p2 {
+  color: #d0b401;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item.p3 {
+  color: #e48c00;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item.p4 {
+  color: #f00;
+}
 .wip-workitems-page > section > section .tracker-items .tracker-item > .item-type {
   position: relative;
   float: left;

@@ -88,6 +88,7 @@ var MirGames;
                     tags: this.convertTagsToScope(item.TagsList),
                     description: item.ShortDescription,
                     url: Router.action("Projects", "WorkItem", { projectAlias: this.pageData.projectAlias, workItemId: item.InternalId }),
+                    priority: Math.round(Math.max(0, item.Priority) / 25),
                     author: {
                         avatar: item.Author.AvatarUrl,
                         id: item.Author.Id,

@@ -101,5 +101,10 @@ namespace MirGames.Domain.Wip.Entities
         /// Gets or sets the author identifier.
         /// </summary>
         public int? AuthorId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the priority.
+        /// </summary>
+        public int Priority { get; set; }
     }
 }

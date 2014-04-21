@@ -492,6 +492,7 @@ interface ProjectWorkItemViewModel {
   CreatedDate: Date;
   UpdatedDate: Date;
   ItemType: MirGames.Domain.Wip.ViewModels.WorkItemType;
+  Priority: number;
   StartDate: Date;
   EndDate: Date;
   Duration: System.TimeSpan;

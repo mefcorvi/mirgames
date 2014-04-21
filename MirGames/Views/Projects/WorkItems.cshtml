@@ -26,10 +26,10 @@
                 </div>
             </div>
         </form>
-        <div ng-class="['tracker-item', item.type, item.state]" ng-repeat="item in items" ng-cloak>
+        <div ng-class="['tracker-item', item.type, item.state, 'p' + item.priority]" ng-repeat="item in items" ng-cloak>
             <div class="item-status">
                 <span class="open-status" title="Доступно" ng-show="item.state == 'Open'"><i class="fa fa-circle-o"></i></span>
-                <span class="active-status" title="В процессе" ng-show="item.state == 'Active'"><i class="fa fa-wrench"></i></span>
+                <span class="active-status" title="В процессе" ng-show="item.state == 'Active'"><i class="fa fa-cogs"></i></span>
                 <span class="closed-status" title="Завершено" ng-show="item.state == 'Closed'"><i class="fa fa-check-circle"></i></span>
             </div>
             <div class="item-type">

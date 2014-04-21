@@ -81,6 +81,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
                 ShortDescription = this.textProcessor.GetHtml(workItem.Description),
                 InternalId = workItem.InternalId,
                 ItemType = workItem.ItemType,
+                Priority = workItem.Priority,
                 ProjectId = workItem.ProjectId,
                 State = workItem.State,
                 TagsList = workItem.TagsList,
