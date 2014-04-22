@@ -1,5 +1,4 @@
-﻿@using MirGames.Domain.Security
-@using MirGames.Domain.Wip.ViewModels
+﻿@using MirGames.Domain.Wip.ViewModels
 @model WipProjectViewModel
 @{
     ViewBag.Title = "Баг-трекер / " + Model.Title;
@@ -27,10 +26,10 @@
             </div>
         </form>
         <div ng-class="['tracker-item', item.type, item.state, 'p' + item.priority]" ng-repeat="item in items" ng-cloak>
-            <div class="item-status">
-                <span class="open-status" title="Доступно" ng-show="item.state == 'Open'"><i class="fa fa-circle-o"></i></span>
-                <span class="active-status" title="В процессе" ng-show="item.state == 'Active'"><i class="fa fa-cogs"></i></span>
-                <span class="closed-status" title="Завершено" ng-show="item.state == 'Closed'"><i class="fa fa-check-circle"></i></span>
+            <div ng-class="['item-status', item.canBeEdited ? 'change-status' : '' ]" ng-click="item.changeState()">
+                <span class="open-status" title="Доступно"><i class="fa fa-circle-o"></i></span>
+                <span class="active-status" title="В процессе"><i class="fa fa-cogs"></i></span>
+                <span class="closed-status" title="Завершено"><i class="fa fa-check-circle"></i></span>
             </div>
             <div class="item-type">
                 <span class="bug-type" title="Баг" ng-show="item.type == 'Bug'"><i class="fa fa-bug"></i></span>

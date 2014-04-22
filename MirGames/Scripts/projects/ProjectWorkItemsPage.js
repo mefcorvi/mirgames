@@ -78,7 +78,8 @@ var MirGames;
 
             /** Converts DTO to the scope object */
             ProjectWorkItemsPage.prototype.convertItemToScope = function (item) {
-                return {
+                var _this = this;
+                var workItem = {
                     type: WorkItemType[item.ItemType],
                     internalId: item.InternalId,
                     state: WorkItemState[item.State],
@@ -93,8 +94,13 @@ var MirGames;
                         avatar: item.Author.AvatarUrl,
                         id: item.Author.Id,
                         login: item.Author.Login
+                    },
+                    changeState: function () {
+                        return _this.changeWorkItemState(workItem, item);
                     }
                 };
+
+                return workItem;
             };
 
             /** Converts tag to the scope item */
@@ -132,6 +138,26 @@ var MirGames;
                     _this.$scope.$apply(function () {
                         _this.$scope.newItem = _this.getEmptyNewItem();
                         _this.$scope.newItem.focus = true;
+                    });
+                });
+            };
+
+            /** Changes state of the work item */
+            ProjectWorkItemsPage.prototype.changeWorkItemState = function (workItem, viewModel) {
+                var _this = this;
+                if (!workItem.canBeEdited) {
+                    return;
+                }
+
+                var command = {
+                    WorkItemId: viewModel.WorkItemId
+                };
+
+                this.apiService.executeCommand('ChangeWorkItemStateCommand', command, function (newState) {
+                    viewModel.State = newState;
+
+                    _this.$scope.$apply(function () {
+                        workItem.state = WorkItemState[viewModel.State];
                     });
                 });
             };

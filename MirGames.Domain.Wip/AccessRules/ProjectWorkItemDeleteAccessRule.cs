@@ -26,7 +26,7 @@ namespace MirGames.Domain.Wip.AccessRules
         protected override bool CheckAccess(ClaimsPrincipal principal, ProjectWorkItem resource)
         {
             return (principal.GetUserId().HasValue && principal.GetUserId() == resource.AuthorId)
-                   || principal.Can("Edit", "Project");
+                   || principal.Can("Edit", "WipProject");
         }
     }
 }

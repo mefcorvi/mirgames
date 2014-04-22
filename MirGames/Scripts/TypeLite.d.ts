@@ -10,6 +10,8 @@ interface Command1 extends MirGames.Infrastructure.Commands.Command {
 }
 interface Command1 extends MirGames.Infrastructure.Commands.Command {
 }
+interface Command1 extends MirGames.Infrastructure.Commands.Command {
+}
 }
 declare module MirGames.Infrastructure.Queries {
 interface Query {
@@ -400,6 +402,9 @@ interface AttachmentViewModel {
 }
 }
 declare module MirGames.Domain.Wip.Commands {
+interface ChangeWorkItemStateCommand extends MirGames.Infrastructure.Commands.Command1 {
+  WorkItemId: number;
+}
 interface CreateNewProjectWorkItemCommand extends MirGames.Infrastructure.Commands.Command1 {
   ProjectAlias: string;
   Title: string;

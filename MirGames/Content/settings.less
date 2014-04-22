@@ -68,6 +68,24 @@
     transition-timing-function: @timing;
 }
 
+.visibility-transition-start() {
+    opacity: 0;
+    visibility: hidden;
+    -moz-transition: visibility 0s linear 0.1s,opacity 0.1s ease-in;
+    -o-transition: visibility 0s linear 0.1s,opacity 0.1s ease-in;
+    -webkit-transition: visibility 0s linear 0.1s,opacity 0.1s ease-in;
+    transition: visibility 0s linear 0.1s,opacity 0.1s ease-in;
+}
+
+.visibility-transition-end() {
+    -moz-transition-delay: 0s;
+    -o-transition-delay: 0s;
+    -webkit-transition-delay: 0s;
+    transition-delay: 0s;
+    visibility: visible;
+    opacity: 1;
+}
+
 .box-sizing(@style) {
   box-sizing:         @style;
   -webkit-box-sizing: @style;

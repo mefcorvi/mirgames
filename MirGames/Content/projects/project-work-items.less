@@ -48,6 +48,25 @@
                         color: #f00;
                     }
 
+                    &.Open > .item-status {
+                        & > span.open-status {
+                            .visibility-transition-end();
+                        }
+                    }
+
+                    &.Active > .item-status {
+                        & > span.active-status {
+                            .visibility-transition-end();
+                        }
+                    }
+
+
+                    &.Closed > .item-status {
+                        & > span.closed-status {
+                            .visibility-transition-end();
+                        }
+                    }
+
                     & > .item-type {
                         .make-xs-column(1);
                         width: 25px;
@@ -61,7 +80,22 @@
 
                     & > .item-status {
                         .make-xs-column(1);
+                        height: 25px;
                         width: 25px;
+                        position: relative;
+
+                        & > span {
+                            position: absolute;
+                            left: 3px;
+                            top: 0;
+                            line-height: 25px;
+                            .visibility-transition-start();
+                        }
+
+                        &.change-status:hover {
+                            cursor: pointer;
+                            color: @link-color-hover;
+                        }
 
                         .fa {
                             .font-size(1.5);

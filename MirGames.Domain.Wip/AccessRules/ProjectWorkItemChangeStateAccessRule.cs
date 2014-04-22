@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="ProjectWorkItemEditAccessRule.cs">
+// <copyright company="MirGames" file="ProjectWorkItemChangeStateAccessRule.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -15,11 +15,11 @@ namespace MirGames.Domain.Wip.AccessRules
     using MirGames.Domain.Wip.Entities;
     using MirGames.Infrastructure.Security;
 
-    internal sealed class ProjectWorkItemEditAccessRule : AccessRule<ProjectWorkItem>
+    internal sealed class ProjectWorkItemChangeStateAccessRule : AccessRule<ProjectWorkItem>
     {
         protected override string Action
         {
-            get { return "Edit"; }
+            get { return "ChangeState"; }
         }
 
         /// <inheritdoc />

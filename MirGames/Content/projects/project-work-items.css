@@ -415,6 +415,30 @@
 .wip-workitems-page > section > section .tracker-items .tracker-item.p4 {
   color: #f00;
 }
+.wip-workitems-page > section > section .tracker-items .tracker-item.Open > .item-status > span.open-status {
+  -moz-transition-delay: 0s;
+  -o-transition-delay: 0s;
+  -webkit-transition-delay: 0s;
+  transition-delay: 0s;
+  visibility: visible;
+  opacity: 1;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item.Active > .item-status > span.active-status {
+  -moz-transition-delay: 0s;
+  -o-transition-delay: 0s;
+  -webkit-transition-delay: 0s;
+  transition-delay: 0s;
+  visibility: visible;
+  opacity: 1;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item.Closed > .item-status > span.closed-status {
+  -moz-transition-delay: 0s;
+  -o-transition-delay: 0s;
+  -webkit-transition-delay: 0s;
+  transition-delay: 0s;
+  visibility: visible;
+  opacity: 1;
+}
 .wip-workitems-page > section > section .tracker-items .tracker-item > .item-type {
   position: relative;
   float: left;
@@ -438,14 +462,31 @@
   color: #618d24;
 }
 .wip-workitems-page > section > section .tracker-items .tracker-item > .item-status {
-  position: relative;
   float: left;
   width: 8.33333333%;
   min-height: 1px;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  height: 25px;
   width: 25px;
+  position: relative;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item > .item-status > span {
+  position: absolute;
+  left: 3px;
+  top: 0;
+  line-height: 25px;
+  opacity: 0;
+  visibility: hidden;
+  -moz-transition: visibility 0s linear 0.1s, opacity 0.1s ease-in;
+  -o-transition: visibility 0s linear 0.1s, opacity 0.1s ease-in;
+  -webkit-transition: visibility 0s linear 0.1s, opacity 0.1s ease-in;
+  transition: visibility 0s linear 0.1s, opacity 0.1s ease-in;
+}
+.wip-workitems-page > section > section .tracker-items .tracker-item > .item-status.change-status:hover {
+  cursor: pointer;
+  color: #d04796;
 }
 .wip-workitems-page > section > section .tracker-items .tracker-item > .item-status .fa {
   font-size: 15px;

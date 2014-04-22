@@ -63,7 +63,7 @@ module MirGames.Wip {
 
         /** Converts DTO to the scope object */
         private convertItemToScope(item: Domain.Wip.ViewModels.ProjectWorkItemViewModel): IProjectWorkItemScope {
-            return {
+            var workItem = {
                 type: WorkItemType[item.ItemType],
                 internalId: item.InternalId,
                 state: WorkItemState[item.State],
@@ -78,8 +78,11 @@ module MirGames.Wip {
                     avatar: item.Author.AvatarUrl,
                     id: item.Author.Id,
                     login: item.Author.Login
-                }
+                },
+                changeState: () => this.changeWorkItemState(workItem, item)
             };
+
+            return workItem;
         }
 
         /** Converts tag to the scope item */
@@ -118,6 +121,25 @@ module MirGames.Wip {
                 });
             });
         }
+
+        /** Changes state of the work item */
+        changeWorkItemState(workItem: IProjectWorkItemScope, viewModel: Domain.Wip.ViewModels.ProjectWorkItemViewModel) {
+            if (!workItem.canBeEdited) {
+                return;
+            }
+
+            var command: Domain.Wip.Commands.ChangeWorkItemStateCommand = {
+                WorkItemId: viewModel.WorkItemId
+            };
+
+            this.apiService.executeCommand('ChangeWorkItemStateCommand', command, (newState: Domain.Wip.ViewModels.WorkItemState) => {
+                viewModel.State = newState;
+
+                this.$scope.$apply(() => {
+                    workItem.state = WorkItemState[viewModel.State];
+                });
+            });
+        }
     }
 
     export interface IWorkItemAuthorScope {
@@ -138,6 +160,7 @@ module MirGames.Wip {
         url: string;
         tags: IProjectWorkItemTagScope[];
         author: IWorkItemAuthorScope;
+        changeState: () => void;
     }
 
     export interface IProjectWorkItemTagScope {

@@ -35,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\ArchiveProjectRepositoryCommand.cs" />
+    <Compile Include="Commands\ChangeWorkItemStateCommand.cs" />
     <Compile Include="Commands\CreateNewProjectWorkItemCommand.cs" />
     <Compile Include="Commands\SaveWipProjectCommand.cs" />
     <Compile Include="Commands\CreateNewWipProjectCommand.cs" />
