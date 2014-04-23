@@ -25,6 +25,9 @@
         <a class="disabled"><i class="fa fa-users"></i>Команда</a>
         <a class="disabled"><i class="fa fa-picture-o"></i>Галерея</a>
         <a class="disabled"><i class="fa fa-download"></i>Файлы</a>
-        <a href="@Url.Action("Settings", "Projects", new { projectAlias = Model.Alias })" @Html.Css("selected", section == "Settings")><i class="fa fa-gear"></i>Настройки</a>
+        @if (Model.CanEdit)
+        {
+            <a href="@Url.Action("Settings", "Projects", new { projectAlias = Model.Alias })" @Html.Css("selected", section == "Settings")><i class="fa fa-gear"></i>Настройки</a>
+        }
     </div>
 }
