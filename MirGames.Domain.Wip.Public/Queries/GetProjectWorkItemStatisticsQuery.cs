@@ -1,5 +1,6 @@
 namespace MirGames.Domain.Wip.Queries
 {
+    using MirGames.Domain.Wip.ViewModels;
     using MirGames.Infrastructure.Queries;
 
     /// <summary>

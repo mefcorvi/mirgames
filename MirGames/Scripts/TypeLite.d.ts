@@ -453,6 +453,7 @@ interface GetProjectWorkItemQuery extends MirGames.Infrastructure.Queries.Single
 interface GetProjectWorkItemsQuery extends MirGames.Infrastructure.Queries.Query1 {
   ProjectAlias: string;
   Tag: string;
+  WorkItemType: MirGames.Domain.Wip.ViewModels.WorkItemType;
 }
 }
 declare module MirGames.Domain.Wip.ViewModels {
@@ -474,6 +475,11 @@ enum WipProjectRepositoryItemType {
   Other = 0,
   File = 1,
   Directory = 2
+}
+interface ProjectWorkItemStatisticsViewModel {
+  OpenBugsCount: number;
+  OpenTasksCount: number;
+  OpenFeaturesCount: number;
 }
 interface ProjectWorkItemCommentViewModel {
   CommentId: number;

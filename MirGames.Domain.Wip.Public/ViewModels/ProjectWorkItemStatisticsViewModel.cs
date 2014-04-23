@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="GetProjectWorkItemsQuery.cs">
+// <copyright company="MirGames" file="ProjectWorkItemStatisticsViewModel.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -7,28 +7,26 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MirGames.Domain.Wip.Queries
+namespace MirGames.Domain.Wip.ViewModels
 {
-    using MirGames.Domain.Wip.ViewModels;
-    using MirGames.Infrastructure.Commands;
-    using MirGames.Infrastructure.Queries;
-
-    [Api]
-    public sealed class GetProjectWorkItemsQuery : Query<ProjectWorkItemViewModel>
+    /// <summary>
+    /// Statistics of the project work items.
+    /// </summary>
+    public sealed class ProjectWorkItemStatisticsViewModel
     {
         /// <summary>
-        /// Gets or sets the project alias.
+        /// Gets or sets the open bugs count.
         /// </summary>
-        public string ProjectAlias { get; set; }
+        public int OpenBugsCount { get; set; }
 
         /// <summary>
-        /// Gets or sets the tag.
+        /// Gets or sets the open tasks count.
         /// </summary>
-        public string Tag { get; set; }
+        public int OpenTasksCount { get; set; }
 
         /// <summary>
-        /// Gets or sets the type of the work item.
+        /// Gets or sets the open features count.
         /// </summary>
-        public WorkItemType? WorkItemType { get; set; }
+        public int OpenFeaturesCount { get; set; }
     }
 }

@@ -87,12 +87,18 @@ namespace MirGames.Controllers
                 },
                 new PaginationSettings(0, 5));
 
+            var statistics = this.QueryProcessor.Process(new GetProjectWorkItemStatisticsQuery
+            {
+                ProjectAlias = project.Alias
+            });
+
             var topics = this.QueryProcessor.Process(new GetWipProjectTopicsQuery { Alias = projectAlias }, new PaginationSettings(0, 10));
 
             var commits = this.QueryProcessor.Process(new GetWipProjectCommitsQuery { Alias = projectAlias });
             this.ViewBag.Commits = commits;
             this.ViewBag.Topics = topics;
             this.ViewBag.Images = images;
+            this.ViewBag.Statistics = statistics;
             
             this.ViewBag.BackUrl = this.GetBackUrl();
             this.ViewBag.SubSection = "Project";
@@ -115,7 +121,7 @@ namespace MirGames.Controllers
         }
 
         /// <inheritdoc />
-        public ActionResult WorkItems(string projectAlias, string tag)
+        public ActionResult WorkItems(string projectAlias, string tag, WorkItemType? itemType)
         {
             var project = this.QueryProcessor.Process(
                 new GetWipProjectQuery
@@ -126,7 +132,8 @@ namespace MirGames.Controllers
             var workItems = this.QueryProcessor.Process(new GetProjectWorkItemsQuery
             {
                 ProjectAlias = projectAlias,
-                Tag = tag
+                Tag = tag,
+                WorkItemType = itemType
             });
 
             this.ViewBag.SubSection = "WorkItems";
@@ -151,6 +158,8 @@ namespace MirGames.Controllers
             this.PageData["availableItemTypes"] = availableItems.Cast<int>().ToArray();
             this.PageData["projectAlias"] = project.Alias;
             this.PageData["workItems"] = workItems;
+            this.PageData["filterByType"] = itemType;
+
             this.ViewBag.BackUrl = this.GetBackUrl();
 
             return this.View(project);

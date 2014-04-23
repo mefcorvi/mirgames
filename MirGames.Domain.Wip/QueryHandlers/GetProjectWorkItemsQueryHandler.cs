@@ -140,6 +140,11 @@ namespace MirGames.Domain.Wip.QueryHandlers
                     (topic, tag) => topic);
             }
 
+            if (query.WorkItemType.HasValue)
+            {
+                workItems = workItems.Where(w => w.ItemType == query.WorkItemType.Value);
+            }
+
             return workItems.OrderByDescending(t => t.Priority).ThenByDescending(t => t.StartDate);
         }
     }

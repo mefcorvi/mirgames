@@ -1,16 +1,20 @@
 ﻿body {} @import "../settings.less";
 
+@bug-color: saturate(spin(@header-background, 120), 20%);
+@feature-color: saturate(@header-background, 20%);
+@task-color: saturate(spin(@header-background, 240), 20%);
+
 .work-item-type() {
     .bug-type {
-        color: saturate(spin(@header-background, 120), 20%);
+        color: @bug-color;
     }
 
     .feature-type {
-        color: saturate(@header-background, 20%);
+        color: @feature-color;
     }
 
     .task-type {
-        color: saturate(spin(@header-background, 240), 20%);
+        color: @task-color;
     }
 }
 

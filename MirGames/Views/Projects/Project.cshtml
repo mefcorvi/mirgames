@@ -10,6 +10,7 @@
     var images = (IEnumerable<AttachmentViewModel>)ViewBag.Images;
     var topics = (IEnumerable<TopicsListItem>)ViewBag.Topics;
     var commits = (IEnumerable<WipProjectCommitViewModel>)ViewBag.Commits;
+    var statistics = (ProjectWorkItemStatisticsViewModel)ViewBag.Statistics;
 }
 
 @section Nav
@@ -56,6 +57,12 @@
                 }
             </ul>
         }
+        <h4>Трекер</h4>
+        <div class="work-items">
+            <div class="bug-type"><i class="fa fa-bug"></i><a title="Открытые баги" href="@Url.Action("WorkItems", "Projects", new { itemType = WorkItemType.Bug, projectAlias = Model.Alias })">@statistics.OpenBugsCount</a></div>
+            <div class="task-type"><i class="fa fa-check-square-o"></i><a title="Открытые таски" href="@Url.Action("WorkItems", "Projects", new { itemType = WorkItemType.Task, projectAlias = Model.Alias })">@statistics.OpenTasksCount</a></div>
+            <div class="feature-type"><i class="fa fa-plus-square"></i><a title="Открытые фичи" href="@Url.Action("WorkItems", "Projects", new { itemType = WorkItemType.Feature, projectAlias = Model.Alias })">@statistics.OpenFeaturesCount</a></div>
+        </div>
         @if (commits.Any())
         {
             <h4>История</h4>

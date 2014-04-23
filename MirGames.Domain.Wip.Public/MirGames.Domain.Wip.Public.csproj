@@ -56,7 +56,7 @@
     <Compile Include="Queries\GetWipProjectQuery.cs" />
     <Compile Include="Queries\GetWipProjectsQuery.cs" />
     <Compile Include="Queries\GetWipTagsQuery.cs" />
-    <Compile Include="Queries\ProjectWorkItemStatisticsViewModel.cs" />
+    <Compile Include="ViewModels\ProjectWorkItemStatisticsViewModel.cs" />
     <Compile Include="ViewModels\ProjectWorkItemCommentViewModel.cs" />
     <Compile Include="ViewModels\ProjectWorkItemViewModel.cs" />
     <Compile Include="ViewModels\WipProjectRepositoryItemViewModel.cs" />

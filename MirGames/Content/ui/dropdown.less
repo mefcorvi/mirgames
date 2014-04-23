@@ -6,6 +6,11 @@
 
 .dropdown-toggle {
     cursor: pointer;
+    padding: @indent/3 0;
+
+    & > .fa {
+        margin-right: 3px;
+    }
 }
 
 .dropdown-toggle:focus {
@@ -14,8 +19,8 @@
 
 .dropdown-menu {
     position: absolute;
-    top: 100%;
-    left: -@indent/2;
+    top: -100%;
+    left: 10px;
     z-index: 1000;
     opacity: 0;
     float: left;
@@ -24,14 +29,17 @@
     margin: 2px 0 0;
     .font-size(1.2);
     list-style: none;
-    background-color: mix(@background-color, @header-background, 97%);
+    background-color: @background-color;
     border: 1px solid mix(@background-color, @header-background, 70%);
     background-clip: padding-box;
+    border: 0;
+    overflow: hidden;
+    .box-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
 
-    -moz-transition: visibility 0s linear 0.1s,opacity 0.1s ease-in;
-    -o-transition: visibility 0s linear 0.1s,opacity 0.1s ease-in;
-    -webkit-transition: visibility 0s linear 0.1s,opacity 0.1s ease-in;
-    transition: visibility 0s linear 0.1s,opacity 0.1s ease-in;
+    -moz-transition: visibility 0s linear 0.1s,opacity 0.1s ease-in-out,top 0.1s ease-in-out;
+    -o-transition: visibility 0s linear 0.1s,opacity 0.1s ease-in-out,top 0.1s ease-in-out;
+    -webkit-transition: visibility 0s linear 0.1s,opacity 0.1s ease-in-out,top 0.1s ease-in-out;
+    transition: visibility 0s linear 0.1s,opacity 0.1s ease-in-out,top 0.1s ease-in-out;
 
     &.pull-right {
         right: 0;
@@ -47,14 +55,21 @@
 
     & > li > a {
         display: block;
-        padding: @indent/4 @indent/2;
+        min-width: 100px;
+        padding: @indent/3 @indent/2;
         clear: both;
         white-space: nowrap;
+        text-decoration: none;
+
+        & > .fa {
+            margin-right: 5px;
+            .font-size(1.5);
+        }
 
         &:hover, &:focus {
             cursor: pointer;
             text-decoration: none;
-            background-color: mix(@background-color, @header-background, 93%);
+            background-color: mix(@background-color, @header-background, 95%);
         }
     }
 
@@ -85,6 +100,7 @@
     transition-delay: 0s;
     visibility: visible;
     opacity: 1;
+    top: 100%;
 }
 
 .open > a {

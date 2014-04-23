@@ -18,7 +18,7 @@
     {
         <a href="@Url.Action("Code", "Projects", new { projectAlias = Model.Alias, path = "/" })" @Html.Css("selected", section == "Repository")><i class="fa fa-code"></i>Исходный код</a>
     }
-        <a href="@Url.Action("WorkItems", "Projects", new { projectAlias = Model.Alias })" @Html.Css("selected", section == "WorkItems")><i class="fa fa-bug"></i>Трекер</a>
+        <a href="@Url.Action("WorkItems", "Projects", new { projectAlias = Model.Alias, itemType = (WorkItemType?)null })" @Html.Css("selected", section == "WorkItems")><i class="fa fa-bug"></i>Трекер</a>
         @*@<a href="@Url.Action("Team", new { projectAlias = Model.Alias })"><i class="fa fa-users"></i>Команда</a>
             <a href="@Url.Action("Gallery", new { projectAlias = Model.Alias })"><i class="fa fa-picture-o"></i>Галерея</a>
             <a href="@Url.Action("Files", new { projectAlias = Model.Alias })"><i class="fa fa-download"></i>Файлы</a>*@

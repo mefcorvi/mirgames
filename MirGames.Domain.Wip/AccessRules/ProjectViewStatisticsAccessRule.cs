@@ -1,5 +1,5 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="ProjectWorkItemStatisticsViewModel.cs">
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright company="MirGames" file="ProjectViewStatisticsAccessRule.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -7,26 +7,28 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MirGames.Domain.Wip.Queries
+namespace MirGames.Domain.Wip.AccessRules
 {
+    using System.Security.Claims;
+
+    using MirGames.Domain.Wip.Entities;
+    using MirGames.Infrastructure.Security;
+
     /// <summary>
-    /// Statistics of the project work items.
+    /// Determines the access to project view model.
     /// </summary>
-    public sealed class ProjectWorkItemStatisticsViewModel
+    internal sealed class ProjectViewStatisticsAccessRule : AccessRule<Project>
     {
-        /// <summary>
-        /// Gets or sets the open bugs count.
-        /// </summary>
-        public int OpenBugsCount { get; set; }
+        /// <inheritdoc />
+        protected override string Action
+        {
+            get { return "ViewStatistics"; }
+        }
 
-        /// <summary>
-        /// Gets or sets the open tasks count.
-        /// </summary>
-        public int OpenTasksCount { get; set; }
-
-        /// <summary>
-        /// Gets or sets the open features count.
-        /// </summary>
-        public int OpenFeaturesCount { get; set; }
+        /// <inheritdoc />
+        protected override bool CheckAccess(ClaimsPrincipal principal, Project resource)
+        {
+            return true;
+        }
     }
 }

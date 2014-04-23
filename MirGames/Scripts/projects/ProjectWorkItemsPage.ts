@@ -10,6 +10,8 @@ module MirGames.Wip {
 
             this.$scope.typeNames = ['Неизвестный', 'Ошибка', 'Задача', 'Фича'];
             this.$scope.newItem = this.getEmptyNewItem();
+            this.$scope.filterByType = this.pageData.filterByType;
+            this.$scope.setFilterByType = (itemType) => this.setFilterByType(itemType);
         }
 
         private getEmptyNewItem(): IProjectNewWorkItemScope {
@@ -29,12 +31,13 @@ module MirGames.Wip {
         private loadWorkItems() {
             var query: Domain.Wip.Queries.GetProjectWorkItemsQuery = {
                 ProjectAlias: this.pageData.projectAlias,
-                Tag: null
+                Tag: null,
+                WorkItemType: this.$scope.filterByType
             };
 
             this.apiService.getAll("GetProjectWorkItemsQuery", query, 0, 20, (result) => {
                 this.$scope.$apply(() => {
-                    this.$scope.items = result;
+                    this.$scope.items = this.convertItemsToScope(result);
                     this.$scope.dataLoaded = true;
                 });
             });
@@ -123,7 +126,7 @@ module MirGames.Wip {
         }
 
         /** Changes state of the work item */
-        changeWorkItemState(workItem: IProjectWorkItemScope, viewModel: Domain.Wip.ViewModels.ProjectWorkItemViewModel) {
+        private changeWorkItemState(workItem: IProjectWorkItemScope, viewModel: Domain.Wip.ViewModels.ProjectWorkItemViewModel) {
             if (!workItem.canBeEdited) {
                 return;
             }
@@ -139,6 +142,12 @@ module MirGames.Wip {
                     workItem.state = WorkItemState[viewModel.State];
                 });
             });
+        }
+
+        /** Sets filter by type  */
+        private setFilterByType(itemType?: Domain.Wip.ViewModels.WorkItemType) {
+            this.$scope.filterByType = itemType;
+            this.loadWorkItems();
         }
     }
 
@@ -173,6 +182,8 @@ module MirGames.Wip {
         dataLoaded: boolean;
         newItem: IProjectNewWorkItemScope;
         typeNames: string[];
+        filterByType?: Domain.Wip.ViewModels.WorkItemType;
+        setFilterByType: (itemType?: Domain.Wip.ViewModels.WorkItemType) => void;
     }
 
     export interface IProjectNewWorkItemScope {
@@ -189,6 +200,7 @@ module MirGames.Wip {
     export interface IProjectWorkItemsPageData {
         projectAlias: string;
         workItems: Domain.Wip.ViewModels.ProjectWorkItemViewModel[];
+        filterByType?: Domain.Wip.ViewModels.WorkItemType;
         availableItemTypes: number[];
     }
 

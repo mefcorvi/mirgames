@@ -13,6 +13,8 @@ namespace MirGames
     using System.Web.Mvc;
     using System.Web.Routing;
 
+    using MirGames.Domain.Wip.ViewModels;
+
     /// <summary>
     /// The route config.
     /// </summary>
@@ -158,9 +160,24 @@ namespace MirGames
                 new { controller = "Projects", action = "Settings" });
 
             routes.MapRouteLowercase(
+                "WipProjectWorkItemsBugs",
+                "project/{projectAlias}/workitems/bugs",
+                new { controller = "Projects", action = "WorkItems", itemType = WorkItemType.Bug });
+
+            routes.MapRouteLowercase(
+                "WipProjectWorkItemsFeatures",
+                "project/{projectAlias}/workitems/features",
+                new { controller = "Projects", action = "WorkItems", itemType = WorkItemType.Feature });
+
+            routes.MapRouteLowercase(
+                "WipProjectWorkItemsTasks",
+                "project/{projectAlias}/workitems/tasks",
+                new { controller = "Projects", action = "WorkItems", itemType = WorkItemType.Task });
+
+            routes.MapRouteLowercase(
                 "WipProjectWorkItems",
                 "project/{projectAlias}/workitems",
-                new { controller = "Projects", action = "WorkItems" });
+                new { controller = "Projects", action = "WorkItems", itemType = (WorkItemType?)null });
 
             routes.MapRouteLowercase(
                 "WipProjectWorkItem",

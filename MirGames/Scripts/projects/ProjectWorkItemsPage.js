@@ -11,6 +11,7 @@ var MirGames;
         var ProjectWorkItemsPage = (function (_super) {
             __extends(ProjectWorkItemsPage, _super);
             function ProjectWorkItemsPage($scope, eventBus, apiService) {
+                var _this = this;
                 _super.call(this, $scope, eventBus);
                 this.apiService = apiService;
                 this.$scope.items = this.convertItemsToScope(this.pageData.workItems);
@@ -18,6 +19,10 @@ var MirGames;
 
                 this.$scope.typeNames = ['Неизвестный', 'Ошибка', 'Задача', 'Фича'];
                 this.$scope.newItem = this.getEmptyNewItem();
+                this.$scope.filterByType = this.pageData.filterByType;
+                this.$scope.setFilterByType = function (itemType) {
+                    return _this.setFilterByType(itemType);
+                };
             }
             ProjectWorkItemsPage.prototype.getEmptyNewItem = function () {
                 var _this = this;
@@ -40,12 +45,13 @@ var MirGames;
                 var _this = this;
                 var query = {
                     ProjectAlias: this.pageData.projectAlias,
-                    Tag: null
+                    Tag: null,
+                    WorkItemType: this.$scope.filterByType
                 };
 
                 this.apiService.getAll("GetProjectWorkItemsQuery", query, 0, 20, function (result) {
                     _this.$scope.$apply(function () {
-                        _this.$scope.items = result;
+                        _this.$scope.items = _this.convertItemsToScope(result);
                         _this.$scope.dataLoaded = true;
                     });
                 });
@@ -160,6 +166,12 @@ var MirGames;
                         workItem.state = WorkItemState[viewModel.State];
                     });
                 });
+            };
+
+            /** Sets filter by type  */
+            ProjectWorkItemsPage.prototype.setFilterByType = function (itemType) {
+                this.$scope.filterByType = itemType;
+                this.loadWorkItems();
             };
             ProjectWorkItemsPage.$inject = ['$scope', 'eventBus', 'apiService'];
             return ProjectWorkItemsPage;

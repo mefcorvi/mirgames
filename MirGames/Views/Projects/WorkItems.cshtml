@@ -17,12 +17,24 @@
     <h4>Баг-трекер</h4>
     <div class="tracker-items">
         <form ng-cloak>
-            <div class="form-field" ng-show="newItem.availableItemTypes.length > 1">
-                <div class="radio-group">
-                    <button type="button" class="radio" ng-model="filterByItem" ng-show="newItem.availableItemTypes.indexOf(1) + 1" btn-radio="1"><i class="fa fa-bug"></i>{{typeNames[1]}}</button>
-                    <button type="button" class="radio" ng-model="filterByItem" ng-show="newItem.availableItemTypes.indexOf(2) + 1" btn-radio="2"><i class="fa fa-check-square-o"></i>{{typeNames[2]}}</button>
-                    <button type="button" class="radio" ng-model="filterByItem" ng-show="newItem.availableItemTypes.indexOf(3) + 1" btn-radio="3"><i class="fa fa-plus-square"></i>{{typeNames[3]}}</button>
-                </div>
+            <div ng-show="newItem.availableItemTypes.length > 1" class="form-field dropdown">
+                <a class="dropdown-toggle">
+                    <i class="fa fa-caret-down"></i>{{typeNames[filterByType] || 'Все типы'}}
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a ng-click="setFilterByType(null)">Все типы</a>
+                    </li>
+                    <li>
+                        <a ng-click="setFilterByType(1)"><i class="fa fa-bug"></i>{{typeNames[1]}}</a>
+                    </li>
+                    <li>
+                        <a ng-click="setFilterByType(2)"><i class="fa fa-check-square-o"></i>{{typeNames[2]}}</a>
+                    </li>
+                    <li>
+                        <a ng-click="setFilterByType(3)"><i class="fa fa-plus-square"></i>{{typeNames[3]}}</a>
+                    </li>
+                </ul>
             </div>
         </form>
         <div ng-class="['tracker-item', item.type, item.state, 'p' + item.priority]" ng-repeat="item in items" ng-cloak>
