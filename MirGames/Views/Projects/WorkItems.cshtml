@@ -15,9 +15,9 @@
 
 <section>
     <h4>Баг-трекер</h4>
-    <div class="tracker-items">
+    <div class="toolbar">
         <form ng-cloak>
-            <div ng-show="newItem.availableItemTypes.length > 1" class="form-field dropdown">
+            <div class="form-field dropdown">
                 <a class="dropdown-toggle">
                     <i class="fa fa-caret-down"></i>{{typeNames[filterByType] || 'Все типы'}}
                 </a>
@@ -36,7 +36,34 @@
                     </li>
                 </ul>
             </div>
+            <div class="form-field dropdown">
+                <a class="dropdown-toggle">
+                    <i class="fa fa-caret-down"></i>{{statusNames[filterByStatus] || 'В любом статусе'}}
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a ng-click="setFilterByStatus(null)">В любом статусе</a>
+                    </li>
+                    <li>
+                        <a ng-click="setFilterByStatus(4)">{{statusNames[4]}}</a>
+                    </li>
+                    <li>
+                        <a ng-click="setFilterByStatus(1)">{{statusNames[1]}}</a>
+                    </li>
+                    <li>
+                        <a ng-click="setFilterByStatus(3)">{{statusNames[3]}}</a>
+                    </li>
+                    <li>
+                        <a ng-click="setFilterByStatus(2)">{{statusNames[2]}}</a>
+                    </li>
+                    <li>
+                        <a ng-click="setFilterByStatus(5)">{{statusNames[5]}}</a>
+                    </li>
+                </ul>
+            </div>
         </form>
+    </div>
+    <div class="tracker-items">
         <div ng-class="['tracker-item', item.type, item.state, 'p' + item.priority]" ng-repeat="item in items" ng-cloak>
             <div ng-class="['item-status', item.canBeEdited ? 'change-status' : '' ]" ng-click="item.changeState()">
                 <span class="open-status" title="Доступно"><i class="fa fa-circle-o"></i></span>

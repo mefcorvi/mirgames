@@ -16,6 +16,21 @@
                 .page-subtitle();
             }
 
+            .toolbar {
+                border: 1px solid mix(@header-background, @background-color, 25%);
+                background: desaturate(mix(@link-color, @background-color, 70%), 10%);
+                border-bottom: 0;
+                padding: @indent/2 @indent;
+
+                .form-field > a {
+                    color: @background-color;
+
+                    &:hover {
+                        color: mix(@link-color-hover, @background-color, 50%);
+                    }
+                }
+            }
+
             .tracker-items {
                 .page-block();
                 margin-bottom: @indent;

@@ -30,5 +30,10 @@ namespace MirGames.Domain.Wip.Queries
         /// Gets or sets the type of the work item.
         /// </summary>
         public WorkItemType? WorkItemType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the state of the work item.
+        /// </summary>
+        public WorkItemState? WorkItemState { get; set; }
     }
 }

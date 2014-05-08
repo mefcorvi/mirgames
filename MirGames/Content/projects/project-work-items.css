@@ -374,6 +374,18 @@
   font-size: 16px;
   padding-bottom: 0;
 }
+.wip-workitems-page > section > section .toolbar {
+  border: 1px solid #cdd7de;
+  background: #728ea3;
+  border-bottom: 0;
+  padding: 10px 20px;
+}
+.wip-workitems-page > section > section .toolbar .form-field > a {
+  color: #ffffff;
+}
+.wip-workitems-page > section > section .toolbar .form-field > a:hover {
+  color: #e7a3cb;
+}
 .wip-workitems-page > section > section .tracker-items {
   background: #ffffff;
   padding: 20px 20px;

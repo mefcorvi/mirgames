@@ -18,10 +18,15 @@ var MirGames;
                 this.$scope.dataLoaded = true;
 
                 this.$scope.typeNames = ['Неизвестный', 'Ошибка', 'Задача', 'Фича'];
+                this.$scope.statusNames = ['Неизестный', 'Открытая', 'Закрытая', 'Активная', 'В очереди', 'Удаленная'];
                 this.$scope.newItem = this.getEmptyNewItem();
                 this.$scope.filterByType = this.pageData.filterByType;
+                this.$scope.filterByStatus = null;
                 this.$scope.setFilterByType = function (itemType) {
                     return _this.setFilterByType(itemType);
+                };
+                this.$scope.setFilterByStatus = function (itemStatus) {
+                    return _this.setFilterByStatus(itemStatus);
                 };
             }
             ProjectWorkItemsPage.prototype.getEmptyNewItem = function () {
@@ -46,7 +51,8 @@ var MirGames;
                 var query = {
                     ProjectAlias: this.pageData.projectAlias,
                     Tag: null,
-                    WorkItemType: this.$scope.filterByType
+                    WorkItemType: this.$scope.filterByType,
+                    WorkItemState: this.$scope.filterByStatus
                 };
 
                 this.apiService.getAll("GetProjectWorkItemsQuery", query, 0, 20, function (result) {
@@ -171,6 +177,12 @@ var MirGames;
             /** Sets filter by type  */
             ProjectWorkItemsPage.prototype.setFilterByType = function (itemType) {
                 this.$scope.filterByType = itemType;
+                this.loadWorkItems();
+            };
+
+            /** Sets filter by status  */
+            ProjectWorkItemsPage.prototype.setFilterByStatus = function (itemStatus) {
+                this.$scope.filterByStatus = itemStatus;
                 this.loadWorkItems();
             };
             ProjectWorkItemsPage.$inject = ['$scope', 'eventBus', 'apiService'];

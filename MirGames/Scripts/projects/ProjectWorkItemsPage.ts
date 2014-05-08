@@ -9,9 +9,12 @@ module MirGames.Wip {
             this.$scope.dataLoaded = true;
 
             this.$scope.typeNames = ['Неизвестный', 'Ошибка', 'Задача', 'Фича'];
+            this.$scope.statusNames = ['Неизестный', 'Открытая', 'Закрытая', 'Активная', 'В очереди', 'Удаленная'];
             this.$scope.newItem = this.getEmptyNewItem();
             this.$scope.filterByType = this.pageData.filterByType;
-            this.$scope.setFilterByType = (itemType) => this.setFilterByType(itemType);
+            this.$scope.filterByStatus = null;
+            this.$scope.setFilterByType = itemType => this.setFilterByType(itemType);
+            this.$scope.setFilterByStatus = itemStatus => this.setFilterByStatus(itemStatus);
         }
 
         private getEmptyNewItem(): IProjectNewWorkItemScope {
@@ -32,7 +35,8 @@ module MirGames.Wip {
             var query: Domain.Wip.Queries.GetProjectWorkItemsQuery = {
                 ProjectAlias: this.pageData.projectAlias,
                 Tag: null,
-                WorkItemType: this.$scope.filterByType
+                WorkItemType: this.$scope.filterByType,
+                WorkItemState: this.$scope.filterByStatus
             };
 
             this.apiService.getAll("GetProjectWorkItemsQuery", query, 0, 20, (result) => {
@@ -149,6 +153,12 @@ module MirGames.Wip {
             this.$scope.filterByType = itemType;
             this.loadWorkItems();
         }
+
+        /** Sets filter by status  */
+        private setFilterByStatus(itemStatus?: Domain.Wip.ViewModels.WorkItemState) {
+            this.$scope.filterByStatus = itemStatus;
+            this.loadWorkItems();
+        }
     }
 
     export interface IWorkItemAuthorScope {
@@ -182,7 +192,10 @@ module MirGames.Wip {
         dataLoaded: boolean;
         newItem: IProjectNewWorkItemScope;
         typeNames: string[];
+        statusNames: string[];
+        filterByStatus?: Domain.Wip.ViewModels.WorkItemState;
         filterByType?: Domain.Wip.ViewModels.WorkItemType;
+        setFilterByStatus: (itemStatus?: Domain.Wip.ViewModels.WorkItemState) => void;
         setFilterByType: (itemType?: Domain.Wip.ViewModels.WorkItemType) => void;
     }
 

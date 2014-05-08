@@ -145,6 +145,15 @@ namespace MirGames.Domain.Wip.QueryHandlers
                 workItems = workItems.Where(w => w.ItemType == query.WorkItemType.Value);
             }
 
+            if (query.WorkItemState.HasValue)
+            {
+                workItems = workItems.Where(w => w.State == query.WorkItemState.Value);
+            }
+            else
+            {
+                workItems = workItems.Where(w => w.State != WorkItemState.Closed && w.State != WorkItemState.Removed);
+            }
+
             return workItems.OrderByDescending(t => t.Priority).ThenByDescending(t => t.StartDate);
         }
     }

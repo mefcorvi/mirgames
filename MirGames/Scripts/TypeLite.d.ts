@@ -454,6 +454,7 @@ interface GetProjectWorkItemsQuery extends MirGames.Infrastructure.Queries.Query
   ProjectAlias: string;
   Tag: string;
   WorkItemType: MirGames.Domain.Wip.ViewModels.WorkItemType;
+  WorkItemState: MirGames.Domain.Wip.ViewModels.WorkItemState;
 }
 }
 declare module MirGames.Domain.Wip.ViewModels {
