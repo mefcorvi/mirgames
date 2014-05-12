@@ -42,6 +42,17 @@ angular
             }
         };
     }])
+    .directive('staticInclude', ['$http', '$templateCache', '$compile', ($http: ng.IHttpService, $templateCache: ng.ITemplateCacheService, $compile: ng.ICompileService) => {
+        return (scope: ng.IScope, element: JQuery, attrs: any) => {
+            var templatePath = attrs.staticInclude;
+
+            $http.get(templatePath, { cache: $templateCache }).success((response) => {
+                var contents = $('<div/>').html(response).contents();
+                element.html(contents);
+                $compile(contents)(scope);
+            });
+        };
+    }])
     .directive('ngSubmit', () => {
         return {
             link: (scope: ng.IScope, element: JQuery, attrs: any) => {

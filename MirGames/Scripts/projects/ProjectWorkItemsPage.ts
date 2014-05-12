@@ -8,6 +8,7 @@ module MirGames.Wip {
             this.$scope.items = this.convertItemsToScope(this.pageData.workItems);
             this.$scope.dataLoaded = true;
 
+            this.$scope.viewMode = ViewMode.List;
             this.$scope.typeNames = ['Неизвестный', 'Ошибка', 'Задача', 'Фича'];
             this.$scope.statusNames = ['Неизестный', 'Открытая', 'Закрытая', 'Активная', 'В очереди', 'Удаленная'];
             this.$scope.newItem = this.getEmptyNewItem();
@@ -15,6 +16,9 @@ module MirGames.Wip {
             this.$scope.filterByStatus = null;
             this.$scope.setFilterByType = itemType => this.setFilterByType(itemType);
             this.$scope.setFilterByStatus = itemStatus => this.setFilterByStatus(itemStatus);
+
+            this.$scope.showBlocks = () => this.showBlocks();
+            this.$scope.showList = () => this.showList();
         }
 
         private getEmptyNewItem(): IProjectNewWorkItemScope {
@@ -61,6 +65,16 @@ module MirGames.Wip {
                     this.$scope.dataLoaded = true;
                 });
             });
+        }
+
+        /** Shows work items as a blocks */
+        private showBlocks() {
+            this.$scope.viewMode = ViewMode.Blocks;
+        }
+
+        /** Show work items as a list */
+        private showList() {
+            this.$scope.viewMode = ViewMode.List;
         }
 
         /** Converts DTO to the scope object */
@@ -193,10 +207,16 @@ module MirGames.Wip {
         newItem: IProjectNewWorkItemScope;
         typeNames: string[];
         statusNames: string[];
+
+        viewMode: ViewMode;
+
         filterByStatus?: Domain.Wip.ViewModels.WorkItemState;
         filterByType?: Domain.Wip.ViewModels.WorkItemType;
         setFilterByStatus: (itemStatus?: Domain.Wip.ViewModels.WorkItemState) => void;
         setFilterByType: (itemType?: Domain.Wip.ViewModels.WorkItemType) => void;
+
+        showList: () => void;
+        showBlocks: () => void;
     }
 
     export interface IProjectNewWorkItemScope {
@@ -231,5 +251,10 @@ module MirGames.Wip {
         Bug = 1,
         Task = 2,
         Feature = 3
+    }
+
+    export enum ViewMode {
+        List = 0,
+        Blocks = 1
     }
 }

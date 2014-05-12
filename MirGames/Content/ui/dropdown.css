@@ -6,7 +6,7 @@
   padding: 6.66666667px 0;
 }
 .dropdown-toggle > .fa {
-  margin-right: 3px;
+  margin-right: 5px;
 }
 .dropdown-toggle:focus {
   outline: 0;
@@ -49,20 +49,28 @@
 .dropdown-menu > li > a {
   display: block;
   min-width: 100px;
-  padding: 6.66666667px 10px;
+  padding: 0 10px;
   clear: both;
   white-space: nowrap;
   text-decoration: none;
 }
 .dropdown-menu > li > a > .fa {
+  width: 15px;
   margin-right: 5px;
   font-size: 15px;
+  opacity: 0.5;
 }
 .dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus {
+.dropdown-menu > li > a:focus,
+.dropdown-menu > li > a:active {
   cursor: pointer;
   text-decoration: none;
   background-color: #f5f7f8;
+}
+.dropdown-menu > li > a:hover .fa,
+.dropdown-menu > li > a:focus .fa,
+.dropdown-menu > li > a:active .fa {
+  opacity: 1;
 }
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,

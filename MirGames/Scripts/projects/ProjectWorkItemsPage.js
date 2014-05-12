@@ -17,6 +17,7 @@ var MirGames;
                 this.$scope.items = this.convertItemsToScope(this.pageData.workItems);
                 this.$scope.dataLoaded = true;
 
+                this.$scope.viewMode = 0 /* List */;
                 this.$scope.typeNames = ['Неизвестный', 'Ошибка', 'Задача', 'Фича'];
                 this.$scope.statusNames = ['Неизестный', 'Открытая', 'Закрытая', 'Активная', 'В очереди', 'Удаленная'];
                 this.$scope.newItem = this.getEmptyNewItem();
@@ -27,6 +28,13 @@ var MirGames;
                 };
                 this.$scope.setFilterByStatus = function (itemStatus) {
                     return _this.setFilterByStatus(itemStatus);
+                };
+
+                this.$scope.showBlocks = function () {
+                    return _this.showBlocks();
+                };
+                this.$scope.showList = function () {
+                    return _this.showList();
                 };
             }
             ProjectWorkItemsPage.prototype.getEmptyNewItem = function () {
@@ -78,6 +86,16 @@ var MirGames;
                         _this.$scope.dataLoaded = true;
                     });
                 });
+            };
+
+            /** Shows work items as a blocks */
+            ProjectWorkItemsPage.prototype.showBlocks = function () {
+                this.$scope.viewMode = 1 /* Blocks */;
+            };
+
+            /** Show work items as a list */
+            ProjectWorkItemsPage.prototype.showList = function () {
+                this.$scope.viewMode = 0 /* List */;
             };
 
             /** Converts DTO to the scope object */
@@ -207,6 +225,12 @@ var MirGames;
             WorkItemType[WorkItemType["Task"] = 2] = "Task";
             WorkItemType[WorkItemType["Feature"] = 3] = "Feature";
         })(WorkItemType || (WorkItemType = {}));
+
+        (function (ViewMode) {
+            ViewMode[ViewMode["List"] = 0] = "List";
+            ViewMode[ViewMode["Blocks"] = 1] = "Blocks";
+        })(Wip.ViewMode || (Wip.ViewMode = {}));
+        var ViewMode = Wip.ViewMode;
     })(MirGames.Wip || (MirGames.Wip = {}));
     var Wip = MirGames.Wip;
 })(MirGames || (MirGames = {}));
