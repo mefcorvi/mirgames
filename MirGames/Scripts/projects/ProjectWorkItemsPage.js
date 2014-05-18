@@ -14,20 +14,20 @@ var MirGames;
                 var _this = this;
                 _super.call(this, $scope, eventBus);
                 this.apiService = apiService;
-                this.$scope.items = this.convertItemsToScope(this.pageData.workItems);
-                this.$scope.dataLoaded = true;
-
+                this.$scope.view = MirGames.Wip.ProjectWorkItemList;
                 this.$scope.viewMode = 0 /* List */;
                 this.$scope.typeNames = ['Неизвестный', 'Ошибка', 'Задача', 'Фича'];
                 this.$scope.statusNames = ['Неизестный', 'Открытая', 'Закрытая', 'Активная', 'В очереди', 'Удаленная'];
                 this.$scope.newItem = this.getEmptyNewItem();
+
                 this.$scope.filterByType = this.pageData.filterByType;
                 this.$scope.filterByStatus = null;
-                this.$scope.setFilterByType = function (itemType) {
-                    return _this.setFilterByType(itemType);
+
+                this.$scope.setFilterByType = function (filter) {
+                    return _this.setFilterByType(filter);
                 };
-                this.$scope.setFilterByStatus = function (itemStatus) {
-                    return _this.setFilterByStatus(itemStatus);
+                this.$scope.setFilterByStatus = function (filter) {
+                    return _this.setFilterByStatus(filter);
                 };
 
                 this.$scope.showBlocks = function () {
@@ -53,102 +53,21 @@ var MirGames;
                 };
             };
 
-            /** Loads the list of work items */
-            ProjectWorkItemsPage.prototype.loadWorkItems = function () {
-                var _this = this;
-                var query = {
-                    ProjectAlias: this.pageData.projectAlias,
-                    Tag: null,
-                    WorkItemType: this.$scope.filterByType,
-                    WorkItemState: this.$scope.filterByStatus
-                };
-
-                this.apiService.getAll("GetProjectWorkItemsQuery", query, 0, 20, function (result) {
-                    _this.$scope.$apply(function () {
-                        _this.$scope.items = _this.convertItemsToScope(result);
-                        _this.$scope.dataLoaded = true;
-                    });
-                });
-            };
-
-            ProjectWorkItemsPage.prototype.loadWorkItem = function (internalId) {
-                var _this = this;
-                var query = {
-                    ProjectAlias: this.pageData.projectAlias,
-                    InternalId: internalId
-                };
-
-                this.$scope.dataLoaded = false;
-
-                this.apiService.getOne("GetProjectWorkItemQuery", query, function (result) {
-                    _this.$scope.$apply(function () {
-                        _this.$scope.items.push(_this.convertItemToScope(result));
-                        _this.$scope.dataLoaded = true;
-                    });
-                });
-            };
-
             /** Shows work items as a blocks */
             ProjectWorkItemsPage.prototype.showBlocks = function () {
+                var _this = this;
+                this.$scope.view = MirGames.Wip.ProjectWorkItemBlocks;
                 this.$scope.viewMode = 1 /* Blocks */;
+                setTimeout(function () {
+                    _this.$scope.$parent.$digest();
+                }, 0);
             };
 
             /** Show work items as a list */
             ProjectWorkItemsPage.prototype.showList = function () {
+                this.$scope.view = MirGames.Wip.ProjectWorkItemList;
                 this.$scope.viewMode = 0 /* List */;
-            };
-
-            /** Converts DTO to the scope object */
-            ProjectWorkItemsPage.prototype.convertItemsToScope = function (items) {
-                var _this = this;
-                return Enumerable.from(items).select(function (item) {
-                    return _this.convertItemToScope(item);
-                }).toArray();
-            };
-
-            /** Converts DTO to the scope object */
-            ProjectWorkItemsPage.prototype.convertItemToScope = function (item) {
-                var _this = this;
-                var workItem = {
-                    type: WorkItemType[item.ItemType],
-                    internalId: item.InternalId,
-                    state: WorkItemState[item.State],
-                    title: item.Title,
-                    canBeEdited: item.CanBeEdited,
-                    canBeDeleted: item.CanBeDeleted,
-                    tags: this.convertTagsToScope(item.TagsList),
-                    description: item.ShortDescription,
-                    url: Router.action("Projects", "WorkItem", { projectAlias: this.pageData.projectAlias, workItemId: item.InternalId }),
-                    priority: Math.round(Math.max(0, item.Priority) / 25),
-                    author: {
-                        avatar: item.Author.AvatarUrl,
-                        id: item.Author.Id,
-                        login: item.Author.Login
-                    },
-                    changeState: function () {
-                        return _this.changeWorkItemState(workItem, item);
-                    }
-                };
-
-                return workItem;
-            };
-
-            /** Converts tag to the scope item */
-            ProjectWorkItemsPage.prototype.convertTagsToScope = function (item) {
-                var _this = this;
-                return Enumerable.from((item || '').split(',')).where(function (t) {
-                    return t != null && t != '';
-                }).select(function (tag) {
-                    return _this.convertTagToScope(tag);
-                }).toArray();
-            };
-
-            /** Converts tag to the scope item */
-            ProjectWorkItemsPage.prototype.convertTagToScope = function (item) {
-                return {
-                    text: item.trim(),
-                    url: Router.action("Projects", "WorkItems", { projectAlias: this.pageData.projectAlias, tag: item.trim() })
-                };
+                this.$scope.$digest();
             };
 
             /** Posts the new item */
@@ -164,30 +83,10 @@ var MirGames;
                 };
 
                 this.apiService.executeCommand('CreateNewProjectWorkItemCommand', command, function (internalId) {
-                    _this.loadWorkItem(internalId);
+                    _this.eventBus.emit(_this.pageData.projectAlias + '.workitems.new', internalId);
                     _this.$scope.$apply(function () {
                         _this.$scope.newItem = _this.getEmptyNewItem();
                         _this.$scope.newItem.focus = true;
-                    });
-                });
-            };
-
-            /** Changes state of the work item */
-            ProjectWorkItemsPage.prototype.changeWorkItemState = function (workItem, viewModel) {
-                var _this = this;
-                if (!workItem.canBeEdited) {
-                    return;
-                }
-
-                var command = {
-                    WorkItemId: viewModel.WorkItemId
-                };
-
-                this.apiService.executeCommand('ChangeWorkItemStateCommand', command, function (newState) {
-                    viewModel.State = newState;
-
-                    _this.$scope.$apply(function () {
-                        workItem.state = WorkItemState[viewModel.State];
                     });
                 });
             };
@@ -203,12 +102,15 @@ var MirGames;
                 this.$scope.filterByStatus = itemStatus;
                 this.loadWorkItems();
             };
+
+            /** Loads work items */
+            ProjectWorkItemsPage.prototype.loadWorkItems = function () {
+            };
             ProjectWorkItemsPage.$inject = ['$scope', 'eventBus', 'apiService'];
             return ProjectWorkItemsPage;
         })(MirGames.BasePage);
         Wip.ProjectWorkItemsPage = ProjectWorkItemsPage;
 
-        var WorkItemState;
         (function (WorkItemState) {
             WorkItemState[WorkItemState["Undefined"] = 0] = "Undefined";
             WorkItemState[WorkItemState["Open"] = 1] = "Open";
@@ -216,15 +118,16 @@ var MirGames;
             WorkItemState[WorkItemState["Active"] = 3] = "Active";
             WorkItemState[WorkItemState["Queued"] = 4] = "Queued";
             WorkItemState[WorkItemState["Removed"] = 5] = "Removed";
-        })(WorkItemState || (WorkItemState = {}));
+        })(Wip.WorkItemState || (Wip.WorkItemState = {}));
+        var WorkItemState = Wip.WorkItemState;
 
-        var WorkItemType;
         (function (WorkItemType) {
             WorkItemType[WorkItemType["Undefined"] = 0] = "Undefined";
             WorkItemType[WorkItemType["Bug"] = 1] = "Bug";
             WorkItemType[WorkItemType["Task"] = 2] = "Task";
             WorkItemType[WorkItemType["Feature"] = 3] = "Feature";
-        })(WorkItemType || (WorkItemType = {}));
+        })(Wip.WorkItemType || (Wip.WorkItemType = {}));
+        var WorkItemType = Wip.WorkItemType;
 
         (function (ViewMode) {
             ViewMode[ViewMode["List"] = 0] = "List";

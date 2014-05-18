@@ -214,16 +214,23 @@
 
             .tracker-item-blocks {
                 .make-row(top);
+                margin-top: @indent/2;
 
                 .items {
                     margin-bottom: @indent;
-                    padding-top: @indent/2;
+                    padding: @indent/2 @indent/4;
                     padding-bottom: @indent/2;
-                    padding-left: @indent/4;
-                    padding-right: @indent/4;
 
                     & > h1 {
                         .page-subtitle();
+                    }
+
+                    &:first-child {
+                        padding-left: 0;
+                    }
+
+                    &:last-child {
+                        padding-right: 0;
                     }
                 }
 

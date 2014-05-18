@@ -5,17 +5,17 @@ module MirGames.Wip {
 
         constructor($scope: IProjectWorkItemsPageScope, eventBus: Core.IEventBus, private apiService: Core.IApiService) {
             super($scope, eventBus);
-            this.$scope.items = this.convertItemsToScope(this.pageData.workItems);
-            this.$scope.dataLoaded = true;
-
+            this.$scope.view = ProjectWorkItemList;
             this.$scope.viewMode = ViewMode.List;
             this.$scope.typeNames = ['Неизвестный', 'Ошибка', 'Задача', 'Фича'];
             this.$scope.statusNames = ['Неизестный', 'Открытая', 'Закрытая', 'Активная', 'В очереди', 'Удаленная'];
             this.$scope.newItem = this.getEmptyNewItem();
+
             this.$scope.filterByType = this.pageData.filterByType;
             this.$scope.filterByStatus = null;
-            this.$scope.setFilterByType = itemType => this.setFilterByType(itemType);
-            this.$scope.setFilterByStatus = itemStatus => this.setFilterByStatus(itemStatus);
+
+            this.$scope.setFilterByType = filter => this.setFilterByType(filter);
+            this.$scope.setFilterByStatus = filter => this.setFilterByStatus(filter);
 
             this.$scope.showBlocks = () => this.showBlocks();
             this.$scope.showList = () => this.showList();
@@ -34,93 +34,20 @@ module MirGames.Wip {
             };
         }
 
-        /** Loads the list of work items */
-        private loadWorkItems() {
-            var query: Domain.Wip.Queries.GetProjectWorkItemsQuery = {
-                ProjectAlias: this.pageData.projectAlias,
-                Tag: null,
-                WorkItemType: this.$scope.filterByType,
-                WorkItemState: this.$scope.filterByStatus
-            };
-
-            this.apiService.getAll("GetProjectWorkItemsQuery", query, 0, 20, (result) => {
-                this.$scope.$apply(() => {
-                    this.$scope.items = this.convertItemsToScope(result);
-                    this.$scope.dataLoaded = true;
-                });
-            });
-        }
-
-        private loadWorkItem(internalId: number) {
-            var query: Domain.Wip.Queries.GetProjectWorkItemQuery = {
-                ProjectAlias: this.pageData.projectAlias,
-                InternalId: internalId
-            };
-
-            this.$scope.dataLoaded = false;
-
-            this.apiService.getOne("GetProjectWorkItemQuery", query, (result) => {
-                this.$scope.$apply(() => {
-                    this.$scope.items.push(this.convertItemToScope(result));
-                    this.$scope.dataLoaded = true;
-                });
-            });
-        }
-
         /** Shows work items as a blocks */
         private showBlocks() {
+            this.$scope.view = ProjectWorkItemBlocks;
             this.$scope.viewMode = ViewMode.Blocks;
+            setTimeout(() => {
+                this.$scope.$parent.$digest();
+            }, 0);
         }
 
         /** Show work items as a list */
         private showList() {
+            this.$scope.view = ProjectWorkItemList;
             this.$scope.viewMode = ViewMode.List;
-        }
-
-        /** Converts DTO to the scope object */
-        private convertItemsToScope(items: Domain.Wip.ViewModels.ProjectWorkItemViewModel[]): IProjectWorkItemScope[] {
-            return Enumerable.from(items).select(item => this.convertItemToScope(item)).toArray();
-        }
-
-        /** Converts DTO to the scope object */
-        private convertItemToScope(item: Domain.Wip.ViewModels.ProjectWorkItemViewModel): IProjectWorkItemScope {
-            var workItem = {
-                type: WorkItemType[item.ItemType],
-                internalId: item.InternalId,
-                state: WorkItemState[item.State],
-                title: item.Title,
-                canBeEdited: item.CanBeEdited,
-                canBeDeleted: item.CanBeDeleted,
-                tags: this.convertTagsToScope(item.TagsList),
-                description: item.ShortDescription,
-                url: Router.action("Projects", "WorkItem", { projectAlias: this.pageData.projectAlias, workItemId: item.InternalId }),
-                priority: Math.round(Math.max(0, item.Priority) / 25),
-                author: {
-                    avatar: item.Author.AvatarUrl,
-                    id: item.Author.Id,
-                    login: item.Author.Login
-                },
-                changeState: () => this.changeWorkItemState(workItem, item)
-            };
-
-            return workItem;
-        }
-
-        /** Converts tag to the scope item */
-        private convertTagsToScope(item: string): IProjectWorkItemTagScope[] {
-            return Enumerable
-                .from((item || '').split(','))
-                .where(t => t != null && t != '')
-                .select(tag => this.convertTagToScope(tag))
-                .toArray();
-        }
-
-        /** Converts tag to the scope item */
-        private convertTagToScope(item: string): IProjectWorkItemTagScope {
-            return {
-                text: item.trim(),
-                url: Router.action("Projects", "WorkItems", { projectAlias: this.pageData.projectAlias, tag: item.trim() })
-            };
+            this.$scope.$digest();
         }
 
         /** Posts the new item */
@@ -135,29 +62,10 @@ module MirGames.Wip {
             };
 
             this.apiService.executeCommand('CreateNewProjectWorkItemCommand', command, (internalId: number) => {
-                this.loadWorkItem(internalId);
+                this.eventBus.emit(this.pageData.projectAlias + '.workitems.new', internalId);
                 this.$scope.$apply(() => {
                     this.$scope.newItem = this.getEmptyNewItem();
                     this.$scope.newItem.focus = true;
-                });
-            });
-        }
-
-        /** Changes state of the work item */
-        private changeWorkItemState(workItem: IProjectWorkItemScope, viewModel: Domain.Wip.ViewModels.ProjectWorkItemViewModel) {
-            if (!workItem.canBeEdited) {
-                return;
-            }
-
-            var command: Domain.Wip.Commands.ChangeWorkItemStateCommand = {
-                WorkItemId: viewModel.WorkItemId
-            };
-
-            this.apiService.executeCommand('ChangeWorkItemStateCommand', command, (newState: Domain.Wip.ViewModels.WorkItemState) => {
-                viewModel.State = newState;
-
-                this.$scope.$apply(() => {
-                    workItem.state = WorkItemState[viewModel.State];
                 });
             });
         }
@@ -172,6 +80,10 @@ module MirGames.Wip {
         private setFilterByStatus(itemStatus?: Domain.Wip.ViewModels.WorkItemState) {
             this.$scope.filterByStatus = itemStatus;
             this.loadWorkItems();
+        }
+
+        /** Loads work items */
+        private loadWorkItems() {
         }
     }
 
@@ -202,21 +114,21 @@ module MirGames.Wip {
     }
 
     export interface IProjectWorkItemsPageScope extends IPageScope {
-        items: IProjectWorkItemScope[];
-        dataLoaded: boolean;
         newItem: IProjectNewWorkItemScope;
         typeNames: string[];
         statusNames: string[];
 
+        view: any;
         viewMode: ViewMode;
-
-        filterByStatus?: Domain.Wip.ViewModels.WorkItemState;
-        filterByType?: Domain.Wip.ViewModels.WorkItemType;
-        setFilterByStatus: (itemStatus?: Domain.Wip.ViewModels.WorkItemState) => void;
-        setFilterByType: (itemType?: Domain.Wip.ViewModels.WorkItemType) => void;
 
         showList: () => void;
         showBlocks: () => void;
+
+        filterByType?: Domain.Wip.ViewModels.WorkItemType;
+        filterByStatus?: Domain.Wip.ViewModels.WorkItemState;
+
+        setFilterByType: (filterByType?: Domain.Wip.ViewModels.WorkItemType) => void;
+        setFilterByStatus: (filterByStatus?: Domain.Wip.ViewModels.WorkItemState) => void;
     }
 
     export interface IProjectNewWorkItemScope {
@@ -237,7 +149,7 @@ module MirGames.Wip {
         availableItemTypes: number[];
     }
 
-    enum WorkItemState {
+    export enum WorkItemState {
         Undefined = 0,
         Open = 1,
         Closed = 2,
@@ -246,7 +158,7 @@ module MirGames.Wip {
         Removed = 5
     }
 
-    enum WorkItemType {
+    export enum WorkItemType {
         Undefined = 0,
         Bug = 1,
         Task = 2,

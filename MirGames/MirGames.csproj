@@ -599,6 +599,8 @@
     <TypeScriptCompile Include="Scripts\projects\ProjectSettingsPage.ts" />
     <TypeScriptCompile Include="Scripts\projects\NewProjectPage.ts" />
     <TypeScriptCompile Include="Scripts\projects\ProjectWorkItemPage.ts" />
+    <TypeScriptCompile Include="Scripts\projects\ProjectWorkItemBlocks.ts" />
+    <TypeScriptCompile Include="Scripts\projects\ProjectWorkItemList.ts" />
     <TypeScriptCompile Include="Scripts\projects\ProjectWorkItemsPage.ts" />
     <TypeScriptCompile Include="Scripts\Topics\Topic.ts" />
     <TypeScriptCompile Include="Scripts\Settings.ts" />
