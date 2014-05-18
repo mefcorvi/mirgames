@@ -53,7 +53,7 @@ namespace MirGames.Domain.Forum.ViewModels
         /// </summary>
         public IEnumerable<string> Tags
         {
-            get { return this.TagsList.Split(','); }
+            get { return this.TagsList.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries); }
         }
 
         /// <summary>
