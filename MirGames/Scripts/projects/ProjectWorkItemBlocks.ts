@@ -10,6 +10,8 @@ module MirGames.Wip {
             console.log('Blocks');
             this.$scope.dataLoaded = false;
 
+            $scope.$watch('filterByType', () => this.loadWorkItems());
+            $scope.$watch('filterByStatus', () => this.loadWorkItems());
             this.loadWorkItems();
 
             this.eventBus.on(this.pageData.projectAlias + '.workitems.new', (internalId: number) => {

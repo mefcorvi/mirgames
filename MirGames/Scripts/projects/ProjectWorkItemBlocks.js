@@ -18,6 +18,12 @@ var MirGames;
                 console.log('Blocks');
                 this.$scope.dataLoaded = false;
 
+                $scope.$watch('filterByType', function () {
+                    return _this.loadWorkItems();
+                });
+                $scope.$watch('filterByStatus', function () {
+                    return _this.loadWorkItems();
+                });
                 this.loadWorkItems();
 
                 this.eventBus.on(this.pageData.projectAlias + '.workitems.new', function (internalId) {

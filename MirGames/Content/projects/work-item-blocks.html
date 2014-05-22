@@ -1,0 +1,27 @@
+﻿<div class="tracker-item-blocks">
+    <div class="open-items items">
+        <h1>Открытые</h1>
+        <div ng-class="['tracker-item', item.type, item.state, 'p' + item.priority, $last ? 'last' : '']" ng-repeat="item in openedItems" ng-cloak static-include="/content/projects/item-block-template.html">
+        </div>
+        <div ng-show="!openedItems.length" ng-cloak>
+            Ничего не удалось найти
+        </div>
+    </div>
+    <div class="active-items items">
+        <h1>Активные</h1>
+        <div ng-class="['tracker-item', item.type, item.state, 'p' + item.priority, $last ? 'last' : '']" ng-repeat="item in activeItems" ng-cloak static-include="/content/projects/item-block-template.html">
+        </div>
+        <div ng-show="!activeItems.length" ng-cloak>
+            Ничего не удалось найти
+        </div>
+    </div>
+    <div class="closed-items items">
+        <h1>Закрытые</h1>
+        <div ng-class="['tracker-item', item.type, item.state, 'p' + item.priority, $last ? 'last' : '']" ng-repeat="item in closedItems" ng-cloak static-include="/content/projects/item-block-template.html">
+        </div>
+        <div ng-show="!closedItems.length" ng-cloak>
+            Ничего не удалось найти
+        </div>
+    </div>
+    <div class="data-loading" ng-hide="dataLoaded"></div>
+</div>

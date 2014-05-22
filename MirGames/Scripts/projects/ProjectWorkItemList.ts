@@ -10,6 +10,9 @@ module MirGames.Wip {
             this.$scope.items = this.convertItemsToScope(this.pageData.workItems);
             this.$scope.dataLoaded = true;
 
+            $scope.$watch('filterByType', () => this.loadWorkItems());
+            $scope.$watch('filterByStatus', () => this.loadWorkItems());
+
             this.eventBus.on(this.pageData.projectAlias + '.workitems.new', (internalId: number) => {
                 this.loadWorkItem(internalId);
             });
@@ -17,6 +20,9 @@ module MirGames.Wip {
 
         /** Loads the list of work items */
         private loadWorkItems() {
+            this.$scope.dataLoaded = false;
+            this.$scope.items = [];
+
             var query: Domain.Wip.Queries.GetProjectWorkItemsQuery = {
                 ProjectAlias: this.pageData.projectAlias,
                 Tag: null,

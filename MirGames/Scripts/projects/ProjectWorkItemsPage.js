@@ -14,7 +14,6 @@ var MirGames;
                 var _this = this;
                 _super.call(this, $scope, eventBus);
                 this.apiService = apiService;
-                this.$scope.view = MirGames.Wip.ProjectWorkItemList;
                 this.$scope.viewMode = 0 /* List */;
                 this.$scope.typeNames = ['Неизвестный', 'Ошибка', 'Задача', 'Фича'];
                 this.$scope.statusNames = ['Неизестный', 'Открытая', 'Закрытая', 'Активная', 'В очереди', 'Удаленная'];
@@ -55,19 +54,12 @@ var MirGames;
 
             /** Shows work items as a blocks */
             ProjectWorkItemsPage.prototype.showBlocks = function () {
-                var _this = this;
-                this.$scope.view = MirGames.Wip.ProjectWorkItemBlocks;
                 this.$scope.viewMode = 1 /* Blocks */;
-                setTimeout(function () {
-                    _this.$scope.$parent.$digest();
-                }, 0);
             };
 
             /** Show work items as a list */
             ProjectWorkItemsPage.prototype.showList = function () {
-                this.$scope.view = MirGames.Wip.ProjectWorkItemList;
                 this.$scope.viewMode = 0 /* List */;
-                this.$scope.$digest();
             };
 
             /** Posts the new item */
@@ -94,17 +86,11 @@ var MirGames;
             /** Sets filter by type  */
             ProjectWorkItemsPage.prototype.setFilterByType = function (itemType) {
                 this.$scope.filterByType = itemType;
-                this.loadWorkItems();
             };
 
             /** Sets filter by status  */
             ProjectWorkItemsPage.prototype.setFilterByStatus = function (itemStatus) {
                 this.$scope.filterByStatus = itemStatus;
-                this.loadWorkItems();
-            };
-
-            /** Loads work items */
-            ProjectWorkItemsPage.prototype.loadWorkItems = function () {
             };
             ProjectWorkItemsPage.$inject = ['$scope', 'eventBus', 'apiService'];
             return ProjectWorkItemsPage;
@@ -134,6 +120,34 @@ var MirGames;
             ViewMode[ViewMode["Blocks"] = 1] = "Blocks";
         })(Wip.ViewMode || (Wip.ViewMode = {}));
         var ViewMode = Wip.ViewMode;
+
+        angular.module('ng').directive('workItemsList', function () {
+            return {
+                restrict: 'E',
+                replace: true,
+                scope: {
+                    'filterByType': '=',
+                    'filterByStatus': '='
+                },
+                controller: MirGames.Wip.ProjectWorkItemList,
+                transclude: false,
+                templateUrl: '/content/projects/work-items-list.html'
+            };
+        });
+
+        angular.module('ng').directive('workItemBlocks', function () {
+            return {
+                restrict: 'E',
+                replace: true,
+                scope: {
+                    'filterByType': '=',
+                    'filterByStatus': '='
+                },
+                controller: MirGames.Wip.ProjectWorkItemBlocks,
+                transclude: false,
+                templateUrl: '/content/projects/work-item-blocks.html'
+            };
+        });
     })(MirGames.Wip || (MirGames.Wip = {}));
     var Wip = MirGames.Wip;
 })(MirGames || (MirGames = {}));

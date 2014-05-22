@@ -5,7 +5,6 @@ module MirGames.Wip {
 
         constructor($scope: IProjectWorkItemsPageScope, eventBus: Core.IEventBus, private apiService: Core.IApiService) {
             super($scope, eventBus);
-            this.$scope.view = ProjectWorkItemList;
             this.$scope.viewMode = ViewMode.List;
             this.$scope.typeNames = ['Неизвестный', 'Ошибка', 'Задача', 'Фича'];
             this.$scope.statusNames = ['Неизестный', 'Открытая', 'Закрытая', 'Активная', 'В очереди', 'Удаленная'];
@@ -36,18 +35,12 @@ module MirGames.Wip {
 
         /** Shows work items as a blocks */
         private showBlocks() {
-            this.$scope.view = ProjectWorkItemBlocks;
             this.$scope.viewMode = ViewMode.Blocks;
-            setTimeout(() => {
-                this.$scope.$parent.$digest();
-            }, 0);
         }
 
         /** Show work items as a list */
         private showList() {
-            this.$scope.view = ProjectWorkItemList;
             this.$scope.viewMode = ViewMode.List;
-            this.$scope.$digest();
         }
 
         /** Posts the new item */
@@ -73,17 +66,11 @@ module MirGames.Wip {
         /** Sets filter by type  */
         private setFilterByType(itemType?: Domain.Wip.ViewModels.WorkItemType) {
             this.$scope.filterByType = itemType;
-            this.loadWorkItems();
         }
 
         /** Sets filter by status  */
         private setFilterByStatus(itemStatus?: Domain.Wip.ViewModels.WorkItemState) {
             this.$scope.filterByStatus = itemStatus;
-            this.loadWorkItems();
-        }
-
-        /** Loads work items */
-        private loadWorkItems() {
         }
     }
 
@@ -118,7 +105,6 @@ module MirGames.Wip {
         typeNames: string[];
         statusNames: string[];
 
-        view: any;
         viewMode: ViewMode;
 
         showList: () => void;
@@ -169,4 +155,36 @@ module MirGames.Wip {
         List = 0,
         Blocks = 1
     }
+
+    angular
+        .module('ng')
+        .directive('workItemsList', () => {
+            return {
+                restrict: 'E',
+                replace: true,
+                scope: {
+                    'filterByType': '=',
+                    'filterByStatus': '='
+                },
+                controller: ProjectWorkItemList,
+                transclude: false,
+                templateUrl: '/content/projects/work-items-list.html'
+            };
+        });
+
+    angular
+        .module('ng')
+        .directive('workItemBlocks', () => {
+            return {
+                restrict: 'E',
+                replace: true,
+                scope: {
+                    'filterByType': '=',
+                    'filterByStatus': '='
+                },
+                controller: ProjectWorkItemBlocks,
+                transclude: false,
+                templateUrl: '/content/projects/work-item-blocks.html'
+            };
+        });
 }

@@ -13,7 +13,7 @@
     
 @Html.Partial("_ProjectInfo", Model)
 
-<section ng-controller="view">
+<section>
     <h4>Баг-трекер</h4>
     <form ng-cloak class="toolbar">
         <div class="form-field">
@@ -67,93 +67,9 @@
             </ul>
         </div>
     </form>
-    <div class="tracker-items" ng-if="viewMode == 0" ng-controller="MirGames.Wip.ProjectWorkItemList">
-        <div ng-class="['tracker-item', item.type, item.state, 'p' + item.priority, $last ? 'last' : '']" ng-repeat="item in items" ng-cloak>
-            <div ng-class="['item-status', item.canBeEdited ? 'change-status' : '' ]" ng-click="item.changeState()">
-                <span class="open-status" title="Доступно"><i class="fa fa-circle-o"></i></span>
-                <span class="active-status" title="В процессе"><i class="fa fa-cogs"></i></span>
-                <span class="closed-status" title="Завершено"><i class="fa fa-check-circle"></i></span>
-            </div>
-            <div class="item-type">
-                <span class="bug-type" title="Баг" ng-show="item.type == 'Bug'"><i class="fa fa-bug"></i></span>
-                <span class="task-type" title="Задача" ng-show="item.type == 'Task'"><i class="fa fa-check-square-o"></i></span>
-                <span class="feature-type" title="Фича" ng-show="item.type == 'Feature'"><i class="fa fa-plus-square"></i></span>
-            </div>
-            <div class="title">
-                <a href="{{item.url}}">
-                    {{item.title}}
-                </a>
-                <div class="description">{{item.description}}</div>
-            </div>
-            <ul class="tags">
-                <li ng-repeat="tag in item.tags"><a href="{{tag.url}}">{{tag.text}}</a></li>
-            </ul>
-            <div class="internal-id">
-                #{{item.internalId}}
-            </div>
-            <div class="author">
-                <a author-link="item.author.id" class="avatar-link" title="Добавил {{item.author.login}}">
-                    <img ng-src="{{item.author.avatar}}" class="avatar avatar-tiny" />
-                </a>
-            </div>
-        </div>
-        <div ng-show="!items.length" ng-cloak>
-            Ничего не удалось найти
-        </div>
-        <div class="data-loading" ng-hide="dataLoaded"></div>
-    </div>
+    <work-items-list ng-if="viewMode == 0" filter-by-type="filterByType" filter-by-status="filterByStatus"></work-items-list>
+    <work-item-blocks ng-if="viewMode == 1" filter-by-type="filterByType" filter-by-status="filterByStatus"></work-item-blocks>
     
-    <script type="text/ng-template" id="/item-block-template.html">
-        <div class="item-type">
-            <span class="bug-type" title="Баг" ng-show="item.type == 'Bug'"><i class="fa fa-bug"></i></span>
-            <span class="task-type" title="Задача" ng-show="item.type == 'Task'"><i class="fa fa-check-square-o"></i></span>
-            <span class="feature-type" title="Фича" ng-show="item.type == 'Feature'"><i class="fa fa-plus-square"></i></span>
-        </div>
-        <div class="title">
-            <a href="{{item.url}}">
-                {{item.title}}
-            </a>
-            <div class="description">{{item.description}}</div>
-        </div>
-        <ul class="tags">
-            <li ng-repeat="tag in item.tags"><a href="{{tag.url}}">{{tag.text}}</a></li>
-        </ul>
-        <div class="internal-id">
-            #{{item.internalId}}
-        </div>
-        <div class="author">
-            <a author-link="item.author.id" class="avatar-link" title="Добавил {{item.author.login}}">
-                <img ng-src="{{item.author.avatar}}" class="avatar avatar-tiny" />
-            </a>
-        </div>
-    </script>
-    <div class="tracker-item-blocks" ng-if="viewMode == 1" ng-controller="MirGames.Wip.ProjectWorkItemBlocks">
-        <div class="open-items items">
-            <h1>Открытые</h1>
-            <div ng-class="['tracker-item', item.type, item.state, 'p' + item.priority, $last ? 'last' : '']" ng-repeat="item in openedItems" ng-cloak static-include="/item-block-template.html">
-            </div>
-            <div ng-show="!openedItems.length" ng-cloak>
-                Ничего не удалось найти
-            </div>
-        </div>
-        <div class="active-items items">
-            <h1>Активные</h1>
-            <div ng-class="['tracker-item', item.type, item.state, 'p' + item.priority, $last ? 'last' : '']" ng-repeat="item in activeItems" ng-cloak static-include="/item-block-template.html">
-            </div>
-            <div ng-show="!activeItems.length" ng-cloak>
-                Ничего не удалось найти
-            </div>
-        </div>
-        <div class="closed-items items">
-            <h1>Закрытые</h1>
-            <div ng-class="['tracker-item', item.type, item.state, 'p' + item.priority, $last ? 'last' : '']" ng-repeat="item in closedItems" ng-cloak static-include="/item-block-template.html">
-            </div>
-            <div ng-show="!closedItems.length" ng-cloak>
-                Ничего не удалось найти
-            </div>
-        </div>
-        <div class="data-loading" ng-hide="dataLoaded"></div>
-    </div>
     @if (Model.CanCreateBug || Model.CanCreateFeature || Model.CanCreateTask)
     {
         <h4 ng-cloak>

@@ -433,6 +433,7 @@
     <Content Include="Content\common.css.map">
       <DependentUpon>common.css</DependentUpon>
     </Content>
+    <Content Include="Content\projects\item-block-template.html" />
     <Content Include="Content\projects\project-settings.css">
       <DependentUpon>project-settings.less</DependentUpon>
     </Content>
@@ -442,6 +443,8 @@
     <Content Include="Content\projects\project-work-items.css">
       <DependentUpon>project-work-items.less</DependentUpon>
     </Content>
+    <Content Include="Content\projects\work-item-blocks.html" />
+    <Content Include="Content\projects\work-items-list.html" />
     <Content Include="Content\quick-date.css.map">
       <DependentUpon>quick-date.css</DependentUpon>
     </Content>

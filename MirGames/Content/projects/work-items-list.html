@@ -1,0 +1,35 @@
+﻿<div class="tracker-items">
+    <div ng-class="['tracker-item', item.type, item.state, 'p' + item.priority, $last ? 'last' : '']" ng-repeat="item in items" ng-cloak>
+        <div ng-class="['item-status', item.canBeEdited ? 'change-status' : '' ]" ng-click="item.changeState()">
+            <span class="open-status" title="Доступно"><i class="fa fa-circle-o"></i></span>
+            <span class="active-status" title="В процессе"><i class="fa fa-cogs"></i></span>
+            <span class="closed-status" title="Завершено"><i class="fa fa-check-circle"></i></span>
+        </div>
+        <div class="item-type">
+            <span class="bug-type" title="Баг" ng-show="item.type == 'Bug'"><i class="fa fa-bug"></i></span>
+            <span class="task-type" title="Задача" ng-show="item.type == 'Task'"><i class="fa fa-check-square-o"></i></span>
+            <span class="feature-type" title="Фича" ng-show="item.type == 'Feature'"><i class="fa fa-plus-square"></i></span>
+        </div>
+        <div class="title">
+            <a href="{{item.url}}">
+                {{item.title}}
+            </a>
+            <div class="description">{{item.description}}</div>
+        </div>
+        <ul class="tags">
+            <li ng-repeat="tag in item.tags"><a href="{{tag.url}}">{{tag.text}}</a></li>
+        </ul>
+        <div class="internal-id">
+            #{{item.internalId}}
+        </div>
+        <div class="author">
+            <a author-link="item.author.id" class="avatar-link" title="Добавил {{item.author.login}}">
+                <img ng-src="{{item.author.avatar}}" class="avatar avatar-tiny" />
+            </a>
+        </div>
+    </div>
+    <div ng-show="!items.length" ng-cloak>
+        Ничего не удалось найти
+    </div>
+    <div class="data-loading" ng-hide="dataLoaded"></div>
+</div>

@@ -1,0 +1,22 @@
+﻿<div class="item-type">
+    <span class="bug-type" title="Баг" ng-show="item.type == 'Bug'"><i class="fa fa-bug"></i></span>
+    <span class="task-type" title="Задача" ng-show="item.type == 'Task'"><i class="fa fa-check-square-o"></i></span>
+    <span class="feature-type" title="Фича" ng-show="item.type == 'Feature'"><i class="fa fa-plus-square"></i></span>
+</div>
+<div class="title">
+    <a href="{{item.url}}">
+        {{item.title}}
+    </a>
+    <div class="description">{{item.description}}</div>
+</div>
+<ul class="tags">
+    <li ng-repeat="tag in item.tags"><a href="{{tag.url}}">{{tag.text}}</a></li>
+</ul>
+<div class="internal-id">
+    #{{item.internalId}}
+</div>
+<div class="author">
+    <a author-link="item.author.id" class="avatar-link" title="Добавил {{item.author.login}}">
+        <img ng-src="{{item.author.avatar}}" class="avatar avatar-tiny" />
+    </a>
+</div>

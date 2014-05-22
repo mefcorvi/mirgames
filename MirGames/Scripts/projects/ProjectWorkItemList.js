@@ -18,6 +18,13 @@ var MirGames;
                 this.$scope.items = this.convertItemsToScope(this.pageData.workItems);
                 this.$scope.dataLoaded = true;
 
+                $scope.$watch('filterByType', function () {
+                    return _this.loadWorkItems();
+                });
+                $scope.$watch('filterByStatus', function () {
+                    return _this.loadWorkItems();
+                });
+
                 this.eventBus.on(this.pageData.projectAlias + '.workitems.new', function (internalId) {
                     _this.loadWorkItem(internalId);
                 });
@@ -25,6 +32,9 @@ var MirGames;
             /** Loads the list of work items */
             ProjectWorkItemList.prototype.loadWorkItems = function () {
                 var _this = this;
+                this.$scope.dataLoaded = false;
+                this.$scope.items = [];
+
                 var query = {
                     ProjectAlias: this.pageData.projectAlias,
                     Tag: null,
