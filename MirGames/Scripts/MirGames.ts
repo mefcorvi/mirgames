@@ -10,6 +10,7 @@ angular.module('mirgames', [
     'ui.file',
     'ui.bootstrap.dropdownToggle',
     'ui.bootstrap.buttons',
+    'ui.draggable',
     'ngQuickDate',
     'core.config',
     'core.currentUser',

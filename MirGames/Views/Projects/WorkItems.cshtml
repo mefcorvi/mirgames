@@ -41,7 +41,7 @@
                 </li>
             </ul>
         </div>
-        <div class="form-field dropdown">
+        <div class="form-field dropdown" ng-if="viewMode == 0">
             <a class="dropdown-toggle">
                 <i class="fa fa-caret-down"></i>{{statusNames[filterByStatus] || 'В любом статусе'}}
             </a>

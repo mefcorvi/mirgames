@@ -35,7 +35,7 @@ module MirGames.Wip {
                     this.$scope.items = this.convertItemsToScope(result);
                     this.$scope.dataLoaded = true;
                 });
-            });
+            }, false);
         }
 
         private loadWorkItem(internalId: number) {

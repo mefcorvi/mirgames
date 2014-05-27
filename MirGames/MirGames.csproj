@@ -618,6 +618,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TypeLite.tt</DependentUpon>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\UI\Draggable.ts" />
     <TypeScriptCompile Include="Scripts\UI\TextEditor.ts" />
     <TypeScriptCompile Include="Scripts\Forum\NewTopic.ts" />
     <TypeScriptCompile Include="Scripts\Forum\SearchPanelController.ts" />

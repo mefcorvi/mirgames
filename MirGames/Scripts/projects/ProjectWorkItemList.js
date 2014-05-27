@@ -47,7 +47,7 @@ var MirGames;
                         _this.$scope.items = _this.convertItemsToScope(result);
                         _this.$scope.dataLoaded = true;
                     });
-                });
+                }, false);
             };
 
             ProjectWorkItemList.prototype.loadWorkItem = function (internalId) {

@@ -15,8 +15,13 @@ var MirGames;
                 var _this = this;
                 _super.call(this, $scope, eventBus);
                 this.apiService = apiService;
-                console.log('Blocks');
                 this.$scope.dataLoaded = false;
+                this.$scope.onDrop = function ($event, $data, array) {
+                    return _this.onDrop($event, $data, array);
+                };
+                this.$scope.dropSuccessHandler = function ($event, $index, array) {
+                    return _this.dropSuccessHandler($event, $index, array);
+                };
 
                 $scope.$watch('filterByType', function () {
                     return _this.loadWorkItems();
@@ -58,7 +63,7 @@ var MirGames;
                         callback(_this.convertItemsToScope(result));
                         _this.$scope.dataLoaded = true;
                     });
-                });
+                }, false);
             };
 
             ProjectWorkItemBlocks.prototype.loadWorkItem = function (internalId) {
@@ -75,7 +80,7 @@ var MirGames;
                         var item = _this.convertItemToScope(result);
                         _this.$scope.dataLoaded = true;
                     });
-                });
+                }, false);
             };
 
             /** Converts DTO to the scope object */
@@ -155,6 +160,16 @@ var MirGames;
             ProjectWorkItemBlocks.prototype.setFilterByType = function (itemType) {
                 this.$scope.filterByType = itemType;
                 this.loadWorkItems();
+            };
+
+            /** Handles drop */
+            ProjectWorkItemBlocks.prototype.onDrop = function ($event, $data, array) {
+                array.push($data);
+            };
+
+            /** Handles successfull drops */
+            ProjectWorkItemBlocks.prototype.dropSuccessHandler = function ($event, $index, array) {
+                array.splice($index, 1);
             };
             ProjectWorkItemBlocks.$inject = ['$scope', 'eventBus', 'apiService'];
             return ProjectWorkItemBlocks;

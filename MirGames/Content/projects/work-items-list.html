@@ -28,7 +28,7 @@
             </a>
         </div>
     </div>
-    <div ng-show="!items.length" ng-cloak>
+    <div ng-show="!items.length && dataLoaded" ng-cloak>
         Ничего не удалось найти
     </div>
     <div class="data-loading" ng-hide="dataLoaded"></div>

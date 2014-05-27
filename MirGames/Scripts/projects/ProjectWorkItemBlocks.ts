@@ -7,8 +7,9 @@ module MirGames.Wip {
 
         constructor($scope: IProjectWorkItemBlocksScope, eventBus: Core.IEventBus, private apiService: Core.IApiService) {
             super($scope, eventBus);
-            console.log('Blocks');
             this.$scope.dataLoaded = false;
+            this.$scope.onDrop = ($event, $data, array) => this.onDrop($event, $data, array);
+            this.$scope.dropSuccessHandler = ($event, $index, array) => this.dropSuccessHandler($event, $index, array);
 
             $scope.$watch('filterByType', () => this.loadWorkItems());
             $scope.$watch('filterByStatus', () => this.loadWorkItems());
@@ -39,7 +40,7 @@ module MirGames.Wip {
                     callback(this.convertItemsToScope(result));
                     this.$scope.dataLoaded = true;
                 });
-            });
+            }, false);
         }
 
         private loadWorkItem(internalId: number) {
@@ -55,7 +56,7 @@ module MirGames.Wip {
                     var item = this.convertItemToScope(result);
                     this.$scope.dataLoaded = true;
                 });
-            });
+            }, false);
         }
 
         /** Converts DTO to the scope object */
@@ -128,6 +129,16 @@ module MirGames.Wip {
             this.$scope.filterByType = itemType;
             this.loadWorkItems();
         }
+
+        /** Handles drop */
+        private onDrop($event: any, $data: any, array: IProjectWorkItemScope[]) {
+            array.push($data);
+        }
+
+        /** Handles successfull drops */
+        private dropSuccessHandler($event: any, $index: any, array: IProjectWorkItemScope[]) {
+            array.splice($index, 1);
+        }
     }
 
     export interface IProjectWorkItemBlocksScope extends ng.IScope {
@@ -135,7 +146,8 @@ module MirGames.Wip {
         activeItems: IProjectWorkItemScope[];
         closedItems: IProjectWorkItemScope[];
         dataLoaded: boolean;
-
+        dropSuccessHandler: ($event: any, $index: any, array: IProjectWorkItemScope[]) => void;
+        onDrop: ($event: any, $data: any, array: IProjectWorkItemScope[]) => void;
         filterByType?: Domain.Wip.ViewModels.WorkItemType;
     }
 } 
