@@ -2,6 +2,8 @@
  
  
 
+  
+/// <reference path="TypeLiteEnums.ts" />
 
 declare module MirGames.Infrastructure.Commands {
 interface Command {
@@ -404,6 +406,7 @@ interface AttachmentViewModel {
 declare module MirGames.Domain.Wip.Commands {
 interface ChangeWorkItemStateCommand extends MirGames.Infrastructure.Commands.Command1 {
   WorkItemId: number;
+  State: MirGames.Domain.Wip.ViewModels.WorkItemState;
 }
 interface CreateNewProjectWorkItemCommand extends MirGames.Infrastructure.Commands.Command1 {
   ProjectAlias: string;
@@ -455,28 +458,10 @@ interface GetProjectWorkItemsQuery extends MirGames.Infrastructure.Queries.Query
   Tag: string;
   WorkItemType: MirGames.Domain.Wip.ViewModels.WorkItemType;
   WorkItemState: MirGames.Domain.Wip.ViewModels.WorkItemState;
+  OrderBy: MirGames.Domain.Wip.ViewModels.WorkItemsOrderType;
 }
 }
 declare module MirGames.Domain.Wip.ViewModels {
-enum WorkItemType {
-  Undefined = 0,
-  Bug = 1,
-  Task = 2,
-  Feature = 3
-}
-enum WorkItemState {
-  Undefined = 0,
-  Open = 1,
-  Closed = 2,
-  Active = 3,
-  Queued = 4,
-  Removed = 5
-}
-enum WipProjectRepositoryItemType {
-  Other = 0,
-  File = 1,
-  Directory = 2
-}
 interface ProjectWorkItemStatisticsViewModel {
   OpenBugsCount: number;
   OpenTasksCount: number;
@@ -574,10 +559,6 @@ interface TimeSpan {
 }
 }
 declare module MirGames.Infrastructure.Logging {
-enum EventLogType {
-  Error = 0,
-  Warning = 1,
-  Information = 2,
-  Verbose = 3
 }
-}
+
+

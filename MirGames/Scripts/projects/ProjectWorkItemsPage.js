@@ -97,24 +97,6 @@ var MirGames;
         })(MirGames.BasePage);
         Wip.ProjectWorkItemsPage = ProjectWorkItemsPage;
 
-        (function (WorkItemState) {
-            WorkItemState[WorkItemState["Undefined"] = 0] = "Undefined";
-            WorkItemState[WorkItemState["Open"] = 1] = "Open";
-            WorkItemState[WorkItemState["Closed"] = 2] = "Closed";
-            WorkItemState[WorkItemState["Active"] = 3] = "Active";
-            WorkItemState[WorkItemState["Queued"] = 4] = "Queued";
-            WorkItemState[WorkItemState["Removed"] = 5] = "Removed";
-        })(Wip.WorkItemState || (Wip.WorkItemState = {}));
-        var WorkItemState = Wip.WorkItemState;
-
-        (function (WorkItemType) {
-            WorkItemType[WorkItemType["Undefined"] = 0] = "Undefined";
-            WorkItemType[WorkItemType["Bug"] = 1] = "Bug";
-            WorkItemType[WorkItemType["Task"] = 2] = "Task";
-            WorkItemType[WorkItemType["Feature"] = 3] = "Feature";
-        })(Wip.WorkItemType || (Wip.WorkItemType = {}));
-        var WorkItemType = Wip.WorkItemType;
-
         (function (ViewMode) {
             ViewMode[ViewMode["List"] = 0] = "List";
             ViewMode[ViewMode["Blocks"] = 1] = "Blocks";

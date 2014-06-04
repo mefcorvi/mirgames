@@ -27,7 +27,8 @@ module MirGames.Wip {
                 ProjectAlias: this.pageData.projectAlias,
                 Tag: null,
                 WorkItemType: this.$scope.filterByType,
-                WorkItemState: this.$scope.filterByStatus
+                WorkItemState: this.$scope.filterByStatus,
+                OrderBy: Domain.Wip.ViewModels.WorkItemsOrderType.Priority
             };
 
             this.apiService.getAll("GetProjectWorkItemsQuery", query, 0, 20, (result) => {
@@ -62,9 +63,10 @@ module MirGames.Wip {
         /** Converts DTO to the scope object */
         private convertItemToScope(item: Domain.Wip.ViewModels.ProjectWorkItemViewModel): IProjectWorkItemScope {
             var workItem: IProjectWorkItemScope = {
-                type: WorkItemType[item.ItemType],
+                workItemId: item.WorkItemId,
+                type: Domain.Wip.ViewModels.WorkItemType[item.ItemType],
                 internalId: item.InternalId,
-                state: WorkItemState[item.State],
+                state: Domain.Wip.ViewModels.WorkItemState[item.State],
                 title: item.Title,
                 canBeEdited: item.CanBeEdited,
                 canBeDeleted: item.CanBeDeleted,
@@ -107,14 +109,15 @@ module MirGames.Wip {
             }
 
             var command: Domain.Wip.Commands.ChangeWorkItemStateCommand = {
-                WorkItemId: viewModel.WorkItemId
+                WorkItemId: viewModel.WorkItemId,
+                State: null
             };
 
             this.apiService.executeCommand('ChangeWorkItemStateCommand', command, (newState: Domain.Wip.ViewModels.WorkItemState) => {
                 viewModel.State = newState;
 
                 this.$scope.$apply(() => {
-                    workItem.state = WorkItemState[viewModel.State];
+                    workItem.state = Domain.Wip.ViewModels.WorkItemState[viewModel.State];
                 });
             });
         }

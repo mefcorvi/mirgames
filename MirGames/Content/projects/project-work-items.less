@@ -161,44 +161,44 @@
                     line-height: 32px;
                 }
 
-                & > .form-field > a {
-                    color: @background-color;
-                    text-decoration: none;
-                    padding: 0 @indent/4;
-                    opacity: 0.8;
-                    display: block;
-                    height: 32px;
-
-                    &.button {
-                        width: 32px;
-                        height: 32px;
-                        padding: 0;
+                    & > .form-field > a {
+                        color: @background-color;
+                        text-decoration: none;
+                        padding: 0 @indent/4;
+                        opacity: 0.8;
                         display: block;
-                        text-align: center;
-                    }
+                        height: 32px;
 
-                    &.selected {
-                        opacity: 1;
-                        cursor: default;
+                        &.button {
+                            width: 32px;
+                            height: 32px;
+                            padding: 0;
+                            display: block;
+                            text-align: center;
+                        }
+
+                        &.selected {
+                            opacity: 1;
+                            cursor: default;
+
+                            & > .fa {
+                                opacity: 1;
+                            }
+                        }
 
                         & > .fa {
+                            opacity: 0.3;
+                            .transition(opacity);
+                        }
+
+                        &:hover, &:active, &:focus {
                             opacity: 1;
+
+                            .fa {
+                                opacity: 1;
+                            }
                         }
                     }
-
-                    & > .fa {
-                        opacity: 0.3;
-                        .transition(opacity);
-                    }
-
-                    &:hover, &:active, &:focus {
-                        opacity: 1;
-
-                        .fa {
-                            opacity: 1;
-                        }
-                    }
-                }
             }
 
             .tracker-items {
@@ -232,6 +232,10 @@
                     &:last-child {
                         padding-right: 0;
                     }
+
+                    &.on-drag-hover {
+                        opacity: 0.6;
+                    }
                 }
 
                 .open-items {
@@ -249,10 +253,31 @@
                 .tracker-item {
                     .tracker-item();
                     .page-block(@indent/2);
-                    margin-bottom: @indent/4;
 
                     &.last {
                         border-bottom-width: 1px;
+                    }
+
+                    &.on-drag-start {
+                        opacity: 0.6;
+                    }
+                }
+
+                .drop-zone {
+                    padding-top: @indent/8;
+                    padding-bottom: @indent/8;
+
+                    & > span {
+                        display: block;
+                        height: 0;
+                        .transition(height, 0.2s);
+                    }
+
+                    &.on-drag-hover {
+                        & > span {
+                            height: @indent;
+                            border: 1px dotted rgba(0, 0, 0, 0.3);
+                        }
                     }
                 }
             }

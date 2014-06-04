@@ -53,6 +53,7 @@ namespace MirGames
                     "~/Scripts/Core/Base64.js",
                     "~/Scripts/Core/Utils.js",
                     "~/Scripts/Core/Config.js",
+                    "~/Scripts/TypeLiteEnums.js",
                     "~/Scripts/Settings.js",
                     "~/Scripts/Commands.js",
                     "~/Scripts/BasePage.js",

@@ -34,10 +34,10 @@
                     <a ng-click="setFilterByType(1)"><i class="fa fa-bug"></i>{{typeNames[1]}}</a>
                 </li>
                 <li>
-                    <a ng-click="setFilterByType(2)"><i class="fa fa-check-square-o"></i>{{typeNames[2]}}</a>
+                    <a ng-click="setFilterByType(2)"><i class="fa fa-tasks"></i>{{typeNames[2]}}</a>
                 </li>
                 <li>
-                    <a ng-click="setFilterByType(3)"><i class="fa fa-plus-square"></i>{{typeNames[3]}}</a>
+                    <a ng-click="setFilterByType(3)"><i class="fa fa-lightbulb-o"></i>{{typeNames[3]}}</a>
                 </li>
             </ul>
         </div>
@@ -80,8 +80,8 @@
                 <label>Тип элемента</label>
                 <div class="radio-group">
                     <button type="button" class="radio" ng-model="newItem.type" ng-show="newItem.availableItemTypes.indexOf(1) + 1" btn-radio="1" ng-click="newItem.focus=true"><i class="fa fa-bug"></i>{{typeNames[1]}}</button>
-                    <button type="button" class="radio" ng-model="newItem.type" ng-show="newItem.availableItemTypes.indexOf(2) + 1" btn-radio="2" ng-click="newItem.focus=true"><i class="fa fa-check-square-o"></i>{{typeNames[2]}}</button>
-                    <button type="button" class="radio" ng-model="newItem.type" ng-show="newItem.availableItemTypes.indexOf(3) + 1" btn-radio="3" ng-click="newItem.focus=true"><i class="fa fa-plus-square"></i>{{typeNames[3]}}</button>
+                    <button type="button" class="radio" ng-model="newItem.type" ng-show="newItem.availableItemTypes.indexOf(2) + 1" btn-radio="2" ng-click="newItem.focus=true"><i class="fa fa-tasks"></i>{{typeNames[2]}}</button>
+                    <button type="button" class="radio" ng-model="newItem.type" ng-show="newItem.availableItemTypes.indexOf(3) + 1" btn-radio="3" ng-click="newItem.focus=true"><i class="fa fa-lightbulb-o"></i>{{typeNames[3]}}</button>
                 </div>
             </div>
             <div class="form-field">

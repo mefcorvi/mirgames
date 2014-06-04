@@ -55,7 +55,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
 
                 authorizationManager.EnsureAccess(principal, "ChangeState", workItem);
 
-                workItem.State = this.GetNextState(workItem.State);
+                workItem.State = command.State ?? this.GetNextState(workItem.State);
                 writeContext.SaveChanges();
 
                 return workItem.State;

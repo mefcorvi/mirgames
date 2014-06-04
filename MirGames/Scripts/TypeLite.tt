@@ -15,8 +15,14 @@
 <#@ import namespace="TypeLite.Net4" #> 
 <#@output extension=".d.ts"#>
 
+ <#@include file="Manager.ttinclude"#>
+ <# var manager = Manager.Create(Host, GenerationEnvironment); #>
+
 <#
-    var definitions = TypeScript.Definitions();
+    var definitions = TypeScript
+		.Definitions()
+		.WithReference("TypeLiteEnums.ts");
+		
     definitions.For<MirGames.Infrastructure.Commands.Command>();
     definitions.For<MirGames.Infrastructure.Queries.Query>();
     definitions.WithFormatter((string typeName, bool isTypeCollection) => {
@@ -29,7 +35,7 @@
     definitions.WithFormatter((type, f) => {
         var tsClass = (TypeLite.TsModels.TsClass)type;
         Type clrType = tsClass.ClrType;
-
+		
         if (clrType.IsGenericType) {
             var argument = clrType.GetGenericArguments()[0];
             return clrType.Name.Replace("`", "");
@@ -54,4 +60,9 @@
     }    
     
  #>
-<#=definitions.Generate()#>
+<#= definitions.Generate(TsGeneratorOutput.Classes) #>
+
+<# manager.StartNewFile("TypeLiteEnums.ts"); #>
+<#= definitions.Generate(TsGeneratorOutput.Enums) #>
+<# manager.EndBlock(); #>
+<# manager.Process(true); #>

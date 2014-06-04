@@ -64,6 +64,7 @@
     <Compile Include="ViewModels\WipProjectCommitViewModel.cs" />
     <Compile Include="ViewModels\WipProjectFileViewModel.cs" />
     <Compile Include="ViewModels\WipProjectViewModel.cs" />
+    <Compile Include="ViewModels\WorkItemsOrderType.cs" />
     <Compile Include="ViewModels\WorkItemState.cs" />
     <Compile Include="ViewModels\WorkItemType.cs" />
   </ItemGroup>

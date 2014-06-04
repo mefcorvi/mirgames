@@ -690,6 +690,9 @@
 .wip-workitems-page > section > section .tracker-item-blocks .items:last-child {
   padding-right: 0;
 }
+.wip-workitems-page > section > section .tracker-item-blocks .items.on-drag-hover {
+  opacity: 0.6;
+}
 .wip-workitems-page > section > section .tracker-item-blocks .open-items {
   position: relative;
   float: left;
@@ -737,7 +740,6 @@
   background: #ffffff;
   padding: 10px 10px;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  margin-bottom: 5px;
 }
 .wip-workitems-page > section > section .tracker-item-blocks .tracker-item.last {
   border-bottom-width: 0;
@@ -930,6 +932,33 @@
 }
 .wip-workitems-page > section > section .tracker-item-blocks .tracker-item.last {
   border-bottom-width: 1px;
+}
+.wip-workitems-page > section > section .tracker-item-blocks .tracker-item.on-drag-start {
+  opacity: 0.6;
+}
+.wip-workitems-page > section > section .tracker-item-blocks .drop-zone {
+  padding-top: 2.5px;
+  padding-bottom: 2.5px;
+}
+.wip-workitems-page > section > section .tracker-item-blocks .drop-zone > span {
+  display: block;
+  height: 0;
+  -moz-transition-property: height;
+  -o-transition-property: height;
+  -webkit-transition-property: height;
+  transition-property: height;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -moz-transition-timing-function: ease;
+  -o-transition-timing-function: ease;
+  -webkit-transition-timing-function: ease;
+  transition-timing-function: ease;
+}
+.wip-workitems-page > section > section .tracker-item-blocks .drop-zone.on-drag-hover > span {
+  height: 20px;
+  border: 1px dotted rgba(0, 0, 0, 0.3);
 }
 .wip-workitems-page > section > section .new-item-form {
   background: #ffffff;

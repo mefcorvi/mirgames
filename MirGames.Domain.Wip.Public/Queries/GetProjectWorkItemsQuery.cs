@@ -35,5 +35,10 @@ namespace MirGames.Domain.Wip.Queries
         /// Gets or sets the state of the work item.
         /// </summary>
         public WorkItemState? WorkItemState { get; set; }
+
+        /// <summary>
+        /// Gets or sets the order by.
+        /// </summary>
+        public WorkItemsOrderType OrderBy { get; set; }
     }
 }

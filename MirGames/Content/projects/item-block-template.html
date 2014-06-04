@@ -1,10 +1,10 @@
 ﻿<div class="item-type">
     <span class="bug-type" title="Баг" ng-show="item.type == 'Bug'"><i class="fa fa-bug"></i></span>
-    <span class="task-type" title="Задача" ng-show="item.type == 'Task'"><i class="fa fa-check-square-o"></i></span>
-    <span class="feature-type" title="Фича" ng-show="item.type == 'Feature'"><i class="fa fa-plus-square"></i></span>
+    <span class="task-type" title="Задача" ng-show="item.type == 'Task'"><i class="fa fa-tasks"></i></span>
+    <span class="feature-type" title="Фича" ng-show="item.type == 'Feature'"><i class="fa fa-lightbulb-o"></i></span>
 </div>
 <div class="title">
-    <a href="{{item.url}}">
+    <a href="{{item.url}}" draggable="false">
         {{item.title}}
     </a>
     <div class="description">{{item.description}}</div>

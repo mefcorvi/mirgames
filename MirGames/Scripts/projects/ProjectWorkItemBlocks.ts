@@ -8,7 +8,7 @@ module MirGames.Wip {
         constructor($scope: IProjectWorkItemBlocksScope, eventBus: Core.IEventBus, private apiService: Core.IApiService) {
             super($scope, eventBus);
             this.$scope.dataLoaded = false;
-            this.$scope.onDrop = ($event, $data, array) => this.onDrop($event, $data, array);
+            this.$scope.onDrop = ($event, $data, array, target) => this.onDrop($event, $data, array, target);
             this.$scope.dropSuccessHandler = ($event, $index, array) => this.dropSuccessHandler($event, $index, array);
 
             $scope.$watch('filterByType', () => this.loadWorkItems());
@@ -32,7 +32,8 @@ module MirGames.Wip {
                 ProjectAlias: this.pageData.projectAlias,
                 Tag: null,
                 WorkItemType: this.$scope.filterByType,
-                WorkItemState: status
+                WorkItemState: status,
+                OrderBy: Domain.Wip.ViewModels.WorkItemsOrderType.Priority
             };
 
             this.apiService.getAll("GetProjectWorkItemsQuery", query, 0, 20, (result) => {
@@ -67,9 +68,10 @@ module MirGames.Wip {
         /** Converts DTO to the scope object */
         private convertItemToScope(item: Domain.Wip.ViewModels.ProjectWorkItemViewModel): IProjectWorkItemScope {
             var workItem: IProjectWorkItemScope = {
-                type: WorkItemType[item.ItemType],
+                workItemId: item.WorkItemId,
+                type: Domain.Wip.ViewModels.WorkItemType[item.ItemType],
                 internalId: item.InternalId,
-                state: WorkItemState[item.State],
+                state: Domain.Wip.ViewModels.WorkItemState[item.State],
                 title: item.Title,
                 canBeEdited: item.CanBeEdited,
                 canBeDeleted: item.CanBeDeleted,
@@ -82,7 +84,7 @@ module MirGames.Wip {
                     id: item.Author.Id,
                     login: item.Author.Login
                 },
-                changeState: () => this.changeWorkItemState(workItem, item)
+                changeState: () => this.changeWorkItemState(workItem)
             };
 
             return workItem;
@@ -106,20 +108,19 @@ module MirGames.Wip {
         }
 
         /** Changes state of the work item */
-        private changeWorkItemState(workItem: IProjectWorkItemScope, viewModel: Domain.Wip.ViewModels.ProjectWorkItemViewModel) {
+        private changeWorkItemState(workItem: IProjectWorkItemScope, newState?: string) {
             if (!workItem.canBeEdited) {
                 return;
             }
 
             var command: Domain.Wip.Commands.ChangeWorkItemStateCommand = {
-                WorkItemId: viewModel.WorkItemId
+                WorkItemId: workItem.workItemId,
+                State: newState == null ? null : (<any>Domain.Wip.ViewModels.WorkItemState)[newState]
             };
 
             this.apiService.executeCommand('ChangeWorkItemStateCommand', command, (newState: Domain.Wip.ViewModels.WorkItemState) => {
-                viewModel.State = newState;
-
                 this.$scope.$apply(() => {
-                    workItem.state = WorkItemState[viewModel.State];
+                    workItem.state = Domain.Wip.ViewModels.WorkItemState[newState];
                 });
             });
         }
@@ -131,7 +132,24 @@ module MirGames.Wip {
         }
 
         /** Handles drop */
-        private onDrop($event: any, $data: any, array: IProjectWorkItemScope[]) {
+        private onDrop($event: any, $data: IProjectWorkItemScope, array: IProjectWorkItemScope[], target?: IProjectWorkItemScope) {
+            for (var i = 0; i < array.length; i++) {
+                if (array[i] == target) {
+                    var next = array[i + 1];
+
+                    if (next) {
+                        $data.priority = (target.priority + next.priority) / 2;
+                    } else {
+                        $data.priority = 0;
+                    }
+
+                    this.changeWorkItemState($data, target.state);
+
+                    array.splice(i + 1, 0, $data);
+                    return;
+                }
+            }
+
             array.push($data);
         }
 
@@ -147,7 +165,7 @@ module MirGames.Wip {
         closedItems: IProjectWorkItemScope[];
         dataLoaded: boolean;
         dropSuccessHandler: ($event: any, $index: any, array: IProjectWorkItemScope[]) => void;
-        onDrop: ($event: any, $data: any, array: IProjectWorkItemScope[]) => void;
+        onDrop: ($event: any, $data: any, array: IProjectWorkItemScope[], target?: IProjectWorkItemScope) => void;
         filterByType?: Domain.Wip.ViewModels.WorkItemType;
     }
 } 

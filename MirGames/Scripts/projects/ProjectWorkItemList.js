@@ -39,7 +39,8 @@ var MirGames;
                     ProjectAlias: this.pageData.projectAlias,
                     Tag: null,
                     WorkItemType: this.$scope.filterByType,
-                    WorkItemState: this.$scope.filterByStatus
+                    WorkItemState: this.$scope.filterByStatus,
+                    OrderBy: 1 /* Priority */
                 };
 
                 this.apiService.getAll("GetProjectWorkItemsQuery", query, 0, 20, function (result) {
@@ -79,9 +80,10 @@ var MirGames;
             ProjectWorkItemList.prototype.convertItemToScope = function (item) {
                 var _this = this;
                 var workItem = {
-                    type: MirGames.Wip.WorkItemType[item.ItemType],
+                    workItemId: item.WorkItemId,
+                    type: MirGames.Domain.Wip.ViewModels.WorkItemType[item.ItemType],
                     internalId: item.InternalId,
-                    state: MirGames.Wip.WorkItemState[item.State],
+                    state: MirGames.Domain.Wip.ViewModels.WorkItemState[item.State],
                     title: item.Title,
                     canBeEdited: item.CanBeEdited,
                     canBeDeleted: item.CanBeDeleted,
@@ -128,14 +130,15 @@ var MirGames;
                 }
 
                 var command = {
-                    WorkItemId: viewModel.WorkItemId
+                    WorkItemId: viewModel.WorkItemId,
+                    State: null
                 };
 
                 this.apiService.executeCommand('ChangeWorkItemStateCommand', command, function (newState) {
                     viewModel.State = newState;
 
                     _this.$scope.$apply(function () {
-                        workItem.state = MirGames.Wip.WorkItemState[viewModel.State];
+                        workItem.state = MirGames.Domain.Wip.ViewModels.WorkItemState[viewModel.State];
                     });
                 });
             };

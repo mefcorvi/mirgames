@@ -81,6 +81,7 @@ module MirGames.Wip {
     }
 
     export interface IProjectWorkItemScope {
+        workItemId: number;
         type: string;
         state: string;
         title: string;
@@ -133,22 +134,6 @@ module MirGames.Wip {
         workItems: Domain.Wip.ViewModels.ProjectWorkItemViewModel[];
         filterByType?: Domain.Wip.ViewModels.WorkItemType;
         availableItemTypes: number[];
-    }
-
-    export enum WorkItemState {
-        Undefined = 0,
-        Open = 1,
-        Closed = 2,
-        Active = 3,
-        Queued = 4,
-        Removed = 5
-    }
-
-    export enum WorkItemType {
-        Undefined = 0,
-        Bug = 1,
-        Task = 2,
-        Feature = 3
     }
 
     export enum ViewMode {

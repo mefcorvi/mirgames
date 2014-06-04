@@ -22,5 +22,10 @@ namespace MirGames.Domain.Wip.Commands
         /// Gets or sets the work item identifier.
         /// </summary>
         public int WorkItemId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the state.
+        /// </summary>
+        public WorkItemState? State { get; set; }
     }
 }

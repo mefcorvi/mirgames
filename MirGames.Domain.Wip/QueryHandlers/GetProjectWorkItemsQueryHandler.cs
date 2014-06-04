@@ -9,6 +9,7 @@
 
 namespace MirGames.Domain.Wip.QueryHandlers
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics.Contracts;
     using System.Linq;
@@ -154,7 +155,15 @@ namespace MirGames.Domain.Wip.QueryHandlers
                 workItems = workItems.Where(w => w.State != WorkItemState.Closed && w.State != WorkItemState.Removed);
             }
 
-            return workItems.OrderByDescending(t => t.Priority).ThenByDescending(t => t.StartDate);
+            switch (query.OrderBy)
+            {
+                case WorkItemsOrderType.StartDate:
+                    return workItems.OrderByDescending(t => t.StartDate).ThenByDescending(t => t.Priority);
+                case WorkItemsOrderType.Priority:
+                    return workItems.OrderByDescending(t => t.Priority).ThenByDescending(t => t.StartDate);
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

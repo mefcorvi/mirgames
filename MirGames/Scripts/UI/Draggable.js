@@ -19,6 +19,7 @@ var UI;
                     dragData = newValue;
                 });
                 element.bind("dragstart", function (e) {
+                    element.addClass('on-drag-start');
                     var sendData = angular.toJson(dragData);
                     var sendChannel = attrs.dragChannel || "defaultchannel";
                     var dragImage = attrs.dragImage || null;
@@ -38,6 +39,7 @@ var UI;
                 });
 
                 element.bind("dragend", function (e) {
+                    element.removeClass('on-drag-start');
                     var sendChannel = attrs.dragChannel || "defaultchannel";
                     $rootScope.$broadcast("ANGULAR_DRAG_END", sendChannel);
                     if (e.dataTransfer && e.dataTransfer.dropEffect !== "none") {

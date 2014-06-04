@@ -20,6 +20,7 @@ module UI {
                         dragData = newValue;
                     });
                     element.bind("dragstart", (e: any) => {
+                        element.addClass('on-drag-start');
                         var sendData = angular.toJson(dragData);
                         var sendChannel = attrs.dragChannel || "defaultchannel";
                         var dragImage = attrs.dragImage || null;
@@ -41,6 +42,7 @@ module UI {
                     });
 
                     element.bind("dragend", (e: any) => {
+                        element.removeClass('on-drag-start');
                         var sendChannel = attrs.dragChannel || "defaultchannel";
                         $rootScope.$broadcast("ANGULAR_DRAG_END", sendChannel);
                         if (e.dataTransfer && e.dataTransfer.dropEffect !== "none") {

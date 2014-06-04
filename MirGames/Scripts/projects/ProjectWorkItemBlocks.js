@@ -16,8 +16,8 @@ var MirGames;
                 _super.call(this, $scope, eventBus);
                 this.apiService = apiService;
                 this.$scope.dataLoaded = false;
-                this.$scope.onDrop = function ($event, $data, array) {
-                    return _this.onDrop($event, $data, array);
+                this.$scope.onDrop = function ($event, $data, array, target) {
+                    return _this.onDrop($event, $data, array, target);
                 };
                 this.$scope.dropSuccessHandler = function ($event, $index, array) {
                     return _this.dropSuccessHandler($event, $index, array);
@@ -55,7 +55,8 @@ var MirGames;
                     ProjectAlias: this.pageData.projectAlias,
                     Tag: null,
                     WorkItemType: this.$scope.filterByType,
-                    WorkItemState: status
+                    WorkItemState: status,
+                    OrderBy: 1 /* Priority */
                 };
 
                 this.apiService.getAll("GetProjectWorkItemsQuery", query, 0, 20, function (result) {
@@ -95,9 +96,10 @@ var MirGames;
             ProjectWorkItemBlocks.prototype.convertItemToScope = function (item) {
                 var _this = this;
                 var workItem = {
-                    type: MirGames.Wip.WorkItemType[item.ItemType],
+                    workItemId: item.WorkItemId,
+                    type: MirGames.Domain.Wip.ViewModels.WorkItemType[item.ItemType],
                     internalId: item.InternalId,
-                    state: MirGames.Wip.WorkItemState[item.State],
+                    state: MirGames.Domain.Wip.ViewModels.WorkItemState[item.State],
                     title: item.Title,
                     canBeEdited: item.CanBeEdited,
                     canBeDeleted: item.CanBeDeleted,
@@ -111,7 +113,7 @@ var MirGames;
                         login: item.Author.Login
                     },
                     changeState: function () {
-                        return _this.changeWorkItemState(workItem, item);
+                        return _this.changeWorkItemState(workItem);
                     }
                 };
 
@@ -137,21 +139,20 @@ var MirGames;
             };
 
             /** Changes state of the work item */
-            ProjectWorkItemBlocks.prototype.changeWorkItemState = function (workItem, viewModel) {
+            ProjectWorkItemBlocks.prototype.changeWorkItemState = function (workItem, newState) {
                 var _this = this;
                 if (!workItem.canBeEdited) {
                     return;
                 }
 
                 var command = {
-                    WorkItemId: viewModel.WorkItemId
+                    WorkItemId: workItem.workItemId,
+                    State: newState == null ? null : MirGames.Domain.Wip.ViewModels.WorkItemState[newState]
                 };
 
                 this.apiService.executeCommand('ChangeWorkItemStateCommand', command, function (newState) {
-                    viewModel.State = newState;
-
                     _this.$scope.$apply(function () {
-                        workItem.state = MirGames.Wip.WorkItemState[viewModel.State];
+                        workItem.state = MirGames.Domain.Wip.ViewModels.WorkItemState[newState];
                     });
                 });
             };
@@ -163,7 +164,24 @@ var MirGames;
             };
 
             /** Handles drop */
-            ProjectWorkItemBlocks.prototype.onDrop = function ($event, $data, array) {
+            ProjectWorkItemBlocks.prototype.onDrop = function ($event, $data, array, target) {
+                for (var i = 0; i < array.length; i++) {
+                    if (array[i] == target) {
+                        var next = array[i + 1];
+
+                        if (next) {
+                            $data.priority = (target.priority + next.priority) / 2;
+                        } else {
+                            $data.priority = 0;
+                        }
+
+                        this.changeWorkItemState($data, target.state);
+
+                        array.splice(i + 1, 0, $data);
+                        return;
+                    }
+                }
+
                 array.push($data);
             };
 

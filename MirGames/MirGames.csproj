@@ -308,14 +308,6 @@
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
-    <Reference Include="TypeLite, Version=0.9.1.6, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\TypeLite.0.9.1.6\lib\net4\TypeLite.dll</HintPath>
-    </Reference>
-    <Reference Include="TypeLite.Net4, Version=0.9.1.6, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\TypeLite.0.9.1.6\lib\net4\TypeLite.Net4.dll</HintPath>
-    </Reference>
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -616,6 +608,9 @@
     <TypeScriptCompile Include="Scripts\TypeLite.d.ts">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>TypeLite.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Scripts\TypeLiteEnums.ts">
       <DependentUpon>TypeLite.tt</DependentUpon>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Scripts\UI\Draggable.ts" />
@@ -955,6 +950,7 @@
     <Content Include="Views\Projects\WorkItem.cshtml" />
     <Content Include="Views\Projects\_WorkItemComment.cshtml" />
     <Content Include="Views\Projects\Settings.cshtml" />
+    <Content Include="Scripts\Manager.ttinclude" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1045,6 +1041,14 @@
     <ProjectReference Include="..\RouteJs\RouteJs.csproj">
       <Project>{af432bc9-d24f-4352-8451-9b7768682648}</Project>
       <Name>RouteJs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypeLite\TypeLite.Net4\TypeLite.Net4.csproj">
+      <Project>{0ad860b2-2aaa-47cc-acba-f2d97be19d66}</Project>
+      <Name>TypeLite.Net4</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypeLite\TypeLite\TypeLite.csproj">
+      <Project>{43dcb624-f929-4572-97a3-6b14ac6ad158}</Project>
+      <Name>TypeLite</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
