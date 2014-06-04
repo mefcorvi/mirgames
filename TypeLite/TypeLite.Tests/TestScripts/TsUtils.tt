@@ -1,0 +1,8 @@
+﻿<#@ template debug="false" hostspecific="True" language="C#" #>
+<#@ assembly name="c:\___PROJECTS___\TypeLITE\TypeLite.Tests\bin\Debug\TypeLite.dll" #>
+<#@ assembly name="c:\___PROJECTS___\TypeLITE\TypeLite.Tests\bin\Debug\TypeLite.Tests.dll" #>
+<#@ import namespace="TypeLite" #> 
+<#@ import namespace="TypeLite.Tests.TestModels" #> 
+<#@output extension=".d.ts"#>
+
+<#= TypeScript.GenerateDefinitions().Include<Employee>() #>
