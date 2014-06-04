@@ -116,7 +116,6 @@
 .project-short-info() {
     & > .project-short-info {
         .page-block(@indent/2, @indent);
-        overflow: hidden;
         margin-bottom: @indent/2;
         .make-row();
         background: mix(@background-color, @header-background, 95%);
@@ -146,6 +145,29 @@
 
                 & > .fa {
                     .hidden-sm();
+                }
+            }
+        }
+
+        & > .add-to-tracker {
+            &.open {
+                & > .dropdown-toggle {
+                    .button();
+                    padding: 3px 10px;
+                    opacity: 0.5;
+                }
+            }
+
+            & > .dropdown-toggle {
+                .button();
+                padding: 3px 10px;
+            }
+
+            & > .dropdown-menu {
+                left: 0;
+
+                li > a {
+                    padding: 5px 10px;
                 }
             }
         }

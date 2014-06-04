@@ -23,6 +23,20 @@
         <span class="followers-count" title="Наблюдатели"><i class="fa fa-eye"></i>@Model.FollowersCount</span>
         <span class="votes" title="Рейтинг"><i class="fa fa-thumbs-up"></i>@Model.Votes</span>
         <span class="updated-date">@(Model.UpdatedDate.Format())</span>
+        <div class="add-to-tracker dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle"><i class="fa fa-plus"></i>Добавить...</a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a ng-click="setFilterByType(1)"><i class="fa fa-bug"></i>Багу</a>
+                </li>
+                <li>
+                    <a ng-click="setFilterByType(2)"><i class="fa fa-tasks"></i>Задачу</a>
+                </li>
+                <li>
+                    <a ng-click="setFilterByType(3)"><i class="fa fa-lightbulb-o"></i>Фичу</a>
+                </li>
+            </ul>
+        </div>
         <ul class="tags">
             @foreach (var tag in Model.Tags)
             {
