@@ -31,6 +31,73 @@
                 .page-subtitle();
             }
 
+            &.projects-subsection {
+                .make-sm-column(12);
+
+                & > .projects-list {
+                    .make-row();
+
+                    & > .project-list-item {
+                        .make-xs-column(3);
+                        padding-right: @indent/4;
+
+                        &:last-child {
+                            padding-right: 0;
+                        }
+
+                        & > .project-info {
+                            .page-block(@indent/2);
+                            height: 102px;
+                            overflow: hidden;
+                            .box-sizing(border-box);
+
+                            &.with-logo {
+                                padding-left: 110px;
+                            }
+
+                            a {
+                                overflow: hidden;
+                            }
+
+                            & > .description {
+                                height: 30px;
+                                margin-bottom: 5px;
+                                overflow: hidden;
+                                -ms-text-overflow: ellipsis;
+                                -o-text-overflow: ellipsis;
+                                text-overflow: ellipsis;
+                            }
+
+                            & > .user-login {
+                                .font-size(1.1);
+
+                                & > .avatar {
+                                    .avatar(16px);
+                                }
+
+                                & > span {
+                                    margin-left: 20px;
+                                }
+                            }
+
+                            & > .logo {
+                                position: absolute;
+                                left: 1px;
+                                top: 1px;
+                                width: 100px;
+                                height: 100px;
+                            }
+
+                            & > h1 {
+                                .header-font();
+                                .font-size(1.8);
+                                margin-bottom: 5px;
+                            }
+                        }
+                    }
+                }
+            }
+
             &.blog-subsection {
                 .make-lg-column(7);
                 padding-right: @indent/2;

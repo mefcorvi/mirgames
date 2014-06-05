@@ -115,5 +115,15 @@ namespace MirGames.Domain.Wip.ViewModels
         /// Gets or sets a value indicating whether this instance can create feature.
         /// </summary>
         public bool CanCreateFeature { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last commit message.
+        /// </summary>
+        public string LastCommitMessage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the short description.
+        /// </summary>
+        public string ShortDescription { get; set; }
     }
 }

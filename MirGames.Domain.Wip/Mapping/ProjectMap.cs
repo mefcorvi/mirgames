@@ -32,6 +32,7 @@ namespace MirGames.Domain.Wip.Mapping
             this.Property(t => t.Description).HasColumnName("description").IsRequired();
             this.Property(t => t.FollowersCount).HasColumnName("followers_count");
             this.Property(t => t.Title).HasColumnName("title").IsRequired().HasMaxLength(255);
+            this.Property(t => t.LastCommitMessage).HasColumnName("last_commit_message").HasMaxLength(255);
             this.Property(t => t.TagsList).HasColumnName("tags_list").IsRequired().HasMaxLength(1024);
             this.Property(t => t.UpdatedDate).HasColumnName("updated_date");
             this.Property(t => t.Version).HasColumnName("version").IsOptional().HasMaxLength(255);

@@ -15,6 +15,8 @@ namespace MirGames.Controllers
     using MirGames.Domain.Forum.ViewModels;
     using MirGames.Domain.Topics.Queries;
     using MirGames.Domain.Topics.ViewModels;
+    using MirGames.Domain.Wip.Queries;
+    using MirGames.Domain.Wip.ViewModels;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Queries;
     using MirGames.Models;
@@ -60,7 +62,10 @@ namespace MirGames.Controllers
                         HightlightCurrentPage = false
                     };
             }
+
             ViewBag.TopicsPagination = topicsPagination;
+
+            model.Projects = this.QueryProcessor.Process(new GetWipProjectsQuery(), new PaginationSettings(0, 4));
 
             return View(model);
         }
@@ -91,6 +96,11 @@ namespace MirGames.Controllers
             /// Gets or sets the forum topics.
             /// </summary>
             public IEnumerable<ForumTopicsListItemViewModel> ForumTopics { get; set; }
+
+            /// <summary>
+            /// Gets or sets the projects.
+            /// </summary>
+            public IEnumerable<WipProjectViewModel> Projects { get; set; }
         }
     }
 }

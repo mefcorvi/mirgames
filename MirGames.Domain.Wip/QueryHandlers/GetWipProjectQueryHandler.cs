@@ -14,6 +14,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
 
     using MirGames.Domain.Attachments.Queries;
     using MirGames.Domain.Exceptions;
+    using MirGames.Domain.TextTransform;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
     using MirGames.Domain.Wip.Entities;
@@ -45,20 +46,28 @@ namespace MirGames.Domain.Wip.QueryHandlers
         private readonly IAuthorizationManager authorizationManager;
 
         /// <summary>
+        /// The text processor.
+        /// </summary>
+        private readonly ITextProcessor textProcessor;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetWipProjectQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="settings">The settings.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
-        public GetWipProjectQueryHandler(IQueryProcessor queryProcessor, ISettings settings, IAuthorizationManager authorizationManager)
+        /// <param name="textProcessor">The text processor.</param>
+        public GetWipProjectQueryHandler(IQueryProcessor queryProcessor, ISettings settings, IAuthorizationManager authorizationManager, ITextProcessor textProcessor)
         {
             Contract.Requires(queryProcessor != null);
             Contract.Requires(settings != null);
             Contract.Requires(authorizationManager != null);
+            Contract.Requires(textProcessor != null);
 
             this.queryProcessor = queryProcessor;
             this.settings = settings;
             this.authorizationManager = authorizationManager;
+            this.textProcessor = textProcessor;
         }
 
         /// <inheritdoc />
@@ -81,6 +90,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
                             Id = project.AuthorId
                         },
                     Description = project.Description,
+                    ShortDescription = this.textProcessor.GetShortText(project.Description),
                     Alias = project.Alias,
                     FollowersCount = project.FollowersCount,
                     ProjectId = project.ProjectId,
@@ -89,6 +99,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
                     UpdatedDate = project.UpdatedDate,
                     Version = project.Version,
                     Votes = project.Votes,
+                    LastCommitMessage = project.LastCommitMessage,
                     VotesCount = project.VotesCount,
                     Tags = project.TagsList.Split(',').Select(t => t.Trim()).ToArray(),
                     CanEdit = this.authorizationManager.CheckAccess(principal, "Edit", project),

@@ -84,6 +84,10 @@
   padding: 10px 0;
   max-height: 200px;
 }
+.wip-page > section > .projects-list > .project > .project-info > .last-commit-message {
+  font-size: 11px;
+  color: #808080;
+}
 .wip-page > section > .projects-list > .project > .project-info > footer {
   display: -webkit-flex;
   display: -moz-flex;

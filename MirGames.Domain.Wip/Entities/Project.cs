@@ -55,6 +55,11 @@ namespace MirGames.Domain.Wip.Entities
         public DateTime UpdatedDate { get; set; }
 
         /// <summary>
+        /// Gets or sets the last commit message.
+        /// </summary>
+        public string LastCommitMessage { get; set; }
+
+        /// <summary>
         /// Gets or sets the version.
         /// </summary>
         public string Version { get; set; }

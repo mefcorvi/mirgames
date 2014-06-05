@@ -15,6 +15,31 @@
     <p class="text">Добро пожаловать на MirGames.ru, сайт для тех, чьим хобби или профессией является создание игр. Наше сообщество существует с 2003 года на голом энтузиазме. У нас вы можете <a href="@Url.Action("Index", "Topics")">поделиться чем-нибудь интересным</a>, <a href="@Url.Action("Index", "Forum")">обсудить возникшие вопросы</a>, или <a href="@Url.Action("Index", "Chat")">просто пообщаться</a> с такими же разработчиками.</p>
 </article>
 
+<section class="projects-subsection">
+    <h3>Проекты</h3>
+    <div class="projects-list">
+        @foreach (var project in Model.Projects)
+        {
+            <div class="project-list-item">
+                <div @Html.Css("project-info").Add("with-logo", !string.IsNullOrEmpty(project.LogoUrl))>
+                    @if (!string.IsNullOrEmpty(project.LogoUrl))
+                    {
+                        <div class="logo">
+                            <img src="@project.LogoUrl" />
+                        </div>
+                    }
+                    <h1><a href="@Url.Action("Project", "Projects", new { projectAlias = project.Alias })">@project.Title</a></h1>
+                    <div class="description">
+                        @project.ShortDescription
+                    </div>
+                    <a href="@Url.Action("Profile", "Users", new { userId = project.Author.Id })" class="user-login avatar-link">
+                        <img src="@project.Author.AvatarUrl" class="avatar" /><span>@project.Author.Login</span>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</section>
 <section class="blog-subsection">
     <h3>Блог</h3>
     <div class="topics-list">

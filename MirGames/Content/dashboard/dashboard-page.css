@@ -67,6 +67,100 @@
   font-size: 16px;
   padding-bottom: 0;
 }
+.dashboard-page > section > section.projects-subsection {
+  position: relative;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+@media (min-width: 768px) {
+  .dashboard-page > section > section.projects-subsection {
+    float: left;
+    width: 100%;
+  }
+}
+.dashboard-page > section > section.projects-subsection > .projects-list {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.dashboard-page > section > section.projects-subsection > .projects-list > .project-list-item {
+  position: relative;
+  float: left;
+  width: 25%;
+  min-height: 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding-right: 5px;
+}
+.dashboard-page > section > section.projects-subsection > .projects-list > .project-list-item:last-child {
+  padding-right: 0;
+}
+.dashboard-page > section > section.projects-subsection > .projects-list > .project-list-item > .project-info {
+  background: #ffffff;
+  padding: 10px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  height: 102px;
+  overflow: hidden;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.dashboard-page > section > section.projects-subsection > .projects-list > .project-list-item > .project-info.with-logo {
+  padding-left: 110px;
+}
+.dashboard-page > section > section.projects-subsection > .projects-list > .project-list-item > .project-info a {
+  overflow: hidden;
+}
+.dashboard-page > section > section.projects-subsection > .projects-list > .project-list-item > .project-info > .description {
+  height: 30px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+.dashboard-page > section > section.projects-subsection > .projects-list > .project-list-item > .project-info > .user-login {
+  font-size: 11px;
+}
+.dashboard-page > section > section.projects-subsection > .projects-list > .project-list-item > .project-info > .user-login > .avatar {
+  background-size: cover;
+  background-clip: content-box;
+  background-position: top center;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.dashboard-page > section > section.projects-subsection > .projects-list > .project-list-item > .project-info > .user-login > span {
+  margin-left: 20px;
+}
+.dashboard-page > section > section.projects-subsection > .projects-list > .project-list-item > .project-info > .logo {
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  width: 100px;
+  height: 100px;
+}
+.dashboard-page > section > section.projects-subsection > .projects-list > .project-list-item > .project-info > h1 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
 .dashboard-page > section > section.blog-subsection {
   position: relative;
   min-height: 1px;
