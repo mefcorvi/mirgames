@@ -96,7 +96,7 @@ namespace MirGames.Controllers
                 new HttpCookie("key", sessionId)
                 {
                     Path = "/",
-                    Expires = DateTime.UtcNow.AddDays(7)
+                    Expires = DateTime.UtcNow.AddYears(1)
                 });
         }
     }
