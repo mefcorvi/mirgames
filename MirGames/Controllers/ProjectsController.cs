@@ -94,7 +94,7 @@ namespace MirGames.Controllers
 
             var topics = this.QueryProcessor.Process(new GetWipProjectTopicsQuery { Alias = projectAlias }, new PaginationSettings(0, 10));
 
-            var commits = this.QueryProcessor.Process(new GetWipProjectCommitsQuery { Alias = projectAlias });
+            var commits = this.QueryProcessor.Process(new GetWipProjectCommitsQuery { Alias = projectAlias }, new PaginationSettings(0, 15));
             this.ViewBag.Commits = commits;
             this.ViewBag.Topics = topics;
             this.ViewBag.Images = images;
