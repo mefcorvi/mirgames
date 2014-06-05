@@ -18,25 +18,37 @@
     </div>
     <div class="project-short-info">
         <div class="version" title="Текущая версия">
-            <b>@Model.Title v.@Model.Version</b>
+            <b>@Model.Title</b>
         </div>
         <span class="followers-count" title="Наблюдатели"><i class="fa fa-eye"></i>@Model.FollowersCount</span>
         <span class="votes" title="Рейтинг"><i class="fa fa-thumbs-up"></i>@Model.Votes</span>
         <span class="updated-date">@(Model.UpdatedDate.Format())</span>
-        <div class="add-to-tracker dropdown">
-            <a href="javascript:void(0);" class="dropdown-toggle"><i class="fa fa-plus"></i>Добавить...</a>
-            <ul class="dropdown-menu">
-                <li>
-                    <a ng-click="setFilterByType(1)"><i class="fa fa-bug"></i>Багу</a>
-                </li>
-                <li>
-                    <a ng-click="setFilterByType(2)"><i class="fa fa-tasks"></i>Задачу</a>
-                </li>
-                <li>
-                    <a ng-click="setFilterByType(3)"><i class="fa fa-lightbulb-o"></i>Фичу</a>
-                </li>
-            </ul>
-        </div>
+        @if (Model.CanCreateBug || Model.CanCreateFeature || Model.CanCreateTask)
+        {
+            <div class="add-to-tracker dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle"><i class="fa fa-plus"></i>Добавить...</a>
+                <ul class="dropdown-menu">
+                    @if (Model.CanCreateBug)
+                    {
+                        <li>
+                            <a dialog="@Url.Action("AddWorkItemDialog", "Projects")" resolve="{ 'item-type': 1, 'project-alias': '@Model.Alias' }" dialog-controller="MirGames.Projects.AddNewWorkItemDialogController"><i class="fa fa-bug"></i>Багу</a>
+                        </li>
+                    }
+                    @if (Model.CanCreateTask)
+                    {
+                        <li>
+                            <a dialog="@Url.Action("AddWorkItemDialog", "Projects")" resolve="{ 'item-type': 2, 'project-alias': '@Model.Alias' }" dialog-controller="MirGames.Projects.AddNewWorkItemDialogController"><i class="fa fa-tasks"></i>Задачу</a>
+                        </li>
+                    }
+                    @if (Model.CanCreateFeature)
+                    {
+                        <li>
+                            <a dialog="@Url.Action("AddWorkItemDialog", "Projects")" resolve="{ 'item-type': 3, 'project-alias': '@Model.Alias' }" dialog-controller="MirGames.Projects.AddNewWorkItemDialogController"><i class="fa fa-lightbulb-o"></i>Фичу</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
         <ul class="tags">
             @foreach (var tag in Model.Tags)
             {

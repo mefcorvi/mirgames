@@ -241,6 +241,12 @@ namespace MirGames.Controllers
         }
 
         /// <inheritdoc />
+        public ActionResult AddWorkItemDialog()
+        {
+            return this.PartialView("_AddWorkItemDialog");
+        }
+
+        /// <inheritdoc />
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             filterContext.Controller.ViewBag.CurrentSection = "WIP";

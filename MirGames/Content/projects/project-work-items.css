@@ -233,43 +233,11 @@
   }
 }
 .wip-workitems-page > section > .project-info-block > .project-short-info > .add-to-tracker.open > .dropdown-toggle {
-  font-family: "Droid Sans", Tahoma, sans-serif;
-  font-size: 12px;
-  display: block;
-  background: #6a91ad;
-  float: left;
-  padding: 5px 10px;
-  text-decoration: none;
-  color: #ffffff;
-  border: 1px solid #517793;
-  text-shadow: 0px 0px 4px #000;
-  margin-right: 4px;
-  line-height: 20px;
-  min-width: 60px;
-  min-width: 3vw;
-  text-align: center;
-  padding: 3px 10px;
-  opacity: 0.5;
-}
-.wip-workitems-page > section > .project-info-block > .project-short-info > .add-to-tracker.open > .dropdown-toggle:hover,
-.wip-workitems-page > section > .project-info-block > .project-short-info > .add-to-tracker.open > .dropdown-toggle:active,
-.wip-workitems-page > section > .project-info-block > .project-short-info > .add-to-tracker.open > .dropdown-toggle:focus {
   background: #ad6a91;
   border: 1px solid #935177;
   color: #ffffff;
   text-decoration: none;
-}
-.wip-workitems-page > section > .project-info-block > .project-short-info > .add-to-tracker.open > .dropdown-toggle.button-disabled {
-  opacity: 0.5;
-  color: #999;
-  cursor: default;
-  background: #000000;
-  border: 1px solid #000000;
-}
-.wip-workitems-page > section > .project-info-block > .project-short-info > .add-to-tracker.open > .dropdown-toggle.button-disabled:hover {
-  color: #999;
-  background: #000000;
-  border: 1px solid #000000;
+  padding: 3px 10px;
 }
 .wip-workitems-page > section > .project-info-block > .project-short-info > .add-to-tracker > .dropdown-toggle {
   font-family: "Droid Sans", Tahoma, sans-serif;

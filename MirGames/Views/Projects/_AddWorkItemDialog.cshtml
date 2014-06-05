@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "~/Views/Shared/_Dialog.cshtml";
+}
+
+@section DialogTitle
+{
+    Новая {{typeNames[type]}}
+}
+
+@section DialogNotifications
+{
+}
+
+@section DialogContent
+{
+    <form class="new-item-form" name="newItemForm" ng-cloak>
+        <div class="form-field">
+            <label>Заголовок</label>
+            <input type="text" ng-model="title" ng-focused="focus" required="required" maxlength="256" />
+        </div>
+        <div class="form-field">
+            <label>Тэги <i>(опционально)</i></label>
+            <input type="text" ng-model="tags" pattern="([^,]+,?){0,5}" />
+        </div>
+        <div class="form-field">
+            <label>Описание</label>
+            <texteditor text="text" show-preview="true" post="post()" focus="false" attachments="attachments" entity-type="project-work-item"></texteditor>
+        </div>
+    </form>
+}
+
+@section DialogButtons
+{
+    <a href="javascript:void(0);" ng-click="post()" ng-class="{ 'button-disabled': newItemForm.$invalid }" class="button">Создать</a>
+    <a href="javascript:void(0)" class="cancel" ng-click="close()">Отмена</a>
+}

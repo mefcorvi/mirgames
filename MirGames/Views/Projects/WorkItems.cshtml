@@ -69,36 +69,4 @@
     </form>
     <work-items-list ng-if="viewMode == 0" filter-by-type="filterByType" filter-by-status="filterByStatus"></work-items-list>
     <work-item-blocks ng-if="viewMode == 1" filter-by-type="filterByType" filter-by-status="filterByStatus"></work-item-blocks>
-    
-    @if (Model.CanCreateBug || Model.CanCreateFeature || Model.CanCreateTask)
-    {
-        <h4 ng-cloak>
-            Новая {{typeNames[newItem.type]}}
-        </h4>
-        <form class="new-item-form" name="newItemForm" ng-cloak>
-            <div class="form-field" ng-show="newItem.availableItemTypes.length > 1">
-                <label>Тип элемента</label>
-                <div class="radio-group">
-                    <button type="button" class="radio" ng-model="newItem.type" ng-show="newItem.availableItemTypes.indexOf(1) + 1" btn-radio="1" ng-click="newItem.focus=true"><i class="fa fa-bug"></i>{{typeNames[1]}}</button>
-                    <button type="button" class="radio" ng-model="newItem.type" ng-show="newItem.availableItemTypes.indexOf(2) + 1" btn-radio="2" ng-click="newItem.focus=true"><i class="fa fa-tasks"></i>{{typeNames[2]}}</button>
-                    <button type="button" class="radio" ng-model="newItem.type" ng-show="newItem.availableItemTypes.indexOf(3) + 1" btn-radio="3" ng-click="newItem.focus=true"><i class="fa fa-lightbulb-o"></i>{{typeNames[3]}}</button>
-                </div>
-            </div>
-            <div class="form-field">
-                <label>Заголовок</label>
-                <input type="text" ng-model="newItem.title" ng-focused="newItem.focus" required="required" maxlength="256" />
-            </div>
-            <div class="form-field">
-                <label>Тэги <i>(опционально)</i></label>
-                <input type="text" ng-model="newItem.tags" pattern="([^,]+,?){0,5}" />
-            </div>
-            <div class="form-field">
-                <label>Описание</label>
-                <texteditor text="newItem.text" show-preview="true" post="newItem.post()" focus="false" attachments="newItem.attachments" entity-type="project-work-item"></texteditor>
-            </div>
-            <div class="buttons">
-                <a href="javascript:void(0);" ng-click="newItem.post()" ng-class="{ 'button-disabled': newItemForm.$invalid }" class="button">Отправить</a>
-            </div>
-        </form>
-    }
 </section>

@@ -17,7 +17,6 @@ var MirGames;
                 this.$scope.viewMode = 0 /* List */;
                 this.$scope.typeNames = ['Неизвестный', 'Ошибка', 'Задача', 'Фича'];
                 this.$scope.statusNames = ['Неизестный', 'Открытая', 'Закрытая', 'Активная', 'В очереди', 'Удаленная'];
-                this.$scope.newItem = this.getEmptyNewItem();
 
                 this.$scope.filterByType = this.pageData.filterByType;
                 this.$scope.filterByStatus = null;
@@ -36,22 +35,6 @@ var MirGames;
                     return _this.showList();
                 };
             }
-            ProjectWorkItemsPage.prototype.getEmptyNewItem = function () {
-                var _this = this;
-                return {
-                    attachments: [],
-                    focus: false,
-                    post: function () {
-                        return _this.postNewItem();
-                    },
-                    tags: '',
-                    text: '',
-                    title: '',
-                    type: 1 /* Bug */,
-                    availableItemTypes: this.pageData.availableItemTypes
-                };
-            };
-
             /** Shows work items as a blocks */
             ProjectWorkItemsPage.prototype.showBlocks = function () {
                 this.$scope.viewMode = 1 /* Blocks */;
@@ -60,27 +43,6 @@ var MirGames;
             /** Show work items as a list */
             ProjectWorkItemsPage.prototype.showList = function () {
                 this.$scope.viewMode = 0 /* List */;
-            };
-
-            /** Posts the new item */
-            ProjectWorkItemsPage.prototype.postNewItem = function () {
-                var _this = this;
-                var command = {
-                    ProjectAlias: this.pageData.projectAlias,
-                    Title: this.$scope.newItem.title,
-                    Tags: this.$scope.newItem.tags,
-                    Type: this.$scope.newItem.type,
-                    Attachments: this.$scope.newItem.attachments,
-                    Description: this.$scope.newItem.text
-                };
-
-                this.apiService.executeCommand('CreateNewProjectWorkItemCommand', command, function (internalId) {
-                    _this.eventBus.emit(_this.pageData.projectAlias + '.workitems.new', internalId);
-                    _this.$scope.$apply(function () {
-                        _this.$scope.newItem = _this.getEmptyNewItem();
-                        _this.$scope.newItem.focus = true;
-                    });
-                });
             };
 
             /** Sets filter by type  */

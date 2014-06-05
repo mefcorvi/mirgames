@@ -8,7 +8,6 @@ module MirGames.Wip {
             this.$scope.viewMode = ViewMode.List;
             this.$scope.typeNames = ['Неизвестный', 'Ошибка', 'Задача', 'Фича'];
             this.$scope.statusNames = ['Неизестный', 'Открытая', 'Закрытая', 'Активная', 'В очереди', 'Удаленная'];
-            this.$scope.newItem = this.getEmptyNewItem();
 
             this.$scope.filterByType = this.pageData.filterByType;
             this.$scope.filterByStatus = null;
@@ -20,19 +19,6 @@ module MirGames.Wip {
             this.$scope.showList = () => this.showList();
         }
 
-        private getEmptyNewItem(): IProjectNewWorkItemScope {
-            return {
-                attachments: [],
-                focus: false,
-                post: () => this.postNewItem(),
-                tags: '',
-                text: '',
-                title: '',
-                type: Domain.Wip.ViewModels.WorkItemType.Bug,
-                availableItemTypes: this.pageData.availableItemTypes
-            };
-        }
-
         /** Shows work items as a blocks */
         private showBlocks() {
             this.$scope.viewMode = ViewMode.Blocks;
@@ -41,26 +27,6 @@ module MirGames.Wip {
         /** Show work items as a list */
         private showList() {
             this.$scope.viewMode = ViewMode.List;
-        }
-
-        /** Posts the new item */
-        private postNewItem(): void {
-            var command: Domain.Wip.Commands.CreateNewProjectWorkItemCommand = {
-                ProjectAlias: this.pageData.projectAlias,
-                Title: this.$scope.newItem.title,
-                Tags: this.$scope.newItem.tags,
-                Type: this.$scope.newItem.type,
-                Attachments: this.$scope.newItem.attachments,
-                Description: this.$scope.newItem.text
-            };
-
-            this.apiService.executeCommand('CreateNewProjectWorkItemCommand', command, (internalId: number) => {
-                this.eventBus.emit(this.pageData.projectAlias + '.workitems.new', internalId);
-                this.$scope.$apply(() => {
-                    this.$scope.newItem = this.getEmptyNewItem();
-                    this.$scope.newItem.focus = true;
-                });
-            });
         }
 
         /** Sets filter by type  */
@@ -102,7 +68,6 @@ module MirGames.Wip {
     }
 
     export interface IProjectWorkItemsPageScope extends IPageScope {
-        newItem: IProjectNewWorkItemScope;
         typeNames: string[];
         statusNames: string[];
 
@@ -116,17 +81,6 @@ module MirGames.Wip {
 
         setFilterByType: (filterByType?: Domain.Wip.ViewModels.WorkItemType) => void;
         setFilterByStatus: (filterByStatus?: Domain.Wip.ViewModels.WorkItemState) => void;
-    }
-
-    export interface IProjectNewWorkItemScope {
-        title: string;
-        text: string;
-        tags: string;
-        post: () => void ;
-        attachments: number[];
-        type: Domain.Wip.ViewModels.WorkItemType;
-        availableItemTypes: number[];
-        focus: boolean;
     }
 
     export interface IProjectWorkItemsPageData {

@@ -192,14 +192,18 @@
     text-align: center;
 
     &:hover, &:active, &:focus {
-        @background: lighten(desaturate(@link-color-hover, 30%), 0%);
-        background: @background;
-        border: 1px solid darken(@background, 10%);
-        color: @background-color;
-        text-decoration: none;
+        .button-focused();
     }
 
     .button-disabled();
+}
+
+.button-focused() {
+    @background: lighten(desaturate(@link-color-hover, 30%), 0%);
+    background: @background;
+    border: 1px solid darken(@background, 10%);
+    color: @background-color;
+    text-decoration: none;
 }
 
 .button-disabled() {

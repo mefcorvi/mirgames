@@ -591,6 +591,7 @@
     <TypeScriptCompile Include="Scripts\Account\LoginFormController.ts" />
     <TypeScriptCompile Include="Scripts\Account\SignUpFormController.ts" />
     <TypeScriptCompile Include="Scripts\Libs\jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\projects\AddWorkItemDialogController.ts" />
     <TypeScriptCompile Include="Scripts\projects\ProjectSettingsPage.ts" />
     <TypeScriptCompile Include="Scripts\projects\NewProjectPage.ts" />
     <TypeScriptCompile Include="Scripts\projects\ProjectWorkItemPage.ts" />
@@ -951,6 +952,7 @@
     <Content Include="Views\Projects\_WorkItemComment.cshtml" />
     <Content Include="Views\Projects\Settings.cshtml" />
     <Content Include="Scripts\Manager.ttinclude" />
+    <Content Include="Views\Projects\_AddWorkItemDialog.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
