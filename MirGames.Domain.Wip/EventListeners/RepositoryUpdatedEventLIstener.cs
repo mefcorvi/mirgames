@@ -57,11 +57,22 @@ namespace MirGames.Domain.Wip.EventListeners
                         .FirstOrDefault();
 
                     p.UpdatedDate = DateTime.UtcNow;
-                    p.LastCommitMessage = lastCommit != null ? lastCommit.Message.Substring(0, 255) : null;
+                    p.LastCommitMessage = lastCommit != null ? this.CutString(lastCommit.Message, 255) : null;
                 });
 
                 writeContext.SaveChanges();
             }
+        }
+
+        /// <summary>
+        /// Cuts the string.
+        /// </summary>
+        /// <param name="s">The s.</param>
+        /// <param name="length">The length.</param>
+        /// <returns>The part of the string.</returns>
+        private string CutString(string s, int length)
+        {
+            return s.Substring(0, Math.Min(s.Length, length));
         }
     }
 }
