@@ -59,10 +59,12 @@ namespace MirGames.Domain.Wip.QueryHandlers
             {
                 case "git":
                     return this.queryProcessor
-                               .Process(new GetRepositoryHistoryQuery
-                               {
-                                   RepositoryId = project.RepositoryId.GetValueOrDefault()
-                               })
+                               .Process(
+                                   new GetRepositoryHistoryQuery
+                                   {
+                                       RepositoryId = project.RepositoryId.GetValueOrDefault()
+                                   },
+                                   pagination)
                                .Select(h => new WipProjectCommitViewModel
                                {
                                    Date = h.Date,
