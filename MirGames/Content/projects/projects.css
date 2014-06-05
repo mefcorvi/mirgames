@@ -11,9 +11,6 @@
   padding-bottom: 0;
   text-shadow: 1px 1px 4px #ffffff;
 }
-.wip-page > section > .projects-list {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-}
 .wip-page > section > .projects-list .fa {
   margin-right: 5px;
 }
