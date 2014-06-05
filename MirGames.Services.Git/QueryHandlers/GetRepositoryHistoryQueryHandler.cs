@@ -60,15 +60,15 @@ namespace MirGames.Services.Git.QueryHandlers
 
             string repositoryPath = this.repositoryPathProvider.GetPath(repository.Name);
             var gitRepository = new Repository(repositoryPath);
-            
-            return gitRepository.Commits.Select(
-                    commit =>
-                    new GitRepositoryHistoryItemViewModel
-                    {
-                        Author = commit.Author.Name,
-                        Message = commit.Message.Trim(),
-                        Date = commit.Author.When.UtcDateTime,
-                    });
+
+            return this.ApplyPagination(gitRepository.Commits, pagination).Select(
+                commit =>
+                new GitRepositoryHistoryItemViewModel
+                {
+                    Author = commit.Author.Name,
+                    Message = commit.Message.Trim(),
+                    Date = commit.Author.When.UtcDateTime,
+                });
         }
 
         /// <inheritdoc />
