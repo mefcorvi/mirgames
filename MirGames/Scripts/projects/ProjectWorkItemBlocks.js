@@ -79,6 +79,19 @@ var MirGames;
                 this.apiService.getOne("GetProjectWorkItemQuery", query, function (result) {
                     _this.$scope.$apply(function () {
                         var item = _this.convertItemToScope(result);
+
+                        if (item.state == 'Open') {
+                            _this.$scope.openedItems.push(item);
+                        }
+
+                        if (item.state == 'Active') {
+                            _this.$scope.activeItems.push(item);
+                        }
+
+                        if (item.state == 'Closed') {
+                            _this.$scope.closedItems.push(item);
+                        }
+
                         _this.$scope.dataLoaded = true;
                     });
                 }, false);

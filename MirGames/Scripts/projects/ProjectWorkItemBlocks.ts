@@ -55,6 +55,19 @@ module MirGames.Wip {
             this.apiService.getOne("GetProjectWorkItemQuery", query, (result) => {
                 this.$scope.$apply(() => {
                     var item = this.convertItemToScope(result);
+
+                    if (item.state == 'Open') {
+                        this.$scope.openedItems.push(item);
+                    }
+
+                    if (item.state == 'Active') {
+                        this.$scope.activeItems.push(item);
+                    }
+
+                    if (item.state == 'Closed') {
+                        this.$scope.closedItems.push(item);
+                    }
+
                     this.$scope.dataLoaded = true;
                 });
             }, false);

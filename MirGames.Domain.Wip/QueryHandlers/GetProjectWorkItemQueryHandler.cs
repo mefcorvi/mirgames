@@ -78,7 +78,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
             {
                 CreatedDate = workItem.CreatedDate,
                 Description = workItem.Description,
-                ShortDescription = this.textProcessor.GetHtml(workItem.Description),
+                ShortDescription = this.textProcessor.GetShortText(workItem.Description),
                 InternalId = workItem.InternalId,
                 ItemType = workItem.ItemType,
                 Priority = workItem.Priority,
