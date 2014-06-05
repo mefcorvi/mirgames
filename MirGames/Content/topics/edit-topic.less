@@ -21,31 +21,11 @@
         .indent();
 
         & > h3 {
-            .header-font();
-            .font-size(2.4);
-            margin-bottom: 10px;
-            padding-bottom: 7px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-        }
-    }
-
-    .topic-editor-field {
-        overflow: hidden;
-    }
-
-    .topic-preview {
-    }
-
-    .topic-show-preview {
-        .topic-editor {
-            float: left;
-            width: 49%;
-            margin-right: 10px;
+            .page-title();
         }
 
-        .topic-preview {
-            margin-left: 50%;
-            overflow: auto;
+        & > form {
+            .page-block(@indent/2);
         }
     }
 }

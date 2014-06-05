@@ -885,13 +885,11 @@
     <Content Include="Views\Topics\New.cshtml" />
     <Content Include="Views\Shared\_Nav.cshtml" />
     <Content Include="Views\Topics\_TopicsMenu.cshtml" />
-    <Content Include="Views\Topics\_NewTopicMenu.cshtml" />
     <Content Include="Views\Users\_ProfileMenu.cshtml" />
     <Content Include="Views\Account\_LoginDialog.cshtml" />
     <Content Include="Views\Account\_SignUpDialog.cshtml" />
     <Content Include="Views\Shared\_Dialog.cshtml" />
     <Content Include="Views\Topics\Edit.cshtml" />
-    <Content Include="Views\Topics\_EditTopicMenu.cshtml" />
     <Content Include="Scripts\Web.config">
       <SubType>Designer</SubType>
     </Content>

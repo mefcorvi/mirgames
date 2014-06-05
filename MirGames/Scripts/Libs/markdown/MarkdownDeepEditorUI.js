@@ -69,6 +69,7 @@ var MarkdownDeepEditorUI = new function () {
         str += '<li><a href="javascript:void(0);" class="mdd_button" id="mdd_hr" title="Вставить разделитель (Ctrl+R)" tabindex=-1><i class="fa fa-ellipsis-h"></i></a></li>\n';
         str += '<li><span class="mdd_sep"></span></li>\n';
         str += '<li><a href="javascript:void(0);" class="mdd_button" title="Приложить файл" tabindex=-1><i class="fa fa-upload"></i></a></li>\n';
+        str += '<li><a href="javascript:void(0);" class="mdd_button btn-preview" title="Режим предпросмотра" tabindex=-1><i class="fa fa-eye"></i></a></li>\n';
         str += '</ul>\n';
         str += '<div style="clear:both"></div>\n';
         return str;
@@ -78,9 +79,11 @@ var MarkdownDeepEditorUI = new function () {
     this.onResizerMouseDown = function(e) {
         // Initialize state
         var srcElement = (window.event) ? e.srcElement : e.target,
-            textarea = $(srcElement).closest('.mdd_resizer_wrap').prev('.mdd_editor_wrap').children("textarea")[0],
+            $editor = $(srcElement).closest('.mdd_resizer_wrap').parent(),
+            $textarea = $('textarea.mdd_editor', $editor),
+            $previewArea = $('.mdd_preview', $editor),
             iOriginalMouse = e.clientY,
-            iOriginalHeight = $(textarea).height();
+            iOriginalHeight = $textarea.is(':visible') ? $textarea.outerHeight() : $previewArea.outerHeight();
 
         // Bind to required events
         $(document).bind("mousemove.mdd", DoDrag);
@@ -103,7 +106,8 @@ var MarkdownDeepEditorUI = new function () {
             var newHeight = iOriginalHeight + e.clientY - iOriginalMouse;
             if (newHeight < 50)
                 newHeight = 50;
-            $(textarea).height(newHeight);
+            $textarea.height(newHeight);
+            $previewArea.height(newHeight);
             return false;
         }
     };
@@ -316,8 +320,8 @@ How the associated UI components are located:
             // Create the resize bar
             var resizer, resizerwrap;
             if (settings.resizebar) {
-                resizerwrap = editorwrap.next(".mdd_resizer_wrap"),
-                resizer = (resizerwrap.length == 0) ? editorwrap.next(".mdd_resizer") : resizerwrap.children('.mdd_resizer');
+                resizerwrap = $(".mdd_resizer_wrap", editorwrap.parent()),
+                resizer = (resizerwrap.length == 0) ? $(".mdd_resizer", editorwrap.parent()) : resizerwrap.children('.mdd_resizer');
                 if (resizerwrap.length == 0) {
                     if (resizer.length == 0) {
                         resizer = $("<div class=\"mdd_resizer\" />");
@@ -343,7 +347,11 @@ How the associated UI components are located:
                 preview_selector = ".mdd_preview";
             var preview = $(preview_selector, editorwrap.parent())[0];
             if (!preview) {
-                $("<div class=\"mdd_preview\"></div>").insertAfter(resizer ? resizer : this);
+                if (resizer) {
+                    $("<div class=\"mdd_preview\"></div>").insertBefore(resizer);
+                } else {
+                    $("<div class=\"mdd_preview\"></div>").insertAfter(this);
+                }
                 preview = $(".mdd_preview")[0];
             }
 

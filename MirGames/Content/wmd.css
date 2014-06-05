@@ -206,9 +206,6 @@
   margin-top: -1px;
   cursor: n-resize;
 }
-.tiny-editor div.mdd_preview {
-  margin-top: 10px;
-}
 .tiny-editor form.upload-file {
   margin-top: 3px;
   margin-bottom: 3px;

@@ -6,10 +6,8 @@
     AddPageCssClass("new-topic-page");
 }
 
-@section Nav { @Html.Partial("_NewTopicMenu") }
-
-<h3>Новая тема</h3>
-<form class="new-topic-form">
+<h3>Блог / Новая тема</h3>
+<form class="new-topic-form" name="newTopicForm">
     <div class="form-field">
         <label>Заголовок</label>
         <input type="text" class="topic-title" ng-model="title" ng-focused="isTitleFocused" required="required" />
@@ -25,5 +23,8 @@
     <div class="form-field">
         <label>Текст</label>
         <texteditor text="text" required="true" show-preview="showPreview" post="save()" attachments="attachments" entity-type="topic" />
+    </div>
+    <div class="buttons">
+        <a href="javascript:void(0);" ng-click="save()" class="button" ng-class="{ 'button-disabled': newTopicForm.$invalid }">Создать</a>
     </div>
 </form>

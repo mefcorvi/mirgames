@@ -10,6 +10,7 @@ var UI;
             this.$scope.attachments = [];
             this.$scope.showUploadForm = false;
             this.$scope.useEnterToPost = 'false';
+            this.$scope.showPreview = false;
 
             var textArea = $('textarea', $element);
             textArea.keydown(this.handleKeyDownEvent.bind(this));
@@ -27,14 +28,32 @@ var UI;
 
             this.markdownEditor = textArea.data('mdd');
 
-            this.$scope.$watch('text', function (newValue, oldValue, scope) {
+            this.$scope.$watch('text', function () {
                 setTimeout(function () {
                     _this.markdownEditor.onMarkdownChanged();
                 }, 0);
             });
 
             this.initializeFileUploading();
+            this.initializePreviewMode();
         }
+        TinyEditorController.prototype.initializePreviewMode = function () {
+            var _this = this;
+            var $previewButton = $('.btn-preview', this.$element);
+            $previewButton.click(function () {
+                _this.$scope.$apply(function () {
+                    $('.mdd_preview', _this.$element).css('height', $('.mdd_editor_wrap textarea', _this.$element).outerHeight());
+                    _this.$scope.showPreview = !_this.$scope.showPreview;
+                });
+
+                if (_this.$scope.showPreview) {
+                    $previewButton.addClass('selected');
+                } else {
+                    $previewButton.removeClass('selected');
+                }
+            });
+        };
+
         TinyEditorController.prototype.initializeFileUploading = function () {
             var _this = this;
             var $uploadButton = $('.fa-upload', this.$element).parent();
@@ -159,7 +178,7 @@ var UI;
             },
             controller: TinyEditorController,
             transclude: false,
-            template: '<div class="tiny-editor">' + '<div class="mdd_toolbar_wrap"><div class="mdd_toolbar"></div></div>' + '<form class="upload-file" ng-show="showUploadForm">Добавить файл: <input type="file" multiple> <span>Также вы можете добавить файл, перетащив его в редактор, или вставить картинку из буфера обмена.</span></form>' + '<div class="mdd_editor_wrap"><textarea cols="50" rows="10" class="mdd_editor" ng-model="text" ng-maxlength="65536" ng-required="required" ng-focused="focus"></textarea></div>' + '<div class="mdd_resizer_wrap"></div>' + '<div class="mdd_preview text"></div>' + '</div>'
+            template: '<div ng-class="{ \'tiny-editor\': true, \'tiny-editor-show-preview\': showPreview }">' + '<div class="mdd_toolbar_wrap"><div class="mdd_toolbar"></div></div>' + '<form class="upload-file" ng-show="showUploadForm">Добавить файл: <input type="file" multiple> <span>Также вы можете добавить файл, перетащив его в редактор, или вставить картинку из буфера обмена.</span></form>' + '<div class="mdd_editor_wrap"><textarea cols="50" rows="10" class="mdd_editor" ng-model="text" ng-maxlength="65536" ng-required="required" ng-focused="focus"></textarea></div>' + '<div class="mdd_preview text"></div>' + '<div class="mdd_resizer_wrap"></div>' + '</div>'
         };
     });
 })(UI || (UI = {}));

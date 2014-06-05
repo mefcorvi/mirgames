@@ -6,20 +6,26 @@
     AddPageCssClass("edit-topic-page");
 }
 
-@section Nav { @Html.Partial("_EditTopicMenu", Model) }
-
 <h3 ng-bind="title">...</h3>
-<form class="new-topic-form">
+<form class="edit-topic-form" name="editTopicForm">
     <div class="form-field">
         <label>Заголовок</label>
         <input type="text" class="topic-title" ng-model="title" required="required" />
+        <div class="form-field-description">Заголовок должен быть коротким, но осмысленным и соответствующим содержимому поста.</div>
     </div>
     <div class="form-field">
         <label>Тэги</label>
         <input type="text" class="topic-tags" ng-model="tags" required="required" />
+        <div class="form-field-description">
+            Пожалуйста, выберите от 1 до 5 меток. Пост будет доступен только по выбранным меткам. Метки разделяются запятыми.
+        </div>
     </div>
     <div class="form-field">
         <label>Текст</label>
         <texteditor text="text" required="true" show-preview="showPreview" post="save()" attachments="attachments" entity-type="topic" />
+    </div>
+    <div class="buttons">
+        <a href="javascript:void(0);" ng-click="save()" class="button" ng-class="{ 'button-disabled': editTopicForm.$invalid }">Сохранить</a>
+        <a href="@Url.Action("Topic", new { topicId = Model.Id  })" class="button">Отмена</a>
     </div>
 </form>

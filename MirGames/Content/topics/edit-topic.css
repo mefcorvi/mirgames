@@ -14,19 +14,12 @@
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 24px;
   margin-bottom: 10px;
-  padding-bottom: 7px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding-bottom: 0;
+  text-shadow: 1px 1px 4px #ffffff;
 }
-.edit-topic-page .topic-editor-field {
-  overflow: hidden;
-}
-.edit-topic-page .topic-show-preview .topic-editor {
-  float: left;
-  width: 49%;
-  margin-right: 10px;
-}
-.edit-topic-page .topic-show-preview .topic-preview {
-  margin-left: 50%;
-  overflow: auto;
+.edit-topic-page > section > form {
+  background: #ffffff;
+  padding: 10px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
 }
 /*# sourceMappingURL=edit-topic.css.map */

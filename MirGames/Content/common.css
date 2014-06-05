@@ -473,27 +473,21 @@ body.nav-hidden > footer {
 .text-editor-field div.mdd_preview {
   display: none;
 }
-.text-editor-show-preview div.mdd_toolbar_wrap,
-.text-editor-show-preview div.mdd_editor_wrap {
-  width: 50%;
-  margin-right: 10px;
-  position: relative;
-  z-index: 3;
+.tiny-editor-show-preview div.mdd_editor_wrap {
+  display: none;
 }
-.text-editor-show-preview div.mdd_preview {
+.tiny-editor-show-preview div.mdd_preview {
+  width: 100%;
   display: block;
-  position: absolute;
-  left: 50%;
-  right: 0;
-  margin-left: -10px;
   border: 1px solid rgba(54, 94, 123, 0.3);
-  border-left: 0;
-  top: 26px;
-  bottom: 7px;
   overflow: auto;
-  padding: 10px 10px 10px 25px;
-  background: #f7f9fb;
+  padding: 10px;
+  background: #ffffff;
   z-index: 2;
+  margin-bottom: 3px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 .avatar-small {
   background-size: cover;
