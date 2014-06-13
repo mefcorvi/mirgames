@@ -68,12 +68,12 @@ namespace MirGames.Domain.Users.CommandHandlers
                     return null;
                 }
 
-                authorizationManager.EnsureAccess(principal, "SwitchUser", targetUser);
+                authorizationManager.EnsureAccess(principal, "SwitchUser", "User", targetUser.Id);
 
                 string oldSesionId = principal.GetSessionId();
                 var oldSession = writeContext.Set<UserSession>().FirstOrDefault(s => s.Id == oldSesionId);
                 writeContext.Set<UserSession>().Remove(oldSession);
-
+                
                 writeContext.Set<UserSession>().Add(
                     new UserSession
                         {

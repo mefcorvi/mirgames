@@ -12,6 +12,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
     using System.Diagnostics.Contracts;
     using System.Security.Claims;
 
+    using MirGames.Domain.Acl.Public.Commands;
     using MirGames.Domain.Attachments.Commands;
     using MirGames.Domain.Security;
     using MirGames.Domain.TextTransform;
@@ -115,7 +116,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
                 EditDate = null
             };
 
-            authorizationManager.EnsureAccess(principal, "AddNew", topic);
+            authorizationManager.EnsureAccess(principal, "AddNew", "Topic");
 
             using (var writeContext = this.writeContextFactory.Create())
             {
@@ -149,6 +150,24 @@ namespace MirGames.Domain.Topics.CommandHandlers
                             Identifiers = command.Attachments
                         });
             }
+
+            this.commandProcessor.Execute(new SetPermissionCommand
+            {
+                ActionName = "Edit",
+                EntityId = topic.Id,
+                IsDenied = false,
+                EntityType = "Topic",
+                UserId = topic.AuthorId
+            });
+
+            this.commandProcessor.Execute(new SetPermissionCommand
+            {
+                ActionName = "Delete",
+                EntityId = topic.Id,
+                IsDenied = false,
+                EntityType = "Topic",
+                UserId = topic.AuthorId
+            });
 
             this.eventBus.Raise(
                 new TopicCreatedEvent

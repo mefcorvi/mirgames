@@ -138,7 +138,6 @@ namespace MirGames.Domain.Users.Security
                 if (currentUser.IsActivated)
                 {
                     identity.AddClaim(new Claim(ClaimTypes.Role, "User"));
-                    identity.AddClaim(new Claim(ClaimTypes.Role, "TopicsAuthor"));
                 }
                 else
                 {

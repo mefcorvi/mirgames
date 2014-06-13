@@ -15,6 +15,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
     using System.Security.Claims;
 
     using MirGames.Domain.Exceptions;
+    using MirGames.Domain.Security;
     using MirGames.Domain.Wip.Entities;
     using MirGames.Domain.Wip.Queries;
     using MirGames.Domain.Wip.ViewModels;
@@ -56,7 +57,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
                 throw new ItemNotFoundException("Project", query.ProjectAlias);
             }
 
-            this.authorizationManager.EnsureAccess(principal, "ViewStatistics", project);
+            this.authorizationManager.EnsureAccess(principal, "ViewStatistics", "Project", project.ProjectId);
 
             var statistics =
                 readContext

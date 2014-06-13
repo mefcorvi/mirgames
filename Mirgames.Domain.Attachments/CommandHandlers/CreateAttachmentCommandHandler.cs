@@ -115,7 +115,7 @@ namespace MirGames.Domain.Attachments.CommandHandlers
                 AttachmentType = isImage ? "image" : "file"
             };
 
-            authorizationManager.EnsureAccess(principal, "Create", attachment);
+            authorizationManager.EnsureAccess(principal, "Create", "Attachment", attachment.AttachmentId);
             uploadProcessor.Process(filePath);
 
             using (var writeContext = this.writeContextFactory.Create())

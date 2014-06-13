@@ -13,6 +13,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
     using System.Security;
     using System.Security.Claims;
 
+    using MirGames.Domain.Security;
     using MirGames.Domain.Topics.Entities;
     using MirGames.Domain.Topics.Queries;
     using MirGames.Domain.Topics.ViewModels;
@@ -52,7 +53,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
                 return null;
             }
 
-            if (!this.authorizationManager.CheckAccess(principal, "Edit", topic))
+            if (!this.authorizationManager.CheckAccess(principal, "Edit", "Topic", topic.Id))
             {
                 throw new SecurityException("User could not edit the specified topic.");
             }

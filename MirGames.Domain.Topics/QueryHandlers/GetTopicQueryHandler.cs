@@ -12,6 +12,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Security;
     using MirGames.Domain.TextTransform;
     using MirGames.Domain.Topics.Entities;
     using MirGames.Domain.Topics.Queries;
@@ -80,10 +81,9 @@ namespace MirGames.Domain.Topics.QueryHandlers
 
             this.queryProcessor.Process(new ResolveAuthorsQuery { Authors = new[] { topic.Author } });
 
-            var accessResource = new Topic { Id = topic.Id, AuthorId = topic.Author.Id.GetValueOrDefault() };
-            topic.CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", accessResource);
-            topic.CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", accessResource);
-            topic.CanBeCommented = this.authorizationManager.CheckAccess(principal, "Comment", accessResource);
+            topic.CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "Topic", topic.Id);
+            topic.CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "Topic", topic.Id);
+            topic.CanBeCommented = this.authorizationManager.CheckAccess(principal, "Comment", "Topic", topic.Id);
             topic.Comments = this.GetComments(readContext, query, principal);
 
             return topic;
@@ -120,8 +120,8 @@ namespace MirGames.Domain.Topics.QueryHandlers
                             Text = c.Text ?? this.textProcessor.GetHtml(c.SourceText),
                             Id = c.CommentId,
                             TopicId = c.TopicId,
-                            CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", c),
-                            CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", c),
+                            CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "Comment", c.CommentId),
+                            CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "Comment", c.CommentId)
                         })
                 .ToList();
 

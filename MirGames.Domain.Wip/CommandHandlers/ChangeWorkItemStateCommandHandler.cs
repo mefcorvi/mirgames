@@ -14,6 +14,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
     using System.Security.Claims;
 
     using MirGames.Domain.Exceptions;
+    using MirGames.Domain.Security;
     using MirGames.Domain.Wip.Commands;
     using MirGames.Domain.Wip.Entities;
     using MirGames.Domain.Wip.ViewModels;
@@ -53,7 +54,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
                     throw new ItemNotFoundException("WorkItem", command.WorkItemId);
                 }
 
-                authorizationManager.EnsureAccess(principal, "ChangeState", workItem);
+                authorizationManager.EnsureAccess(principal, "ChangeState", "ProjectWorkItem", workItem.WorkItemId);
 
                 workItem.State = command.State ?? this.GetNextState(workItem.State);
                 writeContext.SaveChanges();

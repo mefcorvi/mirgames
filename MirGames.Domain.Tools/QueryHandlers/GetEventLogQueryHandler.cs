@@ -12,6 +12,7 @@ namespace MirGames.Domain.Tools.QueryHandlers
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Security;
     using MirGames.Domain.Tools.Entities;
     using MirGames.Domain.Tools.Queries;
     using MirGames.Domain.Tools.ViewModels;
@@ -41,7 +42,7 @@ namespace MirGames.Domain.Tools.QueryHandlers
         /// <inheritdoc />
         protected override IEnumerable<EventLogViewModel> Execute(IReadContext readContext, GetEventLogQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
-            this.authorizationManager.EnsureAccess(principal, "View", new EventLog());
+            this.authorizationManager.EnsureAccess(principal, "View", "EventLog");
 
             var topics = this.GetItemsQueryable(readContext, query);
             return this.ApplyPagination(topics, pagination).ToList().Select(this.Convert);

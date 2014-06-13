@@ -22,6 +22,7 @@ namespace MirGames
     using Microsoft.AspNet.SignalR;
 
     using MirGames.Domain;
+    using MirGames.Domain.Acl;
     using MirGames.Domain.Attachments;
     using MirGames.Domain.Chat;
     using MirGames.Domain.Forum;
@@ -58,6 +59,7 @@ namespace MirGames
             builder.RegisterModule<RouteJsModule>();
             builder.RegisterModule<InfrastructureModule>();
             builder.RegisterModule<DomainModule>();
+            builder.RegisterModule<AclModule>();
             builder.RegisterModule<UsersDomainModule>();
             builder.RegisterModule<AttachmentsDomainModule>();
             builder.RegisterModule<ForumDomainModule>();

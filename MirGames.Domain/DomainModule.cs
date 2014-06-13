@@ -8,7 +8,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain
 {
-    using System;
     using System.Security.Claims;
 
     using Autofac;
@@ -37,6 +36,7 @@ namespace MirGames.Domain
             builder.RegisterType<MarkdownTextProcessor>().AsImplementedInterfaces().SingleInstance();
             
             builder.Register(c => ClaimsPrincipal.Current).As<ClaimsPrincipal>().InstancePerDependency();
+            builder.RegisterType<AuthorizationManager>().As<IAuthorizationManager>().SingleInstance();
 
             builder.RegisterType<AppSettings>().Named<ISettings>("settings").SingleInstance();
 
@@ -44,7 +44,7 @@ namespace MirGames.Domain
                 (c, inner) => new DataStoredSettings(inner, c.Resolve<IReadContextFactory>()), fromKey: "settings", toKey: "dataStoredSettings");
 
             builder.RegisterDecorator<ISettings>(
-                (c, inner) => new CachedSettings(inner, c.Resolve<ICacheManager>()), fromKey: "dataStoredSettings");
+                (c, inner) => new CachedSettings(inner, c.Resolve<ICacheManagerFactory>().Create("Common")), fromKey: "dataStoredSettings");
         }
     }
 }

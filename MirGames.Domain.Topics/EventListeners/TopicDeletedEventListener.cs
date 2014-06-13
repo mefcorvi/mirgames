@@ -8,9 +8,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Topics.EventListeners
 {
-    using System;
     using System.Diagnostics.Contracts;
 
+    using MirGames.Domain.Acl.Public.Commands;
     using MirGames.Domain.Attachments.Commands;
     using MirGames.Domain.Topics.Events;
     using MirGames.Infrastructure;
@@ -30,14 +30,14 @@ namespace MirGames.Domain.Topics.EventListeners
         /// <summary>
         /// The command processor.
         /// </summary>
-        private readonly Lazy<ICommandProcessor> commandProcessor;
+        private readonly ICommandProcessor commandProcessor;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TopicDeletedEventListener" /> class.
         /// </summary>
         /// <param name="searchEngine">The search engine.</param>
         /// <param name="commandProcessor">The command processor.</param>
-        public TopicDeletedEventListener(ISearchEngine searchEngine, Lazy<ICommandProcessor> commandProcessor)
+        public TopicDeletedEventListener(ISearchEngine searchEngine, ICommandProcessor commandProcessor)
         {
             Contract.Requires(searchEngine != null);
 
@@ -49,7 +49,8 @@ namespace MirGames.Domain.Topics.EventListeners
         public override void Process(TopicDeletedEvent @event)
         {
             this.searchEngine.Remove(@event.TopicId, "Topic");
-            this.commandProcessor.Value.Execute(new RemoveAttachmentsCommand { EntityId = @event.TopicId, EntityType = "topic" });
+            this.commandProcessor.Execute(new RemoveAttachmentsCommand { EntityId = @event.TopicId, EntityType = "topic" });
+            this.commandProcessor.Execute(new RemovePermissionsCommand { EntityId = @event.TopicId, EntityType = "Topic" });
         }
     }
 }

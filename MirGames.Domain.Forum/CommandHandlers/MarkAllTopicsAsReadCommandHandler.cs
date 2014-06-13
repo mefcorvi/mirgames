@@ -56,7 +56,7 @@ namespace MirGames.Domain.Forum.CommandHandlers
                     return;
                 }
 
-                authorizationManager.EnsureAccess(principal, "MarkAsRead", new ForumTopic());
+                authorizationManager.EnsureAccess(principal, "MarkAsRead", "ForumTopic");
 
                 var oldReadTopics = writeContext.Set<ForumTopicRead>().Where(u => u.UserId == userId);
                 writeContext.Set<ForumTopicRead>().RemoveRange(oldReadTopics);

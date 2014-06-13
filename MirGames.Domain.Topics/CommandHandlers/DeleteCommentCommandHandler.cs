@@ -67,7 +67,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
                     throw new ItemNotFoundException("Comment", command.CommentId);
                 }
 
-                authorizationManager.EnsureAccess(principal, "Delete", comment);
+                authorizationManager.EnsureAccess(principal, "Delete", "Comment", comment.CommentId);
                 writeContext.Set<Comment>().Remove(comment);
 
                 var topic = writeContext.Set<Topic>().FirstOrDefault(t => t.Id == comment.TopicId);

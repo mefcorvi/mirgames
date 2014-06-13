@@ -82,7 +82,7 @@ namespace MirGames.Services.Git.CommandHandlers
                 Title = command.Title
             };
 
-            authorizationManager.EnsureAccess(principal, "Create", newRepository);
+            authorizationManager.EnsureAccess(principal, "Create", "GitRepository");
 
             using (var writeContext = this.writeContextFactory.Create())
             {

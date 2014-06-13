@@ -12,7 +12,6 @@ namespace MirGames.Domain.Topics.ClaimsProviders
     using System.Security.Claims;
 
     using MirGames.Domain.Security;
-    using MirGames.Domain.Topics.Entities;
     using MirGames.Infrastructure.Security;
 
     /// <summary>
@@ -37,7 +36,7 @@ namespace MirGames.Domain.Topics.ClaimsProviders
         /// <inheritdoc />
         public IEnumerable<Claim> GetAdditionalClaims(ClaimsPrincipal principal)
         {
-            if (this.authorizationManager.CheckAccess(principal, "Create", new Topic()))
+            if (principal.IsInRole("User"))
             {
                 yield return ClaimsPrincipalExtensions.CreateActionClaim("Create", "Topic");
             }

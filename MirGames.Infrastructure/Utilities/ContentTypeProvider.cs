@@ -25,12 +25,12 @@ namespace MirGames.Infrastructure.Utilities
         private readonly ICacheManager cacheManager;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ContentTypeProvider"/> class.
+        /// Initializes a new instance of the <see cref="ContentTypeProvider" /> class.
         /// </summary>
-        /// <param name="cacheManager">The cache manager.</param>
-        public ContentTypeProvider(ICacheManager cacheManager)
+        /// <param name="cacheManagerFactory">The cache manager factory.</param>
+        public ContentTypeProvider(ICacheManagerFactory cacheManagerFactory)
         {
-            this.cacheManager = cacheManager;
+            this.cacheManager = cacheManagerFactory.Create("Common");
         }
 
         /// <inheritdoc />

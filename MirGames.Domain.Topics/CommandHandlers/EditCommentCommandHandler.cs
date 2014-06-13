@@ -78,7 +78,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
             using (var writeContext = this.writeContextFactory.Create())
             {
                 var comment = writeContext.Set<Comment>().FirstOrDefault(t => t.CommentId == command.CommentId);
-                authorizationManager.EnsureAccess(principal, "Edit", comment);
+                authorizationManager.EnsureAccess(principal, "Edit", "Comment", command.CommentId);
 
                 if (comment == null)
                 {

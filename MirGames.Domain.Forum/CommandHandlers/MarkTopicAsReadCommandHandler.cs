@@ -63,10 +63,10 @@ namespace MirGames.Domain.Forum.CommandHandlers
 
                 if (topic == null)
                 {
-                    throw new ItemNotFoundException("Topic", command.TopicId);
+                    throw new ItemNotFoundException("ForumTopic", command.TopicId);
                 }
 
-                authorizationManager.EnsureAccess(principal, "MarkAsRead", topic);
+                authorizationManager.EnsureAccess(principal, "MarkAsRead", "ForumTopic", topic.TopicId);
 
                 var isAlreadyMarked = writeContext.Set<ForumTopicRead>().Any(
                     t =>

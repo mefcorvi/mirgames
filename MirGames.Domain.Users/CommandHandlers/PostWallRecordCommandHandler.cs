@@ -51,10 +51,10 @@ namespace MirGames.Domain.Users.CommandHandlers
 
                 if (user == null)
                 {
-                    throw new ItemNotFoundException("Topic", command.UserId);
+                    throw new ItemNotFoundException("User", command.UserId);
                 }
 
-                authorizationManager.EnsureAccess(principal, "PostWallRecord", user);
+                authorizationManager.EnsureAccess(principal, "PostWallRecord", "User", user.Id);
 
                 var newWallRecord = new WallRecord
                     {

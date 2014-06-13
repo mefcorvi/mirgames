@@ -8,8 +8,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Infrastructure.Security
 {
-    using System.Security.Claims;
-
     /// <summary>
     /// Claims-based authorization.
     /// </summary>
@@ -18,12 +16,11 @@ namespace MirGames.Infrastructure.Security
         /// <summary>
         /// Checks the authorization policy.
         /// </summary>
-        /// <param name="principal">The principal.</param>
+        /// <param name="userId">The user identifier.</param>
         /// <param name="action">The action.</param>
-        /// <param name="resource">The resource.</param>
-        /// <returns>
-        /// True when authorized, otherwise false.
-        /// </returns>
-        bool CheckAccess(ClaimsPrincipal principal, string action, object resource);
+        /// <param name="entityType">Type of the entity.</param>
+        /// <param name="entityId">The entity type identifier.</param>
+        /// <returns>True when authorized, otherwise false.</returns>
+        bool CheckAccess(int userId, string action, string entityType, int? entityId = null);
     }
 }

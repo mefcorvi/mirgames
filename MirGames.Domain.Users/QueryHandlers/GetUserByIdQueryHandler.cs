@@ -11,6 +11,7 @@ namespace MirGames.Domain.Users.QueryHandlers
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Security;
     using MirGames.Domain.Users.Entities;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
@@ -66,9 +67,9 @@ namespace MirGames.Domain.Users.QueryHandlers
                     Location = user.Location,
                     RegistrationDate = user.RegistrationDate,
                     LastVisitDate = user.LastVisitDate,
-                    CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", user),
-                    CanReceiveMessage = this.authorizationManager.CheckAccess(principal, "SendMessage", user),
-                    WallRecordCanBeAdded = this.authorizationManager.CheckAccess(principal, "PostWallRecord", user),
+                    CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "User", user.Id),
+                    CanReceiveMessage = this.authorizationManager.CheckAccess(principal, "SendMessage", "User", user.Id),
+                    WallRecordCanBeAdded = this.authorizationManager.CheckAccess(principal, "PostWallRecord", "User", user.Id),
                     Rating = user.UserRating
                 };
         }

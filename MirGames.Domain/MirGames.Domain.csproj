@@ -68,13 +68,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+    <Reference Include="Autofac, Version=3.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Autofac.3.3.0\lib\net40\Autofac.dll</HintPath>
+      <HintPath>..\packages\Autofac.3.4.1\lib\net40\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
@@ -99,6 +102,8 @@
     <Compile Include="Entities\ConfigItem.cs" />
     <Compile Include="Exceptions\ItemNotFoundException.cs" />
     <Compile Include="Mapping\ConfigItemMap.cs" />
+    <Compile Include="Security\AuthorizationManager.cs" />
+    <Compile Include="Security\AuthorizationManagerExtensions.cs" />
     <Compile Include="Settings\DataStoredSettings.cs" />
     <Compile Include="TextTransform\AutoLinkTextTransform.cs" />
     <Compile Include="TextTransform\ShortTextExtractor.cs" />
@@ -115,7 +120,9 @@
     <Compile Include="Security\TextHashProvider.cs" />
     <Compile Include="TextTransform\ITextTransform.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Queries\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
@@ -123,6 +130,10 @@
     <ProjectReference Include="..\MarkdownDeep\MarkdownDeep.csproj">
       <Project>{1569ed47-c7c9-4261-b6f4-7445bd0f2c95}</Project>
       <Name>MarkdownDeep</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MirGames.Domain.Acl.Public\MirGames.Domain.Acl.Public.csproj">
+      <Project>{e6580f5e-5422-4896-9645-6fb90040af9e}</Project>
+      <Name>MirGames.Domain.Acl.Public</Name>
     </ProjectReference>
     <ProjectReference Include="..\MirGames.Domain.Users.Public\MirGames.Domain.Users.Public.csproj">
       <Project>{630bd3d7-d7c8-40e0-bc01-2cf139c16051}</Project>

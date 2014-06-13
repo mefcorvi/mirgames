@@ -40,11 +40,14 @@ namespace MirGames.Domain.Users.QueryHandlers
         /// <summary>
         /// Initializes a new instance of the <see cref="ResolveAuthorsQueryHandler" /> class.
         /// </summary>
-        /// <param name="cacheManager">The cache manager.</param>
+        /// <param name="cacheManagerFactory">The cache manager factory.</param>
         /// <param name="avatarProvider">The avatar provider.</param>
-        public ResolveAuthorsQueryHandler(ICacheManager cacheManager, IAvatarProvider avatarProvider)
+        public ResolveAuthorsQueryHandler(ICacheManagerFactory cacheManagerFactory, IAvatarProvider avatarProvider)
         {
-            this.cacheManager = cacheManager;
+            Contract.Requires(avatarProvider != null);
+            Contract.Requires(cacheManagerFactory != null);
+
+            this.cacheManager = cacheManagerFactory.Create("Users");
             this.avatarProvider = avatarProvider;
         }
 

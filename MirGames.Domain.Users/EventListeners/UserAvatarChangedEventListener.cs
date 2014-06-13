@@ -6,6 +6,7 @@
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace MirGames.Domain.Users.EventListeners
 {
     using System.Diagnostics.Contracts;
@@ -33,13 +34,14 @@ namespace MirGames.Domain.Users.EventListeners
         /// <summary>
         /// Initializes a new instance of the <see cref="UserAvatarChangedEventListener" /> class.
         /// </summary>
-        /// <param name="cacheManager">The cache manager.</param>
+        /// <param name="cacheManagerFactory">The cache manager factory.</param>
         /// <param name="onlineUsersManager">The online users manager.</param>
-        public UserAvatarChangedEventListener(ICacheManager cacheManager, IOnlineUsersManager onlineUsersManager)
+        public UserAvatarChangedEventListener(ICacheManagerFactory cacheManagerFactory, IOnlineUsersManager onlineUsersManager)
         {
-            Contract.Requires(cacheManager != null);
+            Contract.Requires(cacheManagerFactory != null);
+            Contract.Requires(onlineUsersManager != null);
 
-            this.cacheManager = cacheManager;
+            this.cacheManager = cacheManagerFactory.Create("Users");
             this.onlineUsersManager = onlineUsersManager;
         }
 

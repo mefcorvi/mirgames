@@ -57,6 +57,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeLite", "TypeLite\TypeLi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypeLite.Net4", "TypeLite\TypeLite.Net4\TypeLite.Net4.csproj", "{0AD860B2-2AAA-47CC-ACBA-F2D97BE19D66}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirGames.Domain.Acl", "MirGames.Domain.Acl\MirGames.Domain.Acl.csproj", "{C1126376-3A55-4930-85CF-63664A6F6FA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirGames.Domain.Acl.Public", "MirGames.Domain.Acl.Public\MirGames.Domain.Acl.Public.csproj", "{E6580F5E-5422-4896-9645-6FB90040AF9E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,6 +163,14 @@ Global
 		{0AD860B2-2AAA-47CC-ACBA-F2D97BE19D66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AD860B2-2AAA-47CC-ACBA-F2D97BE19D66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AD860B2-2AAA-47CC-ACBA-F2D97BE19D66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1126376-3A55-4930-85CF-63664A6F6FA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1126376-3A55-4930-85CF-63664A6F6FA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1126376-3A55-4930-85CF-63664A6F6FA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1126376-3A55-4930-85CF-63664A6F6FA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6580F5E-5422-4896-9645-6FB90040AF9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6580F5E-5422-4896-9645-6FB90040AF9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6580F5E-5422-4896-9645-6FB90040AF9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6580F5E-5422-4896-9645-6FB90040AF9E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

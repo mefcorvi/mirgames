@@ -102,6 +102,11 @@ namespace MirGames.Domain.Wip.ViewModels
         public bool CanEdit { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this instance can view repository.
+        /// </summary>
+        public bool CanViewRepository { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether this instance can create bug.
         /// </summary>
         public bool CanCreateBug { get; set; }

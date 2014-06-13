@@ -14,6 +14,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Security;
     using MirGames.Domain.Topics.Entities;
     using MirGames.Domain.Topics.Queries;
     using MirGames.Domain.Topics.ViewModels;
@@ -80,15 +81,9 @@ namespace MirGames.Domain.Topics.QueryHandlers
 
             foreach (var topicsListItem in topics)
             {
-                var accessResource = new Topic
-                    {
-                        Id = topicsListItem.TopicId,
-                        AuthorId = topicsListItem.Author.Id.GetValueOrDefault()
-                    };
-
-                topicsListItem.CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", accessResource);
-                topicsListItem.CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", accessResource);
-                topicsListItem.CanBeCommented = this.authorizationManager.CheckAccess(principal, "Comment", accessResource);
+                topicsListItem.CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "Topic", topicsListItem.TopicId);
+                topicsListItem.CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "Topic", topicsListItem.TopicId);
+                topicsListItem.CanBeCommented = this.authorizationManager.CheckAccess(principal, "Comment", "Topic", topicsListItem.TopicId);
             }
 
             return topics;

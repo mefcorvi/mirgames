@@ -75,7 +75,6 @@ namespace MirGames.Controllers
             {
                 this.CurrentUser = this.QueryProcessor.Process(new GetCurrentUserQuery());
                 this.PageData["currentUser"] = this.CurrentUser;
-                this.PageData["userClaims"] = this.QueryProcessor.Process(new GetCurrentUserClaimsQuery());
             }
 
             this.PageData["onlineUsers"] = this.ViewBag.OnlineUsers = this.QueryProcessor.Process(

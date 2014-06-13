@@ -15,6 +15,7 @@ namespace MirGames.Domain.Chat.QueryHandlers
     using MirGames.Domain.Chat.Entities;
     using MirGames.Domain.Chat.Queries;
     using MirGames.Domain.Chat.ViewModels;
+    using MirGames.Domain.Security;
     using MirGames.Domain.TextTransform;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
@@ -79,8 +80,8 @@ namespace MirGames.Domain.Chat.QueryHandlers
                             UpdatedDate = m.UpdatedDate,
                             MessageId = m.MessageId,
                             Text = m.Message,
-                            CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", m),
-                            CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", m)
+                            CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "ChatMessage", m.MessageId),
+                            CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "ChatMessage", m.MessageId)
                         }).ToList();
 
             this.queryProcessor.Process(

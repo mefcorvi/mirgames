@@ -16,7 +16,7 @@ namespace MirGames.Domain.Forum.Commands
     /// <summary>
     /// Posts new reply in the topic.
     /// </summary>
-    [Authorize(Roles = "TopicsAuthor")]
+    [Authorize(Roles = "User")]
     [Api]
     public sealed class UpdateForumPostCommand : Command
     {

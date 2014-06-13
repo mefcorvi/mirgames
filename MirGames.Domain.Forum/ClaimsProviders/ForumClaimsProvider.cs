@@ -11,7 +11,6 @@ namespace MirGames.Domain.Forum.ClaimsProviders
     using System.Collections.Generic;
     using System.Security.Claims;
 
-    using MirGames.Domain.Forum.Entities;
     using MirGames.Domain.Security;
     using MirGames.Infrastructure.Security;
 
@@ -37,7 +36,7 @@ namespace MirGames.Domain.Forum.ClaimsProviders
         /// <inheritdoc />
         public IEnumerable<Claim> GetAdditionalClaims(ClaimsPrincipal principal)
         {
-            if (this.authorizationManager.CheckAccess(principal, "Create", new ForumTopic()))
+            if (this.authorizationManager.CheckAccess(principal, "Create", "ForumTopic"))
             {
                 yield return ClaimsPrincipalExtensions.CreateActionClaim("Create", "ForumTopic");
             }

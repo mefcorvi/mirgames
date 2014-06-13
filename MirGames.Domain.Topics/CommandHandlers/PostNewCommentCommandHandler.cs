@@ -13,6 +13,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Acl.Public.Commands;
     using MirGames.Domain.Attachments.Commands;
     using MirGames.Domain.Exceptions;
     using MirGames.Domain.Security;
@@ -75,13 +76,13 @@ namespace MirGames.Domain.Topics.CommandHandlers
             using (var writeContext = this.writeContextFactory.Create())
             {
                 var topic = writeContext.Set<Topic>().SingleOrDefault(t => t.Id == command.TopicId);
-                authorizationManager.EnsureAccess(principal, "Comment", topic);
 
                 if (topic == null)
                 {
                     throw new ItemNotFoundException("Topic", command.TopicId);
                 }
 
+                authorizationManager.EnsureAccess(principal, "Comment", "Topic", topic.Id);
                 comment.TopicId = topic.Id;
 
                 topic.CountComment = writeContext.Set<Comment>().Count(c => c.TopicId == topic.Id) + 1;
@@ -99,6 +100,22 @@ namespace MirGames.Domain.Topics.CommandHandlers
                             Identifiers = command.Attachments
                         });
             }
+
+            this.commandProcessor.Execute(new SetPermissionCommand
+            {
+                ActionName = "Delete",
+                EntityId = comment.CommentId,
+                EntityType = "Comment",
+                UserId = principal.GetUserId()
+            });
+
+            this.commandProcessor.Execute(new SetPermissionCommand
+            {
+                ActionName = "Edit",
+                EntityId = comment.CommentId,
+                EntityType = "Comment",
+                UserId = principal.GetUserId()
+            });
 
             return comment.CommentId;
         }

@@ -27,7 +27,7 @@ namespace MirGames.Domain.Forum.AccessRules
         /// <inheritdoc />
         protected override bool CheckAccess(ClaimsPrincipal principal, ForumTopic resource)
         {
-            return principal.IsInRole("TopicsAuthor");
+            return principal.IsInRole("User");
         }
     }
 }

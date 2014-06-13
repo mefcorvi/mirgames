@@ -90,13 +90,13 @@ namespace MirGames.Domain.Forum.CommandHandlers
                     throw new ItemNotFoundException("Post", command.PostId);
                 }
 
-                authorizationManager.EnsureAccess(principal, "Edit", post);
+                authorizationManager.EnsureAccess(principal, "Edit", "ForumPost", post.PostId);
 
                 post.Text = this.textProcessor.GetHtml(command.Text);
                 post.SourceText = command.Text;
                 post.UpdatedDate = DateTime.UtcNow;
 
-                if (post.IsStartPost && authorizationManager.CheckAccess(principal, "Edit", post.Topic))
+                if (post.IsStartPost && authorizationManager.CheckAccess(principal, "Edit", "ForumTopic", post.Topic.TopicId))
                 {
                     var topic = post.Topic;
                     topic.Title = command.TopicTitle;

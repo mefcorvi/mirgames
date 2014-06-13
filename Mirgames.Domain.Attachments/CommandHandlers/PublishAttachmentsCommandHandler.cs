@@ -14,6 +14,7 @@ namespace MirGames.Domain.Attachments.CommandHandlers
 
     using MirGames.Domain.Attachments.Commands;
     using MirGames.Domain.Attachments.Entities;
+    using MirGames.Domain.Security;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Commands;
     using MirGames.Infrastructure.Security;
@@ -51,7 +52,7 @@ namespace MirGames.Domain.Attachments.CommandHandlers
 
                 foreach (var attachment in attachments)
                 {
-                    authorizationManager.EnsureAccess(principal, "Publish", attachment);
+                    authorizationManager.EnsureAccess(principal, "Publish", "Attachment", attachment.AttachmentId);
                     attachment.IsPublished = true;
                     attachment.EntityId = command.EntityId;
                 }

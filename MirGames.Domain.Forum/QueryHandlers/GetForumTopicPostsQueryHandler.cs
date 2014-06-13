@@ -59,7 +59,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
         /// <inheritdoc />
         protected override IEnumerable<ForumPostsListItemViewModel> Execute(IReadContext readContext, GetForumTopicPostsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
-            var postsQuery = this.ApplyPagination(GetPostsQuery(readContext, query), pagination).ToList();
+            var postsQuery = this.ApplyPagination(this.GetPostsQuery(readContext, query), pagination).ToList();
             var startIndex = (pagination != null ? pagination.PageNum * pagination.PageSize : 0) + 1;
 
             var posts = postsQuery.Select(
@@ -80,8 +80,8 @@ namespace MirGames.Domain.Forum.QueryHandlers
                     IsRead = true,
                     IsFirstPost = p.IsStartPost,
                     Index = idx + startIndex,
-                    CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", p) && !p.IsStartPost,
-                    CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", p)
+                    CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "ForumPost", p.PostId) && !p.IsStartPost,
+                    CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "ForumPost", p.PostId)
                 })
                 .ToList();
 

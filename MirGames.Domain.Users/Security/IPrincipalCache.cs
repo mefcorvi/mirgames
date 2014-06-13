@@ -29,5 +29,10 @@ namespace MirGames.Domain.Users.Security
         /// </summary>
         /// <param name="sessionId">The session unique identifier.</param>
         void Remove(string sessionId);
+
+        /// <summary>
+        /// Clears the cache.
+        /// </summary>
+        void Clear();
     }
 }

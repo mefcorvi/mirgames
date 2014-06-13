@@ -102,10 +102,10 @@ namespace MirGames.Domain.Forum.CommandHandlers
 
                 if (topic == null)
                 {
-                    throw new ItemNotFoundException("Topic", command.TopicId);
+                    throw new ItemNotFoundException("ForumTopic", command.TopicId);
                 }
 
-                authorizationManager.EnsureAccess(principal, "Reply", topic);
+                authorizationManager.EnsureAccess(principal, "Reply", "ForumTopic", topic.TopicId);
 
                 post = new ForumPost
                 {

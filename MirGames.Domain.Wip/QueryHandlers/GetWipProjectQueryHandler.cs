@@ -14,6 +14,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
 
     using MirGames.Domain.Attachments.Queries;
     using MirGames.Domain.Exceptions;
+    using MirGames.Domain.Security;
     using MirGames.Domain.TextTransform;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
@@ -102,10 +103,11 @@ namespace MirGames.Domain.Wip.QueryHandlers
                     LastCommitMessage = project.LastCommitMessage,
                     VotesCount = project.VotesCount,
                     Tags = project.TagsList.Split(',').Select(t => t.Trim()).ToArray(),
-                    CanEdit = this.authorizationManager.CheckAccess(principal, "Edit", project),
-                    CanCreateBug = this.authorizationManager.CheckAccess(principal, "CreateBug", project),
-                    CanCreateTask = this.authorizationManager.CheckAccess(principal, "CreateTask", project),
-                    CanCreateFeature = this.authorizationManager.CheckAccess(principal, "CreateFeature", project)
+                    CanViewRepository = this.authorizationManager.CheckAccess(principal, "ViewRepository", "Project", project.ProjectId),
+                    CanEdit = this.authorizationManager.CheckAccess(principal, "Edit", "Project", project.ProjectId),
+                    CanCreateBug = this.authorizationManager.CheckAccess(principal, "CreateBug", "Project", project.ProjectId),
+                    CanCreateTask = this.authorizationManager.CheckAccess(principal, "CreateTask", "Project", project.ProjectId),
+                    CanCreateFeature = this.authorizationManager.CheckAccess(principal, "CreateFeature", "Project", project.ProjectId)
                 };
 
             var attachment = this.queryProcessor.Process(new GetAttachmentsQuery

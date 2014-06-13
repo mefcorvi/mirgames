@@ -28,7 +28,7 @@ namespace MirGames.Domain.Topics.AccessRules
         /// <inheritdoc />
         protected override bool CheckAccess(ClaimsPrincipal principal, Topic resource)
         {
-            return principal.IsInRole("TopicsAuthor") && principal.GetUserId() == resource.AuthorId;
+            return principal.Can("Delete", "Topic", resource.Id);
         }
     }
 }

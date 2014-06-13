@@ -67,18 +67,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac">
-      <HintPath>..\packages\Autofac.3.3.0\lib\net40\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=3.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.4.1\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="ImageResizer">
       <HintPath>..\packages\ImageResizer.3.4.2\lib\ImageResizer.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -114,6 +118,7 @@
     <Compile Include="Entities\OAuthTokenData.cs" />
     <Compile Include="Entities\PasswordRestoreRequest.cs" />
     <Compile Include="EventListeners\PasswordRestoreRequestedEventListener.cs" />
+    <Compile Include="EventListeners\PermissionChangedEventListener.cs" />
     <Compile Include="EventListeners\UserAvatarChangedEventListener.cs" />
     <Compile Include="IAvatarProvider.cs" />
     <Compile Include="IOnlineUsersManager.cs" />
@@ -131,7 +136,6 @@
     <Compile Include="OnlineUsersManager.cs" />
     <Compile Include="CommandHandlers\AddOnlineUserTagCommandHandler.cs" />
     <Compile Include="CommandHandlers\RemoveOnlineUserTagCommandHandler.cs" />
-    <Compile Include="QueryHandlers\GetCurrentUserClaimsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetOAuthProvidersQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetOnlineUsersQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetOnlineUserTagsQueryHandler.cs" />
@@ -160,6 +164,10 @@
     <Compile Include="UserSettings\TimeZoneSetting.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MirGames.Domain.Acl.Public\MirGames.Domain.Acl.Public.csproj">
+      <Project>{e6580f5e-5422-4896-9645-6fb90040af9e}</Project>
+      <Name>MirGames.Domain.Acl.Public</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MirGames.Domain.Attachments.Public\MirGames.Domain.Attachments.Public.csproj">
       <Project>{fd93f5af-07f1-4a80-81a6-850d70b5ea79}</Project>
       <Name>MirGames.Domain.Attachments.Public</Name>

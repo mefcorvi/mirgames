@@ -14,6 +14,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Security;
     using MirGames.Domain.Topics.Entities;
     using MirGames.Domain.Topics.Queries;
     using MirGames.Domain.Topics.ViewModels;
@@ -89,9 +90,9 @@ namespace MirGames.Domain.Topics.QueryHandlers
             return new TopicsListItem
                 {
                     Author = author,
-                    CanBeCommented = this.authorizationManager.CheckAccess(principal, "Comment", topic),
-                    CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", topic),
-                    CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", topic),
+                    CanBeCommented = this.authorizationManager.CheckAccess(principal, "Comment", "Topic", topic.Id),
+                    CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "Topic", topic.Id),
+                    CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "Topic", topic.Id),
                     CreationDate = topic.CreationDate,
                     CommentsCount = topic.CountComment,
                     ShortText = topic.Content.TopicTextShort,

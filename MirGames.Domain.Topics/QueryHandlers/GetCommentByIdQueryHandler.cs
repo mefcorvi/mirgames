@@ -12,6 +12,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Security;
     using MirGames.Domain.TextTransform;
     using MirGames.Domain.Topics.Entities;
     using MirGames.Domain.Topics.Queries;
@@ -85,8 +86,8 @@ namespace MirGames.Domain.Topics.QueryHandlers
 
             this.queryProcessor.Process(new ResolveAuthorsQuery { Authors = new[] { commentViewModel.Author } });
 
-            commentViewModel.CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", comment);
-            commentViewModel.CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", comment);
+            commentViewModel.CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "Comment", comment.CommentId);
+            commentViewModel.CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "Comment", comment.CommentId);
 
             return commentViewModel;
         }

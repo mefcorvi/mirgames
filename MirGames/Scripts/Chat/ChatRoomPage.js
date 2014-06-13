@@ -477,8 +477,8 @@ var MirGames;
                 var messageCreatedMoment = moment(message.date);
                 var isMessageFrozen = messageCreatedMoment.add('m', 5).isBefore();
 
-                message.canBeDeleted = (message.ownMessage && !isMessageFrozen) || this.currentUser.can('Edit', 'ChatMessage', message.id);
-                message.canBeEdited = (message.ownMessage && !isMessageFrozen) || this.currentUser.can('Delete', 'ChatMessage', message.id);
+                message.canBeDeleted = (message.ownMessage && !isMessageFrozen) || message.canBeEdited;
+                message.canBeEdited = (message.ownMessage && !isMessageFrozen) || message.canBeDeleted;
 
                 if (!isMessageFrozen) {
                     this.$timeout(function () {

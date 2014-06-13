@@ -14,6 +14,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
     using MirGames.Domain.Forum.Entities;
     using MirGames.Domain.Forum.Queries;
     using MirGames.Domain.Forum.ViewModels;
+    using MirGames.Domain.Security;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
     using MirGames.Infrastructure;
@@ -80,8 +81,8 @@ namespace MirGames.Domain.Forum.QueryHandlers
                 Index = postIndex,
                 IsRead = true,
                 FirstUnread = false,
-                CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", post) && postIndex > 1,
-                CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", post)
+                CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "ForumPost", post.PostId) && postIndex > 1,
+                CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "ForumPost", post.PostId)
             };
         }
     }

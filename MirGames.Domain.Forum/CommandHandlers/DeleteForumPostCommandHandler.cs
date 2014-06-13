@@ -69,7 +69,7 @@ namespace MirGames.Domain.Forum.CommandHandlers
                     throw new ItemNotFoundException("Post", command.PostId);
                 }
 
-                authorizationManager.EnsureAccess(principal, "Delete", post);
+                authorizationManager.EnsureAccess(principal, "Delete", "ForumPost", post.PostId);
                 
                 writeContext.Set<ForumPost>().Remove(post);
                 writeContext.SaveChanges();

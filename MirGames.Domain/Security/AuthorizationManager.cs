@@ -6,45 +6,41 @@
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace MirGames.Infrastructure.Security
+namespace MirGames.Domain.Security
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Security.Claims;
+    using MirGames.Domain.Acl.Public.Queries;
+    using MirGames.Infrastructure;
+    using MirGames.Infrastructure.Security;
 
     /// <summary>
     /// Provides direct access methods for evaluating authorization policy
     /// </summary>
-    internal class AuthorizationManager : IAuthorizationManager
+    internal sealed class AuthorizationManager : IAuthorizationManager
     {
         /// <summary>
-        /// The rules.
+        /// The query processor.
         /// </summary>
-        private readonly ILookup<Type, IAccessRule> rules;
+        private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthorizationManager"/> class.
         /// </summary>
-        /// <param name="rules">The rules.</param>
-        public AuthorizationManager(IEnumerable<IAccessRule> rules)
+        /// <param name="queryProcessor">The query processor.</param>
+        public AuthorizationManager(IQueryProcessor queryProcessor)
         {
-            this.rules = rules.ToLookup(rule => rule.ResourceType);
+            this.queryProcessor = queryProcessor;
         }
 
         /// <inheritdoc />
-        public bool CheckAccess(ClaimsPrincipal principal, string action, object resource)
+        public bool CheckAccess(int userId, string action, string entityType, int? entityId)
         {
-            if (principal.IsInRole("Administrator"))
+            return this.queryProcessor.Process(new IsActionAllowedQuery
             {
-                return true;
-            }
-
-            var resourceType = resource.GetType();
-
-            return this.rules[resourceType]
-                .Where(rule => string.Equals(rule.Action, action, StringComparison.InvariantCultureIgnoreCase))
-                .All(rule => rule.CheckAccess(principal, resource));
+                ActionName = action,
+                EntityId = entityId,
+                EntityType = entityType,
+                UserId = userId
+            });
         }
     }
 }

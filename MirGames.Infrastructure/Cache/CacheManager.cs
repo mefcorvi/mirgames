@@ -15,7 +15,7 @@ namespace MirGames.Infrastructure.Cache
     /// <summary>
     /// Manages in-memory cache.
     /// </summary>
-    internal sealed class CacheManager : ICacheManager
+    internal sealed class CacheManager : ICacheManager, IDisposable
     {
         /// <summary>
         /// The null value
@@ -23,16 +23,25 @@ namespace MirGames.Infrastructure.Cache
         private static readonly object NullValue = new object();
 
         /// <summary>
-        /// The memory cache.
+        /// The memory cache factory.
         /// </summary>
-        private readonly MemoryCache memoryCache;
+        private readonly Func<MemoryCache> memoryCacheFactory;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CacheManager"/> class.
+        /// The memory cache.
         /// </summary>
-        public CacheManager()
+        private MemoryCache memoryCache;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CacheManager" /> class.
+        /// </summary>
+        /// <param name="memoryCacheFactory">The memory cache factory.</param>
+        public CacheManager(Func<MemoryCache> memoryCacheFactory)
         {
-            this.memoryCache = MemoryCache.Default;
+            Contract.Requires(memoryCacheFactory != null);
+
+            this.memoryCacheFactory = memoryCacheFactory;
+            this.memoryCache = this.memoryCacheFactory.Invoke();
         }
 
         /// <inheritdoc />
@@ -91,6 +100,22 @@ namespace MirGames.Infrastructure.Cache
         {
             Contract.Requires(!string.IsNullOrWhiteSpace(key));
             this.memoryCache.Remove(key);
+        }
+
+        /// <inheritdoc />
+        public void Clear()
+        {
+            this.memoryCache.Dispose();
+            this.memoryCache = this.memoryCacheFactory.Invoke();
+        }
+
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            if (this.memoryCache != null)
+            {
+                this.memoryCache.Dispose();
+            }
         }
     }
 }

@@ -29,7 +29,7 @@ namespace MirGames.Domain.Topics.AccessRules
         /// <inheritdoc />
         protected override bool CheckAccess(ClaimsPrincipal principal, Comment resource)
         {
-            return principal.IsInRole("TopicsAuthor") && principal.GetUserId() == resource.UserId && resource.Date >= DateTime.UtcNow.AddMinutes(-30);
+            return principal.IsInRole("User") && principal.GetUserId() == resource.UserId && resource.Date >= DateTime.UtcNow.AddMinutes(-30);
         }
     }
 }

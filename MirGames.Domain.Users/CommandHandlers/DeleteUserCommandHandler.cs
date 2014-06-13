@@ -50,10 +50,10 @@ namespace MirGames.Domain.Users.CommandHandlers
 
                 if (user == null)
                 {
-                    throw new ItemNotFoundException("Topic", command.UserId);
+                    throw new ItemNotFoundException("User", command.UserId);
                 }
 
-                authorizationManager.EnsureAccess(principal, "Delete", user);
+                authorizationManager.EnsureAccess(principal, "Delete", "User", user.Id);
 
                 var userSessions = writeContext.Set<UserSession>().Where(us => us.UserId == user.Id);
                 writeContext.Set<UserSession>().RemoveRange(userSessions);

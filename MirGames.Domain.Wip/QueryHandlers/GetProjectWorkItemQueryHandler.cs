@@ -14,6 +14,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
     using System.Security.Claims;
 
     using MirGames.Domain.Exceptions;
+    using MirGames.Domain.Security;
     using MirGames.Domain.TextTransform;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
@@ -93,9 +94,9 @@ namespace MirGames.Domain.Wip.QueryHandlers
                 EndDate = workItem.EndDate,
                 ParentId = workItem.ParentId,
                 StartDate = workItem.StartDate,
-                CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", workItem),
-                CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", workItem),
-                CanBeCommented = this.authorizationManager.CheckAccess(principal, "Comment", workItem)
+                CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "ProjectWorkItem", workItem.WorkItemId),
+                CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "ProjectWorkItem", workItem.WorkItemId),
+                CanBeCommented = this.authorizationManager.CheckAccess(principal, "Comment", "ProjectWorkItem", workItem.WorkItemId)
             };
 
             this.queryProcessor.Process(new ResolveAuthorsQuery

@@ -93,7 +93,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
             using (var writeContext = this.writeContextFactory.Create())
             {
                 topic = writeContext.Set<Topic>().SingleOrDefault(t => t.Id == command.TopicId);
-                authorizationManager.EnsureAccess(principal, "Edit", topic);
+                authorizationManager.EnsureAccess(principal, "Edit", "Topic", command.TopicId);
 
                 if (topic == null)
                 {

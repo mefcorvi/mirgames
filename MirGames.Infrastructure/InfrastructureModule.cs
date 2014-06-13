@@ -38,13 +38,11 @@ namespace MirGames.Infrastructure
             builder.RegisterType<NotificationManager>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<RazorTemplateProcessor>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<SearchEngine.SearchEngine>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<CacheManager>().As<ICacheManager>().SingleInstance();
+            builder.RegisterType<CacheManagerFactory>().As<ICacheManagerFactory>().SingleInstance();
             builder.RegisterType<EventLog>().As<IEventLog>().SingleInstance();
             builder.RegisterType<EventBus>().As<IEventBus>().SingleInstance();
             builder.RegisterType<ContentTypeProvider>().As<IContentTypeProvider>().SingleInstance();
             builder.RegisterType<TransactionExecutor>().As<ITransactionExecutor>().SingleInstance();
-
-            builder.RegisterType<AuthorizationManager>().As<IAuthorizationManager>().SingleInstance();
         }
     }
 }

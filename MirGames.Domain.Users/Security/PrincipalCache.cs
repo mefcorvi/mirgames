@@ -24,12 +24,12 @@ namespace MirGames.Domain.Users.Security
         private readonly ICacheManager cacheManager;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PrincipalCache"/> class.
+        /// Initializes a new instance of the <see cref="PrincipalCache" /> class.
         /// </summary>
-        /// <param name="cacheManager">The cache manager.</param>
-        public PrincipalCache(ICacheManager cacheManager)
+        /// <param name="cacheManagerFactory">The cache manager factory.</param>
+        public PrincipalCache(ICacheManagerFactory cacheManagerFactory)
         {
-            this.cacheManager = cacheManager;
+            this.cacheManager = cacheManagerFactory.Create("Principals");
         }
 
         /// <inheritdoc />
@@ -42,6 +42,12 @@ namespace MirGames.Domain.Users.Security
         public void Remove(string sessionId)
         {
             this.cacheManager.Remove(this.GetKey(sessionId));
+        }
+
+        /// <inheritdoc />
+        public void Clear()
+        {
+            this.cacheManager.Clear();
         }
 
         /// <summary>

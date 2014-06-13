@@ -15,6 +15,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Security;
     using MirGames.Domain.TextTransform;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
@@ -93,9 +94,9 @@ namespace MirGames.Domain.Wip.QueryHandlers
                     EndDate = x.EndDate,
                     ParentId = x.ParentId,
                     StartDate = x.StartDate,
-                    CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", x),
-                    CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", x),
-                    CanBeCommented = this.authorizationManager.CheckAccess(principal, "Comment", x)
+                    CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "ProjectWorkItem", x.WorkItemId),
+                    CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "ProjectWorkItem", x.WorkItemId),
+                    CanBeCommented = this.authorizationManager.CheckAccess(principal, "Comment", "ProjectWorkItem", x.WorkItemId)
                 })
                 .ToList();
 

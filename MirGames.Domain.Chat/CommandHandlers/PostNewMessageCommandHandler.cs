@@ -81,7 +81,7 @@ namespace MirGames.Domain.Chat.CommandHandlers
                 CreatedDate = DateTime.UtcNow
             };
 
-            authorizationManager.EnsureAccess(principal, "Post", message);
+            authorizationManager.EnsureAccess(principal, "Post", "ChatMessage");
 
             using (var writeContext = this.writeContextFactory.Create())
             {

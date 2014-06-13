@@ -68,13 +68,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+    <Reference Include="Autofac, Version=3.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Autofac.3.3.0\lib\net40\Autofac.dll</HintPath>
+      <HintPath>..\packages\Autofac.3.4.1\lib\net40\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
@@ -114,7 +117,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RazorEngine, Version=3.4.1.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -139,12 +142,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache\CacheManagerFactory.cs" />
+    <Compile Include="Cache\ICacheManagerFactory.cs" />
     <Compile Include="Commands\ApiAttribute.cs" />
     <Compile Include="Commands\AuthorizeAttribute.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandHandler.cs" />
     <Compile Include="Commands\CommandProcessor.cs" />
     <Compile Include="Commands\CommandsConverter.cs" />
+    <Compile Include="Security\IAuthorizationManager.cs" />
     <Compile Include="Transactions\TransactionExecutor.cs" />
     <Compile Include="Commands\DisableTracingAttribute.cs" />
     <Compile Include="Transactions\ITransactionExecutor.cs" />
@@ -209,11 +215,8 @@
     <Compile Include="Repositories\WriteContext.cs" />
     <Compile Include="SearchEngine\SearchEngine.cs" />
     <Compile Include="SearchEngine\SearchResult.cs" />
-    <Compile Include="Security\AuthorizationManager.cs" />
-    <Compile Include="Security\AuthorizationManagerExtensions.cs" />
     <Compile Include="Security\IAccessRule.cs" />
     <Compile Include="Security\IAuthenticationProvider.cs" />
-    <Compile Include="Security\IAuthorizationManager.cs" />
     <Compile Include="Security\IPasswordHashProvider.cs" />
     <Compile Include="Security\ITextHashProvider.cs" />
     <Compile Include="Settings\AppSettings.cs" />

@@ -15,6 +15,7 @@ namespace MirGames.Domain.Chat.QueryHandlers
     using MirGames.Domain.Chat.Queries;
     using MirGames.Domain.Chat.ViewModels;
     using MirGames.Domain.Exceptions;
+    using MirGames.Domain.Security;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Queries;
     using MirGames.Infrastructure.Security;
@@ -48,7 +49,7 @@ namespace MirGames.Domain.Chat.QueryHandlers
                 throw new ItemNotFoundException("ChatMessage", query.MessageId);
             }
 
-            this.authorizationManager.EnsureAccess(principal, "Edit", message);
+            this.authorizationManager.EnsureAccess(principal, "Edit", "ChatMessage", message.MessageId);
 
             return new ChatMessageForEditViewModel
                 {

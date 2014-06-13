@@ -10,6 +10,7 @@ namespace MirGames.Domain.Topics.AccessRules
 {
     using System.Security.Claims;
 
+    using MirGames.Domain.Security;
     using MirGames.Domain.Topics.Entities;
     using MirGames.Infrastructure.Security;
 
@@ -27,7 +28,7 @@ namespace MirGames.Domain.Topics.AccessRules
         /// <inheritdoc />
         protected override bool CheckAccess(ClaimsPrincipal principal, Topic resource)
         {
-            return principal.IsInRole("TopicsAuthor");
+            return principal.Can("Create", "Topic");
         }
     }
 }

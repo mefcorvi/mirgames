@@ -64,5 +64,10 @@ namespace MirGames.Infrastructure.Cache
         /// </summary>
         /// <param name="key">The key.</param>
         void Remove(string key);
+
+        /// <summary>
+        /// Clears this instance.
+        /// </summary>
+        void Clear();
     }
 }

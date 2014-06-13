@@ -14,6 +14,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
     using System.Security.Claims;
 
     using MirGames.Domain.Attachments.Queries;
+    using MirGames.Domain.Security;
     using MirGames.Domain.TextTransform;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
@@ -90,10 +91,10 @@ namespace MirGames.Domain.Wip.QueryHandlers
                             VotesCount = p.VotesCount,
                             LastCommitMessage = p.LastCommitMessage,
                             Tags = p.TagsList.Split(',').Select(t => t.Trim()).ToArray(),
-                            CanEdit = this.authorizationManager.CheckAccess(principal, "Edit", p),
-                            CanCreateBug = this.authorizationManager.CheckAccess(principal, "CreateBug", p),
-                            CanCreateTask = this.authorizationManager.CheckAccess(principal, "CreateTask", p),
-                            CanCreateFeature = this.authorizationManager.CheckAccess(principal, "CreateFeature", p)
+                            CanEdit = this.authorizationManager.CheckAccess(principal, "Edit", "Project", p.ProjectId),
+                            CanCreateBug = this.authorizationManager.CheckAccess(principal, "CreateBug", "Project", p.ProjectId),
+                            CanCreateTask = this.authorizationManager.CheckAccess(principal, "CreateTask", "Project", p.ProjectId),
+                            CanCreateFeature = this.authorizationManager.CheckAccess(principal, "CreateFeature", "Project", p.ProjectId)
                         })
                     .ToList();
 

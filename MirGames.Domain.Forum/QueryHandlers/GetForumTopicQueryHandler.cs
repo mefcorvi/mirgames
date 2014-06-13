@@ -13,7 +13,6 @@ namespace MirGames.Domain.Forum.QueryHandlers
     using System.Linq;
     using System.Security.Claims;
 
-    using MirGames.Domain.Exceptions;
     using MirGames.Domain.Forum.Entities;
     using MirGames.Domain.Forum.Queries;
     using MirGames.Domain.Forum.ViewModels;
@@ -54,7 +53,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
         /// <inheritdoc />
         public override ForumTopicViewModel Execute(IReadContext readContext, GetForumTopicQuery query, ClaimsPrincipal principal)
         {
-            var topic = GetTopic(readContext, query);
+            var topic = this.GetTopic(readContext, query);
 
             if (topic == null)
             {
@@ -95,13 +94,13 @@ namespace MirGames.Domain.Forum.QueryHandlers
                     IsRead = true,
                     IsFirstPost = post.IsStartPost,
                     Index = 1,
-                    CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", post) && !post.IsStartPost,
-                    CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", post)
+                    CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "ForumPost", post.PostId) && !post.IsStartPost,
+                    CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "ForumPost", post.PostId)
                 };
 
-            topicViewModel.CanBeAnswered = this.authorizationManager.CheckAccess(principal, "Reply", topic);
-            topicViewModel.CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", topic);
-            topicViewModel.CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", topic);
+            topicViewModel.CanBeAnswered = this.authorizationManager.CheckAccess(principal, "Reply", "ForumTopic", topic.TopicId);
+            topicViewModel.CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "ForumTopic", topic.TopicId);
+            topicViewModel.CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "ForumTopic", topic.TopicId);
 
             if (!principal.Identity.IsAuthenticated)
             {

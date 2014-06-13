@@ -15,6 +15,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
     using MirGames.Domain.Forum.Entities;
     using MirGames.Domain.Forum.Queries;
     using MirGames.Domain.Forum.ViewModels;
+    using MirGames.Domain.Security;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Queries;
     using MirGames.Infrastructure.Security;
@@ -50,7 +51,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
                 return null;
             }
 
-            this.authorizationManager.EnsureAccess(principal, "Edit", post);
+            this.authorizationManager.EnsureAccess(principal, "Edit", "ForumPost", post.PostId);
 
             return new ForumPostForEditViewModel
             {
@@ -58,8 +59,8 @@ namespace MirGames.Domain.Forum.QueryHandlers
                 SourceText = post.SourceText,
                 TopicTags = post.Topic.TagsList,
                 TopicTitle = post.Topic.Title,
-                CanChangeTags = post.IsStartPost && this.authorizationManager.CheckAccess(principal, "Edit", post.Topic),
-                CanChangeTitle = post.IsStartPost && this.authorizationManager.CheckAccess(principal, "Edit", post.Topic),
+                CanChangeTags = post.IsStartPost && this.authorizationManager.CheckAccess(principal, "Edit", "ForumTopic", post.Topic.TopicId),
+                CanChangeTitle = post.IsStartPost && this.authorizationManager.CheckAccess(principal, "Edit", "ForumTopic", post.Topic.TopicId),
             };
         }
     }

@@ -46,7 +46,12 @@ namespace MirGames.Hubs
                 });
 
             var context = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
-            context.Clients.All.addNewMessageToPage(JsonConvert.SerializeObject(message));
+
+            foreach (string connectionId in ChatHub.GetConnections())
+            {
+
+                context.Clients.Client(connectionId).addNewMessageToPage(JsonConvert.SerializeObject(message));
+            }
         }
     }
 }

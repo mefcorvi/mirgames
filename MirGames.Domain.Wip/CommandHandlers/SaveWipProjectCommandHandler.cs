@@ -71,7 +71,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
                     throw new ItemNotFoundException("Project", command.Alias);
                 }
 
-                authorizationManager.EnsureAccess(principal, "Edit", project);
+                authorizationManager.EnsureAccess(principal, "Edit", "Project", project.ProjectId);
 
                 project.Title = command.Title;
                 project.Description = command.Description;

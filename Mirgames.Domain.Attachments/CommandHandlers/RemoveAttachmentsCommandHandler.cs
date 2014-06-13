@@ -14,6 +14,7 @@ namespace MirGames.Domain.Attachments.CommandHandlers
 
     using MirGames.Domain.Attachments.Commands;
     using MirGames.Domain.Attachments.Entities;
+    using MirGames.Domain.Security;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Commands;
     using MirGames.Infrastructure.Security;
@@ -48,7 +49,7 @@ namespace MirGames.Domain.Attachments.CommandHandlers
 
                 foreach (var attachment in attachments)
                 {
-                    authorizationManager.EnsureAccess(principal, "Remove", attachment);
+                    authorizationManager.EnsureAccess(principal, "Remove", "Attachment", attachment.AttachmentId);
                     attachment.IsPublished = false;
                 }
 

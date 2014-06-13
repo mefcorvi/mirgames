@@ -76,10 +76,10 @@ namespace MirGames.Domain.Forum.CommandHandlers
 
                 if (topic == null)
                 {
-                    throw new ItemNotFoundException("Topic", command.TopicId);
+                    throw new ItemNotFoundException("ForumTopic", command.TopicId);
                 }
 
-                authorizationManager.EnsureAccess(principal, "Delete", topic);
+                authorizationManager.EnsureAccess(principal, "Delete", "ForumTopic", topic.TopicId);
 
                 topicReaders = readContext.Query<ForumTopicRead>()
                     .Where(t => (t.StartTopicId >= command.TopicId && t.EndTopicId <= command.TopicId))

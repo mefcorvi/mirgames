@@ -63,7 +63,6 @@
     <Compile Include="Exceptions\UserAlreadyRegisteredException.cs" />
     <Compile Include="Exceptions\UserSettingIsNotRegisteredException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queries\GetCurrentUserClaimsQuery.cs" />
     <Compile Include="Queries\GetOAuthProvidersQuery.cs" />
     <Compile Include="Queries\GetOnlineUsersQuery.cs" />
     <Compile Include="Queries\GetAuthorQuery.cs" />

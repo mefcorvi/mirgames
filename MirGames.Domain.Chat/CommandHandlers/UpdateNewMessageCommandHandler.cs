@@ -72,7 +72,7 @@ namespace MirGames.Domain.Chat.CommandHandlers
                     throw new ItemNotFoundException("ChatMessage", command.MessageId);
                 }
 
-                authorizationManager.EnsureAccess(principal, "Edit", message);
+                authorizationManager.EnsureAccess(principal, "Edit", "ChatMessage", message.MessageId);
 
                 message.Message = command.Message;
                 message.UpdatedDate = DateTime.UtcNow;

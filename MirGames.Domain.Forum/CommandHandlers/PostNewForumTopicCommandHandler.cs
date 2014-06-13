@@ -104,7 +104,7 @@ namespace MirGames.Domain.Forum.CommandHandlers
                 PostsCount = 1
             };
 
-            authorizationManager.EnsureAccess(principal, "Create", topic);
+            authorizationManager.EnsureAccess(principal, "Create", "ForumTopic");
 
             var post = new ForumPost
                 {
