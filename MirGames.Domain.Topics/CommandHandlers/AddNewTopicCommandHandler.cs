@@ -153,20 +153,12 @@ namespace MirGames.Domain.Topics.CommandHandlers
 
             this.commandProcessor.Execute(new SetPermissionCommand
             {
-                ActionName = "Edit",
+                Actions = new[] { "Edit", "Delete" },
                 EntityId = topic.Id,
                 IsDenied = false,
                 EntityType = "Topic",
-                UserId = topic.AuthorId
-            });
-
-            this.commandProcessor.Execute(new SetPermissionCommand
-            {
-                ActionName = "Delete",
-                EntityId = topic.Id,
-                IsDenied = false,
-                EntityType = "Topic",
-                UserId = topic.AuthorId
+                UserId = topic.AuthorId,
+                ExpirationDate = DateTime.Now.AddDays(7)
             });
 
             this.eventBus.Raise(

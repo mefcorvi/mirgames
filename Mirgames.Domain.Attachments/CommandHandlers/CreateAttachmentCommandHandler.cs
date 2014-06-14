@@ -15,6 +15,7 @@ namespace MirGames.Domain.Attachments.CommandHandlers
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Acl.Public.Commands;
     using MirGames.Domain.Attachments.Commands;
     using MirGames.Domain.Attachments.Entities;
     using MirGames.Domain.Attachments.Exceptions;
@@ -46,6 +47,11 @@ namespace MirGames.Domain.Attachments.CommandHandlers
         private readonly ISettings settings;
 
         /// <summary>
+        /// The command processor.
+        /// </summary>
+        private readonly ICommandProcessor commandProcessor;
+
+        /// <summary>
         /// The upload processors.
         /// </summary>
         private readonly IEnumerable<IUploadProcessor> uploadProcessors;
@@ -56,16 +62,24 @@ namespace MirGames.Domain.Attachments.CommandHandlers
         /// <param name="writeContextFactory">The write context factory.</param>
         /// <param name="contentTypeProvider">The content type provider.</param>
         /// <param name="settings">The settings.</param>
+        /// <param name="commandProcessor">The command processor.</param>
         /// <param name="uploadProcessors">The upload processors.</param>
-        public CreateAttachmentCommandHandler(IWriteContextFactory writeContextFactory, IContentTypeProvider contentTypeProvider, ISettings settings, IEnumerable<IUploadProcessor> uploadProcessors)
+        public CreateAttachmentCommandHandler(
+            IWriteContextFactory writeContextFactory,
+            IContentTypeProvider contentTypeProvider,
+            ISettings settings,
+            ICommandProcessor commandProcessor,
+            IEnumerable<IUploadProcessor> uploadProcessors)
         {
             Contract.Requires(writeContextFactory != null);
             Contract.Requires(contentTypeProvider != null);
             Contract.Requires(settings != null);
+            Contract.Requires(commandProcessor != null);
 
             this.writeContextFactory = writeContextFactory;
             this.contentTypeProvider = contentTypeProvider;
             this.settings = settings;
+            this.commandProcessor = commandProcessor;
             this.uploadProcessors = uploadProcessors.EnsureCollection();
         }
 
@@ -123,6 +137,15 @@ namespace MirGames.Domain.Attachments.CommandHandlers
                 writeContext.Set<Attachment>().Add(attachment);
                 writeContext.SaveChanges();
             }
+
+            this.commandProcessor.Execute(new SetPermissionCommand
+            {
+                Actions = new[] { "Publish", "Remove" },
+                EntityId = attachment.AttachmentId,
+                IsDenied = false,
+                EntityType = "Attachment",
+                UserId = userId
+            });
 
             return attachment.AttachmentId;
         }

@@ -37,12 +37,12 @@ namespace MirGames.Domain.Acl.CommandHandlers
         /// <summary>
         /// The entity types resolver.
         /// </summary>
-        private readonly IDictionaryEntityResolver<string, EntityType> entityTypesResolver;
+        private readonly IEntityTypesResolver entityTypesResolver;
 
         /// <summary>
         /// The action types resolver.
         /// </summary>
-        private readonly IDictionaryEntityResolver<string, ActionType> actionTypesResolver;
+        private readonly IActionTypesResolver actionTypesResolver;
 
         /// <summary>
         /// The event bus.
@@ -64,8 +64,8 @@ namespace MirGames.Domain.Acl.CommandHandlers
         /// <param name="eventBus">The event bus.</param>
         public SetPermissionCommandHandler(
             IWriteContextFactory writeContextFactory,
-            IDictionaryEntityResolver<string, EntityType> entityTypesResolver,
-            IDictionaryEntityResolver<string, ActionType> actionTypesResolver,
+            IEntityTypesResolver entityTypesResolver,
+            IActionTypesResolver actionTypesResolver,
             ICacheManagerFactory cacheManagerFactory,
             IEventBus eventBus)
         {
@@ -85,8 +85,29 @@ namespace MirGames.Domain.Acl.CommandHandlers
         /// <inheritdoc />
         public override void Execute(SetPermissionCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
-            int entityTypeId = this.GetEntityTypeId(command);
-            int? actionId = this.GetActionId(command, entityTypeId);
+            int entityTypeId = this.entityTypesResolver.GetEntityTypeId(command.EntityType);
+
+            command.Actions.ForEach(action => this.SetActionPermission(command, action, entityTypeId));
+
+            this.eventBus.Raise(new PermissionChangedEvent
+            {
+                Actions = command.Actions,
+                EntityId = command.EntityId,
+                EntityType = command.EntityType,
+                IsDenied = command.IsDenied,
+                UserId = command.UserId
+            });
+        }
+
+        /// <summary>
+        /// Sets the action permission.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <param name="action">The action.</param>
+        /// <param name="entityTypeId">The entity type identifier.</param>
+        private void SetActionPermission(SetPermissionCommand command, string action, int entityTypeId)
+        {
+            int actionId = this.actionTypesResolver.GetActionId(action, entityTypeId);
 
             using (var writeContext = this.writeContextFactory.Create())
             {
@@ -117,43 +138,6 @@ namespace MirGames.Domain.Acl.CommandHandlers
 
                 this.AddToCache(permission);
             }
-
-            this.eventBus.Raise(new PermissionChangedEvent
-            {
-                Action = command.ActionName,
-                EntityId = command.EntityId,
-                EntityType = command.EntityType,
-                IsDenied = command.IsDenied,
-                UserId = command.UserId
-            });
-        }
-
-        /// <summary>
-        /// Gets the action identifier.
-        /// </summary>
-        /// <param name="command">The command.</param>
-        /// <param name="entityTypeId">The entity type identifier.</param>
-        /// <returns>The action identifier.</returns>
-        private int? GetActionId(SetPermissionCommand command, int entityTypeId)
-        {
-            return this.actionTypesResolver
-                       .Resolve(command.ActionName)
-                       .Where(a => a.EntityTypeId == entityTypeId)
-                       .Select(a => (int?)a.ActionId)
-                       .FirstOrDefault();
-        }
-
-        /// <summary>
-        /// Gets the entity type identifier.
-        /// </summary>
-        /// <param name="command">The command.</param>
-        /// <returns>The entity type identifier.</returns>
-        private int GetEntityTypeId(SetPermissionCommand command)
-        {
-            return this.entityTypesResolver
-                       .Resolve(command.EntityType)
-                       .Single()
-                       .EntityTypeId;
         }
 
         private void AddToCache(Permission permission)

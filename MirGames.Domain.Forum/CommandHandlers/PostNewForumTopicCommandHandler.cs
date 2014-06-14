@@ -12,6 +12,7 @@ namespace MirGames.Domain.Forum.CommandHandlers
     using System.Diagnostics.Contracts;
     using System.Security.Claims;
 
+    using MirGames.Domain.Acl.Public.Commands;
     using MirGames.Domain.Attachments.Commands;
     using MirGames.Domain.Forum.Commands;
     using MirGames.Domain.Forum.Entities;
@@ -144,6 +145,31 @@ namespace MirGames.Domain.Forum.CommandHandlers
                             Identifiers = command.Attachments
                         });
             }
+
+            this.commandProcessor.Execute(new SetPermissionCommand
+            {
+                Actions = new[] { "Delete", "Edit" },
+                EntityId = topic.TopicId,
+                EntityType = "ForumTopic",
+                UserId = author.Id,
+                ExpirationDate = DateTime.UtcNow.AddDays(7)
+            });
+
+            this.commandProcessor.Execute(new SetPermissionCommand
+            {
+                Actions = new[] { "Delete", "Edit" },
+                EntityId = post.PostId,
+                EntityType = "ForumPost",
+                UserId = author.Id,
+                ExpirationDate = DateTime.UtcNow.AddDays(7)
+            });
+
+            this.commandProcessor.Execute(new SetPermissionCommand
+            {
+                Actions = new[] { "Reply", "MarkAsRead" },
+                EntityId = topic.TopicId,
+                EntityType = "ForumTopic"
+            });
 
             this.eventBus.Raise(new ForumTopicCreatedEvent { TopicId = topic.TopicId, AuthorId = author.Id, CreationDate = topic.CreatedDate });
 

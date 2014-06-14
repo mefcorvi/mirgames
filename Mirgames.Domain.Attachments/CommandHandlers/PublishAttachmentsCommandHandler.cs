@@ -8,10 +8,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Attachments.CommandHandlers
 {
+    using System.Collections.Generic;
     using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Acl.Public.Commands;
     using MirGames.Domain.Attachments.Commands;
     using MirGames.Domain.Attachments.Entities;
     using MirGames.Domain.Security;
@@ -30,25 +32,37 @@ namespace MirGames.Domain.Attachments.CommandHandlers
         private readonly IWriteContextFactory writeContextFactory;
 
         /// <summary>
+        /// The command processor.
+        /// </summary>
+        private readonly ICommandProcessor commandProcessor;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PublishAttachmentsCommandHandler" /> class.
         /// </summary>
         /// <param name="writeContextFactory">The write context factory.</param>
-        public PublishAttachmentsCommandHandler(IWriteContextFactory writeContextFactory)
+        /// <param name="commandProcessor">The command processor.</param>
+        public PublishAttachmentsCommandHandler(IWriteContextFactory writeContextFactory, ICommandProcessor commandProcessor)
         {
             Contract.Requires(writeContextFactory != null);
+            Contract.Requires(commandProcessor != null);
 
             this.writeContextFactory = writeContextFactory;
+            this.commandProcessor = commandProcessor;
         }
 
         /// <inheritdoc />
         public override void Execute(PublishAttachmentsCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             Contract.Requires(command.Identifiers != null);
+            Contract.Requires(principal.GetUserId() != null);
+
+            List<Attachment> attachments;
+            int userId = principal.GetUserId().GetValueOrDefault();
 
             using (var writeContext = this.writeContextFactory.Create())
             {
                 var identifiers = command.Identifiers.ToArray();
-                var attachments = writeContext.Set<Attachment>().Where(x => identifiers.Contains(x.AttachmentId) && !x.IsPublished).ToList();
+                attachments = writeContext.Set<Attachment>().Where(x => identifiers.Contains(x.AttachmentId) && !x.IsPublished).ToList();
 
                 foreach (var attachment in attachments)
                 {
@@ -59,6 +73,14 @@ namespace MirGames.Domain.Attachments.CommandHandlers
 
                 writeContext.SaveChanges();
             }
+
+            attachments.ForEach(attachment => this.commandProcessor.Execute(new RemovePermissionsCommand
+            {
+                ActionName = "Publish",
+                EntityId = attachment.AttachmentId,
+                EntityType = "Attachment",
+                UserId = userId
+            }));
         }
     }
 }

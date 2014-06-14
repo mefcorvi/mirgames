@@ -32,9 +32,9 @@ namespace MirGames.Domain.Acl.Public.Events
         public string EntityType { get; set; }
 
         /// <summary>
-        /// Gets or sets the action.
+        /// Gets or sets the actions.
         /// </summary>
-        public string Action { get; set; }
+        public string[] Actions { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is denied.

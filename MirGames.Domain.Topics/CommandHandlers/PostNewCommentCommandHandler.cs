@@ -103,15 +103,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
 
             this.commandProcessor.Execute(new SetPermissionCommand
             {
-                ActionName = "Delete",
-                EntityId = comment.CommentId,
-                EntityType = "Comment",
-                UserId = principal.GetUserId()
-            });
-
-            this.commandProcessor.Execute(new SetPermissionCommand
-            {
-                ActionName = "Edit",
+                Actions = new[] { "Edit", "Delete" },
                 EntityId = comment.CommentId,
                 EntityType = "Comment",
                 UserId = principal.GetUserId()

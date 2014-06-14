@@ -13,6 +13,7 @@ namespace MirGames.Domain.Forum.CommandHandlers
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Acl.Public.Commands;
     using MirGames.Domain.Exceptions;
     using MirGames.Domain.Forum.Commands;
     using MirGames.Domain.Forum.Entities;
@@ -137,6 +138,15 @@ namespace MirGames.Domain.Forum.CommandHandlers
                             Identifiers = command.Attachments
                         });
             }
+
+            this.commandProcessor.Execute(new SetPermissionCommand
+            {
+                Actions = new[] { "Delete", "Edit" },
+                EntityId = post.PostId,
+                EntityType = "ForumPost",
+                UserId = author.Id,
+                ExpirationDate = DateTime.UtcNow.AddMinutes(30)
+            });
 
             this.eventBus.Raise(new ForumTopicRepliedEvent { TopicId = topic.TopicId, AuthorId = author.Id, PostId = post.PostId, RepliedDate = post.CreatedDate });
 

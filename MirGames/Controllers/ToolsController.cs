@@ -49,14 +49,6 @@ namespace MirGames.Controllers
 
         /// <inheritdoc />
         [Authorize(Roles = "Administrator")]
-        public ActionResult ImportFromIpb()
-        {
-            this.CommandProcessor.Execute(new ImportFromIpbCommand());
-            return this.Content("ok");
-        }
-
-        /// <inheritdoc />
-        [Authorize(Roles = "Administrator")]
         public ActionResult Events()
         {
             var eventLogItems = this.QueryProcessor.Process(new GetEventLogQuery(), new PaginationSettings(0, 100));

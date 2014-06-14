@@ -8,7 +8,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Forum.CommandHandlers
 {
-    using System;
     using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;

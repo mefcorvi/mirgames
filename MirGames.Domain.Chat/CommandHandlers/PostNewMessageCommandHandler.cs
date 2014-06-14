@@ -11,6 +11,7 @@ namespace MirGames.Domain.Chat.CommandHandlers
     using System;
     using System.Security.Claims;
 
+    using MirGames.Domain.Acl.Public.Commands;
     using MirGames.Domain.Attachments.Commands;
     using MirGames.Domain.Chat.Commands;
     using MirGames.Domain.Chat.Entities;
@@ -98,6 +99,15 @@ namespace MirGames.Domain.Chat.CommandHandlers
                             Identifiers = command.Attachments
                         });
             }
+
+            this.commandProcessor.Execute(new SetPermissionCommand
+            {
+                Actions = new[] { "Delete", "Edit" },
+                EntityId = message.MessageId,
+                EntityType = "ChatMessage",
+                ExpirationDate = DateTime.UtcNow.AddMinutes(5),
+                UserId = userId
+            });
 
             this.eventBus.Raise(
                 new NewChatMessageEvent
