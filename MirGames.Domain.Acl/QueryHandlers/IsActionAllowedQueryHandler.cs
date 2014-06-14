@@ -76,7 +76,9 @@ namespace MirGames.Domain.Acl.QueryHandlers
                     readContext.Query<Permission>()
                                .Where(
                                    p =>
-                                   (p.UserId == query.UserId || p.UserId == null) && p.EntityTypeId == entityTypeId
+                                   (p.ExpirationDate >= DateTime.UtcNow || p.ExpirationDate == null) &&
+                                   (p.UserId == query.UserId || p.UserId == null)
+                                   && p.EntityTypeId == entityTypeId
                                    && (p.EntityId >= query.EntityId - 50 && p.EntityId <= query.EntityId + 50));
 
                 permissions.ForEach(this.AddToCache);
@@ -91,6 +93,7 @@ namespace MirGames.Domain.Acl.QueryHandlers
                 readContext.Query<Permission>()
                            .Where(
                                p =>
+                               (p.ExpirationDate >= DateTime.UtcNow || p.ExpirationDate == null) &&
                                (p.UserId == query.UserId || p.UserId == null) && (p.EntityTypeId == entityTypeId)
                                && p.EntityId == null);
 
@@ -154,7 +157,7 @@ namespace MirGames.Domain.Acl.QueryHandlers
                 permission.EntityTypeId,
                 permission.EntityId);
 
-            this.cacheManager.AddOrUpdate(cacheKey, !permission.IsDenied, DateTimeOffset.Now.AddMinutes(30));
+            this.cacheManager.AddOrUpdate(cacheKey, !permission.IsDenied, permission.ExpirationDate ?? DateTimeOffset.Now.AddMinutes(30));
         } 
     }
 }

@@ -53,5 +53,10 @@ namespace MirGames.Domain.Acl.Entities
         /// Gets or sets a value indicating whether this instance is denied.
         /// </summary>
         public bool IsDenied { get; set; }
+
+        /// <summary>
+        /// Gets or sets the expired date.
+        /// </summary>
+        public DateTime? ExpirationDate { get; set; }
     }
 }

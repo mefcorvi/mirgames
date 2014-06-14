@@ -31,6 +31,7 @@ namespace MirGames.Domain.Acl.Mapping
             this.Property(t => t.EntityId).HasColumnName("entity_id");
             this.Property(t => t.EntityTypeId).HasColumnName("entity_type_id");
             this.Property(t => t.CreatedDate).HasColumnName("created_date");
+            this.Property(t => t.ExpirationDate).HasColumnName("expiration_date");
             this.Property(t => t.IsDenied).HasColumnName("deny");
             this.Property(t => t.UserId).HasColumnName("user_id");
         }

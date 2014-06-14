@@ -130,7 +130,8 @@ namespace MirGames.Domain.Acl.CommandHandlers
                     EntityTypeId = entityTypeId,
                     IsDenied = command.IsDenied,
                     CreatedDate = DateTime.UtcNow,
-                    UserId = command.UserId
+                    UserId = command.UserId,
+                    ExpirationDate = command.ExpirationDate
                 };
 
                 writeContext.Set<Permission>().Add(permission);
@@ -148,7 +149,7 @@ namespace MirGames.Domain.Acl.CommandHandlers
                 permission.EntityTypeId,
                 permission.EntityId);
 
-            this.cacheManager.AddOrUpdate(cacheKey, !permission.IsDenied, DateTimeOffset.Now.AddMinutes(30));
+            this.cacheManager.AddOrUpdate(cacheKey, !permission.IsDenied, permission.ExpirationDate ?? DateTimeOffset.Now.AddMinutes(30));
         }
 
         private string GetCacheKey(int? userId, int? actionId, int entityTypeId, int? entityId)
