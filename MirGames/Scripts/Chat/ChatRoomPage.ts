@@ -443,14 +443,14 @@ module MirGames.Chat {
 
         /** Checks whether user still have an access to the message */
         private updateAccessRight(message: IChatMessageScope) {
-            var messageCreatedMoment = moment(message.date);
-            var isMessageFrozen = messageCreatedMoment.add('m', 5).isBefore();
+            var messageFreezeMoment = moment(message.date).add('m', 5);
+            var isMessageFrozen = messageFreezeMoment.isBefore();
 
             message.canBeDeleted = (message.ownMessage && !isMessageFrozen) || message.canBeEdited;
             message.canBeEdited = (message.ownMessage && !isMessageFrozen) || message.canBeDeleted;
 
             if (!isMessageFrozen) {
-                this.$timeout(() => this.updateAccessRight(message), messageCreatedMoment.diff(moment()) + 50, true);
+                this.$timeout(() => this.updateAccessRight(message), messageFreezeMoment.diff(moment()) + 50, true);
             }
         }
 

@@ -150,6 +150,8 @@
     <Compile Include="Commands\CommandHandler.cs" />
     <Compile Include="Commands\CommandProcessor.cs" />
     <Compile Include="Commands\CommandsConverter.cs" />
+    <Compile Include="DatabaseInitializer.cs" />
+    <Compile Include="IDatabaseInitializer.cs" />
     <Compile Include="Security\IAuthorizationManager.cs" />
     <Compile Include="Transactions\TransactionExecutor.cs" />
     <Compile Include="Commands\DisableTracingAttribute.cs" />

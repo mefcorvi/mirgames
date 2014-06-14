@@ -17,7 +17,6 @@ namespace MirGames.Infrastructure
     using MirGames.Infrastructure.Notifications;
     using MirGames.Infrastructure.Queries;
     using MirGames.Infrastructure.Repositories;
-    using MirGames.Infrastructure.Security;
     using MirGames.Infrastructure.Transactions;
     using MirGames.Infrastructure.Utilities;
 
@@ -43,6 +42,7 @@ namespace MirGames.Infrastructure
             builder.RegisterType<EventBus>().As<IEventBus>().SingleInstance();
             builder.RegisterType<ContentTypeProvider>().As<IContentTypeProvider>().SingleInstance();
             builder.RegisterType<TransactionExecutor>().As<ITransactionExecutor>().SingleInstance();
+            builder.RegisterType<DatabaseInitializer>().As<IDatabaseInitializer>().SingleInstance();
         }
     }
 }

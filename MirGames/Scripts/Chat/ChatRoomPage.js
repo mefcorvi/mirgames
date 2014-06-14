@@ -474,8 +474,8 @@ var MirGames;
             /** Checks whether user still have an access to the message */
             ChatRoomPage.prototype.updateAccessRight = function (message) {
                 var _this = this;
-                var messageCreatedMoment = moment(message.date);
-                var isMessageFrozen = messageCreatedMoment.add('m', 5).isBefore();
+                var messageFreezeMoment = moment(message.date).add('m', 5);
+                var isMessageFrozen = messageFreezeMoment.isBefore();
 
                 message.canBeDeleted = (message.ownMessage && !isMessageFrozen) || message.canBeEdited;
                 message.canBeEdited = (message.ownMessage && !isMessageFrozen) || message.canBeDeleted;
@@ -483,7 +483,7 @@ var MirGames;
                 if (!isMessageFrozen) {
                     this.$timeout(function () {
                         return _this.updateAccessRight(message);
-                    }, messageCreatedMoment.diff(moment()) + 50, true);
+                    }, messageFreezeMoment.diff(moment()) + 50, true);
                 }
             };
 

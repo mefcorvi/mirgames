@@ -44,13 +44,22 @@ namespace MirGames.Infrastructure
         /// </summary>
         /// <param name="mappers">The mappers.</param>
         public DataContext(IEnumerable<IEntityMapper> mappers)
-            : base("Name=MirGames")
+            : this(mappers, "Name=MirGames")
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataContext"/> class.
+        /// </summary>
+        /// <param name="mappers">The mappers.</param>
+        /// <param name="nameOrConnectionString">The name or connection string.</param>
+        public DataContext(IEnumerable<IEntityMapper> mappers, string nameOrConnectionString)
+            : base(nameOrConnectionString)
         {
             Contract.Requires(mappers != null);
-            
             this.mappers = mappers;
             this.Database.Log = s => TraceSource.TraceInformation(s);
-            
+
             ((IObjectContextAdapter)this).ObjectContext.ObjectMaterialized +=
                 (sender, e) => DateTimeKindAttribute.Apply(e.Entity);
         }

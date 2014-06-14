@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirGames.Domain.Acl", "MirG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirGames.Domain.Acl.Public", "MirGames.Domain.Acl.Public\MirGames.Domain.Acl.Public.csproj", "{E6580F5E-5422-4896-9645-6FB90040AF9E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirGames.Specs", "MirGames.Specs\MirGames.Specs.csproj", "{7FD7ACB2-2FFD-4AE2-92D6-05B6520DD4BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -171,6 +173,10 @@ Global
 		{E6580F5E-5422-4896-9645-6FB90040AF9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6580F5E-5422-4896-9645-6FB90040AF9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6580F5E-5422-4896-9645-6FB90040AF9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FD7ACB2-2FFD-4AE2-92D6-05B6520DD4BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FD7ACB2-2FFD-4AE2-92D6-05B6520DD4BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FD7ACB2-2FFD-4AE2-92D6-05B6520DD4BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FD7ACB2-2FFD-4AE2-92D6-05B6520DD4BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
