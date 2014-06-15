@@ -66,6 +66,7 @@
     <Compile Include="Mapping\EntityTypeMap.cs" />
     <Compile Include="Mapping\PermissionMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryHandlers\GetPermissionsQueryHandler.cs" />
     <Compile Include="QueryHandlers\IsActionAllowedQueryHandler.cs" />
     <Compile Include="Services\ActionTypesResolver.cs" />
     <Compile Include="Services\DictionaryEntityResolver.cs" />

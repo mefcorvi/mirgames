@@ -94,6 +94,7 @@
     <Compile Include="QueryHandlers\GetWipProjectFileQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetWipProjectFilesQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetIsProjectNameUniqueQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetWipProjectForEditQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetWipProjectQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetWipProjectTopicsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetWipTagsQueryHandler.cs" />

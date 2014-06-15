@@ -14,7 +14,7 @@
     <div class="subsection">
     <a href="@Url.Action("Project", new { projectAlias = Model.Alias })" @Html.Css("selected", section == "Project")><i class="fa fa-home"></i>Проект</a>
         
-    @if (!Model.RepositoryUrl.IsNullOrEmpty())
+    @if (!Model.RepositoryUrl.IsNullOrEmpty() && Model.CanReadRepository)
     {
         <a href="@Url.Action("Code", "Projects", new { projectAlias = Model.Alias, path = "/" })" @Html.Css("selected", section == "Repository")><i class="fa fa-code"></i>Исходный код</a>
     }

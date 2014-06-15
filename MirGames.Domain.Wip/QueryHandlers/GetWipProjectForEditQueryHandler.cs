@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="GetWipProjectQueryHandler.cs">
+// <copyright company="MirGames" file="GetWipProjectForEditQueryHandler.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -15,7 +15,6 @@ namespace MirGames.Domain.Wip.QueryHandlers
     using MirGames.Domain.Attachments.Queries;
     using MirGames.Domain.Exceptions;
     using MirGames.Domain.Security;
-    using MirGames.Domain.TextTransform;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
     using MirGames.Domain.Wip.Entities;
@@ -29,7 +28,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
     /// <summary>
     /// Returns the WIP project.
     /// </summary>
-    internal sealed class GetWipProjectQueryHandler : SingleItemQueryHandler<GetWipProjectQuery, WipProjectViewModel>
+    internal sealed class GetWipProjectForEditQueryHandler : SingleItemQueryHandler<GetWipProjectForEditQuery, WipProjectForEditViewModel>
     {
         /// <summary>
         /// The query processor.
@@ -47,32 +46,24 @@ namespace MirGames.Domain.Wip.QueryHandlers
         private readonly IAuthorizationManager authorizationManager;
 
         /// <summary>
-        /// The text processor.
-        /// </summary>
-        private readonly ITextProcessor textProcessor;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GetWipProjectQueryHandler" /> class.
+        /// Initializes a new instance of the <see cref="GetWipProjectForEditQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="settings">The settings.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
-        /// <param name="textProcessor">The text processor.</param>
-        public GetWipProjectQueryHandler(IQueryProcessor queryProcessor, ISettings settings, IAuthorizationManager authorizationManager, ITextProcessor textProcessor)
+        public GetWipProjectForEditQueryHandler(IQueryProcessor queryProcessor, ISettings settings, IAuthorizationManager authorizationManager)
         {
             Contract.Requires(queryProcessor != null);
             Contract.Requires(settings != null);
             Contract.Requires(authorizationManager != null);
-            Contract.Requires(textProcessor != null);
 
             this.queryProcessor = queryProcessor;
             this.settings = settings;
             this.authorizationManager = authorizationManager;
-            this.textProcessor = textProcessor;
         }
 
         /// <inheritdoc />
-        public override WipProjectViewModel Execute(IReadContext readContext, GetWipProjectQuery query, ClaimsPrincipal principal)
+        public override WipProjectForEditViewModel Execute(IReadContext readContext, GetWipProjectForEditQuery query, ClaimsPrincipal principal)
         {
             var project = readContext
                 .Query<Project>()
@@ -83,7 +74,9 @@ namespace MirGames.Domain.Wip.QueryHandlers
                 throw new ItemNotFoundException("Project", query.ProjectId);
             }
 
-            var projectViewModel = new WipProjectViewModel
+            this.authorizationManager.EnsureAccess(principal, "Edit", "Project", project.ProjectId);
+
+            var projectViewModel = new WipProjectForEditViewModel
                 {
                     CreationDate = project.CreationDate,
                     Author = new AuthorViewModel
@@ -91,23 +84,14 @@ namespace MirGames.Domain.Wip.QueryHandlers
                             Id = project.AuthorId
                         },
                     Description = project.Description,
-                    ShortDescription = this.textProcessor.GetShortText(project.Description),
                     Alias = project.Alias,
-                    FollowersCount = project.FollowersCount,
                     ProjectId = project.ProjectId,
                     Title = project.Title,
                     RepositoryType = project.RepositoryType,
                     UpdatedDate = project.UpdatedDate,
                     Version = project.Version,
-                    Votes = project.Votes,
-                    LastCommitMessage = project.LastCommitMessage,
-                    VotesCount = project.VotesCount,
                     Tags = project.TagsList.Split(',').Select(t => t.Trim()).ToArray(),
-                    CanEdit = this.authorizationManager.CheckAccess(principal, "Edit", "Project", project.ProjectId),
-                    CanCreateBug = this.authorizationManager.CheckAccess(principal, "CreateBug", "Project", project.ProjectId),
-                    CanCreateTask = this.authorizationManager.CheckAccess(principal, "CreateTask", "Project", project.ProjectId),
-                    CanCreateFeature = this.authorizationManager.CheckAccess(principal, "CreateFeature", "Project", project.ProjectId),
-                    CanReadRepository = this.authorizationManager.CheckAccess(principal, "Read", "GitRepository", project.RepositoryId)
+                    IsRepositoryPrivate = !this.authorizationManager.CheckAccess(0, "Read", "GitRepository", project.RepositoryId)
                 };
 
             var attachment = this.queryProcessor.Process(new GetAttachmentsQuery

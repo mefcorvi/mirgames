@@ -46,5 +46,10 @@ namespace MirGames.Domain.Wip.Commands
         /// Gets or sets the description.
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is repository private.
+        /// </summary>
+        public bool? IsRepositoryPrivate { get; set; }
     }
 }

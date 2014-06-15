@@ -123,7 +123,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
                 EntityId = project.RepositoryId,
                 EntityType = "GitRepository",
             });
-
+             
             this.commandProcessor.Execute(new SetPermissionCommand
             {
                 Actions = new[] { "CommentWorkItem", "CreateFeature", "CreateBug", "Read", "ViewStatistics" },

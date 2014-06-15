@@ -14,6 +14,7 @@ module MirGames.Wip {
             this.$scope.tags = this.pageData.project.Tags.join(', ');
             this.$scope.description = this.pageData.project.Description;
             this.$scope.logoUrl = this.pageData.project.LogoUrl;
+            this.$scope.isPrivate = this.pageData.project.IsRepositoryPrivate;
 
             this.$scope.save = () => this.save();
             this.$scope.fileUploaded = (attachmentId) => this.fileUploaded(attachmentId);
@@ -34,6 +35,7 @@ module MirGames.Wip {
                 LogoAttachmentId: this.$scope.attachmentId,
                 Attachments: this.$scope.attachments,
                 Description: this.$scope.description,
+                IsRepositoryPrivate: this.$scope.isPrivate
             };
 
             this.apiService.executeCommand("SaveWipProjectCommand", command, () => {
@@ -53,6 +55,7 @@ module MirGames.Wip {
         attachments: number[];
         description: string;
 
+        isPrivate: boolean;
         logoUrl: string;
         showPreview: boolean;
         isTitleFocused: boolean;
@@ -61,6 +64,6 @@ module MirGames.Wip {
     }
 
     export interface IProjectSettingsPageData {
-        project: MirGames.Domain.Wip.ViewModels.WipProjectViewModel;
+        project: MirGames.Domain.Wip.ViewModels.WipProjectForEditViewModel;
     }
 }

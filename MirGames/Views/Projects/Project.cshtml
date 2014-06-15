@@ -22,7 +22,7 @@
 
 <section>
     <div class="main-section">
-        @if (!string.IsNullOrEmpty(Model.RepositoryUrl))
+        @if (!string.IsNullOrEmpty(Model.RepositoryUrl) && Model.CanReadRepository)
         {
             <h4>Репозиторий</h4>
             <div class="repository-url">
@@ -63,7 +63,7 @@
             <div class="task-type"><i class="fa fa-tasks"></i><a title="Открытые таски" href="@Url.Action("WorkItems", "Projects", new { itemType = WorkItemType.Task, projectAlias = Model.Alias })">@statistics.OpenTasksCount</a></div>
             <div class="feature-type"><i class="fa fa-lightbulb-o"></i><a title="Открытые фичи" href="@Url.Action("WorkItems", "Projects", new { itemType = WorkItemType.Feature, projectAlias = Model.Alias })">@statistics.OpenFeaturesCount</a></div>
         </div>
-        @if (commits.Any())
+        @if (Model.CanReadRepository && commits.Any())
         {
             <h4>История</h4>
             <div class="commits">

@@ -94,8 +94,12 @@ namespace MirGames.Controllers
 
             var topics = this.QueryProcessor.Process(new GetWipProjectTopicsQuery { Alias = projectAlias }, new PaginationSettings(0, 10));
 
-            var commits = this.QueryProcessor.Process(new GetWipProjectCommitsQuery { Alias = projectAlias }, new PaginationSettings(0, 15));
-            this.ViewBag.Commits = commits;
+            if (project.CanReadRepository)
+            {
+                var commits = this.QueryProcessor.Process(new GetWipProjectCommitsQuery { Alias = projectAlias }, new PaginationSettings(0, 15));
+                this.ViewBag.Commits = commits;
+            }
+
             this.ViewBag.Topics = topics;
             this.ViewBag.Images = images;
             this.ViewBag.Statistics = statistics;
@@ -208,7 +212,7 @@ namespace MirGames.Controllers
         public ActionResult Settings(string projectAlias)
         {
             var project = this.QueryProcessor.Process(
-                new GetWipProjectQuery
+                new GetWipProjectForEditQuery
                 {
                     Alias = projectAlias
                 });

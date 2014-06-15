@@ -13,6 +13,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Acl.Public.Commands;
     using MirGames.Domain.Attachments.Commands;
     using MirGames.Domain.Exceptions;
     using MirGames.Domain.Security;
@@ -106,11 +107,48 @@ namespace MirGames.Domain.Wip.CommandHandlers
                 });
             }
 
+            if (command.IsRepositoryPrivate.HasValue)
+            {
+                this.SetupRepositoryAccess(command, project);
+            }
+
             this.commandProcessor.Execute(new PublishAttachmentsCommand
             {
                 EntityId = project.ProjectId,
                 Identifiers = command.Attachments
             });
+        }
+
+        /// <summary>
+        /// Setups the repository access.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <param name="project">The project.</param>
+        private void SetupRepositoryAccess(SaveWipProjectCommand command, Project project)
+        {
+            if (command.IsRepositoryPrivate == true)
+            {
+                this.commandProcessor.Execute(new SetPermissionCommand
+                {
+                    Actions = new[] { "Read" },
+                    EntityId = project.RepositoryId,
+                    EntityType = "GitRepository",
+                    UserId = null,
+                    IsDenied = true
+                });
+            }
+
+            if (command.IsRepositoryPrivate == false)
+            {
+                this.commandProcessor.Execute(new SetPermissionCommand
+                {
+                    Actions = new[] { "Read" },
+                    EntityId = project.RepositoryId,
+                    EntityType = "GitRepository",
+                    UserId = null,
+                    IsDenied = false
+                });
+            }
         }
     }
 }

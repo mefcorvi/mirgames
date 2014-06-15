@@ -23,6 +23,7 @@ var MirGames;
                 this.$scope.tags = this.pageData.project.Tags.join(', ');
                 this.$scope.description = this.pageData.project.Description;
                 this.$scope.logoUrl = this.pageData.project.LogoUrl;
+                this.$scope.isPrivate = this.pageData.project.IsRepositoryPrivate;
 
                 this.$scope.save = function () {
                     return _this.save();
@@ -45,7 +46,8 @@ var MirGames;
                     Tags: this.$scope.tags,
                     LogoAttachmentId: this.$scope.attachmentId,
                     Attachments: this.$scope.attachments,
-                    Description: this.$scope.description
+                    Description: this.$scope.description,
+                    IsRepositoryPrivate: this.$scope.isPrivate
                 };
 
                 this.apiService.executeCommand("SaveWipProjectCommand", command, function () {

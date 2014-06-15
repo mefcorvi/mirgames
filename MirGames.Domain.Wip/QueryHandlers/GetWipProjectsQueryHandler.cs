@@ -94,7 +94,8 @@ namespace MirGames.Domain.Wip.QueryHandlers
                             CanEdit = this.authorizationManager.CheckAccess(principal, "Edit", "Project", p.ProjectId),
                             CanCreateBug = this.authorizationManager.CheckAccess(principal, "CreateBug", "Project", p.ProjectId),
                             CanCreateTask = this.authorizationManager.CheckAccess(principal, "CreateTask", "Project", p.ProjectId),
-                            CanCreateFeature = this.authorizationManager.CheckAccess(principal, "CreateFeature", "Project", p.ProjectId)
+                            CanCreateFeature = this.authorizationManager.CheckAccess(principal, "CreateFeature", "Project", p.ProjectId),
+                            CanReadRepository = this.authorizationManager.CheckAccess(principal, "Read", "GitRepository", p.RepositoryId)
                         })
                     .ToList();
 

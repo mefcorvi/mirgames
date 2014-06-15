@@ -423,6 +423,7 @@ interface SaveWipProjectCommand extends MirGames.Infrastructure.Commands.Command
   LogoAttachmentId: number;
   Attachments: number[];
   Description: string;
+  IsRepositoryPrivate: boolean;
 }
 interface CreateNewWipProjectCommand extends MirGames.Infrastructure.Commands.Command1 {
   Title: string;
@@ -521,6 +522,21 @@ interface WipProjectFileViewModel {
   Content: string;
   IsPreview: boolean;
 }
+interface WipProjectForEditViewModel {
+  ProjectId: number;
+  Title: string;
+  Alias: string;
+  Description: string;
+  Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
+  LogoUrl: string;
+  CreationDate: Date;
+  UpdatedDate: Date;
+  Version: string;
+  Tags: string[];
+  RepositoryUrl: string;
+  RepositoryType: string;
+  IsRepositoryPrivate: boolean;
+}
 interface WipProjectViewModel {
   ProjectId: number;
   Title: string;
@@ -541,6 +557,9 @@ interface WipProjectViewModel {
   CanCreateBug: boolean;
   CanCreateTask: boolean;
   CanCreateFeature: boolean;
+  CanReadRepository: boolean;
+  LastCommitMessage: string;
+  ShortDescription: string;
 }
 }
 declare module System {
