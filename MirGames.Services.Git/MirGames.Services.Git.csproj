@@ -104,11 +104,8 @@
     <Compile Include="CommandHandlers\DeleteRepositoryCommandHandler.cs" />
     <Compile Include="CommandHandlers\InitRepositoryCommandHandler.cs" />
     <Compile Include="Entities\Repository.cs" />
-    <Compile Include="Entities\RepositoryAccess.cs" />
-    <Compile Include="Entities\RepositoryAccessLevel.cs" />
     <Compile Include="EntityMapper.cs" />
     <Compile Include="Extensions\RepositoryExtensions.cs" />
-    <Compile Include="Mapping\RepositoryAccessMap.cs" />
     <Compile Include="Mapping\RepositoryMap.cs" />
     <Compile Include="QueryHandlers\GetRepositoryQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetRepositoryFileQueryHandler.cs" />
@@ -127,6 +124,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MirGames.Domain.Acl.Public\MirGames.Domain.Acl.Public.csproj">
+      <Project>{E6580F5E-5422-4896-9645-6FB90040AF9E}</Project>
+      <Name>MirGames.Domain.Acl.Public</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MirGames.Domain\MirGames.Domain.csproj">
       <Project>{ade8bb72-97c1-4e4e-9112-b81a1f6d4384}</Project>
       <Name>MirGames.Domain</Name>

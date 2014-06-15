@@ -20,7 +20,6 @@ namespace MirGames.Services.Git
         public void Configure(IEntityMappingRegistry registry)
         {
             registry.Register(new RepositoryMap());
-            registry.Register(new RepositoryAccessMap());
         }
     }
 }

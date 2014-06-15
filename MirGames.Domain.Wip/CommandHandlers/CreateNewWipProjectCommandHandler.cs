@@ -132,7 +132,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
                 Title = "Репозиторий проекта " + command.Title
             });
         }
-
+        
         /// <summary>
         /// Creates the blog.
         /// </summary>

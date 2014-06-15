@@ -6,6 +6,7 @@
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace MirGames.Services.Git.CommandHandlers
 {
     using System.Diagnostics.Contracts;
@@ -13,12 +14,12 @@ namespace MirGames.Services.Git.CommandHandlers
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Acl.Public.Commands;
     using MirGames.Domain.Security;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Commands;
     using MirGames.Infrastructure.Security;
     using MirGames.Infrastructure.Transactions;
-    using MirGames.Services.Git.Entities;
     using MirGames.Services.Git.Public.Commands;
     using MirGames.Services.Git.Public.Exceptions;
     using MirGames.Services.Git.Services;
@@ -43,15 +44,22 @@ namespace MirGames.Services.Git.CommandHandlers
         private readonly ITransactionExecutor transactionExecutor;
 
         /// <summary>
+        /// The command processor.
+        /// </summary>
+        private readonly ICommandProcessor commandProcessor;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="InitRepositoryCommandHandler" /> class.
         /// </summary>
         /// <param name="repositoryPathProvider">The repository path provider.</param>
         /// <param name="writeContextFactory">The write context factory.</param>
         /// <param name="transactionExecutor">The transaction executor.</param>
+        /// <param name="commandProcessor">The command processor.</param>
         public InitRepositoryCommandHandler(
             IRepositoryPathProvider repositoryPathProvider,
             IWriteContextFactory writeContextFactory,
-            ITransactionExecutor transactionExecutor)
+            ITransactionExecutor transactionExecutor,
+            ICommandProcessor commandProcessor)
         {
             Contract.Requires(repositoryPathProvider != null);
             Contract.Requires(writeContextFactory != null);
@@ -60,6 +68,7 @@ namespace MirGames.Services.Git.CommandHandlers
             this.repositoryPathProvider = repositoryPathProvider;
             this.writeContextFactory = writeContextFactory;
             this.transactionExecutor = transactionExecutor;
+            this.commandProcessor = commandProcessor;
         }
 
         /// <inheritdoc />
@@ -97,16 +106,6 @@ namespace MirGames.Services.Git.CommandHandlers
                 writeContext.Set<Entities.Repository>().Add(newRepository);
                 writeContext.SaveChanges();
 
-                var repositoryAccess = new RepositoryAccess
-                {
-                    AccessLevel = RepositoryAccessLevel.Owner,
-                    RepositoryId = newRepository.Id,
-                    UserId = userId
-                };
-
-                writeContext.Set<RepositoryAccess>().Add(repositoryAccess);
-                writeContext.SaveChanges();
-
                 this.transactionExecutor.Execute(
                     () => Repository.Init(path, true),
                     () =>
@@ -118,9 +117,17 @@ namespace MirGames.Services.Git.CommandHandlers
                     });
 
                 writeContext.SaveChanges();
-
-                return newRepository.Id;
             }
+
+            this.commandProcessor.Execute(new SetPermissionCommand
+            {
+                Actions = new[] { "Read", "Delete", "Write" },
+                EntityId = newRepository.Id,
+                EntityType = "GitRepository",
+                UserId = userId
+            });
+
+            return newRepository.Id;
         }
     }
 }
