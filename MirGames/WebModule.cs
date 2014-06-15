@@ -55,6 +55,7 @@ namespace MirGames
 
             builder.RegisterInstance(RouteTable.Routes).As<RouteCollection>();
             builder.RegisterInstance(new ClaimsPrincipalUserIdProvider()).As<IUserIdProvider>();
+            builder.RegisterType<SessionManager>().As<ISessionManager>().SingleInstance();
 
             builder.RegisterModule<RouteJsModule>();
             builder.RegisterModule<InfrastructureModule>();

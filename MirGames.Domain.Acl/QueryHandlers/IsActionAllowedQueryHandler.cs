@@ -18,16 +18,10 @@ namespace MirGames.Domain.Acl.QueryHandlers
     using MirGames.Domain.Acl.Public.Queries;
     using MirGames.Domain.Acl.Services;
     using MirGames.Infrastructure;
-    using MirGames.Infrastructure.Cache;
     using MirGames.Infrastructure.Queries;
 
     internal sealed class IsActionAllowedQueryHandler : SingleItemQueryHandler<IsActionAllowedQuery, bool>
     {
-        /// <summary>
-        /// The cache manager.
-        /// </summary>
-        private readonly ICacheManager cacheManager;
-
         /// <summary>
         /// The entity types resolver.
         /// </summary>
@@ -39,23 +33,28 @@ namespace MirGames.Domain.Acl.QueryHandlers
         private readonly IActionTypesResolver actionTypesResolver;
 
         /// <summary>
+        /// The permissions cache manager.
+        /// </summary>
+        private readonly IPermissionsCacheManager permissionsCacheManager;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="IsActionAllowedQueryHandler" /> class.
         /// </summary>
-        /// <param name="cacheManagerFactory">The cache manager factory.</param>
         /// <param name="entityTypesResolver">The entity types resolver.</param>
         /// <param name="actionTypesResolver">The action types resolver.</param>
+        /// <param name="permissionsCacheManager">The permissions cache manager.</param>
         public IsActionAllowedQueryHandler(
-            ICacheManagerFactory cacheManagerFactory,
             IEntityTypesResolver entityTypesResolver,
-            IActionTypesResolver actionTypesResolver)
+            IActionTypesResolver actionTypesResolver,
+            IPermissionsCacheManager permissionsCacheManager)
         {
-            Contract.Requires(cacheManagerFactory != null);
             Contract.Requires(actionTypesResolver != null);
             Contract.Requires(entityTypesResolver != null);
+            Contract.Requires(permissionsCacheManager != null);
 
-            this.cacheManager = cacheManagerFactory.Create("Acl");
             this.entityTypesResolver = entityTypesResolver;
             this.actionTypesResolver = actionTypesResolver;
+            this.permissionsCacheManager = permissionsCacheManager;
         }
 
         /// <inheritdoc />
@@ -65,7 +64,7 @@ namespace MirGames.Domain.Acl.QueryHandlers
             int actionId = this.actionTypesResolver.GetActionId(query.ActionName, entityTypeId);
 
             bool isAllow;
-            if (this.TryGetFromCache(query, actionId, entityTypeId, out isAllow))
+            if (this.permissionsCacheManager.TryGetFromCache(query.UserId, actionId, entityTypeId, query.EntityId, out isAllow))
             {
                 return isAllow;
             }
@@ -81,10 +80,10 @@ namespace MirGames.Domain.Acl.QueryHandlers
                                    && p.EntityTypeId == entityTypeId
                                    && (p.EntityId >= query.EntityId - 50 && p.EntityId <= query.EntityId + 50));
 
-                permissions.ForEach(this.AddToCache);
+                permissions.ForEach(this.permissionsCacheManager.AddToCache);
             }
 
-            if (this.TryGetFromCache(query, actionId, entityTypeId, out isAllow))
+            if (this.permissionsCacheManager.TryGetFromCache(query.UserId, actionId, entityTypeId, query.EntityId, out isAllow))
             {
                 return isAllow;
             }
@@ -97,14 +96,14 @@ namespace MirGames.Domain.Acl.QueryHandlers
                                (p.UserId == query.UserId || p.UserId == null) && (p.EntityTypeId == entityTypeId)
                                && p.EntityId == null);
 
-            commonPermissions.ForEach(this.AddToCache);
+            commonPermissions.ForEach(this.permissionsCacheManager.AddToCache);
 
-            if (this.TryGetFromCache(query, actionId, entityTypeId, out isAllow))
+            if (this.permissionsCacheManager.TryGetFromCache(query.UserId, actionId, entityTypeId, query.EntityId, out isAllow))
             {
                 return isAllow;
             }
 
-            this.AddToCache(new Permission
+            this.permissionsCacheManager.AddToCache(new Permission
             {
                 ActionId = actionId,
                 CreatedDate = DateTime.Now,
@@ -116,48 +115,5 @@ namespace MirGames.Domain.Acl.QueryHandlers
 
             return false;
         }
-
-        private bool TryGetFromCache(IsActionAllowedQuery query, int actionId, int entityTypeId, out bool isAllow)
-        {
-            var cacheKeys = new[]
-            {
-                this.GetCacheKey(query.UserId, actionId, entityTypeId, query.EntityId),
-                this.GetCacheKey(query.UserId, actionId, entityTypeId, null),
-                this.GetCacheKey(query.UserId, null, entityTypeId, null),
-                this.GetCacheKey(null, actionId, entityTypeId, query.EntityId),
-                this.GetCacheKey(null, actionId, entityTypeId, null),
-                this.GetCacheKey(null, null, entityTypeId, null)
-            };
-
-            foreach (string cacheKey in cacheKeys)
-            {
-                if (this.cacheManager.Contains(cacheKey))
-                {
-                    {
-                        isAllow = this.cacheManager.Get<bool>(cacheKey);
-                        return true;
-                    }
-                }
-            }
-
-            isAllow = default(bool);
-            return false;
-        }
-
-        private string GetCacheKey(int? userId, int? actionId, int entityTypeId, int? entityId)
-        {
-            return string.Format("{0}_{1}_{2}_{3}", entityTypeId, entityId, actionId, userId);
-        }
-
-        private void AddToCache(Permission permission)
-        {
-            string cacheKey = this.GetCacheKey(
-                permission.UserId,
-                permission.ActionId,
-                permission.EntityTypeId,
-                permission.EntityId);
-
-            this.cacheManager.AddOrUpdate(cacheKey, !permission.IsDenied, permission.ExpirationDate ?? DateTimeOffset.Now.AddMinutes(30));
-        } 
     }
 }

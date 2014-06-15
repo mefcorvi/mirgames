@@ -9,7 +9,6 @@
 namespace MirGames.Controllers
 {
     using System;
-    using System.Web;
     using System.Web.Mvc;
 
     using MirGames.Domain.Users.Commands;
@@ -27,13 +26,23 @@ namespace MirGames.Controllers
     public class AccountController : AppController
     {
         /// <summary>
+        /// The session manager.
+        /// </summary>
+        private readonly ISessionManager sessionManager;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="AccountController" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="commandProcessor">The command processor.</param>
-        public AccountController(IQueryProcessor queryProcessor, ICommandProcessor commandProcessor)
+        /// <param name="sessionManager">The session manager.</param>
+        public AccountController(
+            IQueryProcessor queryProcessor,
+            ICommandProcessor commandProcessor,
+            ISessionManager sessionManager)
             : base(queryProcessor, commandProcessor)
         {
+            this.sessionManager = sessionManager;
         }
 
         /// <summary>
@@ -66,7 +75,7 @@ namespace MirGames.Controllers
                 return this.Json(new { result = 0 });
             }
 
-            this.SetSession(sessionId);
+            this.sessionManager.SetSession(sessionId);
 
             return this.Json(new { result = 1 });
         }
@@ -110,7 +119,7 @@ namespace MirGames.Controllers
                 return this.HttpNotFound("Wrong activation key");
             }
 
-            this.SetSession(sessionId);
+            this.sessionManager.SetSession(sessionId);
             return this.RedirectToAction("Index", "Dashboard");
         }
 
@@ -134,7 +143,7 @@ namespace MirGames.Controllers
                 return this.Json(new { result = 1 });
             }
 
-            this.SetSession(sessionId);
+            this.sessionManager.SetSession(sessionId);
             return this.Json(new { result = 0 });
         }
 
@@ -193,22 +202,8 @@ namespace MirGames.Controllers
                 return this.Json(new { result = "LoginFailed" });
             }
 
-            this.SetSession(sessionId);
+            this.sessionManager.SetSession(sessionId);
             return this.Json(new { result = "Success" });
-        }
-
-        /// <summary>
-        /// Sets the session.
-        /// </summary>
-        /// <param name="sessionId">The session unique identifier.</param>
-        private void SetSession(string sessionId)
-        {
-            this.HttpContext.Response.Cookies.Add(
-                new HttpCookie("key", sessionId)
-                    {
-                        Path = "/",
-                        Expires = DateTime.UtcNow.AddYears(1)
-                    });
         }
     }
 }

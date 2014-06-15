@@ -57,6 +57,7 @@ namespace MirGames.Domain.Acl.Entities
         /// <summary>
         /// Gets or sets the expired date.
         /// </summary>
+        [DateTimeKind(DateTimeKind.Utc)]
         public DateTime? ExpirationDate { get; set; }
     }
 }

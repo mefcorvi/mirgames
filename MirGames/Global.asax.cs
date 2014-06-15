@@ -88,12 +88,10 @@ namespace MirGames
                         };
 
                         var commandProcessor = (ICommandProcessor)DependencyResolver.Current.GetService(typeof(ICommandProcessor));
+                        var sessionManager = (ISessionManager)DependencyResolver.Current.GetService(typeof(ISessionManager));
                         var sessionId = commandProcessor.Execute(loginCommand);
 
-                        if (!string.IsNullOrEmpty(sessionId))
-                        {
-                            this.Context.Request.Cookies.Add(new HttpCookie("key", sessionId));
-                        }
+                        sessionManager.SetSession(sessionId);
                     }
                 }
             }

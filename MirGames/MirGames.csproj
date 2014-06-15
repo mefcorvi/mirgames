@@ -330,10 +330,12 @@
     <Compile Include="AntiForgeryAttribute.cs" />
     <Compile Include="Controllers\GitController.cs" />
     <Compile Include="Controllers\OAuthController.cs" />
+    <Compile Include="ISessionManager.cs" />
     <Compile Include="OAuth\BitBucketAuthenticationClientProvider.cs" />
     <Compile Include="OAuth\FacebookAuthenticationClientProvider.cs" />
     <Compile Include="OAuth\GoogleAuthenticationClientProvider.cs" />
     <Compile Include="OAuth\MicrosoftAuthenticationClientProvider.cs" />
+    <Compile Include="SessionManager.cs" />
     <Compile Include="WebModule.cs" />
     <Compile Include="OAuth\GitHubAuthenticationClientProvider.cs" />
     <Compile Include="ClaimsPrincipalUserIdProvider.cs" />

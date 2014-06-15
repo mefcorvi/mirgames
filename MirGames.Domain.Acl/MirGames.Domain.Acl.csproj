@@ -73,6 +73,7 @@
     <Compile Include="Services\IActionTypesResolver.cs" />
     <Compile Include="Services\IDictionaryEntityResolver.cs" />
     <Compile Include="Services\IEntityTypesResolver.cs" />
+    <Compile Include="Services\IPermissionsCacheManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MirGames.Domain.Acl.Public\MirGames.Domain.Acl.Public.csproj">

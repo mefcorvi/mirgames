@@ -9,6 +9,7 @@
 namespace MirGames.Infrastructure.Cache
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Diagnostics.Contracts;
     using System.Runtime.Caching;
 
@@ -21,6 +22,11 @@ namespace MirGames.Infrastructure.Cache
         /// The null value
         /// </summary>
         private static readonly object NullValue = new object();
+
+        /// <summary>
+        /// The locks.
+        /// </summary>
+        private readonly object syncRoot = new object();
 
         /// <summary>
         /// The memory cache factory.
@@ -72,10 +78,18 @@ namespace MirGames.Infrastructure.Cache
                 return this.Get<T>(key);
             }
 
-            object newValue = itemFactory.Invoke();
-            this.memoryCache.Add(key, newValue ?? NullValue, absoluteExpiration);
+            lock (this.syncRoot)
+            {
+                if (this.memoryCache.Contains(key))
+                {
+                    return this.Get<T>(key);
+                }
 
-            return (T)newValue;
+                object newValue = itemFactory.Invoke();
+                this.memoryCache.Add(key, newValue ?? NullValue, absoluteExpiration);
+
+                return (T)newValue;
+            }
         }
 
         /// <inheritdoc />

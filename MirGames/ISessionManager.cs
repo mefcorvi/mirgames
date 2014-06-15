@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="AclModule.cs">
+// <copyright company="MirGames" file="ISessionManager.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -7,26 +7,14 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MirGames.Domain.Acl
+namespace MirGames
 {
-    using Autofac;
-
-    using MirGames.Domain.Acl.Services;
-
-    /// <summary>
-    /// The domain module.
-    /// </summary>
-    public sealed class AclModule : DomainModuleBase
+    public interface ISessionManager
     {
-        /// <inheritdoc />
-        protected override void Load(ContainerBuilder builder)
-        {
-            base.Load(builder);
-
-            builder.RegisterType<ActionTypesResolver>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<EntityTypesResolver>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<EntityMapper>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<PermissionsCacheManager>().AsImplementedInterfaces().SingleInstance();
-        }
+        /// <summary>
+        /// Sets the session.
+        /// </summary>
+        /// <param name="sessionId">The session identifier.</param>
+        void SetSession(string sessionId);
     }
 }

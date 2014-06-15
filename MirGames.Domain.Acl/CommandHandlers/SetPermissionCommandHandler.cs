@@ -19,7 +19,6 @@ namespace MirGames.Domain.Acl.CommandHandlers
     using MirGames.Domain.Acl.Public.Events;
     using MirGames.Domain.Acl.Services;
     using MirGames.Infrastructure;
-    using MirGames.Infrastructure.Cache;
     using MirGames.Infrastructure.Commands;
     using MirGames.Infrastructure.Events;
     using MirGames.Infrastructure.Security;
@@ -45,14 +44,14 @@ namespace MirGames.Domain.Acl.CommandHandlers
         private readonly IActionTypesResolver actionTypesResolver;
 
         /// <summary>
+        /// The permissions cache manager.
+        /// </summary>
+        private readonly IPermissionsCacheManager permissionsCacheManager;
+
+        /// <summary>
         /// The event bus.
         /// </summary>
         private readonly IEventBus eventBus;
-
-        /// <summary>
-        /// The cache manager.
-        /// </summary>
-        private readonly ICacheManager cacheManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SetPermissionCommandHandler" /> class.
@@ -60,25 +59,25 @@ namespace MirGames.Domain.Acl.CommandHandlers
         /// <param name="writeContextFactory">The write context factory.</param>
         /// <param name="entityTypesResolver">The entity types resolver.</param>
         /// <param name="actionTypesResolver">The action types resolver.</param>
-        /// <param name="cacheManagerFactory">The cache manager factory.</param>
+        /// <param name="permissionsCacheManager">The permissions cache manager.</param>
         /// <param name="eventBus">The event bus.</param>
         public SetPermissionCommandHandler(
             IWriteContextFactory writeContextFactory,
             IEntityTypesResolver entityTypesResolver,
             IActionTypesResolver actionTypesResolver,
-            ICacheManagerFactory cacheManagerFactory,
+            IPermissionsCacheManager permissionsCacheManager,
             IEventBus eventBus)
         {
             Contract.Requires(writeContextFactory != null);
             Contract.Requires(entityTypesResolver != null);
             Contract.Requires(actionTypesResolver != null);
-            Contract.Requires(cacheManagerFactory != null);
+            Contract.Requires(permissionsCacheManager != null);
             Contract.Requires(eventBus != null);
 
             this.writeContextFactory = writeContextFactory;
             this.entityTypesResolver = entityTypesResolver;
             this.actionTypesResolver = actionTypesResolver;
-            this.cacheManager = cacheManagerFactory.Create("Acl");
+            this.permissionsCacheManager = permissionsCacheManager;
             this.eventBus = eventBus;
         }
 
@@ -137,24 +136,8 @@ namespace MirGames.Domain.Acl.CommandHandlers
                 writeContext.Set<Permission>().Add(permission);
                 writeContext.SaveChanges();
 
-                this.AddToCache(permission);
+                this.permissionsCacheManager.AddToCache(permission);
             }
-        }
-
-        private void AddToCache(Permission permission)
-        {
-            string cacheKey = this.GetCacheKey(
-                permission.UserId,
-                permission.ActionId,
-                permission.EntityTypeId,
-                permission.EntityId);
-
-            this.cacheManager.AddOrUpdate(cacheKey, !permission.IsDenied, permission.ExpirationDate ?? DateTimeOffset.Now.AddMinutes(30));
-        }
-
-        private string GetCacheKey(int? userId, int? actionId, int entityTypeId, int? entityId)
-        {
-            return string.Format("{0}_{1}_{2}_{3}", entityTypeId, entityId, actionId, userId);
         }
     }
 }

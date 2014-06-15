@@ -14,6 +14,7 @@ namespace MirGames.Hubs
     using MirGames.Domain.Chat.Queries;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Events;
+    using MirGames.Infrastructure.Security;
 
     using Newtonsoft.Json;
 
@@ -28,12 +29,19 @@ namespace MirGames.Hubs
         private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
+        /// The authorization manager.
+        /// </summary>
+        private readonly IAuthorizationManager authorizationManager;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ChatMessagesListener" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
-        public ChatMessagesListener(IQueryProcessor queryProcessor)
+        /// <param name="authorizationManager">The authorization manager.</param>
+        public ChatMessagesListener(IQueryProcessor queryProcessor, IAuthorizationManager authorizationManager)
         {
             this.queryProcessor = queryProcessor;
+            this.authorizationManager = authorizationManager;
         }
 
         /// <inheritdoc />
@@ -49,6 +57,19 @@ namespace MirGames.Hubs
 
             foreach (string connectionId in ChatHub.GetConnections())
             {
+                int? userId = ChatHub.GetUserByConnection(connectionId);
+
+                message.CanBeDeleted = this.authorizationManager.CheckAccess(
+                    userId.GetValueOrDefault(),
+                    "Delete",
+                    "ChatMessage",
+                    message.MessageId);
+
+                message.CanBeEdited = this.authorizationManager.CheckAccess(
+                    userId.GetValueOrDefault(),
+                    "Edit",
+                    "ChatMessage",
+                    message.MessageId);
 
                 context.Clients.Client(connectionId).addNewMessageToPage(JsonConvert.SerializeObject(message));
             }

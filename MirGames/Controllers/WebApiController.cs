@@ -91,6 +91,17 @@ namespace MirGames.Controllers
         }
 
         /// <summary>
+        /// Authenticates the user.
+        /// </summary>
+        /// <param name="sessionId">The session unique identifier.</param>
+        private void Authenticate(string sessionId)
+        {
+            var principal = this.authenticationProvider.GetPrincipal(sessionId);
+            this.User = principal;
+            Thread.CurrentPrincipal = principal;
+        }
+
+        /// <summary>
         /// The API post model.
         /// </summary>
         public class ApiPostModel
@@ -104,17 +115,6 @@ namespace MirGames.Controllers
             /// Gets or sets the session unique identifier.
             /// </summary>
             public string SessionId { get; set; }
-        }
-
-        /// <summary>
-        /// Authenticates the user.
-        /// </summary>
-        /// <param name="sessionId">The session unique identifier.</param>
-        private void Authenticate(string sessionId)
-        {
-            var principal = this.authenticationProvider.GetPrincipal(sessionId);
-            this.User = principal;
-            Thread.CurrentPrincipal = principal;
         }
     }
 }

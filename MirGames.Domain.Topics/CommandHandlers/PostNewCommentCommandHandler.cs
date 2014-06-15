@@ -106,7 +106,8 @@ namespace MirGames.Domain.Topics.CommandHandlers
                 Actions = new[] { "Edit", "Delete" },
                 EntityId = comment.CommentId,
                 EntityType = "Comment",
-                UserId = principal.GetUserId()
+                UserId = principal.GetUserId(),
+                ExpirationDate = DateTime.UtcNow.AddDays(7)
             });
 
             return comment.CommentId;

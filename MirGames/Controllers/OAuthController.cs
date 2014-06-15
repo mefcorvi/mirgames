@@ -8,9 +8,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Controllers
 {
-    using System;
     using System.Diagnostics.CodeAnalysis;
-    using System.Web;
     using System.Web.Mvc;
 
     using DotNetOpenAuth.GoogleOAuth2;
@@ -27,13 +25,23 @@ namespace MirGames.Controllers
     public class OAuthController : AppController
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="OAuthController"/> class.
+        /// The session manager.
+        /// </summary>
+        private readonly ISessionManager sessionManager;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OAuthController" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="commandProcessor">The command processor.</param>
-        public OAuthController(IQueryProcessor queryProcessor, ICommandProcessor commandProcessor)
+        /// <param name="sessionManager">The session manager.</param>
+        public OAuthController(
+            IQueryProcessor queryProcessor,
+            ICommandProcessor commandProcessor,
+            ISessionManager sessionManager)
             : base(queryProcessor, commandProcessor)
         {
+            this.sessionManager = sessionManager;
         }
 
         /// <inheritdoc />
@@ -54,7 +62,7 @@ namespace MirGames.Controllers
                                 Data = authenticationResult.ExtraData
                             });
                     
-                    return RedirectToAction("Settings", "Users");
+                    return this.RedirectToAction("Settings", "Users");
                 }
 
                 if (this.CurrentUser == null)
@@ -68,13 +76,13 @@ namespace MirGames.Controllers
 
                     if (!string.IsNullOrEmpty(sessionId))
                     {
-                        this.SetSession(sessionId);
-                        return RedirectToAction("Index", "Dashboard");
+                        this.sessionManager.SetSession(sessionId);
+                        return this.RedirectToAction("Index", "Dashboard");
                     }
                 }
             }
 
-            return RedirectToAction("Index", "Dashboard");
+            return this.RedirectToAction("Index", "Dashboard");
         }
 
         /// <inheritdoc />
@@ -84,20 +92,6 @@ namespace MirGames.Controllers
         {
             OAuthWebSecurity.RequestAuthentication(provider, Url.Action("Index", "OAuth"));
             return null;
-        }
-
-        /// <summary>
-        /// Sets the session.
-        /// </summary>
-        /// <param name="sessionId">The session unique identifier.</param>
-        private void SetSession(string sessionId)
-        {
-            this.HttpContext.Response.Cookies.Add(
-                new HttpCookie("key", sessionId)
-                {
-                    Path = "/",
-                    Expires = DateTime.UtcNow.AddYears(1)
-                });
         }
     }
 }

@@ -446,8 +446,8 @@ module MirGames.Chat {
             var messageFreezeMoment = moment(message.date).add('m', 5);
             var isMessageFrozen = messageFreezeMoment.isBefore();
 
-            message.canBeDeleted = (message.ownMessage && !isMessageFrozen) || message.canBeEdited;
-            message.canBeEdited = (message.ownMessage && !isMessageFrozen) || message.canBeDeleted;
+            message.canBeDeleted = !isMessageFrozen && message.canBeEdited;
+            message.canBeEdited = !isMessageFrozen && message.canBeDeleted;
 
             if (!isMessageFrozen) {
                 this.$timeout(() => this.updateAccessRight(message), messageFreezeMoment.diff(moment()) + 50, true);
