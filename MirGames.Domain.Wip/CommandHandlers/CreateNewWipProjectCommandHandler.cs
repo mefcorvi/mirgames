@@ -13,6 +13,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Acl.Public.Commands;
     using MirGames.Domain.Attachments.Commands;
     using MirGames.Domain.Security;
     using MirGames.Domain.Topics.Commands;
@@ -114,6 +115,28 @@ namespace MirGames.Domain.Wip.CommandHandlers
             {
                 EntityId = project.ProjectId,
                 Identifiers = command.Attachments
+            });
+
+            this.commandProcessor.Execute(new SetPermissionCommand
+            {
+                Actions = new[] { "Read" },
+                EntityId = project.RepositoryId,
+                EntityType = "GitRepository",
+            });
+
+            this.commandProcessor.Execute(new SetPermissionCommand
+            {
+                Actions = new[] { "CommentWorkItem", "CreateFeature", "CreateBug", "Read", "ViewStatistics" },
+                EntityId = project.ProjectId,
+                EntityType = "Project",
+            });
+
+            this.commandProcessor.Execute(new SetPermissionCommand
+            {
+                Actions = new[] { "Edit", "CreateTask" },
+                EntityId = project.ProjectId,
+                EntityType = "Project",
+                UserId = project.AuthorId
             });
 
             return project.Alias;

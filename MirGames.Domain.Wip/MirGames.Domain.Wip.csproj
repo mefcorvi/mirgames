@@ -104,6 +104,10 @@
     <Compile Include="WipDomainModule.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MirGames.Domain.Acl.Public\MirGames.Domain.Acl.Public.csproj">
+      <Project>{E6580F5E-5422-4896-9645-6FB90040AF9E}</Project>
+      <Name>MirGames.Domain.Acl.Public</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MirGames.Domain.Attachments.Public\MirGames.Domain.Attachments.Public.csproj">
       <Project>{fd93f5af-07f1-4a80-81a6-850d70b5ea79}</Project>
       <Name>MirGames.Domain.Attachments.Public</Name>

@@ -76,6 +76,8 @@ namespace MirGames.Domain.Wip.CommandHandlers
                     throw new ItemNotFoundException("Project", command.ProjectAlias);
                 }
 
+                EnsureAccess(command, principal, authorizationManager, project);
+
                 var newInternalId = writeContext
                                         .Set<ProjectWorkItem>()
                                         .Where(p => p.ProjectId == project.ProjectId)
@@ -96,19 +98,27 @@ namespace MirGames.Domain.Wip.CommandHandlers
                     State = WorkItemState.Open,
                     UpdatedDate = DateTime.UtcNow,
                     Title = command.Title,
-                    TagsList = command.Tags,
+                    TagsList = command.Tags ?? string.Empty,
                     InternalId = newInternalId
                 };
 
                 writeContext.Set<ProjectWorkItem>().Add(projectWorkItem);
                 writeContext.SaveChanges();
 
-                foreach (var tag in command.Tags.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries))
+                if (!string.IsNullOrEmpty(command.Tags))
                 {
-                    writeContext.Set<ProjectWorkItemTag>().Add(new ProjectWorkItemTag { TagText = tag.Trim(), WorkItemId = projectWorkItem.WorkItemId });
-                }
+                    foreach (var tag in command.Tags.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        writeContext.Set<ProjectWorkItemTag>()
+                                    .Add(new ProjectWorkItemTag
+                                    {
+                                        TagText = tag.Trim(),
+                                        WorkItemId = projectWorkItem.WorkItemId
+                                    });
+                    }
 
-                writeContext.SaveChanges();
+                    writeContext.SaveChanges();
+                }
             }
 
             this.commandProcessor.Execute(new PublishAttachmentsCommand
@@ -118,6 +128,35 @@ namespace MirGames.Domain.Wip.CommandHandlers
             });
 
             return projectWorkItem.InternalId;
+        }
+
+        /// <summary>
+        /// Ensures the access.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <param name="principal">The principal.</param>
+        /// <param name="authorizationManager">The authorization manager.</param>
+        /// <param name="project">The project.</param>
+        private static void EnsureAccess(
+            CreateNewProjectWorkItemCommand command,
+            ClaimsPrincipal principal,
+            IAuthorizationManager authorizationManager,
+            Project project)
+        {
+            if (command.Type == WorkItemType.Bug)
+            {
+                authorizationManager.EnsureAccess(principal, "CreateBug", "Project", project.ProjectId);
+            }
+
+            if (command.Type == WorkItemType.Feature)
+            {
+                authorizationManager.EnsureAccess(principal, "CreateFeature", "Project", project.ProjectId);
+            }
+
+            if (command.Type == WorkItemType.Task)
+            {
+                authorizationManager.EnsureAccess(principal, "CreateTask", "Project", project.ProjectId);
+            }
         }
     }
 }

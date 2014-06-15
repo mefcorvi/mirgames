@@ -72,7 +72,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
                     throw new ItemNotFoundException("WorkItem", command.WorkItemId);
                 }
 
-                authorizationManager.EnsureAccess(principal, "Comment", "ProjectWorkItem", workItem.WorkItemId);
+                authorizationManager.EnsureAccess(principal, "CommentWorkItem", "Project", workItem.ProjectId);
 
                 comment = new ProjectWorkItemComment
                 {

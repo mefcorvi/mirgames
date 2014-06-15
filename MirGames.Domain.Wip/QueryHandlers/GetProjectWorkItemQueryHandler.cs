@@ -96,8 +96,8 @@ namespace MirGames.Domain.Wip.QueryHandlers
                 StartDate = workItem.StartDate,
                 CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "ProjectWorkItem", workItem.WorkItemId),
                 CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "ProjectWorkItem", workItem.WorkItemId),
-                CanBeCommented = this.authorizationManager.CheckAccess(principal, "Comment", "ProjectWorkItem", workItem.WorkItemId)
-            };
+                CanBeCommented = this.authorizationManager.CheckAccess(principal, "CommentWorkItem", "Project", workItem.ProjectId)
+            }; 
 
             this.queryProcessor.Process(new ResolveAuthorsQuery
             {
