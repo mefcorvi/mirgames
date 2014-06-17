@@ -14,16 +14,20 @@
 .project-settings-page > section > h4 {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 24px;
-  margin-bottom: 10px;
   text-shadow: 1px 1px 4px #ffffff;
   border: none;
   font-size: 16px;
   padding-bottom: 0;
+  margin-bottom: 10px;
 }
 .project-settings-page > section > .new-project-form {
-  background: #ffffff;
-  padding: 20px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 20px 0;
+}
+.project-settings-page > section > .new-project-form:first-of-type {
+  padding-top: 0;
+}
+.project-settings-page > section > .new-project-form:last-of-type {
+  padding-bottom: 0;
 }
 .project-settings-page > section > .new-project-form .project-address {
   width: 200px;

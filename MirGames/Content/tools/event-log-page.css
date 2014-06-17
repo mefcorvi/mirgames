@@ -12,15 +12,17 @@
   text-shadow: 1px 1px 4px #ffffff;
 }
 .event-log-page > section > form {
-  background: #ffffff;
-  padding: 20px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 20px 0;
   margin-bottom: 10px;
 }
+.event-log-page > section > form:first-of-type {
+  padding-top: 0;
+}
+.event-log-page > section > form:last-of-type {
+  padding-bottom: 0;
+}
 .event-log-page > section .event-log-item {
-  background: #ffffff;
   padding: 5px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
   margin-bottom: 3.33333333px;
   overflow: hidden;
 }

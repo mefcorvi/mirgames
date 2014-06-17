@@ -173,9 +173,7 @@
   }
 }
 .wip-project-page > section > .project-info-block > .project-short-info {
-  background: #ffffff;
   padding: 10px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
   margin-bottom: 10px;
   display: -webkit-flex;
   display: -moz-flex;
@@ -417,21 +415,25 @@
 .wip-project-page > section > section h4 {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 24px;
-  margin-bottom: 10px;
   text-shadow: 1px 1px 4px #ffffff;
   border: none;
   font-size: 16px;
   padding-bottom: 0;
+  margin-bottom: 10px;
 }
 .wip-project-page > section > section .screenshots {
-  background: #ffffff;
-  padding: 20px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 20px 0;
   margin-bottom: 20px;
   overflow: hidden;
   padding: 5px;
   list-style-type: none;
   white-space: nowrap;
+}
+.wip-project-page > section > section .screenshots:first-of-type {
+  padding-top: 0;
+}
+.wip-project-page > section > section .screenshots:last-of-type {
+  padding-bottom: 0;
 }
 .wip-project-page > section > section .screenshots li {
   display: inline-block;
@@ -528,9 +530,13 @@
   background: #4796d0;
 }
 .wip-project-page > section > section .aside-section .commits {
-  background: #ffffff;
-  padding: 20px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 20px 0;
+}
+.wip-project-page > section > section .aside-section .commits:first-of-type {
+  padding-top: 0;
+}
+.wip-project-page > section > section .aside-section .commits:last-of-type {
+  padding-bottom: 0;
 }
 .wip-project-page > section > section .aside-section .commits .commit {
   overflow: hidden;
@@ -546,10 +552,14 @@
   color: #8c8c0c;
 }
 .wip-project-page > section > section .repository-url {
-  background: #ffffff;
-  padding: 20px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 20px 0;
   margin-bottom: 20px;
+}
+.wip-project-page > section > section .repository-url:first-of-type {
+  padding-top: 0;
+}
+.wip-project-page > section > section .repository-url:last-of-type {
+  padding-bottom: 0;
 }
 .wip-project-page > section > section .repository-url input {
   margin-top: 5px;
@@ -607,12 +617,16 @@
   }
 }
 .wip-project-page > section > section .blog-posts > .message {
-  background: #ffffff;
-  padding: 20px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 20px 0;
   overflow: hidden;
   margin-bottom: 10px;
   margin-top: 10px;
+}
+.wip-project-page > section > section .blog-posts > .message:first-of-type {
+  padding-top: 0;
+}
+.wip-project-page > section > section .blog-posts > .message:last-of-type {
+  padding-bottom: 0;
 }
 .wip-project-page > section > section .blog-posts > .message > .message-content {
   overflow: hidden;

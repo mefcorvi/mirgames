@@ -35,12 +35,16 @@ body > nav > h1 .syndication:hover {
   padding-right: 20px;
 }
 .topics-page > section > .topics-list > .message {
-  background: #ffffff;
-  padding: 20px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 20px 0;
   overflow: hidden;
   margin-bottom: 10px;
   margin-top: 10px;
+}
+.topics-page > section > .topics-list > .message:first-of-type {
+  padding-top: 0;
+}
+.topics-page > section > .topics-list > .message:last-of-type {
+  padding-bottom: 0;
 }
 .topics-page > section > .topics-list > .message > .message-content {
   overflow: hidden;

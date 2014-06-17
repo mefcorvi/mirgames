@@ -12,13 +12,17 @@
   text-shadow: 1px 1px 4px #ffffff;
 }
 .user-forum-posts-page > section > .user-info {
-  background: #ffffff;
-  padding: 20px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 20px 0;
   overflow: hidden;
   margin-bottom: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
+}
+.user-forum-posts-page > section > .user-info:first-of-type {
+  padding-top: 0;
+}
+.user-forum-posts-page > section > .user-info:last-of-type {
+  padding-bottom: 0;
 }
 .user-forum-posts-page > section > .user-info .user-rating {
   display: inline;
@@ -38,9 +42,7 @@
   margin-bottom: 10px;
 }
 .user-forum-posts-page > section > .posts-list > .message {
-  background: #ffffff;
   padding: 10px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
   overflow: hidden;
   position: relative;
   margin-bottom: 10px;

@@ -12,13 +12,17 @@
   text-shadow: 1px 1px 4px #ffffff;
 }
 .user-comments-page > section > .user-info {
-  background: #ffffff;
-  padding: 20px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 20px 0;
   overflow: hidden;
   margin-bottom: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
+}
+.user-comments-page > section > .user-info:first-of-type {
+  padding-top: 0;
+}
+.user-comments-page > section > .user-info:last-of-type {
+  padding-bottom: 0;
 }
 .user-comments-page > section > .user-info .user-rating {
   display: inline;
@@ -42,9 +46,7 @@
   font-size: 15px;
 }
 .user-comments-page > section > .comments-list > .comment {
-  background: #ffffff;
   padding: 10px 10px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
   margin-bottom: 5px;
 }
 .user-comments-page > section > .comments-list > .comment:last-child {

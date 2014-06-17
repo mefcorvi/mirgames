@@ -173,9 +173,7 @@
   }
 }
 .wip-workitems-page > section > .project-info-block > .project-short-info {
-  background: #ffffff;
   padding: 10px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
   margin-bottom: 10px;
   display: -webkit-flex;
   display: -moz-flex;
@@ -417,11 +415,11 @@
 .wip-workitems-page > section > section h4 {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 24px;
-  margin-bottom: 10px;
   text-shadow: 1px 1px 4px #ffffff;
   border: none;
   font-size: 16px;
   padding-bottom: 0;
+  margin-bottom: 10px;
 }
 .wip-workitems-page > section > section .toolbar {
   display: inline-block;
@@ -490,12 +488,16 @@
   opacity: 1;
 }
 .wip-workitems-page > section > section .tracker-items {
-  background: #ffffff;
-  padding: 20px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 20px 0;
   margin-bottom: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
+}
+.wip-workitems-page > section > section .tracker-items:first-of-type {
+  padding-top: 0;
+}
+.wip-workitems-page > section > section .tracker-items:last-of-type {
+  padding-bottom: 0;
 }
 .wip-workitems-page > section > section .tracker-items .tracker-item {
   padding-top: 10px;
@@ -728,11 +730,11 @@
 .wip-workitems-page > section > section .tracker-item-blocks .items > h1 {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 24px;
-  margin-bottom: 10px;
   text-shadow: 1px 1px 4px #ffffff;
   border: none;
   font-size: 16px;
   padding-bottom: 0;
+  margin-bottom: 10px;
 }
 .wip-workitems-page > section > section .tracker-item-blocks .items:first-child {
   padding-left: 0;
@@ -787,9 +789,7 @@
   -moz-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  background: #ffffff;
-  padding: 10px 10px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 10px 0;
 }
 .wip-workitems-page > section > section .tracker-item-blocks .tracker-item.last {
   border-bottom-width: 0;
@@ -980,6 +980,12 @@
 .wip-workitems-page > section > section .tracker-item-blocks .tracker-item > .tags > li:last-child {
   margin-right: 0;
 }
+.wip-workitems-page > section > section .tracker-item-blocks .tracker-item:first-of-type {
+  padding-top: 0;
+}
+.wip-workitems-page > section > section .tracker-item-blocks .tracker-item:last-of-type {
+  padding-bottom: 0;
+}
 .wip-workitems-page > section > section .tracker-item-blocks .tracker-item.last {
   border-bottom-width: 1px;
 }
@@ -1011,8 +1017,12 @@
   border: 1px dotted rgba(0, 0, 0, 0.3);
 }
 .wip-workitems-page > section > section .new-item-form {
-  background: #ffffff;
-  padding: 20px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 20px 0;
+}
+.wip-workitems-page > section > section .new-item-form:first-of-type {
+  padding-top: 0;
+}
+.wip-workitems-page > section > section .new-item-form:last-of-type {
+  padding-bottom: 0;
 }
 /*# sourceMappingURL=project-work-items.css.map */

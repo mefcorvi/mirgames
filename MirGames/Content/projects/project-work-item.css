@@ -173,9 +173,7 @@
   }
 }
 .wip-workitem-page > section > .project-info-block > .project-short-info {
-  background: #ffffff;
   padding: 10px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
   margin-bottom: 10px;
   display: -webkit-flex;
   display: -moz-flex;
@@ -410,11 +408,11 @@
 .wip-workitem-page > section > section > h3 {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 24px;
-  margin-bottom: 10px;
   text-shadow: 1px 1px 4px #ffffff;
   border: none;
   font-size: 16px;
   padding-bottom: 0;
+  margin-bottom: 10px;
   text-transform: none;
   font-size: 20px;
 }
@@ -434,17 +432,21 @@
 .wip-workitem-page > section > section > h4 {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 24px;
-  margin-bottom: 10px;
   text-shadow: 1px 1px 4px #ffffff;
   border: none;
   font-size: 16px;
   padding-bottom: 0;
+  margin-bottom: 10px;
 }
 .wip-workitem-page > section > section > .work-item {
-  background: #ffffff;
-  padding: 20px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 20px 0;
   margin-bottom: 20px;
+}
+.wip-workitem-page > section > section > .work-item:first-of-type {
+  padding-top: 0;
+}
+.wip-workitem-page > section > section > .work-item:last-of-type {
+  padding-bottom: 0;
 }
 .wip-workitem-page > section > section > .work-item > footer {
   margin-top: 10px;
@@ -508,9 +510,7 @@
   margin-bottom: 20px;
 }
 .wip-workitem-page > section > section > .comments-list > .comment {
-  background: #ffffff;
   padding: 10px 10px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
   margin-bottom: 5px;
 }
 .wip-workitem-page > section > section > .comments-list > .comment:last-child {
@@ -590,8 +590,12 @@
   margin-left: 42px;
 }
 .wip-workitem-page > section > section > .comment-form {
-  background: #ffffff;
-  padding: 20px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 20px 0;
+}
+.wip-workitem-page > section > section > .comment-form:first-of-type {
+  padding-top: 0;
+}
+.wip-workitem-page > section > section > .comment-form:last-of-type {
+  padding-bottom: 0;
 }
 /*# sourceMappingURL=project-work-item.css.map */

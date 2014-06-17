@@ -173,9 +173,7 @@
   }
 }
 .wip-code-file-page > section > .project-info-block > .project-short-info {
-  background: #ffffff;
   padding: 10px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
   margin-bottom: 10px;
   display: -webkit-flex;
   display: -moz-flex;
@@ -417,11 +415,11 @@
 .wip-code-file-page > section > section h4 {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 24px;
-  margin-bottom: 10px;
   text-shadow: 1px 1px 4px #ffffff;
   border: none;
   font-size: 16px;
   padding-bottom: 0;
+  margin-bottom: 10px;
 }
 .wip-code-file-page > section > section h4 .parent-folders {
   list-style: none;
@@ -440,9 +438,13 @@
   display: none;
 }
 .wip-code-file-page > section > section > .file-block {
-  background: #ffffff;
-  padding: 10px 10px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 10px 0;
+}
+.wip-code-file-page > section > section > .file-block:first-of-type {
+  padding-top: 0;
+}
+.wip-code-file-page > section > section > .file-block:last-of-type {
+  padding-bottom: 0;
 }
 .wip-code-file-page > section > section > .file-block > .message {
   display: block;

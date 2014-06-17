@@ -181,10 +181,13 @@ body > section {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   margin-left: 430px;
-  background: #ebeff2 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHklEQVQIW2NkQAU8jEh8HiD7C0wAzAFJggTgHJAAAEXuAxENWNU1AAAAAElFTkSuQmCC) repeat;
-  z-index: 5;
+  background: #ffffff;
+  z-index: 50;
   position: relative;
   margin-top: 0;
+  -webkit-box-shadow: -3px 0px 3px 0px rgba(50, 50, 50, 0.3);
+  -moz-box-shadow: -3px 0px 3px 0px rgba(50, 50, 50, 0.3);
+  box-shadow: -3px 0px 3px 0px rgba(50, 50, 50, 0.3);
 }
 @media (max-width: 479px) {
   body > section {
@@ -335,7 +338,6 @@ body > nav {
   overflow: hidden;
   background: #f5f7f8;
   z-index: 6;
-  border-right: 1px solid #cdd7de;
 }
 body > nav .fa {
   font-size: 16px;

@@ -5,9 +5,7 @@
   padding-bottom: 10px;
 }
 .forum-topic-page > section > .topic-posts > .message {
-  background: #ffffff;
   padding: 13.33333333px 10px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
   margin-bottom: 5px;
   overflow: hidden;
   position: relative;
@@ -102,9 +100,7 @@
   margin-top: 10px;
 }
 .forum-topic-page > section > .answer-form {
-  background: #ffffff;
   padding: 10px 10px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
 }
 .forum-topic-page > section > .answer-form > form > .buttons {
   margin-top: 10px;
@@ -119,11 +115,11 @@
 .forum-topic-page > section > h4 {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 24px;
-  margin-bottom: 10px;
   text-shadow: 1px 1px 4px #ffffff;
   border: none;
   font-size: 16px;
   padding-bottom: 0;
+  margin-bottom: 10px;
   margin-top: 20px;
 }
 .forum-topic-page > section > header {

@@ -274,6 +274,7 @@
     border: none;
     .font-size(1.6);
     padding-bottom: 0;
+    margin-bottom: @indent/2;
 }
 
 .page-main-block() {
@@ -292,13 +293,19 @@
 }
 
 .page-block(@padding) when (ispixel(@padding)) {
-    .page-block(@padding, @padding);
+    .page-block(@padding, 0);
+
+    &:first-of-type {
+        padding-top: 0;
+    }
+
+    &:last-of-type {
+        padding-bottom: 0;
+    }
 }
 
 .page-block(@padding-top, @padding-left) when (ispixel(@padding-left)), (ispixel(@padding-top)) {
-    background: @background-color;
     padding: @padding-top @padding-left;
-    border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .page-header() {

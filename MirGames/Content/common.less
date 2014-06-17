@@ -132,10 +132,12 @@ body {
         height: 100%;
         .box-sizing(border-box);
         margin-left: @menu-width + @section-width;
-        background: mix(@background-color, @header-background, 90%) url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHklEQVQIW2NkQAU8jEh8HiD7C0wAzAFJggTgHJAAAEXuAxENWNU1AAAAAElFTkSuQmCC) repeat;
-        z-index: 5;
+        background: @background-color;
+        z-index: 50;
         position: relative;
         margin-top: 0;
+
+        .box-shadow(-3px 0px 3px 0px rgba(50, 50, 50, 0.3));
 
         a {
             .default-link();
@@ -260,7 +262,6 @@ body {
         overflow: hidden;
         background: mix(@header-background, @background-color, 5%);
         z-index: 6;
-        border-right: 1px solid mix(@header-background, @background-color, 25%);
 
         .fa {
             .font-size(1.6);

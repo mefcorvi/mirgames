@@ -15,11 +15,15 @@
   margin-right: 5px;
 }
 .wip-page > section > .projects-list > .project {
-  background: #ffffff;
-  padding: 20px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 20px 0;
   overflow: hidden;
   margin-bottom: 5px;
+}
+.wip-page > section > .projects-list > .project:first-of-type {
+  padding-top: 0;
+}
+.wip-page > section > .projects-list > .project:last-of-type {
+  padding-bottom: 0;
 }
 .wip-page > section > .projects-list > .project > .logo {
   float: left;

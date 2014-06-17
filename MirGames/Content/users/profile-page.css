@@ -14,20 +14,24 @@
 .account-profile-page > section > h4 {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 24px;
-  margin-bottom: 10px;
   text-shadow: 1px 1px 4px #ffffff;
   border: none;
   font-size: 16px;
   padding-bottom: 0;
+  margin-bottom: 10px;
 }
 .account-profile-page > section > .user-info {
-  background: #ffffff;
-  padding: 20px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 20px 0;
   overflow: hidden;
   margin-bottom: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
+}
+.account-profile-page > section > .user-info:first-of-type {
+  padding-top: 0;
+}
+.account-profile-page > section > .user-info:last-of-type {
+  padding-bottom: 0;
 }
 .account-profile-page > section > .user-info .user-rating {
   display: inline;
@@ -47,10 +51,14 @@
   margin-bottom: 10px;
 }
 .account-profile-page > section form {
-  background: #ffffff;
-  padding: 20px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 20px 0;
   margin-bottom: 20px;
+}
+.account-profile-page > section form:first-of-type {
+  padding-top: 0;
+}
+.account-profile-page > section form:last-of-type {
+  padding-bottom: 0;
 }
 .account-profile-page > section form .form-field input[type=text] {
   max-width: 600px;

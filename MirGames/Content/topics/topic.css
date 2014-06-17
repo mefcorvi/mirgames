@@ -79,10 +79,14 @@
   margin-bottom: 10px;
 }
 .topic-page > section > article {
-  background: #ffffff;
-  padding: 20px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 20px 0;
   margin: 20px 0px;
+}
+.topic-page > section > article:first-of-type {
+  padding-top: 0;
+}
+.topic-page > section > article:last-of-type {
+  padding-bottom: 0;
 }
 .topic-page > section > article .topic-text {
   margin-bottom: 20px;
@@ -151,9 +155,7 @@
   margin-bottom: 20px;
 }
 .topic-page > section .comments-list > .comment {
-  background: #ffffff;
   padding: 10px 10px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
   margin-bottom: 5px;
 }
 .topic-page > section .comments-list > .comment:last-child {
@@ -233,9 +235,13 @@
   margin-left: 42px;
 }
 .topic-page > section .comment-form {
-  background: #ffffff;
-  padding: 10px 10px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 10px 0;
+}
+.topic-page > section .comment-form:first-of-type {
+  padding-top: 0;
+}
+.topic-page > section .comment-form:last-of-type {
+  padding-bottom: 0;
 }
 .topic-page > section .comment-form .text-editor-field div.mdd_editor_wrap textarea {
   height: 100px;
