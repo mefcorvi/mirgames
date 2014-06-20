@@ -54,23 +54,6 @@ namespace MirGames
                 new { controller = "OAuth", action = "Authorize" });
 
             routes.MapRoute(
-                "TopicItem",
-                "topics/{topicId}",
-                new { controller = "Topics", action = "Topic" },
-                new { topicId = @"\d+" });
-
-            routes.MapRoute(
-                "TopicsList",
-                "topics",
-                new { controller = "Topics", action = "Index", page = 1 });
-
-            routes.MapRoute(
-                "TopicsListWithPage",
-                "topics/page{page}",
-                new { controller = "Topics", action = "Index" },
-                new { page = @"\d+" });
-
-            routes.MapRoute(
                 "ForumTopicItemFirstPage",
                 "forum/{topicId}",
                 new { controller = "Forum", action = "Topic", page = 1 },

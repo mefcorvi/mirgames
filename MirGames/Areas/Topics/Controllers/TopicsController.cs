@@ -6,13 +6,14 @@
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace MirGames.Controllers
+namespace MirGames.Areas.Topics.Controllers
 {
     using System.Diagnostics.Contracts;
     using System.Linq;
     using System.ServiceModel.Syndication;
     using System.Web.Mvc;
 
+    using MirGames.Controllers;
     using MirGames.Domain.Topics.Commands;
     using MirGames.Domain.Topics.Queries;
     using MirGames.Domain.Topics.ViewModels;
@@ -49,7 +50,7 @@ namespace MirGames.Controllers
             var topics = this.QueryProcessor.Process(topicsQuery, new PaginationSettings(0, 20));
 
             var feed = new SyndicationFeed(
-                "MirGames.ru", "Новые посты на MirGames.ru", this.GetAbsoluteUri(Url.Action("Index", "Topics")))
+                "MirGames.ru", "Новые посты на MirGames.ru", this.GetAbsoluteUri(this.Url.Action("Index", "Topics")))
                 {
                     Items = topics.Select(this.CreateTopicSyndicationItem).ToList()
                 };
@@ -67,7 +68,7 @@ namespace MirGames.Controllers
             var comments = this.QueryProcessor.Process(commentsQuery, new PaginationSettings(0, 20));
 
             var feed = new SyndicationFeed(
-                "Новые комментарии на MirGames.ru", "Новые комментарии на MirGames.ru", this.GetAbsoluteUri(Url.Action("Index", "Topics")))
+                "Новые комментарии на MirGames.ru", "Новые комментарии на MirGames.ru", this.GetAbsoluteUri(this.Url.Action("Index", "Topics")))
             {
                 Items = comments.Select(this.CreateCommentSyndicationItem).ToList()
             };
@@ -95,12 +96,12 @@ namespace MirGames.Controllers
             var topicsCount = this.QueryProcessor.GetItemsCount(topicsQuery);
             
             var tags = this.QueryProcessor.Process(new GetMainTagsQuery());
-            ViewBag.Tags = tags;
-            ViewBag.Tag = tag;
-            ViewBag.TopicsCount = topicsCount;
-            ViewBag.RssUrl = Url.Action("Rss", "Topics", new { tag, searchString });
-            ViewBag.Pagination = new PaginationViewModel(
-                paginationSettings, topicsCount, p => Url.Action("Index", "Topics", new { tag, searchString, page = p }));
+            this.ViewBag.Tags = tags;
+            this.ViewBag.Tag = tag;
+            this.ViewBag.TopicsCount = topicsCount;
+            this.ViewBag.RssUrl = this.Url.Action("Rss", "Topics", new { tag, searchString });
+            this.ViewBag.Pagination = new PaginationViewModel(
+                paginationSettings, topicsCount, p => this.Url.Action("Index", "Topics", new { tag, searchString, page = p }));
 
             this.ViewBag.PageData["tag"] = tag;
             this.ViewBag.PageData["searchString"] = searchString;
@@ -125,7 +126,7 @@ namespace MirGames.Controllers
             this.ViewBag.BackUrl = this.HttpContext.Request.UrlReferrer != null
                                    && this.HttpContext.Request.UrlReferrer.IsRouteMatch("Topics", "Index")
                                        ? this.HttpContext.Request.UrlReferrer.ToString()
-                                       : Url.Action("Index", "Topics");
+                                       : this.Url.Action("Index", "Topics");
 
             this.ViewBag.PageData["topicId"] = topicId;
             return this.View(topic);

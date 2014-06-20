@@ -1,5 +1,4 @@
-
-/// <reference path="../_references.ts" />
+/// <reference path="_references.ts" />
 module MirGames.Topics {
     export class SearchPanelController {
         static $inject = ['$scope', '$element', 'pageData'];

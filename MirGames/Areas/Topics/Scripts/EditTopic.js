@@ -1,6 +1,6 @@
 var MirGames;
 (function (MirGames) {
-    /// <reference path="../_references.ts" />
+    /// <reference path="_references.ts" />
     (function (Topics) {
         var EditTopicPage = (function () {
             function EditTopicPage($scope, $element, commandBus, eventBus, pageData) {

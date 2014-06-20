@@ -67,7 +67,7 @@ namespace MirGames
                     "~/Scripts/Account/*.js",
                     "~/Scripts/UI/*.js",
                     "~/Scripts/chat/*.js",
-                    "~/Scripts/topics/*.js",
+                    "~/Areas/Topics/Scripts/*.js",
                     "~/Scripts/Tools/*.js",
                     "~/Scripts/users/*.js",
                     "~/Scripts/Forum/*.js",

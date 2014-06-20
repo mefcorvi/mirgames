@@ -6,7 +6,7 @@ var __extends = this.__extends || function (d, b) {
 };
 var MirGames;
 (function (MirGames) {
-    /// <reference path="../_references.ts" />
+    /// <reference path="_references.ts" />
     (function (Topics) {
         var TopicPage = (function (_super) {
             __extends(TopicPage, _super);

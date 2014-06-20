@@ -1,4 +1,4 @@
-/// <reference path="../_references.ts" />
+/// <reference path="_references.ts" />
 module MirGames.Topics {
     export interface ITopicPageData {
         topicId: number;

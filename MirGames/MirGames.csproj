@@ -328,6 +328,7 @@
     <Content Include="App_Code\DateTimeHelper.cs" />
     <Content Include="App_Code\PluralizationExtensions.cs" />
     <Compile Include="AntiForgeryAttribute.cs" />
+    <Compile Include="Areas\Topics\TopicsAreaRegistration.cs" />
     <Compile Include="Controllers\GitController.cs" />
     <Compile Include="Controllers\OAuthController.cs" />
     <Compile Include="ISessionManager.cs" />
@@ -375,7 +376,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\TopicsController.cs" />
+    <Compile Include="Areas\Topics\Controllers\TopicsController.cs" />
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -385,6 +386,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\Author.cshtml" />
+    <Content Include="Areas\Topics\Views\Web.config" />
+    <Content Include="Areas\Topics\Views\_ViewStart.cshtml" />
     <None Include="BundleTransformer.Configuration.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -587,6 +590,7 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <TypeScriptCompile Include="Areas\Topics\Scripts\_references.ts" />
     <TypeScriptCompile Include="Scripts\BasePage.ts" />
     <TypeScriptCompile Include="Scripts\Commands.ts" />
     <TypeScriptCompile Include="Scripts\Core\Application.ts" />
@@ -600,7 +604,7 @@
     <TypeScriptCompile Include="Scripts\projects\ProjectWorkItemBlocks.ts" />
     <TypeScriptCompile Include="Scripts\projects\ProjectWorkItemList.ts" />
     <TypeScriptCompile Include="Scripts\projects\ProjectWorkItemsPage.ts" />
-    <TypeScriptCompile Include="Scripts\Topics\Topic.ts" />
+    <TypeScriptCompile Include="Areas\Topics\Scripts\Topic.ts" />
     <TypeScriptCompile Include="Scripts\Settings.ts" />
     <TypeScriptCompile Include="Scripts\Core\Config.ts" />
     <TypeScriptCompile Include="Scripts\Core\CommandBus.ts" />
@@ -688,13 +692,13 @@
     <TypeScriptCompile Include="Scripts\MirGames.ts" />
     <TypeScriptCompile Include="Scripts\Core\Service.ts" />
     <TypeScriptCompile Include="Scripts\NavigationController.ts" />
-    <TypeScriptCompile Include="Scripts\Topics\NewTopic.ts" />
+    <TypeScriptCompile Include="Areas\Topics\Scripts\NewTopic.ts" />
     <TypeScriptCompile Include="Scripts\UI\Dialog.ts" />
     <TypeScriptCompile Include="Scripts\Core\Utils.ts" />
     <TypeScriptCompile Include="Scripts\projects\ProjectCodeFilePage.ts" />
     <TypeScriptCompile Include="Scripts\_references.ts" />
-    <TypeScriptCompile Include="Scripts\Topics\SearchPanelController.ts" />
-    <TypeScriptCompile Include="Scripts\Topics\EditTopic.ts" />
+    <TypeScriptCompile Include="Areas\Topics\Scripts\SearchPanelController.ts" />
+    <TypeScriptCompile Include="Areas\Topics\Scripts\EditTopic.ts" />
     <TypeScriptCompile Include="Scripts\UI\AppScope.ts" />
     <TypeScriptCompile Include="Scripts\Users\ProfilePage.ts" />
     <TypeScriptCompile Include="Scripts\UI\TinyEditor.ts" />
@@ -702,14 +706,14 @@
     <TypeScriptCompile Include="Scripts\UI\Autofill.ts" />
     <TypeScriptCompile Include="Scripts\Router.d.ts" />
     <TypeScriptCompile Include="Scripts\Tools\EventLogPage.ts" />
-    <TypeScriptCompile Include="Scripts\Topics\DeleteCommentDialogController.ts" />
-    <TypeScriptCompile Include="Scripts\Topics\EditCommentDialogController.ts" />
+    <TypeScriptCompile Include="Areas\Topics\Scripts\DeleteCommentDialogController.ts" />
+    <TypeScriptCompile Include="Areas\Topics\Scripts\EditCommentDialogController.ts" />
     <TypeScriptCompile Include="Scripts\UI\NotificationService.ts" />
     <TypeScriptCompile Include="Scripts\UI\DateInput.ts" />
     <TypeScriptCompile Include="Scripts\UI\File.ts" />
     <Content Include="Sounds\notify.mp3" />
-    <Content Include="Views\Topics\Index.cshtml" />
-    <Content Include="Views\Topics\_TopicsList.cshtml" />
+    <Content Include="Areas\Topics\Views\Topics\Index.cshtml" />
+    <Content Include="Areas\Topics\Views\Topics\_TopicsList.cshtml" />
     <Content Include="Content\topics\topics.less" />
     <Content Include="Content\text.less" />
     <Content Include="Content\common.less" />
@@ -867,7 +871,6 @@
     <None Include="Scripts\Libs\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\Libs\jquery-1.7.1.js" />
     <Content Include="Scripts\Libs\jquery-1.7.1.min.js" />
-    <Content Include="Scripts\Topics\favorites.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_UserMenu.cshtml" />
@@ -878,20 +881,20 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Topics\Topic.cshtml" />
+    <Content Include="Areas\Topics\Views\Topics\Topic.cshtml" />
     <Content Include="Views\Users\Profile.cshtml" />
-    <Content Include="Views\Topics\_TopicMenu.cshtml" />
-    <Content Include="Views\Topics\_Comment.cshtml" />
-    <Content Include="Views\Topics\_TopicListItem.cshtml" />
+    <Content Include="Areas\Topics\Views\Topics\_TopicMenu.cshtml" />
+    <Content Include="Areas\Topics\Views\Topics\_Comment.cshtml" />
+    <Content Include="Areas\Topics\Views\Topics\_TopicListItem.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
-    <Content Include="Views\Topics\New.cshtml" />
+    <Content Include="Areas\Topics\Views\Topics\New.cshtml" />
     <Content Include="Views\Shared\_Nav.cshtml" />
-    <Content Include="Views\Topics\_TopicsMenu.cshtml" />
+    <Content Include="Areas\Topics\Views\Topics\_TopicsMenu.cshtml" />
     <Content Include="Views\Users\_ProfileMenu.cshtml" />
     <Content Include="Views\Account\_LoginDialog.cshtml" />
     <Content Include="Views\Account\_SignUpDialog.cshtml" />
     <Content Include="Views\Shared\_Dialog.cshtml" />
-    <Content Include="Views\Topics\Edit.cshtml" />
+    <Content Include="Areas\Topics\Views\Topics\Edit.cshtml" />
     <Content Include="Scripts\Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -934,8 +937,8 @@
     <Content Include="Views\Users\Topics.cshtml" />
     <Content Include="Views\Users\Comments.cshtml" />
     <Content Include="Views\Users\ForumPosts.cshtml" />
-    <Content Include="Views\Topics\_EditCommentDialog.cshtml" />
-    <Content Include="Views\Topics\_DeleteCommentDialog.cshtml" />
+    <Content Include="Areas\Topics\Views\Topics\_EditCommentDialog.cshtml" />
+    <Content Include="Areas\Topics\Views\Topics\_DeleteCommentDialog.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Projects\Index.cshtml" />
     <Content Include="Views\Projects\_ProjectListItem.cshtml" />
@@ -962,6 +965,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Topics\Models\" />
+    <Folder Include="Areas\Topics\Views\Shared\" />
     <Folder Include="Content\account\" />
   </ItemGroup>
   <ItemGroup>

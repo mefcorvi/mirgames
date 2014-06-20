@@ -1,6 +1,6 @@
 var MirGames;
 (function (MirGames) {
-    /// <reference path="../_references.ts" />
+    /// <reference path="_references.ts" />
     (function (Topics) {
         var SearchPanelController = (function () {
             function SearchPanelController($scope, $element, pageData) {

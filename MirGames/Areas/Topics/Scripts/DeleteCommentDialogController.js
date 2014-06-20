@@ -1,6 +1,6 @@
 var MirGames;
 (function (MirGames) {
-    /// <reference path="../_references.ts" />
+    /// <reference path="_references.ts" />
     (function (Topics) {
         var DeleteCommentDialogController = (function () {
             function DeleteCommentDialogController($scope, dialog, apiService, options) {

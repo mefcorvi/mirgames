@@ -5,7 +5,8 @@
     </div>
 }
 
-@Html.ActionLink("Блог", "Index", "Topics", null, new { @class = ViewBag.CurrentSection == "Topics" ? "selected" : string.Empty })
+
+@Html.ActionLink("Блог", "Index", "Topics", new { area = "Topics" }, new { @class = ViewBag.CurrentSection == "Topics" ? "selected" : string.Empty })
 <a href="@Url.Action("Index", "Forum")" @Html.Css("selected", (string)ViewBag.CurrentSection == "Forum") ng-controller="MirGames.Forum.UnreadMenuItemController">
     Форум
     <span @Html.Css("updates-count").Add("counter").Add("ng-hide", @ViewBag.ForumTopicsUnread == 0) title="Перейти к непрочитанным обсуждениям"
