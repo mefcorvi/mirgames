@@ -32,7 +32,7 @@
 
             context.MapRoute(
                 "ForumUnreadItems",
-                "forum/Unread",
+                "forum/unread",
                 new { controller = "Forum", action = "Index", onlyUnread = true, page = 1 });
 
             context.MapRoute(

@@ -28,7 +28,7 @@ namespace MirGames
 
             var scripts = new[]
                 {
-                    "~/Scripts/Libs/qbaka.js",
+                    Links.Scripts.Libs.qbaka_js,
                     "~/Scripts/Libs/markdown/AutoLinkTransform.js",
                     "~/Scripts/Libs/markdown/MarkdownDeep.js",
                     "~/Scripts/Libs/markdown/MarkdownDeepEditor.js",
@@ -67,10 +67,10 @@ namespace MirGames
                     "~/Scripts/Account/*.js",
                     "~/Scripts/UI/*.js",
                     Links.Areas.Chat.Scripts.Url("*.js"),
-                    "~/Areas/Topics/Scripts/*.js",
+                    Links.Areas.Topics.Scripts.Url("*.js"),
                     "~/Scripts/Tools/*.js",
                     "~/Scripts/users/*.js",
-                    "~/Areas/Forum/Scripts/*.js",
+                    Links.Areas.Forum.Scripts.Url("*.js"),
                     "~/Scripts/projects/*.js",
                     "~/Scripts/Attachment/*.js",
                     "~/Scripts/MirGames.js",
@@ -89,24 +89,23 @@ namespace MirGames
 
             var cssBundle = new Bundle("~/Content/css", cssTransformer);
             cssBundle.Include(
-                "~/Content/nanoscroller.less",
-                "~/Content/avatars.less",
-                "~/Content/common.less",
-                "~/Content/text.less",
-                "~/Content/wmd.less",
-                "~/Content/dialogs.less",
-                "~/Content/forms.less",
-                "~/Content/quick-date.less",
-                "~/Content/ui/*.less",
-                "~/Content/account/*.less",
+                Links.Content.nanoscroller_less,
+                Links.Content.avatars_less,
+                Links.Content.common_less,
+                Links.Content.text_less,
+                Links.Content.wmd_less,
+                Links.Content.dialogs_less,
+                Links.Content.forms_less,
+                Links.Content.quick_date_less,
+                Links.Content.ui.Url("*.less"),
                 Links.Areas.Chat.Content.Url("*.less"),
-                "~/Content/topics/*.less",
-                "~/Content/users/*.less",
-                "~/Content/forum/*.less",
-                "~/Content/tools/*.less",
-                "~/Content/dashboard/*.less",
-                "~/Content/projects/*.less",
-                "~/Content/font-awesome/font-awesome.less");
+                Links.Areas.Topics.Content.Url("*.less"),
+                Links.Content.users.Url("*.less"),
+                Links.Areas.Forum.Content.Url("*.less"),
+                Links.Content.tools.Url("*.less"),
+                Links.Content.dashboard.Url("*.less"),
+                Links.Content.projects.Url("*.less"),
+                Links.Content.font_awesome.font_awesome_less);
 
             bundles.Add(cssBundle);
         }

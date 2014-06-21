@@ -18,7 +18,7 @@
     @foreach(var comment in Model.Comments)
     {
         <a href="@Url.Action("Topic", "Topics", new { topicId = comment.TopicId })" class="topic-title">@comment.TopicTitle</a>
-        @Html.Partial("../Topics/_Comment", comment)
+        @Html.Partial(MVC.Topics.Topics.Views._Comment, comment)
     }
 </div>
 @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)

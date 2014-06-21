@@ -441,6 +441,12 @@
     <Content Include="Areas\Chat\Content\references.css">
       <DependentUpon>references.less</DependentUpon>
     </Content>
+    <Content Include="Areas\Forum\Content\references.css">
+      <DependentUpon>references.less</DependentUpon>
+    </Content>
+    <Content Include="Areas\Topics\Content\references.css">
+      <DependentUpon>references.less</DependentUpon>
+    </Content>
     <Content Include="Areas\Topics\Views\Web.config" />
     <Content Include="Areas\Topics\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Forum\Views\_ViewStart.cshtml" />
@@ -448,6 +454,8 @@
     <Content Include="Areas\Chat\Views\Web.config" />
     <Content Include="Areas\Chat\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Chat\Content\references.less" />
+    <Content Include="Areas\Forum\Content\references.less" />
+    <Content Include="Areas\Topics\Content\references.less" />
     <None Include="BundleTransformer.Configuration.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -475,7 +483,7 @@
     <Content Include="Content\forms.css">
       <DependentUpon>forms.less</DependentUpon>
     </Content>
-    <Content Include="Content\forum\mixins.css">
+    <Content Include="Areas\Forum\Content\mixins.css">
       <DependentUpon>mixins.less</DependentUpon>
     </Content>
     <Content Include="Content\images\providers\bitbucket.png" />
@@ -505,10 +513,10 @@
     <Content Include="Content\quick-date.css.map">
       <DependentUpon>quick-date.css</DependentUpon>
     </Content>
-    <Content Include="Content\forum\new-topic.css.map">
+    <Content Include="Areas\Forum\Content\new-topic.css.map">
       <DependentUpon>new-topic.css</DependentUpon>
     </Content>
-    <Content Include="Content\forum\topics.css.map">
+    <Content Include="Areas\Forum\Content\topics.css.map">
       <DependentUpon>topics.css</DependentUpon>
     </Content>
     <Content Include="Content\dialogs.css.map">
@@ -517,7 +525,7 @@
     <Content Include="Areas\Chat\Content\chat-room.css.map">
       <DependentUpon>chat-room.css</DependentUpon>
     </Content>
-    <Content Include="Content\forum\topic.css.map">
+    <Content Include="Areas\Forum\Content\topic.css.map">
       <DependentUpon>topic.css</DependentUpon>
     </Content>
     <Content Include="Content\avatars.css.map">
@@ -559,13 +567,13 @@
       <DependentUpon>variables.less</DependentUpon>
     </Content>
     <Content Include="Content\fonts\droidsans-webfont.svg" />
-    <Content Include="Content\forum\new-topic.css">
+    <Content Include="Areas\Forum\Content\new-topic.css">
       <DependentUpon>new-topic.less</DependentUpon>
     </Content>
-    <Content Include="Content\forum\topic.css">
+    <Content Include="Areas\Forum\Content\topic.css">
       <DependentUpon>topic.less</DependentUpon>
     </Content>
-    <Content Include="Content\forum\topics.css">
+    <Content Include="Areas\Forum\Content\topics.css">
       <DependentUpon>topics.less</DependentUpon>
     </Content>
     <Content Include="Content\images\ajax-loader.gif" />
@@ -594,19 +602,19 @@
     <Content Include="Content\tools\event-log-page.css">
       <DependentUpon>event-log-page.less</DependentUpon>
     </Content>
-    <Content Include="Content\topics\edit-topic.css">
+    <Content Include="Areas\Topics\Content\edit-topic.css">
       <DependentUpon>edit-topic.less</DependentUpon>
     </Content>
-    <Content Include="Content\topics\mixins.css">
+    <Content Include="Areas\Topics\Content\mixins.css">
       <DependentUpon>mixins.less</DependentUpon>
     </Content>
-    <Content Include="Content\topics\new-topic.css">
+    <Content Include="Areas\Topics\Content\new-topic.css">
       <DependentUpon>new-topic.less</DependentUpon>
     </Content>
-    <Content Include="Content\topics\topic.css">
+    <Content Include="Areas\Topics\Content\topic.css">
       <DependentUpon>topic.less</DependentUpon>
     </Content>
-    <Content Include="Content\topics\topics.css">
+    <Content Include="Areas\Topics\Content\topics.css">
       <DependentUpon>topics.less</DependentUpon>
     </Content>
     <Content Include="Content\users\mixins.css">
@@ -776,27 +784,27 @@
     <Content Include="Sounds\notify.mp3" />
     <Content Include="Areas\Topics\Views\Topics\Index.cshtml" />
     <Content Include="Areas\Topics\Views\Topics\_TopicsList.cshtml" />
-    <Content Include="Content\topics\topics.less" />
+    <Content Include="Areas\Topics\Content\topics.less" />
     <Content Include="Content\text.less" />
     <Content Include="Content\common.less" />
     <Content Include="Content\settings.less" />
     <Content Include="App_Code\Account.cshtml" />
     <Content Include="Content\avatars.less" />
-    <Content Include="Content\topics\topic.less" />
+    <Content Include="Areas\Topics\Content\topic.less" />
     <Content Include="Content\fonts\droidsans-webfont.eot" />
     <Content Include="Content\fonts\droidsans-webfont.ttf" />
     <Content Include="Content\fonts\droidsans-webfont.woff" />
     <Content Include="Content\wmd.less" />
-    <Content Include="Content\topics\new-topic.less" />
+    <Content Include="Areas\Topics\Content\new-topic.less" />
     <Content Include="Content\dialogs.less" />
     <Content Include="Content\forms.less" />
-    <Content Include="Content\topics\edit-topic.less" />
+    <Content Include="Areas\Topics\Content\edit-topic.less" />
     <Content Include="Content\Web.config" />
     <Content Include="Content\users\users.less" />
     <Content Include="Content\users\user.less" />
-    <Content Include="Content\forum\topics.less" />
-    <Content Include="Content\forum\topic.less" />
-    <Content Include="Content\forum\new-topic.less" />
+    <Content Include="Areas\Forum\Content\topics.less" />
+    <Content Include="Areas\Forum\Content\topic.less" />
+    <Content Include="Areas\Forum\Content\new-topic.less" />
     <Content Include="Content\tools\event-log-page.less" />
     <Content Include="rewrite.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -821,14 +829,14 @@
     <Content Include="Content\nanoscroller.less" />
     <Content Include="Areas\Chat\Content\chat-room.less" />
     <Content Include="Content\users\profile-page.less" />
-    <Content Include="Content\topics\mixins.less" />
+    <Content Include="Areas\Topics\Content\mixins.less" />
     <Content Include="Content\users\user-topics.less" />
     <Content Include="Content\users\mixins.less" />
     <Content Include="Content\users\user-comments.less" />
     <Content Include="Content\users\user-forum-posts.less" />
     <Content Include="Content\dashboard\mixins.less" />
     <Content Include="Content\dashboard\dashboard-page.less" />
-    <Content Include="Content\forum\mixins.less" />
+    <Content Include="Areas\Forum\Content\mixins.less" />
     <Content Include="Content\flexbox.less" />
     <Content Include="Content\users\user-login-dialog.less" />
     <Content Include="Content\ui\user-notifications.less" />
@@ -845,10 +853,10 @@
     <Content Include="Content\wmd.css.map">
       <DependentUpon>wmd.css</DependentUpon>
     </Content>
-    <Content Include="Content\topics\new-topic.css.map">
+    <Content Include="Areas\Topics\Content\new-topic.css.map">
       <DependentUpon>new-topic.css</DependentUpon>
     </Content>
-    <Content Include="Content\topics\topics.css.map">
+    <Content Include="Areas\Topics\Content\topics.css.map">
       <DependentUpon>topics.css</DependentUpon>
     </Content>
     <Content Include="Content\tools\event-log-page.css.map">
@@ -860,10 +868,10 @@
     <Content Include="Content\users\user-forum-posts.css.map">
       <DependentUpon>user-forum-posts.css</DependentUpon>
     </Content>
-    <Content Include="Content\topics\edit-topic.css.map">
+    <Content Include="Areas\Topics\Content\edit-topic.css.map">
       <DependentUpon>edit-topic.css</DependentUpon>
     </Content>
-    <Content Include="Content\topics\topic.css.map">
+    <Content Include="Areas\Topics\Content\topic.css.map">
       <DependentUpon>topic.css</DependentUpon>
     </Content>
     <Content Include="Content\users\user.css.map">
@@ -906,7 +914,7 @@
     <Content Include="Content\settings.css.map">
       <DependentUpon>settings.css</DependentUpon>
     </Content>
-    <Content Include="Content\topics\mixins.css.map">
+    <Content Include="Areas\Topics\Content\mixins.css.map">
       <DependentUpon>mixins.css</DependentUpon>
     </Content>
     <Content Include="Content\users\mixins.css.map">
@@ -918,7 +926,7 @@
     <Content Include="Content\dashboard\mixins.css.map">
       <DependentUpon>mixins.css</DependentUpon>
     </Content>
-    <Content Include="Content\forum\mixins.css.map">
+    <Content Include="Areas\Forum\Content\mixins.css.map">
       <DependentUpon>mixins.css</DependentUpon>
     </Content>
     <Content Include="Content\projects\project-work-item.less" />
@@ -1033,8 +1041,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\account\" />
-    <Folder Include="Content\chat\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

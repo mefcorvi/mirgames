@@ -17,7 +17,7 @@
 <div class="topics-list">
     @foreach(var topic in Model.Topics)
     {
-        @Html.Partial("../Topics/_TopicListItem", topic)
+        @Html.Partial(MVC.Topics.Topics.Views._TopicListItem, topic)
     }
 </div>
 @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
