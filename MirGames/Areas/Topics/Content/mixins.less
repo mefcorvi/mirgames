@@ -2,10 +2,22 @@
 
 .topics-list-item() {
     & > .message {
-        .page-block(@indent);
+        .page-block();
+        padding-top: 0;
+        padding-bottom: @indent;
         overflow: hidden;
-        margin-bottom: 10px;
-        margin-top: 10px;
+        margin-bottom: @indent;
+        margin-top: @indent;
+        border-bottom: 1px solid mix(@background-color, @font-color, 96%);
+
+        &:first-of-type {
+            margin-top: 0;
+        }
+
+        &:last-of-type {
+            border-bottom: 0;
+            margin-bottom: 0;
+        }
 
         & > .message-content {
             overflow: hidden;

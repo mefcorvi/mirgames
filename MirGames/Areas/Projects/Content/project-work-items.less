@@ -4,7 +4,7 @@
 .tracker-item() {
     padding-top: @indent/2;
     padding-bottom: @indent/2;
-    border-bottom: 1px solid @border-color;
+    border-bottom: 1px solid mix(@background-color, @font-color, 96%);
     .make-row();
 
     &.last {
@@ -203,9 +203,16 @@
 
             .tracker-items {
                 .page-block();
-                margin-bottom: @indent;
                 padding-top: @indent/2;
                 padding-bottom: @indent/2;
+
+                & > .data-loading {
+                    margin-top: @indent/2;
+                }
+
+                & > .not-found {
+                    margin-top: @indent/2;
+                }
 
                 .tracker-item {
                     .tracker-item();
@@ -213,12 +220,12 @@
             }
 
             .tracker-item-blocks {
-                .make-row(top);
+                .make-row(flex-start);
                 margin-top: @indent/2;
 
                 .items {
                     margin-bottom: @indent;
-                    padding: @indent/2 @indent/4;
+                    padding: @indent/2 @indent/2;
                     padding-bottom: @indent/2;
 
                     & > h1 {
@@ -252,7 +259,8 @@
 
                 .tracker-item {
                     .tracker-item();
-                    .page-block(@indent/2);
+                    padding-top: @indent/2;
+                    padding-bottom: @indent/2;
 
                     &.last {
                         border-bottom-width: 1px;

@@ -12,6 +12,11 @@
         padding-left: @indent;
         padding-right: @indent;
         margin-bottom: @indent/4;
+        border-bottom: 1px solid mix(@background-color, @font-color, 96%);
+
+        &:last-of-type {
+            border-bottom: 0;
+        }
 
         .fa-envelope {
             color: @link-color-hover;

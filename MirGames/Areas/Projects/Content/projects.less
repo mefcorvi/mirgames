@@ -17,6 +17,11 @@
                 .page-block(@indent);
                 overflow: hidden;
                 margin-bottom: @indent/4;
+                border-bottom: 1px solid mix(@background-color, @font-color, 96%);
+
+                &:last-of-type {
+                    border-bottom: 0;
+                }
 
                 & > .logo {
                     .make-xs-column(2);

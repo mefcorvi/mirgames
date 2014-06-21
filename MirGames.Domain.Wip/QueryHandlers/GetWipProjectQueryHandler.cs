@@ -20,6 +20,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
     using MirGames.Domain.Users.ViewModels;
     using MirGames.Domain.Wip.Entities;
     using MirGames.Domain.Wip.Queries;
+    using MirGames.Domain.Wip.Services;
     using MirGames.Domain.Wip.ViewModels;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Queries;
@@ -52,23 +53,36 @@ namespace MirGames.Domain.Wip.QueryHandlers
         private readonly ITextProcessor textProcessor;
 
         /// <summary>
+        /// The empty logo provider.
+        /// </summary>
+        private readonly IProjectEmptyLogoProvider emptyLogoProvider;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetWipProjectQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="settings">The settings.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
         /// <param name="textProcessor">The text processor.</param>
-        public GetWipProjectQueryHandler(IQueryProcessor queryProcessor, ISettings settings, IAuthorizationManager authorizationManager, ITextProcessor textProcessor)
+        /// <param name="emptyLogoProvider">The empty logo provider.</param>
+        public GetWipProjectQueryHandler(
+            IQueryProcessor queryProcessor,
+            ISettings settings,
+            IAuthorizationManager authorizationManager,
+            ITextProcessor textProcessor,
+            IProjectEmptyLogoProvider emptyLogoProvider)
         {
             Contract.Requires(queryProcessor != null);
             Contract.Requires(settings != null);
             Contract.Requires(authorizationManager != null);
             Contract.Requires(textProcessor != null);
+            Contract.Requires(emptyLogoProvider != null);
 
             this.queryProcessor = queryProcessor;
             this.settings = settings;
             this.authorizationManager = authorizationManager;
             this.textProcessor = textProcessor;
+            this.emptyLogoProvider = emptyLogoProvider;
         }
 
         /// <inheritdoc />
@@ -107,7 +121,8 @@ namespace MirGames.Domain.Wip.QueryHandlers
                     CanCreateBug = this.authorizationManager.CheckAccess(principal, "CreateBug", "Project", project.ProjectId),
                     CanCreateTask = this.authorizationManager.CheckAccess(principal, "CreateTask", "Project", project.ProjectId),
                     CanCreateFeature = this.authorizationManager.CheckAccess(principal, "CreateFeature", "Project", project.ProjectId),
-                    CanReadRepository = this.authorizationManager.CheckAccess(principal, "Read", "GitRepository", project.RepositoryId)
+                    CanReadRepository = this.authorizationManager.CheckAccess(principal, "Read", "GitRepository", project.RepositoryId),
+                    IsRepositoryPrivate = !this.authorizationManager.CheckAccess(0, "Read", "GitRepository", project.RepositoryId)
                 };
 
             var attachment = this.queryProcessor.Process(new GetAttachmentsQuery
@@ -117,10 +132,9 @@ namespace MirGames.Domain.Wip.QueryHandlers
                 IsImage = true
             }).FirstOrDefault();
 
-            if (attachment != null)
-            {
-                projectViewModel.LogoUrl = attachment.AttachmentUrl;
-            }
+            projectViewModel.LogoUrl = attachment != null
+                                           ? attachment.AttachmentUrl
+                                           : this.emptyLogoProvider.GetLogoUrl(project.Alias);
 
             if (project.RepositoryId.HasValue && project.RepositoryType.EqualsIgnoreCase("git"))
             {

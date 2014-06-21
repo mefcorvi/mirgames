@@ -27,6 +27,7 @@ namespace MirGames.Domain.Wip
             builder.RegisterType<ProjectLogoUploadProcessor>().As<IUploadProcessor>().SingleInstance();
             builder.RegisterType<ProjectWorkItemUploadProcessor>().As<IUploadProcessor>().SingleInstance();
             builder.RegisterType<ProjectWorkItemCommentUploadProcessor>().As<IUploadProcessor>().SingleInstance();
+            builder.RegisterType<ProjectEmptyLogoProvider>().As<IProjectEmptyLogoProvider>().SingleInstance();
         }
     }
 }

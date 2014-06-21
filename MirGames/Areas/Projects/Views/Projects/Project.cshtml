@@ -24,7 +24,7 @@
     <div class="main-section">
         @if (!string.IsNullOrEmpty(Model.RepositoryUrl) && Model.CanReadRepository)
         {
-            <h4>Репозиторий</h4>
+            <h4>@Html.ActionLink("Репозиторий", MVC.Projects.Projects.Code(Model.Alias))</h4>
             <div class="repository-url">
                 <span>Адрес репозитория:</span>
                 <input type="text" value="@Model.RepositoryUrl" readonly="true" />
@@ -57,7 +57,7 @@
                 }
             </ul>
         }
-        <h4>Трекер</h4>
+        <h4>@Html.ActionLink("Трекер", MVC.Projects.Projects.WorkItems(Model.Alias, null, null))</h4>
         <div class="work-items">
             <div class="bug-type"><i class="fa fa-bug"></i><a title="Открытые баги" href="@Url.Action("WorkItems", "Projects", new { itemType = WorkItemType.Bug, projectAlias = Model.Alias })">@statistics.OpenBugsCount</a></div>
             <div class="task-type"><i class="fa fa-tasks"></i><a title="Открытые таски" href="@Url.Action("WorkItems", "Projects", new { itemType = WorkItemType.Task, projectAlias = Model.Alias })">@statistics.OpenTasksCount</a></div>

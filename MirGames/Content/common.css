@@ -140,7 +140,7 @@ body > .notification-block {
   -o-transition-timing-function: ease;
   -webkit-transition-timing-function: ease;
   transition-timing-function: ease;
-  z-index: 6;
+  z-index: 100001;
   position: relative;
 }
 body > .notification-block a {

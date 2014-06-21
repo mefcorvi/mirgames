@@ -6,7 +6,7 @@
 @{
     ViewBag.Title = "Исходный код / " + Model.Title;
     AddPageCssClass("wip-code-page");
-    var files = (IEnumerable<WipProjectRepositoryItemViewModel>)ViewBag.Files;
+    var files = ((IEnumerable<WipProjectRepositoryItemViewModel>)ViewBag.Files).ToList();
     
     string parentFolder = ViewBag.ParentFolder ?? string.Empty;
     string[] parentFolders = new [] { Model.Title }.Concat(parentFolder.Split(new[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries)).ToArray();
@@ -62,5 +62,11 @@
                 <span class="date">@file.UpdatedDate.Format()</span>
             </div>
         }
-    </div>
+        @if (!files.Any())
+        {
+            <div class="files-not-found">
+                Директория пуста
+            </div>
+        }
+     </div>
 </section>

@@ -9,20 +9,24 @@
             </div>
         }
         <div class="project-info">
-            <div class="project-description text">@Html.Markdown(Model.Description)</div>
+            <h1>@Model.Title</h1>
+            <div class="project-stats">
+                <span class="followers-count" title="Наблюдатели"><i class="fa fa-eye"></i>@Model.FollowersCount</span>
+                <span class="votes" title="Рейтинг"><i class="fa fa-thumbs-up"></i>@Model.Votes</span>
+                <span class="updated-date" title="Последнее обновление"><i class="fa fa-clock-o"></i>@(Model.UpdatedDate.Format())</span>
+            </div>
             <footer>
                 <a href="@Url.Action("Profile", "Users", new { userId = Model.Author.Id })" class="user-login avatar-link"><img src="@Model.Author.AvatarUrl" class="avatar avatar-tiny" /><span>@Model.Author.Login</span></a>
-                <span class="creation-date" title="Дата создания"><i class="fa fa-clock-o"></i>@Html.DisplayFor(m => m.CreationDate)</span>
             </footer>
+            <ul class="tags">
+                @foreach (var tag in Model.Tags)
+                {
+                    <li>@Html.ActionLink(tag.Trim(), "Index", "Projects", new { tag = tag.Trim() }, null)</li>
+                }
+            </ul>
         </div>
     </div>
     <div class="project-short-info">
-        <div class="version" title="Текущая версия">
-            <b>@Model.Title</b>
-        </div>
-        <span class="followers-count" title="Наблюдатели"><i class="fa fa-eye"></i>@Model.FollowersCount</span>
-        <span class="votes" title="Рейтинг"><i class="fa fa-thumbs-up"></i>@Model.Votes</span>
-        <span class="updated-date">@(Model.UpdatedDate.Format())</span>
         @if (Model.CanCreateBug || Model.CanCreateFeature || Model.CanCreateTask)
         {
             <div class="add-to-tracker dropdown">
@@ -49,11 +53,5 @@
                 </ul>
             </div>
         }
-        <ul class="tags">
-            @foreach (var tag in Model.Tags)
-            {
-                <li>@Html.ActionLink(tag.Trim(), "Index", "Projects", new { tag = tag.Trim() }, null)</li>
-            }
-        </ul>
     </div>
 </div>

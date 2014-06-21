@@ -36,15 +36,25 @@ body > nav > h1 .syndication:hover {
 }
 .topics-page > section > .topics-list > .message {
   padding: 20px 0;
+  padding-top: 0;
+  padding-bottom: 20px;
   overflow: hidden;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  border-bottom: 1px solid #f5f5f5;
 }
 .topics-page > section > .topics-list > .message:first-of-type {
   padding-top: 0;
 }
 .topics-page > section > .topics-list > .message:last-of-type {
   padding-bottom: 0;
+}
+.topics-page > section > .topics-list > .message:first-of-type {
+  margin-top: 0;
+}
+.topics-page > section > .topics-list > .message:last-of-type {
+  border-bottom: 0;
+  margin-bottom: 0;
 }
 .topics-page > section > .topics-list > .message > .message-content {
   overflow: hidden;
@@ -139,9 +149,6 @@ body > nav > h1 .syndication:hover {
   width: 30px;
   height: 30px;
   border: 1px solid #dcdcdc;
-}
-.topics-page > section > .topics-list > .message {
-  padding: 13.33333333px;
 }
 .topics-page > section > .topics-list > .message > .message-content > header {
   font-size: 20px;

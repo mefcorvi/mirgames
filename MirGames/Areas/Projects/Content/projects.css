@@ -18,12 +18,16 @@
   padding: 20px 0;
   overflow: hidden;
   margin-bottom: 5px;
+  border-bottom: 1px solid #f5f5f5;
 }
 .wip-page > section > .projects-list > .project:first-of-type {
   padding-top: 0;
 }
 .wip-page > section > .projects-list > .project:last-of-type {
   padding-bottom: 0;
+}
+.wip-page > section > .projects-list > .project:last-of-type {
+  border-bottom: 0;
 }
 .wip-page > section > .projects-list > .project > .logo {
   float: left;

@@ -6,9 +6,15 @@
             <img src="@Model.LogoUrl" />
         </div>
     }
+    else
+    {
+        <div class="logo">
+            <img src="" />
+        </div>
+    }
     <div class="project-info">
         <h1><a href="@Url.Action("Project", "Projects", new { projectAlias = Model.Alias })">@Model.Title</a></h1>
-        <div class="project-description text">@Html.Markdown(Model.Description)</div>
+        <div class="project-description text">@Model.ShortDescription</div>
         @if (!string.IsNullOrEmpty(@Model.LastCommitMessage))
         {
             <div class="last-commit-message text">Последний коммит: @Model.LastCommitMessage</div>

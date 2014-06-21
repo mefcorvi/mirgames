@@ -32,27 +32,9 @@
   margin-right: 5px;
 }
 .wip-project-page > section > .project-info-block > .project-description > .logo {
-  float: left;
-  width: 16.66666667%;
-  position: relative;
-  min-height: 1px;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
+  width: 115px;
   text-align: center;
   padding-right: 20px;
-}
-@media (min-width: 768px) {
-  .wip-project-page > section > .project-info-block > .project-description > .logo {
-    float: left;
-    width: 16.66666667%;
-  }
-}
-@media (min-width: 992px) {
-  .wip-project-page > section > .project-info-block > .project-description > .logo {
-    float: left;
-    width: 8.33333333%;
-  }
 }
 .wip-project-page > section > .project-info-block > .project-description > .logo > img {
   max-width: 100%;
@@ -64,27 +46,12 @@
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
 }
 .wip-project-page > section > .project-info-block > .project-description > .project-info {
+  -webkit-flex-grow: 1;
+  -moz-flex-grow: 1;
+  -ms-flex-grow: 1;
+  flex-grow: 1;
   overflow: hidden;
-  float: left;
-  width: 83.33333333%;
-  position: relative;
-  min-height: 1px;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   padding-right: 10px;
-}
-@media (min-width: 768px) {
-  .wip-project-page > section > .project-info-block > .project-description > .project-info {
-    float: left;
-    width: 66.66666667%;
-  }
-}
-@media (min-width: 992px) {
-  .wip-project-page > section > .project-info-block > .project-description > .project-info {
-    float: left;
-    width: 75%;
-  }
 }
 .wip-project-page > section > .project-info-block > .project-description > .project-info > h1 {
   font-family: "Droid Sans", Tahoma, sans-serif;
@@ -94,7 +61,10 @@
   padding: 10px 0;
   max-height: 200px;
 }
-.wip-project-page > section > .project-info-block > .project-description > .project-info > footer {
+.wip-project-page > section > .project-info-block > .project-description > .project-info > .project-description > .content {
+  padding: 10px 0;
+}
+.wip-project-page > section > .project-info-block > .project-description > .project-info > .project-stats {
   display: -webkit-flex;
   display: -moz-flex;
   display: -ms-flexbox;
@@ -108,30 +78,21 @@
   -moz-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  padding: 10px 0;
+}
+.wip-project-page > section > .project-info-block > .project-description > .project-info > .project-stats > span {
+  margin-right: 10px;
+  display: block;
+}
+.wip-project-page > section > .project-info-block > .project-description > .project-info > .project-stats > span.updated-date {
+  color: #8c8c0c;
+}
+.wip-project-page > section > .project-info-block > .project-description > .project-info > footer {
   font-size: 11px;
 }
 .wip-project-page > section > .project-info-block > .project-description > .project-info > footer > .user-login {
   overflow: hidden;
-  float: left;
-  width: 100%;
-  position: relative;
-  min-height: 1px;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   font-weight: bold;
-}
-@media (min-width: 768px) {
-  .wip-project-page > section > .project-info-block > .project-description > .project-info > footer > .user-login {
-    float: left;
-    width: 100%;
-  }
-}
-@media (min-width: 992px) {
-  .wip-project-page > section > .project-info-block > .project-description > .project-info > footer > .user-login {
-    float: left;
-    width: 25%;
-  }
 }
 @media (min-width: 992px) {
   .wip-project-page > section > .project-info-block > .project-description > .project-info > footer > .user-login {
@@ -149,28 +110,53 @@
 .wip-project-page > section > .project-info-block > .project-description > .project-info > footer > .user-login span {
   margin-top: 3px;
 }
-.wip-project-page > section > .project-info-block > .project-description > .project-info > footer > .creation-date {
-  float: left;
-  width: 66.66666667%;
+.wip-project-page > section > .project-info-block > .project-description > .project-info > ul.tags {
+  margin-top: 10px;
+  overflow: hidden;
+  list-style-type: none;
+  font-size: 11px;
   position: relative;
+  float: left;
+  width: 33.33333333%;
   min-height: 1px;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  max-width: 100px;
-  color: #999;
+  -webkit-flex-grow: 1;
+  -moz-flex-grow: 1;
+  -ms-flex-grow: 1;
+  flex-grow: 1;
 }
-@media (min-width: 768px) {
-  .wip-project-page > section > .project-info-block > .project-description > .project-info > footer > .creation-date {
-    float: left;
-    width: 41.66666667%;
-  }
+.wip-project-page > section > .project-info-block > .project-description > .project-info > ul.tags > li {
+  float: left;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  display: block;
 }
-@media (min-width: 992px) {
-  .wip-project-page > section > .project-info-block > .project-description > .project-info > footer > .creation-date {
-    float: left;
-    width: 16.66666667%;
-  }
+.wip-project-page > section > .project-info-block > .project-description > .project-info > ul.tags > li a {
+  background: #818d96;
+  color: #ffffff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 3px;
+  max-width: 150px;
+  display: block;
+  overflow: hidden;
+  text-decoration: none;
+}
+.wip-project-page > section > .project-info-block > .project-description > .project-info > ul.tags > li a:active,
+.wip-project-page > section > .project-info-block > .project-description > .project-info > ul.tags > li a:hover,
+.wip-project-page > section > .project-info-block > .project-description > .project-info > ul.tags > li a:focus {
+  color: #ffffff;
+}
+.wip-project-page > section > .project-info-block > .project-description > .project-info > ul.tags > li a:hover,
+.wip-project-page > section > .project-info-block > .project-description > .project-info > ul.tags > li a:active,
+.wip-project-page > section > .project-info-block > .project-description > .project-info > ul.tags > li a:focus {
+  background: #515a60;
+  color: #ffffff;
+}
+.wip-project-page > section > .project-info-block > .project-description > .project-info > ul.tags > li:last-child {
+  margin-right: 0;
 }
 .wip-project-page > section > .project-info-block > .project-short-info {
   padding: 10px 20px;
@@ -195,40 +181,6 @@
 }
 .wip-project-page > section > .project-info-block > .project-short-info .fa {
   margin-right: 5px;
-}
-.wip-project-page > section > .project-info-block > .project-short-info > .version {
-  font-family: "Droid Sans", Tahoma, sans-serif;
-  position: relative;
-  float: left;
-  width: 16.66666667%;
-  min-height: 1px;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  width: auto;
-  margin-right: 10px;
-}
-@media (min-width: 480px) {
-  .wip-project-page > section > .project-info-block > .project-short-info > .version {
-    font-size: 12px;
-  }
-}
-@media (min-width: 1200px) {
-  .wip-project-page > section > .project-info-block > .project-short-info > .version {
-    font-size: 14px;
-  }
-}
-.wip-project-page > section > .project-info-block > .project-short-info > .version b {
-  background: #d7dfe5;
-  font-weight: normal;
-  color: #000000;
-  padding: 3px;
-  white-space: nowrap;
-}
-@media (max-width: 991px) {
-  .wip-project-page > section > .project-info-block > .project-short-info > .version b > .fa {
-    display: none;
-  }
 }
 .wip-project-page > section > .project-info-block > .project-short-info > .add-to-tracker.open > .dropdown-toggle {
   background: #ad6a91;
@@ -281,124 +233,6 @@
 .wip-project-page > section > .project-info-block > .project-short-info > .add-to-tracker > .dropdown-menu li > a {
   padding: 5px 10px;
 }
-.wip-project-page > section > .project-info-block > .project-short-info > .updated-date {
-  display: block;
-  position: relative;
-  float: left;
-  width: 16.66666667%;
-  min-height: 1px;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  color: #8c8c0c;
-  width: auto;
-  margin-right: 10px;
-}
-@media (min-width: 480px) {
-  .wip-project-page > section > .project-info-block > .project-short-info > .updated-date {
-    font-size: 10px;
-  }
-}
-@media (min-width: 1200px) {
-  .wip-project-page > section > .project-info-block > .project-short-info > .updated-date {
-    font-size: 12px;
-  }
-}
-.wip-project-page > section > .project-info-block > .project-short-info > .followers-count {
-  position: relative;
-  float: left;
-  width: 16.66666667%;
-  min-height: 1px;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  font-family: "Droid Sans", Tahoma, sans-serif;
-  max-width: 50px;
-  text-align: center;
-  width: auto;
-  margin-right: 10px;
-}
-@media (min-width: 480px) {
-  .wip-project-page > section > .project-info-block > .project-short-info > .followers-count {
-    font-size: 11px;
-  }
-}
-@media (min-width: 768px) {
-  .wip-project-page > section > .project-info-block > .project-short-info > .followers-count {
-    font-size: 12px;
-  }
-}
-.wip-project-page > section > .project-info-block > .project-short-info > .votes {
-  position: relative;
-  float: left;
-  width: 16.66666667%;
-  min-height: 1px;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  font-family: "Droid Sans", Tahoma, sans-serif;
-  max-width: 50px;
-  text-align: center;
-  width: auto;
-  margin-right: 10px;
-}
-@media (min-width: 480px) {
-  .wip-project-page > section > .project-info-block > .project-short-info > .votes {
-    font-size: 11px;
-  }
-}
-@media (min-width: 768px) {
-  .wip-project-page > section > .project-info-block > .project-short-info > .votes {
-    font-size: 12px;
-  }
-}
-.wip-project-page > section > .project-info-block > .project-short-info > ul.tags {
-  overflow: hidden;
-  list-style-type: none;
-  font-size: 11px;
-  position: relative;
-  float: left;
-  width: 33.33333333%;
-  min-height: 1px;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-flex-grow: 1;
-  -moz-flex-grow: 1;
-  -ms-flex-grow: 1;
-  flex-grow: 1;
-}
-.wip-project-page > section > .project-info-block > .project-short-info > ul.tags > li {
-  float: right;
-  margin-right: 2px;
-  margin-bottom: 2px;
-  display: block;
-}
-.wip-project-page > section > .project-info-block > .project-short-info > ul.tags > li a {
-  background: #818d96;
-  color: #ffffff;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  padding: 3px;
-  max-width: 150px;
-  display: block;
-  overflow: hidden;
-  text-decoration: none;
-}
-.wip-project-page > section > .project-info-block > .project-short-info > ul.tags > li a:active,
-.wip-project-page > section > .project-info-block > .project-short-info > ul.tags > li a:hover,
-.wip-project-page > section > .project-info-block > .project-short-info > ul.tags > li a:focus {
-  color: #ffffff;
-}
-.wip-project-page > section > .project-info-block > .project-short-info > ul.tags > li a:hover,
-.wip-project-page > section > .project-info-block > .project-short-info > ul.tags > li a:active,
-.wip-project-page > section > .project-info-block > .project-short-info > ul.tags > li a:focus {
-  background: #515a60;
-  color: #ffffff;
-}
-.wip-project-page > section > .project-info-block > .project-short-info > ul.tags > li:last-child {
-  margin-right: 0;
-}
 .wip-project-page > section > section {
   padding-top: 10px;
   padding-bottom: 10px;
@@ -423,7 +257,7 @@
 }
 .wip-project-page > section > section .screenshots {
   padding: 20px 0;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   overflow: hidden;
   padding: 5px;
   list-style-type: none;
@@ -448,6 +282,8 @@
   height: 128px;
 }
 .wip-project-page > section > section .aside-section {
+  border-left: 1px solid #f5f5f5;
+  padding-left: 20px;
   position: relative;
   min-height: 1px;
   box-sizing: border-box;
@@ -462,7 +298,7 @@
 }
 .wip-project-page > section > section .aside-section .work-items {
   overflow: hidden;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 .wip-project-page > section > section .aside-section .work-items > div {
   display: block;
@@ -531,6 +367,7 @@
 }
 .wip-project-page > section > section .aside-section .commits {
   padding: 20px 0;
+  padding-top: 0;
 }
 .wip-project-page > section > section .aside-section .commits:first-of-type {
   padding-top: 0;
@@ -616,17 +453,30 @@
     width: 75%;
   }
 }
+.wip-project-page > section > section .blog-posts {
+  padding-bottom: 20px;
+}
 .wip-project-page > section > section .blog-posts > .message {
   padding: 20px 0;
+  padding-top: 0;
+  padding-bottom: 20px;
   overflow: hidden;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  border-bottom: 1px solid #f5f5f5;
 }
 .wip-project-page > section > section .blog-posts > .message:first-of-type {
   padding-top: 0;
 }
 .wip-project-page > section > section .blog-posts > .message:last-of-type {
   padding-bottom: 0;
+}
+.wip-project-page > section > section .blog-posts > .message:first-of-type {
+  margin-top: 0;
+}
+.wip-project-page > section > section .blog-posts > .message:last-of-type {
+  border-bottom: 0;
+  margin-bottom: 0;
 }
 .wip-project-page > section > section .blog-posts > .message > .message-content {
   overflow: hidden;

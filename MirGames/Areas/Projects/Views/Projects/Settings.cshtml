@@ -1,5 +1,5 @@
 ﻿@using MirGames.Domain.Wip.ViewModels
-@model WipProjectForEditViewModel
+@model WipProjectViewModel
 
 @{
     Title = "Настройки / " + Model.Title;
@@ -9,11 +9,13 @@
 
 @section Nav
 {
-    @*@Html.Partial("_ProjectMenu", Model)*@
+    @Html.Partial("_ProjectMenu", Model)
 }
 
-<h3>Настройки</h3>
+@Html.Partial("_ProjectInfo", Model)
+
 <form class="new-project-form" name="newProjectForm" ng-cloak>
+    <h4>Настройки</h4>
     <div class="form-field">
         <label>Название</label>
         <input type="text" class="topic-title" ng-model="title" ng-focused="isTitleFocused" required="required" maxlength="50" />
@@ -28,14 +30,10 @@
     </div>
     <div class="form-field">
         <label>Репозиторий</label>
-        <div><b>{{repositoryType}}</b>: {{repositoryUrl}}</div>
         <div>
             <input type="checkbox" ng-model="isPrivate" id="isRepositoryPrivate" />
             <label for="isRepositoryPrivate">Доступ разрешен только для членов команды</label>
         </div>
-    </div>
-    <div class="form-field">
-        <label>Приватный репозиторий</label>
     </div>
     <div class="form-field logo-field">
         <label>Логотип</label>

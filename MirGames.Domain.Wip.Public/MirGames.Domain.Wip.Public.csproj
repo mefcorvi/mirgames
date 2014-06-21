@@ -49,7 +49,6 @@
     <Compile Include="Queries\GetProjectWorkItemQuery.cs" />
     <Compile Include="Queries\GetProjectWorkItemsQuery.cs" />
     <Compile Include="Queries\GetProjectWorkItemStatisticsQuery.cs" />
-    <Compile Include="Queries\GetWipProjectForEditQuery.cs" />
     <Compile Include="Queries\GetWipProjectTopicsQuery.cs" />
     <Compile Include="Queries\GetWipProjectCommitsQuery.cs" />
     <Compile Include="Queries\GetWipProjectFileQuery.cs" />
@@ -64,7 +63,6 @@
     <Compile Include="ViewModels\WipProjectRepositoryItemType.cs" />
     <Compile Include="ViewModels\WipProjectCommitViewModel.cs" />
     <Compile Include="ViewModels\WipProjectFileViewModel.cs" />
-    <Compile Include="ViewModels\WipProjectForEditViewModel.cs" />
     <Compile Include="ViewModels\WipProjectViewModel.cs" />
     <Compile Include="ViewModels\WorkItemsOrderType.cs" />
     <Compile Include="ViewModels\WorkItemState.cs" />

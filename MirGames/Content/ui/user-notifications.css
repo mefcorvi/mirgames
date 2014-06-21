@@ -5,7 +5,7 @@
   left: 0;
   right: 0;
   width: 100%;
-  z-index: 15;
+  z-index: 100002;
   text-align: center;
 }
 .user-notification-block .user-notification {

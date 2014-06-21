@@ -4,18 +4,19 @@
 .project-settings-page {
     & > section
     {
-        .indent();
-
-        & > h3 {
-            .page-title();
-        }
-
-        & > h4 {
-            .page-subtitle();
-        }
+        .project-info();
 
         & > .new-project-form {
             .page-block();
+            .indent();
+
+            & > h3 {
+                .page-title();
+            }
+
+            & > h4 {
+                .page-subtitle();
+            }
 
             .project-address {
                 width: 200px;

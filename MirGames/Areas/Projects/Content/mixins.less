@@ -37,9 +37,7 @@
         }
 
         & > .logo {
-            .make-xs-column(2);
-            .make-sm-column(2);
-            .make-md-column(1);
+            width: 115px;
             text-align: center;
             padding-right: @indent;
 
@@ -53,10 +51,8 @@
         }
 
         & > .project-info {
+            .flex-grow(1);
             overflow: hidden;
-            .make-xs-column(10);
-            .make-sm-column(8);
-            .make-md-column(9);
             padding-right: @indent/2;
 
             & > h1 {
@@ -67,17 +63,31 @@
             & > .project-description {
                 padding: @indent/2 0;
                 max-height: 200px;
+
+                & > .content {
+                    padding: @indent/2 0;
+                }
+            }
+
+            & > .project-stats {
+                .make-row();
+                padding: @indent/2 0;
+
+                & > span {
+                    margin-right: @indent/2;
+                    display: block;
+
+                    &.updated-date {
+                        color: @date-color;
+                    }
+                }
             }
 
             & > footer {
-                .make-row();
                 .font-size(1.1);
 
                 & > .user-login {
                     overflow: hidden;
-                    .make-xs-column(12);
-                    .make-sm-column(12);
-                    .make-md-column(3);
 
                     @media (min-width: @screen-md-min) {
                         max-width: 150px;
@@ -99,14 +109,28 @@
                         margin-top: 3px;
                     }
                 }
+            }
 
-                & > .creation-date {
-                    .make-xs-column(8);
-                    .make-sm-column(5);
-                    .make-md-column(2);
-                    max-width: 100px;
-                    color: #999;
+            & > ul.tags {
+                margin-top: @indent/2;
+                overflow: hidden;
+                list-style-type: none;
+                .font-size(1.1);
+
+                & > li {
+                    float: left;
+                    margin-right: 2px;
+                    margin-bottom: 2px;
+                    display: block;
+                    .tag-link(150px);
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
                 }
+
+                .make-xs-column(4);
+                .flex-grow(1);
             }
         }
     }
@@ -125,28 +149,6 @@
 
         .fa {
             margin-right: 5px;
-        }
-
-        & > .version {
-            .header-font();
-            .font-size-xs(1.2);
-            .font-size-lg(1.4);
-            .make-xs-column(2);
-            width: auto;
-            margin-right: @indent/2;
-
-            b {
-                @bgr: mix(@header-background, @background-color, 20%);
-                background: @bgr;
-                font-weight: normal;
-                color: contrast(@bgr);
-                padding: 3px;
-                white-space: nowrap;
-
-                & > .fa {
-                    .hidden-sm();
-                }
-            }
         }
 
         & > .add-to-tracker {
@@ -169,59 +171,6 @@
                     padding: 5px 10px;
                 }
             }
-        }
-
-        & > .updated-date {
-            display: block;
-            .make-xs-column(2);
-            .font-size-xs(1.0);
-            .font-size-lg(1.2);
-            color: @date-color;
-            width: auto;
-            margin-right: @indent/2;
-        }
-
-        & > .followers-count {
-            .make-xs-column(2);
-            .header-font();
-            .font-size-xs(1.1);
-            .font-size-sm(1.2);
-            max-width: 50px;
-            text-align: center;
-            width: auto;
-            margin-right: @indent/2;
-        }
-
-        & > .votes {
-            .make-xs-column(2);
-            .header-font();
-            .font-size-xs(1.1);
-            .font-size-sm(1.2);
-            max-width: 50px;
-            text-align: center;
-            width: auto;
-            margin-right: @indent/2;
-        }
-
-        & > ul.tags {
-            overflow: hidden;
-            list-style-type: none;
-            .font-size(1.1);
-
-            & > li {
-                float: right;
-                margin-right: 2px;
-                margin-bottom: 2px;
-                display: block;
-                .tag-link(150px);
-
-                &:last-child {
-                    margin-right: 0;
-                }
-            }
-
-            .make-xs-column(4);
-            .flex-grow(1);
         }
     }
 }

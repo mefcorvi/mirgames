@@ -94,11 +94,12 @@
     <Compile Include="QueryHandlers\GetWipProjectFileQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetWipProjectFilesQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetIsProjectNameUniqueQueryHandler.cs" />
-    <Compile Include="QueryHandlers\GetWipProjectForEditQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetWipProjectQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetWipProjectTopicsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetWipTagsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetWipProjectsQueryHandler.cs" />
+    <Compile Include="Services\IProjectEmptyLogoProvider.cs" />
+    <Compile Include="Services\ProjectEmptyLogoProvider.cs" />
     <Compile Include="Services\ProjectLogoUploadProcessor.cs" />
     <Compile Include="Services\ProjectWorkItemCommentUploadProcessor.cs" />
     <Compile Include="Services\ProjectWorkItemUploadProcessor.cs" />

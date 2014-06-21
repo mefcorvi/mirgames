@@ -212,7 +212,7 @@ namespace MirGames.Areas.Projects.Controllers
         public virtual ActionResult Settings(string projectAlias)
         {
             var project = this.QueryProcessor.Process(
-                new GetWipProjectForEditQuery
+                new GetWipProjectQuery
                 {
                     Alias = projectAlias
                 });

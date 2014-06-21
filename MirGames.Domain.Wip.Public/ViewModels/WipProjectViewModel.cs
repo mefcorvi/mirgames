@@ -17,7 +17,7 @@ namespace MirGames.Domain.Wip.ViewModels
     /// <summary>
     /// The WIP project view model.
     /// </summary>
-    public sealed class WipProjectViewModel
+    public class WipProjectViewModel
     {
         /// <summary>
         /// Gets or sets the comment id.
@@ -130,5 +130,10 @@ namespace MirGames.Domain.Wip.ViewModels
         /// Gets or sets the short description.
         /// </summary>
         public string ShortDescription { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is repository private.
+        /// </summary>
+        public bool IsRepositoryPrivate { get; set; }
     }
 }
