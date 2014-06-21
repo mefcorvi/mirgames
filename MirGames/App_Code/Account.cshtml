@@ -1,4 +1,5 @@
-﻿@using System.Web.Mvc.Html
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
 @using System.Web.Routing
 @inherits Helper
 
@@ -11,5 +12,5 @@
 }
 
 @helper LoginLink(string linkText, string className = null) {
-    <a href="@Url.Action("Login", "Account", new { returnUrl = Page.Request["returnUrl"] ?? Page.Request.Url.PathAndQuery })" class="sign-in @className">@linkText</a>
+    <a href="@Url.Action(MVC.Account.Login())" class="sign-in @className">@linkText</a>
 }

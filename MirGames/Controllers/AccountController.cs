@@ -23,7 +23,7 @@ namespace MirGames.Controllers
     /// <summary>
     /// The account controller.
     /// </summary>
-    public class AccountController : AppController
+    public partial class AccountController : AppController
     {
         /// <summary>
         /// The session manager.
@@ -50,7 +50,7 @@ namespace MirGames.Controllers
         /// </summary>
         /// <returns>The action result.</returns>
         [AjaxOnly]
-        public ActionResult Login()
+        public virtual ActionResult Login()
         {
             var authProviders = this.QueryProcessor.Process(new GetOAuthProvidersQuery());
 
@@ -65,7 +65,7 @@ namespace MirGames.Controllers
         [HttpPost]
         [AjaxOnly]
         [AntiForgery]
-        public ActionResult ProcessLogin(LoginCommand command)
+        public virtual ActionResult ProcessLogin(LoginCommand command)
         {
             command.Password = command.Password.GetMd5Hash();
             string sessionId = this.CommandProcessor.Execute(command);
@@ -85,7 +85,7 @@ namespace MirGames.Controllers
         /// </summary>
         /// <returns>The action result.</returns>
         [Authorize(Roles = "User, ReadOnlyUser")]
-        public ActionResult Logout()
+        public virtual ActionResult Logout()
         {
             this.CommandProcessor.Execute(new LogoutCommand());
 
@@ -104,13 +104,13 @@ namespace MirGames.Controllers
         /// </summary>
         /// <returns>The action result.</returns>
         [AjaxOnly]
-        public ActionResult SignUp()
+        public virtual ActionResult SignUp()
         {
             return this.PartialView("_SignUpDialog", new SignUpCommand());
         }
 
         /// <inheritdoc />
-        public ActionResult Activation(string key)
+        public virtual ActionResult Activation(string key)
         {
             string sessionId = this.CommandProcessor.Execute(new ActivateUserCommand { ActivationKey = key });
 
@@ -124,7 +124,7 @@ namespace MirGames.Controllers
         }
 
         /// <inheritdoc />
-        public ActionResult RestorePassword(string key)
+        public virtual ActionResult RestorePassword(string key)
         {
             this.CommandProcessor.Execute(new RestorePasswordCommand { SecretKey = key });
             return this.RedirectToAction("Index", "Dashboard");
@@ -134,7 +134,7 @@ namespace MirGames.Controllers
         [HttpPost]
         [AjaxOnly]
         [AntiForgery]
-        public ActionResult LoginAs(LoginAsUserCommand command)
+        public virtual ActionResult LoginAs(LoginAsUserCommand command)
         {
             string sessionId = this.CommandProcessor.Execute(command);
 
@@ -151,7 +151,7 @@ namespace MirGames.Controllers
         [HttpPost]
         [AjaxOnly]
         [AntiForgery]
-        public ActionResult SaveSettings(SaveAccountSettingsCommand command)
+        public virtual ActionResult SaveSettings(SaveAccountSettingsCommand command)
         {
             this.CommandProcessor.Execute(command);
             return this.Json(new { result = true });
@@ -165,7 +165,7 @@ namespace MirGames.Controllers
         [HttpPost]
         [AjaxOnly]
         [AntiForgery]
-        public ActionResult ProcessSignUp(SignUpCommand command)
+        public virtual ActionResult ProcessSignUp(SignUpCommand command)
         {
             command.Password = command.Password.GetMd5Hash();
 

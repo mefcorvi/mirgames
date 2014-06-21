@@ -22,7 +22,7 @@ namespace MirGames.Controllers
     /// OAuth controller.
     /// </summary>
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
-    public class OAuthController : AppController
+    public partial class OAuthController : AppController
     {
         /// <summary>
         /// The session manager.
@@ -45,7 +45,7 @@ namespace MirGames.Controllers
         }
 
         /// <inheritdoc />
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             GoogleOAuth2Client.RewriteRequest();
             var authenticationResult = OAuthWebSecurity.VerifyAuthentication(Url.Action("Index", "OAuth"));
@@ -88,7 +88,7 @@ namespace MirGames.Controllers
         /// <inheritdoc />
         [HttpPost]
         [AntiForgery]
-        public ActionResult Authorize(string provider)
+        public virtual ActionResult Authorize(string provider)
         {
             OAuthWebSecurity.RequestAuthentication(provider, Url.Action("Index", "OAuth"));
             return null;

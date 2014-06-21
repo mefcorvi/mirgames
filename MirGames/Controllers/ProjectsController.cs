@@ -14,7 +14,6 @@ namespace MirGames.Controllers
     using System.Web.Mvc;
 
     using MirGames.Domain.Attachments.Queries;
-    using MirGames.Domain.Security;
     using MirGames.Domain.Wip.Commands;
     using MirGames.Domain.Wip.Queries;
     using MirGames.Domain.Wip.ViewModels;
@@ -25,7 +24,7 @@ namespace MirGames.Controllers
     /// <summary>
     /// The WIP controller.
     /// </summary>
-    public sealed class ProjectsController : AppController
+    public partial class ProjectsController : AppController
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectsController"/> class.
@@ -38,7 +37,7 @@ namespace MirGames.Controllers
         }
 
         /// <inheritdoc />
-        public ActionResult Index(string tag = null, int page = 1)
+        public virtual ActionResult Index(string tag = null, int page = 1)
         {
             if (page < 1)
             {
@@ -66,11 +65,11 @@ namespace MirGames.Controllers
 
             this.ViewBag.PageData["tag"] = tag;
 
-            return View(projects);
+            return this.View(projects);
         }
 
         /// <inheritdoc />
-        public ActionResult Project(string projectAlias)
+        public virtual ActionResult Project(string projectAlias)
         {
             var project = this.QueryProcessor.Process(
                 new GetWipProjectQuery
@@ -107,11 +106,11 @@ namespace MirGames.Controllers
             this.ViewBag.BackUrl = this.GetBackUrl();
             this.ViewBag.SubSection = "Project";
 
-            return View(project);
+            return this.View(project);
         }
 
         /// <inheritdoc />
-        public ActionResult Archive(string projectAlias)
+        public virtual ActionResult Archive(string projectAlias)
         {
             var stream = new MemoryStream();
             this.CommandProcessor.Execute(new ArchiveProjectRepositoryCommand
@@ -125,7 +124,7 @@ namespace MirGames.Controllers
         }
 
         /// <inheritdoc />
-        public ActionResult WorkItems(string projectAlias, string tag, WorkItemType? itemType)
+        public virtual ActionResult WorkItems(string projectAlias, string tag, WorkItemType? itemType)
         {
             var project = this.QueryProcessor.Process(
                 new GetWipProjectQuery
@@ -170,7 +169,7 @@ namespace MirGames.Controllers
         }
 
         /// <inheritdoc />
-        public ActionResult WorkItem(string projectAlias, int workItemId)
+        public virtual ActionResult WorkItem(string projectAlias, int workItemId)
         {
             var project = this.QueryProcessor.Process(
                 new GetWipProjectQuery
@@ -202,14 +201,14 @@ namespace MirGames.Controllers
         
         /// <inheritdoc />
         [Authorize(Roles = "User")]
-        public ActionResult New()
+        public virtual ActionResult New()
         {
             return this.View();
         }
 
         /// <inheritdoc />
         [Authorize(Roles = "User")]
-        public ActionResult Settings(string projectAlias)
+        public virtual ActionResult Settings(string projectAlias)
         {
             var project = this.QueryProcessor.Process(
                 new GetWipProjectForEditQuery
@@ -222,11 +221,11 @@ namespace MirGames.Controllers
 
             this.PageData["project"] = project;
 
-            return View(project);
+            return this.View(project);
         }
 
         /// <inheritdoc />
-        public ActionResult Code(string projectAlias, string path = "/")
+        public virtual ActionResult Code(string projectAlias, string path = "/")
         {
             var project = this.QueryProcessor.Process(
                 new GetWipProjectQuery
@@ -245,7 +244,7 @@ namespace MirGames.Controllers
         }
 
         /// <inheritdoc />
-        public ActionResult AddWorkItemDialog()
+        public virtual ActionResult AddWorkItemDialog()
         {
             return this.PartialView("_AddWorkItemDialog");
         }

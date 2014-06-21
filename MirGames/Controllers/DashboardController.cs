@@ -24,7 +24,7 @@ namespace MirGames.Controllers
     /// <summary>
     /// The dashboard controller.
     /// </summary>
-    public class DashboardController : AppController
+    public partial class DashboardController : AppController
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DashboardController"/> class.
@@ -37,7 +37,7 @@ namespace MirGames.Controllers
         }
 
         /// <inheritdoc />
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             var model = new DashboardViewModel();
 

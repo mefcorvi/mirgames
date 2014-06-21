@@ -27,7 +27,7 @@ namespace MirGames.Controllers
     /// <summary>
     /// The topics controller.
     /// </summary>
-    public class UsersController : AppController
+    public partial class UsersController : AppController
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UsersController" /> class.
@@ -40,7 +40,7 @@ namespace MirGames.Controllers
         }
 
         /// <inheritdoc />
-        public ActionResult Index(int page = 1, string searchString = null)
+        public virtual ActionResult Index(int page = 1, string searchString = null)
         {
             var usersQuery = new GetUsersQuery
             {
@@ -54,7 +54,7 @@ namespace MirGames.Controllers
         }
 
         /// <inheritdoc />
-        public ActionResult Top(int page = 1, string searchString = null)
+        public virtual ActionResult Top(int page = 1, string searchString = null)
         {
             var usersQuery = new GetUsersQuery
             {
@@ -69,7 +69,7 @@ namespace MirGames.Controllers
 
         /// <inheritdoc />
         [Authorize(Roles = "Administrator")]
-        public ActionResult NotActivated(int page = 1, string searchString = null)
+        public virtual ActionResult NotActivated(int page = 1, string searchString = null)
         {
             var usersQuery = new GetUsersQuery
             {
@@ -84,7 +84,7 @@ namespace MirGames.Controllers
         }
 
         /// <inheritdoc />
-        public ActionResult Online(int page = 1, string searchString = null)
+        public virtual ActionResult Online(int page = 1, string searchString = null)
         {
             var usersQuery = new GetUsersQuery
             {
@@ -103,7 +103,7 @@ namespace MirGames.Controllers
         /// </summary>
         /// <param name="userId">The user id.</param>
         /// <returns>The action result.</returns>
-        public new ActionResult Profile(int userId)
+        public virtual new ActionResult Profile(int userId)
         {
             var user = this.QueryProcessor.Process(new GetUserByIdQuery { UserId = userId });
             var wallRecords = this.QueryProcessor.Process(new GetUserWallRecordsQuery { UserId = userId }, new PaginationSettings(0, 20));
@@ -122,7 +122,7 @@ namespace MirGames.Controllers
         }
 
         /// <inheritdoc />
-        public ActionResult Topics(int userId, int page = 1)
+        public virtual ActionResult Topics(int userId, int page = 1)
         {
             if (page < 1)
             {
@@ -150,7 +150,7 @@ namespace MirGames.Controllers
         }
 
         /// <inheritdoc />
-        public ActionResult Comments(int userId, int page = 1)
+        public virtual ActionResult Comments(int userId, int page = 1)
         {
             var user = this.QueryProcessor.Process(new GetUserByIdQuery { UserId = userId });
             if (page < 1)
@@ -177,7 +177,7 @@ namespace MirGames.Controllers
         }
 
         /// <inheritdoc />
-        public ActionResult Forum(int userId, int page = 1)
+        public virtual ActionResult Forum(int userId, int page = 1)
         {
             var user = this.QueryProcessor.Process(new GetUserByIdQuery { UserId = userId });
             if (page < 1)
@@ -208,7 +208,7 @@ namespace MirGames.Controllers
         /// </summary>
         /// <returns>The action result.</returns>
         [Authorize(Roles = "User, ReadOnlyUser")]
-        public ActionResult Settings()
+        public virtual ActionResult Settings()
         {
             var user = this.QueryProcessor.Process(new GetUserByIdQuery { UserId = this.CurrentUser.Id });
             var authProviders = this.QueryProcessor.Process(new GetOAuthProvidersQuery());
@@ -229,7 +229,7 @@ namespace MirGames.Controllers
         [HttpPost]
         [AjaxOnly]
         [AntiForgery]
-        public ActionResult DeleteUser(DeleteUserCommand command)
+        public virtual ActionResult DeleteUser(DeleteUserCommand command)
         {
             Contract.Requires(command != null);
 
@@ -245,7 +245,7 @@ namespace MirGames.Controllers
         [HttpPost]
         [AjaxOnly]
         [AntiForgery]
-        public ActionResult NewWallRecord(PostWallRecordCommand command)
+        public virtual ActionResult NewWallRecord(PostWallRecordCommand command)
         {
             Contract.Requires(command != null);
 

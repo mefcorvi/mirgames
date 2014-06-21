@@ -17,7 +17,7 @@ namespace MirGames.Controllers
     /// <summary>
     /// The chat controller.
     /// </summary>
-    public class ChatController : AppController
+    public partial class ChatController : AppController
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ChatController"/> class.
@@ -30,7 +30,7 @@ namespace MirGames.Controllers
         }
 
         /// <inheritdoc />
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             return View();
         }
@@ -41,7 +41,7 @@ namespace MirGames.Controllers
         [AntiForgery]
         [Authorize(Roles = "ChatMember")]
         [ValidateInput(false)]
-        public ActionResult Post(PostChatMessageCommand command)
+        public virtual ActionResult Post(PostChatMessageCommand command)
         {
             this.CommandProcessor.Execute(command);
             return this.Json(new { result = true });

@@ -54,40 +54,6 @@ namespace MirGames
                 new { controller = "OAuth", action = "Authorize" });
 
             routes.MapRoute(
-                "ForumTopicItemFirstPage",
-                "forum/{topicId}",
-                new { controller = "Forum", action = "Topic", page = 1 },
-                new { topicId = @"\d+" });
-
-            routes.MapRoute(
-                "ForumTopicItem",
-                "forum/{topicId}/{page}",
-                new { controller = "Forum", action = "Topic" },
-                new { topicId = @"\d+", page = @"\d+" });
-
-            routes.MapRoute(
-                "ForumAllItems",
-                "forum",
-                new { controller = "Forum", action = "Index", onlyUnread = false, page = 1 });
-
-            routes.MapRoute(
-                "ForumUnreadItems",
-                "forum/Unread",
-                new { controller = "Forum", action = "Index", onlyUnread = true, page = 1 });
-
-            routes.MapRoute(
-                "ForumTopicsListWithPage",
-                "forum/page{page}",
-                new { controller = "Forum", action = "Index" },
-                new { page = @"\d+" });
-
-            routes.MapRoute(
-                "EditTopicItem",
-                "topics/Edit/{topicId}",
-                new { controller = "Topics", action = "Edit" },
-                new { topicId = @"\d+" });
-
-            routes.MapRoute(
                 "AccountSettings",
                 "settings",
                 new { controller = "Users", action = "Settings" });

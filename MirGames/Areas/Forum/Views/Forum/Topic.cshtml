@@ -1,0 +1,79 @@
+﻿@using MirGames.Domain.Forum.ViewModels
+@using MirGames.Models
+@model ForumTopicViewModel
+
+@{
+    ViewBag.Title = Model.Title + " / Форум";
+    PageScriptController = "MirGames.Forum.TopicPage";
+    AddPageCssClass("forum-topic-page");
+    var pagination = (PaginationViewModel)ViewBag.Pagination;
+}
+
+@section Nav { @Html.Partial("_ForumTopicMenu") }
+
+<header>
+    <ul class="tags">
+        @foreach (var tag in Model.Tags)
+        {
+            <li>@Html.ActionLink(tag, "Index", "Forum", new { tag }, null)</li>
+        }
+    </ul>
+    <h3>@Model.Title</h3>
+</header>
+
+<div class="topic-posts">
+    @Html.Partial("_ForumPostListItem", Model.StartPost)
+    <div id="posts"></div>
+    @Html.Partial("_Pagination", pagination)
+    @foreach (ForumPostsListItemViewModel post in ViewBag.Posts)
+    {
+        @Html.Partial("_ForumPostListItem", post)
+    }
+</div>
+
+<div class="topic-posts">
+    <article post-id="{{post.PostId}}" ng-class="{ message: 1, unread: !post.IsRead }" ng-repeat="post in posts" ng-cloak>
+        <a class="message-index" href="#{{post.Index}}" id="{{post.Index}}">#{{post.Index}}</a>
+        <a author-link="post.Author.Id" class="avatar-link" ng-show="post.Author.Id > 0">
+            <img ng-src="{{post.Author.AvatarUrl}}" class="avatar avatar-small" />
+        </a>
+        <span class="avatar-link" ng-show="post.Author.Id <= 0">
+            <img ng-src="{{post.Author.AvatarUrl}}" class="avatar avatar-small" />
+        </span>
+        <header>
+            <a author-link="post.Author.Id" class="user-login" ng-show="post.Author.Id > 0">{{post.Author.Login}}</a>
+            <span class="user-login" ng-show="post.Author.Id <= 0">{{post.Author.Login}}</span>
+            <span class="comment-date">{{post.CreatedDate | date:'dd.MM.yy HH:mm'}}</span>
+            <div class="message-bar">
+                <a class="edit-post" ng-show="{{post.CanBeEdited}}" href="javascript:void(0);" dialog="@Url.Action(MVC.Forum.Forum.EditPostDialog())"
+                   title="Редактировать"
+                   dialog-close="$parent.reloadPost(post.PostId, post.IsFirstPost)"
+                   resolve="{ 'post-id': {{post.PostId}} }" dialog-controller="MirGames.Forum.EditPostDialogController"><i class="fa fa-pencil-square-o"></i></a>
+                
+                <a ng-show="post.CanBeDeleted" class="delete-post" href="javascript:void(0);" title="Удалить" dialog="@Url.Action(MVC.Forum.Forum.DeletePostDialog())"
+                   dialog-close="$parent.hidePost(post.PostId)" resolve="{ 'post-id': {{post.PostId}} }"
+                   dialog-controller="MirGames.Forum.DeletePostDialogController"><i class="fa fa-times"></i></a>
+                
+                <div class="edited" ng-show="post.UpdatedDate > post.CreatedDate">Отредактировано: {{post.UpdatedDate | date:'dd.MM.yy HH:mm'}}</div>
+            </div>
+        </header>
+        <div class="text" ng-bind-html="post.Text | unsafe">
+        </div>
+    </article>
+    @if (this.UserEntity == null || !Convert.ToBoolean(this.UserEntity.Settings["ForumContiniousPagination"]))
+    {
+        @Html.Partial("_Pagination", pagination)
+    }
+</div>
+
+@if (Model.CanBeAnswered) { 
+    <h4 id="new-answer">Ответить</h4>
+    <div class="answer-form">
+        <form class="new-answer-form" ng-submit="reply.post()" novalidate name="postAnswerForm">
+            <texteditor text="reply.text" required="true" show-preview="true" post="reply.post()" attachments="reply.attachments" focus="reply.focus" entity-type="forumPost"></texteditor>
+            <div class="buttons">
+                <a href="javascript:void(0);" ng-click="reply.post()" ng-class="{ 'button-disabled': postAnswerForm.$invalid }" class="button">Отправить</a>
+            </div>
+        </form>
+    </div>
+}

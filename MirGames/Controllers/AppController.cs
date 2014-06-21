@@ -22,7 +22,7 @@ namespace MirGames.Controllers
     /// <summary>
     /// The base application controller.
     /// </summary>
-    public abstract class AppController : Controller
+    public abstract partial class AppController : Controller
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AppController" /> class.

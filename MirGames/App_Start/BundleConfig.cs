@@ -70,7 +70,7 @@ namespace MirGames
                     "~/Areas/Topics/Scripts/*.js",
                     "~/Scripts/Tools/*.js",
                     "~/Scripts/users/*.js",
-                    "~/Scripts/Forum/*.js",
+                    "~/Areas/Forum/Scripts/*.js",
                     "~/Scripts/projects/*.js",
                     "~/Scripts/Attachment/*.js",
                     "~/Scripts/MirGames.js",

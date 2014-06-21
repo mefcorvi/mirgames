@@ -24,7 +24,7 @@ namespace MirGames.Controllers
     /// <summary>
     /// The attachment controller.
     /// </summary>
-    public class AttachmentController : AppController
+    public partial class AttachmentController : AppController
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AttachmentController"/> class.
@@ -37,7 +37,7 @@ namespace MirGames.Controllers
         }
 
         /// <inheritdoc />
-        public ActionResult Index(int attachmentId)
+        public virtual ActionResult Index(int attachmentId)
         {
             var attachment = this.QueryProcessor.Process(new GetAttachmentInfoQuery { AttachmentId = attachmentId });
 
@@ -52,7 +52,7 @@ namespace MirGames.Controllers
         [HttpPost]
         [Authorize(Roles = "User")]
         [AntiForgery]
-        public JsonResult Upload()
+        public virtual JsonResult Upload()
         {
             string fileName = Encoding.UTF8.GetString(Convert.FromBase64String(Request.Headers["X-File-Name"]));
             string entityType = Request.Headers["X-Entity-Type"];

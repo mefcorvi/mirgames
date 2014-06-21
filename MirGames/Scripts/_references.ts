@@ -42,7 +42,4 @@
 /// <reference path="Account/LoginFormController.ts" />
 /// <reference path="Account/SignUpFormController.ts" />
 
-/// <reference path="Forum/TopicsPage.ts" />
-/// <reference path="Forum/TopicPage.ts" />
-
 /// <reference path="Attachment/AttachmentService.ts" />

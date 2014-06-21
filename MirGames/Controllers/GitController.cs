@@ -16,7 +16,7 @@ namespace MirGames.Controllers
 
     using MirGames.Services.Git.Public.Services;
 
-    public class GitController : Controller
+    public partial class GitController : Controller
     {
         /// <summary>
         /// The git service.
@@ -32,7 +32,7 @@ namespace MirGames.Controllers
             this.gitService = gitService;
         }
 
-        public ActionResult GetInfoRefs(string project, string service)
+        public virtual ActionResult GetInfoRefs(string project, string service)
         {
             this.NoCache(string.Format("application/x-{0}-advertisement", service));
             this.Response.StatusCode = 200;
@@ -50,7 +50,7 @@ namespace MirGames.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadPack(string project)
+        public virtual ActionResult UploadPack(string project)
         {
             this.NoCache("application/x-git-upload-pack-result");
 
@@ -67,7 +67,7 @@ namespace MirGames.Controllers
         }
 
         [HttpPost]
-        public ActionResult ReceivePack(string project)
+        public virtual ActionResult ReceivePack(string project)
         {
             this.NoCache("application/x-git-receive-pack-result");
 

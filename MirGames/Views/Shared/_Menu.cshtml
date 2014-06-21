@@ -1,25 +1,25 @@
 ﻿@if (UserEntity != null)
 {
     <div class="profile-section">
-        <a href="@Url.Action("Profile", "Users", new { userId = UserEntity.Id })" @Html.Css("avatar-link").Add("selected", ViewBag.CurrentSection == "CurrentUser")><img src="@UserEntity.AvatarUrl" class="avatar avatar-small" /><span>@UserEntity.Login</span></a>
+        <a href="@Url.Action(MVC.Users.Profile(UserEntity.Id))" @Html.Css("avatar-link").Add("selected", ViewBag.CurrentSection == "CurrentUser")><img src="@UserEntity.AvatarUrl" class="avatar avatar-small" /><span>@UserEntity.Login</span></a>
     </div>
 }
 
 
-@Html.ActionLink("Блог", "Index", "Topics", new { area = "Topics" }, new { @class = ViewBag.CurrentSection == "Topics" ? "selected" : string.Empty })
-<a href="@Url.Action("Index", "Forum")" @Html.Css("selected", (string)ViewBag.CurrentSection == "Forum") ng-controller="MirGames.Forum.UnreadMenuItemController">
+@Html.ActionLink("Блог", MVC.Topics.Topics.Index(), new { @class = ViewBag.CurrentSection == "Topics" ? "selected" : string.Empty })
+<a href="@Url.Action(MVC.Forum.Forum.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Forum") ng-controller="MirGames.Forum.UnreadMenuItemController">
     Форум
     <span @Html.Css("updates-count").Add("counter").Add("ng-hide", @ViewBag.ForumTopicsUnread == 0) title="Перейти к непрочитанным обсуждениям"
           ng-click="goToUnread($event.which == 2); $event.preventDefault();" ng-show="unreadCount > 0" ng-bind="'+' + unreadCount">+@ViewBag.ForumTopicsUnread</span>
 </a>
-@Html.ActionLink("Проекты", "Index", "Projects", null, new { @class = ViewBag.CurrentSection == "WIP" ? "selected" : string.Empty })
+@Html.ActionLink("Проекты", MVC.Projects.Index(), new { @class = ViewBag.CurrentSection == "WIP" ? "selected" : string.Empty })
 
-@Html.ActionLink("Пользователи", "Index", "Users", null, new { @class = ViewBag.CurrentSection == "Users" ? "selected" : string.Empty })
+@Html.ActionLink("Пользователи", MVC.Users.Index(), new { @class = ViewBag.CurrentSection == "Users" ? "selected" : string.Empty })
 
 
 @if (User.IsInRole("Administrator"))
 {
-    @Html.ActionLink("Управление", "Events", "Tools", null, new { @class = ViewBag.CurrentSection == "Tools" ? "selected" : string.Empty })
+    @Html.ActionLink("Управление", MVC.Tools.Events(), new { @class = ViewBag.CurrentSection == "Tools" ? "selected" : string.Empty })
 }
 
 @Html.ActionLink("Чат", "Index", "Chat", null, new

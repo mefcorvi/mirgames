@@ -26,7 +26,7 @@ namespace MirGames.Areas.Topics.Controllers
     /// <summary>
     /// The topics controller.
     /// </summary>
-    public class TopicsController : AppController
+    public partial class TopicsController : AppController
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TopicsController" /> class.
@@ -44,13 +44,13 @@ namespace MirGames.Areas.Topics.Controllers
         /// <param name="tag">The tag.</param>
         /// <param name="searchString">The search string.</param>
         /// <returns>The feed.</returns>
-        public RssActionResult Rss(string tag = null, string searchString = null)
+        public virtual RssActionResult Rss(string tag = null, string searchString = null)
         {
             var topicsQuery = new GetTopicsQuery { IsPublished = true, Tag = tag, SearchString = searchString };
             var topics = this.QueryProcessor.Process(topicsQuery, new PaginationSettings(0, 20));
 
             var feed = new SyndicationFeed(
-                "MirGames.ru", "Новые посты на MirGames.ru", this.GetAbsoluteUri(this.Url.Action("Index", "Topics")))
+                "MirGames.ru", "Новые посты на MirGames.ru", this.GetAbsoluteUri(this.Url.Action(MVC.Topics.Topics.Index())))
                 {
                     Items = topics.Select(this.CreateTopicSyndicationItem).ToList()
                 };
@@ -62,13 +62,13 @@ namespace MirGames.Areas.Topics.Controllers
         /// Returns RSS feed of the topics list.
         /// </summary>
         /// <returns>The feed.</returns>
-        public RssActionResult CommentsRss()
+        public virtual RssActionResult CommentsRss()
         {
             var commentsQuery = new GetCommentsQuery();
             var comments = this.QueryProcessor.Process(commentsQuery, new PaginationSettings(0, 20));
 
             var feed = new SyndicationFeed(
-                "Новые комментарии на MirGames.ru", "Новые комментарии на MirGames.ru", this.GetAbsoluteUri(this.Url.Action("Index", "Topics")))
+                "Новые комментарии на MirGames.ru", "Новые комментарии на MirGames.ru", this.GetAbsoluteUri(this.Url.Action(MVC.Topics.Topics.Index())))
             {
                 Items = comments.Select(this.CreateCommentSyndicationItem).ToList()
             };
@@ -83,7 +83,7 @@ namespace MirGames.Areas.Topics.Controllers
         /// <param name="searchString">The search string.</param>
         /// <param name="page">The page.</param>
         /// <returns>The action result.</returns>
-        public ActionResult Index(string tag = null, string searchString = null, int page = 1)
+        public virtual ActionResult Index(string tag = null, string searchString = null, int page = 1)
         {
             if (page < 1)
             {
@@ -114,7 +114,7 @@ namespace MirGames.Areas.Topics.Controllers
         /// </summary>
         /// <param name="topicId">The topic id.</param>
         /// <returns>The action result.</returns>
-        public ActionResult Topic(int topicId)
+        public virtual ActionResult Topic(int topicId)
         {
             var topic = this.QueryProcessor.Process(new GetTopicQuery { TopicId = topicId });
 
@@ -126,7 +126,7 @@ namespace MirGames.Areas.Topics.Controllers
             this.ViewBag.BackUrl = this.HttpContext.Request.UrlReferrer != null
                                    && this.HttpContext.Request.UrlReferrer.IsRouteMatch("Topics", "Index")
                                        ? this.HttpContext.Request.UrlReferrer.ToString()
-                                       : this.Url.Action("Index", "Topics");
+                                       : this.Url.Action(MVC.Topics.Topics.Index());
 
             this.ViewBag.PageData["topicId"] = topicId;
             return this.View(topic);
@@ -137,7 +137,7 @@ namespace MirGames.Areas.Topics.Controllers
         /// </summary>
         /// <returns>The action result.</returns>
         [Authorize(Roles = "User")]
-        public ActionResult New()
+        public virtual ActionResult New()
         {
             return this.View();
         }
@@ -148,7 +148,7 @@ namespace MirGames.Areas.Topics.Controllers
         /// <param name="topicId">The topic unique identifier.</param>
         /// <returns>The action result.</returns>
         [Authorize(Roles = "User")]
-        public ActionResult Edit(int topicId)
+        public virtual ActionResult Edit(int topicId)
         {
             var topic = this.QueryProcessor.Process(new GetTopicForEditQuery { TopicId = topicId });
 
@@ -170,7 +170,7 @@ namespace MirGames.Areas.Topics.Controllers
         [AntiForgery]
         [Authorize(Roles = "User")]
         [ValidateInput(false)]
-        public ActionResult AddTopic(AddNewTopicCommand command)
+        public virtual ActionResult AddTopic(AddNewTopicCommand command)
         {
             Contract.Requires(command != null);
             
@@ -188,7 +188,7 @@ namespace MirGames.Areas.Topics.Controllers
         [AntiForgery]
         [Authorize(Roles = "User")]
         [ValidateInput(false)]
-        public ActionResult SaveTopic(SaveTopicCommand command)
+        public virtual ActionResult SaveTopic(SaveTopicCommand command)
         {
             Contract.Requires(command != null);
 
@@ -205,7 +205,7 @@ namespace MirGames.Areas.Topics.Controllers
         [AjaxOnly]
         [AntiForgery]
         [Authorize(Roles = "User")]
-        public ActionResult DeleteTopic(DeleteTopicCommand command)
+        public virtual ActionResult DeleteTopic(DeleteTopicCommand command)
         {
             Contract.Requires(command != null);
 
@@ -214,13 +214,13 @@ namespace MirGames.Areas.Topics.Controllers
         }
 
         /// <inheritdoc />
-        public ActionResult EditCommentDialog()
+        public virtual ActionResult EditCommentDialog()
         {
             return this.PartialView("_EditCommentDialog");
         }
 
         /// <inheritdoc />
-        public ActionResult DeleteCommentDialog()
+        public virtual ActionResult DeleteCommentDialog()
         {
             return this.PartialView("_DeleteCommentDialog");
         }

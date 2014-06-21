@@ -1,0 +1,29 @@
+﻿@using MirGames.Models
+@model MirGames.Domain.Forum.ViewModels.ForumTopicViewModel
+@{ Layout = "~/Views/Shared/_Nav.cshtml"; }
+
+@section SectionTitle { @Model.Title }
+
+@section SectionMenu
+{
+    <div class="forum-topic-menu">
+        <a href="@Url.Action("Index")" class="back-to-topics"><i class="fa fa-arrow-left"></i>Вернуться к темам</a>
+        @if (Model.CanBeAnswered)
+        {
+            <a href="@Url.Action(MVC.Forum.Forum.Topic(Model.TopicId, ((PaginationViewModel)ViewBag.Pagination).PagesCount))#new-answer"
+               ng-click="focusAnswer()" class="comment"><i class="fa fa-comment"></i>Ответить</a>
+        }
+        @if (Model.CanBeDeleted)
+        {
+            <a href="javascript:void(0);" class="delete-topic" dialog="@Url.Action(MVC.Forum.Forum.DeleteTopicDialog())"
+                   dialog-close="returnBack()" resolve="{ 'topic-id': @Model.TopicId }"
+                   dialog-controller="MirGames.Forum.DeleteTopicDialogController"><i class="fa fa-times"></i>Удалить</a>
+        }
+        <div class="subsection">
+            <a class="avatar-link author-info" href="@Url.Action(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))">
+                <img src="@Model.Author.AvatarUrl" class="avatar avatar-small" />
+                <span>@Model.Author.Login</span>
+            </a>
+        </div>
+    </div>
+}

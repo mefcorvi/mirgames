@@ -15,7 +15,7 @@ namespace MirGames.Controllers
     /// <summary>
     /// The forum controller.
     /// </summary>
-    public class ErrorController : AppController
+    public partial class ErrorController : AppController
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ErrorController"/> class.
@@ -28,21 +28,21 @@ namespace MirGames.Controllers
         }
 
         /// <inheritdoc />
-        public ActionResult General()
+        public virtual ActionResult General()
         {
             Response.StatusCode = 500;
             return View();
         }
 
         /// <inheritdoc />
-        public ActionResult Error404()
+        public virtual ActionResult Error404()
         {
             Response.StatusCode = 404;
             return View();
         }
 
         /// <inheritdoc />
-        public ActionResult Error500()
+        public virtual ActionResult Error500()
         {
             Response.StatusCode = 500;
             return View();

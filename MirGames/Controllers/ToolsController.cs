@@ -19,7 +19,7 @@ namespace MirGames.Controllers
     /// <summary>
     /// The tools controller.
     /// </summary>
-    public class ToolsController : AppController
+    public partial class ToolsController : AppController
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ToolsController" /> class.
@@ -33,7 +33,7 @@ namespace MirGames.Controllers
 
         /// <inheritdoc />
         [Authorize(Roles = "Administrator")]
-        public ActionResult ReIndex()
+        public virtual ActionResult ReIndex()
         {
             this.CommandProcessor.Execute(new ReindexTopicsCommand());
             return this.Content("ok");
@@ -41,7 +41,7 @@ namespace MirGames.Controllers
 
         /// <inheritdoc />
         [Authorize(Roles = "Administrator")]
-        public ActionResult ReIndexForum()
+        public virtual ActionResult ReIndexForum()
         {
             this.CommandProcessor.Execute(new ReindexForumTopicsCommand());
             return this.Content("ok");
@@ -49,7 +49,7 @@ namespace MirGames.Controllers
 
         /// <inheritdoc />
         [Authorize(Roles = "Administrator")]
-        public ActionResult Events()
+        public virtual ActionResult Events()
         {
             var eventLogItems = this.QueryProcessor.Process(new GetEventLogQuery(), new PaginationSettings(0, 100));
             ViewBag.SectionMode = "Events";

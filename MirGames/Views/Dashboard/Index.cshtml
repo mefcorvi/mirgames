@@ -54,7 +54,7 @@
     <div class="forum-topics-list">
     @foreach (var topic in Model.ForumTopics)
     {
-        @Html.Partial("../Forum/_ForumTopicListItem", topic)
+        @Html.Partial("../../Areas/Forum/Views/Forum/_ForumTopicListItem", topic)
     }
     </div>
 </section>

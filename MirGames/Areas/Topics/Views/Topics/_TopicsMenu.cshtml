@@ -8,12 +8,12 @@
 {
     @if (User.Can("Create", "Topic"))
     {
-        <a href="@Url.Action("New", "Topics")" class="add-topic"><i class="fa fa-plus"></i>Новая тема</a>
+        <a href="@Url.Action(MVC.Topics.Topics.New())" class="add-topic"><i class="fa fa-plus"></i>Новая тема</a>
     }
     <div class="subsection">
     @foreach (string tag in ViewBag.Tags)
     {
-        @Html.ActionLink(tag, "Index", "Topics", new { tag }, new { @class = string.Equals(tag, ViewBag.Tag, StringComparison.InvariantCultureIgnoreCase) ? "selected" : string.Empty })
+        @Html.ActionLink(tag, MVC.Topics.Topics.Index(tag), new { @class = string.Equals(tag, ViewBag.Tag, StringComparison.InvariantCultureIgnoreCase) ? "selected" : string.Empty })
     }
     </div>
 }

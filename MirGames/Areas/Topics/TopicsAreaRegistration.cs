@@ -34,6 +34,12 @@ namespace MirGames.Areas.Topics
                 new { controller = "Topics", action = "Index", page = 1 });
 
             context.MapRoute(
+                "EditTopicItem",
+                "topics/Edit/{topicId}",
+                new { controller = "Topics", action = "Edit" },
+                new { topicId = @"\d+" });
+
+            context.MapRoute(
                 "TopicsListWithPage",
                 "topics/page{page}",
                 new { controller = "Topics", action = "Index" },
