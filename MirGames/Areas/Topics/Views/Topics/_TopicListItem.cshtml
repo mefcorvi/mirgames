@@ -2,19 +2,19 @@
 <article class="message">
     <div class="message-content">
         <header>
-            @Html.ActionLink(Model.Title, "Topic", "Topics", new { topicId = Model.TopicId }, new { @class = "topic-title" })
+            @Html.ActionLink(Model.Title, MVC.Topics.Topics.Topic(Model.TopicId), new { @class = "topic-title" })
             <span>@Html.DisplayFor(m => Model.CreationDate)</span>
         </header>
         <div class="text">
             @Html.Raw(Model.ShortText)
         </div>
         <footer>
-            <a href="@Url.Action("Profile", "Users", new { userId = Model.Author.Id })" class="user-login avatar-link"><img src="@Model.Author.AvatarUrl" class="avatar avatar-tiny" /><span>@Model.Author.Login</span></a>
-            <a href="@Url.Action("Topic", "Topics", new { topicId = Model.TopicId })#comments" class="answers-link">Комментарии (@Model.CommentsCount)</a>
+            <a href="@Url.Action(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login avatar-link"><img src="@Model.Author.AvatarUrl" class="avatar avatar-tiny" /><span>@Model.Author.Login</span></a>
+            <a href="@Url.Action(MVC.Topics.Topics.Topic(Model.TopicId))#comments" class="answers-link">Комментарии (@Model.CommentsCount)</a>
             <ul class="tags">
                 @foreach (var tag in Model.TagsSet)
                 {
-                    <li>@Html.ActionLink(tag.Trim(), "Index", "Topics", new { tag = tag.Trim() }, null)</li>
+                    <li>@Html.ActionLink(tag.Trim(), MVC.Topics.Topics.Index(tag.Trim()), null)</li>
                 }
             </ul>
         </footer>

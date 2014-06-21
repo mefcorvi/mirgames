@@ -13,7 +13,7 @@
         /// <inheritdoc />
         public override void RegisterArea(AreaRegistrationContext context) 
         {
-            context.MapRoute(
+            context.MapRouteLowercase(
                 "Chat_default",
                 "chat/{action}/{id}",
                 new { controller = "Chat", action = "Index", id = UrlParameter.Optional });

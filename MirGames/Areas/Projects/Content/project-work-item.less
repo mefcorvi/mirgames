@@ -1,0 +1,164 @@
+﻿body {} @import "references.less";
+@import "mixins.less";
+
+.wip-workitem-page {
+    & > section {
+        .project-info();
+
+        & > section {
+            .indent();
+
+            & > h3 {
+                .page-subtitle();
+                text-transform: none;
+                .font-size(2);
+
+                .work-item-type();
+
+                small {
+                    .font-size(1.5);
+                    color: mix(@background-color, @font-color, 50%);
+                }
+            }
+
+            & > h4 {
+                .page-subtitle();
+            }
+
+            & > .work-item {
+                .page-block();
+                margin-bottom: @indent;
+
+                & > footer {
+                    margin-top: @indent/2;
+                    overflow: hidden;
+                    line-height: @avatar-tiny;
+                    border-top: 1px solid #eee;
+                    padding-top: @indent/2;
+
+                    .avatar-link {
+                        overflow: hidden;
+                        float: left;
+                        margin-right: @indent/2;
+
+                        img {
+                            margin-right: @indent/2;
+                        }
+                    }
+
+                    .creation-date {
+                        .date-small();
+                        float: left;
+                        margin-right: @indent/2;
+                    }
+
+                    & > ul.tags {
+                        overflow: hidden;
+                        list-style-type: none;
+                        float: left;
+                        line-height: normal;
+                        .font-size(1.1);
+
+                        & > li {
+                            float: left;
+                            margin-right: 2px;
+                            display: block;
+                            .tag-link(none);
+                        }
+
+                            & > li:last-child {
+                                margin-right: 0;
+                            }
+                    }
+                }
+            }
+
+            & > .comments-list {
+                .comments-list-item();
+                margin-bottom: @indent;
+            }
+
+            & > .comment-form {
+                .page-block();
+            }
+        }
+    }
+}
+
+.comments-list-item() {
+    & > .comment {
+        .page-block(@indent/2, @indent/2);
+        margin-bottom: @indent/4;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        & > header {
+            overflow: hidden;
+
+            .avatar-link {
+                img {
+                    .avatar-small();
+                }
+
+                float: left;
+            }
+
+            .user-login {
+                margin-right: @indent;
+                margin-left: 10px;
+                font-weight: bold;
+                float: left;
+                margin-top: 8px;
+            }
+
+            .comment-date {
+                .date-small();
+                float: left;
+                margin-top: 8px;
+            }
+
+            .message-bar {
+                .font-size(1.5);
+                float: left;
+                margin-top: 7px;
+
+                & > .edited {
+                    margin-left: 10px;
+                    .font-size(1.1);
+                    color: #999;
+                    margin-top: 2px;
+                    float: left;
+                }
+
+                a {
+                    margin-left: @indent;
+                    float: left;
+                    width: 20px;
+                    height: 20px;
+                    text-align: center;
+                    line-height: 20px;
+                    opacity: 0.5;
+
+                    &:hover {
+                        opacity: 1;
+                        .transition(opacity);
+                    }
+
+                    &.edit-comment {
+                    }
+
+                    &.delete-comment {
+                        color: #900;
+                        float: right;
+                    }
+                }
+            }
+        }
+
+        & > .text {
+            margin-left: @avatar-small + 10px;
+        }
+    }
+}

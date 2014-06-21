@@ -1,0 +1,149 @@
+﻿body {} @import "references.less";
+
+.wip-page {
+    & > section {
+        .indent();
+
+        & > h3 {
+            .page-title();
+        }
+
+        & > .projects-list {
+            .fa {
+                margin-right: 5px;
+            }
+
+            & > .project {
+                .page-block(@indent);
+                overflow: hidden;
+                margin-bottom: @indent/4;
+
+                & > .logo {
+                    .make-xs-column(2);
+                    .make-sm-column(2);
+                    .make-md-column(1);
+                    text-align: center;
+                    padding-right: @indent;
+
+                    & > img {
+                        max-width: 100%;
+                        max-height: 200px;
+                        border: 1px solid @border-color;
+                        padding: 2px;
+                        .box-shadow(0px 2px 2px rgba(0, 0, 0, 0.2));
+                    }
+                }
+
+                & > .project-info {
+                    overflow: hidden;
+                    .make-xs-column(10);
+                    .make-sm-column(8);
+                    .make-md-column(9);
+                    padding-right: @indent/2;
+
+                    & > h1 {
+                        .header-font();
+                        .font-size(1.8);
+                    }
+
+                    & > .project-description {
+                        padding: @indent/2 0;
+                        max-height: 200px;
+                    }
+
+                    & > .last-commit-message {
+                        .font-size(1.1);
+                        color: mix(@background-color, @font-color, 50%);
+                    }
+
+                    & > footer {
+                        .make-row();
+                        .font-size(1.1);
+
+                        & > .user-login {
+                            overflow: hidden;
+                            .make-xs-column(12);
+                            .make-sm-column(12);
+                            .make-md-column(3);
+
+                            @media (min-width: @screen-md-min) {
+                                max-width: 150px;
+                            }
+
+                            @media (max-width: @screen-xs-max) {
+                                & > .avatar {
+                                    display: none;
+                                }
+
+                                & > span {
+                                    margin-left: 0;
+                                }
+                            }
+
+                            font-weight: bold;
+
+                            span {
+                                margin-top: 3px;
+                            }
+                        }
+
+                        & > .creation-date {
+                            .make-xs-column(8);
+                            .make-sm-column(5);
+                            .make-md-column(2);
+                            max-width: 100px;
+                            .font-size(1.2);
+                            color: @date-color;
+                        }
+
+                        & > .followers-count {
+                            .make-xs-column(2);
+                            .make-sm-column(2);
+                            .make-md-column(1);
+                            .header-font();
+                            .font-size-xs(1.1);
+                            .font-size-sm(1.2);
+                            max-width: 50px;
+                            text-align: center;
+                        }
+
+                        & > .votes {
+                            .make-xs-column(2);
+                            .make-sm-column(2);
+                            .make-md-column(1);
+                            .header-font();
+                            .font-size-xs(1.1);
+                            .font-size-sm(1.2);
+                            max-width: 50px;
+                            text-align: center;
+                        }
+
+                        & > ul.tags {
+                            overflow: hidden;
+                            list-style-type: none;
+                            .font-size(1.1);
+                            margin-top: 5px;
+                            margin-bottom: 5px;
+
+                            & > li {
+                                float: left;
+                                margin-right: 2px;
+                                margin-bottom: 2px;
+                                display: block;
+                                .tag-link(150px);
+
+                                &:last-child {
+                                    margin-right: 0;
+                                }
+                            }
+
+                            .make-xs-column(12);
+                            .make-sm-column(12);
+                            .make-md-column(5);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

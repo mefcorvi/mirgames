@@ -71,7 +71,7 @@ namespace MirGames
                     Links.Scripts.Tools.Url("*.js"),
                     Links.Scripts.Users.Url("*.js"),
                     Links.Areas.Forum.Scripts.Url("*.js"),
-                    Links.Scripts.projects.Url("*.js"),
+                    Links.Areas.Projects.Scripts.Url("*.js"),
                     Links.Scripts.Attachment.Url("*.js"),
                     "~/Scripts/MirGames.js",
                     "~/Scripts/ActivationNotificationController.js",
@@ -104,7 +104,7 @@ namespace MirGames
                 Links.Areas.Forum.Content.Url("*.less"),
                 Links.Content.tools.Url("*.less"),
                 Links.Content.dashboard.Url("*.less"),
-                Links.Content.projects.Url("*.less"),
+                Links.Areas.Projects.Content.Url("*.less"),
                 Links.Content.font_awesome.font_awesome_less);
 
             bundles.Add(cssBundle);

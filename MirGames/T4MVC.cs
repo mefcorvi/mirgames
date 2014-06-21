@@ -29,6 +29,8 @@ public static partial class MVC
     public static ChatClass Chat { get { return s_Chat; } }
     static readonly ForumClass s_Forum = new ForumClass();
     public static ForumClass Forum { get { return s_Forum; } }
+    static readonly ProjectsClass s_Projects = new ProjectsClass();
+    public static ProjectsClass Projects { get { return s_Projects; } }
     static readonly TopicsClass s_Topics = new TopicsClass();
     public static TopicsClass Topics { get { return s_Topics; } }
     public static MirGames.Controllers.AccountController Account = new MirGames.Controllers.T4MVC_AccountController();
@@ -37,7 +39,6 @@ public static partial class MVC
     public static MirGames.Controllers.ErrorController Error = new MirGames.Controllers.T4MVC_ErrorController();
     public static MirGames.Controllers.GitController Git = new MirGames.Controllers.T4MVC_GitController();
     public static MirGames.Controllers.OAuthController OAuth = new MirGames.Controllers.T4MVC_OAuthController();
-    public static MirGames.Controllers.ProjectsController Projects = new MirGames.Controllers.T4MVC_ProjectsController();
     public static MirGames.Controllers.ToolsController Tools = new MirGames.Controllers.T4MVC_ToolsController();
     public static MirGames.Controllers.UsersController Users = new MirGames.Controllers.T4MVC_UsersController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
@@ -56,6 +57,12 @@ namespace T4MVC
     {
         public readonly string Name = "Forum";
         public MirGames.Areas.Forum.Controllers.ForumController Forum = new MirGames.Areas.Forum.Controllers.T4MVC_ForumController();
+    }
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public class ProjectsClass
+    {
+        public readonly string Name = "Projects";
+        public MirGames.Areas.Projects.Controllers.ProjectsController Projects = new MirGames.Areas.Projects.Controllers.T4MVC_ProjectsController();
     }
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public class TopicsClass
@@ -224,21 +231,6 @@ namespace Links
         public static readonly string MirGames_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/MirGames.min.js") ? Url("MirGames.min.js") : Url("MirGames.js");
         public static readonly string NavigationController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/NavigationController.min.js") ? Url("NavigationController.min.js") : Url("NavigationController.js");
         public static readonly string OnlineUsersController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/OnlineUsersController.min.js") ? Url("OnlineUsersController.min.js") : Url("OnlineUsersController.js");
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class projects {
-            private const string URLPATH = "~/Scripts/projects";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            public static readonly string AddWorkItemDialogController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/AddWorkItemDialogController.min.js") ? Url("AddWorkItemDialogController.min.js") : Url("AddWorkItemDialogController.js");
-            public static readonly string NewProjectPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/NewProjectPage.min.js") ? Url("NewProjectPage.min.js") : Url("NewProjectPage.js");
-            public static readonly string ProjectCodeFilePage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectCodeFilePage.min.js") ? Url("ProjectCodeFilePage.min.js") : Url("ProjectCodeFilePage.js");
-            public static readonly string ProjectSettingsPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectSettingsPage.min.js") ? Url("ProjectSettingsPage.min.js") : Url("ProjectSettingsPage.js");
-            public static readonly string ProjectWorkItemBlocks_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectWorkItemBlocks.min.js") ? Url("ProjectWorkItemBlocks.min.js") : Url("ProjectWorkItemBlocks.js");
-            public static readonly string ProjectWorkItemList_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectWorkItemList.min.js") ? Url("ProjectWorkItemList.min.js") : Url("ProjectWorkItemList.js");
-            public static readonly string ProjectWorkItemPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectWorkItemPage.min.js") ? Url("ProjectWorkItemPage.min.js") : Url("ProjectWorkItemPage.js");
-            public static readonly string ProjectWorkItemsPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectWorkItemsPage.min.js") ? Url("ProjectWorkItemsPage.min.js") : Url("ProjectWorkItemsPage.js");
-        }
-    
         public static readonly string RequestNotificationController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/RequestNotificationController.min.js") ? Url("RequestNotificationController.min.js") : Url("RequestNotificationController.js");
         public static readonly string Router_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Router.d.min.js") ? Url("Router.d.min.js") : Url("Router.d.js");
         public static readonly string Settings_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Settings.min.js") ? Url("Settings.min.js") : Url("Settings.js");
@@ -398,52 +390,6 @@ namespace Links
         }
     
         public static readonly string nanoscroller_less = Url("nanoscroller.less");
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class projects {
-            private const string URLPATH = "~/Content/projects";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            public static readonly string item_block_template_html = Url("item-block-template.html");
-            public static readonly string mixins_less = Url("mixins.less");
-            public static readonly string mixins_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/mixins.min.css") ? Url("mixins.min.css") : Url("mixins.css");
-                 
-            public static readonly string mixins_css_map = Url("mixins.css.map");
-            public static readonly string project_code_file_less = Url("project-code-file.less");
-            public static readonly string project_code_file_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/project-code-file.min.css") ? Url("project-code-file.min.css") : Url("project-code-file.css");
-                 
-            public static readonly string project_code_file_css_map = Url("project-code-file.css.map");
-            public static readonly string project_code_less = Url("project-code.less");
-            public static readonly string project_code_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/project-code.min.css") ? Url("project-code.min.css") : Url("project-code.css");
-                 
-            public static readonly string project_code_css_map = Url("project-code.css.map");
-            public static readonly string project_new_less = Url("project-new.less");
-            public static readonly string project_new_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/project-new.min.css") ? Url("project-new.min.css") : Url("project-new.css");
-                 
-            public static readonly string project_new_css_map = Url("project-new.css.map");
-            public static readonly string project_settings_less = Url("project-settings.less");
-            public static readonly string project_settings_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/project-settings.min.css") ? Url("project-settings.min.css") : Url("project-settings.css");
-                 
-            public static readonly string project_settings_css_map = Url("project-settings.css.map");
-            public static readonly string project_work_item_less = Url("project-work-item.less");
-            public static readonly string project_work_item_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/project-work-item.min.css") ? Url("project-work-item.min.css") : Url("project-work-item.css");
-                 
-            public static readonly string project_work_item_css_map = Url("project-work-item.css.map");
-            public static readonly string project_work_items_less = Url("project-work-items.less");
-            public static readonly string project_work_items_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/project-work-items.min.css") ? Url("project-work-items.min.css") : Url("project-work-items.css");
-                 
-            public static readonly string project_work_items_css_map = Url("project-work-items.css.map");
-            public static readonly string project_less = Url("project.less");
-            public static readonly string project_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/project.min.css") ? Url("project.min.css") : Url("project.css");
-                 
-            public static readonly string project_css_map = Url("project.css.map");
-            public static readonly string projects_less = Url("projects.less");
-            public static readonly string projects_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/projects.min.css") ? Url("projects.min.css") : Url("projects.css");
-                 
-            public static readonly string projects_css_map = Url("projects.css.map");
-            public static readonly string work_item_blocks_html = Url("work-item-blocks.html");
-            public static readonly string work_items_list_html = Url("work-items-list.html");
-        }
-    
         public static readonly string quick_date_less = Url("quick-date.less");
         public static readonly string quick_date_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/quick-date.min.css") ? Url("quick-date.min.css") : Url("quick-date.css");
              
@@ -646,6 +592,100 @@ namespace Links
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Forum {
                     private const string URLPATH = "~/Areas/Forum/Views/Forum";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                }
+            
+                public static readonly string Web_config = Url("Web.config");
+            }
+        
+        }
+    
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class Projects {
+            private const string URLPATH = "~/Areas/Projects";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Content {
+                private const string URLPATH = "~/Areas/Projects/Content";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string item_block_template_html = Url("item-block-template.html");
+                public static readonly string mixins_less = Url("mixins.less");
+                public static readonly string mixins_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/mixins.min.css") ? Url("mixins.min.css") : Url("mixins.css");
+                     
+                public static readonly string mixins_css_map = Url("mixins.css.map");
+                public static readonly string project_code_file_less = Url("project-code-file.less");
+                public static readonly string project_code_file_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/project-code-file.min.css") ? Url("project-code-file.min.css") : Url("project-code-file.css");
+                     
+                public static readonly string project_code_file_css_map = Url("project-code-file.css.map");
+                public static readonly string project_code_less = Url("project-code.less");
+                public static readonly string project_code_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/project-code.min.css") ? Url("project-code.min.css") : Url("project-code.css");
+                     
+                public static readonly string project_code_css_map = Url("project-code.css.map");
+                public static readonly string project_new_less = Url("project-new.less");
+                public static readonly string project_new_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/project-new.min.css") ? Url("project-new.min.css") : Url("project-new.css");
+                     
+                public static readonly string project_new_css_map = Url("project-new.css.map");
+                public static readonly string project_settings_less = Url("project-settings.less");
+                public static readonly string project_settings_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/project-settings.min.css") ? Url("project-settings.min.css") : Url("project-settings.css");
+                     
+                public static readonly string project_settings_css_map = Url("project-settings.css.map");
+                public static readonly string project_work_item_less = Url("project-work-item.less");
+                public static readonly string project_work_item_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/project-work-item.min.css") ? Url("project-work-item.min.css") : Url("project-work-item.css");
+                     
+                public static readonly string project_work_item_css_map = Url("project-work-item.css.map");
+                public static readonly string project_work_items_less = Url("project-work-items.less");
+                public static readonly string project_work_items_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/project-work-items.min.css") ? Url("project-work-items.min.css") : Url("project-work-items.css");
+                     
+                public static readonly string project_work_items_css_map = Url("project-work-items.css.map");
+                public static readonly string project_less = Url("project.less");
+                public static readonly string project_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/project.min.css") ? Url("project.min.css") : Url("project.css");
+                     
+                public static readonly string project_css_map = Url("project.css.map");
+                public static readonly string projects_less = Url("projects.less");
+                public static readonly string projects_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/projects.min.css") ? Url("projects.min.css") : Url("projects.css");
+                     
+                public static readonly string projects_css_map = Url("projects.css.map");
+                public static readonly string references_less = Url("references.less");
+                public static readonly string references_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/references.min.css") ? Url("references.min.css") : Url("references.css");
+                     
+                public static readonly string work_item_blocks_html = Url("work-item-blocks.html");
+                public static readonly string work_items_list_html = Url("work-items-list.html");
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Controllers {
+                private const string URLPATH = "~/Areas/Projects/Controllers";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Scripts {
+                private const string URLPATH = "~/Areas/Projects/Scripts";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string _references_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
+                public static readonly string AddWorkItemDialogController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/AddWorkItemDialogController.min.js") ? Url("AddWorkItemDialogController.min.js") : Url("AddWorkItemDialogController.js");
+                public static readonly string NewProjectPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/NewProjectPage.min.js") ? Url("NewProjectPage.min.js") : Url("NewProjectPage.js");
+                public static readonly string ProjectCodeFilePage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectCodeFilePage.min.js") ? Url("ProjectCodeFilePage.min.js") : Url("ProjectCodeFilePage.js");
+                public static readonly string ProjectSettingsPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectSettingsPage.min.js") ? Url("ProjectSettingsPage.min.js") : Url("ProjectSettingsPage.js");
+                public static readonly string ProjectWorkItemBlocks_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectWorkItemBlocks.min.js") ? Url("ProjectWorkItemBlocks.min.js") : Url("ProjectWorkItemBlocks.js");
+                public static readonly string ProjectWorkItemList_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectWorkItemList.min.js") ? Url("ProjectWorkItemList.min.js") : Url("ProjectWorkItemList.js");
+                public static readonly string ProjectWorkItemPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectWorkItemPage.min.js") ? Url("ProjectWorkItemPage.min.js") : Url("ProjectWorkItemPage.js");
+                public static readonly string ProjectWorkItemsPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectWorkItemsPage.min.js") ? Url("ProjectWorkItemsPage.min.js") : Url("ProjectWorkItemsPage.js");
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Views {
+                private const string URLPATH = "~/Areas/Projects/Views";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class Projects {
+                    private const string URLPATH = "~/Areas/Projects/Views/Projects";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 }

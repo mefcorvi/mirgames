@@ -12,7 +12,7 @@
     <span @Html.Css("updates-count").Add("counter").Add("ng-hide", @ViewBag.ForumTopicsUnread == 0) title="Перейти к непрочитанным обсуждениям"
           ng-click="goToUnread($event.which == 2); $event.preventDefault();" ng-show="unreadCount > 0" ng-bind="'+' + unreadCount">+@ViewBag.ForumTopicsUnread</span>
 </a>
-@Html.ActionLink("Проекты", MVC.Projects.Index(), new { @class = ViewBag.CurrentSection == "WIP" ? "selected" : string.Empty })
+@Html.ActionLink("Проекты", MVC.Projects.Projects.Index(), new { @class = ViewBag.CurrentSection == "WIP" ? "selected" : string.Empty })
 
 @Html.ActionLink("Пользователи", MVC.Users.Index(), new { @class = ViewBag.CurrentSection == "Users" ? "selected" : string.Empty })
 

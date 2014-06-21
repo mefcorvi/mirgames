@@ -17,7 +17,7 @@
 <div class="comments-list">
     @foreach(var comment in Model.Comments)
     {
-        <a href="@Url.Action("Topic", "Topics", new { topicId = comment.TopicId })" class="topic-title">@comment.TopicTitle</a>
+        <a href="@Url.Action(MVC.Topics.Topics.Topic(comment.TopicId))" class="topic-title">@comment.TopicTitle</a>
         @Html.Partial(MVC.Topics.Topics.Views._Comment, comment)
     }
 </div>

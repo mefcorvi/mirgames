@@ -88,56 +88,6 @@ namespace MirGames
                 new { controller = "Attachment", action = "Index" },
                 new { attachmentId = @"\d+" });
 
-            routes.MapRoute(
-                "HistoryItem",
-                "project/{projectAlias}/code/{*path}",
-                new { controller = "Projects", action = "Code", path = "/" });
-
-            routes.MapRouteLowercase(
-                "WipProjectIndex",
-                "project/{projectAlias}",
-                new { controller = "Projects", action = "Project" });
-
-            routes.MapRouteLowercase(
-                "WipProjectArchive",
-                "projects/{projectAlias}.zip",
-                new { controller = "Projects", action = "Archive" });
-
-            routes.MapRouteLowercase(
-                "WipProjectSettings",
-                "project/{projectAlias}/settings",
-                new { controller = "Projects", action = "Settings" });
-
-            routes.MapRouteLowercase(
-                "WipProjectWorkItemsBugs",
-                "project/{projectAlias}/workitems/bugs",
-                new { controller = "Projects", action = "WorkItems", itemType = WorkItemType.Bug });
-
-            routes.MapRouteLowercase(
-                "WipProjectWorkItemsFeatures",
-                "project/{projectAlias}/workitems/features",
-                new { controller = "Projects", action = "WorkItems", itemType = WorkItemType.Feature });
-
-            routes.MapRouteLowercase(
-                "WipProjectWorkItemsTasks",
-                "project/{projectAlias}/workitems/tasks",
-                new { controller = "Projects", action = "WorkItems", itemType = WorkItemType.Task });
-
-            routes.MapRouteLowercase(
-                "WipProjectWorkItems",
-                "project/{projectAlias}/workitems",
-                new { controller = "Projects", action = "WorkItems", itemType = (WorkItemType?)null });
-
-            routes.MapRouteLowercase(
-                "WipProjectWorkItem",
-                "project/{projectAlias}/workitems/{workItemId}",
-                new { controller = "Projects", action = "WorkItem" });
-
-            routes.MapRouteLowercase(
-                "WipProjectCode",
-                "project/{projectAlias}/code",
-                new { controller = "Projects", action = "Code" });
-
             routes.MapRouteLowercase(
                 "Default",
                 "{controller}/{action}/{id}",

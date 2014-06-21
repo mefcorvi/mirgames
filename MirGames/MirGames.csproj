@@ -339,6 +339,7 @@
     </Compile>
     <Compile Include="Areas\Chat\ChatAreaRegistration.cs" />
     <Compile Include="Areas\Forum\ForumAreaRegistration.cs" />
+    <Compile Include="Areas\Projects\ProjectsAreaRegistration.cs" />
     <Compile Include="Areas\Topics\TopicsAreaRegistration.cs" />
     <Compile Include="AttachmentController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -368,7 +369,7 @@
     <Compile Include="OAuth\FacebookAuthenticationClientProvider.cs" />
     <Compile Include="OAuth\GoogleAuthenticationClientProvider.cs" />
     <Compile Include="OAuth\MicrosoftAuthenticationClientProvider.cs" />
-    <Compile Include="ProjectsController.generated.cs">
+    <Compile Include="Projects.ProjectsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="SessionManager.cs" />
@@ -395,7 +396,7 @@
     <Compile Include="Areas\Chat\Controllers\ChatController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\WebApiController.cs" />
-    <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Areas\Projects\Controllers\ProjectsController.cs" />
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Hubs\ChatMessagesListener.cs" />
     <Compile Include="Hubs\ChatMessageUpdatedEventListener.cs" />
@@ -444,6 +445,9 @@
     <Content Include="Areas\Forum\Content\references.css">
       <DependentUpon>references.less</DependentUpon>
     </Content>
+    <Content Include="Areas\Projects\Content\references.css">
+      <DependentUpon>references.less</DependentUpon>
+    </Content>
     <Content Include="Areas\Topics\Content\references.css">
       <DependentUpon>references.less</DependentUpon>
     </Content>
@@ -456,6 +460,9 @@
     <Content Include="Areas\Chat\Content\references.less" />
     <Content Include="Areas\Forum\Content\references.less" />
     <Content Include="Areas\Topics\Content\references.less" />
+    <Content Include="Areas\Projects\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Projects\Views\Web.config" />
+    <Content Include="Areas\Projects\Content\references.less" />
     <None Include="BundleTransformer.Configuration.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -498,18 +505,18 @@
     <Content Include="Content\common.css.map">
       <DependentUpon>common.css</DependentUpon>
     </Content>
-    <Content Include="Content\projects\item-block-template.html" />
-    <Content Include="Content\projects\project-settings.css">
+    <Content Include="Areas\Projects\Content\item-block-template.html" />
+    <Content Include="Areas\Projects\Content\project-settings.css">
       <DependentUpon>project-settings.less</DependentUpon>
     </Content>
-    <Content Include="Content\projects\project-work-item.css">
+    <Content Include="Areas\Projects\Content\project-work-item.css">
       <DependentUpon>project-work-item.less</DependentUpon>
     </Content>
-    <Content Include="Content\projects\project-work-items.css">
+    <Content Include="Areas\Projects\Content\project-work-items.css">
       <DependentUpon>project-work-items.less</DependentUpon>
     </Content>
-    <Content Include="Content\projects\work-item-blocks.html" />
-    <Content Include="Content\projects\work-items-list.html" />
+    <Content Include="Areas\Projects\Content\work-item-blocks.html" />
+    <Content Include="Areas\Projects\Content\work-items-list.html" />
     <Content Include="Content\quick-date.css.map">
       <DependentUpon>quick-date.css</DependentUpon>
     </Content>
@@ -635,22 +642,22 @@
     <Content Include="Content\users\users.css">
       <DependentUpon>users.less</DependentUpon>
     </Content>
-    <Content Include="Content\projects\mixins.css">
+    <Content Include="Areas\Projects\Content\mixins.css">
       <DependentUpon>mixins.less</DependentUpon>
     </Content>
-    <Content Include="Content\projects\project-code-file.css">
+    <Content Include="Areas\Projects\Content\project-code-file.css">
       <DependentUpon>project-code-file.less</DependentUpon>
     </Content>
-    <Content Include="Content\projects\project-code.css">
+    <Content Include="Areas\Projects\Content\project-code.css">
       <DependentUpon>project-code.less</DependentUpon>
     </Content>
-    <Content Include="Content\projects\project-new.css">
+    <Content Include="Areas\Projects\Content\project-new.css">
       <DependentUpon>project-new.less</DependentUpon>
     </Content>
-    <Content Include="Content\projects\project.css">
+    <Content Include="Areas\Projects\Content\project.css">
       <DependentUpon>project.less</DependentUpon>
     </Content>
-    <Content Include="Content\projects\projects.css">
+    <Content Include="Areas\Projects\Content\projects.css">
       <DependentUpon>projects.less</DependentUpon>
     </Content>
     <Content Include="Content\wmd.css">
@@ -660,6 +667,7 @@
     <Content Include="Global.asax" />
     <TypeScriptCompile Include="Areas\Chat\Scripts\_references.ts" />
     <TypeScriptCompile Include="Areas\Forum\Scripts\_references.ts" />
+    <TypeScriptCompile Include="Areas\Projects\Scripts\_references.ts" />
     <TypeScriptCompile Include="Areas\Topics\Scripts\_references.ts" />
     <TypeScriptCompile Include="Scripts\BasePage.ts" />
     <TypeScriptCompile Include="Scripts\Commands.ts" />
@@ -667,13 +675,13 @@
     <TypeScriptCompile Include="Scripts\Account\LoginFormController.ts" />
     <TypeScriptCompile Include="Scripts\Account\SignUpFormController.ts" />
     <TypeScriptCompile Include="Scripts\Libs\jquery.d.ts" />
-    <TypeScriptCompile Include="Scripts\projects\AddWorkItemDialogController.ts" />
-    <TypeScriptCompile Include="Scripts\projects\ProjectSettingsPage.ts" />
-    <TypeScriptCompile Include="Scripts\projects\NewProjectPage.ts" />
-    <TypeScriptCompile Include="Scripts\projects\ProjectWorkItemPage.ts" />
-    <TypeScriptCompile Include="Scripts\projects\ProjectWorkItemBlocks.ts" />
-    <TypeScriptCompile Include="Scripts\projects\ProjectWorkItemList.ts" />
-    <TypeScriptCompile Include="Scripts\projects\ProjectWorkItemsPage.ts" />
+    <TypeScriptCompile Include="Areas\Projects\Scripts\AddWorkItemDialogController.ts" />
+    <TypeScriptCompile Include="Areas\Projects\Scripts\ProjectSettingsPage.ts" />
+    <TypeScriptCompile Include="Areas\Projects\Scripts\NewProjectPage.ts" />
+    <TypeScriptCompile Include="Areas\Projects\Scripts\ProjectWorkItemPage.ts" />
+    <TypeScriptCompile Include="Areas\Projects\Scripts\ProjectWorkItemBlocks.ts" />
+    <TypeScriptCompile Include="Areas\Projects\Scripts\ProjectWorkItemList.ts" />
+    <TypeScriptCompile Include="Areas\Projects\Scripts\ProjectWorkItemsPage.ts" />
     <TypeScriptCompile Include="Areas\Topics\Scripts\Topic.ts" />
     <TypeScriptCompile Include="Scripts\Settings.ts" />
     <TypeScriptCompile Include="Scripts\Core\Config.ts" />
@@ -765,7 +773,7 @@
     <TypeScriptCompile Include="Areas\Topics\Scripts\NewTopic.ts" />
     <TypeScriptCompile Include="Scripts\UI\Dialog.ts" />
     <TypeScriptCompile Include="Scripts\Core\Utils.ts" />
-    <TypeScriptCompile Include="Scripts\projects\ProjectCodeFilePage.ts" />
+    <TypeScriptCompile Include="Areas\Projects\Scripts\ProjectCodeFilePage.ts" />
     <TypeScriptCompile Include="Scripts\_references.ts" />
     <TypeScriptCompile Include="Areas\Topics\Scripts\SearchPanelController.ts" />
     <TypeScriptCompile Include="Areas\Topics\Scripts\EditTopic.ts" />
@@ -840,7 +848,7 @@
     <Content Include="Content\flexbox.less" />
     <Content Include="Content\users\user-login-dialog.less" />
     <Content Include="Content\ui\user-notifications.less" />
-    <Content Include="Content\projects\projects.less" />
+    <Content Include="Areas\Projects\Content\projects.less" />
     <Content Include="Content\users\profile-page.css.map">
       <DependentUpon>profile-page.css</DependentUpon>
     </Content>
@@ -883,28 +891,28 @@
     <Content Include="Content\users\user-comments.css.map">
       <DependentUpon>user-comments.css</DependentUpon>
     </Content>
-    <Content Include="Content\projects\projects.css.map">
+    <Content Include="Areas\Projects\Content\projects.css.map">
       <DependentUpon>projects.css</DependentUpon>
     </Content>
-    <Content Include="Content\projects\project.less" />
-    <Content Include="Content\projects\project.css.map">
+    <Content Include="Areas\Projects\Content\project.less" />
+    <Content Include="Areas\Projects\Content\project.css.map">
       <DependentUpon>project.css</DependentUpon>
     </Content>
-    <Content Include="Content\projects\project-code.less" />
-    <Content Include="Content\projects\project-code.css.map">
+    <Content Include="Areas\Projects\Content\project-code.less" />
+    <Content Include="Areas\Projects\Content\project-code.css.map">
       <DependentUpon>project-code.css</DependentUpon>
     </Content>
-    <Content Include="Content\projects\project-code-file.less" />
-    <Content Include="Content\projects\project-code-file.css.map">
+    <Content Include="Areas\Projects\Content\project-code-file.less" />
+    <Content Include="Areas\Projects\Content\project-code-file.css.map">
       <DependentUpon>project-code-file.css</DependentUpon>
     </Content>
-    <Content Include="Content\projects\mixins.less" />
-    <Content Include="Content\projects\project-new.less" />
-    <Content Include="Content\projects\project-new.css.map">
+    <Content Include="Areas\Projects\Content\mixins.less" />
+    <Content Include="Areas\Projects\Content\project-new.less" />
+    <Content Include="Areas\Projects\Content\project-new.css.map">
       <DependentUpon>project-new.css</DependentUpon>
     </Content>
-    <Content Include="Content\projects\project-work-items.less" />
-    <Content Include="Content\projects\project-work-items.css.map">
+    <Content Include="Areas\Projects\Content\project-work-items.less" />
+    <Content Include="Areas\Projects\Content\project-work-items.css.map">
       <DependentUpon>project-work-items.css</DependentUpon>
     </Content>
     <Content Include="Content\ui\dropdown.less" />
@@ -920,7 +928,7 @@
     <Content Include="Content\users\mixins.css.map">
       <DependentUpon>mixins.css</DependentUpon>
     </Content>
-    <Content Include="Content\projects\mixins.css.map">
+    <Content Include="Areas\Projects\Content\mixins.css.map">
       <DependentUpon>mixins.css</DependentUpon>
     </Content>
     <Content Include="Content\dashboard\mixins.css.map">
@@ -929,12 +937,12 @@
     <Content Include="Areas\Forum\Content\mixins.css.map">
       <DependentUpon>mixins.css</DependentUpon>
     </Content>
-    <Content Include="Content\projects\project-work-item.less" />
-    <Content Include="Content\projects\project-work-item.css.map">
+    <Content Include="Areas\Projects\Content\project-work-item.less" />
+    <Content Include="Areas\Projects\Content\project-work-item.css.map">
       <DependentUpon>project-work-item.css</DependentUpon>
     </Content>
-    <Content Include="Content\projects\project-settings.less" />
-    <Content Include="Content\projects\project-settings.css.map">
+    <Content Include="Areas\Projects\Content\project-settings.less" />
+    <Content Include="Areas\Projects\Content\project-settings.css.map">
       <DependentUpon>project-settings.css</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
@@ -1011,22 +1019,22 @@
     <Content Include="Areas\Topics\Views\Topics\_EditCommentDialog.cshtml" />
     <Content Include="Areas\Topics\Views\Topics\_DeleteCommentDialog.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
-    <Content Include="Views\Projects\Index.cshtml" />
-    <Content Include="Views\Projects\_ProjectListItem.cshtml" />
-    <Content Include="Views\Projects\_WipMenu.cshtml" />
+    <Content Include="Areas\Projects\Views\Projects\Index.cshtml" />
+    <Content Include="Areas\Projects\Views\Projects\_ProjectListItem.cshtml" />
+    <Content Include="Areas\Projects\Views\Projects\_WipMenu.cshtml" />
     <Content Include="Scripts\Libs\ng-quick-date.coffee" />
-    <Content Include="Views\Projects\Project.cshtml" />
-    <Content Include="Views\Projects\_ProjectMenu.cshtml" />
-    <Content Include="Views\Projects\RepositoryDirectory.cshtml" />
-    <Content Include="Views\Projects\RepositoryFile.cshtml" />
-    <Content Include="Views\Projects\_ProjectInfo.cshtml" />
-    <Content Include="Views\Projects\New.cshtml" />
-    <Content Include="Views\Projects\WorkItems.cshtml" />
-    <Content Include="Views\Projects\WorkItem.cshtml" />
-    <Content Include="Views\Projects\_WorkItemComment.cshtml" />
-    <Content Include="Views\Projects\Settings.cshtml" />
+    <Content Include="Areas\Projects\Views\Projects\Project.cshtml" />
+    <Content Include="Areas\Projects\Views\Projects\_ProjectMenu.cshtml" />
+    <Content Include="Areas\Projects\Views\Projects\RepositoryDirectory.cshtml" />
+    <Content Include="Areas\Projects\Views\Projects\RepositoryFile.cshtml" />
+    <Content Include="Areas\Projects\Views\Projects\_ProjectInfo.cshtml" />
+    <Content Include="Areas\Projects\Views\Projects\New.cshtml" />
+    <Content Include="Areas\Projects\Views\Projects\WorkItems.cshtml" />
+    <Content Include="Areas\Projects\Views\Projects\WorkItem.cshtml" />
+    <Content Include="Areas\Projects\Views\Projects\_WorkItemComment.cshtml" />
+    <Content Include="Areas\Projects\Views\Projects\Settings.cshtml" />
     <Content Include="Scripts\Manager.ttinclude" />
-    <Content Include="Views\Projects\_AddWorkItemDialog.cshtml" />
+    <Content Include="Areas\Projects\Views\Projects\_AddWorkItemDialog.cshtml" />
     <None Include="T4MVC.tt.hooks.t4" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

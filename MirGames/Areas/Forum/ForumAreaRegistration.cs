@@ -41,7 +41,7 @@
                 new { controller = "Forum", action = "Index" },
                 new { page = @"\d+" });
 
-            context.MapRoute(
+            context.MapRouteLowercase(
                 "Forum_default",
                 "forum/{action}/{id}",
                 new { controller = "Forum", action = "Index", id = UrlParameter.Optional });

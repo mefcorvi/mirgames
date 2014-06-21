@@ -1,0 +1,46 @@
+﻿body {} @import "references.less";
+@import "mixins.less";
+
+.new-project-page {
+    & > section
+    {
+        .indent();
+
+        & > h3 {
+            .page-title();
+        }
+
+        & > h4 {
+            .page-subtitle();
+        }
+
+        & > .new-project-form {
+            .page-block();
+
+            .project-address {
+                width: 200px;
+            }
+
+            .logo-field {
+                position: relative;
+
+                .logo {
+                    .avatar(100px);
+                }
+
+                .upload-file {
+                    position: absolute;
+                    left: 110px;
+                    margin-top: -12px;
+                    top: 50%;
+                    padding: 5px;
+
+                    &.drag-over {
+                        outline: 1px dashed #999;
+                        opacity: 0.5;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,49 @@
+﻿body {} @import "references.less";
+@import "mixins.less";
+
+.project-settings-page {
+    & > section
+    {
+        .indent();
+
+        & > h3 {
+            .page-title();
+        }
+
+        & > h4 {
+            .page-subtitle();
+        }
+
+        & > .new-project-form {
+            .page-block();
+
+            .project-address {
+                width: 200px;
+            }
+
+            .logo-field {
+                position: relative;
+
+                .logo {
+                    .avatar(100px);
+                    border: 1px solid @border-color;
+                    padding: 2px;
+                    .box-shadow(0 2px 2px rgba(0, 0, 0, 0.2));     
+                }
+
+                .upload-file {
+                    position: absolute;
+                    left: 110px;
+                    margin-top: -12px;
+                    top: 50%;
+                    padding: 5px;
+
+                    &.drag-over {
+                        outline: 1px dashed #999;
+                        opacity: 0.5;
+                    }
+                }
+            }
+        }
+    }
+}
