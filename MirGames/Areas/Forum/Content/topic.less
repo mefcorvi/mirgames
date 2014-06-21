@@ -1,123 +1,169 @@
 ﻿body {} @import "references.less";
 
 .message() {
-    & > .message {
-        .page-block(@indent/1.5, @indent/2);
-        margin-bottom: @indent/4;
+    margin-bottom: @indent/4;
+    overflow: hidden;
+    @index-width: 40px;
+    position: relative;
+    padding-right: @index-width;
+
+    &.unread {
+        padding-left: @indent/2 - 5;
+        border-left: 5px solid lighten(desaturate(@link-color-hover, 50%), 30%);
+    }
+
+    & > .message-index {
+        display: block;
+        position: absolute;
+        margin-top: 9px;
+        right: 5px;
+        .font-size(1.1);
+        color: @link-color;
+        width: 30px;
+        text-align: center;
         overflow: hidden;
-        @index-width: 40px;
-        position: relative;
-        padding-right: @index-width;
+        text-overflow: ellipsis;
 
-        &.unread {
-            padding-left: @indent/2 - 5;
-            border-left: 5px solid lighten(desaturate(@link-color-hover, 50%), 30%);
+        &:hover {
+            color: @link-color-hover;
+        }
+    }
+
+    & > header {
+        margin-left: @avatar-small + 10px;
+        margin-bottom: @indent/2;
+        overflow: hidden;
+
+        .user-login {
+            margin-right: @indent;
+            font-weight: bold;
+            float: left;
+            margin-top: 8px;
         }
 
-        & > .message-index {
-            display: block;
-            position: absolute;
-            margin-top: 9px;
-            right: 5px;
-            .font-size(1.1);
-            color: @link-color;
-            width: 30px;
-            text-align: center;
-            overflow: hidden;
-            text-overflow: ellipsis;
-
-            &:hover {
-                color: @link-color-hover;
-            }
+        .comment-date {
+            .date-small();
+            line-height: 15px;
+            float: left;
+            margin-top: 8px;
         }
 
-        & > header {
-            margin-left: @avatar-small + 10px;
-            margin-bottom: @indent/2;
-            overflow: hidden;
-
-            .user-login {
-                margin-right: @indent;
-                font-weight: bold;
-                float: left;
-                margin-top: 8px;
-            }
-
-            .comment-date {
-                .date-small();
-                line-height: 15px;
-                float: left;
-                margin-top: 8px;
-            }
-
-            .message-bar {
-                .font-size(1.5);
-                margin-top: 7px;
+        .message-bar {
+            .font-size(1.5);
+            margin-top: 7px;
     
-                & > .edited {
-                    margin-left: 10px;
-                    .font-size(1.1);
-                    color: #999;
-                    margin-top: 2px;
-                    float: left;
+            & > .edited {
+                margin-left: 10px;
+                .font-size(1.1);
+                color: #999;
+                margin-top: 2px;
+                float: left;
+            }
+
+            a {
+                margin-left: @indent;
+                float: left;
+                width: 20px;
+                height: 20px;
+                text-align: center;
+                line-height: 20px;
+                opacity: 0.5;
+
+                &:hover {
+                    opacity: 1;
+                    .transition(opacity);
                 }
 
-                a {
-                    margin-left: @indent;
-                    float: left;
-                    width: 20px;
-                    height: 20px;
-                    text-align: center;
-                    line-height: 20px;
-                    opacity: 0.5;
+                &.edit-post {
+                }
 
-                    &:hover {
-                        opacity: 1;
-                        .transition(opacity);
-                    }
-
-                    &.edit-post {
-                    }
-
-                    &.delete-post {
-                        color: #900;
-                        float: right;
-                    }
+                &.delete-post {
+                    color: #900;
+                    float: right;
                 }
             }
         }
+    }
 
-        & > .text {
-            margin-left: @avatar-small + 10px;
-        }
+    & > .text {
+        margin-left: @avatar-small + 10px;
     }
 }
 
 .forum-topic-page {
     & > section {
-        .indent();
+        & > .first-post {
+            .message();
+            .indent();
 
-        padding-top: @indent/2;
-        padding-bottom: @indent/2;
+            padding-right: 0;
+            margin-bottom: @indent/2;
+
+            & > .text {
+                margin-left: 0;
+            }
+        }
+
+        & > .topic-bar {
+            background: mix(@background-color, @header-background, 95%);
+            padding: @indent/2 @indent;
+            margin-top: @indent;
+            margin-bottom: @indent;
+
+            .make-row();
+
+            & > div, & > a {
+                margin-right: @indent/2;
+            }
+
+            & > .message-bar {
+                & > .edit-topic, & > .delete-topic {
+                    @bgr: mix(@background-color, @header-background, 80%);
+                    font-size: 14px;
+                    display: inline-block;
+                    width: 14px;
+                    height: 14px;
+                    text-align: center;
+                    line-height: 14px;
+                    background: @bgr;
+                    color: contrast(@bgr);
+                    padding: 5px;
+
+                    &:hover {
+                        background: @link-color-hover;
+                        color: contrast(@link-color-hover);
+                    }
+                }
+            }
+
+            & > .author-link {
+                float: none;
+            }
+
+            & > .author {
+                .flex-grow(1);
+            }
+
+            & > .created-date {
+            }
+        }
 
         & > .topic-posts {
-            .message();
+            padding: 0 @indent;
 
-            & > .first-post {
-                margin-bottom: @indent/2;
-
-                & > .text {
-                    margin-left: 0;
-                }
-
-                & > .share {
-                    margin-top: @indent/2;
-                }
+            & > .message {
+                .message();
+                padding: @indent/2 0;
             }
         }
 
         & > .answer-form {
-            .page-block(@indent/2, @indent/2);
+            .indent();
+            margin-top: @indent;
+
+            & > h4 {
+                .page-subtitle();
+            }
 
             & > form > .buttons {
                 margin-top: @indent/2;
@@ -135,6 +181,11 @@
 
         & > header {
             .header-with-tags();
+            .indent();
+
+            & h3 {
+                margin: 0;
+            }
         }
     }
 }

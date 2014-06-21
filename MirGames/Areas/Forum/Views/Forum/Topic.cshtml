@@ -7,6 +7,7 @@
     PageScriptController = "MirGames.Forum.TopicPage";
     AddPageCssClass("forum-topic-page");
     var pagination = (PaginationViewModel)ViewBag.Pagination;
+    var startPost = Model.StartPost;
 }
 
 @section Nav { @Html.Partial("_ForumTopicMenu") }
@@ -21,8 +22,41 @@
     <h3>@Model.Title</h3>
 </header>
 
+<article post-id="@startPost.PostId" id="@(startPost.FirstUnread ? "first-unread": null )" @Html.Css("message").Add("unread", !startPost.IsRead).Add("first-post")>
+    <div class="text">
+        @Html.Raw(startPost.Text)
+    </div>
+</article>
+<div class="topic-bar">
+    <div class="created-date">
+        @Html.DisplayFor(m => m.CreatedDate)
+    </div>
+    @if (startPost.UpdatedDate > startPost.CreatedDate)
+    {
+        <div class="edited"><i class="fa fa-pencil-square-o"></i>@Html.DisplayFor(m => m.UpdatedDate)</div>
+    }
+    @Author.UserAvatarLink(startPost.Author, "avatar-small")
+    <div class="author">
+        @Author.UserLink(startPost.Author, "user-login")
+    </div>
+    <div class="message-bar">
+        @if (startPost.CanBeEdited)
+        {
+            <a class="edit-topic" href="javascript:void(0);" dialog="@Url.Action(MVC.Forum.Forum.EditPostDialog())" title="Редактировать"
+               dialog-close="reloadPost(@startPost.PostId, false)"
+               resolve="{ 'post-id': @startPost.PostId }" dialog-controller="MirGames.Forum.EditPostDialogController"><i class="fa fa-pencil-square-o"></i></a>
+        }
+        @if (Model.CanBeDeleted)
+        {
+            <a href="javascript:void(0);" class="delete-topic" dialog="@Url.Action(MVC.Forum.Forum.DeleteTopicDialog())" title="Удалить топик"
+               dialog-close="returnBack()" resolve="{ 'topic-id': @Model.TopicId }"
+               dialog-controller="MirGames.Forum.DeleteTopicDialogController"><i class="fa fa-times"></i></a>
+        }
+    </div>
+    @Html.Partial("_SocialButtons")
+</div>
+
 <div class="topic-posts">
-    @Html.Partial("_ForumPostListItem", Model.StartPost)
     <div id="posts"></div>
     @Html.Partial("_Pagination", pagination)
     @foreach (ForumPostsListItemViewModel post in ViewBag.Posts)
@@ -67,8 +101,8 @@
 </div>
 
 @if (Model.CanBeAnswered) { 
-    <h4 id="new-answer">Ответить</h4>
     <div class="answer-form">
+        <h4 id="new-answer">Ответить</h4>
         <form class="new-answer-form" ng-submit="reply.post()" novalidate name="postAnswerForm">
             <texteditor text="reply.text" required="true" show-preview="true" post="reply.post()" attachments="reply.attachments" focus="reply.focus" entity-type="forumPost"></texteditor>
             <div class="buttons">

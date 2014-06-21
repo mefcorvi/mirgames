@@ -1,15 +1,155 @@
-﻿.forum-topic-page > section {
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-.forum-topic-page > section > .topic-posts > .message {
-  padding: 13.33333333px 10px;
+﻿.forum-topic-page > section > .first-post {
   margin-bottom: 5px;
   overflow: hidden;
   position: relative;
   padding-right: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-right: 0;
+  margin-bottom: 10px;
+}
+.forum-topic-page > section > .first-post.unread {
+  padding-left: 5px;
+  border-left: 5px solid #dbd4d9;
+}
+.forum-topic-page > section > .first-post > .message-index {
+  display: block;
+  position: absolute;
+  margin-top: 9px;
+  right: 5px;
+  font-size: 11px;
+  color: #24618d;
+  width: 30px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.forum-topic-page > section > .first-post > .message-index:hover {
+  color: #d04796;
+}
+.forum-topic-page > section > .first-post > header {
+  margin-left: 42px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.forum-topic-page > section > .first-post > header .user-login {
+  margin-right: 20px;
+  font-weight: bold;
+  float: left;
+  margin-top: 8px;
+}
+.forum-topic-page > section > .first-post > header .comment-date {
+  font-size: 12px;
+  color: #8c8c0c;
+  line-height: 15px;
+  float: left;
+  margin-top: 8px;
+}
+.forum-topic-page > section > .first-post > header .message-bar {
+  font-size: 15px;
+  margin-top: 7px;
+}
+.forum-topic-page > section > .first-post > header .message-bar > .edited {
+  margin-left: 10px;
+  font-size: 11px;
+  color: #999;
+  margin-top: 2px;
+  float: left;
+}
+.forum-topic-page > section > .first-post > header .message-bar a {
+  margin-left: 20px;
+  float: left;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  opacity: 0.5;
+}
+.forum-topic-page > section > .first-post > header .message-bar a:hover {
+  opacity: 1;
+  -moz-transition-property: opacity;
+  -o-transition-property: opacity;
+  -webkit-transition-property: opacity;
+  transition-property: opacity;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -moz-transition-timing-function: ease;
+  -o-transition-timing-function: ease;
+  -webkit-transition-timing-function: ease;
+  transition-timing-function: ease;
+}
+.forum-topic-page > section > .first-post > header .message-bar a.delete-post {
+  color: #900;
+  float: right;
+}
+.forum-topic-page > section > .first-post > .text {
+  margin-left: 42px;
+}
+.forum-topic-page > section > .first-post > .text {
+  margin-left: 0;
+}
+.forum-topic-page > section > .topic-bar {
+  background: #f5f7f8;
+  padding: 10px 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.forum-topic-page > section > .topic-bar > div,
+.forum-topic-page > section > .topic-bar > a {
+  margin-right: 10px;
+}
+.forum-topic-page > section > .topic-bar > .message-bar > .edit-topic,
+.forum-topic-page > section > .topic-bar > .message-bar > .delete-topic {
+  font-size: 14px;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  text-align: center;
+  line-height: 14px;
+  background: #d7dfe5;
+  color: #000000;
+  padding: 5px;
+}
+.forum-topic-page > section > .topic-bar > .message-bar > .edit-topic:hover,
+.forum-topic-page > section > .topic-bar > .message-bar > .delete-topic:hover {
+  background: #d04796;
+  color: #ffffff;
+}
+.forum-topic-page > section > .topic-bar > .author-link {
+  float: none;
+}
+.forum-topic-page > section > .topic-bar > .author {
+  -webkit-flex-grow: 1;
+  -moz-flex-grow: 1;
+  -ms-flex-grow: 1;
+  flex-grow: 1;
+}
+.forum-topic-page > section > .topic-posts {
+  padding: 0 20px;
+}
+.forum-topic-page > section > .topic-posts > .message {
+  margin-bottom: 5px;
+  overflow: hidden;
+  position: relative;
+  padding-right: 40px;
+  padding: 10px 0;
 }
 .forum-topic-page > section > .topic-posts > .message.unread {
   padding-left: 5px;
@@ -90,17 +230,21 @@
 .forum-topic-page > section > .topic-posts > .message > .text {
   margin-left: 42px;
 }
-.forum-topic-page > section > .topic-posts > .first-post {
-  margin-bottom: 10px;
-}
-.forum-topic-page > section > .topic-posts > .first-post > .text {
-  margin-left: 0;
-}
-.forum-topic-page > section > .topic-posts > .first-post > .share {
-  margin-top: 10px;
-}
 .forum-topic-page > section > .answer-form {
-  padding: 10px 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 20px;
+}
+.forum-topic-page > section > .answer-form > h4 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 24px;
+  text-shadow: 1px 1px 4px #ffffff;
+  border: none;
+  font-size: 16px;
+  padding-bottom: 0;
+  margin-bottom: 10px;
 }
 .forum-topic-page > section > .answer-form > form > .buttons {
   margin-top: 10px;
@@ -124,6 +268,10 @@
 }
 .forum-topic-page > section > header {
   position: relative;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 .forum-topic-page > section > header > h3 {
   font-family: "Droid Sans", Tahoma, sans-serif;
@@ -169,5 +317,8 @@
 }
 .forum-topic-page > section > header > ul.tags > li:last-child {
   margin-right: 0;
+}
+.forum-topic-page > section > header h3 {
+  margin: 0;
 }
 /*# sourceMappingURL=topic.css.map */
