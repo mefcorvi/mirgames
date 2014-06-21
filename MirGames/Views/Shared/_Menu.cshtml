@@ -22,7 +22,7 @@
     @Html.ActionLink("Управление", MVC.Tools.Events(), new { @class = ViewBag.CurrentSection == "Tools" ? "selected" : string.Empty })
 }
 
-@Html.ActionLink("Чат", "Index", "Chat", null, new
+@Html.ActionLink("Чат", MVC.Chat.Chat.Index(), new
 {
     @class = ViewBag.CurrentSection == "Chat" ? "selected" : string.Empty
 })

@@ -1,4 +1,4 @@
-﻿/// <reference path="../_references.ts" />
+﻿/// <reference path="_references.ts" />
 module MirGames.Chat {
     export class ChatRoomPage extends MirGames.BasePage<IChatRoomPageData, IChatRoomPageScope> {
         static $inject = ['$scope', 'commandBus', 'eventBus', 'socketService', 'notificationService', 'apiService', 'currentUser', '$timeout'];

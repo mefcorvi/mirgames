@@ -337,12 +337,13 @@
     <Compile Include="AppController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Areas\Chat\ChatAreaRegistration.cs" />
     <Compile Include="Areas\Forum\ForumAreaRegistration.cs" />
     <Compile Include="Areas\Topics\TopicsAreaRegistration.cs" />
     <Compile Include="AttachmentController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="ChatController.generated.cs">
+    <Compile Include="Chat.ChatController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\GitController.cs" />
@@ -354,9 +355,6 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Forum.ForumController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Forum.SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="GitController.generated.cs">
@@ -385,9 +383,6 @@
     <Compile Include="ToolsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Topics.SharedController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="Topics.TopicsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -397,7 +392,7 @@
     <Compile Include="WebModule.cs" />
     <Compile Include="OAuth\GitHubAuthenticationClientProvider.cs" />
     <Compile Include="ClaimsPrincipalUserIdProvider.cs" />
-    <Compile Include="Controllers\ChatController.cs" />
+    <Compile Include="Areas\Chat\Controllers\ChatController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\WebApiController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
@@ -443,10 +438,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\Author.cshtml" />
+    <Content Include="Areas\Chat\Content\references.css">
+      <DependentUpon>references.less</DependentUpon>
+    </Content>
     <Content Include="Areas\Topics\Views\Web.config" />
     <Content Include="Areas\Topics\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Forum\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Forum\Views\Web.config" />
+    <Content Include="Areas\Chat\Views\Web.config" />
+    <Content Include="Areas\Chat\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Chat\Content\references.less" />
     <None Include="BundleTransformer.Configuration.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -513,7 +514,7 @@
     <Content Include="Content\dialogs.css.map">
       <DependentUpon>dialogs.css</DependentUpon>
     </Content>
-    <Content Include="Content\chat\chat-room.css.map">
+    <Content Include="Areas\Chat\Content\chat-room.css.map">
       <DependentUpon>chat-room.css</DependentUpon>
     </Content>
     <Content Include="Content\forum\topic.css.map">
@@ -541,7 +542,7 @@
     <Content Include="Content\users\profile-page.css">
       <DependentUpon>profile-page.less</DependentUpon>
     </Content>
-    <Content Include="Content\chat\chat-room.css">
+    <Content Include="Areas\Chat\Content\chat-room.css">
       <DependentUpon>chat-room.less</DependentUpon>
     </Content>
     <Content Include="Content\common.css">
@@ -649,6 +650,7 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <TypeScriptCompile Include="Areas\Chat\Scripts\_references.ts" />
     <TypeScriptCompile Include="Areas\Forum\Scripts\_references.ts" />
     <TypeScriptCompile Include="Areas\Topics\Scripts\_references.ts" />
     <TypeScriptCompile Include="Scripts\BasePage.ts" />
@@ -687,7 +689,7 @@
     <TypeScriptCompile Include="Scripts\Core\Base64.ts" />
     <TypeScriptCompile Include="Scripts\Attachment\AttachmentService.ts" />
     <TypeScriptCompile Include="Areas\Forum\Scripts\UnreadMenuItemController.ts" />
-    <TypeScriptCompile Include="Scripts\Chat\ChatRoomPage.ts" />
+    <TypeScriptCompile Include="Areas\Chat\Scripts\ChatRoomPage.ts" />
     <TypeScriptCompile Include="Scripts\Account\AccountSettingsPage.ts" />
     <TypeScriptCompile Include="Scripts\OnlineUsersController.ts" />
     <TypeScriptCompile Include="Areas\Forum\Scripts\EditPostDialogController.ts" />
@@ -817,7 +819,7 @@
     <Content Include="Content\font-awesome\stacked.less" />
     <Content Include="Content\font-awesome\variables.less" />
     <Content Include="Content\nanoscroller.less" />
-    <Content Include="Content\chat\chat-room.less" />
+    <Content Include="Areas\Chat\Content\chat-room.less" />
     <Content Include="Content\users\profile-page.less" />
     <Content Include="Content\topics\mixins.less" />
     <Content Include="Content\users\user-topics.less" />
@@ -982,7 +984,7 @@
     <Content Include="Scripts\Libs\jquery.nanoscroller.js" />
     <Content Include="Views\Shared\_Pagination.cshtml" />
     <Content Include="Views\Shared\_SocialButtons.cshtml" />
-    <Content Include="Views\Chat\Index.cshtml" />
+    <Content Include="Areas\Chat\Views\Chat\Index.cshtml" />
     <Content Include="Scripts\Libs\jquery.naturalWidth.js" />
     <Content Include="Areas\Forum\Views\Forum\_EditPostDialog.cshtml" />
     <Content Include="Scripts\TypeLite.tt">
@@ -1031,11 +1033,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Forum\Models\" />
-    <Folder Include="Areas\Forum\Views\Shared\" />
-    <Folder Include="Areas\Topics\Models\" />
-    <Folder Include="Areas\Topics\Views\Shared\" />
     <Folder Include="Content\account\" />
+    <Folder Include="Content\chat\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

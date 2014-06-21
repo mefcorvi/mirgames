@@ -21,7 +21,7 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace MirGames.Controllers
+namespace MirGames.Areas.Chat.Controllers
 {
     public partial class ChatController
     {
@@ -62,9 +62,9 @@ namespace MirGames.Controllers
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ChatController Actions { get { return MVC.Chat; } }
+        public ChatController Actions { get { return MVC.Chat.Chat; } }
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Area = "";
+        public readonly string Area = "Chat";
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Name = "Chat";
         [GeneratedCode("T4MVC", "2.0")]
@@ -108,12 +108,12 @@ namespace MirGames.Controllers
             {
                 public readonly string Index = "Index";
             }
-            public readonly string Index = "~/Views/Chat/Index.cshtml";
+            public readonly string Index = "~/Areas/Chat/Views/Chat/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_ChatController : MirGames.Controllers.ChatController
+    public partial class T4MVC_ChatController : MirGames.Areas.Chat.Controllers.ChatController
     {
         public T4MVC_ChatController() : base(Dummy.Instance) { }
 

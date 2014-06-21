@@ -6,10 +6,11 @@
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace MirGames.Controllers
+namespace MirGames.Areas.Chat.Controllers
 {
     using System.Web.Mvc;
 
+    using MirGames.Controllers;
     using MirGames.Domain.Chat.Commands;
     using MirGames.Filters;
     using MirGames.Infrastructure;
@@ -32,7 +33,7 @@ namespace MirGames.Controllers
         /// <inheritdoc />
         public virtual ActionResult Index()
         {
-            return View();
+            return this.View();
         }
 
         /// <inheritdoc />

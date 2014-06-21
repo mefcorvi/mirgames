@@ -25,13 +25,14 @@ using T4MVC;
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 public static partial class MVC
 {
+    static readonly ChatClass s_Chat = new ChatClass();
+    public static ChatClass Chat { get { return s_Chat; } }
     static readonly ForumClass s_Forum = new ForumClass();
     public static ForumClass Forum { get { return s_Forum; } }
     static readonly TopicsClass s_Topics = new TopicsClass();
     public static TopicsClass Topics { get { return s_Topics; } }
     public static MirGames.Controllers.AccountController Account = new MirGames.Controllers.T4MVC_AccountController();
     public static MirGames.Controllers.AttachmentController Attachment = new MirGames.Controllers.T4MVC_AttachmentController();
-    public static MirGames.Controllers.ChatController Chat = new MirGames.Controllers.T4MVC_ChatController();
     public static MirGames.Controllers.DashboardController Dashboard = new MirGames.Controllers.T4MVC_DashboardController();
     public static MirGames.Controllers.ErrorController Error = new MirGames.Controllers.T4MVC_ErrorController();
     public static MirGames.Controllers.GitController Git = new MirGames.Controllers.T4MVC_GitController();
@@ -45,18 +46,22 @@ public static partial class MVC
 namespace T4MVC
 {
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public class ChatClass
+    {
+        public readonly string Name = "Chat";
+        public MirGames.Areas.Chat.Controllers.ChatController Chat = new MirGames.Areas.Chat.Controllers.T4MVC_ChatController();
+    }
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public class ForumClass
     {
         public readonly string Name = "Forum";
         public MirGames.Areas.Forum.Controllers.ForumController Forum = new MirGames.Areas.Forum.Controllers.T4MVC_ForumController();
-        public T4MVC.Forum.SharedController Shared = new T4MVC.Forum.SharedController();
     }
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public class TopicsClass
     {
         public readonly string Name = "Topics";
         public MirGames.Areas.Topics.Controllers.TopicsController Topics = new MirGames.Areas.Topics.Controllers.T4MVC_TopicsController();
-        public T4MVC.Topics.SharedController Shared = new T4MVC.Topics.SharedController();
     }
 }
 
@@ -142,14 +147,6 @@ namespace Links
         }
     
         public static readonly string BasePage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BasePage.min.js") ? Url("BasePage.min.js") : Url("BasePage.js");
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class Chat {
-            private const string URLPATH = "~/Scripts/Chat";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            public static readonly string ChatRoomPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ChatRoomPage.min.js") ? Url("ChatRoomPage.min.js") : Url("ChatRoomPage.js");
-        }
-    
         public static readonly string Commands_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Commands.min.js") ? Url("Commands.min.js") : Url("Commands.js");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class Core {
@@ -307,10 +304,6 @@ namespace Links
             private const string URLPATH = "~/Content/chat";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            public static readonly string chat_room_less = Url("chat-room.less");
-            public static readonly string chat_room_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/chat-room.min.css") ? Url("chat-room.min.css") : Url("chat-room.css");
-                 
-            public static readonly string chat_room_css_map = Url("chat-room.css.map");
         }
     
         public static readonly string common_less = Url("common.less");
@@ -599,6 +592,153 @@ namespace Links
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public static class Areas {
+        private const string URLPATH = "~/Areas";
+        public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+        public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class Chat {
+            private const string URLPATH = "~/Areas/Chat";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Content {
+                private const string URLPATH = "~/Areas/Chat/Content";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string chat_room_less = Url("chat-room.less");
+                public static readonly string chat_room_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/chat-room.min.css") ? Url("chat-room.min.css") : Url("chat-room.css");
+                     
+                public static readonly string chat_room_css_map = Url("chat-room.css.map");
+                public static readonly string references_less = Url("references.less");
+                public static readonly string references_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/references.min.css") ? Url("references.min.css") : Url("references.css");
+                     
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Controllers {
+                private const string URLPATH = "~/Areas/Chat/Controllers";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Scripts {
+                private const string URLPATH = "~/Areas/Chat/Scripts";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string _references_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
+                public static readonly string ChatRoomPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ChatRoomPage.min.js") ? Url("ChatRoomPage.min.js") : Url("ChatRoomPage.js");
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Views {
+                private const string URLPATH = "~/Areas/Chat/Views";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class Chat {
+                    private const string URLPATH = "~/Areas/Chat/Views/Chat";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                }
+            
+                public static readonly string Web_config = Url("Web.config");
+            }
+        
+        }
+    
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class Forum {
+            private const string URLPATH = "~/Areas/Forum";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Controllers {
+                private const string URLPATH = "~/Areas/Forum/Controllers";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Scripts {
+                private const string URLPATH = "~/Areas/Forum/Scripts";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string _references_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
+                public static readonly string DeletePostDialogController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/DeletePostDialogController.min.js") ? Url("DeletePostDialogController.min.js") : Url("DeletePostDialogController.js");
+                public static readonly string DeleteTopicDialogController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/DeleteTopicDialogController.min.js") ? Url("DeleteTopicDialogController.min.js") : Url("DeleteTopicDialogController.js");
+                public static readonly string EditPostDialogController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/EditPostDialogController.min.js") ? Url("EditPostDialogController.min.js") : Url("EditPostDialogController.js");
+                public static readonly string NewTopic_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/NewTopic.min.js") ? Url("NewTopic.min.js") : Url("NewTopic.js");
+                public static readonly string SearchPanelController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SearchPanelController.min.js") ? Url("SearchPanelController.min.js") : Url("SearchPanelController.js");
+                public static readonly string TopicPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/TopicPage.min.js") ? Url("TopicPage.min.js") : Url("TopicPage.js");
+                public static readonly string TopicsPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/TopicsPage.min.js") ? Url("TopicsPage.min.js") : Url("TopicsPage.js");
+                public static readonly string UnreadMenuItemController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/UnreadMenuItemController.min.js") ? Url("UnreadMenuItemController.min.js") : Url("UnreadMenuItemController.js");
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Views {
+                private const string URLPATH = "~/Areas/Forum/Views";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class Forum {
+                    private const string URLPATH = "~/Areas/Forum/Views/Forum";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                }
+            
+                public static readonly string Web_config = Url("Web.config");
+            }
+        
+        }
+    
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class Topics {
+            private const string URLPATH = "~/Areas/Topics";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Controllers {
+                private const string URLPATH = "~/Areas/Topics/Controllers";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Scripts {
+                private const string URLPATH = "~/Areas/Topics/Scripts";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string _references_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
+                public static readonly string DeleteCommentDialogController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/DeleteCommentDialogController.min.js") ? Url("DeleteCommentDialogController.min.js") : Url("DeleteCommentDialogController.js");
+                public static readonly string EditCommentDialogController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/EditCommentDialogController.min.js") ? Url("EditCommentDialogController.min.js") : Url("EditCommentDialogController.js");
+                public static readonly string EditTopic_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/EditTopic.min.js") ? Url("EditTopic.min.js") : Url("EditTopic.js");
+                public static readonly string NewTopic_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/NewTopic.min.js") ? Url("NewTopic.min.js") : Url("NewTopic.js");
+                public static readonly string SearchPanelController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SearchPanelController.min.js") ? Url("SearchPanelController.min.js") : Url("SearchPanelController.js");
+                public static readonly string Topic_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Topic.min.js") ? Url("Topic.min.js") : Url("Topic.js");
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Views {
+                private const string URLPATH = "~/Areas/Topics/Views";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class Topics {
+                    private const string URLPATH = "~/Areas/Topics/Views/Topics";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                }
+            
+                public static readonly string Web_config = Url("Web.config");
+            }
+        
+        }
+    
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static partial class Bundles
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -622,7 +762,7 @@ internal static class T4MVCHelpers {
     }
 
     // Calling ProcessVirtualPath through delegate to allow it to be replaced for unit testing
-    public static Func<string, string> ProcessVirtualPath = ProcessVirtualPathDefault;
+    public static Func<string, string> ProcessVirtualPath = s => s;
 
     // Calling T4Extension.TimestampString through delegate to allow it to be replaced for unit testing and other purposes
     public static Func<string, string> TimestampString = System.Web.Mvc.T4Extensions.TimestampString;

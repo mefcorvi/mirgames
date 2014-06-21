@@ -6,7 +6,7 @@
 };
 var MirGames;
 (function (MirGames) {
-    /// <reference path="../_references.ts" />
+    /// <reference path="_references.ts" />
     (function (Chat) {
         var ChatRoomPage = (function (_super) {
             __extends(ChatRoomPage, _super);
