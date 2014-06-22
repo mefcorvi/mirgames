@@ -182,6 +182,74 @@
 .wip-project-page > section > .project-info-block > .project-short-info .fa {
   margin-right: 5px;
 }
+.wip-project-page > section > .project-info-block > .project-short-info > .work-items {
+  overflow: hidden;
+}
+.wip-project-page > section > .project-info-block > .project-short-info > .work-items > div {
+  display: block;
+  width: 30px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  float: left;
+  border: 1px solid #eeeeee;
+  text-align: center;
+  height: 30px;
+  position: relative;
+  overflow: hidden;
+  -moz-transition-property: background-color;
+  -o-transition-property: background-color;
+  -webkit-transition-property: background-color;
+  transition-property: background-color;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -moz-transition-timing-function: ease;
+  -o-transition-timing-function: ease;
+  -webkit-transition-timing-function: ease;
+  transition-timing-function: ease;
+}
+.wip-project-page > section > .project-info-block > .project-short-info > .work-items > div > a {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  line-height: 30px;
+  z-index: 3;
+  font-size: 15px;
+  color: #fff;
+  text-decoration: none;
+  text-shadow: 0 0 10px #000000;
+}
+.wip-project-page > section > .project-info-block > .project-short-info > .work-items > div > .fa {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  font-size: 30px;
+  color: rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+.wip-project-page > section > .project-info-block > .project-short-info > .work-items > .bug-type {
+  background: #8d2461;
+}
+.wip-project-page > section > .project-info-block > .project-short-info > .work-items > .bug-type:hover {
+  background: #d04796;
+}
+.wip-project-page > section > .project-info-block > .project-short-info > .work-items > .task-type {
+  background: #618d24;
+}
+.wip-project-page > section > .project-info-block > .project-short-info > .work-items > .task-type:hover {
+  background: #96d047;
+}
+.wip-project-page > section > .project-info-block > .project-short-info > .work-items > .feature-type {
+  background: #24618d;
+}
+.wip-project-page > section > .project-info-block > .project-short-info > .work-items > .feature-type:hover {
+  background: #4796d0;
+}
 .wip-project-page > section > .project-info-block > .project-short-info > .add-to-tracker.open > .dropdown-toggle {
   background: #ad6a91;
   border: 1px solid #935177;
@@ -238,6 +306,7 @@
   padding-bottom: 10px;
   padding-left: 20px;
   padding-right: 20px;
+  overflow: hidden;
 }
 .wip-project-page > section > section h3 {
   font-family: "Droid Sans", Tahoma, sans-serif;
@@ -296,75 +365,6 @@
     width: 25%;
   }
 }
-.wip-project-page > section > section .aside-section .work-items {
-  overflow: hidden;
-  margin-bottom: 40px;
-}
-.wip-project-page > section > section .aside-section .work-items > div {
-  display: block;
-  width: 33.333%;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  float: left;
-  border: 1px solid #eeeeee;
-  text-align: center;
-  height: 60px;
-  position: relative;
-  overflow: hidden;
-  -moz-transition-property: background-color;
-  -o-transition-property: background-color;
-  -webkit-transition-property: background-color;
-  transition-property: background-color;
-  -moz-transition-duration: 0.2s;
-  -o-transition-duration: 0.2s;
-  -webkit-transition-duration: 0.2s;
-  transition-duration: 0.2s;
-  -moz-transition-timing-function: ease;
-  -o-transition-timing-function: ease;
-  -webkit-transition-timing-function: ease;
-  transition-timing-function: ease;
-}
-.wip-project-page > section > section .aside-section .work-items > div > a {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  line-height: 60px;
-  z-index: 3;
-  font-size: 20px;
-  color: #fff;
-  text-decoration: none;
-  text-shadow: 0 0 10px #000000;
-}
-.wip-project-page > section > section .aside-section .work-items > div > .fa {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  font-size: 60px;
-  color: rgba(0, 0, 0, 0.2);
-  z-index: 2;
-}
-.wip-project-page > section > section .aside-section .work-items > .bug-type {
-  background: #8d2461;
-}
-.wip-project-page > section > section .aside-section .work-items > .bug-type:hover {
-  background: #d04796;
-}
-.wip-project-page > section > section .aside-section .work-items > .task-type {
-  background: #618d24;
-}
-.wip-project-page > section > section .aside-section .work-items > .task-type:hover {
-  background: #96d047;
-}
-.wip-project-page > section > section .aside-section .work-items > .feature-type {
-  background: #24618d;
-}
-.wip-project-page > section > section .aside-section .work-items > .feature-type:hover {
-  background: #4796d0;
-}
 .wip-project-page > section > section .aside-section .commits {
   padding: 20px 0;
   padding-top: 0;
@@ -397,6 +397,9 @@
 }
 .wip-project-page > section > section .repository-url:last-of-type {
   padding-bottom: 0;
+}
+.wip-project-page > section > section .repository-url > pre {
+  overflow: hidden;
 }
 .wip-project-page > section > section .repository-url input {
   margin-top: 5px;
@@ -453,6 +456,12 @@
     width: 75%;
   }
 }
+.wip-project-page > section > section .main-section > .project-description {
+  margin-bottom: 40px;
+}
+.wip-project-page > section > section .main-section > .project-description:last-child {
+  margin-bottom: 0;
+}
 .wip-project-page > section > section .blog-posts {
   padding-bottom: 20px;
 }
@@ -483,8 +492,6 @@
 }
 .wip-project-page > section > section .blog-posts > .message > .message-content > header {
   font-size: 12px;
-  position: relative;
-  padding-right: 90px;
 }
 .wip-project-page > section > section .blog-posts > .message > .message-content > header a.topic-title {
   font-family: "Droid Sans", Tahoma, sans-serif;
@@ -497,10 +504,7 @@
   color: #b52f7d;
 }
 .wip-project-page > section > section .blog-posts > .message > .message-content > header span {
-  font-size: 10px;
-  position: absolute;
-  right: 0px;
-  top: 0px;
+  font-size: 12px;
   color: #8c8c0c;
 }
 .wip-project-page > section > section .blog-posts > .message > .message-content > footer {

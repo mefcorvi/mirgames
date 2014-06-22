@@ -64,6 +64,6 @@ module MirGames.Wip {
     }
 
     export interface IProjectSettingsPageData {
-        project: MirGames.Domain.Wip.ViewModels.WipProjectForEditViewModel;
+        project: MirGames.Domain.Wip.ViewModels.WipProjectViewModel;
     }
 }

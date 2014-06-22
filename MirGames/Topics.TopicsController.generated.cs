@@ -111,6 +111,7 @@ namespace MirGames.Areas.Topics.Controllers
             public readonly string DeleteTopic = "DeleteTopic";
             public readonly string EditCommentDialog = "EditCommentDialog";
             public readonly string DeleteCommentDialog = "DeleteCommentDialog";
+            public readonly string AddTopicDialog = "AddTopicDialog";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -127,6 +128,7 @@ namespace MirGames.Areas.Topics.Controllers
             public const string DeleteTopic = "DeleteTopic";
             public const string EditCommentDialog = "EditCommentDialog";
             public const string DeleteCommentDialog = "DeleteCommentDialog";
+            public const string AddTopicDialog = "AddTopicDialog";
         }
 
 
@@ -199,6 +201,7 @@ namespace MirGames.Areas.Topics.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _AddTopicDialog = "_AddTopicDialog";
                 public readonly string _Comment = "_Comment";
                 public readonly string _DeleteCommentDialog = "_DeleteCommentDialog";
                 public readonly string _EditCommentDialog = "_EditCommentDialog";
@@ -211,6 +214,7 @@ namespace MirGames.Areas.Topics.Controllers
                 public readonly string New = "New";
                 public readonly string Topic = "Topic";
             }
+            public readonly string _AddTopicDialog = "~/Areas/Topics/Views/Topics/_AddTopicDialog.cshtml";
             public readonly string _Comment = "~/Areas/Topics/Views/Topics/_Comment.cshtml";
             public readonly string _DeleteCommentDialog = "~/Areas/Topics/Views/Topics/_DeleteCommentDialog.cshtml";
             public readonly string _EditCommentDialog = "~/Areas/Topics/Views/Topics/_EditCommentDialog.cshtml";
@@ -358,6 +362,17 @@ namespace MirGames.Areas.Topics.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteCommentDialog);
             DeleteCommentDialogOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AddTopicDialogOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AddTopicDialog()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddTopicDialog);
+            AddTopicDialogOverride(callInfo);
             return callInfo;
         }
 

@@ -16,8 +16,8 @@ var MirGames;
                 _super.call(this, $scope, eventBus);
                 this.apiService = apiService;
                 this.$scope.dataLoaded = false;
-                this.$scope.onDrop = function ($event, $data, array, target) {
-                    return _this.onDrop($event, $data, array, target);
+                this.$scope.onDrop = function ($event, $data, state, target) {
+                    return _this.onDrop($event, $data, state, target);
                 };
                 this.$scope.dropSuccessHandler = function ($event, $index, array) {
                     return _this.dropSuccessHandler($event, $index, array);
@@ -177,17 +177,19 @@ var MirGames;
             };
 
             /** Handles drop */
-            ProjectWorkItemBlocks.prototype.onDrop = function ($event, $data, array, target) {
+            ProjectWorkItemBlocks.prototype.onDrop = function ($event, $data, state, target) {
+                var array = this.$scope.openedItems;
+
+                if (state == 'Active') {
+                    array = this.$scope.activeItems;
+                }
+
+                if (state == 'Closed') {
+                    array = this.$scope.closedItems;
+                }
+
                 for (var i = 0; i < array.length; i++) {
                     if (array[i] == target) {
-                        var next = array[i + 1];
-
-                        if (next) {
-                            $data.priority = (target.priority + next.priority) / 2;
-                        } else {
-                            $data.priority = 0;
-                        }
-
                         this.changeWorkItemState($data, target.state);
 
                         array.splice(i + 1, 0, $data);
@@ -195,7 +197,8 @@ var MirGames;
                     }
                 }
 
-                array.push($data);
+                this.changeWorkItemState($data, state);
+                array.splice(0, 0, $data);
             };
 
             /** Handles successfull drops */

@@ -133,11 +133,22 @@ namespace MirGames.Domain.Wip.CommandHandlers
 
             this.commandProcessor.Execute(new SetPermissionCommand
             {
-                Actions = new[] { "Edit", "CreateTask" },
+                Actions = new[] { "Edit", "CreateTask", "DeleteWorkItem", "EditWorkItem", "ChangeStateWorkItem", },
                 EntityId = project.ProjectId,
                 EntityType = "Project",
                 UserId = project.AuthorId
             });
+
+            if (project.BlogId.HasValue)
+            {
+                this.commandProcessor.Execute(new SetPermissionCommand
+                {
+                    Actions = new[] { "CreateTopic", "EditTopic", "DeleteTopic" },
+                    EntityId = project.BlogId.Value,
+                    EntityType = "Blog",
+                    UserId = project.AuthorId
+                });
+            }
 
             return project.Alias;
         }

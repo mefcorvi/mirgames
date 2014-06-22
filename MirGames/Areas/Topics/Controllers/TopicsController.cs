@@ -214,15 +214,24 @@ namespace MirGames.Areas.Topics.Controllers
         }
 
         /// <inheritdoc />
+        [AjaxOnly]
         public virtual ActionResult EditCommentDialog()
         {
             return this.PartialView("_EditCommentDialog");
         }
 
         /// <inheritdoc />
+        [AjaxOnly]
         public virtual ActionResult DeleteCommentDialog()
         {
             return this.PartialView("_DeleteCommentDialog");
+        }
+
+        /// <inheritdoc />
+        [AjaxOnly]
+        public virtual ActionResult AddTopicDialog()
+        {
+            return this.PartialView(MVC.Topics.Topics.Views._AddTopicDialog);
         }
 
         /// <inheritdoc />

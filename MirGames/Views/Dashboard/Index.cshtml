@@ -28,7 +28,7 @@
                             <img src="@project.LogoUrl" />
                         </div>
                     }
-                    <h1><a href="@Url.Action("Project", "Projects", new { projectAlias = project.Alias })">@project.Title</a></h1>
+                    <h1><a href="@Url.Action(MVC.Projects.Projects.Project(project.Alias))">@project.Title</a></h1>
                     <div class="description">
                         @project.ShortDescription
                     </div>

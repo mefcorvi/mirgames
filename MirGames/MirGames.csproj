@@ -463,6 +463,7 @@
     <Content Include="Areas\Projects\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Projects\Views\Web.config" />
     <Content Include="Areas\Projects\Content\references.less" />
+    <Content Include="Areas\Topics\Views\Topics\_AddTopicDialog.cshtml" />
     <None Include="BundleTransformer.Configuration.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -668,6 +669,7 @@
     <TypeScriptCompile Include="Areas\Chat\Scripts\_references.ts" />
     <TypeScriptCompile Include="Areas\Forum\Scripts\_references.ts" />
     <TypeScriptCompile Include="Areas\Projects\Scripts\_references.ts" />
+    <TypeScriptCompile Include="Areas\Topics\Scripts\AddNewTopicDialogController.ts" />
     <TypeScriptCompile Include="Areas\Topics\Scripts\_references.ts" />
     <TypeScriptCompile Include="Scripts\BasePage.ts" />
     <TypeScriptCompile Include="Scripts\Commands.ts" />

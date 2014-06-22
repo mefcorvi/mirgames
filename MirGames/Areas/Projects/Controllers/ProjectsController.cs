@@ -87,10 +87,7 @@ namespace MirGames.Areas.Projects.Controllers
                 },
                 new PaginationSettings(0, 5));
 
-            var statistics = this.QueryProcessor.Process(new GetProjectWorkItemStatisticsQuery
-            {
-                ProjectAlias = project.Alias
-            });
+            this.LoadStatistics(project);
 
             var topics = this.QueryProcessor.Process(new GetWipProjectTopicsQuery { Alias = projectAlias }, new PaginationSettings(0, 10));
 
@@ -102,7 +99,6 @@ namespace MirGames.Areas.Projects.Controllers
 
             this.ViewBag.Topics = topics;
             this.ViewBag.Images = images;
-            this.ViewBag.Statistics = statistics;
             
             this.ViewBag.BackUrl = this.GetBackUrl();
             this.ViewBag.SubSection = "Project";
@@ -132,6 +128,8 @@ namespace MirGames.Areas.Projects.Controllers
                 {
                     Alias = projectAlias
                 });
+
+            this.LoadStatistics(project);
 
             var workItems = this.QueryProcessor.Process(new GetProjectWorkItemsQuery
             {
@@ -178,6 +176,8 @@ namespace MirGames.Areas.Projects.Controllers
                     Alias = projectAlias
                 });
 
+            this.LoadStatistics(project);
+
             var workItem = this.QueryProcessor.Process(new GetProjectWorkItemQuery
             {
                 ProjectAlias = projectAlias,
@@ -199,7 +199,7 @@ namespace MirGames.Areas.Projects.Controllers
 
             return this.View(project);            
         }
-        
+
         /// <inheritdoc />
         [Authorize(Roles = "User")]
         public virtual ActionResult New()
@@ -216,6 +216,8 @@ namespace MirGames.Areas.Projects.Controllers
                 {
                     Alias = projectAlias
                 });
+
+            this.LoadStatistics(project);
 
             this.ViewBag.BackUrl = this.GetBackUrl();
             this.ViewBag.SubSection = "Settings";
@@ -235,6 +237,8 @@ namespace MirGames.Areas.Projects.Controllers
                 });
 
             this.ViewBag.SubSection = "Repository";
+
+            this.LoadStatistics(project);
 
             if (path.EndsWith("/"))
             {
@@ -257,6 +261,26 @@ namespace MirGames.Areas.Projects.Controllers
             base.OnActionExecuting(filterContext);
         }
 
+        /// <summary>
+        /// Loads the statistics.
+        /// </summary>
+        /// <param name="project">The project.</param>
+        private void LoadStatistics(WipProjectViewModel project)
+        {
+            var statistics = this.QueryProcessor.Process(new GetProjectWorkItemStatisticsQuery
+            {
+                ProjectAlias = project.Alias
+            });
+
+            this.ViewBag.Statistics = statistics;
+        }
+
+        /// <summary>
+        /// Repositories the file.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="project">The project.</param>
+        /// <returns>The action result.</returns>
         private ActionResult RepositoryFile(string path, WipProjectViewModel project)
         {
             var projectFiles = this.QueryProcessor.Process(new GetWipProjectFilesQuery

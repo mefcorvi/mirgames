@@ -113,10 +113,16 @@ namespace MirGames.Domain.Topics.CommandHandlers
                 SourceLink = null,
                 TopicType = "topic",
                 ForbidComment = false,
-                EditDate = null
+                EditDate = null,
+                BlogId = command.BlogId
             };
 
             authorizationManager.EnsureAccess(principal, "AddNew", "Topic");
+
+            if (command.BlogId.HasValue)
+            {
+                authorizationManager.EnsureAccess(principal, "CreateTopic", "Blog", command.BlogId);
+            }
 
             using (var writeContext = this.writeContextFactory.Create())
             {

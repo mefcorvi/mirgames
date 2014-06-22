@@ -94,8 +94,8 @@ namespace MirGames.Domain.Wip.QueryHandlers
                     EndDate = x.EndDate,
                     ParentId = x.ParentId,
                     StartDate = x.StartDate,
-                    CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "ProjectWorkItem", x.WorkItemId),
-                    CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "ProjectWorkItem", x.WorkItemId),
+                    CanBeDeleted = this.authorizationManager.CheckAccess(principal, "DeleteWorkItem", "Project", x.ProjectId),
+                    CanBeEdited = this.authorizationManager.CheckAccess(principal, "EditWorkItem", "Project", x.ProjectId),
                     CanBeCommented = this.authorizationManager.CheckAccess(principal, "CommentWorkItem", "Project", x.ProjectId)
                 })
                 .ToList();

@@ -83,6 +83,13 @@ interface EventLogViewModel {
 }
 }
 declare module MirGames.Domain.Topics.Commands {
+interface AddNewTopicCommand extends MirGames.Infrastructure.Commands.Command1 {
+  Title: string;
+  Text: string;
+  Tags: string;
+  BlogId: number;
+  Attachments: number[];
+}
 interface DeleteCommentCommand extends MirGames.Infrastructure.Commands.Command {
   CommentId: number;
 }
@@ -522,21 +529,6 @@ interface WipProjectFileViewModel {
   Content: string;
   IsPreview: boolean;
 }
-interface WipProjectForEditViewModel {
-  ProjectId: number;
-  Title: string;
-  Alias: string;
-  Description: string;
-  Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
-  LogoUrl: string;
-  CreationDate: Date;
-  UpdatedDate: Date;
-  Version: string;
-  Tags: string[];
-  RepositoryUrl: string;
-  RepositoryType: string;
-  IsRepositoryPrivate: boolean;
-}
 interface WipProjectViewModel {
   ProjectId: number;
   Title: string;
@@ -560,6 +552,8 @@ interface WipProjectViewModel {
   CanReadRepository: boolean;
   LastCommitMessage: string;
   ShortDescription: string;
+  IsRepositoryPrivate: boolean;
+  BlogId: number;
 }
 }
 declare module System {

@@ -1,16 +1,16 @@
 ﻿@using MirGames.Domain.Attachments.ViewModels
 @using MirGames.Domain.Topics.ViewModels
 @using MirGames.Domain.Wip.ViewModels
+@using MirGames.Infrastructure
 
 @model WipProjectViewModel
 @{
     ViewBag.Title = "О проекте / " + Model.Title;
     // PageScriptController = "MirGames.Wip.ProjectPage";
     AddPageCssClass("wip-project-page");
-    var images = (IEnumerable<AttachmentViewModel>)ViewBag.Images;
-    var topics = (IEnumerable<TopicsListItem>)ViewBag.Topics;
+    var images = ((IEnumerable<AttachmentViewModel>)ViewBag.Images).EnsureCollection();
+    var topics = ((IEnumerable<TopicsListItem>)ViewBag.Topics).EnsureCollection();
     var commits = (IEnumerable<WipProjectCommitViewModel>)ViewBag.Commits;
-    var statistics = (ProjectWorkItemStatisticsViewModel)ViewBag.Statistics;
 }
 
 @section Nav
@@ -22,6 +22,38 @@
 
 <section>
     <div class="main-section">
+        <div class="project-description">
+            <h4>Описание проекта</h4>
+            <div class="text">
+                @Html.Markdown(Model.Description)
+            </div>
+        </div>
+        @if (Model.BlogId.HasValue)
+        {
+            <h4>Блог</h4>
+            if (topics.Any())
+            {
+                <div class="blog-posts">
+                    @foreach (var topic in topics)
+                    {
+                        @Html.Partial(MVC.Topics.Topics.Views._TopicListItem, topic)
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="posts-not-found">
+                    Постов в блоге пока ещё нет.
+                    @if (Model.CanCreateBlogTopic)
+                    {
+                        <a href="javascript:void(0)" dialog="@Url.Action(MVC.Topics.Topics.AddTopicDialog())" resolve="{ 'blog-id': @Model.BlogId }"
+                           dialog-controller="MirGames.Topics.AddNewTopicDialogController">Написать новый.</a>
+                    }
+                </div>
+            }
+        }
+    </div>
+    <div class="aside-section">
         @if (!string.IsNullOrEmpty(Model.RepositoryUrl) && Model.CanReadRepository)
         {
             <h4>@Html.ActionLink("Репозиторий", MVC.Projects.Projects.Code(Model.Alias))</h4>
@@ -32,19 +64,6 @@
                 <a href="@Url.Action(MVC.Projects.Projects.Archive(Model.Alias))">Скачать ZIP архив</a>
             </div>
         }
-        @if (topics.Any())
-        {
-            <h4>Блог</h4>
-            <div class="blog-posts">
-                @foreach (var topic in topics)
-                {
-                    @Html.Partial(MVC.Topics.Topics.Views._TopicListItem, topic)
-                }
-            </div>
-        }
-    </div>
-
-    <div class="aside-section">
         @if (images.Any())
         {
             <h4>Скриншоты</h4>
@@ -57,12 +76,6 @@
                 }
             </ul>
         }
-        <h4>@Html.ActionLink("Трекер", MVC.Projects.Projects.WorkItems(Model.Alias, null, null))</h4>
-        <div class="work-items">
-            <div class="bug-type"><i class="fa fa-bug"></i><a title="Открытые баги" href="@Url.Action("WorkItems", "Projects", new { itemType = WorkItemType.Bug, projectAlias = Model.Alias })">@statistics.OpenBugsCount</a></div>
-            <div class="task-type"><i class="fa fa-tasks"></i><a title="Открытые таски" href="@Url.Action("WorkItems", "Projects", new { itemType = WorkItemType.Task, projectAlias = Model.Alias })">@statistics.OpenTasksCount</a></div>
-            <div class="feature-type"><i class="fa fa-lightbulb-o"></i><a title="Открытые фичи" href="@Url.Action("WorkItems", "Projects", new { itemType = WorkItemType.Feature, projectAlias = Model.Alias })">@statistics.OpenFeaturesCount</a></div>
-        </div>
         @if (Model.CanReadRepository && commits.Any())
         {
             <h4>История</h4>

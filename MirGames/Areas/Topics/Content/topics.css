@@ -64,8 +64,6 @@ body > nav > h1 .syndication:hover {
 }
 .topics-page > section > .topics-list > .message > .message-content > header {
   font-size: 12px;
-  position: relative;
-  padding-right: 90px;
 }
 .topics-page > section > .topics-list > .message > .message-content > header a.topic-title {
   font-family: "Droid Sans", Tahoma, sans-serif;
@@ -78,10 +76,7 @@ body > nav > h1 .syndication:hover {
   color: #b52f7d;
 }
 .topics-page > section > .topics-list > .message > .message-content > header span {
-  font-size: 10px;
-  position: absolute;
-  right: 0px;
-  top: 0px;
+  font-size: 12px;
   color: #8c8c0c;
 }
 .topics-page > section > .topics-list > .message > .message-content > footer {

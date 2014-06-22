@@ -8,7 +8,7 @@ module MirGames.Wip {
         constructor($scope: IProjectWorkItemBlocksScope, eventBus: Core.IEventBus, private apiService: Core.IApiService) {
             super($scope, eventBus);
             this.$scope.dataLoaded = false;
-            this.$scope.onDrop = ($event, $data, array, target) => this.onDrop($event, $data, array, target);
+            this.$scope.onDrop = ($event, $data, state, target) => this.onDrop($event, $data, state, target);
             this.$scope.dropSuccessHandler = ($event, $index, array) => this.dropSuccessHandler($event, $index, array);
 
             $scope.$watch('filterByType', () => this.loadWorkItems());
@@ -145,17 +145,19 @@ module MirGames.Wip {
         }
 
         /** Handles drop */
-        private onDrop($event: any, $data: IProjectWorkItemScope, array: IProjectWorkItemScope[], target?: IProjectWorkItemScope) {
+        private onDrop($event: any, $data: IProjectWorkItemScope, state: string, target?: IProjectWorkItemScope) {
+            var array = this.$scope.openedItems;
+
+            if (state == 'Active') {
+                array = this.$scope.activeItems;
+            }
+
+            if (state == 'Closed') {
+                array = this.$scope.closedItems;
+            }
+
             for (var i = 0; i < array.length; i++) {
                 if (array[i] == target) {
-                    var next = array[i + 1];
-
-                    if (next) {
-                        $data.priority = (target.priority + next.priority) / 2;
-                    } else {
-                        $data.priority = 0;
-                    }
-
                     this.changeWorkItemState($data, target.state);
 
                     array.splice(i + 1, 0, $data);
@@ -163,7 +165,8 @@ module MirGames.Wip {
                 }
             }
 
-            array.push($data);
+            this.changeWorkItemState($data, state);
+            array.splice(0, 0, $data);
         }
 
         /** Handles successfull drops */
@@ -178,7 +181,7 @@ module MirGames.Wip {
         closedItems: IProjectWorkItemScope[];
         dataLoaded: boolean;
         dropSuccessHandler: ($event: any, $index: any, array: IProjectWorkItemScope[]) => void;
-        onDrop: ($event: any, $data: any, array: IProjectWorkItemScope[], target?: IProjectWorkItemScope) => void;
+        onDrop: ($event: any, $data: any, state: string, target?: IProjectWorkItemScope) => void;
         filterByType?: Domain.Wip.ViewModels.WorkItemType;
     }
 } 

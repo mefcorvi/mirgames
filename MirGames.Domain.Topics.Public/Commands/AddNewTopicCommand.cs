@@ -16,6 +16,7 @@ namespace MirGames.Domain.Topics.Commands
     /// The add new topic command.
     /// </summary>
     [Authorize(Roles = "User")]
+    [Api]
     public class AddNewTopicCommand : Command<int>
     {
         /// <summary>
@@ -32,6 +33,11 @@ namespace MirGames.Domain.Topics.Commands
         /// Gets or sets the tags.
         /// </summary>
         public string Tags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the blog identifier.
+        /// </summary>
+        public int? BlogId { get; set; }
 
         /// <summary>
         /// Gets or sets the attachments.

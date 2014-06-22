@@ -54,7 +54,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
                     throw new ItemNotFoundException("WorkItem", command.WorkItemId);
                 }
 
-                authorizationManager.EnsureAccess(principal, "ChangeState", "ProjectWorkItem", workItem.WorkItemId);
+                authorizationManager.EnsureAccess(principal, "ChangeStateWorkItem", "Project", workItem.ProjectId);
 
                 workItem.State = command.State ?? this.GetNextState(workItem.State);
                 writeContext.SaveChanges();

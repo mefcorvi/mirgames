@@ -51,7 +51,7 @@ var UI;
             controller: TextEditorController,
             scope: {
                 'text': '=text',
-                'showPreview': '=showPreview',
+                'showPreview': '=?showPreview',
                 'attachments': '=attachments',
                 'required': '=?required',
                 'post': '&post',

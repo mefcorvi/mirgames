@@ -1,9 +1,10 @@
 ﻿<div class="tracker-item-blocks">
     <div class="open-items items">
         <h1>Открытые</h1>
+        <div ui-on-drop="onDrop($event, $data, 'Open', null)" class="drop-zone"><span>&nbsp;</span></div>
         <div ng-repeat="item in openedItems" ng-cloak>
             <div ui-draggable="{{item.canBeEdited}}" drag="item" on-drop-success="dropSuccessHandler($event, $index, openedItems)" ng-class="['tracker-item', item.type, item.state, 'p' + item.priority, $last ? 'last' : '']" static-include="/areas/projects/content/item-block-template.html"></div>
-            <div ui-on-drop="onDrop($event, $data, openedItems, item)" class="drop-zone"><span>&nbsp;</span></div>
+            <div ui-on-drop="onDrop($event, $data, 'Open', item)" class="drop-zone"><span>&nbsp;</span></div>
         </div>
         <div ng-show="!openedItems.length && dataLoaded" ng-cloak>
             Ничего не удалось найти
@@ -11,9 +12,10 @@
     </div>
     <div class="active-items items">
         <h1>Активные</h1>
+        <div ui-on-drop="onDrop($event, $data, 'Active', null)" class="drop-zone"><span>&nbsp;</span></div>
         <div ng-repeat="item in activeItems" ng-cloak>
             <div ui-draggable="{{item.canBeEdited}}" drag="item" on-drop-success="dropSuccessHandler($event, $index, activeItems)" ng-class="['tracker-item', item.type, item.state, 'p' + item.priority, $last ? 'last' : '']" static-include="/areas/projects/content/item-block-template.html"></div>
-            <div ui-on-drop="onDrop($event, $data, activeItems, item)" class="drop-zone"><span>&nbsp;</span></div>
+            <div ui-on-drop="onDrop($event, $data, 'Active', item)" class="drop-zone"><span>&nbsp;</span></div>
         </div>
         <div ng-show="!activeItems.length && dataLoaded" ng-cloak>
             Ничего не удалось найти
@@ -21,9 +23,10 @@
     </div>
     <div class="closed-items items">
         <h1>Закрытые</h1>
+        <div ui-on-drop="onDrop($event, $data, 'Closed', null)" class="drop-zone"><span>&nbsp;</span></div>
         <div ng-repeat="item in closedItems" ng-cloak>
             <div ui-draggable="{{item.canBeEdited}}" drag="item" on-drop-success="dropSuccessHandler($event, $index, closedItems)" ng-class="['tracker-item', item.type, item.state, 'p' + item.priority, $last ? 'last' : '']" static-include="/areas/projects/content/item-block-template.html"></div>
-            <div ui-on-drop="onDrop($event, $data, closedItems, item)" class="drop-zone"><span>&nbsp;</span></div>
+            <div ui-on-drop="onDrop($event, $data, 'Closed', item)" class="drop-zone"><span>&nbsp;</span></div>
         </div>
         <div ng-show="!closedItems.length && dataLoaded" class="not-found" ng-cloak>
             Ничего не удалось найти

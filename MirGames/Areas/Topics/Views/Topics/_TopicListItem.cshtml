@@ -2,8 +2,10 @@
 <article class="message">
     <div class="message-content">
         <header>
+            <div>
+                <span>@Html.DisplayFor(m => Model.CreationDate)</span>
+            </div>
             @Html.ActionLink(Model.Title, MVC.Topics.Topics.Topic(Model.TopicId), new { @class = "topic-title" })
-            <span>@Html.DisplayFor(m => Model.CreationDate)</span>
         </header>
         <div class="text">
             @Html.Raw(Model.ShortText)

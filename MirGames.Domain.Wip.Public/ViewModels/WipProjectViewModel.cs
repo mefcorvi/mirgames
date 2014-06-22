@@ -122,6 +122,11 @@ namespace MirGames.Domain.Wip.ViewModels
         public bool CanReadRepository { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this instance can create blog topic.
+        /// </summary>
+        public bool CanCreateBlogTopic { get; set; }
+
+        /// <summary>
         /// Gets or sets the last commit message.
         /// </summary>
         public string LastCommitMessage { get; set; }
@@ -135,5 +140,10 @@ namespace MirGames.Domain.Wip.ViewModels
         /// Gets or sets a value indicating whether this instance is repository private.
         /// </summary>
         public bool IsRepositoryPrivate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the blog identifier.
+        /// </summary>
+        public int? BlogId { get; set; }
     }
 }
