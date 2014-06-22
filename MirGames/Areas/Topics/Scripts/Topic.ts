@@ -54,7 +54,12 @@ module MirGames.Topics {
         }
 
         private hideComment(commentId: number) {
-            $('.comment[comment-id=' + commentId.toString() + ']').fadeOut();
+            $('.comment[comment-id=' + commentId.toString() + ']').fadeOut(null, () => {
+                $('.comment[comment-id=' + commentId.toString() + ']').remove();
+                if (!$('.comments-list .comment:visible').length) {
+                    $('.comments-list').hide();
+                }
+            });
         }
 
         private showComment(commentId: number) {
@@ -105,7 +110,7 @@ module MirGames.Topics {
 
             for (var i = 0; i < titles.length; i++) {
                 var item = titles[i];
-                var nextItemPosition = titles[i + 1] ? titles[i + 1].position : $('#comments').position().top;
+                var nextItemPosition = titles[i + 1] ? titles[i + 1].position : $('.comments-list').position().top;
                 var itemHeight = nextItemPosition - item.position;
 
                 var shownTopPart = (scrollTop - item.position) / itemHeight;
@@ -181,6 +186,7 @@ module MirGames.Topics {
             this.commentsCount++;
             this.$scope.comments.push(comment);
             this.$scope.$apply();
+            $('.comments-list').show();
             this.showComment(comment.Id);
         }
     }

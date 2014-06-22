@@ -46,10 +46,9 @@
   font-size: 15px;
 }
 .user-comments-page > section > .comments-list > .comment {
-  padding: 10px 10px;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
 }
-.user-comments-page > section > .comments-list > .comment:last-child {
+.user-comments-page > section > .comments-list > .comment:last-of-type {
   margin-bottom: 0;
 }
 .user-comments-page > section > .comments-list > .comment > header {

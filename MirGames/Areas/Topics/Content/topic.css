@@ -14,119 +14,89 @@
   color: #f00;
   text-shadow: 0px 0px 1px #000;
 }
-.topic-page > section {
+.topic-page > section > article {
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 20px;
   padding-right: 20px;
+  margin: 20px 0;
 }
-.topic-page > section > header {
-  position: relative;
-}
-.topic-page > section > header > h3 {
+.topic-page > section > article > h3 {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 24px;
   margin-bottom: 10px;
   padding-bottom: 0;
   text-shadow: 1px 1px 4px #ffffff;
 }
-.topic-page > section > header > ul.tags {
-  overflow: hidden;
-  list-style-type: none;
-  font-size: 11px;
-  float: right;
-  margin-top: 6px;
-}
-.topic-page > section > header > ul.tags > li {
-  float: left;
-  margin-right: 2px;
-  margin-bottom: 2px;
-  display: block;
-}
-.topic-page > section > header > ul.tags > li a {
-  background: #818d96;
-  color: #ffffff;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  padding: 3px;
-  max-width: 50px;
-  display: block;
-  overflow: hidden;
-  text-decoration: none;
-}
-.topic-page > section > header > ul.tags > li a:active,
-.topic-page > section > header > ul.tags > li a:hover,
-.topic-page > section > header > ul.tags > li a:focus {
-  color: #ffffff;
-}
-.topic-page > section > header > ul.tags > li a:hover,
-.topic-page > section > header > ul.tags > li a:active,
-.topic-page > section > header > ul.tags > li a:focus {
-  background: #515a60;
-  color: #ffffff;
-}
-.topic-page > section > header > ul.tags > li:last-child {
-  margin-right: 0;
-}
-.topic-page > section > h4 {
-  font-family: "Droid Sans", Tahoma, sans-serif;
-  font-size: 24px;
-  text-shadow: 1px 1px 4px #ffffff;
-  border: none;
-  font-size: 16px;
-  padding-bottom: 0;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-.topic-page > section > article {
-  padding: 20px 0;
-  margin: 20px 0px;
-}
-.topic-page > section > article:first-of-type {
-  padding-top: 0;
-}
-.topic-page > section > article:last-of-type {
-  padding-bottom: 0;
-}
-.topic-page > section > article .topic-text {
+.topic-page > section > .topic-bar {
+  background: #f5f7f8;
+  border: 0;
+  border-top: 1px solid #ebeff2;
+  border-bottom: 5px solid #c3cfd7;
+  padding: 10px 20px;
   margin-bottom: 20px;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
 }
-.topic-page > section > article > footer {
-  overflow: hidden;
-  line-height: 24px;
-  border-top: 1px solid #eee;
-  padding-top: 10px;
-}
-.topic-page > section > article > footer .avatar-link {
-  overflow: hidden;
-  float: left;
+.topic-page > section > .topic-bar > div,
+.topic-page > section > .topic-bar > a,
+.topic-page > section > .topic-bar > span,
+.topic-page > section > .topic-bar > ul {
   margin-right: 10px;
 }
-.topic-page > section > article > footer .avatar-link img {
-  margin-right: 10px;
+.topic-page > section > .topic-bar .avatar-link {
+  float: none;
 }
-.topic-page > section > article > footer .creation-date {
+.topic-page > section > .topic-bar > .author {
+  -webkit-flex-grow: 1;
+  -moz-flex-grow: 1;
+  -ms-flex-grow: 1;
+  flex-grow: 1;
+}
+.topic-page > section > .topic-bar > .message-bar > .edit-topic,
+.topic-page > section > .topic-bar > .message-bar > .delete-topic {
+  font-size: 14px;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  text-align: center;
+  line-height: 14px;
+  background: #d7dfe5;
+  color: #000000;
+  padding: 5px;
+}
+.topic-page > section > .topic-bar > .message-bar > .edit-topic:hover,
+.topic-page > section > .topic-bar > .message-bar > .delete-topic:hover {
+  background: #d04796;
+  color: #ffffff;
+}
+.topic-page > section > .topic-bar .creation-date {
   font-size: 12px;
   color: #8c8c0c;
-  float: left;
-  margin-right: 10px;
 }
-.topic-page > section > article > footer .share {
-  float: right;
-}
-.topic-page > section > article > footer > ul.tags {
+.topic-page > section > .topic-bar > ul.tags {
   overflow: hidden;
   list-style-type: none;
-  float: left;
   line-height: normal;
   font-size: 11px;
 }
-.topic-page > section > article > footer > ul.tags > li {
+.topic-page > section > .topic-bar > ul.tags > li {
   float: left;
   margin-right: 2px;
   display: block;
 }
-.topic-page > section > article > footer > ul.tags > li a {
+.topic-page > section > .topic-bar > ul.tags > li a {
   background: #818d96;
   color: #ffffff;
   white-space: nowrap;
@@ -137,28 +107,39 @@
   overflow: hidden;
   text-decoration: none;
 }
-.topic-page > section > article > footer > ul.tags > li a:active,
-.topic-page > section > article > footer > ul.tags > li a:hover,
-.topic-page > section > article > footer > ul.tags > li a:focus {
+.topic-page > section > .topic-bar > ul.tags > li a:active,
+.topic-page > section > .topic-bar > ul.tags > li a:hover,
+.topic-page > section > .topic-bar > ul.tags > li a:focus {
   color: #ffffff;
 }
-.topic-page > section > article > footer > ul.tags > li a:hover,
-.topic-page > section > article > footer > ul.tags > li a:active,
-.topic-page > section > article > footer > ul.tags > li a:focus {
+.topic-page > section > .topic-bar > ul.tags > li a:hover,
+.topic-page > section > .topic-bar > ul.tags > li a:active,
+.topic-page > section > .topic-bar > ul.tags > li a:focus {
   background: #515a60;
   color: #ffffff;
 }
-.topic-page > section > article > footer > ul.tags > li:last-child {
+.topic-page > section > .topic-bar > ul.tags > li:last-child {
   margin-right: 0;
 }
 .topic-page > section .comments-list {
-  margin-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.topic-page > section .comments-list > h4 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 24px;
+  text-shadow: 1px 1px 4px #ffffff;
+  border: none;
+  font-size: 16px;
+  padding-bottom: 0;
+  margin-bottom: 10px;
 }
 .topic-page > section .comments-list > .comment {
-  padding: 10px 10px;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
 }
-.topic-page > section .comments-list > .comment:last-child {
+.topic-page > section .comments-list > .comment:last-of-type {
   margin-bottom: 0;
 }
 .topic-page > section .comments-list > .comment > header {
@@ -235,13 +216,22 @@
   margin-left: 42px;
 }
 .topic-page > section .comment-form {
-  padding: 10px 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
-.topic-page > section .comment-form:first-of-type {
-  padding-top: 0;
-}
-.topic-page > section .comment-form:last-of-type {
+.topic-page > section .comment-form > h4 {
+  font-family: "Droid Sans", Tahoma, sans-serif;
+  font-size: 24px;
+  text-shadow: 1px 1px 4px #ffffff;
+  border: none;
+  font-size: 16px;
   padding-bottom: 0;
+  margin-bottom: 10px;
+}
+.topic-page > section .comment-form > form > .buttons {
+  margin-top: 10px;
 }
 .topic-page > section .comment-form .text-editor-field div.mdd_editor_wrap textarea {
   height: 100px;

@@ -94,6 +94,9 @@
 }
 .forum-topic-page > section > .topic-bar {
   background: #f5f7f8;
+  border: 0;
+  border-top: 1px solid #ebeff2;
+  border-bottom: 5px solid #c3cfd7;
   padding: 10px 20px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -140,6 +143,14 @@
   -moz-flex-grow: 1;
   -ms-flex-grow: 1;
   flex-grow: 1;
+}
+.forum-topic-page > section > .topic-bar > .created-date {
+  color: #8c8c0c;
+}
+.forum-topic-page > section > .topic-bar > .created-date .fa {
+  font-size: 13px;
+  color: #000000;
+  margin-left: 5px;
 }
 .forum-topic-page > section > .topic-posts {
   padding: 0 20px;

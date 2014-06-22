@@ -34,6 +34,9 @@ body > nav > h1 .syndication:hover {
   padding-left: 20px;
   padding-right: 20px;
 }
+.topics-page > section > .topics-list {
+  margin-top: 10px;
+}
 .topics-page > section > .topics-list > .message {
   padding: 20px 0;
   padding-top: 0;

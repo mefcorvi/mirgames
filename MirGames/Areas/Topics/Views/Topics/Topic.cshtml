@@ -9,31 +9,40 @@
 
 @section Nav { @Html.Partial("_TopicMenu") }
 
-<header>
-    <h3>@Model.Title</h3>
-</header>
-
 <article>
+    <h3>@Model.Title</h3>
     <div class="text topic-text">
         @Html.Raw(Model.Text)
     </div>
-
-    <footer>
-        @Author.UserAvatarLink(Model.Author, "avatar-tiny", showLogin: true)
-        <span class="creation-date">@Html.DisplayFor(m => m.CreationDate)</span>
-        <ul class="tags">
-            @foreach (var tag in Model.Tags)
-            {
-                <li>@Html.ActionLink(tag, "Index", "Topics", new { tag }, null)</li>
-            }
-        </ul>
-        @Html.Partial("_SocialButtons")
-    </footer>
 </article>
+<div class="topic-bar">
+    <span class="creation-date">@Html.DisplayFor(m => m.CreationDate)</span>
+    @Author.UserAvatarLink(Model.Author, "avatar-tiny")
+    <div class="author">
+        @Author.UserLink(Model.Author, "user-login")
+    </div>
+    <ul class="tags">
+        @foreach (var tag in Model.Tags)
+        {
+            <li>@Html.ActionLink(tag, "Index", "Topics", new { tag }, null)</li>
+        }
+    </ul>
+    <div class="message-bar">
+        @if (Model.CanBeEdited)
+        {
+            <a href="@Url.Action("Edit", new { topicId = Model.Id })" class="edit-topic" title="Редактировать"><i class="fa fa-pencil-square-o"></i></a>
+        }
 
-<h4 id="comments" @Html.Attr("style", "display: none", !Model.Comments.Any())>Комментарии</h4>
-    
-<div class="comments-list">
+        @if (Model.CanBeDeleted)
+        {
+            <a href="javascript:void(0);" ng-click="deleteTopic()" class="delete-topic" title="Удалить"><i class="fa fa-times"></i></a>
+        }
+    </div>
+    @Html.Partial("_SocialButtons")
+</div>
+
+<div class="comments-list" @Html.Attr("style", "display: none", !Model.Comments.Any())>
+    <h4 id="comments">Комментарии</h4>
     @foreach (CommentViewModel comment in Model.Comments)
     {
         @Html.Partial("_Comment", comment)
@@ -47,11 +56,11 @@
             <span class="comment-date">({{comment.CreationDate | date:'dd.MM.yy HH:mm'}})</span>
             <div class="message-bar">
                 <a ng-show="comment.CanBeEdited" class="edit-post" href="javascript:void(0);" dialog="@Url.Action(MVC.Topics.Topics.EditCommentDialog())" title="Редактировать"
-                    dialog-close="$parent.reloadComment(comment.Id)"
-                    resolve="{ 'comment-id': {{comment.Id}} }" dialog-controller="MirGames.Topics.EditCommentDialogController"><i class="fa fa-pencil-square-o"></i></a>
+                   dialog-close="$parent.reloadComment(comment.Id)"
+                   resolve="{ 'comment-id': {{comment.Id}} }" dialog-controller="MirGames.Topics.EditCommentDialogController"><i class="fa fa-pencil-square-o"></i></a>
                 <a ng-show="comment.CanBeDeleted" class="delete-post" href="javascript:void(0);" title="Удалить" dialog="@Url.Action(MVC.Topics.Topics.DeleteCommentDialog())"
-                    dialog-close="hideComment(comment.Id)" resolve="{ 'comment-id': {{comment.Id}} }"
-                    dialog-controller="MirGames.Topics.DeleteCommentDialogController"><i class="fa fa-times"></i></a>
+                   dialog-close="hideComment(comment.Id)" resolve="{ 'comment-id': {{comment.Id}} }"
+                   dialog-controller="MirGames.Topics.DeleteCommentDialogController"><i class="fa fa-times"></i></a>
                 <div ng-show="comment.UpdatedDate > comment.CreationDate" class="edited">Отредактировано: {{comment.UpdatedDate | date:'dd.MM.yy HH:mm'}}</div>
             </div>
         </header>
@@ -60,8 +69,8 @@
 </div>
 
 @if (Model.CanBeCommented) { 
-    <h4 id="new-comment">Новый комментарий</h4>
     <div class="comment-form">
+        <h4 id="new-comment">Новый комментарий</h4>
         <form class="new-comment-form" ng-submit="addComment()" novalidate name="postCommentForm">
             <texteditor show-preview="true" required="true" focus="comment.isFocused" text="comment.text" post="addComment()" attachments="comment.attachments" entity-type="comment"></texteditor>
             <div class="buttons">

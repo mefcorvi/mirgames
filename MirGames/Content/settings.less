@@ -277,6 +277,13 @@
     margin-bottom: @indent/2;
 }
 
+.page-header-end() {
+    background: mix(@background-color, @header-background, 95%);
+    border: 0;
+    border-top: 1px solid mix(@background-color, @header-background, 90%);
+    border-bottom: 5px solid mix(@background-color, @header-background, 70%);
+}
+
 .page-main-block() {
     .indent();
 

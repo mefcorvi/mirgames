@@ -29,13 +29,13 @@
 </article>
 <div class="topic-bar">
     <div class="created-date">
-        @Html.DisplayFor(m => m.CreatedDate)
+        @Html.DisplayFor(m => m.UpdatedDate)
+        @if (startPost.UpdatedDate > startPost.CreatedDate)
+        {
+            <i class="fa fa-pencil-square-o" title="Создано: @Model.CreatedDate.Format()"></i>
+        }
     </div>
-    @if (startPost.UpdatedDate > startPost.CreatedDate)
-    {
-        <div class="edited"><i class="fa fa-pencil-square-o"></i>@Html.DisplayFor(m => m.UpdatedDate)</div>
-    }
-    @Author.UserAvatarLink(startPost.Author, "avatar-small")
+    @Author.UserAvatarLink(startPost.Author, "avatar-tiny")
     <div class="author">
         @Author.UserLink(startPost.Author, "user-login")
     </div>

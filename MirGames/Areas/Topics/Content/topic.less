@@ -42,80 +42,98 @@
     }
 
     & > section {
-        .indent();
-
-        & > header {
-            .header-with-tags();
-        }
-
-        & > h4 {
-            .page-subtitle();
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
         & > article {
-            .page-block();
-            margin: @indent 0px;
-
-            .topic-text {
-                margin-bottom: 20px;
+            & > h3 {
+                .page-title();
             }
 
-            & > footer {
+            .indent();
+            margin: @indent 0;
+        }
+
+        & > .topic-bar {
+            .page-header-end();
+            padding: @indent/2 @indent;
+            margin-bottom: @indent;
+            .make-row();
+
+            & > div, & > a, & > span, & > ul {
+                margin-right: @indent/2;
+            }
+
+            .avatar-link {
+                float: none;
+            }
+
+            & > .author {
+                .flex-grow(1);
+            }
+
+            & > .message-bar {
+                & > .edit-topic, & > .delete-topic {
+                    @bgr: mix(@background-color, @header-background, 80%);
+                    font-size: 14px;
+                    display: inline-block;
+                    width: 14px;
+                    height: 14px;
+                    text-align: center;
+                    line-height: 14px;
+                    background: @bgr;
+                    color: contrast(@bgr);
+                    padding: 5px;
+
+                    &:hover {
+                        background: @link-color-hover;
+                        color: contrast(@link-color-hover);
+                    }
+                }
+            }
+
+            .creation-date {
+                .date-small();
+            }
+
+            .share {
+            }
+
+            & > ul.tags {
                 overflow: hidden;
-                line-height: @avatar-tiny;
-                border-top: 1px solid #eee;
-                padding-top: @indent/2;
+                list-style-type: none;
+                line-height: normal;
+                .font-size(1.1);
 
-                .avatar-link {
-                    overflow: hidden;
+                & > li {
                     float: left;
-                    margin-right: @indent/2;
+                    margin-right: 2px;
+                    display: block;
+                    .tag-link(none);
+                }
 
-                    img {
-                        margin-right: @indent/2;
+                    & > li:last-child {
+                        margin-right: 0;
                     }
-                }
-
-                .creation-date {
-                    .date-small();
-                    float: left;
-                    margin-right: @indent/2;
-                }
-
-                .share {
-                    float: right;
-                }
-
-                & > ul.tags {
-                    overflow: hidden;
-                    list-style-type: none;
-                    float: left;
-                    line-height: normal;
-                    .font-size(1.1);
-
-                    & > li {
-                        float: left;
-                        margin-right: 2px;
-                        display: block;
-                        .tag-link(none);
-                    }
-
-                        & > li:last-child {
-                            margin-right: 0;
-                        }
-                }
             }
         }
 
         .comments-list {
+            & > h4 {
+                .page-subtitle();
+            }
+
+            .indent();
             .comments-list-item();
-            margin-bottom: @indent;
         }
 
         .comment-form {
-            .page-block(@indent/2);
+            & > h4 {
+                .page-subtitle();
+            }
+
+            .indent();
+
+            & > form > .buttons {
+                margin-top: @indent/2;
+            }
 
             .text-editor-field div.mdd_editor_wrap textarea {
                 height: 100px;
