@@ -17,8 +17,11 @@
   padding-bottom: 10px;
   padding-left: 20px;
   padding-right: 20px;
-  z-index: 2;
+  z-index: 20000;
   overflow: hidden;
+  -webkit-box-shadow: -3px 0 3px 0 rgba(50, 50, 50, 0.3);
+  -moz-box-shadow: -3px 0 3px 0 rgba(50, 50, 50, 0.3);
+  box-shadow: -3px 0 3px 0 rgba(50, 50, 50, 0.3);
 }
 @media (max-width: 767px) {
   .chat-room-page > footer {

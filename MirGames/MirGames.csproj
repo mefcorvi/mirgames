@@ -464,6 +464,7 @@
     <Content Include="Areas\Projects\Views\Web.config" />
     <Content Include="Areas\Projects\Content\references.less" />
     <Content Include="Areas\Topics\Views\Topics\_AddTopicDialog.cshtml" />
+    <Content Include="Areas\Topics\Views\Topics\_Topic.cshtml" />
     <None Include="BundleTransformer.Configuration.xsd">
       <SubType>Designer</SubType>
     </None>

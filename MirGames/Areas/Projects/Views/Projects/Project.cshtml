@@ -60,7 +60,6 @@
             <div class="repository-url">
                 <span>Адрес репозитория:</span>
                 <input type="text" value="@Model.RepositoryUrl" readonly="true" />
-                <pre><code>git clone @Model.RepositoryUrl</code></pre>
                 <a href="@Url.Action(MVC.Projects.Projects.Archive(Model.Alias))">Скачать ZIP архив</a>
             </div>
         }
