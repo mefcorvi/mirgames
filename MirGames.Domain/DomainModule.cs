@@ -13,7 +13,6 @@ namespace MirGames.Domain
     using Autofac;
 
     using MirGames.Domain.Security;
-    using MirGames.Domain.TextTransform;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Cache;
     using MirGames.Infrastructure.Security;
@@ -32,8 +31,6 @@ namespace MirGames.Domain
             builder.RegisterType<Md5PasswordHashProvider>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<TextHashProvider>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<EntityMapper>().AsImplementedInterfaces().SingleInstance();
-
-            builder.RegisterType<MarkdownTextProcessor>().AsImplementedInterfaces().SingleInstance();
             
             builder.Register(c => ClaimsPrincipal.Current).As<ClaimsPrincipal>().InstancePerDependency();
             builder.RegisterType<AuthorizationManager>().As<IAuthorizationManager>().SingleInstance();

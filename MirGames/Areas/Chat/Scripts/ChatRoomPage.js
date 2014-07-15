@@ -25,11 +25,20 @@ var MirGames;
                 this.$scope.editMode = false;
                 this.$scope.playSound = true;
                 this.$scope.historyAvailable = true;
-                this.$scope.cancelEdit = this.cancelEdit.bind(this);
-                this.$scope.editMessage = this.editMessage.bind(this);
+                this.$scope.cancelEdit = function () {
+                    return _this.cancelEdit();
+                };
+                this.$scope.editMessage = function (message) {
+                    return _this.editMessage(message);
+                };
                 this.$scope.messages = [];
                 this.$scope.useEnterToPost = this.pageData.currentUser ? this.pageData.currentUser.Settings.UseEnterToSendChatMessage : false;
-                this.$scope.changeSendKey = this.changeSendKey.bind(this);
+                this.$scope.changeSendKey = function () {
+                    return _this.changeSendKey();
+                };
+                this.$scope.quoteLogin = function (text) {
+                    return _this.quoteLogin(text);
+                };
 
                 this.$textArea = $('.new-answer-form textarea');
                 this.$footer = $('body > footer');
@@ -39,11 +48,16 @@ var MirGames;
                     message: "",
                     attachments: [],
                     post: this.reply.bind(this),
-                    focus: true
+                    focus: true,
+                    caret: 0
                 };
 
-                this.$scope.loadHistory = this.loadHistory.bind(this);
-                this.$scope.focusAnswer = this.focusAnswer.bind(this);
+                this.$scope.loadHistory = function () {
+                    return _this.loadHistory();
+                };
+                this.$scope.focusAnswer = function () {
+                    return _this.focusAnswer();
+                };
                 this.socketService.addHandler('chatHub', 'addNewMessageToPage', this.processReceivedMessage.bind(this));
                 this.socketService.addHandler('chatHub', 'updateMessage', this.processUpdatedMessage.bind(this));
 
@@ -90,6 +104,12 @@ var MirGames;
                     });
                 });
             }
+            ChatRoomPage.prototype.quoteLogin = function (text) {
+                this.$scope.reply.message += '@' + text + ', ';
+                this.$scope.reply.focus = true;
+                this.$scope.reply.caret = this.$scope.reply.message.length;
+            };
+
             ChatRoomPage.prototype.changeSendKey = function () {
                 this.$scope.useEnterToPost = !this.$scope.useEnterToPost;
                 var command = {

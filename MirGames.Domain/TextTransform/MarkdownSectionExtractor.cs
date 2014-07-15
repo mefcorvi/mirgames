@@ -15,7 +15,7 @@ namespace MirGames.Domain.TextTransform
     /// <summary>
     /// The markdown short text extractor.
     /// </summary>
-    internal sealed class MarkdownSectionExtractor : ITextTransform
+    public sealed class MarkdownSectionExtractor : ITextTransform
     {
         /// <inheritdoc />
         public string Transform(string text)

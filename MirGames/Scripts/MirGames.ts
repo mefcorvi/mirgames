@@ -28,7 +28,7 @@ angular
         return {
             link: function (scope: ng.IScope, element: JQuery, attrs: any) {
                 scope.$watch(attrs.ngFocused, (val: boolean) => {
-                    if (angular.isDefined(val) && val) {
+                    if (angular.isDefined(val) && val && !element.is(':focus')) {
                         $timeout(() => { element[0].focus(); });
                     }
                 }, true);

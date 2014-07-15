@@ -17,6 +17,7 @@ namespace MirGames.Domain.Chat.CommandHandlers
     using MirGames.Domain.Chat.Entities;
     using MirGames.Domain.Chat.Events;
     using MirGames.Domain.Security;
+    using MirGames.Domain.Users.Commands;
     using MirGames.Domain.Users.Queries;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Commands;
@@ -72,6 +73,11 @@ namespace MirGames.Domain.Chat.CommandHandlers
                 {
                     UserId = userId
                 });
+
+            command.Message = this.commandProcessor.Execute(new TransformMentionsCommand
+            {
+                Text = command.Message
+            });
 
             var message = new ChatMessage
             {

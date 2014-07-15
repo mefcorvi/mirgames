@@ -27,7 +27,7 @@ angular.module('ng').directive('ngFocused', [
         return {
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngFocused, function (val) {
-                    if (angular.isDefined(val) && val) {
+                    if (angular.isDefined(val) && val && !element.is(':focus')) {
                         $timeout(function () {
                             element[0].focus();
                         });

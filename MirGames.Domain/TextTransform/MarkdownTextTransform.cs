@@ -6,16 +6,14 @@
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace MirGames.Domain
+namespace MirGames.Domain.TextTransform
 {
-    using MirGames.Domain.TextTransform;
-
     using Xilium.MarkdownDeep;
 
     /// <summary>
     /// Transforms the markdown to the html.
     /// </summary>
-    internal sealed class MarkdownTextTransform : ITextTransform
+    public sealed class MarkdownTextTransform : ITextTransform
     {
         /// <inheritdoc />
         public string Transform(string text)

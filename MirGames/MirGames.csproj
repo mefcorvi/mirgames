@@ -344,6 +344,7 @@
     <Compile Include="AttachmentController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserLinkTextTransform.cs" />
     <Compile Include="Chat.ChatController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -362,6 +363,7 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="ISessionManager.cs" />
+    <Compile Include="MarkdownTextProcessor.cs" />
     <Compile Include="OAuthController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>

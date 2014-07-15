@@ -57,6 +57,8 @@ namespace MirGames
             builder.RegisterInstance(new ClaimsPrincipalUserIdProvider()).As<IUserIdProvider>();
             builder.RegisterType<SessionManager>().As<ISessionManager>().SingleInstance();
 
+            builder.RegisterType<MarkdownTextProcessor>().AsImplementedInterfaces().SingleInstance();
+
             builder.RegisterModule<RouteJsModule>();
             builder.RegisterModule<InfrastructureModule>();
             builder.RegisterModule<DomainModule>();

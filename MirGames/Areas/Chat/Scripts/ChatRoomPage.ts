@@ -18,11 +18,12 @@ module MirGames.Chat {
             this.$scope.editMode = false;
             this.$scope.playSound = true;
             this.$scope.historyAvailable = true;
-            this.$scope.cancelEdit = this.cancelEdit.bind(this);
-            this.$scope.editMessage = this.editMessage.bind(this);
+            this.$scope.cancelEdit = () => this.cancelEdit();
+            this.$scope.editMessage = message => this.editMessage(message);
             this.$scope.messages = [];
             this.$scope.useEnterToPost = this.pageData.currentUser ? this.pageData.currentUser.Settings.UseEnterToSendChatMessage : false;
-            this.$scope.changeSendKey = this.changeSendKey.bind(this);
+            this.$scope.changeSendKey = () => this.changeSendKey();
+            this.$scope.quoteLogin = text => this.quoteLogin(text);
 
             this.$textArea = $('.new-answer-form textarea');
             this.$footer = $('body > footer');
@@ -32,11 +33,12 @@ module MirGames.Chat {
                 message: "",
                 attachments: [],
                 post: this.reply.bind(this),
-                focus: true
+                focus: true,
+                caret: 0
             };
 
-            this.$scope.loadHistory = this.loadHistory.bind(this);
-            this.$scope.focusAnswer = this.focusAnswer.bind(this);
+            this.$scope.loadHistory = () => this.loadHistory();
+            this.$scope.focusAnswer = () => this.focusAnswer();
             this.socketService.addHandler('chatHub', 'addNewMessageToPage', this.processReceivedMessage.bind(this));
             this.socketService.addHandler('chatHub', 'updateMessage', this.processUpdatedMessage.bind(this));
 
@@ -74,6 +76,12 @@ module MirGames.Chat {
                     callback: () => this.adjustTextAreaHeight()
                 });
             });
+        }
+
+        private quoteLogin(text: string): void {
+            this.$scope.reply.message += '@' + text + ', ';
+            this.$scope.reply.focus = true;
+            this.$scope.reply.caret = this.$scope.reply.message.length;
         }
 
         private changeSendKey(): void {
@@ -506,6 +514,7 @@ module MirGames.Chat {
             attachments: number[];
             post(): void;
             focus: boolean;
+            caret: number;
         };
         editedMessage?: IChatMessageScope;
         editMode: boolean;
@@ -519,6 +528,7 @@ module MirGames.Chat {
         changeSendKey: () => void;
         historyAvailable: boolean;
         useEnterToPost: boolean;
+        quoteLogin: (text: string) => void;
     }
 
     export interface IChatMessageScope {

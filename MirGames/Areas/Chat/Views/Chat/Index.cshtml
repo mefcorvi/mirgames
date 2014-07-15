@@ -27,10 +27,9 @@
             <a author-link="message.authorId" class="avatar-link">
                 <img ng-src="{{message.avatarUrl}}" class="avatar avatar-tiny" />
             </a>
-            <a author-link="message.authorId" class="user-login">{{message.login}}</a>
+            <a class="user-login" href="javascript:void(0)" ng-click="quoteLogin(message.login)">{{message.login}}</a>
         </header>
-        <div class="edit-date" ng-show="message.editDate != null" title="Дата редактирования"><i class="fa fa-pencil"></i> {{message.editDate | date:message.dateFormat}}</div>
-        <div class="date" ng-show="message.showDate">{{message.date | date:message.dateFormat}}</div>
+        <div ng-class="{ 'date': !message.editDate, 'edit-date': message.editDate  }" ng-show="message.showDate"><i class="fa fa-pencil"></i>{{(message.editDate || message.date) | date:message.dateFormat}}</div>
         <div class="message-toolbar">
             <a href="javascript:void(0)" ng-click="$parent.editMessage(message)" ng-show="message.canBeEdited"><i class="fa fa-pencil-square-o"></i></a>
         </div>
@@ -45,7 +44,7 @@
         <footer>
             <div class="answer-form">
                 <form class="new-answer-form" ng-submit="reply.post()" novalidate name="postAnswerForm">
-                    <tinyeditor text="reply.message" post="reply.post()" attachments="reply.attachments" focus="reply.focus" entity-type="chatMessage" use-enter-to-post="{{useEnterToPost}}"></tinyeditor>
+                    <tinyeditor text="reply.message" post="reply.post()" attachments="reply.attachments" focus="reply.focus" caret="reply.caret" entity-type="chatMessage" use-enter-to-post="{{useEnterToPost}}"></tinyeditor>
                     <div class="buttons">
                         <a href="javascript:void(0);" ng-click="reply.post()" class="button" ng-class="{ 'button-disabled': postAnswerForm.$invalid }" ng-cloak>{{editMode ? 'Сохранить' : 'Отправить'}}</a>
                         <a href="javascript:void(0);" ng-click="cancelEdit()" class="button" ng-show="editMode" ng-cloak>Отмена</a>

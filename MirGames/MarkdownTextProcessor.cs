@@ -7,9 +7,11 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MirGames.Domain.TextTransform
+namespace MirGames
 {
     using System.Linq;
+
+    using MirGames.Domain.TextTransform;
 
     /// <summary>
     /// The markdown text processor.
@@ -23,6 +25,7 @@ namespace MirGames.Domain.TextTransform
         {
             new NewLinesTextTransform(),
             new AutoLinkTextTransform(),
+            new UserLinkTextTransform(), 
             new MarkdownTextTransform()
         };
 

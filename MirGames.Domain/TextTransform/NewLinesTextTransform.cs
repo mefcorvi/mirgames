@@ -13,7 +13,7 @@ namespace MirGames.Domain.TextTransform
     /// <summary>
     /// Converts links.
     /// </summary>
-    internal sealed class NewLinesTextTransform : ITextTransform
+    public sealed class NewLinesTextTransform : ITextTransform
     {
         /// <summary>
         /// The regular expression.

@@ -4,7 +4,7 @@ namespace MirGames.Domain.TextTransform
 
     using HtmlAgilityPack;
 
-    internal sealed class ShortTextExtractor : ITextTransform
+    public sealed class ShortTextExtractor : ITextTransform
     {
         /// <inheritdoc />
         public string Transform(string text)

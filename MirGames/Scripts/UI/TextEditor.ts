@@ -66,13 +66,14 @@ module UI {
                     'required': '=?required',
                     'post': '&post',
                     'focus': '=?focus',
+                    'caret': '=?caret',
                     'entityType': '@',
                     'useEnterToPost': '@useEnterToPost'
                 },
                 transclude: false,
                 template:
                     '<div ng-class="{ \'text-editor-field\': true, \'text-editor-show-preview\': showPreview }">' +
-                        '<tinyeditor text="text" post="post()" focus="focus" attachments="attachments" entity-type="{{entityType}}" required="required" use-enter-to-post="{{useEnterToPost}}"></tinyeditor>' +
+                        '<tinyeditor text="text" post="post()" focus="focus" attachments="attachments" entity-type="{{entityType}}" required="required" use-enter-to-post="{{useEnterToPost}}" caret="caret"></tinyeditor>' +
                     '</div>'
             }
     });

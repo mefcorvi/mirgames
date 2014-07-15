@@ -177,18 +177,10 @@
   border-top: 0;
   border-bottom: 0;
   margin-bottom: 0;
-}
-.chat-room-page > section > .chat-messages > .message.own-message {
-  border-left: 5px solid #e8e8ce;
-}
-.chat-room-page > section > .chat-messages > .message.own-message > header {
-  width: 145px;
-}
-.chat-room-page > section > .chat-messages > .message.own-message > .text {
-  margin-left: 165px;
+  padding-bottom: 0;
 }
 .chat-room-page > section > .chat-messages > .message.own-message > header > .user-login {
-  color: #666;
+  color: #d04796;
 }
 .chat-room-page > section > .chat-messages > .message.first-unread {
   border-top: 1px dashed #999;
@@ -218,22 +210,26 @@
 }
 .chat-room-page > section > .chat-messages > .message > .date {
   margin-top: 2px;
-  font-size: 11px;
+  font-size: 12px;
   padding: 3px;
-  background: #8c8c0c;
+  color: #8c8c0c;
   text-align: right;
-  color: #ffffff;
   float: right;
+}
+.chat-room-page > section > .chat-messages > .message > .date .fa-pencil {
+  display: none;
 }
 .chat-room-page > section > .chat-messages > .message > .edit-date {
   margin-top: 2px;
-  font-size: 11px;
+  font-size: 12px;
   padding: 3px;
-  background: #0c8c8c;
+  color: #0c8c8c;
   text-align: right;
-  color: #ffffff;
   margin-left: 1px;
   float: right;
+}
+.chat-room-page > section > .chat-messages > .message > .edit-date .fa-pencil {
+  margin-right: 5px;
 }
 .chat-room-page > section > .chat-messages > .message > .message-toolbar {
   float: right;

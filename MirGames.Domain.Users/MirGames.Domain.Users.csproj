@@ -113,6 +113,7 @@
     <Compile Include="CommandHandlers\PostWallRecordCommandHandler.cs" />
     <Compile Include="CommandHandlers\SettingsCommandHandler.cs" />
     <Compile Include="CommandHandlers\SignUpCommandHandler.cs" />
+    <Compile Include="CommandHandlers\TransformMentionsCommandHandler.cs" />
     <Compile Include="Entities\OAuthProvider.cs" />
     <Compile Include="Entities\OAuthToken.cs" />
     <Compile Include="Entities\OAuthTokenData.cs" />

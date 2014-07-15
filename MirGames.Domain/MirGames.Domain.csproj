@@ -108,7 +108,6 @@
     <Compile Include="TextTransform\AutoLinkTextTransform.cs" />
     <Compile Include="TextTransform\ShortTextExtractor.cs" />
     <Compile Include="TextTransform\ITextProcessor.cs" />
-    <Compile Include="TextTransform\MarkdownTextProcessor.cs" />
     <Compile Include="TextTransform\NewLinesTextTransform.cs" />
     <Compile Include="TextTransform\MarkdownSectionExtractor.cs" />
     <Compile Include="TextTransform\MarkdownTextTransform.cs" />

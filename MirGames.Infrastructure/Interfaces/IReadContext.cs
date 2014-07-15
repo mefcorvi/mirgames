@@ -9,7 +9,7 @@
 namespace MirGames.Infrastructure
 {
     using System;
-    using System.Data.Entity.Infrastructure;
+    using System.Linq;
 
     /// <summary>
     /// Represents a data read context.
@@ -21,6 +21,6 @@ namespace MirGames.Infrastructure
         /// </summary>
         /// <typeparam name="T">Type of entity.</typeparam>
         /// <returns>The query.</returns>
-        DbQuery<T> Query<T>() where T : class;
+        IQueryable<T> Query<T>() where T : class;
     }
 }

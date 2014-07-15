@@ -1,19 +1,26 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="AutoLinkTextTransform.cs">
+// <copyright company="MirGames" file="UserLinkTextTransform.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace MirGames.Domain.TextTransform
+
+namespace MirGames
 {
+    using System.IO;
     using System.Text.RegularExpressions;
+    using System.Web;
+    using System.Web.Mvc;
+    using System.Web.Routing;
+
+    using MirGames.Domain.TextTransform;
 
     /// <summary>
     /// Converts links.
     /// </summary>
-    public sealed class AutoLinkTextTransform : ITextTransform
+    public sealed class UserLinkTextTransform : ITextTransform
     {
         /// <summary>
         /// The regular expression.
@@ -21,17 +28,30 @@ namespace MirGames.Domain.TextTransform
         private readonly Regex regularExpression;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AutoLinkTextTransform"/> class.
+        /// Initializes a new instance of the <see cref="UserLinkTextTransform"/> class.
         /// </summary>
-        public AutoLinkTextTransform()
+        public UserLinkTextTransform()
         {
-            const string Regex = @"(\[[\s\S]*\]\()?((www\.|(http|https|ftp|news|file)+\:\/\/)[&#95;.a-z0-9-]+\.[a-z0-9\/&#95;:@=.+?#%&~\-_]*)([""'#!\(\)?, ><;])?(\))?";
+            const string Regex = @"<user id=""([0-9]+?)"">([^<]+?)</user>";
             this.regularExpression = new Regex(Regex, RegexOptions.IgnoreCase);
         }
 
         /// <inheritdoc />
         public string Transform(string text)
         {
+            var httpContext = HttpContext.Current;
+
+            if (httpContext == null)
+            {
+                var request = new HttpRequest("/", "http://mirgames.ru", string.Empty);
+                var response = new HttpResponse(new StringWriter());
+                httpContext = new HttpContext(request, response);
+            }
+
+            var httpContextBase = new HttpContextWrapper(httpContext);
+            var routeData = new RouteData();
+            var requestContext = new RequestContext(httpContextBase, routeData);
+
             return this.regularExpression.Replace(
                 text,
                 m =>
@@ -41,9 +61,10 @@ namespace MirGames.Domain.TextTransform
                             return m.Value;
                         }
 
-                        var link = string.Format("({0})", m.Groups[2].Value).Replace("(www", "(http://www");
+                        var url = new UrlHelper(requestContext);
+                        var link = url.Action(MVC.Users.Profile(int.Parse(m.Groups[1].Value)));
 
-                        return string.Format("{3}[{0}]{1}{2}", m.Groups[2].Value, link, m.Groups[5].Value, m.Groups[1].Value);
+                        return string.Format("[{0}]({1})", m.Groups[2].Value, link);
                     });
         }
     }

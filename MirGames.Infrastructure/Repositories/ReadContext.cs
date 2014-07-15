@@ -9,8 +9,8 @@
 namespace MirGames.Infrastructure.Repositories
 {
     using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
     using System.Diagnostics.Contracts;
+    using System.Linq;
 
     /// <summary>
     /// Context of reading.
@@ -33,7 +33,7 @@ namespace MirGames.Infrastructure.Repositories
         }
 
         /// <inheritdoc />
-        public DbQuery<T> Query<T>() where T : class
+        public IQueryable<T> Query<T>() where T : class
         {
             return this.context.Set<T>();
         }

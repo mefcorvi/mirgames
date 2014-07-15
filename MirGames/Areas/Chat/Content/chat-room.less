@@ -16,21 +16,12 @@
             border-top: 0;
             border-bottom: 0;
             margin-bottom: 0;
+            padding-bottom: 0;
         }
 
         &.own-message {
-            border-left: 5px solid mix(@date-color, @background-color, 20%);
-
-            & > header {
-                width: @login-width - 5;
-            }
-
-            & > .text {
-                margin-left: @login-width - 5 + @indent;
-            }
-
             & > header > .user-login {
-                color: #666;
+                color: @link-color-hover;
             }
         }
 
@@ -69,23 +60,29 @@
 
         & > .date {
             margin-top: 2px;
-            .font-size(1.1);
+            .font-size(1.2);
             padding: 3px;
-            background: @date-color;
+            color: @date-color;
             text-align: right;
-            color: @background-color;
             float: right;
+
+            .fa-pencil {
+                display: none;
+            }
         }
 
         & > .edit-date {
             margin-top: 2px;
-            .font-size(1.1);
+            .font-size(1.2);
             padding: 3px;
-            background: spin(@date-color, 120);
+            color: spin(@date-color, 120);
             text-align: right;
-            color: @background-color;
             margin-left: 1px;
             float: right;
+
+            .fa-pencil {
+                margin-right: 5px;
+            }
         }
 
         & > .message-toolbar {
