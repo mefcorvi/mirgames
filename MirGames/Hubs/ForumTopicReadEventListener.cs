@@ -24,7 +24,7 @@ namespace MirGames.Hubs
         /// <inheritdoc />
         public override void Process(ForumTopicReadEvent @event)
         {
-            var context = GlobalHost.ConnectionManager.GetHubContext<EventsHub>();
+            /*var context = GlobalHost.ConnectionManager.GetHubContext<EventsHub>();
 
             if (@event.UserIdentifiers != null)
             {
@@ -38,7 +38,7 @@ namespace MirGames.Hubs
             {
                 var excludedConnections = @event.ExcludedUsers.SelectMany(EventsHub.GetUserConnections);
                 context.Clients.AllExcept(excludedConnections.ToArray()).ForumTopicRead();
-            }
+            }*/
         }
     }
 }

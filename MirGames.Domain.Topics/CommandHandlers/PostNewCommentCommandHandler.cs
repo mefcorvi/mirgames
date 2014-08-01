@@ -6,6 +6,7 @@
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace MirGames.Domain.Topics.CommandHandlers
 {
     using System;
@@ -20,8 +21,10 @@ namespace MirGames.Domain.Topics.CommandHandlers
     using MirGames.Domain.TextTransform;
     using MirGames.Domain.Topics.Commands;
     using MirGames.Domain.Topics.Entities;
+    using MirGames.Domain.Topics.Events;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Commands;
+    using MirGames.Infrastructure.Events;
     using MirGames.Infrastructure.Security;
 
     /// <summary>
@@ -45,16 +48,32 @@ namespace MirGames.Domain.Topics.CommandHandlers
         private readonly ITextProcessor textProcessor;
 
         /// <summary>
+        /// The event bus.
+        /// </summary>
+        private readonly IEventBus eventBus;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PostNewCommentCommandHandler" /> class.
         /// </summary>
         /// <param name="writeContextFactory">The write context factory.</param>
         /// <param name="commandProcessor">The command processor.</param>
         /// <param name="textProcessor">The text processor.</param>
-        public PostNewCommentCommandHandler(IWriteContextFactory writeContextFactory, ICommandProcessor commandProcessor, ITextProcessor textProcessor)
+        /// <param name="eventBus">The event bus.</param>
+        public PostNewCommentCommandHandler(
+            IWriteContextFactory writeContextFactory,
+            ICommandProcessor commandProcessor,
+            ITextProcessor textProcessor,
+            IEventBus eventBus)
         {
+            Contract.Requires(writeContextFactory != null);
+            Contract.Requires(commandProcessor != null);
+            Contract.Requires(textProcessor != null);
+            Contract.Requires(eventBus != null);
+
             this.writeContextFactory = writeContextFactory;
             this.commandProcessor = commandProcessor;
             this.textProcessor = textProcessor;
+            this.eventBus = eventBus;
         }
 
         /// <inheritdoc />
@@ -108,6 +127,12 @@ namespace MirGames.Domain.Topics.CommandHandlers
                 EntityType = "Comment",
                 UserId = principal.GetUserId(),
                 ExpirationDate = DateTime.UtcNow.AddDays(7)
+            });
+
+            this.eventBus.Raise(new CommentCreatedEvent
+            {
+                TopicId = comment.TopicId,
+                CommentId = comment.CommentId
             });
 
             return comment.CommentId;

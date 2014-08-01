@@ -70,6 +70,7 @@
     <Compile Include="Queries\GetCurrentUserQuery.cs" />
     <Compile Include="Queries\GetOnlineUserTagsQuery.cs" />
     <Compile Include="Queries\GetUserByIdQuery.cs" />
+    <Compile Include="Queries\GetUsersIdentifiersQuery.cs" />
     <Compile Include="Queries\GetUsersQuery.cs" />
     <Compile Include="Queries\GetUserWallRecordsQuery.cs" />
     <Compile Include="Queries\GetWallRecordByIdQuery.cs" />

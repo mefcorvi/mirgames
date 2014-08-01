@@ -20,9 +20,11 @@
             overflow: hidden;
         }
 
-        & > .pagination {
-            padding-left: @indent;
-            padding-right: @indent;
+        & > .message-header {
+            & > div > div {
+                .header-font();
+                .font-size(1.4);
+            }
         }
    }
 }

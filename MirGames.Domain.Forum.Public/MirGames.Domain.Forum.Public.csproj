@@ -50,13 +50,13 @@
     <Compile Include="Events\ForumTopicReadEvent.cs" />
     <Compile Include="Events\ForumTopicRepliedEvent.cs" />
     <Compile Include="Events\ForumTopicUnreadEvent.cs" />
+    <Compile Include="Notifications\NewForumAnswerNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetForumTopicPostsQuery.cs" />
     <Compile Include="Queries\GetForumPostForEditQuery.cs" />
     <Compile Include="Queries\GetForumPostsQuery.cs" />
     <Compile Include="Queries\GetForumPostQuery.cs" />
     <Compile Include="Queries\GetForumTopicsQuery.cs" />
-    <Compile Include="Queries\GetForumTopicsUnreadCountQuery.cs" />
     <Compile Include="Queries\GetForumTopicQuery.cs" />
     <Compile Include="Queries\GetForumTagsQuery.cs" />
     <Compile Include="ViewModels\ForumPostForEditViewModel.cs" />
@@ -64,8 +64,13 @@
     <Compile Include="ViewModels\ForumPostsListItemViewModel.cs" />
     <Compile Include="ViewModels\ForumTopicsListItemViewModel.cs" />
     <Compile Include="ViewModels\ForumTopicViewModel.cs" />
+    <Compile Include="Notifications\NewForumTopicNotification.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MirGames.Domain.Notifications.Public\MirGames.Domain.Notifications.Public.csproj">
+      <Project>{24821dd1-09a0-48cd-903c-b24d4cc41636}</Project>
+      <Name>MirGames.Domain.Notifications.Public</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MirGames.Domain.Users.Public\MirGames.Domain.Users.Public.csproj">
       <Project>{630bd3d7-d7c8-40e0-bc01-2cf139c16051}</Project>
       <Name>MirGames.Domain.Users.Public</Name>
@@ -75,6 +80,7 @@
       <Name>MirGames.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

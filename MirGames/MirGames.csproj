@@ -95,10 +95,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+    <Reference Include="Autofac, Version=3.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Autofac.3.4.1\lib\net40\Autofac.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Autofac.3.5.0\lib\net40\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Autofac.Integration.Mvc">
       <HintPath>..\packages\Autofac.Mvc5.3.3.0\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
@@ -344,6 +343,7 @@
     <Compile Include="AttachmentController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\NotificationsAddedEventListener.cs" />
     <Compile Include="UserLinkTextTransform.cs" />
     <Compile Include="Chat.ChatController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -1090,6 +1090,14 @@
     <ProjectReference Include="..\MirGames.Domain.Forum\MirGames.Domain.Forum.csproj">
       <Project>{da5a4f49-c509-4d24-8541-21a074eb29e5}</Project>
       <Name>MirGames.Domain.Forum</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MirGames.Domain.Notifications.Public\MirGames.Domain.Notifications.Public.csproj">
+      <Project>{24821dd1-09a0-48cd-903c-b24d4cc41636}</Project>
+      <Name>MirGames.Domain.Notifications.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MirGames.Domain.Notifications\MirGames.Domain.Notifications.csproj">
+      <Project>{1b80885a-838a-473c-8b1c-5a9423b2a20d}</Project>
+      <Name>MirGames.Domain.Notifications</Name>
     </ProjectReference>
     <ProjectReference Include="..\MirGames.Domain.Tools.Public\MirGames.Domain.Tools.Public.csproj">
       <Project>{09ff6ab1-6f20-43e3-850b-7ef8fd6d2a36}</Project>

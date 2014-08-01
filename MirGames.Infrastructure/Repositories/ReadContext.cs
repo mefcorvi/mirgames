@@ -8,6 +8,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Infrastructure.Repositories
 {
+    using System;
     using System.Data.Entity;
     using System.Diagnostics.Contracts;
     using System.Linq;
@@ -20,13 +21,13 @@ namespace MirGames.Infrastructure.Repositories
         /// <summary>
         /// The data context.
         /// </summary>
-        private DbContext context;
+        private Lazy<DbContext> context;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReadContext" /> class.
         /// </summary>
         /// <param name="context">The DB context.</param>
-        public ReadContext(DbContext context)
+        public ReadContext(Lazy<DbContext> context)
         {
             Contract.Requires(context != null);
             this.context = context;
@@ -35,15 +36,15 @@ namespace MirGames.Infrastructure.Repositories
         /// <inheritdoc />
         public IQueryable<T> Query<T>() where T : class
         {
-            return this.context.Set<T>();
+            return this.context.Value.Set<T>();
         }
 
         /// <inheritdoc />
         public void Dispose()
         {
-            if (this.context != null)
+            if (this.context != null && this.context.IsValueCreated)
             {
-                this.context.Dispose();
+                this.context.Value.Dispose();
                 this.context = null;
             }
         }

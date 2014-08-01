@@ -8,10 +8,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Forum.EventListeners
 {
-    using System;
+    using System.Diagnostics.Contracts;
+    using System.Linq;
 
     using MirGames.Domain.Forum.Commands;
     using MirGames.Domain.Forum.Events;
+    using MirGames.Domain.Forum.Notifications;
+    using MirGames.Domain.Notifications.Commands;
+    using MirGames.Domain.Users.Queries;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Events;
 
@@ -23,23 +27,41 @@ namespace MirGames.Domain.Forum.EventListeners
         /// <summary>
         /// The command processor.
         /// </summary>
-        private readonly Lazy<ICommandProcessor> commandProcessor;
+        private readonly ICommandProcessor commandProcessor;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ForumTopicRepliedEventListener"/> class.
+        /// The query processor.
+        /// </summary>
+        private readonly IQueryProcessor queryProcessor;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ForumTopicRepliedEventListener" /> class.
         /// </summary>
         /// <param name="commandProcessor">The command processor.</param>
-        public ForumTopicRepliedEventListener(Lazy<ICommandProcessor> commandProcessor)
+        /// <param name="queryProcessor">The query processor.</param>
+        public ForumTopicRepliedEventListener(ICommandProcessor commandProcessor, IQueryProcessor queryProcessor)
         {
+            Contract.Requires(queryProcessor != null);
+            Contract.Requires(queryProcessor != null);
+
             this.commandProcessor = commandProcessor;
+            this.queryProcessor = queryProcessor;
         }
 
         /// <inheritdoc />
         public override void Process(ForumTopicRepliedEvent @event)
         {
-            this.commandProcessor.Value.Execute(new ReindexForumTopicCommand { TopicId = @event.TopicId });
-            this.commandProcessor.Value.Execute(new MarkTopicAsUnreadForUsersCommand { TopicId = @event.TopicId, TopicDate = @event.RepliedDate });
-            this.commandProcessor.Value.Execute(new MarkTopicAsReadCommand { TopicId = @event.TopicId });
+            this.commandProcessor.Execute(new ReindexForumTopicCommand { TopicId = @event.TopicId });
+            this.commandProcessor.Execute(new MarkTopicAsUnreadForUsersCommand { TopicId = @event.TopicId, TopicDate = @event.RepliedDate });
+            this.commandProcessor.Execute(new MarkTopicAsReadCommand { TopicId = @event.TopicId });
+
+            var users = this.queryProcessor.Process(new GetUsersIdentifiersQuery());
+
+            this.commandProcessor.Execute(new NotifyUsersCommand
+            {
+                Data = new NewForumAnswerNotification { TopicId = @event.TopicId, PostId = @event.PostId },
+                UserIdentifiers = users.ToArray()
+            });
         }
     }
 }

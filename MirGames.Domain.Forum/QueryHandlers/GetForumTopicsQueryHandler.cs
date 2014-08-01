@@ -8,14 +8,15 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Forum.QueryHandlers
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Security.Claims;
 
     using MirGames.Domain.Forum.Entities;
+    using MirGames.Domain.Forum.Notifications;
     using MirGames.Domain.Forum.Queries;
     using MirGames.Domain.Forum.ViewModels;
+    using MirGames.Domain.Notifications.Queries;
     using MirGames.Domain.Security;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
@@ -31,7 +32,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
         /// <summary>
         /// The query processor.
         /// </summary>
-        private readonly Lazy<IQueryProcessor> queryProcessor;
+        private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
         /// The search engine.
@@ -43,7 +44,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="searchEngine">The search engine.</param>
-        public GetForumTopicsQueryHandler(Lazy<IQueryProcessor> queryProcessor, ISearchEngine searchEngine)
+        public GetForumTopicsQueryHandler(IQueryProcessor queryProcessor, ISearchEngine searchEngine)
         {
             this.queryProcessor = queryProcessor;
             this.searchEngine = searchEngine;
@@ -78,7 +79,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
                 topics = this.GetSearchResult(query, pagination, set).EnsureCollection();
             }
 
-            this.queryProcessor.Value.Process(
+            this.queryProcessor.Process(
                 new ResolveAuthorsQuery
                     {
                         Authors = topics.Select(t => t.Author).Concat(topics.Select(t => t.LastPostAuthor))
@@ -90,30 +91,32 @@ namespace MirGames.Domain.Forum.QueryHandlers
             }
             else
             {
-                int? userId = principal.GetUserId().GetValueOrDefault();
-                var ranges = readContext.Query<ForumTopicRead>().Where(r => r.UserId == userId).ToList();
-
                 var topicIdentifiers = topics.Select(t => t.TopicId).ToArray();
-                var unreadTopics = readContext.Query<ForumTopicUnread>();
 
-                var unreadQuery = readContext
-                    .Query<ForumPost>()
-                    .Join(unreadTopics, p => p.TopicId, ur => ur.TopicId, (p, ur) => new { post = p, unreadTopics = ur })
-                    .Where(x => x.post.CreatedDate >= x.unreadTopics.UnreadDate && x.unreadTopics.UserId == userId)
-                    .GroupBy(x => x.post.TopicId)
-                    .Where(x => topicIdentifiers.Contains(x.Key))
-                    .Select(
-                        g => new
-                            {
-                                group = g.Key,
-                                count = g.Count()
-                            });
+                var newTopicsNotifications =
+                    this.queryProcessor.Process(
+                        new GetNotificationsQuery().WithFilter<NewForumTopicNotification>(
+                            n => topicIdentifiers.Contains(n.TopicId)))
+                        .Select(n => n.Data)
+                        .Cast<NewForumTopicNotification>()
+                        .Select(n => n.TopicId)
+                        .ToArray();
 
-                var unreadPosts = unreadQuery.ToDictionary(g => g.group, g => g.count);
+                var answerNotifications =
+                    this.queryProcessor.Process(
+                        new GetNotificationsQuery().WithFilter<NewForumAnswerNotification>(
+                            n => topicIdentifiers.Contains(n.TopicId)));
+
+                var unreadPosts =
+                    answerNotifications.GroupBy(n => ((NewForumAnswerNotification)n.Data).TopicId).Select(g => new
+                    {
+                        TopicId = g.Key,
+                        Count = g.Count()
+                    }).ToDictionary(g => g.TopicId, g => g.Count);
                 
                 foreach (var topic in topics)
                 {
-                    topic.IsRead = ranges.Any(r => topic.TopicId >= r.StartTopicId && topic.TopicId <= r.EndTopicId);
+                    topic.IsRead = !unreadPosts.ContainsKey(topic.TopicId) && !newTopicsNotifications.Contains(topic.TopicId);
                     topic.UnreadPostsCount = unreadPosts.ContainsKey(topic.TopicId)
                                                  ? unreadPosts[topic.TopicId]
                                                  : (int?)null;
@@ -148,15 +151,22 @@ namespace MirGames.Domain.Forum.QueryHandlers
 
             if (query.OnlyUnread && userId != null)
             {
-                var topicReadItems = readContext.Query<ForumTopicRead>().Where(t => t.UserId == userId);
-                topics = topics
-                    .SelectMany(
-                        t => topicReadItems
-                                 .Where(x => t.TopicId >= x.StartTopicId && t.TopicId <= x.EndTopicId)
-                                 .DefaultIfEmpty(),
-                        (t, r) => new { t, r })
-                    .Where(@t1 => @t1.r == null)
-                    .Select(@t1 => @t1.t);
+                var newTopicsNotifications =
+                    this.queryProcessor.Process(
+                        new GetNotificationsQuery { Filter = n => n is NewForumTopicNotification || n is NewForumAnswerNotification })
+                        .Select(n => n.Data)
+                        .ToArray();
+
+                var newTopics = newTopicsNotifications
+                    .OfType<NewForumTopicNotification>()
+                    .Select(n => n.TopicId);
+
+                var answers =
+                    newTopicsNotifications.OfType<NewForumAnswerNotification>()
+                                          .Select(n => n.TopicId);
+
+                var topicIdentifiers = newTopics.Union(answers).Distinct().ToArray();
+                topics = topics.Where(t => topicIdentifiers.Contains(t.TopicId));
             }
 
             return topics.OrderByDescending(t => t.UpdatedDate).Select(t => new ForumTopicsListItemViewModel

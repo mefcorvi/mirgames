@@ -13,6 +13,8 @@ namespace MirGames.Domain.Forum.EventListeners
 
     using MirGames.Domain.Acl.Public.Commands;
     using MirGames.Domain.Forum.Events;
+    using MirGames.Domain.Forum.Notifications;
+    using MirGames.Domain.Notifications.Commands;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Events;
 
@@ -43,6 +45,13 @@ namespace MirGames.Domain.Forum.EventListeners
             Contract.Requires(@event != null);
 
             this.commandProcessor.Execute(new RemovePermissionsCommand { EntityId = @event.TopicId, EntityType = "ForumTopic" });
+            this.commandProcessor.Execute(new RemoveNotificationsCommand
+            {
+                Filter =
+                    n =>
+                    (n is NewForumAnswerNotification && ((NewForumAnswerNotification)n).TopicId == @event.TopicId)
+                    || (n is NewForumTopicNotification && ((NewForumTopicNotification)n).TopicId == @event.TopicId),
+            });
         }
     }
 }

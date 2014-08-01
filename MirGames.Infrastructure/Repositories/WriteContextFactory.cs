@@ -8,7 +8,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Infrastructure.Repositories
 {
+    using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Diagnostics.Contracts;
 
     /// <summary>
@@ -34,7 +36,7 @@ namespace MirGames.Infrastructure.Repositories
         /// <inheritdoc />
         public IWriteContext Create()
         {
-            return new WriteContext(new DataContext(this.mappers));
+            return new WriteContext(new Lazy<DbContext>(() => new DataContext(this.mappers)));
         }
     }
 }

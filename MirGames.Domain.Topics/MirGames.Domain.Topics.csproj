@@ -67,9 +67,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=3.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Autofac.3.4.1\lib\net40\Autofac.dll</HintPath>
+      <HintPath>..\packages\Autofac.3.5.0\lib\net40\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -110,6 +110,7 @@
     <Compile Include="Entities\TopicContent.cs" />
     <Compile Include="Entities\TopicTag.cs" />
     <Compile Include="EntityMapper.cs" />
+    <Compile Include="EventListeners\CommentCreatedEventListener.cs" />
     <Compile Include="EventListeners\CommentDeletedEventListener.cs" />
     <Compile Include="EventListeners\TopicDeletedEventListener.cs" />
     <Compile Include="EventListeners\TopicCreatedEventListener.cs" />
@@ -138,6 +139,10 @@
     <ProjectReference Include="..\MirGames.Domain.Attachments.Public\MirGames.Domain.Attachments.Public.csproj">
       <Project>{fd93f5af-07f1-4a80-81a6-850d70b5ea79}</Project>
       <Name>MirGames.Domain.Attachments.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MirGames.Domain.Notifications.Public\MirGames.Domain.Notifications.Public.csproj">
+      <Project>{24821dd1-09a0-48cd-903c-b24d4cc41636}</Project>
+      <Name>MirGames.Domain.Notifications.Public</Name>
     </ProjectReference>
     <ProjectReference Include="..\MirGames.Domain.Topics.Public\MirGames.Domain.Topics.Public.csproj">
       <Project>{8b957815-7f29-4d6e-b983-b527342d8da5}</Project>

@@ -21,6 +21,11 @@ namespace MirGames.Domain.Topics.Events
         public int TopicId { get; set; }
 
         /// <summary>
+        /// Gets or sets the blog identifier.
+        /// </summary>
+        public int? BlogId { get; set; }
+
+        /// <summary>
         /// Gets or sets the topic title.
         /// </summary>
         public string Title { get; set; }

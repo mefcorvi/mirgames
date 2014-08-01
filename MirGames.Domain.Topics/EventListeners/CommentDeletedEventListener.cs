@@ -10,7 +10,9 @@ namespace MirGames.Domain.Topics.EventListeners
 {
     using MirGames.Domain.Acl.Public.Commands;
     using MirGames.Domain.Attachments.Commands;
+    using MirGames.Domain.Notifications.Commands;
     using MirGames.Domain.Topics.Events;
+    using MirGames.Domain.Topics.Notifications;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Events;
 
@@ -38,6 +40,9 @@ namespace MirGames.Domain.Topics.EventListeners
         {
             this.commandProcessor.Execute(new RemoveAttachmentsCommand { EntityId = @event.CommentId, EntityType = "comment" });
             this.commandProcessor.Execute(new RemovePermissionsCommand { EntityId = @event.TopicId, EntityType = "Comment" });
+            this.commandProcessor.Execute(
+                new RemoveNotificationsCommand().WithFilter<NewTopicCommentNotification>(
+                    n => n.CommentId == @event.CommentId));
         }
     }
 }

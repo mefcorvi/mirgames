@@ -8,6 +8,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Infrastructure.Repositories
 {
+    using System;
     using System.Data.Entity;
     using System.Diagnostics.Contracts;
 
@@ -19,13 +20,13 @@ namespace MirGames.Infrastructure.Repositories
         /// <summary>
         /// The data context.
         /// </summary>
-        private DbContext context;
+        private Lazy<DbContext> context;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WriteContext"/> class.
         /// </summary>
         /// <param name="context">The DB context.</param>
-        public WriteContext(DbContext context)
+        public WriteContext(Lazy<DbContext> context)
         {
             Contract.Requires(context != null);
             this.context = context;
@@ -34,9 +35,9 @@ namespace MirGames.Infrastructure.Repositories
         /// <inheritdoc />
         public void Dispose()
         {
-            if (this.context != null)
+            if (this.context != null && this.context.IsValueCreated)
             {
-                this.context.Dispose();
+                this.context.Value.Dispose();
                 this.context = null;
             }
         }
@@ -44,13 +45,13 @@ namespace MirGames.Infrastructure.Repositories
         /// <inheritdoc />
         public DbSet<T> Set<T>() where T : class
         {
-            return this.context.Set<T>();
+            return this.context.Value.Set<T>();
         }
 
         /// <inheritdoc />
         public void SaveChanges()
         {
-            this.context.SaveChanges();
+            this.context.Value.SaveChanges();
         }
     }
 }

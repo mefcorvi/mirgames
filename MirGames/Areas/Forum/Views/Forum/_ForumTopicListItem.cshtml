@@ -6,32 +6,36 @@
         <i class="fa fa-envelope"></i>
         <i class="fa fa-envelope-o"></i>
         <div class="topic-title-block">
-            <footer>
-                @Author.UserLink(Model.Author, "topic-author"),
-                <span class="topic-created-date">@Html.DisplayFor(m => Model.CreatedDate)</span>
-            </footer>
+            <div class="tags">
+                @foreach (var tag in Model.Tags)
+                {
+                    <span>@Html.ActionLink(tag, "Index", "Forum", new { tag }, null)</span>
+                }
+            </div>
             <a href="@Url.Action(MVC.Forum.Forum.Topic(Model.TopicId))" class="topic-title">@Model.Title</a>
-            @if (@Model.UnreadPostsCount.HasValue)
-            {
-                <a href="@(Url.Action(MVC.Forum.Forum.Topic(Model.TopicId, PaginationSettings.GetItemPage(Model.PostsCount - Model.UnreadPostsCount.Value, 20) + 1)) + "#first-unread")"
-                   class="new-reply">@Model.UnreadPostsCount.GetValueOrDefault().Pluralize("новый", "новых", "новых", "+{0} {1}")</a>
-            }
             <div class="topic-pagination">
                 @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.TopicsPagination[Model.TopicId])
             </div>
+            <footer>
+                <span class="author">
+                    <i class="fa fa-user"></i> @Author.UserLink(Model.Author, "topic-author")
+                </span>
+                <span class="created-date">
+                    <i class="fa fa-clock-o"></i> <span class="topic-created-date">@Html.DisplayFor(m => Model.CreatedDate)</span>
+                </span>
+            </footer>
         </div>
         <div @Html.Css("replies-count")>
-            <span>@Model.PostsCount&nbsp;<i class="fa fa-comments-o"></i></span>
+            <span>@Model.PostsCount</span>
+            @if (@Model.UnreadPostsCount.HasValue)
+            {
+                <a href="@(Url.Action(MVC.Forum.Forum.Topic(Model.TopicId, PaginationSettings.GetItemPage(Model.PostsCount - Model.UnreadPostsCount.Value, 20) + 1)) + "#first-unread")"
+                   class="new-reply">+@Model.UnreadPostsCount.GetValueOrDefault()</a>
+            }
         </div>
         <div class="last-post-info">
             @Author.UserAvatarLink(Model.LastPostAuthor, "avatar-small", "user-login", true)
             <span class="topic-updated-date">@Html.DisplayFor(m => Model.UpdatedDate)</span>
         </div>
-        <ul class="tags">
-            @foreach (var tag in Model.Tags)
-            {
-                <li>@Html.ActionLink(tag, "Index", "Forum", new { tag }, null)</li>
-            }
-        </ul>
     </div>
 </article>

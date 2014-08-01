@@ -63,6 +63,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirGames.Domain.Acl.Public"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirGames.Specs", "MirGames.Specs\MirGames.Specs.csproj", "{7FD7ACB2-2FFD-4AE2-92D6-05B6520DD4BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirGames.Domain.Notifications", "MirGames.Domain.Notifications\MirGames.Domain.Notifications.csproj", "{1B80885A-838A-473C-8B1C-5A9423B2A20D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirGames.Domain.Notifications.Public", "MirGames.Domain.Notifications.Public\MirGames.Domain.Notifications.Public.csproj", "{24821DD1-09A0-48CD-903C-B24D4CC41636}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -177,6 +181,14 @@ Global
 		{7FD7ACB2-2FFD-4AE2-92D6-05B6520DD4BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FD7ACB2-2FFD-4AE2-92D6-05B6520DD4BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FD7ACB2-2FFD-4AE2-92D6-05B6520DD4BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B80885A-838A-473C-8B1C-5A9423B2A20D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B80885A-838A-473C-8B1C-5A9423B2A20D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B80885A-838A-473C-8B1C-5A9423B2A20D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B80885A-838A-473C-8B1C-5A9423B2A20D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24821DD1-09A0-48CD-903C-B24D4CC41636}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24821DD1-09A0-48CD-903C-B24D4CC41636}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24821DD1-09A0-48CD-903C-B24D4CC41636}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24821DD1-09A0-48CD-903C-B24D4CC41636}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

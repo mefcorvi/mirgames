@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.Runtime.Caching;
     using System.Web.Mvc;
     using System.Web.Routing;
 
@@ -31,18 +32,7 @@
         /// <summary>
         /// Whitelist of controllers whose routes are always rendered
         /// </summary>
-        private Dictionary<string, Type> controllerWhitelist;
-
-        /// <summary>
-        /// Blacklist of controllers whose routes are never rendered
-        /// </summary>
-        private Dictionary<string, Type> controllerBlacklist;
-
-        /// <summary>
-        /// Whitelist of areas whose default routes are always rendered. Areas as whitelisted if at
-        /// least one controller in the area is whitelisted.
-        /// </summary>
-        private HashSet<string> areaWhitelist;
+        private WhiteLists whiteLists;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MvcRouteFilter" /> class.
@@ -55,14 +45,22 @@
             this.routeCollection = routeCollection;
 
             this.areaNamespaceMapping = this.GetAreaNamespaceMap();
-            this.BuildLists();
+
+            if (!MemoryCache.Default.Contains("MVC.RouteLists"))
+            {
+                MemoryCache.Default.Add("MVC.RouteLists", this.BuildLists(), DateTimeOffset.Now.AddDays(1));
+            }
+
+            this.whiteLists = (WhiteLists)MemoryCache.Default["MVC.RouteLists"];
         }
 
         /// <summary>
         /// Build the controller whitelist and blacklist
         /// </summary>
-        private void BuildLists()
+        private WhiteLists BuildLists()
         {
+            var lists = new WhiteLists();
+
             // Get all the controllers from all loaded assemblies
             var controllers = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(this.GetTypesFromAssembly)
@@ -70,22 +68,24 @@
                 .ToList();
 
             // Check which ones implement the attributes
-            this.controllerWhitelist = this.ControllersImplementingAttribute(controllers, typeof(ExposeRoutesInJavaScriptAttribute));
-            this.controllerBlacklist = this.ControllersImplementingAttribute(controllers, typeof(HideRoutesInJavaScriptAttribute));
+            lists.ControllerWhitelist = this.ControllersImplementingAttribute(controllers, typeof(ExposeRoutesInJavaScriptAttribute));
+            lists.ControllerBlacklist = this.ControllersImplementingAttribute(controllers, typeof(HideRoutesInJavaScriptAttribute));
 
             // Check for exposed controllers in areas - If any controller in the area is exposed, any 
             // default routes in the area need to be exposed as well.
-            this.areaWhitelist = new HashSet<string>();
-            foreach (var controller in this.controllerWhitelist)
+            lists.AreaWhitelist = new HashSet<string>();
+            foreach (var controller in lists.ControllerWhitelist)
             {
                 var areaKey =
                     this.areaNamespaceMapping.Keys.FirstOrDefault(
                         areaNs => controller.Value.Namespace != null && controller.Value.Namespace.StartsWith(areaNs));
                 if (areaKey != null)
                 {
-                    this.areaWhitelist.Add(this.areaNamespaceMapping[areaKey]);
+                    lists.AreaWhitelist.Add(this.areaNamespaceMapping[areaKey]);
                 }
             }
+
+            return lists;
         }
 
         /// <summary>
@@ -181,7 +181,7 @@
                 }
 
                 // Exposing all routes, or an area that's explicitly whitelisted
-                if (this.configuration.ExposeAllRoutes || this.areaWhitelist.Contains(route.DataTokens["area"]))
+                if (this.configuration.ExposeAllRoutes || this.whiteLists.AreaWhitelist.Contains(route.DataTokens["area"]))
                 {
                     return true;
                 }
@@ -193,13 +193,13 @@
             var controller = route.Defaults["controller"].ToString();
 
             // If explicitly blacklisted, always deny
-            if (this.controllerBlacklist.Keys.Contains(controller))
+            if (this.whiteLists.ControllerBlacklist.Keys.Contains(controller))
             {
                 return false;
             }
 
             // If explicitly whitelisted, always allow
-            if (this.controllerWhitelist.Keys.Contains(controller))
+            if (this.whiteLists.ControllerWhitelist.Keys.Contains(controller))
             {
                 return true;
             }

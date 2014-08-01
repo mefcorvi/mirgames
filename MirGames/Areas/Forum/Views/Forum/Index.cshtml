@@ -21,7 +21,21 @@
         <input type="text" placeholder="Поиск..." ng-model="searchQuery" />
     </div>
 </form>
-
-@Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
+    
+<article class="message message-header">
+    <div class="message-content">
+        <div class="envelope-icon">
+        </div>
+        <div class="topic-title-block">
+            Темы
+        </div>
+        <div class="replies-count">
+            Ответов
+        </div>
+        <div class="last-post-info">
+            Последнее сообщение
+        </div>
+    </div>
+</article>
 @Html.Partial("_ForumTopicsList")
 @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)

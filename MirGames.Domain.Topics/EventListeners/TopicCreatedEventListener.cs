@@ -9,8 +9,13 @@
 namespace MirGames.Domain.Topics.EventListeners
 {
     using System.Diagnostics.Contracts;
+    using System.Linq;
 
+    using MirGames.Domain.Notifications.Commands;
     using MirGames.Domain.Topics.Events;
+    using MirGames.Domain.Topics.Notifications;
+    using MirGames.Domain.Users.Queries;
+    using MirGames.Infrastructure;
     using MirGames.Infrastructure.Events;
     using MirGames.Infrastructure.SearchEngine;
 
@@ -25,20 +30,47 @@ namespace MirGames.Domain.Topics.EventListeners
         private readonly ISearchEngine searchEngine;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TopicCreatedEventListener"/> class.
+        /// The command processor.
+        /// </summary>
+        private readonly ICommandProcessor commandProcessor;
+
+        /// <summary>
+        /// The query processor.
+        /// </summary>
+        private readonly IQueryProcessor queryProcessor;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TopicCreatedEventListener" /> class.
         /// </summary>
         /// <param name="searchEngine">The search engine.</param>
-        public TopicCreatedEventListener(ISearchEngine searchEngine)
+        /// <param name="commandProcessor">The command processor.</param>
+        /// <param name="queryProcessor">The query processor.</param>
+        public TopicCreatedEventListener(ISearchEngine searchEngine, ICommandProcessor commandProcessor, IQueryProcessor queryProcessor)
         {
             Contract.Requires(searchEngine != null);
+            Contract.Requires(commandProcessor != null);
+            Contract.Requires(queryProcessor != null);
 
             this.searchEngine = searchEngine;
+            this.commandProcessor = commandProcessor;
+            this.queryProcessor = queryProcessor;
         }
 
         /// <inheritdoc />
         public override void Process(TopicCreatedEvent @event)
         {
             this.searchEngine.Index(@event.TopicId, "Topic", @event.Title + " " + @event.Text + " " + @event.Tags);
+
+            var userIdentifiers = this.queryProcessor.Process(new GetUsersIdentifiersQuery());
+            this.commandProcessor.Execute(new NotifyUsersCommand
+            {
+                UserIdentifiers = userIdentifiers.ToArray(),
+                Data = new NewBlogTopicNotification
+                {
+                    TopicId = @event.TopicId,
+                    BlogId = @event.BlogId
+                }
+            });
         }
     }
 }

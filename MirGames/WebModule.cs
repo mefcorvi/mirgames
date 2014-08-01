@@ -26,6 +26,7 @@ namespace MirGames
     using MirGames.Domain.Attachments;
     using MirGames.Domain.Chat;
     using MirGames.Domain.Forum;
+    using MirGames.Domain.Notifications;
     using MirGames.Domain.Tools;
     using MirGames.Domain.Topics;
     using MirGames.Domain.Users;
@@ -64,6 +65,7 @@ namespace MirGames
             builder.RegisterModule<DomainModule>();
             builder.RegisterModule<AclModule>();
             builder.RegisterModule<UsersDomainModule>();
+            builder.RegisterModule<NotificationsDomainModule>();
             builder.RegisterModule<AttachmentsDomainModule>();
             builder.RegisterModule<ForumDomainModule>();
             builder.RegisterModule<TopicsDomainModule>();

@@ -172,6 +172,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
                     {
                         Title = command.Title,
                         TopicId = topic.Id,
+                        BlogId = topic.BlogId,
                         Tags = command.Tags,
                         Text = command.Text,
                         AuthorId = principal.GetUserId().GetValueOrDefault()

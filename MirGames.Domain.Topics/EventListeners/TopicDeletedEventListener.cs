@@ -12,7 +12,9 @@ namespace MirGames.Domain.Topics.EventListeners
 
     using MirGames.Domain.Acl.Public.Commands;
     using MirGames.Domain.Attachments.Commands;
+    using MirGames.Domain.Notifications.Commands;
     using MirGames.Domain.Topics.Events;
+    using MirGames.Domain.Topics.Notifications;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Events;
     using MirGames.Infrastructure.SearchEngine;
@@ -51,6 +53,13 @@ namespace MirGames.Domain.Topics.EventListeners
             this.searchEngine.Remove(@event.TopicId, "Topic");
             this.commandProcessor.Execute(new RemoveAttachmentsCommand { EntityId = @event.TopicId, EntityType = "topic" });
             this.commandProcessor.Execute(new RemovePermissionsCommand { EntityId = @event.TopicId, EntityType = "Topic" });
+            this.commandProcessor.Execute(new RemoveNotificationsCommand
+            {
+                Filter =
+                    n =>
+                    (n is NewBlogTopicNotification && ((NewBlogTopicNotification)n).TopicId == @event.TopicId)
+                    || (n is NewTopicCommentNotification && ((NewTopicCommentNotification)n).TopicId == @event.TopicId)
+            });
         }
     }
 }

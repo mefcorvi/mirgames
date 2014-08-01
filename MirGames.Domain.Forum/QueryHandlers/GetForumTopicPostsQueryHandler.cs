@@ -14,8 +14,10 @@ namespace MirGames.Domain.Forum.QueryHandlers
     using System.Security.Claims;
 
     using MirGames.Domain.Forum.Entities;
+    using MirGames.Domain.Forum.Notifications;
     using MirGames.Domain.Forum.Queries;
     using MirGames.Domain.Forum.ViewModels;
+    using MirGames.Domain.Notifications.Queries;
     using MirGames.Domain.Security;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
@@ -87,20 +89,17 @@ namespace MirGames.Domain.Forum.QueryHandlers
 
             if (principal.Identity.IsAuthenticated)
             {
-                int userId = principal.GetUserId().GetValueOrDefault();
-                
-                var unreadTopic = readContext.Query<ForumTopicUnread>().FirstOrDefault(
-                    t => t.TopicId == query.TopicId && t.UserId == userId);
+                var answerNotifications = this.queryProcessor
+                    .Process(new GetNotificationsQuery().WithFilter<NewForumAnswerNotification>(n => n.TopicId == query.TopicId))
+                    .Select(n => ((NewForumAnswerNotification)n.Data).PostId)
+                    .ToArray();
 
-                if (unreadTopic != null)
+                posts.ForEach(p => p.IsRead = !answerNotifications.Contains(p.PostId));
+                var firstUnread = posts.FirstOrDefault(p => !p.IsRead);
+
+                if (firstUnread != null)
                 {
-                    posts.ForEach(p => p.IsRead = p.CreatedDate < unreadTopic.UnreadDate);
-                    var firstUnread = posts.FirstOrDefault(p => !p.IsRead);
-
-                    if (firstUnread != null)
-                    {
-                        firstUnread.FirstUnread = true;
-                    }
+                    firstUnread.FirstUnread = true;
                 }
             }
 

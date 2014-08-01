@@ -21,8 +21,8 @@ namespace MirGames.Hubs
         /// <inheritdoc />
         public override void Process(ForumTopicCreatedEvent @event)
         {
-            var context = GlobalHost.ConnectionManager.GetHubContext<EventsHub>();
-            context.Clients.All.NewTopic(new ForumTopicCreatedEventViewModel { AuthorId = @event.AuthorId, TopicId = @event.TopicId });
+            //var context = GlobalHost.ConnectionManager.GetHubContext<EventsHub>();
+            //context.Clients.All.NewTopic(new ForumTopicCreatedEventViewModel { AuthorId = @event.AuthorId, TopicId = @event.TopicId });
         }
 
         /// <summary>

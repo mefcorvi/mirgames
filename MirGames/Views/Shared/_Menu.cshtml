@@ -5,8 +5,11 @@
     </div>
 }
 
-
-@Html.ActionLink("Блог", MVC.Topics.Topics.Index(), new { @class = ViewBag.CurrentSection == "Topics" ? "selected" : string.Empty })
+<a href="@Url.Action(MVC.Topics.Topics.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Topics")>
+    Блог
+    <span @Html.Css("updates-count").Add("counter").Add("ng-hide", @ViewBag.BlogTopicsUnread == 0) title="Перейти к непрочитанным обсуждениям"
+          >+@ViewBag.BlogTopicsUnread</span>
+</a>
 <a href="@Url.Action(MVC.Forum.Forum.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Forum") ng-controller="MirGames.Forum.UnreadMenuItemController">
     Форум
     <span @Html.Css("updates-count").Add("counter").Add("ng-hide", @ViewBag.ForumTopicsUnread == 0) title="Перейти к непрочитанным обсуждениям"

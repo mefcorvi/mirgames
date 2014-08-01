@@ -12,6 +12,8 @@ namespace MirGames.Domain.Forum.EventListeners
     using MirGames.Domain.Attachments.Commands;
     using MirGames.Domain.Forum.Commands;
     using MirGames.Domain.Forum.Events;
+    using MirGames.Domain.Forum.Notifications;
+    using MirGames.Domain.Notifications.Commands;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Events;
 
@@ -40,6 +42,10 @@ namespace MirGames.Domain.Forum.EventListeners
             this.commandProcessor.Execute(new ReindexForumTopicCommand { TopicId = @event.TopicId });
             this.commandProcessor.Execute(new RemoveAttachmentsCommand { EntityId = @event.PostId, EntityType = "forumPost" });
             this.commandProcessor.Execute(new RemovePermissionsCommand { EntityId = @event.PostId, EntityType = "ForumPost" });
+            this.commandProcessor.Execute(new RemoveNotificationsCommand
+            {
+                Filter = n => n is NewForumAnswerNotification && ((NewForumAnswerNotification)n).PostId == @event.PostId
+            });
         }
     }
 }

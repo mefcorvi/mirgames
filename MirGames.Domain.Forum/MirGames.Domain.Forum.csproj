@@ -67,9 +67,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=3.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Autofac.3.4.1\lib\net40\Autofac.dll</HintPath>
+      <HintPath>..\packages\Autofac.3.5.0\lib\net40\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -136,7 +136,6 @@
     <Compile Include="QueryHandlers\GetForumPostQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetForumPostsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetForumTopicsQueryHandler.cs" />
-    <Compile Include="QueryHandlers\GetForumTopicsUnreadCountQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetForumTopicQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetForumTagsQueryHandler.cs" />
     <Compile Include="Services\ForumPostUploadProcessor.cs" />
@@ -154,6 +153,10 @@
     <ProjectReference Include="..\MirGames.Domain.Forum.Public\MirGames.Domain.Forum.Public.csproj">
       <Project>{064f6482-176d-40e0-b60e-ed198770d5fc}</Project>
       <Name>MirGames.Domain.Forum.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MirGames.Domain.Notifications.Public\MirGames.Domain.Notifications.Public.csproj">
+      <Project>{24821dd1-09a0-48cd-903c-b24d4cc41636}</Project>
+      <Name>MirGames.Domain.Notifications.Public</Name>
     </ProjectReference>
     <ProjectReference Include="..\MirGames.Domain.Users.Public\MirGames.Domain.Users.Public.csproj">
       <Project>{630bd3d7-d7c8-40e0-bc01-2cf139c16051}</Project>
