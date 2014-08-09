@@ -22,46 +22,116 @@
         & > .message-content {
             overflow: hidden;
 
-            & > header {
-                .font-size(1.2);
+            & > .message-header {
+                .font-size(1.1);
+                color: mix(@background-color, @font-color, 60%);
 
-                a.topic-title {
-                    .header-font();
-                    .active-link-color(darken(@link-color-hover, 10%));
-                    .font-size(1.8);
-                    color: lighten(@link-color, 10%);
+                & > .tags {
+                    a {
+                        color: mix(@background-color, @font-color, 60%);
+                        margin-right: @indent/2;
+                        text-decoration: none;
+                        .active-link-color(@link-color-hover);
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+
+                    margin-bottom: @indent/4;
                 }
 
-                span {
-                    .font-size(1.2);
-                    color: @date-color;
+                & > .title-block {
+                    overflow: hidden;
+
+                    a.topic-title {
+                        .header-font();
+                        .active-link-color(darken(@link-color-hover, 10%));
+                        .font-size(2);
+                        color: lighten(@link-color, 10%);
+                        text-decoration: none;
+                        margin-bottom: @indent/4;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+
+                    a.avatar-link {
+                        float: right;
+
+                        img {
+                            .avatar-tiny();
+                        }
+                    }
+                }
+
+                & > .author-info {
+                    margin-top: @indent/4;
+
+                    & > span {
+                        .font-size(1.1);
+                        color: @date-color;
+                    }
+
+                    & > .user-login {
+                        span {
+                            .font-size(1.1);
+                        }
+
+                        display: inline-block;
+                        color: @link-color;
+                        .active-link-color(@link-color-hover);
+                        text-decoration: none;
+
+                        &:hover {
+                            span {
+                                text-decoration: underline;
+                            }
+                        }
+                    }
                 }
             }
 
             & > footer {
-                position: relative;
-                overflow: hidden;
-                .font-size(1.1);
+                .font-size(1.2);
 
-                .user-login {
-                    float: left;
-                    display: block;
-                    height: @avatar-tiny;
-                    line-height: @avatar-tiny;
-                    margin-right: 15px;
-                    font-weight: bold;
+                .read-more {
+                    text-decoration: none;
+                    margin-right: @indent;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
                 }
 
                 .answers-link {
-                    float: left;
-                    display: block;
-                    height: @avatar-tiny;
                     line-height: @avatar-tiny;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+
+                    & > .fa {
+                        margin-right: @indent/4;
+                        .font-size(1.3);
+                    }
                 }
 
-                & > ul {
-                    .tags(150px);
-                    float: right;
+                & > .unread-comments {
+                    margin-left: @indent/4;
+                    background: darken(@link-color-hover, 20%);
+                    .font-size(1.1);
+                    text-decoration: none;
+                    color: @background-color;
+                    padding: 2px;
+                    margin-top: 2px;
+
+                    &:hover {
+                        color: @background-color;
+                        background: @link-color-hover;
+                    }
                 }
             }
 
@@ -72,6 +142,18 @@
 
             & > div {
                 margin: 5px 0px 10px 0px;
+            }
+        }
+
+        &.unread-message {
+            & > .message-content {
+                & > .message-header {
+                    & > .title-block {
+                        a.topic-title {
+                            color: @link-color-hover;
+                        }
+                    }
+                }
             }
         }
 

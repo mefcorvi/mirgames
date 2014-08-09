@@ -79,15 +79,17 @@
                     margin-top: @indent/4;
 
                     a {
-                        color: #999;
+                        color: @link-color;
+                        text-decoration: none;
 
                         &:hover {
+                            text-decoration: underline;
                             color: @link-color-hover;
                         }
                     }
                     
-                    & > span.author {
-                        margin-right: @indent/2;
+                    & > span.created-date {
+                        color: @date-color;
                     }
                 }
 

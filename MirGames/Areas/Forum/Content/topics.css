@@ -81,13 +81,15 @@
   margin-top: 5px;
 }
 .forum-topics-page > section > .message > .message-content > .topic-title-block > footer a {
-  color: #999;
+  color: #24618d;
+  text-decoration: none;
 }
 .forum-topics-page > section > .message > .message-content > .topic-title-block > footer a:hover {
+  text-decoration: underline;
   color: #d04796;
 }
-.forum-topics-page > section > .message > .message-content > .topic-title-block > footer > span.author {
-  margin-right: 10px;
+.forum-topics-page > section > .message > .message-content > .topic-title-block > footer > span.created-date {
+  color: #8c8c0c;
 }
 .forum-topics-page > section > .message > .message-content > .topic-title-block > .topic-title {
   font-family: "Droid Sans", Tahoma, sans-serif;

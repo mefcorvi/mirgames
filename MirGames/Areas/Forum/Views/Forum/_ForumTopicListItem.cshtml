@@ -17,11 +17,9 @@
                 @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.TopicsPagination[Model.TopicId])
             </div>
             <footer>
+                <span class="created-date"><span class="topic-created-date">@Html.DisplayFor(m => Model.CreatedDate)</span></span>,
                 <span class="author">
-                    <i class="fa fa-user"></i> @Author.UserLink(Model.Author, "topic-author")
-                </span>
-                <span class="created-date">
-                    <i class="fa fa-clock-o"></i> <span class="topic-created-date">@Html.DisplayFor(m => Model.CreatedDate)</span>
+                    @Author.UserLink(Model.Author, "topic-author")
                 </span>
             </footer>
         </div>

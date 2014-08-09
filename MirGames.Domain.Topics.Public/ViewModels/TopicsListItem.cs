@@ -44,6 +44,11 @@ namespace MirGames.Domain.Topics.ViewModels
         public int CommentsCount { get; set; }
 
         /// <summary>
+        /// Gets or sets the unread comments count.
+        /// </summary>
+        public int UnreadCommentsCount { get; set; }
+
+        /// <summary>
         /// Gets or sets the creation date.
         /// </summary>
         public DateTime CreationDate { get; set; }
@@ -70,6 +75,11 @@ namespace MirGames.Domain.Topics.ViewModels
         /// Gets or sets a value indicating whether item can be commented.
         /// </summary>
         public bool CanBeCommented { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is read.
+        /// </summary>
+        public bool IsRead { get; set; }
 
         /// <summary>
         /// Gets or sets the tags.

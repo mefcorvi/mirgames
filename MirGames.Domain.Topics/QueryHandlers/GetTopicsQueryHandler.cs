@@ -14,8 +14,10 @@ namespace MirGames.Domain.Topics.QueryHandlers
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Notifications.Queries;
     using MirGames.Domain.Security;
     using MirGames.Domain.Topics.Entities;
+    using MirGames.Domain.Topics.Notifications;
     using MirGames.Domain.Topics.Queries;
     using MirGames.Domain.Topics.ViewModels;
     using MirGames.Domain.Users.Queries;
@@ -43,7 +45,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
         /// <summary>
         /// The query processor.
         /// </summary>
-        private readonly Lazy<IQueryProcessor> queryProcessor;
+        private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetTopicsQueryHandler" /> class.
@@ -51,7 +53,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
         /// <param name="searchEngine">The search engine.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
         /// <param name="queryProcessor">The query processor.</param>
-        public GetTopicsQueryHandler(ISearchEngine searchEngine, IAuthorizationManager authorizationManager, Lazy<IQueryProcessor> queryProcessor)
+        public GetTopicsQueryHandler(ISearchEngine searchEngine, IAuthorizationManager authorizationManager, IQueryProcessor queryProcessor)
         {
             this.searchEngine = searchEngine;
             this.authorizationManager = authorizationManager;
@@ -73,17 +75,40 @@ namespace MirGames.Domain.Topics.QueryHandlers
                 topics = this.GetSearchResult(query, pagination, topicsQuery).EnsureCollection();
             }
 
-            this.queryProcessor.Value.Process(
+            this.queryProcessor.Process(
                 new ResolveAuthorsQuery
                     {
                         Authors = topics.Select(item => item.Author)
                     });
+
+            var topicIdentifiers = topics.Select(t => t.TopicId).ToArray();
+
+            var newTopics =
+                this.queryProcessor.Process(
+                    new GetNotificationsQuery().WithFilter<NewBlogTopicNotification>(
+                        n => topicIdentifiers.Contains(n.TopicId)))
+                    .Select(t => (NewBlogTopicNotification)t.Data)
+                    .Select(t => t.TopicId)
+                    .ToArray();
+
+            var newComments =
+                this.queryProcessor.Process(
+                    new GetNotificationsQuery().WithFilter<NewTopicCommentNotification>(
+                        n => topicIdentifiers.Contains(n.TopicId)))
+                        .Select(t => (NewTopicCommentNotification)t.Data)
+                        .GroupBy(t => t.TopicId)
+                        .ToDictionary(t => t.Key, t => t.Count());
 
             foreach (var topicsListItem in topics)
             {
                 topicsListItem.CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "Topic", topicsListItem.TopicId);
                 topicsListItem.CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "Topic", topicsListItem.TopicId);
                 topicsListItem.CanBeCommented = this.authorizationManager.CheckAccess(principal, "Comment", "Topic", topicsListItem.TopicId);
+
+                topicsListItem.UnreadCommentsCount = newComments.ContainsKey(topicsListItem.TopicId)
+                                                         ? newComments[topicsListItem.TopicId]
+                                                         : 0;
+                topicsListItem.IsRead = !newTopics.Contains(topicsListItem.TopicId);
             }
 
             return topics;

@@ -1,24 +1,33 @@
 ﻿@model MirGames.Domain.Topics.ViewModels.TopicsListItem
-<article class="message">
+<article @Html.Css("message").Add("unread-message", !Model.IsRead)>
     <div class="message-content">
-        <header>
-            <div>
-                <span>@Html.DisplayFor(m => Model.CreationDate)</span>
+        <div class="message-header">
+            <div class="tags">
+                @foreach (var tag in Model.TagsSet)
+                {
+                    @Html.ActionLink(tag.Trim(), MVC.Topics.Topics.Index(tag.Trim()), null)
+                }
             </div>
-            @Html.ActionLink(Model.Title, MVC.Topics.Topics.Topic(Model.TopicId), new { @class = "topic-title" })
-        </header>
+            <div class="title-block">
+                <a href="@Url.Action(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="avatar-link"><img src="@Model.Author.AvatarUrl" class="avatar" /></a>
+                @Html.ActionLink(Model.Title, MVC.Topics.Topics.Topic(Model.TopicId), new { @class = "topic-title" })
+            </div>
+            <div class="author-info">
+                <span>@Html.DisplayFor(m => Model.CreationDate)</span>, опубликовал
+                <a href="@Url.Action(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login"><span>@Model.Author.Login</span></a>
+            </div>
+        </div>
         <div class="text">
             @Html.Raw(Model.ShortText)
         </div>
         <footer>
-            <a href="@Url.Action(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login avatar-link"><img src="@Model.Author.AvatarUrl" class="avatar avatar-tiny" /><span>@Model.Author.Login</span></a>
-            <a href="@Url.Action(MVC.Topics.Topics.Topic(Model.TopicId))#comments" class="answers-link">Комментарии (@Model.CommentsCount)</a>
-            <ul class="tags">
-                @foreach (var tag in Model.TagsSet)
-                {
-                    <li>@Html.ActionLink(tag.Trim(), MVC.Topics.Topics.Index(tag.Trim()), null)</li>
-                }
-            </ul>
+            <a href="@Url.Action(MVC.Topics.Topics.Topic(Model.TopicId))#read-more" class="read-more">Читать дальше</a>
+            <a href="@Url.Action(MVC.Topics.Topics.Topic(Model.TopicId))#comments" class="answers-link"><i class="fa fa-comment-o"></i>@Model.CommentsCount.Pluralize("комментарий", "комментария", "комментариев", "{0} {1}")</a>
+
+            @if (Model.UnreadCommentsCount > 0)
+            {
+                <a href="@Url.Action(MVC.Topics.Topics.Topic(Model.TopicId))#unread" class="unread-comments">+ @Model.UnreadCommentsCount</a>
+            }
         </footer>
     </div>
 </article>
