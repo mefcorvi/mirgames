@@ -743,12 +743,14 @@ namespace Links
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string _references_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
+                public static readonly string AddNewTopicDialogController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/AddNewTopicDialogController.min.js") ? Url("AddNewTopicDialogController.min.js") : Url("AddNewTopicDialogController.js");
                 public static readonly string DeleteCommentDialogController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/DeleteCommentDialogController.min.js") ? Url("DeleteCommentDialogController.min.js") : Url("DeleteCommentDialogController.js");
                 public static readonly string EditCommentDialogController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/EditCommentDialogController.min.js") ? Url("EditCommentDialogController.min.js") : Url("EditCommentDialogController.js");
                 public static readonly string EditTopic_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/EditTopic.min.js") ? Url("EditTopic.min.js") : Url("EditTopic.js");
                 public static readonly string NewTopic_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/NewTopic.min.js") ? Url("NewTopic.min.js") : Url("NewTopic.js");
                 public static readonly string SearchPanelController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SearchPanelController.min.js") ? Url("SearchPanelController.min.js") : Url("SearchPanelController.js");
                 public static readonly string Topic_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Topic.min.js") ? Url("Topic.min.js") : Url("Topic.js");
+                public static readonly string UnreadMenuItemController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/UnreadMenuItemController.min.js") ? Url("UnreadMenuItemController.min.js") : Url("UnreadMenuItemController.js");
             }
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

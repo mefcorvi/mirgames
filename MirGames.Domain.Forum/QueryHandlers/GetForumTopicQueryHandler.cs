@@ -8,14 +8,15 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Forum.QueryHandlers
 {
-    using System;
     using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
     using MirGames.Domain.Forum.Entities;
+    using MirGames.Domain.Forum.Notifications;
     using MirGames.Domain.Forum.Queries;
     using MirGames.Domain.Forum.ViewModels;
+    using MirGames.Domain.Notifications.Queries;
     using MirGames.Domain.Security;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
@@ -36,14 +37,14 @@ namespace MirGames.Domain.Forum.QueryHandlers
         /// <summary>
         /// The query processor.
         /// </summary>
-        private readonly Lazy<IQueryProcessor> queryProcessor;
+        private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetForumTopicQueryHandler" /> class.
         /// </summary>
         /// <param name="authorizationManager">The authorization manager.</param>
         /// <param name="queryProcessor">The query processor.</param>
-        public GetForumTopicQueryHandler(IAuthorizationManager authorizationManager, Lazy<IQueryProcessor> queryProcessor)
+        public GetForumTopicQueryHandler(IAuthorizationManager authorizationManager, IQueryProcessor queryProcessor)
         {
             Contract.Assert(authorizationManager != null);
             this.authorizationManager = authorizationManager;
@@ -108,16 +109,21 @@ namespace MirGames.Domain.Forum.QueryHandlers
             }
             else
             {
-                int userId = principal.GetUserId().GetValueOrDefault();
+                var newTopicsNotifications =
+                    this.queryProcessor
+                        .GetItemsCount(
+                            new GetNotificationsQuery().WithFilter<NewForumTopicNotification>(
+                                n => n.TopicId == topicViewModel.TopicId));
 
-                topicViewModel.IsRead =
-                    readContext.Query<ForumTopicRead>().Any(
-                        r =>
-                        r.UserId == userId && topic.TopicId >= r.StartTopicId
-                        && topic.TopicId <= r.EndTopicId);
+                var answerNotifications =
+                    this.queryProcessor.GetItemsCount(
+                        new GetNotificationsQuery().WithFilter<NewForumAnswerNotification>(
+                            n => n.TopicId == topicViewModel.TopicId));
+
+                topicViewModel.IsRead = (newTopicsNotifications + answerNotifications) == 0;
             }
 
-            this.queryProcessor.Value.Process(
+            this.queryProcessor.Process(
                 new ResolveAuthorsQuery
                 {
                     Authors = new[] { topicViewModel.Author, topicViewModel.StartPost.Author }

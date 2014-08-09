@@ -43,5 +43,10 @@ namespace MirGames.Domain.Topics.Queries
         /// Gets or sets the blog identifier.
         /// </summary>
         public int? BlogId { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether only unread topics should be returned.
+        /// </summary>
+        public bool OnlyUnread { get; set; }
     }
 }

@@ -13,11 +13,10 @@ namespace MirGames.Controllers
     using System.Security.Claims;
     using System.Web.Mvc;
 
-    using MirGames.Domain.Forum.Notifications;
     using MirGames.Domain.Forum.Queries;
-    using MirGames.Domain.Forum.ViewModels;
     using MirGames.Domain.Notifications.Queries;
     using MirGames.Domain.Topics.Notifications;
+    using MirGames.Domain.Topics.Queries;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
     using MirGames.Infrastructure;
@@ -91,11 +90,11 @@ namespace MirGames.Controllers
         /// <inheritdoc />
         protected override void OnResultExecuting(ResultExecutingContext filterContext)
         {
-            var query = new GetNotificationsQuery().WithFilter<NewForumAnswerNotification>();
-            int forumTopicsUnread = this.QueryProcessor.GetItemsCount(query);
+            var forumNotificationsCountQuery = new GetForumNotificationsCountQuery();
+            int forumTopicsUnread = this.QueryProcessor.Process(forumNotificationsCountQuery);
 
-            query = new GetNotificationsQuery().WithFilter<NewBlogTopicNotification>();
-            int blogTopicsUnread = this.QueryProcessor.GetItemsCount(query);
+            var topicsNotificationsCountQuery = new GetTopicsNotificationsCountQuery();
+            int blogTopicsUnread = this.QueryProcessor.Process(topicsNotificationsCountQuery);
 
             this.ViewBag.ForumTopicsUnread = forumTopicsUnread;
             this.PageData["forumTopicsUnreadCount"] = forumTopicsUnread;

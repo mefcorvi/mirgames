@@ -1,5 +1,5 @@
-// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="CommentCreatedEvent.cs">
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright company="MirGames" file="NotificationsRemovedEvent.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -7,34 +7,27 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MirGames.Domain.Topics.Events
+namespace MirGames.Domain.Notifications.Events
 {
+    using System.Collections.Generic;
+
+    using MirGames.Domain.Notifications.ViewModels;
     using MirGames.Infrastructure.Events;
 
     /// <summary>
-    /// The comment created event.
+    /// Event about removed notifications.
     /// </summary>
-    public class CommentCreatedEvent : Event
+    public sealed class NotificationsRemovedEvent : Event
     {
         /// <summary>
-        /// Gets or sets the topic identifier.
+        /// Gets or sets the notifications.
         /// </summary>
-        public int TopicId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the comment unique identifier.
-        /// </summary>
-        public int CommentId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the author identifier.
-        /// </summary>
-        public int AuthorId { get; set; }
+        public IEnumerable<NotificationViewModel> Notifications { get; set; }
 
         /// <inheritdoc />
         protected override string EventType
         {
-            get { return "Topics.CommentCreated"; }
+            get { return "Notifications.NotificationsRemoved"; }
         }
     }
 }

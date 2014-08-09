@@ -52,6 +52,7 @@
     <Compile Include="Events\ForumTopicUnreadEvent.cs" />
     <Compile Include="Notifications\NewForumAnswerNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\GetForumNotificationsCountQuery.cs" />
     <Compile Include="Queries\GetForumTopicPostsQuery.cs" />
     <Compile Include="Queries\GetForumPostForEditQuery.cs" />
     <Compile Include="Queries\GetForumPostsQuery.cs" />

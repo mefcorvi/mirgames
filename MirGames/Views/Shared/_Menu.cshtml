@@ -5,15 +5,17 @@
     </div>
 }
 
-<a href="@Url.Action(MVC.Topics.Topics.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Topics")>
+<a href="@Url.Action(MVC.Topics.Topics.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Topics") ng-controller="MirGames.Topics.UnreadMenuItemController">
     Блог
-    <span @Html.Css("updates-count").Add("counter").Add("ng-hide", @ViewBag.BlogTopicsUnread == 0) title="Перейти к непрочитанным обсуждениям"
-          >+@ViewBag.BlogTopicsUnread</span>
+    <span @Html.Css("updates-count").Add("counter").Add("ng-hide", @ViewBag.BlogTopicsUnread == 0)
+          title="Перейти к непрочитанным темам блога" ng-click="goToUnread('@Url.Action(MVC.Topics.Topics.Index(onlyUnread:true))', $event.which == 2); $event.preventDefault();"
+          ng-show="unreadCount > 0" ng-bind="'+' + unreadCount">+@ViewBag.BlogTopicsUnread</span>
 </a>
 <a href="@Url.Action(MVC.Forum.Forum.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Forum") ng-controller="MirGames.Forum.UnreadMenuItemController">
     Форум
     <span @Html.Css("updates-count").Add("counter").Add("ng-hide", @ViewBag.ForumTopicsUnread == 0) title="Перейти к непрочитанным обсуждениям"
-          ng-click="goToUnread($event.which == 2); $event.preventDefault();" ng-show="unreadCount > 0" ng-bind="'+' + unreadCount">+@ViewBag.ForumTopicsUnread</span>
+          ng-click="goToUnread('@Url.Action(MVC.Forum.Forum.Index(onlyUnread:true))', $event.which == 2); $event.preventDefault();"
+          ng-show="unreadCount > 0" ng-bind="'+' + unreadCount">+@ViewBag.ForumTopicsUnread</span>
 </a>
 @Html.ActionLink("Проекты", MVC.Projects.Projects.Index(), new { @class = ViewBag.CurrentSection == "WIP" ? "selected" : string.Empty })
 

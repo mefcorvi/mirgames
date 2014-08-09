@@ -132,7 +132,8 @@ namespace MirGames.Domain.Topics.CommandHandlers
             this.eventBus.Raise(new CommentCreatedEvent
             {
                 TopicId = comment.TopicId,
-                CommentId = comment.CommentId
+                CommentId = comment.CommentId,
+                AuthorId = comment.UserId.GetValueOrDefault()
             });
 
             return comment.CommentId;

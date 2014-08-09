@@ -150,6 +150,7 @@ namespace MirGames.Areas.Topics.Controllers
             public readonly string tag = "tag";
             public readonly string searchString = "searchString";
             public readonly string page = "page";
+            public readonly string onlyUnread = "onlyUnread";
         }
         static readonly ActionParamsClass_Topic s_params_Topic = new ActionParamsClass_Topic();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -205,6 +206,7 @@ namespace MirGames.Areas.Topics.Controllers
                 public readonly string _Comment = "_Comment";
                 public readonly string _DeleteCommentDialog = "_DeleteCommentDialog";
                 public readonly string _EditCommentDialog = "_EditCommentDialog";
+                public readonly string _Topic = "_Topic";
                 public readonly string _TopicListItem = "_TopicListItem";
                 public readonly string _TopicMenu = "_TopicMenu";
                 public readonly string _TopicsList = "_TopicsList";
@@ -218,6 +220,7 @@ namespace MirGames.Areas.Topics.Controllers
             public readonly string _Comment = "~/Areas/Topics/Views/Topics/_Comment.cshtml";
             public readonly string _DeleteCommentDialog = "~/Areas/Topics/Views/Topics/_DeleteCommentDialog.cshtml";
             public readonly string _EditCommentDialog = "~/Areas/Topics/Views/Topics/_EditCommentDialog.cshtml";
+            public readonly string _Topic = "~/Areas/Topics/Views/Topics/_Topic.cshtml";
             public readonly string _TopicListItem = "~/Areas/Topics/Views/Topics/_TopicListItem.cshtml";
             public readonly string _TopicMenu = "~/Areas/Topics/Views/Topics/_TopicMenu.cshtml";
             public readonly string _TopicsList = "~/Areas/Topics/Views/Topics/_TopicsList.cshtml";
@@ -259,16 +262,17 @@ namespace MirGames.Areas.Topics.Controllers
         }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string tag, string searchString, int page);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string tag, string searchString, int page, bool onlyUnread);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index(string tag, string searchString, int page)
+        public override System.Web.Mvc.ActionResult Index(string tag, string searchString, int page, bool onlyUnread)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "tag", tag);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "searchString", searchString);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "page", page);
-            IndexOverride(callInfo, tag, searchString, page);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "onlyUnread", onlyUnread);
+            IndexOverride(callInfo, tag, searchString, page, onlyUnread);
             return callInfo;
         }
 

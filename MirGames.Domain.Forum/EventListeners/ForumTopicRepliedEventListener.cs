@@ -51,17 +51,15 @@ namespace MirGames.Domain.Forum.EventListeners
         /// <inheritdoc />
         public override void Process(ForumTopicRepliedEvent @event)
         {
-            this.commandProcessor.Execute(new ReindexForumTopicCommand { TopicId = @event.TopicId });
-            this.commandProcessor.Execute(new MarkTopicAsUnreadForUsersCommand { TopicId = @event.TopicId, TopicDate = @event.RepliedDate });
-            this.commandProcessor.Execute(new MarkTopicAsReadCommand { TopicId = @event.TopicId });
-
-            var users = this.queryProcessor.Process(new GetUsersIdentifiersQuery());
+            var users = this.queryProcessor.Process(new GetUsersIdentifiersQuery()).Except(new[] { @event.AuthorId.GetValueOrDefault() });
 
             this.commandProcessor.Execute(new NotifyUsersCommand
             {
                 Data = new NewForumAnswerNotification { TopicId = @event.TopicId, PostId = @event.PostId },
                 UserIdentifiers = users.ToArray()
             });
+
+            this.commandProcessor.Execute(new ReindexForumTopicCommand { TopicId = @event.TopicId });
         }
     }
 }

@@ -26,7 +26,7 @@
             </footer>
         </div>
         <div @Html.Css("replies-count")>
-            <span>@Model.PostsCount</span>
+            <span>@(Model.PostsCount - 1)</span>
             @if (@Model.UnreadPostsCount.HasValue)
             {
                 <a href="@(Url.Action(MVC.Forum.Forum.Topic(Model.TopicId, PaginationSettings.GetItemPage(Model.PostsCount - Model.UnreadPostsCount.Value, 20) + 1)) + "#first-unread")"

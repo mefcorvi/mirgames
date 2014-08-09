@@ -1,11 +1,12 @@
 ﻿body {} @import "references.less";
 
 .message() {
-    margin-bottom: @indent/4;
-    overflow: hidden;
     @index-width: 40px;
-    position: relative;
-    padding-right: @index-width;
+    border-bottom: 1px solid mix(@background-color, @font-color, 96%);
+    .make-row(top);
+    .flex-wrap(nowrap);
+    padding-bottom: @indent;
+    padding-top: @indent;
 
     &.unread {
         padding-left: @indent/2 - 5;
@@ -14,55 +15,64 @@
 
     & > .message-index {
         display: block;
-        position: absolute;
-        margin-top: 9px;
-        right: 5px;
         .font-size(1.1);
         color: @link-color;
-        width: 30px;
+        width: @index-width;
         text-align: center;
         overflow: hidden;
         text-overflow: ellipsis;
+        .flex-order(3);
+        .flex-shrink(0);
 
         &:hover {
             color: @link-color-hover;
         }
     }
 
-    & > header {
-        margin-left: @avatar-small + 10px;
-        margin-bottom: @indent/2;
-        overflow: hidden;
+    & > .post-block {
+        .flex-grow(1);
 
-        .user-login {
-            margin-right: @indent;
-            font-weight: bold;
-            float: left;
-            margin-top: 8px;
+        & > .created-date {
+            .font-size(1.1);
+            color: mix(@background-color, @font-color, 60%);
+            margin-bottom: @indent/2;
         }
 
-        .comment-date {
-            .date-small();
-            line-height: 15px;
-            float: left;
-            margin-top: 8px;
+        & > .text {
         }
 
-        .message-bar {
+        & > .edited {
+            .font-size(1.1);
+            color: #999;
+            margin-top: @indent/2;
+        }
+    }
+
+    & > .author-block {
+        text-align: center;
+        .flex-shrink(0);
+        width: 150px;
+
+        img.avatar {
+            .avatar-medium();
+            float: none;
+        }
+
+        & > .author-name {
+            margin-bottom: @indent/4;
+        }
+
+        & > .message-bar {
             .font-size(1.5);
-            margin-top: 7px;
-    
-            & > .edited {
-                margin-left: 10px;
-                .font-size(1.1);
-                color: #999;
-                margin-top: 2px;
-                float: left;
-            }
+            margin-top: @indent/2;
+            overflow: hidden;
+            .flex-display();
+            .flex-direction();
+            .justify-content(center);
+            .align-content(center);
 
             a {
-                margin-left: @indent;
-                float: left;
+                margin-right: @indent/4;
                 width: 20px;
                 height: 20px;
                 text-align: center;
@@ -79,14 +89,49 @@
 
                 &.delete-post {
                     color: #900;
-                    float: right;
                 }
             }
         }
     }
 
-    & > .text {
-        margin-left: @avatar-small + 10px;
+    @media (max-width: @screen-sm-max) {
+        .flex-wrap(wrap);
+
+        & > .author-block {
+            width: 100%;
+            text-align: left;
+            .flex-display();
+            .flex-wrap(nowrap);
+            .justify-content(flex-start);
+            .align-content(flex-start);
+            .align-items(center);
+
+            & > .author-name {
+                font-weight: bold;
+                .flex-grow(1);
+                .flex-order(1);
+                .flex-shrink(1);
+            }
+
+            img.avatar {
+                .avatar-tiny();
+                .flex-grow(0);
+                .flex-shrink(0);
+                .flex-order(0);
+                margin-right: @indent/2;
+            }
+
+            & > .message-bar {
+                .justify-content(flex-start);
+                .align-content(flex-start);
+                .flex-order(2);
+                margin-bottom: @indent/4;
+            }
+        }
+
+        & > .message-index {
+            display: none;
+        }
     }
 }
 
@@ -98,6 +143,8 @@
 
             padding-right: 0;
             margin-bottom: @indent/2;
+            border-bottom: 0;
+            min-height: inherit;
 
             & > .text {
                 margin-left: 0;
@@ -160,7 +207,6 @@
 
             & > .message {
                 .message();
-                padding: @indent/2 0;
             }
         }
 

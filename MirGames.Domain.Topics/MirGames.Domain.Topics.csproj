@@ -124,6 +124,7 @@
     <Compile Include="QueryHandlers\GetCommentForEditQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetCommentsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetCommentByIdQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetTopicsNotificationsCountQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetMainTagsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetTopicForEditQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetTopicQueryHandler.cs" />

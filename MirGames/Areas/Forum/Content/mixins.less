@@ -1,9 +1,6 @@
 ﻿body {} @import "references.less";
 
 .forum-topic-list(@show-post-info: 1) {
-    @post-info-sm:   6 * @show-post-info;
-    @post-info-lg:   1.5 * @show-post-info;
-
     & > .message {
         overflow: hidden;
         margin-bottom: @indent/4;
@@ -56,9 +53,8 @@
             .make-row();
 
             & > .topic-title-block {
-                .make-xs-column(9);
-                .make-lg-column(11 - @post-info-lg);
                 margin-bottom: 2px;
+                .flex-grow(1);
 
                 & > div.tags {
                     .font-size(1.1);
@@ -144,8 +140,7 @@
                 word-wrap: normal;
                 padding-left: 5px;
                 padding-right: 5px;
-                .make-xs-column(3);
-                .make-lg-column(1);
+                width: 20%;
 
                 & .new-reply {
                     background: darken(@link-color-hover, 20%);
@@ -163,10 +158,9 @@
             }
 
             & > .last-post-info {
-                .make-sm-column(@post-info-sm);
-                .make-lg-column(@post-info-lg);
-                .hidden-xs();
+                .hidden-sm();
                 .visible-when(@show-post-info);
+                width: 20%;
 
                 & img {
                     float: left;

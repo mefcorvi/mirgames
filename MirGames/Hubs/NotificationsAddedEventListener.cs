@@ -37,4 +37,26 @@ namespace MirGames.Hubs
             }
         }
     }
+
+    /// <summary>
+    /// Listens the new notifications.
+    /// </summary>
+    public sealed class NotificationsRemovedEventListener : EventListenerBase<NotificationsRemovedEvent>
+    {
+        /// <inheritdoc />
+        public override void Process(NotificationsRemovedEvent @event)
+        {
+            var context = GlobalHost.ConnectionManager.GetHubContext<EventsHub>();
+
+            foreach (var notification in @event.Notifications)
+            {
+                var connections = EventsHub.GetUserConnections(notification.UserId).ToArray();
+
+                if (connections.Any())
+                {
+                    context.Clients.Clients(connections).RemoveNotification(notification);
+                }
+            }
+        }
+    }
 }

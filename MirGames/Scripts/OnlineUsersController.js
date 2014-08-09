@@ -18,10 +18,6 @@ var MirGames;
                 this.addUser(onlineUser, tags);
             }
 
-            socketService.addHandler('eventsHub', 'newNotification', function (data) {
-                console.log('Notification', data);
-            });
-
             socketService.addHandler('eventsHub', 'userOnlineTagAdded', function (userId, tag) {
                 _this.$scope.$apply(function () {
                     var user = _this.getUser(userId);

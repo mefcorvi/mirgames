@@ -378,20 +378,11 @@
   flex-wrap: wrap;
 }
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .topic-title-block {
-  float: left;
-  width: 75%;
-  position: relative;
-  min-height: 1px;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   margin-bottom: 2px;
-}
-@media (min-width: 1200px) {
-  .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .topic-title-block {
-    float: left;
-    width: 91.66666667%;
-  }
+  -webkit-flex-grow: 1;
+  -moz-flex-grow: 1;
+  -ms-flex-grow: 1;
+  flex-grow: 1;
 }
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .topic-title-block > div.tags {
   font-size: 11px;
@@ -466,19 +457,7 @@
   word-wrap: normal;
   padding-left: 5px;
   padding-right: 5px;
-  float: left;
-  width: 25%;
-  position: relative;
-  min-height: 1px;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-}
-@media (min-width: 1200px) {
-  .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .replies-count {
-    float: left;
-    width: 8.33333333%;
-  }
+  width: 20%;
 }
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .replies-count .new-reply {
   background: #8d2461;
@@ -493,26 +472,10 @@
   background: #d04796;
 }
 .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .last-post-info {
-  position: relative;
-  min-height: 1px;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   display: none;
+  width: 20%;
 }
-@media (min-width: 768px) {
-  .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .last-post-info {
-    float: left;
-    width: 0%;
-  }
-}
-@media (min-width: 1200px) {
-  .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .last-post-info {
-    float: left;
-    width: 0%;
-  }
-}
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   .dashboard-page > section > section.forum-subsection .forum-topics-list > .message > .message-content > .last-post-info {
     display: none;
   }

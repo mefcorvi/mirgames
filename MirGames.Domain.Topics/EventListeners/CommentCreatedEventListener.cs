@@ -51,7 +51,7 @@ namespace MirGames.Domain.Topics.EventListeners
         /// <inheritdoc />
         public override void Process(CommentCreatedEvent @event)
         {
-            var userIdentifiers = this.queryProcessor.Process(new GetUsersIdentifiersQuery());
+            var userIdentifiers = this.queryProcessor.Process(new GetUsersIdentifiersQuery()).Except(new[] { @event.AuthorId });
             this.commandProcessor.Execute(new NotifyUsersCommand
             {
                 UserIdentifiers = userIdentifiers.ToArray(),

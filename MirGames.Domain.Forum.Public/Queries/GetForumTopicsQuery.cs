@@ -14,7 +14,7 @@ namespace MirGames.Domain.Forum.Queries
     /// <summary>
     /// Returns topic by identifier.
     /// </summary>
-    public class GetForumTopicsQuery : Query<ForumTopicsListItemViewModel>
+    public sealed class GetForumTopicsQuery : Query<ForumTopicsListItemViewModel>
     {
         /// <summary>
         /// Gets or sets the tag.

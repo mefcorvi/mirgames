@@ -1,7 +1,7 @@
 var MirGames;
 (function (MirGames) {
     /// <reference path="_references.ts" />
-    (function (Forum) {
+    (function (Topics) {
         var UnreadMenuItemController = (function () {
             function UnreadMenuItemController($scope, $element, pageData, socketService) {
                 var _this = this;
@@ -10,11 +10,10 @@ var MirGames;
                 this.$scope.goToUnread = function (url, newWindow) {
                     return _this.goToUnread(url, newWindow);
                 };
-                this.$scope.unreadCount = pageData.forumTopicsUnreadCount;
+                this.$scope.unreadCount = pageData.blogTopicsUnreadCount;
 
                 socketService.addHandler('eventsHub', 'NewNotification', function (data) {
-                    console.log(data);
-                    if (data.NotificationType == 'Forum.NewAnswer' || data.NotificationType == 'Forum.NewTopic') {
+                    if (data.NotificationType == 'Topics.NewBlogTopic' || data.NotificationType == 'Topics.NewTopicComment') {
                         $scope.$apply(function () {
                             $scope.unreadCount++;
                         });
@@ -22,8 +21,7 @@ var MirGames;
                 });
 
                 socketService.addHandler('eventsHub', 'RemoveNotification', function (data) {
-                    console.log(data);
-                    if (data.NotificationType == 'Forum.NewAnswer' || data.NotificationType == 'Forum.NewTopic') {
+                    if (data.NotificationType == 'Topics.NewBlogTopic' || data.NotificationType == 'Topics.NewTopicComment') {
                         $scope.$apply(function () {
                             $scope.unreadCount--;
                         });
@@ -36,8 +34,8 @@ var MirGames;
             UnreadMenuItemController.$inject = ['$scope', '$element', 'pageData', 'socketService'];
             return UnreadMenuItemController;
         })();
-        Forum.UnreadMenuItemController = UnreadMenuItemController;
-    })(MirGames.Forum || (MirGames.Forum = {}));
-    var Forum = MirGames.Forum;
+        Topics.UnreadMenuItemController = UnreadMenuItemController;
+    })(MirGames.Topics || (MirGames.Topics = {}));
+    var Topics = MirGames.Topics;
 })(MirGames || (MirGames = {}));
 //# sourceMappingURL=UnreadMenuItemController.js.map

@@ -61,7 +61,7 @@ namespace MirGames.Domain.Topics.EventListeners
         {
             this.searchEngine.Index(@event.TopicId, "Topic", @event.Title + " " + @event.Text + " " + @event.Tags);
 
-            var userIdentifiers = this.queryProcessor.Process(new GetUsersIdentifiersQuery());
+            var userIdentifiers = this.queryProcessor.Process(new GetUsersIdentifiersQuery()).Except(new[] { @event.AuthorId });
             this.commandProcessor.Execute(new NotifyUsersCommand
             {
                 UserIdentifiers = userIdentifiers.ToArray(),

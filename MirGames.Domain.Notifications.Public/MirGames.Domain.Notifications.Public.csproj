@@ -37,6 +37,7 @@
     <Compile Include="Commands\NotifyUsersCommand.cs" />
     <Compile Include="Commands\RemoveNotificationsCommand.cs" />
     <Compile Include="Events\NotificationsAddedEvent.cs" />
+    <Compile Include="Events\NotificationsRemovedEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetNotificationsQuery.cs" />
     <Compile Include="ViewModels\NotificationData.cs" />

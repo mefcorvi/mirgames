@@ -28,7 +28,6 @@ namespace MirGames
 
             var scripts = new[]
                 {
-                    Links.Scripts.Libs.qbaka_js,
                     "~/Scripts/Libs/markdown/AutoLinkTransform.js",
                     "~/Scripts/Libs/markdown/MarkdownDeep.js",
                     "~/Scripts/Libs/markdown/MarkdownDeepEditor.js",

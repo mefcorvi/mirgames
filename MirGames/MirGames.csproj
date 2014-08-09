@@ -673,6 +673,7 @@
     <TypeScriptCompile Include="Areas\Forum\Scripts\_references.ts" />
     <TypeScriptCompile Include="Areas\Projects\Scripts\_references.ts" />
     <TypeScriptCompile Include="Areas\Topics\Scripts\AddNewTopicDialogController.ts" />
+    <TypeScriptCompile Include="Areas\Topics\Scripts\UnreadMenuItemController.ts" />
     <TypeScriptCompile Include="Areas\Topics\Scripts\_references.ts" />
     <TypeScriptCompile Include="Scripts\BasePage.ts" />
     <TypeScriptCompile Include="Scripts\Commands.ts" />

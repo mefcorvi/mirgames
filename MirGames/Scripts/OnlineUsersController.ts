@@ -15,10 +15,6 @@ module MirGames {
                 this.addUser(onlineUser, tags);
             }
 
-            socketService.addHandler('eventsHub', 'newNotification', (data: any) => {
-                console.log('Notification', data);
-            });
-
             socketService.addHandler('eventsHub', 'userOnlineTagAdded', (userId?: number, tag?: string) => {
                 this.$scope.$apply(() => {
                     var user = this.getUser(userId);

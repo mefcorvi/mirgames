@@ -32,6 +32,8 @@ module MirGames.Domain.Chat.Queries {
 }
 module MirGames.Domain.Chat.ViewModels {
 }
+module MirGames.Domain.Notifications.ViewModels {
+}
 module MirGames.Domain.Attachments.ViewModels {
 }
 module MirGames.Domain.Wip.Commands {

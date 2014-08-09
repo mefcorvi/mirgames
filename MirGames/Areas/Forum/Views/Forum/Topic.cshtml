@@ -68,30 +68,36 @@
 <div class="topic-posts">
     <article post-id="{{post.PostId}}" ng-class="{ message: 1, unread: !post.IsRead }" ng-repeat="post in posts" ng-cloak>
         <a class="message-index" href="#{{post.Index}}" id="{{post.Index}}">#{{post.Index}}</a>
-        <a author-link="post.Author.Id" class="avatar-link" ng-show="post.Author.Id > 0">
-            <img ng-src="{{post.Author.AvatarUrl}}" class="avatar avatar-small" />
-        </a>
-        <span class="avatar-link" ng-show="post.Author.Id <= 0">
-            <img ng-src="{{post.Author.AvatarUrl}}" class="avatar avatar-small" />
-        </span>
-        <header>
-            <a author-link="post.Author.Id" class="user-login" ng-show="post.Author.Id > 0">{{post.Author.Login}}</a>
-            <span class="user-login" ng-show="post.Author.Id <= 0">{{post.Author.Login}}</span>
-            <span class="comment-date">{{post.CreatedDate | date:'dd.MM.yy HH:mm'}}</span>
+        <div class="author-block">
+            <div class="author-name">
+                <a author-link="post.Author.Id" class="user-login" ng-show="post.Author.Id > 0">{{post.Author.Login}}</a>
+                <span class="user-login" ng-show="post.Author.Id <= 0">{{post.Author.Login}}</span>
+            </div>
+            <div class="avatar">
+                <a author-link="post.Author.Id" class="avatar-link" ng-show="post.Author.Id > 0">
+                    <img ng-src="{{post.Author.AvatarUrl}}" class="avatar author-avatar" />
+                </a>
+                <span class="avatar-link" ng-show="post.Author.Id <= 0">
+                    <img ng-src="{{post.Author.AvatarUrl}}" class="avatar author-avatar" />
+                </span>
+            </div>
             <div class="message-bar">
                 <a class="edit-post" ng-show="{{post.CanBeEdited}}" href="javascript:void(0);" dialog="@Url.Action(MVC.Forum.Forum.EditPostDialog())"
                    title="Редактировать"
                    dialog-close="$parent.reloadPost(post.PostId, post.IsFirstPost)"
                    resolve="{ 'post-id': {{post.PostId}} }" dialog-controller="MirGames.Forum.EditPostDialogController"><i class="fa fa-pencil-square-o"></i></a>
-                
+
                 <a ng-show="post.CanBeDeleted" class="delete-post" href="javascript:void(0);" title="Удалить" dialog="@Url.Action(MVC.Forum.Forum.DeletePostDialog())"
                    dialog-close="$parent.hidePost(post.PostId)" resolve="{ 'post-id': {{post.PostId}} }"
                    dialog-controller="MirGames.Forum.DeletePostDialogController"><i class="fa fa-times"></i></a>
-                
-                <div class="edited" ng-show="post.UpdatedDate > post.CreatedDate">Отредактировано: {{post.UpdatedDate | date:'dd.MM.yy HH:mm'}}</div>
             </div>
-        </header>
-        <div class="text" ng-bind-html="post.Text | unsafe">
+        </div>
+        <div class="post-block">
+            <div class="created-date">
+                <i class="fa fa-clock-o"></i> <span class="topic-created-date">{{post.CreatedDate | date:'dd.MM.yy HH:mm'}}</span>
+            </div>
+            <div class="text" ng-bind-html="post.Text | unsafe"></div>
+            <div class="edited" ng-show="post.UpdatedDate > post.CreatedDate">Отредактировано: {{post.UpdatedDate | date:'dd.MM.yy HH:mm'}}</div>
         </div>
     </article>
     @if (this.UserEntity == null || !Convert.ToBoolean(this.UserEntity.Settings["ForumContiniousPagination"]))

@@ -395,6 +395,18 @@ interface ChatMessageForEditViewModel {
   SourceText: string;
 }
 }
+declare module MirGames.Domain.Notifications.ViewModels {
+interface NotificationViewModel {
+  NotificationId: string;
+  NotificationType: string;
+  UserId: number;
+  EntityId: number;
+  Data: MirGames.Domain.Notifications.ViewModels.NotificationData;
+}
+interface NotificationData {
+  NotificationType: string;
+}
+}
 declare module MirGames.Domain.Attachments.ViewModels {
 interface AttachmentViewModel {
   AttachmentId: number;
@@ -550,6 +562,7 @@ interface WipProjectViewModel {
   CanCreateTask: boolean;
   CanCreateFeature: boolean;
   CanReadRepository: boolean;
+  CanCreateBlogTopic: boolean;
   LastCommitMessage: string;
   ShortDescription: string;
   IsRepositoryPrivate: boolean;

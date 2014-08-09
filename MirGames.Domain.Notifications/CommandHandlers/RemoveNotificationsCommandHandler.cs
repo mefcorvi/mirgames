@@ -17,6 +17,7 @@ namespace MirGames.Domain.Notifications.CommandHandlers
 
     using MirGames.Domain.Notifications.Commands;
     using MirGames.Domain.Notifications.Entities;
+    using MirGames.Domain.Notifications.Events;
     using MirGames.Domain.Notifications.Services;
     using MirGames.Domain.Notifications.ViewModels;
     using MirGames.Infrastructure;
@@ -103,8 +104,24 @@ namespace MirGames.Domain.Notifications.CommandHandlers
                 notificationsQuery = notificationsQuery.Where(convertedExpression);
             }
 
+            var notifications = notificationsQuery
+                .ToArray()
+                .Select(n => new NotificationViewModel
+                {
+                    Data = n.Data,
+                    NotificationId = n.Id.ToString(),
+                    NotificationType = this.notificationTypeResolver.GetNotificationType(n.NotificationTypeId),
+                    UserId = n.UserId
+                })
+                .ToArray();
+
             var mongoQuery = new MongoQueryProvider(collection).BuildMongoQuery((MongoQueryable<Notification>)notificationsQuery);
             collection.Remove(mongoQuery);
+
+            this.eventBus.Raise(new NotificationsRemovedEvent
+            {
+                Notifications = notifications
+            });
         }
     }
 }

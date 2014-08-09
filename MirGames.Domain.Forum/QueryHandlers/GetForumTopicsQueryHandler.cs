@@ -116,10 +116,16 @@ namespace MirGames.Domain.Forum.QueryHandlers
                 
                 foreach (var topic in topics)
                 {
-                    topic.IsRead = !unreadPosts.ContainsKey(topic.TopicId) && !newTopicsNotifications.Contains(topic.TopicId);
+                    topic.IsRead = !unreadPosts.ContainsKey(topic.TopicId);
                     topic.UnreadPostsCount = unreadPosts.ContainsKey(topic.TopicId)
                                                  ? unreadPosts[topic.TopicId]
                                                  : (int?)null;
+
+                    if (newTopicsNotifications.Contains(topic.TopicId))
+                    {
+                        topic.IsRead = false;
+                        topic.UnreadPostsCount++;
+                    }
                 }
             }
 
