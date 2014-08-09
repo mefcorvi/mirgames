@@ -75,7 +75,7 @@ module MirGames.Topics {
                 var topic = {
                     link: $('<a href="javascript:void(0);"></a>'),
                     name: $(this).attr('id', 'title-' + topicId).text(),
-                    position: $(this).position().top
+                    position: thisObj.getOffset($(this)).top
                 };
 
                 titles[topicId] = topic;
@@ -88,21 +88,19 @@ module MirGames.Topics {
                 this.$scrollBar = $('<div class="scrollbar">&nbsp;</div>');
                 $('.topic-info').append(this.$scrollBar);
 
-                $(window).scroll((ev: JQueryEventObject) => this.updateTopicScrollbar());
+                this.getContentSection().scroll((ev: JQueryEventObject) => this.updateTopicScrollbar());
                 $(window).resize((ev: JQueryEventObject) => this.updateTopicScrollbar());
                 this.updateTopicScrollbar();
             }
         }
 
         private scrollToTopic(topic: IPageTitle) {
-            $('html,body').animate({
-                scrollTop: topic.position
-            }, 250);
+            this.scrollTo(topic.position);
         }
 
         private updateTopicScrollbar() {
-            var scrollTop = $(window).scrollTop();
-            var height = $(window).innerHeight();
+            var scrollTop = this.getScrollTop();
+            var height = this.getContentSection().innerHeight();
             var titles = this.titles;
 
             var scrollBarStart: number = null;
@@ -110,7 +108,7 @@ module MirGames.Topics {
 
             for (var i = 0; i < titles.length; i++) {
                 var item = titles[i];
-                var nextItemPosition = titles[i + 1] ? titles[i + 1].position : $('.comments-list').position().top;
+                var nextItemPosition = titles[i + 1] ? titles[i + 1].position : this.getOffset($('.comments-list')).top;
                 var itemHeight = nextItemPosition - item.position;
 
                 var shownTopPart = (scrollTop - item.position) / itemHeight;

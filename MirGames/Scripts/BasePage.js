@@ -31,11 +31,20 @@ var MirGames;
 
         BasePage.prototype.scrollToItem = function (item, duration) {
             if (typeof duration === "undefined") { duration = 250; }
-            var position = item.offset();
+            var position = this.getOffset(item);
+            this.scrollTo(position.top, duration);
+        };
 
-            if (position) {
-                $('body > section').animate({ scrollTop: position.top + $("body > section").scrollTop() }, duration);
-            }
+        BasePage.prototype.getOffset = function (item) {
+            var position = item.offset();
+            position.top += this.getContentSection().scrollTop();
+
+            return position;
+        };
+
+        BasePage.prototype.scrollTo = function (scrollTop, duration) {
+            if (typeof duration === "undefined") { duration = 250; }
+            $('body > section').animate({ scrollTop: scrollTop }, duration);
         };
 
         BasePage.prototype.getScrollTop = function () {
