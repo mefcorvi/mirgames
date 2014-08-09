@@ -5,9 +5,16 @@
 @section SectionMenu
 {
     <div class="topic-menu">
-        <a href="@ViewBag.BackUrl" class="back-to-topics"><i class="fa fa-arrow-left"></i>Вернуться к темам</a>
-        
-@*        @if (User.IsInRole("User"))
+        @if (Model.Blog.BlogId != null)
+        {
+            <a href="@EntityLinkProvider.GetLink(Model.Blog.EntityId, Model.Blog.EntityType)" class="back-to-topics"><i class="fa fa-arrow-left"></i>@Model.Blog.Description</a>
+        }
+        else
+        {
+            <a href="@ViewBag.BackUrl" class="back-to-topics"><i class="fa fa-arrow-left"></i>Вернуться к темам</a>
+        }
+
+        @*        @if (User.IsInRole("User"))
         {
             <a href="javascript:void(0);" class="add-to-favorite"><i class="fa fa-star"></i>В избранное</a>
         }*@

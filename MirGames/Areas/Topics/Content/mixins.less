@@ -44,6 +44,23 @@
                 & > .title-block {
                     overflow: hidden;
 
+                    .blog-link {
+                        .font-size(1.6);
+
+                        a {
+                            text-decoration: none;
+
+                            &:hover {
+                                text-decoration: underline;
+                            }
+                        }
+
+                        &:after {
+                            .font-size(1.6);
+                            content: " / ";
+                        }
+                    }
+
                     a.topic-title {
                         .header-font();
                         .active-link-color(darken(@link-color-hover, 10%));

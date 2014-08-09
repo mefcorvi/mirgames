@@ -22,6 +22,14 @@ namespace MirGames
     public abstract class BasePage<TModel> : WebViewPage<TModel>
     {
         /// <summary>
+        /// Gets the entity link provider.
+        /// </summary>
+        public IEntityLinkProvider EntityLinkProvider
+        {
+            get { return DependencyResolver.Current.GetService<IEntityLinkProvider>(); }
+        }
+
+        /// <summary>
         /// Gets or sets the page script controller.
         /// </summary>
         public string PageScriptController

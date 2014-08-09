@@ -59,6 +59,7 @@ namespace MirGames
             builder.RegisterType<SessionManager>().As<ISessionManager>().SingleInstance();
 
             builder.RegisterType<MarkdownTextProcessor>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<EntityLinkProvider>().AsImplementedInterfaces().SingleInstance();
 
             builder.RegisterModule<RouteJsModule>();
             builder.RegisterModule<InfrastructureModule>();
@@ -73,6 +74,12 @@ namespace MirGames
             builder.RegisterModule<ToolsDomainModule>();
             builder.RegisterModule<WipDomainModule>();
             builder.RegisterModule<GitModule>();
+
+            builder
+                .RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+                .AssignableTo<IEntityLinkRegistrar>()
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
 
             builder
                 .RegisterAssemblyTypes(Assembly.GetExecutingAssembly())

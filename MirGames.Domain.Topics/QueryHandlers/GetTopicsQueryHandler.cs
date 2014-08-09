@@ -6,11 +6,12 @@
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace MirGames.Domain.Topics.QueryHandlers
 {
-    using System;
     using System.Collections.Generic;
     using System.Data.Entity;
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
@@ -19,6 +20,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
     using MirGames.Domain.Topics.Entities;
     using MirGames.Domain.Topics.Notifications;
     using MirGames.Domain.Topics.Queries;
+    using MirGames.Domain.Topics.Services;
     using MirGames.Domain.Topics.ViewModels;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
@@ -48,16 +50,32 @@ namespace MirGames.Domain.Topics.QueryHandlers
         private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
+        /// The blog resolver.
+        /// </summary>
+        private readonly IBlogResolver blogResolver;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetTopicsQueryHandler" /> class.
         /// </summary>
         /// <param name="searchEngine">The search engine.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
         /// <param name="queryProcessor">The query processor.</param>
-        public GetTopicsQueryHandler(ISearchEngine searchEngine, IAuthorizationManager authorizationManager, IQueryProcessor queryProcessor)
+        /// <param name="blogResolver">The blog resolver.</param>
+        public GetTopicsQueryHandler(
+            ISearchEngine searchEngine,
+            IAuthorizationManager authorizationManager,
+            IQueryProcessor queryProcessor,
+            IBlogResolver blogResolver)
         {
+            Contract.Requires(searchEngine != null);
+            Contract.Requires(authorizationManager != null);
+            Contract.Requires(queryProcessor != null);
+            Contract.Requires(blogResolver != null);
+
             this.searchEngine = searchEngine;
             this.authorizationManager = authorizationManager;
             this.queryProcessor = queryProcessor;
+            this.blogResolver = blogResolver;
         }
 
         /// <inheritdoc />
@@ -109,6 +127,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
                                                          ? newComments[topicsListItem.TopicId]
                                                          : 0;
                 topicsListItem.IsRead = !newTopics.Contains(topicsListItem.TopicId);
+                topicsListItem.Blog = this.blogResolver.Resolve(topicsListItem.Blog);
             }
 
             return topics;
@@ -163,6 +182,10 @@ namespace MirGames.Domain.Topics.QueryHandlers
                 Author = new AuthorViewModel
                 {
                     Id = x.AuthorId,
+                },
+                Blog = new BlogViewModel
+                {
+                    BlogId = x.BlogId
                 },
                 CreationDate = x.CreationDate,
                 ShortText = x.Content.TopicTextShort,

@@ -19,6 +19,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
     using MirGames.Domain.Topics.Entities;
     using MirGames.Domain.Topics.Notifications;
     using MirGames.Domain.Topics.Queries;
+    using MirGames.Domain.Topics.Services;
     using MirGames.Domain.Topics.ViewModels;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
@@ -42,17 +43,25 @@ namespace MirGames.Domain.Topics.QueryHandlers
         private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
+        /// The blog resolver.
+        /// </summary>
+        private readonly IBlogResolver blogResolver;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetTopicsByUserQueryHandler" /> class.
         /// </summary>
         /// <param name="authorizationManager">The authorization manager.</param>
         /// <param name="queryProcessor">The query processor.</param>
-        public GetTopicsByUserQueryHandler(IAuthorizationManager authorizationManager, IQueryProcessor queryProcessor)
+        /// <param name="blogResolver">The blog resolver.</param>
+        public GetTopicsByUserQueryHandler(IAuthorizationManager authorizationManager, IQueryProcessor queryProcessor, IBlogResolver blogResolver)
         {
             Contract.Requires(authorizationManager != null);
             Contract.Requires(queryProcessor != null);
+            Contract.Requires(blogResolver != null);
 
             this.authorizationManager = authorizationManager;
             this.queryProcessor = queryProcessor;
+            this.blogResolver = blogResolver;
         }
 
         /// <inheritdoc />
@@ -100,6 +109,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
                                                          ? newComments[topicsListItem.TopicId]
                                                          : 0;
                 topicsListItem.IsRead = !newTopics.Contains(topicsListItem.TopicId);
+                topicsListItem.Blog = this.blogResolver.Resolve(topicsListItem.Blog);
             }
 
             return topics;
@@ -123,6 +133,10 @@ namespace MirGames.Domain.Topics.QueryHandlers
             return new TopicsListItem
                 {
                     Author = author,
+                    Blog = new BlogViewModel
+                    {
+                        BlogId = topic.BlogId
+                    },
                     CanBeCommented = this.authorizationManager.CheckAccess(principal, "Comment", "Topic", topic.Id),
                     CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "Topic", topic.Id),
                     CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "Topic", topic.Id),

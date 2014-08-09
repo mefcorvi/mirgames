@@ -48,7 +48,9 @@ namespace MirGames.Domain.Topics.CommandHandlers
                 {
                     Alias = command.Alias,
                     Description = command.Description,
-                    Title = command.Title
+                    Title = command.Title,
+                    EntityId = command.EntityId,
+                    EntityType = command.EntityType
                 };
 
                 writeContext.Set<Blog>().Add(blog);

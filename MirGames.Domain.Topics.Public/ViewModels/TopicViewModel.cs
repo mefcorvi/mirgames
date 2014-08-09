@@ -34,6 +34,11 @@ namespace MirGames.Domain.Topics.ViewModels
         public AuthorViewModel Author { get; set; }
 
         /// <summary>
+        /// Gets or sets the blog.
+        /// </summary>
+        public BlogViewModel Blog { get; set; }
+
+        /// <summary>
         /// Gets or sets the comments count.
         /// </summary>
         public int CommentsCount { get; set; }

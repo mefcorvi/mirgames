@@ -338,12 +338,16 @@
     </Compile>
     <Compile Include="Areas\Chat\ChatAreaRegistration.cs" />
     <Compile Include="Areas\Forum\ForumAreaRegistration.cs" />
+    <Compile Include="Areas\Projects\ProjectLinkRegistrar.cs" />
     <Compile Include="Areas\Projects\ProjectsAreaRegistration.cs" />
     <Compile Include="Areas\Topics\TopicsAreaRegistration.cs" />
     <Compile Include="AttachmentController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityLinkProvider.cs" />
     <Compile Include="Hubs\NotificationsAddedEventListener.cs" />
+    <Compile Include="IEntityLinkProvider.cs" />
+    <Compile Include="IEntityLinkRegistrar.cs" />
     <Compile Include="UserLinkTextTransform.cs" />
     <Compile Include="Chat.ChatController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>

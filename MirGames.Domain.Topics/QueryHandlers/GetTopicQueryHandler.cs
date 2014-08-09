@@ -9,6 +9,7 @@
 namespace MirGames.Domain.Topics.QueryHandlers
 {
     using System.Collections.Generic;
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
@@ -16,6 +17,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
     using MirGames.Domain.TextTransform;
     using MirGames.Domain.Topics.Entities;
     using MirGames.Domain.Topics.Queries;
+    using MirGames.Domain.Topics.Services;
     using MirGames.Domain.Topics.ViewModels;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
@@ -44,16 +46,32 @@ namespace MirGames.Domain.Topics.QueryHandlers
         private readonly ITextProcessor textProcessor;
 
         /// <summary>
+        /// The blog resolver.
+        /// </summary>
+        private readonly IBlogResolver blogResolver;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetTopicQueryHandler" /> class.
         /// </summary>
         /// <param name="authorizationManager">The authorization manager.</param>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="textProcessor">The text processor.</param>
-        public GetTopicQueryHandler(IAuthorizationManager authorizationManager, IQueryProcessor queryProcessor, ITextProcessor textProcessor)
+        /// <param name="blogResolver">The blog resolver.</param>
+        public GetTopicQueryHandler(
+            IAuthorizationManager authorizationManager,
+            IQueryProcessor queryProcessor,
+            ITextProcessor textProcessor,
+            IBlogResolver blogResolver)
         {
+            Contract.Requires(authorizationManager != null);
+            Contract.Requires(queryProcessor != null);
+            Contract.Requires(textProcessor != null);
+            Contract.Requires(blogResolver != null);
+
             this.authorizationManager = authorizationManager;
             this.queryProcessor = queryProcessor;
             this.textProcessor = textProcessor;
+            this.blogResolver = blogResolver;
         }
 
         /// <inheritdoc />
@@ -69,6 +87,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
                         CommentsCount = t.CountComment,
                         Title = t.TopicTitle,
                         Author = new AuthorViewModel { Id = t.AuthorId },
+                        Blog = new BlogViewModel { BlogId = t.BlogId },
                         TagsList = t.TagsList,
                         CreationDate = t.CreationDate
                     })
@@ -79,6 +98,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
                 return null;
             }
 
+            topic.Blog = this.blogResolver.Resolve(topic.Blog);
             this.queryProcessor.Process(new ResolveAuthorsQuery { Authors = new[] { topic.Author } });
 
             topic.CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "Topic", topic.Id);

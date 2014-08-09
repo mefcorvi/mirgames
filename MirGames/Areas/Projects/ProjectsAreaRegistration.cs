@@ -16,6 +16,12 @@
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
+                "WipRedirectToProject",
+                "project/redirect/{projectId}",
+                new { controller = "Projects", action = "RedirectToProject" },
+                new { projectId = @"\d+" });
+
+            context.MapRoute(
                 "HistoryItem",
                 "project/{projectAlias}/code/{*path}",
                 new { controller = "Projects", action = "Code", path = "/" });

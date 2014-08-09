@@ -22,6 +22,8 @@ namespace MirGames.Areas.Projects.Controllers
     using MirGames.Infrastructure.Queries;
     using MirGames.Models;
 
+    using RestSharp;
+
     /// <summary>
     /// The WIP controller.
     /// </summary>
@@ -67,6 +69,18 @@ namespace MirGames.Areas.Projects.Controllers
             this.ViewBag.PageData["tag"] = tag;
 
             return this.View(projects);
+        }
+
+        /// <inheritdoc />
+        public virtual ActionResult RedirectToProject(int projectId)
+        {
+            var project = this.QueryProcessor.Process(
+                new GetWipProjectQuery
+                {
+                    ProjectId = projectId
+                });
+
+            return this.RedirectToActionPermanent("Project", new { projectAlias = project.Alias });
         }
 
         /// <inheritdoc />

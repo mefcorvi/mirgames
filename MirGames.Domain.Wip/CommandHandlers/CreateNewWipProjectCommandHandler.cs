@@ -73,19 +73,14 @@ namespace MirGames.Domain.Wip.CommandHandlers
                     throw new ProjectAlreadyCreatedException(command.Alias);
                 }
 
-                int blogId = this.CreateBlog(command);
-                int repositoryId = this.CreateRepository(command);
-                
                 project = new Project
                 {
                     Alias = command.Alias,
                     AuthorId = userId,
-                    BlogId = blogId,
                     CreationDate = DateTime.UtcNow,
                     UpdatedDate = DateTime.UtcNow,
                     Description = command.Description,
                     FollowersCount = 0,
-                    RepositoryId = repositoryId,
                     RepositoryType = command.RepositoryType,
                     TagsList = command.Tags,
                     Title = command.Title,
@@ -95,6 +90,10 @@ namespace MirGames.Domain.Wip.CommandHandlers
                 };
 
                 writeContext.Set<Project>().Add(project);
+                writeContext.SaveChanges();
+
+                project.BlogId = this.CreateBlog(project);
+                project.RepositoryId = this.CreateRepository(project);
                 writeContext.SaveChanges();
 
                 foreach (var tag in command.Tags.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries))
@@ -133,22 +132,19 @@ namespace MirGames.Domain.Wip.CommandHandlers
 
             this.commandProcessor.Execute(new SetPermissionCommand
             {
-                Actions = new[] { "Edit", "CreateTask", "DeleteWorkItem", "EditWorkItem", "ChangeStateWorkItem", },
+                Actions = new[] { "Edit", "CreateTask", "DeleteWorkItem", "EditWorkItem", "ChangeStateWorkItem" },
                 EntityId = project.ProjectId,
                 EntityType = "Project",
                 UserId = project.AuthorId
             });
 
-            if (project.BlogId.HasValue)
+            this.commandProcessor.Execute(new SetPermissionCommand
             {
-                this.commandProcessor.Execute(new SetPermissionCommand
-                {
-                    Actions = new[] { "CreateTopic", "EditTopic", "DeleteTopic" },
-                    EntityId = project.BlogId.Value,
-                    EntityType = "Blog",
-                    UserId = project.AuthorId
-                });
-            }
+                Actions = new[] { "CreateTopic", "EditTopic", "DeleteTopic" },
+                EntityId = project.BlogId.Value,
+                EntityType = "Blog",
+                UserId = project.AuthorId
+            });
 
             return project.Alias;
         }
@@ -156,29 +152,31 @@ namespace MirGames.Domain.Wip.CommandHandlers
         /// <summary>
         /// Creates the repository.
         /// </summary>
-        /// <param name="command">The command.</param>
+        /// <param name="project">The project.</param>
         /// <returns>The repository identifier.</returns>
-        private int CreateRepository(CreateNewWipProjectCommand command)
+        private int CreateRepository(Project project)
         {
             return this.commandProcessor.Execute(new InitRepositoryCommand
             {
-                RepositoryName = command.Alias,
-                Title = "Репозиторий проекта " + command.Title
+                RepositoryName = project.Alias,
+                Title = "Репозиторий проекта " + project.Title
             });
         }
-        
+
         /// <summary>
         /// Creates the blog.
         /// </summary>
-        /// <param name="command">The command.</param>
+        /// <param name="project">The project.</param>
         /// <returns>The blog identifier.</returns>
-        private int CreateBlog(CreateNewWipProjectCommand command)
+        private int CreateBlog(Project project)
         {
             return this.commandProcessor.Execute(new AddNewBlogCommand
             {
-                Alias = command.Alias,
-                Description = "Репозиторий проекта " + command.Title,
-                Title = command.Title
+                Alias = project.Alias,
+                Description = "Проект " + project.Title,
+                Title = project.Title,
+                EntityId = project.ProjectId,
+                EntityType = "Project"
             });
         }
     }

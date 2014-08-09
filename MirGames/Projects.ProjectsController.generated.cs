@@ -56,6 +56,12 @@ namespace MirGames.Areas.Projects.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult RedirectToProject()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RedirectToProject);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Project()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Project);
@@ -107,6 +113,7 @@ namespace MirGames.Areas.Projects.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string RedirectToProject = "RedirectToProject";
             public readonly string Project = "Project";
             public readonly string Archive = "Archive";
             public readonly string WorkItems = "WorkItems";
@@ -121,6 +128,7 @@ namespace MirGames.Areas.Projects.Controllers
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string RedirectToProject = "RedirectToProject";
             public const string Project = "Project";
             public const string Archive = "Archive";
             public const string WorkItems = "WorkItems";
@@ -140,6 +148,14 @@ namespace MirGames.Areas.Projects.Controllers
         {
             public readonly string tag = "tag";
             public readonly string page = "page";
+        }
+        static readonly ActionParamsClass_RedirectToProject s_params_RedirectToProject = new ActionParamsClass_RedirectToProject();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_RedirectToProject RedirectToProjectParams { get { return s_params_RedirectToProject; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_RedirectToProject
+        {
+            public readonly string projectId = "projectId";
         }
         static readonly ActionParamsClass_Project s_params_Project = new ActionParamsClass_Project();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -250,6 +266,18 @@ namespace MirGames.Areas.Projects.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "tag", tag);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "page", page);
             IndexOverride(callInfo, tag, page);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void RedirectToProjectOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int projectId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult RedirectToProject(int projectId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RedirectToProject);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "projectId", projectId);
+            RedirectToProjectOverride(callInfo, projectId);
             return callInfo;
         }
 

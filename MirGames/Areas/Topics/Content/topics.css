@@ -85,6 +85,19 @@ body > nav > h1 .syndication:hover {
 .topics-page > section > .topics-list > .message > .message-content > .message-header > .title-block {
   overflow: hidden;
 }
+.topics-page > section > .topics-list > .message > .message-content > .message-header > .title-block .blog-link {
+  font-size: 16px;
+}
+.topics-page > section > .topics-list > .message > .message-content > .message-header > .title-block .blog-link a {
+  text-decoration: none;
+}
+.topics-page > section > .topics-list > .message > .message-content > .message-header > .title-block .blog-link a:hover {
+  text-decoration: underline;
+}
+.topics-page > section > .topics-list > .message > .message-content > .message-header > .title-block .blog-link:after {
+  font-size: 16px;
+  content: " / ";
+}
 .topics-page > section > .topics-list > .message > .message-content > .message-header > .title-block a.topic-title {
   font-family: "Droid Sans", Tahoma, sans-serif;
   font-size: 20px;
