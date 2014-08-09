@@ -190,7 +190,7 @@
   color: #999;
 }
 .chat-room-page > section > .chat-messages > .message.editing {
-  background: #f4f4e7;
+  background: #f0f1e6;
 }
 .chat-room-page > section > .chat-messages > .message > header {
   width: 150px;
@@ -212,7 +212,7 @@
   margin-top: 2px;
   font-size: 12px;
   padding: 3px;
-  color: #8c8c0c;
+  color: #6d7707;
   text-align: right;
   float: right;
 }
@@ -223,7 +223,7 @@
   margin-top: 2px;
   font-size: 12px;
   padding: 3px;
-  color: #0c8c8c;
+  color: #076d77;
   text-align: right;
   margin-left: 1px;
   float: right;

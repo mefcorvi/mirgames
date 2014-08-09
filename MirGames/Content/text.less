@@ -74,7 +74,7 @@
     h1, h2, h3, h4, h5, h6 {
         .header-font();
         font-weight: normal;
-        color: #000;
+        color: @font-color;
     }
 
     h1 {
@@ -158,11 +158,11 @@
 
     blockquote, .quotemain {
         margin: 0;
-        background: lighten(@header-background, 62%);
-        color: #555;
+        background: mix(@header-background, @background-color, 10%);
+        color: mix(@header-background, @font-color, 32%);
         padding: 5px 10px;
         clear: both;
-        border-left: 5px solid lighten(@header-background, 30%);
+        border-left: 5px solid mix(@header-background, @background-color, 22%);
         margin-bottom: 5px;
         margin-top: 5px;
 

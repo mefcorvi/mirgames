@@ -29,6 +29,11 @@ body {
     .box-sizing(border-box);
 }
 
+textarea, input[type="text"] {
+    background: @background-color;
+    color: @font-color;
+}
+
 section, nav, article, header, footer {
     display: block;
 }
@@ -183,8 +188,8 @@ body {
 
         & > nav {
             & > .profile-section {
-                border-top: 1px solid #eee;
-                border-bottom: 1px solid #eee;
+                border-top: 1px solid mix(@background-color, @font-color, 96%);
+                border-bottom: 1px solid  mix(@background-color, @font-color, 96%);
 
                 &:hover {
                     opacity: 1;
@@ -192,8 +197,7 @@ body {
             }
 
                 & > .profile-section > a {
-                    color: mix(#000, @background-color, 50%);
-                    color: rgba(0, 0, 0, 0.5);
+                    color: mix(@font-color, @background-color, 50%);
                 }
 
                 & > a, & > .profile-section > a {
@@ -284,12 +288,12 @@ body {
                 }
 
                 &.avatar-link {
-                    background: mix(#000, @background-color, 30%);
+                    background: mix(@font-color, @background-color, 30%);
                     background: rgba(0, 0, 0, 0.3);
                     color: @background-color;
 
                     &:hover {
-                        background: mix(#000, @background-color, 50%);
+                        background: mix(@font-color, @background-color, 50%);
                         background: rgba(0, 0, 0, 0.5);
                         color: @background-color;
                     }
@@ -346,16 +350,18 @@ body {
 
                 &.selected {
                     background: @selectedBackground;
+                    color: contrast(@selectedBackground);
                 }
             }
 
                 a:hover, a:active, a:focus {
-                    background: rgba(255, 255, 255, 0.7);
+                    background: mix(@header-background, @background-color, 70%);
                     outline: 0;
-                    color: @link-color-hover;
+                    color: mix(@header-background, @background-color, 10%);
 
                     &.selected {
                         background: @selectedBackground;
+                        color: mix(@header-background, @font-color, 70%);
                     }
                 }
         }

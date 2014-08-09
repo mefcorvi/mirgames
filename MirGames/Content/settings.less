@@ -1,14 +1,15 @@
 ﻿body {}
 @import "flexbox.less";
 
-@font-color: contrast(@background-color);
+@font-color: #000;
 @background-color: #fff;
 @header-background: hsl(205.2, 39%, 34.7%);
 
 @section-width: 250px;
 @menu-width: 180px;
 @section-hidden-width: 0px;
-@border-color: #eee;
+@border-color: mix(@background-color, @font-color, 96%);
+@font-size-default: 10px;
 
 @avatar-tiny: 24px;
 @avatar-small: 32px;
@@ -20,10 +21,10 @@
 @link-color: saturate(@header-background, 20%);
 @link-color-hover: lighten(spin(@link-color, 120), 20%);
 
-@date-color: #8c8c0c;
+@date-color: darken(saturate(spin(@header-background, -140), 50%), 10%);
 
 @normal-duration: 0.5s;
-@sub-background: rgb(179, 179, 0);
+@sub-background: hsl(hue(@header-background)-140, 100%, 35.1%);
 @indent: 20px;
 
 //== Media queries breakpoints
@@ -114,30 +115,30 @@
 }
 
 .font-size(@size) {
-    font-size: (@size * 10px);
+    font-size: (@size * @font-size-default);
 }
 
 .font-size-xs(@size) {
     @media (min-width: @screen-xs-min) {
-        font-size: (@size * 10px);
+        font-size: (@size * @font-size-default);
     }
 }
 
 .font-size-sm(@size) {
     @media (min-width: @screen-sm-min) {
-        font-size: (@size * 10px);
+        font-size: (@size * @font-size-default);
     }
 }
 
 .font-size-md(@size) {
     @media (min-width: @screen-md-min) {
-        font-size: (@size * 10px);
+        font-size: (@size * @font-size-default);
     }
 }
 
 .font-size-lg(@size) {
     @media (min-width: @screen-lg-min) {
-        font-size: (@size * 10px);
+        font-size: (@size * @font-size-default);
     }
 }
 

@@ -39,7 +39,7 @@
 .wip-code-file-page > section > .project-info-block > .project-description > .logo > img {
   max-width: 100%;
   max-height: 200px;
-  border: 1px solid #eeeeee;
+  border: 1px solid #f5f5f5;
   padding: 2px;
   -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
@@ -85,7 +85,7 @@
   display: block;
 }
 .wip-code-file-page > section > .project-info-block > .project-description > .project-info > .project-stats > span.updated-date {
-  color: #8c8c0c;
+  color: #6d7707;
 }
 .wip-code-file-page > section > .project-info-block > .project-description > .project-info > footer {
   font-size: 11px;
@@ -192,7 +192,7 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   float: left;
-  border: 1px solid #eeeeee;
+  border: 1px solid #f5f5f5;
   text-align: center;
   height: 30px;
   position: relative;
@@ -353,7 +353,7 @@
   color: #808080;
 }
 .wip-code-file-page > section > section > .file-block > .date {
-  color: #8c8c0c;
+  color: #6d7707;
 }
 .wip-code-file-page > section > section > .file-block > .file-content {
   overflow: auto;

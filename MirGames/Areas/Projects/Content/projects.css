@@ -55,7 +55,7 @@
 .wip-page > section > .projects-list > .project > .logo > img {
   max-width: 100%;
   max-height: 200px;
-  border: 1px solid #eeeeee;
+  border: 1px solid #f5f5f5;
   padding: 2px;
   -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
@@ -161,7 +161,7 @@
   -moz-box-sizing: border-box;
   max-width: 100px;
   font-size: 12px;
-  color: #8c8c0c;
+  color: #6d7707;
 }
 @media (min-width: 768px) {
   .wip-page > section > .projects-list > .project > .project-info > footer > .creation-date {

@@ -89,7 +89,7 @@ table.quickdate-calendar td:hover {
   color: #bbb;
 }
 .quickdate td.selected {
-  background: #eaea14;
+  background: #c6d70d;
   color: #000000;
 }
 .quickdate td:hover {
