@@ -13,9 +13,11 @@ namespace MirGames.Domain.Topics.QueryHandlers
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Notifications.Queries;
     using MirGames.Domain.Security;
     using MirGames.Domain.TextTransform;
     using MirGames.Domain.Topics.Entities;
+    using MirGames.Domain.Topics.Notifications;
     using MirGames.Domain.Topics.Queries;
     using MirGames.Domain.Topics.Services;
     using MirGames.Domain.Topics.ViewModels;
@@ -98,6 +100,14 @@ namespace MirGames.Domain.Topics.QueryHandlers
                 return null;
             }
 
+            var newTopics =
+                this.queryProcessor.GetItemsCount(
+                    new GetNotificationsQuery().WithFilter<NewBlogTopicNotification>(n => n.TopicId == topic.Id));
+
+            var newComments =
+                this.queryProcessor.GetItemsCount(
+                    new GetNotificationsQuery().WithFilter<NewTopicCommentNotification>(n => n.TopicId == topic.Id));
+
             topic.Blog = this.blogResolver.Resolve(topic.Blog);
             this.queryProcessor.Process(new ResolveAuthorsQuery { Authors = new[] { topic.Author } });
 
@@ -105,6 +115,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
             topic.CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "Topic", topic.Id);
             topic.CanBeCommented = this.authorizationManager.CheckAccess(principal, "Comment", "Topic", topic.Id);
             topic.Comments = this.GetComments(readContext, query, principal);
+            topic.IsRead = (newTopics + newComments) == 0;
 
             return topic;
         }

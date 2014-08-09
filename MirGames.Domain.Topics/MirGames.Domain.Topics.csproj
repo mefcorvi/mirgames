@@ -99,6 +99,7 @@
     <Compile Include="CommandHandlers\DeleteCommentCommandHandler.cs" />
     <Compile Include="CommandHandlers\DeleteTopicCommandHandler.cs" />
     <Compile Include="CommandHandlers\EditCommentCommandHandler.cs" />
+    <Compile Include="CommandHandlers\MarkBlogTopicAsReadCommandHandler.cs" />
     <Compile Include="CommandHandlers\PostNewCommentCommandHandler.cs" />
     <Compile Include="CommandHandlers\ReindexTopicsCommandHandler.cs" />
     <Compile Include="CommandHandlers\SaveTopicCommandHandler.cs" />

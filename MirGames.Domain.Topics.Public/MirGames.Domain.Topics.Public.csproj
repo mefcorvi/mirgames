@@ -39,12 +39,14 @@
     <Compile Include="Commands\DeleteCommentCommand.cs" />
     <Compile Include="Commands\DeleteTopicCommand.cs" />
     <Compile Include="Commands\EditCommentCommand.cs" />
+    <Compile Include="Commands\MarkTopicAsReadCommand.cs" />
     <Compile Include="Commands\PostNewCommentCommand.cs" />
     <Compile Include="Commands\ReindexTopicsCommand.cs" />
     <Compile Include="Commands\SaveTopicCommand.cs" />
     <Compile Include="Events\CommentCreatedEvent.cs" />
     <Compile Include="Events\CommentDeletedEvent.cs" />
     <Compile Include="Events\CommentEditedEvent.cs" />
+    <Compile Include="Events\BlogTopicReadEvent.cs" />
     <Compile Include="Events\TopicDeletedEvent.cs" />
     <Compile Include="Events\TopicCreatedEvent.cs" />
     <Compile Include="Exceptions\BlogAlreadyRegisteredException.cs" />

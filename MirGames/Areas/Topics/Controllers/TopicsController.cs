@@ -124,6 +124,11 @@ namespace MirGames.Areas.Topics.Controllers
                 return this.HttpNotFound();
             }
 
+            if (this.User.IsInRole("User") && !topic.IsRead)
+            {
+                this.CommandProcessor.Execute(new MarkBlogTopicAsReadCommand { TopicId = topic.Id });
+            }
+
             this.ViewBag.BackUrl = this.HttpContext.Request.UrlReferrer != null
                                    && this.HttpContext.Request.UrlReferrer.IsRouteMatch("Topics", "Index")
                                        ? this.HttpContext.Request.UrlReferrer.ToString()

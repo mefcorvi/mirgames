@@ -69,6 +69,11 @@ namespace MirGames.Domain.Topics.ViewModels
         public bool CanBeCommented { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this instance is read.
+        /// </summary>
+        public bool IsRead { get; set; }
+
+        /// <summary>
         /// Gets the tags.
         /// </summary>
         public IEnumerable<string> Tags
