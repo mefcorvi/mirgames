@@ -106,6 +106,7 @@ namespace MirGames.Areas.Topics.Controllers
 
             this.ViewBag.PageData["tag"] = tag;
             this.ViewBag.PageData["searchString"] = searchString;
+            this.ViewBag.OnlyUnread = onlyUnread;
 
             return this.View(topics);
         }

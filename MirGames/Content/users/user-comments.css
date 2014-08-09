@@ -124,6 +124,10 @@
 .user-comments-page > section > .comments-list > .comment > .text {
   margin-left: 42px;
 }
+.user-comments-page > section > .comments-list > .comment.unread-comment {
+  border-left: 5px solid #dbd4d9;
+  padding-left: 5px;
+}
 .user-comments-page > section > .comments-list > .comment {
   margin-top: 5px;
   margin-bottom: 10px;

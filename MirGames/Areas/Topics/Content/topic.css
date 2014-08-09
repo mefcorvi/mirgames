@@ -215,6 +215,10 @@
 .topic-page > section .comments-list > .comment > .text {
   margin-left: 42px;
 }
+.topic-page > section .comments-list > .comment.unread-comment {
+  border-left: 5px solid #dbd4d9;
+  padding-left: 5px;
+}
 .topic-page > section .comment-form {
   padding-top: 10px;
   padding-bottom: 10px;

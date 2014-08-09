@@ -257,5 +257,10 @@
         & > .text {
             margin-left: @avatar-small + 10px;
         }
+
+        &.unread-comment {
+            border-left: 5px solid lighten(desaturate(@link-color-hover, 50%), 30%);
+            padding-left: 5px;
+        }
     }
 }

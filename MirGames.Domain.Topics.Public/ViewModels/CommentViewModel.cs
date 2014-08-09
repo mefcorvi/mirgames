@@ -61,5 +61,10 @@ namespace MirGames.Domain.Topics.ViewModels
         /// Gets or sets a value indicating whether comment can be deleted.
         /// </summary>
         public bool CanBeDeleted { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is read.
+        /// </summary>
+        public bool IsRead { get; set; }
     }
 }

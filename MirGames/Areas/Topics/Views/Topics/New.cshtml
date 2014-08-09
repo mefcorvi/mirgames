@@ -22,6 +22,12 @@
     </div>
     <div class="form-field">
         <label>Текст</label>
+        <div class="form-field-description">
+            Текст форматируется с использованием <a href="https://ru.wikipedia.org/wiki/Markdown" target="_blank">markdown</a> разметки.<br />
+            Картинки могут быть вставлены непосредственно из буфера обмена.<br />
+            Для прикрепления файлов, можно использовать drag&amp;drop или специальную кнопку в панели инструментов.<br />
+            Для вставки видео может быть использован тот же синтаксис, что и для вставки картинки.
+        </div>
         <texteditor text="text" required="true" show-preview="showPreview" post="save()" attachments="attachments" entity-type="topic" />
     </div>
     <div class="buttons">

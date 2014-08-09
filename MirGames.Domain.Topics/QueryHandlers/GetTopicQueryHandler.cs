@@ -14,6 +14,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
     using System.Security.Claims;
 
     using MirGames.Domain.Notifications.Queries;
+    using MirGames.Domain.Notifications.ViewModels;
     using MirGames.Domain.Security;
     using MirGames.Domain.TextTransform;
     using MirGames.Domain.Topics.Entities;
@@ -105,8 +106,11 @@ namespace MirGames.Domain.Topics.QueryHandlers
                     new GetNotificationsQuery().WithFilter<NewBlogTopicNotification>(n => n.TopicId == topic.Id));
 
             var newComments =
-                this.queryProcessor.GetItemsCount(
-                    new GetNotificationsQuery().WithFilter<NewTopicCommentNotification>(n => n.TopicId == topic.Id));
+                this.queryProcessor.Process(
+                    new GetNotificationsQuery().WithFilter<NewTopicCommentNotification>(n => n.TopicId == topic.Id))
+                    .Select(t => (NewTopicCommentNotification)t.Data)
+                    .Select(t => t.CommentId)
+                    .ToArray();
 
             topic.Blog = this.blogResolver.Resolve(topic.Blog);
             this.queryProcessor.Process(new ResolveAuthorsQuery { Authors = new[] { topic.Author } });
@@ -114,8 +118,8 @@ namespace MirGames.Domain.Topics.QueryHandlers
             topic.CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "Topic", topic.Id);
             topic.CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "Topic", topic.Id);
             topic.CanBeCommented = this.authorizationManager.CheckAccess(principal, "Comment", "Topic", topic.Id);
-            topic.Comments = this.GetComments(readContext, query, principal);
-            topic.IsRead = (newTopics + newComments) == 0;
+            topic.Comments = this.GetComments(readContext, query, principal, newComments);
+            topic.IsRead = (newTopics + newComments.Length) == 0;
 
             return topic;
         }
@@ -126,10 +130,15 @@ namespace MirGames.Domain.Topics.QueryHandlers
         /// <param name="readContext">The read context.</param>
         /// <param name="query">The query.</param>
         /// <param name="principal">The principal.</param>
+        /// <param name="newComments"></param>
         /// <returns>
         /// The comments list.
         /// </returns>
-        private IEnumerable<CommentViewModel> GetComments(IReadContext readContext, GetTopicQuery query, ClaimsPrincipal principal)
+        private IEnumerable<CommentViewModel> GetComments(
+            IReadContext readContext,
+            GetTopicQuery query,
+            ClaimsPrincipal principal,
+            int[] newComments)
         {
             var comments = readContext
                 .Query<Comment>()
@@ -140,27 +149,29 @@ namespace MirGames.Domain.Topics.QueryHandlers
             var commentViewModels = comments
                 .Select(
                     c => new CommentViewModel
+                    {
+                        Author = new AuthorViewModel
                         {
-                            Author = new AuthorViewModel
-                                {
-                                    Id = c.UserId,
-                                    Login = c.UserLogin
-                                },
-                            CreationDate = c.Date,
-                            UpdatedDate = c.UpdatedDate,
-                            Text = c.Text ?? this.textProcessor.GetHtml(c.SourceText),
-                            Id = c.CommentId,
-                            TopicId = c.TopicId,
-                            CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "Comment", c.CommentId),
-                            CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "Comment", c.CommentId)
-                        })
+                            Id = c.UserId,
+                            Login = c.UserLogin
+                        },
+                        CreationDate = c.Date,
+                        UpdatedDate = c.UpdatedDate,
+                        Text = c.Text ?? this.textProcessor.GetHtml(c.SourceText),
+                        Id = c.CommentId,
+                        TopicId = c.TopicId,
+                        CanBeDeleted =
+                            this.authorizationManager.CheckAccess(principal, "Delete", "Comment", c.CommentId),
+                        CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "Comment", c.CommentId),
+                        IsRead = !newComments.Contains(c.CommentId)
+                    })
                 .ToList();
 
             this.queryProcessor.Process(
                 new ResolveAuthorsQuery
-                    {
-                        Authors = commentViewModels.Select(c => c.Author)
-                    });
+                {
+                    Authors = commentViewModels.Select(c => c.Author)
+                });
 
             return commentViewModels;
         }

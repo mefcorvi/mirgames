@@ -171,7 +171,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
                     newTopicsNotifications.OfType<NewForumAnswerNotification>()
                                           .Select(n => n.TopicId);
 
-                var topicIdentifiers = newTopics.Union(answers).Distinct().ToArray();
+                var topicIdentifiers = newTopics.Union(answers).ToArray();
                 topics = topics.Where(t => topicIdentifiers.Contains(t.TopicId));
             }
 

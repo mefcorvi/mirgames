@@ -1,10 +1,10 @@
 ﻿@model MirGames.Domain.Topics.ViewModels.CommentViewModel
-<div class="comment" comment-id="@Model.Id">
+<div @Html.Css("comment").Add("unread-comment", !Model.IsRead) comment-id="@Model.Id" id="@(Model.IsRead ? null : "unread")">
     <header id="@("c" + Model.Id)">
-        <a href="@Url.Action("Profile", "Users", new { userId = Model.Author.Id })" class="avatar-link">
+        <a href="@Url.Action(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="avatar-link">
             <img src="@Model.Author.AvatarUrl" class="avatar" />
         </a>
-        <a href="@Url.Action("Profile", "Users", new { userId = Model.Author.Id })" class="user-login">@Model.Author.Login</a>
+        <a href="@Url.Action(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login">@Model.Author.Login</a>
         <span class="comment-date">(@Html.DisplayFor(c => c.CreationDate))</span>
         <div class="message-bar">
             @if (Model.CanBeEdited)

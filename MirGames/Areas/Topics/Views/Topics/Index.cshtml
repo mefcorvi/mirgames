@@ -8,8 +8,15 @@
 }
 
 @section Nav { @Html.Partial("_TopicsMenu") }
-
-<h3>@(ViewBag.tag ?? "Все топики")</h3>
+    
+@if (ViewBag.OnlyUnread == true)
+{
+    <h3>Новые посты и комментарии</h3>
+}
+else
+{
+    <h3>@(ViewBag.tag ?? "Все топики")</h3>
+}
 <form ng-controller="MirGames.Topics.SearchPanelController" ng-submit="search()">
     <div class="form-field">
         <input type="text" placeholder="Поиск..." ng-model="searchQuery" />

@@ -1175,9 +1175,9 @@ var MarkdownDeepEditor = new function () {
     pub.cmd_hr = function(state) {
         state.SelectSurroundingWhiteSpace();
         if (state.m_selectionStart == 0)
-            state.ReplaceSelection("----------\n\n");
+            state.ReplaceSelection("**********\n\n");
         else
-            state.ReplaceSelection("\n\n----------\n\n");
+            state.ReplaceSelection("\n\n**********\n\n");
         
         state.m_selectionStart = state.m_selectionEnd;
         return true;

@@ -177,6 +177,24 @@ namespace MirGames.Domain.Topics.QueryHandlers
                     (topic, tag) => topic);
             }
 
+            if (query.OnlyUnread)
+            {
+                var notifications =
+                    this.queryProcessor.Process(
+                        new GetNotificationsQuery
+                        {
+                            Filter = n => n is NewBlogTopicNotification || n is NewTopicCommentNotification
+                        })
+                        .Select(t => t.Data)
+                        .ToArray();
+
+                var newTopics = notifications.OfType<NewBlogTopicNotification>().Select(t => t.TopicId);
+                var newComments = notifications.OfType<NewTopicCommentNotification>().Select(t => t.TopicId);
+
+                var topicIdentifiers = newTopics.Union(newComments).ToArray();
+                topics = topics.Where(t => topicIdentifiers.Contains(t.Id));
+            }
+
             return topics.Include(t => t.Content).OrderByDescending(t => t.CreationDate).Select(x => new TopicsListItem
             {
                 Author = new AuthorViewModel
