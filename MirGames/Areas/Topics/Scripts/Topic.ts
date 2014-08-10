@@ -67,6 +67,25 @@ module MirGames.Topics {
         }
 
         private loadTopicTitles() {
+            this.updateTopicsPosition();
+            if (this.titles.length > 0) {
+                this.$scrollBar = $('<div class="scrollbar">&nbsp;</div>');
+                $('.topic-info').append(this.$scrollBar);
+
+                this.getContentSection().scroll((ev: JQueryEventObject) => this.updateTopicScrollbar());
+                $(document.body).load(() => {
+                    this.updateTopicsPosition();
+                    this.updateTopicScrollbar();
+                });
+                $(window).resize((ev: JQueryEventObject) => {
+                    this.updateTopicsPosition();
+                    this.updateTopicScrollbar();
+                });
+                this.updateTopicScrollbar();
+            }
+        }
+
+        private updateTopicsPosition() {
             var titles = this.titles = [];
             var thisObj = this;
 
@@ -83,15 +102,6 @@ module MirGames.Topics {
                 titles[topicId].link.text(topic.name);
                 titles[topicId].link.click(() => thisObj.scrollToTopic(topic));
             });
-
-            if (titles.length > 0) {
-                this.$scrollBar = $('<div class="scrollbar">&nbsp;</div>');
-                $('.topic-info').append(this.$scrollBar);
-
-                this.getContentSection().scroll((ev: JQueryEventObject) => this.updateTopicScrollbar());
-                $(window).resize((ev: JQueryEventObject) => this.updateTopicScrollbar());
-                this.updateTopicScrollbar();
-            }
         }
 
         private scrollToTopic(topic: IPageTitle) {
@@ -106,9 +116,12 @@ module MirGames.Topics {
             var scrollBarStart: number = null;
             var scrollBarEnd: number = null;
 
+            var isCommentsShown = $('.comments-list').is(':visible');
+            var commentsListOffset = isCommentsShown ? this.getOffset($('.comments-list')).top : this.getOffset($('.comment-form')).top;
+
             for (var i = 0; i < titles.length; i++) {
                 var item = titles[i];
-                var nextItemPosition = titles[i + 1] ? titles[i + 1].position : this.getOffset($('.comments-list')).top;
+                var nextItemPosition = titles[i + 1] ? titles[i + 1].position : commentsListOffset;
                 var itemHeight = nextItemPosition - item.position;
 
                 var shownTopPart = (scrollTop - item.position) / itemHeight;

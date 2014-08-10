@@ -60,6 +60,11 @@ namespace MirGames.Domain.Acl.QueryHandlers
         /// <inheritdoc />
         public override bool Execute(IReadContext readContext, IsActionAllowedQuery query, ClaimsPrincipal principal)
         {
+            if (principal.IsInRole("Administrator"))
+            {
+                return true;
+            }
+
             int entityTypeId = this.entityTypesResolver.GetEntityTypeId(query.EntityType);
             int actionId = this.actionTypesResolver.GetActionId(query.ActionName, entityTypeId);
 
