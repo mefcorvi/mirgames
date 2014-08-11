@@ -34,6 +34,8 @@ namespace MirGames
     using MirGames.Infrastructure.Security;
     using MirGames.OAuth;
 
+    using RestSharp;
+
     using AutofacDependencyResolver = Autofac.Integration.Mvc.AutofacDependencyResolver;
 
     /// <summary>
@@ -139,13 +141,31 @@ namespace MirGames
                 httpException = new HttpException(404, httpException.Message, httpException.InnerException);
             }
 
+            var eventLog = DependencyResolver.Current.GetService<IEventLog>();
+
             if (httpException != null && httpException.GetHttpCode() == 500)
             {
-                DependencyResolver.Current.GetService<IEventLog>().LogError("Web", exception);
+                eventLog
+                    .LogError(
+                        "Web",
+                        httpException.InnerException.Message,
+                        new
+                        {
+                            httpException.InnerException.StackTrace,
+                            Url = HttpContext.Current.Request.Url.ToString()
+                        });
             }
             else
             {
-                DependencyResolver.Current.GetService<IEventLog>().LogWarning("Web", exception);
+                eventLog
+                    .LogError(
+                        "Web",
+                        exception.Message,
+                        new
+                        {
+                            exception.StackTrace,
+                            Url = HttpContext.Current.Request.Url.ToString()
+                        });
             }
 
             if (DependencyResolver.Current.GetService<ISettings>().GetValue<bool>("Web.CustomErrorsEnabled", true))
