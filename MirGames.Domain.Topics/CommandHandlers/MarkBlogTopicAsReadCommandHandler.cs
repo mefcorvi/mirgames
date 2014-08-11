@@ -66,6 +66,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
                     n =>
                     (n is NewBlogTopicNotification && ((NewBlogTopicNotification)n).TopicId == command.TopicId)
                     || (n is NewTopicCommentNotification && ((NewTopicCommentNotification)n).TopicId == command.TopicId),
+                UserIdentifiers = new[] { principal.GetUserId().GetValueOrDefault() }
             });
 
             this.eventBus.Raise(new BlogTopicReadEvent

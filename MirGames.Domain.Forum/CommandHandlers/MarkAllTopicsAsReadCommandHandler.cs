@@ -47,6 +47,7 @@ namespace MirGames.Domain.Forum.CommandHandlers
             this.commandProcessor.Execute(new RemoveNotificationsCommand
             {
                 Filter = n => n is NewForumAnswerNotification || n is NewForumTopicNotification,
+                UserIdentifiers = new[] { principal.GetUserId().GetValueOrDefault() }
             });
         }
     }

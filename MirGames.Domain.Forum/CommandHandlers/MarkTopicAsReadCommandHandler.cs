@@ -62,6 +62,7 @@ namespace MirGames.Domain.Forum.CommandHandlers
                     n =>
                     (n is NewForumAnswerNotification && ((NewForumAnswerNotification)n).TopicId == command.TopicId)
                     || (n is NewForumTopicNotification && ((NewForumTopicNotification)n).TopicId == command.TopicId),
+                UserIdentifiers = new[] { principal.GetUserId().GetValueOrDefault() }
             });
 
             this.eventBus.Raise(new ForumTopicReadEvent { TopicId = command.TopicId, UserIdentifiers = new[] { userId } });
