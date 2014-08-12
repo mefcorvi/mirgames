@@ -146,7 +146,8 @@ namespace MirGames
             if (httpException != null && httpException.GetHttpCode() == 500)
             {
                 eventLog
-                    .LogError(
+                    .Log(
+                        EventLogType.Error,
                         "Web",
                         httpException.InnerException.Message,
                         new
@@ -158,7 +159,8 @@ namespace MirGames
             else
             {
                 eventLog
-                    .LogError(
+                    .Log(
+                        EventLogType.Error,
                         "Web",
                         exception.Message,
                         new
