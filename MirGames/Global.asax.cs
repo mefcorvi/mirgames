@@ -34,8 +34,6 @@ namespace MirGames
     using MirGames.Infrastructure.Security;
     using MirGames.OAuth;
 
-    using RestSharp;
-
     using AutofacDependencyResolver = Autofac.Integration.Mvc.AutofacDependencyResolver;
 
     /// <summary>
@@ -153,7 +151,8 @@ namespace MirGames
                         new
                         {
                             httpException.InnerException.StackTrace,
-                            Url = HttpContext.Current.Request.Url.ToString()
+                            Url = HttpContext.Current.Request.Url.ToString(),
+                            IP = HttpContext.Current.Request.UserHostAddress
                         });
             }
             else
@@ -166,7 +165,8 @@ namespace MirGames
                         new
                         {
                             exception.StackTrace,
-                            Url = HttpContext.Current.Request.Url.ToString()
+                            Url = HttpContext.Current.Request.Url.ToString(),
+                            IP = HttpContext.Current.Request.UserHostAddress
                         });
             }
 

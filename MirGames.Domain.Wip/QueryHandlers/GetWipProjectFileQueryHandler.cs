@@ -18,7 +18,9 @@ namespace MirGames.Domain.Wip.QueryHandlers
     using MirGames.Domain.Wip.Queries;
     using MirGames.Domain.Wip.ViewModels;
     using MirGames.Infrastructure;
+    using MirGames.Infrastructure.Exception;
     using MirGames.Infrastructure.Queries;
+    using MirGames.Services.Git.Public.Exceptions;
     using MirGames.Services.Git.Public.Queries;
 
     internal sealed class GetWipProjectFileQueryHandler : SingleItemQueryHandler<GetWipProjectFileQuery, WipProjectFileViewModel>
@@ -55,21 +57,33 @@ namespace MirGames.Domain.Wip.QueryHandlers
             switch (project.RepositoryType)
             {
                 case "git":
-                    var gitFile = this.queryProcessor
-                               .Process(new GetRepositoryFileQuery
-                               {
-                                   RepositoryId = project.RepositoryId.GetValueOrDefault(),
-                                   FilePath = query.FilePath
-                               });
-
-                    return new WipProjectFileViewModel
+                    try
                     {
-                        Content = gitFile.Content,
-                        FileName = gitFile.FileName,
-                        UpdatedDate = gitFile.UpdatedDate,
-                        CommitId = gitFile.CommitId,
-                        Message = gitFile.Message
-                    };
+                        var gitFile = this.queryProcessor
+                                          .Process(new GetRepositoryFileQuery
+                                          {
+                                              RepositoryId = project.RepositoryId.GetValueOrDefault(),
+                                              FilePath = query.FilePath
+                                          });
+
+                        return new WipProjectFileViewModel
+                        {
+                            Content = gitFile.Content,
+                            FileName = gitFile.FileName,
+                            UpdatedDate = gitFile.UpdatedDate,
+                            CommitId = gitFile.CommitId,
+                            Message = gitFile.Message
+                        };
+                    }
+                    catch (QueryProcessingFailedException e)
+                    {
+                        if (e.InnerException is RepositoryPathNotFoundException)
+                        {
+                            throw new ItemNotFoundException("WipProjectFile", query.FilePath);
+                        }
+
+                        throw e.InnerException;
+                    }
 
                 default:
                     throw new IndexOutOfRangeException(string.Format("{0} is not supported type of repositories.", project.RepositoryType));
