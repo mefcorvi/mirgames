@@ -497,8 +497,8 @@ var MirGames;
                 var messageFreezeMoment = moment(message.date).add('m', 5);
                 var isMessageFrozen = messageFreezeMoment.isBefore();
 
-                message.canBeDeleted = !isMessageFrozen && message.canBeEdited;
-                message.canBeEdited = !isMessageFrozen && message.canBeDeleted;
+                message.canBeDeleted = this.pageData.isAdmin || (!isMessageFrozen && message.canBeEdited);
+                message.canBeEdited = this.pageData.isAdmin || (!isMessageFrozen && message.canBeDeleted);
 
                 if (!isMessageFrozen) {
                     this.$timeout(function () {

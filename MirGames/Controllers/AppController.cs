@@ -78,6 +78,7 @@ namespace MirGames.Controllers
             {
                 this.CurrentUser = this.QueryProcessor.Process(new GetCurrentUserQuery());
                 this.PageData["currentUser"] = this.CurrentUser;
+                this.PageData["isAdmin"] = this.User.IsInRole("Administrator");
             }
 
             this.PageData["onlineUsers"] = this.ViewBag.OnlineUsers = this.QueryProcessor.Process(
