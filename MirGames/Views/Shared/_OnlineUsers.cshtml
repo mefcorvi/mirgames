@@ -10,7 +10,7 @@
         </div>
     }
     <div ng-class="{ 'user': 1, 'user-in-chat': user.tags.indexOf('in-chat') != -1, 'chat-writing': user.tags.indexOf('chat-writing') != -1 }" class="user" ng-repeat="user in users" ng-cloak>
-        <a href="{{user.userUrl}}" title="{{user.login}}">
+        <a ng-href="{{user.userUrl}}" title="{{user.login}}">
             <img ng-src="{{user.avatarUrl}}" class="avatar avatar-small" />
             <i class="fa fa-comments"></i>
             <i class="fa fa-pencil"></i>
