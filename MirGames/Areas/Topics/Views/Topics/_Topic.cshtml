@@ -41,10 +41,10 @@
     }
     <div class="comment" comment-id="{{comment.Id}}" ng-repeat="comment in comments" ng-cloak>
         <header id="{{'c' + comment.Id}}">
-            <a author-link="comment.Author.AuthorId" class="avatar-link">
+            <a author-link="comment.Author.Id" class="avatar-link">
                 <img ng-src="{{comment.Author.AvatarUrl}}" class="avatar" />
             </a>
-            <a author-link="comment.Author.AuthorId" class="user-login">{{comment.Author.Login}}</a>
+            <a author-link="comment.Author.Id" class="user-login">{{comment.Author.Login}}</a>
             <span class="comment-date">({{comment.CreationDate | date:'dd.MM.yy HH:mm'}})</span>
             <div class="message-bar">
                 <a ng-show="comment.CanBeEdited" class="edit-post" href="javascript:void(0);" dialog="@Url.Action(MVC.Topics.Topics.EditCommentDialog())" title="Редактировать"
