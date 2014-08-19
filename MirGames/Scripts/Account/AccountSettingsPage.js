@@ -88,15 +88,7 @@ var MirGames;
                 };
 
                 this.apiService.executeCommand("SaveAccountSettingsCommand", command, function () {
-                    if (_this.$scope.attachmentId != null) {
-                        _this.saveAvatar(function () {
-                            _this.eventBus.emit('user.notification', 'Настройки сохранены');
-                            window.location.reload();
-                        });
-                    } else {
-                        _this.eventBus.emit('user.notification', 'Настройки сохранены');
-                        window.location.reload();
-                    }
+                    _this.eventBus.emit('user.notification', 'Настройки сохранены');
                 });
             };
 
@@ -118,7 +110,14 @@ var MirGames;
                 };
 
                 this.apiService.executeCommand("SaveUserProfileCommand", command, function () {
-                    _this.eventBus.emit('user.notification', 'Профиль сохранен');
+                    if (_this.$scope.attachmentId != null) {
+                        _this.saveAvatar(function () {
+                            _this.eventBus.emit('user.notification', 'Профиль сохранен');
+                            window.location.reload();
+                        });
+                    } else {
+                        _this.eventBus.emit('user.notification', 'Профиль сохранен');
+                    }
                 });
             };
 

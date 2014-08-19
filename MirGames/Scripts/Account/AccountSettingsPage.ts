@@ -71,15 +71,7 @@ module MirGames.Account {
             };
 
             this.apiService.executeCommand("SaveAccountSettingsCommand", command, () => {
-                if (this.$scope.attachmentId != null) {
-                    this.saveAvatar(() => {
-                        this.eventBus.emit('user.notification', 'Настройки сохранены');
-                        window.location.reload();
-                    });
-                } else {
-                    this.eventBus.emit('user.notification', 'Настройки сохранены');
-                    window.location.reload();
-                }
+                this.eventBus.emit('user.notification', 'Настройки сохранены');
             });
         }
 
@@ -100,7 +92,14 @@ module MirGames.Account {
             };
 
             this.apiService.executeCommand("SaveUserProfileCommand", command, () => {
-                this.eventBus.emit('user.notification', 'Профиль сохранен');
+                if (this.$scope.attachmentId != null) {
+                    this.saveAvatar(() => {
+                        this.eventBus.emit('user.notification', 'Профиль сохранен');
+                        window.location.reload();
+                    });
+                } else {
+                    this.eventBus.emit('user.notification', 'Профиль сохранен');
+                }
             });
         }
 
