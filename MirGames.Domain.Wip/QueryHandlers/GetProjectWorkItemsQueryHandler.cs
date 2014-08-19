@@ -90,6 +90,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
                     UpdatedDate = x.UpdatedDate,
                     WorkItemId = x.WorkItemId,
                     Author = new AuthorViewModel { Id = x.AuthorId },
+                    AssignedTo = new AuthorViewModel { Id = x.AssignedTo },
                     Duration = x.Duration,
                     EndDate = x.EndDate,
                     ParentId = x.ParentId,
@@ -102,7 +103,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
 
             this.queryProcessor.Process(new ResolveAuthorsQuery
             {
-                Authors = workItemViewModels.Select(x => x.Author)
+                Authors = workItemViewModels.Select(x => x.Author).Concat(workItemViewModels.Select(x => x.AssignedTo))
             });
 
             return workItemViewModels;

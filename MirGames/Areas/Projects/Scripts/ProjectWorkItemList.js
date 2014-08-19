@@ -96,6 +96,11 @@ var MirGames;
                         id: item.Author.Id,
                         login: item.Author.Login
                     },
+                    assignedTo: {
+                        avatar: item.AssignedTo.AvatarUrl,
+                        id: item.AssignedTo.Id,
+                        login: item.AssignedTo.Login
+                    },
                     changeState: function () {
                         return _this.changeWorkItemState(workItem, item);
                     }

@@ -26,6 +26,7 @@ namespace MirGames.Domain.Wip.Mapping
             this.Property(t => t.WorkItemId).HasColumnName("work_item_id");
             this.Property(t => t.InternalId).HasColumnName("internal_id");
             this.Property(t => t.ProjectId).HasColumnName("project_id");
+            this.Property(t => t.AssignedTo).HasColumnName("assigned_to");
             this.Property(t => t.Title).HasColumnName("title");
             this.Property(t => t.Description).HasColumnName("description");
             this.Property(t => t.TagsList).HasColumnName("tags_list");

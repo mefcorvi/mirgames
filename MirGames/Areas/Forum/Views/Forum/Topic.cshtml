@@ -81,6 +81,8 @@
                     <img ng-src="{{post.Author.AvatarUrl}}" class="avatar author-avatar" />
                 </span>
             </div>
+            <div class="author-title" ng-bind="post.Author.Title">
+            </div>
             <div class="message-bar">
                 <a class="edit-post" ng-show="{{post.CanBeEdited}}" href="javascript:void(0);" dialog="@Url.Action(MVC.Forum.Forum.EditPostDialog())"
                    title="Редактировать"

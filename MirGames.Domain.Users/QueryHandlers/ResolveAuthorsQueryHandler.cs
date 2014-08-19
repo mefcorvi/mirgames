@@ -85,7 +85,8 @@ namespace MirGames.Domain.Users.QueryHandlers
                             x.AvatarUrl,
                             x.Mail,
                             x.Login,
-                            x.Id
+                            x.Id,
+                            x.About
                         })
                         .ToList()
                         .Select(
@@ -93,7 +94,8 @@ namespace MirGames.Domain.Users.QueryHandlers
                             {
                                 AvatarUrl = x.AvatarUrl ?? this.avatarProvider.GetAvatarUrl(x.Mail, x.Login),
                                 Id = x.Id,
-                                Login = x.Login
+                                Login = x.Login,
+                                Title = x.About
                             }));
             }
 
@@ -112,8 +114,9 @@ namespace MirGames.Domain.Users.QueryHandlers
                     var resolvedAuthor = dictionary[author.Id.Value];
                     author.AvatarUrl = resolvedAuthor.AvatarUrl;
                     author.Login = resolvedAuthor.Login;
+                    author.Title = resolvedAuthor.Title;
                 }
-                else
+                else if (!author.Login.IsNullOrEmpty())
                 {
                     author.AvatarUrl = this.avatarProvider.GetAvatarUrl(null, author.Login);
                 }

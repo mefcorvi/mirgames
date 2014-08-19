@@ -34,6 +34,11 @@ namespace MirGames.Domain.Wip.Entities
         public int ProjectId { get; set; }
 
         /// <summary>
+        /// Gets or sets the assigned to.
+        /// </summary>
+        public int AssignedTo { get; set; }
+
+        /// <summary>
         /// Gets or sets the title.
         /// </summary>
         public string Title { get; set; }
@@ -79,7 +84,7 @@ namespace MirGames.Domain.Wip.Entities
         public DateTime? EndDate { get; set; }
 
         /// <summary>
-        /// Gets or sets the duration in ticks.
+        /// Gets or sets the duration in seconds.
         /// </summary>
         public int? DurationInSeconds { get; set; }
 

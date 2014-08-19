@@ -99,7 +99,8 @@ namespace MirGames.Domain.Wip.CommandHandlers
                     UpdatedDate = DateTime.UtcNow,
                     Title = command.Title,
                     TagsList = command.Tags ?? string.Empty,
-                    InternalId = newInternalId
+                    InternalId = newInternalId,
+                    AssignedTo = command.AssignedTo ?? userId
                 };
 
                 writeContext.Set<ProjectWorkItem>().Add(projectWorkItem);

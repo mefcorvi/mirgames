@@ -12,6 +12,9 @@
         <div class="avatar">
             @Author.UserAvatarLink(Model.Author, "author-avatar")
         </div>
+        <div class="author-title">
+            @Model.Author.Title
+        </div>
         <div class="message-bar">
             @if (Model.CanBeEdited)
             {

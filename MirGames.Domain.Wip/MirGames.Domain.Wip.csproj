@@ -65,6 +65,7 @@
     <Compile Include="AccessRules\ProjectWorkItemDeleteAccessRule.cs" />
     <Compile Include="ClaimsProviders\WipClaimsProvider.cs" />
     <Compile Include="CommandHandlers\ArchiveProjectRepositoryCommandHandler.cs" />
+    <Compile Include="CommandHandlers\AssignWorkItemCommandHandler.cs" />
     <Compile Include="CommandHandlers\ChangeWorkItemStateCommandHandler.cs" />
     <Compile Include="CommandHandlers\SaveWipProjectCommandHandler.cs" />
     <Compile Include="CommandHandlers\CreateNewWipProjectCommandHandler.cs" />

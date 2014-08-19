@@ -103,6 +103,11 @@ namespace MirGames.Domain.Wip.ViewModels
         public AuthorViewModel Author { get; set; }
 
         /// <summary>
+        /// Gets or sets the assigned to.
+        /// </summary>
+        public AuthorViewModel AssignedTo { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether this instance can be edited.
         /// </summary>
         public bool CanBeDeleted { get; set; }

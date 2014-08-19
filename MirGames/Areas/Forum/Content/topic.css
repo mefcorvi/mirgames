@@ -91,6 +91,11 @@
 .forum-topic-page > section > .first-post > .author-block > .author-name {
   margin-bottom: 5px;
 }
+.forum-topic-page > section > .first-post > .author-block > .author-title {
+  margin-top: 5px;
+  font-size: 11px;
+  color: #999999;
+}
 .forum-topic-page > section > .first-post > .author-block > .message-bar {
   font-size: 15px;
   margin-top: 10px;
@@ -283,6 +288,7 @@
   -moz-flex-grow: 1;
   -ms-flex-grow: 1;
   flex-grow: 1;
+  padding-left: 5px;
 }
 .forum-topic-page > section > .topic-bar > .created-date {
   color: #6d7707;
@@ -379,6 +385,11 @@
 }
 .forum-topic-page > section > .topic-posts > .message > .author-block > .author-name {
   margin-bottom: 5px;
+}
+.forum-topic-page > section > .topic-posts > .message > .author-block > .author-title {
+  margin-top: 5px;
+  font-size: 11px;
+  color: #999999;
 }
 .forum-topic-page > section > .topic-posts > .message > .author-block > .message-bar {
   font-size: 15px;

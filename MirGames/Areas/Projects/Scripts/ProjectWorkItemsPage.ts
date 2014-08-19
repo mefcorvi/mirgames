@@ -40,7 +40,7 @@ module MirGames.Wip {
         }
     }
 
-    export interface IWorkItemAuthorScope {
+    export interface IWorkItemUserScope {
         login: string;
         avatar: string;
         id: number;
@@ -58,7 +58,8 @@ module MirGames.Wip {
         priority: number;
         url: string;
         tags: IProjectWorkItemTagScope[];
-        author: IWorkItemAuthorScope;
+        author: IWorkItemUserScope;
+        assignedTo: IWorkItemUserScope;
         changeState: () => void;
     }
 

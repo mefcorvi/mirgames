@@ -35,5 +35,10 @@
         /// Gets or sets the description.
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the assigned to.
+        /// </summary>
+        public int? AssignedTo { get; set; }
     }
 }

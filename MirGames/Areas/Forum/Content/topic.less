@@ -62,6 +62,12 @@
             margin-bottom: @indent/4;
         }
 
+        & > .author-title {
+            margin-top: @indent/4;
+            .font-size(1.1);
+            color: mix(@background-color, @font-color, 60%);
+        }
+
         & > .message-bar {
             .font-size(1.5);
             margin-top: @indent/2;
@@ -189,6 +195,7 @@
 
             & > .author {
                 .flex-grow(1);
+                padding-left: @indent/4;
             }
 
             & > .created-date {

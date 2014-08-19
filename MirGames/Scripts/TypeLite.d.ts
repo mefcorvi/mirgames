@@ -113,6 +113,13 @@ interface GetCommentByIdQuery extends MirGames.Infrastructure.Queries.SingleItem
 }
 }
 declare module MirGames.Domain.Topics.ViewModels {
+interface BlogViewModel {
+  BlogId: number;
+  Title: string;
+  Description: string;
+  EntityId: number;
+  EntityType: string;
+}
 interface CommentForEditViewModel {
   Id: number;
   SourceText: string;
@@ -127,6 +134,7 @@ interface CommentViewModel {
   TopicTitle: string;
   CanBeEdited: boolean;
   CanBeDeleted: boolean;
+  IsRead: boolean;
 }
 interface TopicForEditViewModel {
   Id: number;
@@ -138,12 +146,14 @@ interface TopicViewModel {
   Id: number;
   Title: string;
   Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
+  Blog: MirGames.Domain.Topics.ViewModels.BlogViewModel;
   CommentsCount: number;
   Text: string;
   Comments: MirGames.Domain.Topics.ViewModels.CommentViewModel[];
   CanBeEdited: boolean;
   CanBeDeleted: boolean;
   CanBeCommented: boolean;
+  IsRead: boolean;
   Tags: string[];
   TagsList: string;
   CreationDate: Date;
@@ -154,6 +164,7 @@ interface AuthorViewModel {
   AvatarUrl: string;
   Login: string;
   Id: number;
+  Title: string;
 }
 interface OAuthProviderViewModel {
   ProviderId: number;
@@ -423,6 +434,10 @@ interface AttachmentViewModel {
 }
 }
 declare module MirGames.Domain.Wip.Commands {
+interface AssignWorkItemCommand extends MirGames.Infrastructure.Commands.Command {
+  WorkItemId: number;
+  UserId: number;
+}
 interface ChangeWorkItemStateCommand extends MirGames.Infrastructure.Commands.Command1 {
   WorkItemId: number;
   State: MirGames.Domain.Wip.ViewModels.WorkItemState;
@@ -434,6 +449,7 @@ interface CreateNewProjectWorkItemCommand extends MirGames.Infrastructure.Comman
   Type: MirGames.Domain.Wip.ViewModels.WorkItemType;
   Attachments: number[];
   Description: string;
+  AssignedTo: number;
 }
 interface SaveWipProjectCommand extends MirGames.Infrastructure.Commands.Command {
   Title: string;
@@ -515,6 +531,7 @@ interface ProjectWorkItemViewModel {
   Duration: System.TimeSpan;
   ParentId: number;
   Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
+  AssignedTo: MirGames.Domain.Users.ViewModels.AuthorViewModel;
   CanBeDeleted: boolean;
   CanBeEdited: boolean;
   CanBeCommented: boolean;
