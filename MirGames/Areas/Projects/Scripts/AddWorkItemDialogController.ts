@@ -23,7 +23,8 @@ module MirGames.Projects {
                 Tags: this.$scope.tags,
                 Type: this.$scope.type,
                 Attachments: this.$scope.attachments,
-                Description: this.$scope.text
+                Description: this.$scope.text,
+                AssignedTo: null
             };
 
             this.apiService.executeCommand('CreateNewProjectWorkItemCommand', command, (internalId: number) => {

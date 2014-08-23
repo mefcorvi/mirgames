@@ -9,7 +9,7 @@
     <head>
         <title>@(string.IsNullOrWhiteSpace(this.Title) ? "" : string.Format("{0} / ", this.Title))MirGames - сообщество разработчиков игр</title>
         <meta charset="utf-8" />
-        @Styles.Render("~/Content/css")
+        <link href="~/public/css/default.css" rel="stylesheet" />
         <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <link rel="stylesheet" href="@string.Format("{0}://{1}", Request.Url.Scheme, "yandex.st/highlightjs/7.3/styles/zenburn.min.css")">
@@ -95,8 +95,8 @@
         </script>
         <script src="@string.Format("{0}://{1}", Request.Url.Scheme, "yandex.st/highlightjs/7.3/highlight.min.js")"></script>
         <script type="text/javascript" src="@string.Format("{0}://{1}", Request.Url.Scheme, "www.google.com/recaptcha/api/js/recaptcha_ajax.js")"></script>
-        @Scripts.Render("~/Scripts/js")
         <script src="~/signalr/hubs"></script>
+        <script src="~/public/js/scripts.js"></script>
         @RenderSection("scripts", required: false)
         <script src="@RouteJs.RouteJsHandler.HandlerUrl"></script>
         <script type="text/javascript">

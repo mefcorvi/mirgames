@@ -78,23 +78,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <TypeScriptTarget>ES5</TypeScriptTarget>
-    <TypeScriptIncludeComments>true</TypeScriptIncludeComments>
-    <TypeScriptSourceMap>true</TypeScriptSourceMap>
-    <TypeScriptNoImplicitAny>true</TypeScriptNoImplicitAny>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <TypeScriptTarget>ES5</TypeScriptTarget>
-    <TypeScriptIncludeComments>false</TypeScriptIncludeComments>
-    <TypeScriptSourceMap>false</TypeScriptSourceMap>
-    <TypeScriptNoImplicitAny>true</TypeScriptNoImplicitAny>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
     <Reference Include="Autofac, Version=3.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Autofac.3.5.0\lib\net40\Autofac.dll</HintPath>
@@ -109,30 +93,6 @@
     <Reference Include="Autofac.Integration.WebApi, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Autofac.WebApi2.3.3.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
-    </Reference>
-    <Reference Include="BundleTransformer.Core, Version=1.8.18.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\BundleTransformer.Core.1.8.18\lib\net40\BundleTransformer.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="BundleTransformer.Csso, Version=1.8.18.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\BundleTransformer.Csso.1.8.18\lib\net40\BundleTransformer.Csso.dll</HintPath>
-    </Reference>
-    <Reference Include="BundleTransformer.JsMin, Version=1.8.18.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\BundleTransformer.JsMin.1.8.18\lib\net40\BundleTransformer.JsMin.dll</HintPath>
-    </Reference>
-    <Reference Include="BundleTransformer.Less, Version=1.8.18.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\BundleTransformer.Less.1.8.18\lib\net40\BundleTransformer.Less.dll</HintPath>
-    </Reference>
-    <Reference Include="BundleTransformer.UglifyJs, Version=1.8.18.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\BundleTransformer.UglifyJs.1.8.18\lib\net40\BundleTransformer.UglifyJs.dll</HintPath>
-    </Reference>
-    <Reference Include="ClearScript, Version=5.3.11.0, Culture=neutral, PublicKeyToken=fd665343e29c428c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\JavaScriptEngineSwitcher.V8.1.1.1\lib\net40\ClearScript.dll</HintPath>
     </Reference>
     <Reference Include="DevAuth.AspNet">
       <HintPath>..\packages\DevAuth.AspNet.1.0.0.0\lib\net45\DevAuth.AspNet.dll</HintPath>
@@ -171,14 +131,6 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="JavaScriptEngineSwitcher.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\JavaScriptEngineSwitcher.Core.1.1.0\lib\net40\JavaScriptEngineSwitcher.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="JavaScriptEngineSwitcher.V8, Version=1.1.1.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\JavaScriptEngineSwitcher.V8.1.1.1\lib\net40\JavaScriptEngineSwitcher.V8.dll</HintPath>
     </Reference>
     <Reference Include="LibGit2Sharp, Version=0.18.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -233,7 +185,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http.Extensions">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.18\lib\net45\System.Net.Http.Extensions.dll</HintPath>
@@ -252,7 +203,6 @@
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.0\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -268,10 +218,6 @@
     <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.1.0\lib\net45\System.Web.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.2\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -309,10 +255,6 @@
     </Reference>
     <Reference Include="T4MVCExtensions">
       <HintPath>..\packages\T4MVCExtensions.3.9.1\lib\net40\T4MVCExtensions.dll</HintPath>
-    </Reference>
-    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
     <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -430,7 +372,6 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ToolsController.cs" />
     <Compile Include="Filters\AjaxOnlyAttribute.cs" />
-    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -471,21 +412,6 @@
     <Content Include="Areas\Projects\Content\references.less" />
     <Content Include="Areas\Topics\Views\Topics\_AddTopicDialog.cshtml" />
     <Content Include="Areas\Topics\Views\Topics\_Topic.cshtml" />
-    <None Include="BundleTransformer.Configuration.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="ClearScript.V8\ClearScriptV8-32.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="ClearScript.V8\ClearScriptV8-64.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="ClearScript.V8\v8-ia32.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="ClearScript.V8\v8-x64.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Content Include="Content\avatars.css">
       <DependentUpon>avatars.less</DependentUpon>
     </Content>
@@ -673,53 +599,53 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <TypeScriptCompile Include="Areas\Chat\Scripts\_references.ts" />
-    <TypeScriptCompile Include="Areas\Forum\Scripts\_references.ts" />
-    <TypeScriptCompile Include="Areas\Projects\Scripts\_references.ts" />
-    <TypeScriptCompile Include="Areas\Topics\Scripts\AddNewTopicDialogController.ts" />
-    <TypeScriptCompile Include="Areas\Topics\Scripts\UnreadMenuItemController.ts" />
-    <TypeScriptCompile Include="Areas\Topics\Scripts\_references.ts" />
-    <TypeScriptCompile Include="Scripts\BasePage.ts" />
-    <TypeScriptCompile Include="Scripts\Commands.ts" />
-    <TypeScriptCompile Include="Scripts\Core\Application.ts" />
-    <TypeScriptCompile Include="Scripts\Account\LoginFormController.ts" />
-    <TypeScriptCompile Include="Scripts\Account\SignUpFormController.ts" />
-    <TypeScriptCompile Include="Scripts\Libs\jquery.d.ts" />
-    <TypeScriptCompile Include="Areas\Projects\Scripts\AddWorkItemDialogController.ts" />
-    <TypeScriptCompile Include="Areas\Projects\Scripts\ProjectSettingsPage.ts" />
-    <TypeScriptCompile Include="Areas\Projects\Scripts\NewProjectPage.ts" />
-    <TypeScriptCompile Include="Areas\Projects\Scripts\ProjectWorkItemPage.ts" />
-    <TypeScriptCompile Include="Areas\Projects\Scripts\ProjectWorkItemBlocks.ts" />
-    <TypeScriptCompile Include="Areas\Projects\Scripts\ProjectWorkItemList.ts" />
-    <TypeScriptCompile Include="Areas\Projects\Scripts\ProjectWorkItemsPage.ts" />
-    <TypeScriptCompile Include="Areas\Topics\Scripts\Topic.ts" />
-    <TypeScriptCompile Include="Scripts\Settings.ts" />
-    <TypeScriptCompile Include="Scripts\Core\Config.ts" />
-    <TypeScriptCompile Include="Scripts\Core\CommandBus.ts" />
-    <TypeScriptCompile Include="Scripts\Core\EventBus.ts" />
-    <TypeScriptCompile Include="Scripts\RequestNotificationController.ts" />
-    <TypeScriptCompile Include="Areas\Forum\Scripts\TopicsPage.ts" />
-    <TypeScriptCompile Include="Areas\Forum\Scripts\TopicPage.ts" />
-    <TypeScriptCompile Include="Scripts\TypeLite.d.ts">
+    <None Include="Areas\Chat\Scripts\_references.ts" />
+    <None Include="Areas\Forum\Scripts\_references.ts" />
+    <None Include="Areas\Projects\Scripts\_references.ts" />
+    <None Include="Areas\Topics\Scripts\AddNewTopicDialogController.ts" />
+    <None Include="Areas\Topics\Scripts\UnreadMenuItemController.ts" />
+    <None Include="Areas\Topics\Scripts\_references.ts" />
+    <None Include="Scripts\BasePage.ts" />
+    <None Include="Scripts\Commands.ts" />
+    <None Include="Scripts\Core\Application.ts" />
+    <None Include="Scripts\Account\LoginFormController.ts" />
+    <None Include="Scripts\Account\SignUpFormController.ts" />
+    <None Include="Scripts\Libs\jquery.d.ts" />
+    <None Include="Areas\Projects\Scripts\AddWorkItemDialogController.ts" />
+    <None Include="Areas\Projects\Scripts\ProjectSettingsPage.ts" />
+    <None Include="Areas\Projects\Scripts\NewProjectPage.ts" />
+    <None Include="Areas\Projects\Scripts\ProjectWorkItemPage.ts" />
+    <None Include="Areas\Projects\Scripts\ProjectWorkItemBlocks.ts" />
+    <None Include="Areas\Projects\Scripts\ProjectWorkItemList.ts" />
+    <None Include="Areas\Projects\Scripts\ProjectWorkItemsPage.ts" />
+    <None Include="Areas\Topics\Scripts\Topic.ts" />
+    <None Include="Scripts\Settings.ts" />
+    <None Include="Scripts\Core\Config.ts" />
+    <None Include="Scripts\Core\CommandBus.ts" />
+    <None Include="Scripts\Core\EventBus.ts" />
+    <None Include="Scripts\RequestNotificationController.ts" />
+    <None Include="Areas\Forum\Scripts\TopicsPage.ts" />
+    <None Include="Areas\Forum\Scripts\TopicPage.ts" />
+    <None Include="Scripts\TypeLite.d.ts">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TypeLite.tt</DependentUpon>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="Scripts\TypeLiteEnums.ts">
+    </None>
+    <None Include="Scripts\TypeLiteEnums.ts">
       <DependentUpon>TypeLite.tt</DependentUpon>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="Scripts\UI\Draggable.ts" />
-    <TypeScriptCompile Include="Scripts\UI\TextEditor.ts" />
-    <TypeScriptCompile Include="Areas\Forum\Scripts\NewTopic.ts" />
-    <TypeScriptCompile Include="Areas\Forum\Scripts\SearchPanelController.ts" />
-    <TypeScriptCompile Include="Scripts\Core\Base64.ts" />
-    <TypeScriptCompile Include="Scripts\Attachment\AttachmentService.ts" />
-    <TypeScriptCompile Include="Areas\Forum\Scripts\UnreadMenuItemController.ts" />
-    <TypeScriptCompile Include="Areas\Chat\Scripts\ChatRoomPage.ts" />
-    <TypeScriptCompile Include="Scripts\Account\AccountSettingsPage.ts" />
-    <TypeScriptCompile Include="Scripts\OnlineUsersController.ts" />
-    <TypeScriptCompile Include="Areas\Forum\Scripts\EditPostDialogController.ts" />
-    <TypeScriptCompile Include="Scripts\Core\ApiService.ts" />
+    </None>
+    <None Include="Scripts\UI\Draggable.ts" />
+    <None Include="Scripts\UI\TextEditor.ts" />
+    <None Include="Areas\Forum\Scripts\NewTopic.ts" />
+    <None Include="Areas\Forum\Scripts\SearchPanelController.ts" />
+    <None Include="Scripts\Core\Base64.ts" />
+    <None Include="Scripts\Attachment\AttachmentService.ts" />
+    <None Include="Areas\Forum\Scripts\UnreadMenuItemController.ts" />
+    <None Include="Areas\Chat\Scripts\ChatRoomPage.ts" />
+    <None Include="Scripts\Account\AccountSettingsPage.ts" />
+    <None Include="Scripts\OnlineUsersController.ts" />
+    <None Include="Areas\Forum\Scripts\EditPostDialogController.ts" />
+    <None Include="Scripts\Core\ApiService.ts" />
     <Content Include="NativeBinaries\amd64\git2-65e9dc6.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -732,73 +658,75 @@
     <Content Include="NativeBinaries\x86\git2-65e9dc6.pdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <TypeScriptCompile Include="Areas\Forum\Scripts\DeletePostDialogController.ts" />
-    <TypeScriptCompile Include="Scripts\Core\SocketService.ts" />
-    <TypeScriptCompile Include="Scripts\Libs\jquery.autosize.d.ts" />
-    <TypeScriptCompile Include="Scripts\SocketNotificationController.ts" />
-    <TypeScriptCompile Include="Areas\Forum\Scripts\DeleteTopicDialogController.ts" />
-    <TypeScriptCompile Include="Scripts\Core\CurrentUser.ts" />
-    <TypeScriptCompile Include="Scripts\ActivationNotificationController.ts" />
-    <TypeScriptCompile Include="Scripts\UserNotificationController.ts" />
-    <Content Include="Scripts\Libs\jquery.signalR-2.0.2.js" />
-    <Content Include="Scripts\Libs\jquery.signalR-2.0.2.min.js" />
-    <Content Include="Scripts\Libs\ion.sound.d.ts" />
-    <Content Include="Scripts\Libs\ion.sound.js" />
-    <TypeScriptCompile Include="Scripts\Libs\markdown\AutoLinkTransform.ts" />
-    <Content Include="Scripts\Libs\md5.d.ts" />
-    <Content Include="Scripts\Libs\md5.js" />
-    <Content Include="Scripts\Libs\moment.d.ts" />
-    <Content Include="Scripts\Libs\moment.js" />
-    <Content Include="Scripts\Libs\ng-quick-date.js">
+    <None Include="Areas\Forum\Scripts\DeletePostDialogController.ts" />
+    <None Include="Scripts\Core\SocketService.ts" />
+    <None Include="Scripts\Libs\jquery.autosize.d.ts" />
+    <None Include="Scripts\SocketNotificationController.ts" />
+    <None Include="Areas\Forum\Scripts\DeleteTopicDialogController.ts" />
+    <None Include="Scripts\Core\CurrentUser.ts" />
+    <None Include="Scripts\ActivationNotificationController.ts" />
+    <None Include="Scripts\UserNotificationController.ts" />
+    <Content Include="public\css\default.css" />
+    <Content Include="public\js\scripts.js" />
+    <None Include="Scripts\Libs\jquery.signalR-2.0.2.js" />
+    <None Include="Scripts\Libs\jquery.signalR-2.0.2.min.js" />
+    <None Include="Scripts\Libs\ion.sound.d.ts" />
+    <None Include="Scripts\Libs\ion.sound.js" />
+    <None Include="Scripts\Libs\markdown\AutoLinkTransform.ts" />
+    <None Include="Scripts\Libs\md5.d.ts" />
+    <None Include="Scripts\Libs\md5.js" />
+    <None Include="Scripts\Libs\moment.d.ts" />
+    <None Include="Scripts\Libs\moment.js" />
+    <None Include="Scripts\Libs\ng-quick-date.js">
       <DependentUpon>ng-quick-date.coffee</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Libs\ng-quick-date.min.js">
+    </None>
+    <None Include="Scripts\Libs\ng-quick-date.min.js">
       <DependentUpon>ng-quick-date.coffee</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Libs\qbaka.js" />
-    <Content Include="Scripts\Libs\tinycon.d.ts" />
-    <Content Include="Scripts\Libs\jquery.autosize.js" />
-    <Content Include="Scripts\Libs\jquery.hashchange.d.ts" />
-    <Content Include="Scripts\Libs\jquery.cookie.d.ts" />
-    <Content Include="Scripts\Libs\jquery.cookie.js" />
-    <Content Include="Scripts\Libs\jquery.hashchange.js" />
-    <Content Include="Scripts\Libs\jquery.naturalWidth.d.ts" />
-    <Content Include="Scripts\Libs\tinycon.js" />
-    <Content Include="Scripts\Libs\angular-recaptcha.js" />
-    <TypeScriptCompile Include="Scripts\Libs\angular.d.ts" />
-    <Content Include="Scripts\Libs\angular.js" />
-    <TypeScriptCompile Include="Scripts\Libs\eventEmitter.d.ts" />
-    <TypeScriptCompile Include="Scripts\Libs\markdown\MarkdownDeep.d.ts" />
-    <Content Include="Scripts\Libs\eventEmitter.js" />
-    <Content Include="Scripts\Libs\linq.d.ts" />
-    <Content Include="Scripts\Libs\linq.js" />
-    <Content Include="Scripts\Libs\markdown\MarkdownDeepEditorUI.js" />
-    <Content Include="Scripts\Libs\markdown\MarkdownDeep.js" />
-    <Content Include="Scripts\Libs\markdown\MarkdownDeepEditor.js" />
-    <TypeScriptCompile Include="Scripts\Libs\signalr.d.ts" />
-    <Content Include="Scripts\Libs\ui-bootstrap-custom-0.5.0.js" />
-    <TypeScriptCompile Include="Scripts\MirGames.ts" />
-    <TypeScriptCompile Include="Scripts\Core\Service.ts" />
-    <TypeScriptCompile Include="Scripts\NavigationController.ts" />
-    <TypeScriptCompile Include="Areas\Topics\Scripts\NewTopic.ts" />
-    <TypeScriptCompile Include="Scripts\UI\Dialog.ts" />
-    <TypeScriptCompile Include="Scripts\Core\Utils.ts" />
-    <TypeScriptCompile Include="Areas\Projects\Scripts\ProjectCodeFilePage.ts" />
-    <TypeScriptCompile Include="Scripts\_references.ts" />
-    <TypeScriptCompile Include="Areas\Topics\Scripts\SearchPanelController.ts" />
-    <TypeScriptCompile Include="Areas\Topics\Scripts\EditTopic.ts" />
-    <TypeScriptCompile Include="Scripts\UI\AppScope.ts" />
-    <TypeScriptCompile Include="Scripts\Users\ProfilePage.ts" />
-    <TypeScriptCompile Include="Scripts\UI\TinyEditor.ts" />
-    <TypeScriptCompile Include="Scripts\Users\SearchPanelController.ts" />
-    <TypeScriptCompile Include="Scripts\UI\Autofill.ts" />
-    <TypeScriptCompile Include="Scripts\Router.d.ts" />
-    <TypeScriptCompile Include="Scripts\Tools\EventLogPage.ts" />
-    <TypeScriptCompile Include="Areas\Topics\Scripts\DeleteCommentDialogController.ts" />
-    <TypeScriptCompile Include="Areas\Topics\Scripts\EditCommentDialogController.ts" />
-    <TypeScriptCompile Include="Scripts\UI\NotificationService.ts" />
-    <TypeScriptCompile Include="Scripts\UI\DateInput.ts" />
-    <TypeScriptCompile Include="Scripts\UI\File.ts" />
+    </None>
+    <None Include="Scripts\Libs\qbaka.js" />
+    <None Include="Scripts\Libs\tinycon.d.ts" />
+    <None Include="Scripts\Libs\jquery.autosize.js" />
+    <None Include="Scripts\Libs\jquery.hashchange.d.ts" />
+    <None Include="Scripts\Libs\jquery.cookie.d.ts" />
+    <None Include="Scripts\Libs\jquery.cookie.js" />
+    <None Include="Scripts\Libs\jquery.hashchange.js" />
+    <None Include="Scripts\Libs\jquery.naturalWidth.d.ts" />
+    <None Include="Scripts\Libs\tinycon.js" />
+    <None Include="Scripts\Libs\angular-recaptcha.js" />
+    <None Include="Scripts\Libs\angular.d.ts" />
+    <None Include="Scripts\Libs\angular.js" />
+    <None Include="Scripts\Libs\eventEmitter.d.ts" />
+    <None Include="Scripts\Libs\markdown\MarkdownDeep.d.ts" />
+    <None Include="Scripts\Libs\eventEmitter.js" />
+    <None Include="Scripts\Libs\linq.d.ts" />
+    <None Include="Scripts\Libs\linq.js" />
+    <None Include="Scripts\Libs\markdown\MarkdownDeepEditorUI.js" />
+    <None Include="Scripts\Libs\markdown\MarkdownDeep.js" />
+    <None Include="Scripts\Libs\markdown\MarkdownDeepEditor.js" />
+    <None Include="Scripts\Libs\signalr.d.ts" />
+    <None Include="Scripts\Libs\ui-bootstrap-custom-0.5.0.js" />
+    <None Include="Scripts\MirGames.ts" />
+    <None Include="Scripts\Core\Service.ts" />
+    <None Include="Scripts\NavigationController.ts" />
+    <None Include="Areas\Topics\Scripts\NewTopic.ts" />
+    <None Include="Scripts\UI\Dialog.ts" />
+    <None Include="Scripts\Core\Utils.ts" />
+    <None Include="Areas\Projects\Scripts\ProjectCodeFilePage.ts" />
+    <None Include="Scripts\_references.ts" />
+    <None Include="Areas\Topics\Scripts\SearchPanelController.ts" />
+    <None Include="Areas\Topics\Scripts\EditTopic.ts" />
+    <None Include="Scripts\UI\AppScope.ts" />
+    <None Include="Scripts\Users\ProfilePage.ts" />
+    <None Include="Scripts\UI\TinyEditor.ts" />
+    <None Include="Scripts\Users\SearchPanelController.ts" />
+    <None Include="Scripts\UI\Autofill.ts" />
+    <None Include="Scripts\Router.d.ts" />
+    <None Include="Scripts\Tools\EventLogPage.ts" />
+    <None Include="Areas\Topics\Scripts\DeleteCommentDialogController.ts" />
+    <None Include="Areas\Topics\Scripts\EditCommentDialogController.ts" />
+    <None Include="Scripts\UI\NotificationService.ts" />
+    <None Include="Scripts\UI\DateInput.ts" />
+    <None Include="Scripts\UI\File.ts" />
     <Content Include="Sounds\notify.mp3" />
     <Content Include="Areas\Topics\Views\Topics\Index.cshtml" />
     <Content Include="Areas\Topics\Views\Topics\_TopicsList.cshtml" />
@@ -960,6 +888,7 @@
     <Content Include="Scripts\Libs\jquery-1.7.1.js" />
     <Content Include="Scripts\Libs\jquery-1.7.1.min.js" />
     <None Include="T4MVC.tt.settings.xml" />
+    <Content Include="tools\gulpfile.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_UserMenu.cshtml" />
@@ -1050,6 +979,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
+    <Content Include="tools\package.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1175,28 +1105,9 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
   </Target>
-  <Target Name="TypeScriptJsCollectFiles">
-    <ItemGroup>
-      <_CustomFiles Include="Scripts\**\*.js" />
-      <FilesForPackagingFromProject Include="%(_CustomFiles.Identity)">
-        <DestinationRelativePath>Scripts\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
-      </FilesForPackagingFromProject>
-    </ItemGroup>
-  </Target>
-  <PropertyGroup>
-    <CopyAllFilesToSingleFolderForPackageDependsOn>
-      TypeScriptJsCollectFiles;
-      $(CopyAllFilesToSingleFolderForPackageDependsOn);
-    </CopyAllFilesToSingleFolderForPackageDependsOn>
-    <CopyAllFilesToSingleFolderForMsdeployDependsOn>
-      TypeScriptJsCollectFiles;
-      $(CopyAllFilesToSingleFolderForPackageDependsOn);
-    </CopyAllFilesToSingleFolderForMsdeployDependsOn>
-  </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">

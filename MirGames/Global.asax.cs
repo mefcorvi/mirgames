@@ -17,7 +17,6 @@ namespace MirGames
     using System.Web;
     using System.Web.Http;
     using System.Web.Mvc;
-    using System.Web.Optimization;
     using System.Web.Routing;
 
     using Autofac;
@@ -52,7 +51,6 @@ namespace MirGames
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
         /// <summary>
@@ -224,7 +222,7 @@ namespace MirGames
 
             var container = builder.Build();
 
-            RegisterOAuthClients(container);
+            this.RegisterOAuthClients(container);
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             this.ConfigureSignalR(container);
