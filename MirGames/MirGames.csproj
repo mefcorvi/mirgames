@@ -386,137 +386,32 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\Author.cshtml" />
-    <Content Include="Areas\Chat\Content\references.css">
-      <DependentUpon>references.less</DependentUpon>
-    </Content>
-    <Content Include="Areas\Forum\Content\references.css">
-      <DependentUpon>references.less</DependentUpon>
-    </Content>
-    <Content Include="Areas\Projects\Content\references.css">
-      <DependentUpon>references.less</DependentUpon>
-    </Content>
-    <Content Include="Areas\Topics\Content\references.css">
-      <DependentUpon>references.less</DependentUpon>
-    </Content>
     <Content Include="Areas\Topics\Views\Web.config" />
     <Content Include="Areas\Topics\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Forum\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Forum\Views\Web.config" />
     <Content Include="Areas\Chat\Views\Web.config" />
     <Content Include="Areas\Chat\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Chat\Content\references.less" />
-    <Content Include="Areas\Forum\Content\references.less" />
-    <Content Include="Areas\Topics\Content\references.less" />
+    <None Include="Areas\Chat\Content\references.less" />
+    <None Include="Areas\Forum\Content\references.less" />
+    <None Include="Areas\Topics\Content\references.less" />
     <Content Include="Areas\Projects\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Projects\Views\Web.config" />
-    <Content Include="Areas\Projects\Content\references.less" />
+    <None Include="Areas\Projects\Content\references.less" />
     <Content Include="Areas\Topics\Views\Topics\_AddTopicDialog.cshtml" />
     <Content Include="Areas\Topics\Views\Topics\_Topic.cshtml" />
-    <Content Include="Content\avatars.css">
-      <DependentUpon>avatars.less</DependentUpon>
-    </Content>
-    <Content Include="Content\dashboard\dashboard-page.css">
-      <DependentUpon>dashboard-page.less</DependentUpon>
-    </Content>
-    <Content Include="Content\dashboard\mixins.css">
-      <DependentUpon>mixins.less</DependentUpon>
-    </Content>
-    <Content Include="Content\forms.css">
-      <DependentUpon>forms.less</DependentUpon>
-    </Content>
-    <Content Include="Areas\Forum\Content\mixins.css">
-      <DependentUpon>mixins.less</DependentUpon>
-    </Content>
     <Content Include="Content\images\providers\bitbucket.png" />
     <Content Include="Content\images\providers\facebook.png" />
     <Content Include="Content\images\providers\github.png" />
     <Content Include="Content\images\providers\google.png" />
     <Content Include="Content\images\providers\microsoft.png" />
     <Content Include="Content\images\providers\twitter.png" />
-    <Content Include="Content\dashboard\dashboard-page.css.map">
-      <DependentUpon>dashboard-page.css</DependentUpon>
-    </Content>
-    <Content Include="Content\common.css.map">
-      <DependentUpon>common.css</DependentUpon>
-    </Content>
     <Content Include="Areas\Projects\Content\item-block-template.html" />
-    <Content Include="Areas\Projects\Content\project-settings.css">
-      <DependentUpon>project-settings.less</DependentUpon>
-    </Content>
-    <Content Include="Areas\Projects\Content\project-work-item.css">
-      <DependentUpon>project-work-item.less</DependentUpon>
-    </Content>
-    <Content Include="Areas\Projects\Content\project-work-items.css">
-      <DependentUpon>project-work-items.less</DependentUpon>
-    </Content>
     <Content Include="Areas\Projects\Content\work-item-blocks.html" />
     <Content Include="Areas\Projects\Content\work-items-list.html" />
-    <Content Include="Content\quick-date.css.map">
-      <DependentUpon>quick-date.css</DependentUpon>
-    </Content>
-    <Content Include="Areas\Forum\Content\new-topic.css.map">
-      <DependentUpon>new-topic.css</DependentUpon>
-    </Content>
-    <Content Include="Areas\Forum\Content\topics.css.map">
-      <DependentUpon>topics.css</DependentUpon>
-    </Content>
-    <Content Include="Content\dialogs.css.map">
-      <DependentUpon>dialogs.css</DependentUpon>
-    </Content>
-    <Content Include="Areas\Chat\Content\chat-room.css.map">
-      <DependentUpon>chat-room.css</DependentUpon>
-    </Content>
-    <Content Include="Areas\Forum\Content\topic.css.map">
-      <DependentUpon>topic.css</DependentUpon>
-    </Content>
-    <Content Include="Content\avatars.css.map">
-      <DependentUpon>avatars.css</DependentUpon>
-    </Content>
-    <Content Include="Content\forms.css.map">
-      <DependentUpon>forms.css</DependentUpon>
-    </Content>
-    <Content Include="Content\quick-date.less" />
-    <Content Include="Content\quick-date.css">
-      <DependentUpon>quick-date.less</DependentUpon>
-    </Content>
-    <Content Include="Content\ui\dropdown.css">
-      <DependentUpon>dropdown.less</DependentUpon>
-    </Content>
-    <Content Include="Content\ui\user-notifications.css">
-      <DependentUpon>user-notifications.less</DependentUpon>
-    </Content>
-    <Content Include="Content\users\chat-room.css">
-      <DependentUpon>profile-page.less</DependentUpon>
-    </Content>
-    <Content Include="Content\users\profile-page.css">
-      <DependentUpon>profile-page.less</DependentUpon>
-    </Content>
-    <Content Include="Areas\Chat\Content\chat-room.css">
-      <DependentUpon>chat-room.less</DependentUpon>
-    </Content>
-    <Content Include="Content\common.css">
-      <DependentUpon>common.less</DependentUpon>
-    </Content>
-    <Content Include="Content\dialogs.css">
-      <DependentUpon>dialogs.less</DependentUpon>
-    </Content>
-    <Content Include="Content\font-awesome\font-awesome.css">
-      <DependentUpon>font-awesome.less</DependentUpon>
-    </Content>
+    <None Include="Content\quick-date.less" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
-    <Content Include="Content\font-awesome\variables.css">
-      <DependentUpon>variables.less</DependentUpon>
-    </Content>
     <Content Include="Content\fonts\droidsans-webfont.svg" />
-    <Content Include="Areas\Forum\Content\new-topic.css">
-      <DependentUpon>new-topic.less</DependentUpon>
-    </Content>
-    <Content Include="Areas\Forum\Content\topic.css">
-      <DependentUpon>topic.less</DependentUpon>
-    </Content>
-    <Content Include="Areas\Forum\Content\topics.css">
-      <DependentUpon>topics.less</DependentUpon>
-    </Content>
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\header_bgr.png" />
     <Content Include="Content\images\avatar.png" />
@@ -534,69 +429,6 @@
     <Content Include="Content\images\top_header_bgr6.png" />
     <Content Include="Content\images\top_header_nav_bgr.png" />
     <Content Include="Content\images\wmd-buttons.png" />
-    <Content Include="Content\settings.css">
-      <DependentUpon>settings.less</DependentUpon>
-    </Content>
-    <Content Include="Content\text.css">
-      <DependentUpon>text.less</DependentUpon>
-    </Content>
-    <Content Include="Content\tools\event-log-page.css">
-      <DependentUpon>event-log-page.less</DependentUpon>
-    </Content>
-    <Content Include="Areas\Topics\Content\edit-topic.css">
-      <DependentUpon>edit-topic.less</DependentUpon>
-    </Content>
-    <Content Include="Areas\Topics\Content\mixins.css">
-      <DependentUpon>mixins.less</DependentUpon>
-    </Content>
-    <Content Include="Areas\Topics\Content\new-topic.css">
-      <DependentUpon>new-topic.less</DependentUpon>
-    </Content>
-    <Content Include="Areas\Topics\Content\topic.css">
-      <DependentUpon>topic.less</DependentUpon>
-    </Content>
-    <Content Include="Areas\Topics\Content\topics.css">
-      <DependentUpon>topics.less</DependentUpon>
-    </Content>
-    <Content Include="Content\users\mixins.css">
-      <DependentUpon>mixins.less</DependentUpon>
-    </Content>
-    <Content Include="Content\users\user-comments.css">
-      <DependentUpon>user-comments.less</DependentUpon>
-    </Content>
-    <Content Include="Content\users\user-forum-posts.css">
-      <DependentUpon>user-forum-posts.less</DependentUpon>
-    </Content>
-    <Content Include="Content\users\user-topics.css">
-      <DependentUpon>user-topics.less</DependentUpon>
-    </Content>
-    <Content Include="Content\users\user.css">
-      <DependentUpon>user.less</DependentUpon>
-    </Content>
-    <Content Include="Content\users\users.css">
-      <DependentUpon>users.less</DependentUpon>
-    </Content>
-    <Content Include="Areas\Projects\Content\mixins.css">
-      <DependentUpon>mixins.less</DependentUpon>
-    </Content>
-    <Content Include="Areas\Projects\Content\project-code-file.css">
-      <DependentUpon>project-code-file.less</DependentUpon>
-    </Content>
-    <Content Include="Areas\Projects\Content\project-code.css">
-      <DependentUpon>project-code.less</DependentUpon>
-    </Content>
-    <Content Include="Areas\Projects\Content\project-new.css">
-      <DependentUpon>project-new.less</DependentUpon>
-    </Content>
-    <Content Include="Areas\Projects\Content\project.css">
-      <DependentUpon>project.less</DependentUpon>
-    </Content>
-    <Content Include="Areas\Projects\Content\projects.css">
-      <DependentUpon>projects.less</DependentUpon>
-    </Content>
-    <Content Include="Content\wmd.css">
-      <DependentUpon>wmd.less</DependentUpon>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Areas\Chat\Scripts\_references.ts" />
@@ -730,165 +562,77 @@
     <Content Include="Sounds\notify.mp3" />
     <Content Include="Areas\Topics\Views\Topics\Index.cshtml" />
     <Content Include="Areas\Topics\Views\Topics\_TopicsList.cshtml" />
-    <Content Include="Areas\Topics\Content\topics.less" />
-    <Content Include="Content\text.less" />
-    <Content Include="Content\common.less" />
-    <Content Include="Content\settings.less" />
+    <None Include="Areas\Topics\Content\topics.less" />
+    <None Include="Content\text.less" />
+    <None Include="Content\common.less" />
+    <None Include="Content\settings.less" />
     <Content Include="App_Code\Account.cshtml" />
-    <Content Include="Content\avatars.less" />
-    <Content Include="Areas\Topics\Content\topic.less" />
+    <None Include="Content\avatars.less" />
+    <None Include="Areas\Topics\Content\topic.less" />
     <Content Include="Content\fonts\droidsans-webfont.eot" />
     <Content Include="Content\fonts\droidsans-webfont.ttf" />
     <Content Include="Content\fonts\droidsans-webfont.woff" />
-    <Content Include="Content\wmd.less" />
-    <Content Include="Areas\Topics\Content\new-topic.less" />
-    <Content Include="Content\dialogs.less" />
-    <Content Include="Content\forms.less" />
-    <Content Include="Areas\Topics\Content\edit-topic.less" />
-    <Content Include="Content\Web.config" />
-    <Content Include="Content\users\users.less" />
-    <Content Include="Content\users\user.less" />
-    <Content Include="Areas\Forum\Content\topics.less" />
-    <Content Include="Areas\Forum\Content\topic.less" />
-    <Content Include="Areas\Forum\Content\new-topic.less" />
-    <Content Include="Content\tools\event-log-page.less" />
+    <None Include="Content\wmd.less" />
+    <None Include="Areas\Topics\Content\new-topic.less" />
+    <None Include="Content\dialogs.less" />
+    <None Include="Content\forms.less" />
+    <None Include="Areas\Topics\Content\edit-topic.less" />
+    <None Include="Content\users\users.less" />
+    <None Include="Content\users\user.less" />
+    <None Include="Areas\Forum\Content\topics.less" />
+    <None Include="Areas\Forum\Content\topic.less" />
+    <None Include="Areas\Forum\Content\new-topic.less" />
+    <None Include="Content\tools\event-log-page.less" />
     <Content Include="rewrite.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\font-awesome\bordered-pulled.less" />
-    <Content Include="Content\font-awesome\core.less" />
-    <Content Include="Content\font-awesome\fixed-width.less" />
-    <Content Include="Content\font-awesome\font-awesome.less" />
+    <None Include="Content\font-awesome\bordered-pulled.less" />
+    <None Include="Content\font-awesome\core.less" />
+    <None Include="Content\font-awesome\fixed-width.less" />
+    <None Include="Content\font-awesome\font-awesome.less" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\fonts\FontAwesome.otf" />
-    <Content Include="Content\font-awesome\icons.less" />
-    <Content Include="Content\font-awesome\larger.less" />
-    <Content Include="Content\font-awesome\list.less" />
-    <Content Include="Content\font-awesome\mixins.less" />
-    <Content Include="Content\font-awesome\path.less" />
-    <Content Include="Content\font-awesome\rotated-flipped.less" />
-    <Content Include="Content\font-awesome\spinning.less" />
-    <Content Include="Content\font-awesome\stacked.less" />
-    <Content Include="Content\font-awesome\variables.less" />
-    <Content Include="Content\nanoscroller.less" />
-    <Content Include="Areas\Chat\Content\chat-room.less" />
-    <Content Include="Content\users\profile-page.less" />
-    <Content Include="Areas\Topics\Content\mixins.less" />
-    <Content Include="Content\users\user-topics.less" />
-    <Content Include="Content\users\mixins.less" />
-    <Content Include="Content\users\user-comments.less" />
-    <Content Include="Content\users\user-forum-posts.less" />
-    <Content Include="Content\dashboard\mixins.less" />
-    <Content Include="Content\dashboard\dashboard-page.less" />
-    <Content Include="Areas\Forum\Content\mixins.less" />
-    <Content Include="Content\flexbox.less" />
-    <Content Include="Content\users\user-login-dialog.less" />
-    <Content Include="Content\ui\user-notifications.less" />
-    <Content Include="Areas\Projects\Content\projects.less" />
-    <Content Include="Content\users\profile-page.css.map">
-      <DependentUpon>profile-page.css</DependentUpon>
-    </Content>
-    <Content Include="Content\ui\user-notifications.css.map">
-      <DependentUpon>user-notifications.css</DependentUpon>
-    </Content>
-    <Content Include="Content\text.css.map">
-      <DependentUpon>text.css</DependentUpon>
-    </Content>
-    <Content Include="Content\wmd.css.map">
-      <DependentUpon>wmd.css</DependentUpon>
-    </Content>
-    <Content Include="Areas\Topics\Content\new-topic.css.map">
-      <DependentUpon>new-topic.css</DependentUpon>
-    </Content>
-    <Content Include="Areas\Topics\Content\topics.css.map">
-      <DependentUpon>topics.css</DependentUpon>
-    </Content>
-    <Content Include="Content\tools\event-log-page.css.map">
-      <DependentUpon>event-log-page.css</DependentUpon>
-    </Content>
-    <Content Include="Content\users\user-topics.css.map">
-      <DependentUpon>user-topics.css</DependentUpon>
-    </Content>
-    <Content Include="Content\users\user-forum-posts.css.map">
-      <DependentUpon>user-forum-posts.css</DependentUpon>
-    </Content>
-    <Content Include="Areas\Topics\Content\edit-topic.css.map">
-      <DependentUpon>edit-topic.css</DependentUpon>
-    </Content>
-    <Content Include="Areas\Topics\Content\topic.css.map">
-      <DependentUpon>topic.css</DependentUpon>
-    </Content>
-    <Content Include="Content\users\user.css.map">
-      <DependentUpon>user.css</DependentUpon>
-    </Content>
-    <Content Include="Content\users\users.css.map">
-      <DependentUpon>users.css</DependentUpon>
-    </Content>
-    <Content Include="Content\users\user-comments.css.map">
-      <DependentUpon>user-comments.css</DependentUpon>
-    </Content>
-    <Content Include="Areas\Projects\Content\projects.css.map">
-      <DependentUpon>projects.css</DependentUpon>
-    </Content>
-    <Content Include="Areas\Projects\Content\project.less" />
-    <Content Include="Areas\Projects\Content\project.css.map">
-      <DependentUpon>project.css</DependentUpon>
-    </Content>
-    <Content Include="Areas\Projects\Content\project-code.less" />
-    <Content Include="Areas\Projects\Content\project-code.css.map">
-      <DependentUpon>project-code.css</DependentUpon>
-    </Content>
-    <Content Include="Areas\Projects\Content\project-code-file.less" />
-    <Content Include="Areas\Projects\Content\project-code-file.css.map">
-      <DependentUpon>project-code-file.css</DependentUpon>
-    </Content>
-    <Content Include="Areas\Projects\Content\mixins.less" />
-    <Content Include="Areas\Projects\Content\project-new.less" />
-    <Content Include="Areas\Projects\Content\project-new.css.map">
-      <DependentUpon>project-new.css</DependentUpon>
-    </Content>
-    <Content Include="Areas\Projects\Content\project-work-items.less" />
-    <Content Include="Areas\Projects\Content\project-work-items.css.map">
-      <DependentUpon>project-work-items.css</DependentUpon>
-    </Content>
-    <Content Include="Content\ui\dropdown.less" />
-    <Content Include="Content\ui\dropdown.css.map">
-      <DependentUpon>dropdown.css</DependentUpon>
-    </Content>
-    <Content Include="Content\settings.css.map">
-      <DependentUpon>settings.css</DependentUpon>
-    </Content>
-    <Content Include="Areas\Topics\Content\mixins.css.map">
-      <DependentUpon>mixins.css</DependentUpon>
-    </Content>
-    <Content Include="Content\users\mixins.css.map">
-      <DependentUpon>mixins.css</DependentUpon>
-    </Content>
-    <Content Include="Areas\Projects\Content\mixins.css.map">
-      <DependentUpon>mixins.css</DependentUpon>
-    </Content>
-    <Content Include="Content\dashboard\mixins.css.map">
-      <DependentUpon>mixins.css</DependentUpon>
-    </Content>
-    <Content Include="Areas\Forum\Content\mixins.css.map">
-      <DependentUpon>mixins.css</DependentUpon>
-    </Content>
-    <Content Include="Areas\Projects\Content\project-work-item.less" />
-    <Content Include="Areas\Projects\Content\project-work-item.css.map">
-      <DependentUpon>project-work-item.css</DependentUpon>
-    </Content>
-    <Content Include="Areas\Projects\Content\project-settings.less" />
-    <Content Include="Areas\Projects\Content\project-settings.css.map">
-      <DependentUpon>project-settings.css</DependentUpon>
-    </Content>
+    <None Include="Content\font-awesome\icons.less" />
+    <None Include="Content\font-awesome\larger.less" />
+    <None Include="Content\font-awesome\list.less" />
+    <None Include="Content\font-awesome\mixins.less" />
+    <None Include="Content\font-awesome\path.less" />
+    <None Include="Content\font-awesome\rotated-flipped.less" />
+    <None Include="Content\font-awesome\spinning.less" />
+    <None Include="Content\font-awesome\stacked.less" />
+    <None Include="Content\font-awesome\variables.less" />
+    <None Include="Content\nanoscroller.less" />
+    <None Include="Areas\Chat\Content\chat-room.less" />
+    <None Include="Content\users\profile-page.less" />
+    <None Include="Areas\Topics\Content\mixins.less" />
+    <None Include="Content\users\user-topics.less" />
+    <None Include="Content\users\mixins.less" />
+    <None Include="Content\users\user-comments.less" />
+    <None Include="Content\users\user-forum-posts.less" />
+    <None Include="Content\dashboard\mixins.less" />
+    <None Include="Content\dashboard\dashboard-page.less" />
+    <None Include="Areas\Forum\Content\mixins.less" />
+    <None Include="Content\flexbox.less" />
+    <None Include="Content\users\user-login-dialog.less" />
+    <None Include="Content\ui\user-notifications.less" />
+    <None Include="Areas\Projects\Content\projects.less" />
+    <None Include="Areas\Projects\Content\project.less" />
+    <None Include="Areas\Projects\Content\project-code.less" />
+    <None Include="Areas\Projects\Content\project-code-file.less" />
+    <None Include="Areas\Projects\Content\mixins.less" />
+    <None Include="Areas\Projects\Content\project-new.less" />
+    <None Include="Areas\Projects\Content\project-work-items.less" />
+    <None Include="Content\ui\dropdown.less" />
+    <None Include="Areas\Projects\Content\project-work-item.less" />
+    <None Include="Areas\Projects\Content\project-settings.less" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\Libs\jquery-1.7.1.intellisense.js" />
-    <Content Include="Scripts\Libs\jquery-1.7.1.js" />
-    <Content Include="Scripts\Libs\jquery-1.7.1.min.js" />
+    <None Include="Scripts\Libs\jquery-1.7.1.js" />
+    <None Include="Scripts\Libs\jquery-1.7.1.min.js" />
     <None Include="T4MVC.tt.settings.xml" />
-    <Content Include="tools\gulpfile.js" />
+    <None Include="tools\gulpfile.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_UserMenu.cshtml" />
@@ -913,7 +657,7 @@
     <Content Include="Views\Account\_SignUpDialog.cshtml" />
     <Content Include="Views\Shared\_Dialog.cshtml" />
     <Content Include="Areas\Topics\Views\Topics\Edit.cshtml" />
-    <Content Include="Scripts\Web.config">
+    <Content Include="public\Web.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Users\Index.cshtml" />
@@ -936,11 +680,11 @@
     <Content Include="Views\Error\Error404.cshtml" />
     <Content Include="Views\Error\Error500.cshtml" />
     <Content Include="Views\Error\General.cshtml" />
-    <Content Include="Scripts\Libs\jquery.nanoscroller.js" />
+    <None Include="Scripts\Libs\jquery.nanoscroller.js" />
     <Content Include="Views\Shared\_Pagination.cshtml" />
     <Content Include="Views\Shared\_SocialButtons.cshtml" />
     <Content Include="Areas\Chat\Views\Chat\Index.cshtml" />
-    <Content Include="Scripts\Libs\jquery.naturalWidth.js" />
+    <None Include="Scripts\Libs\jquery.naturalWidth.js" />
     <Content Include="Areas\Forum\Views\Forum\_EditPostDialog.cshtml" />
     <Content Include="Scripts\TypeLite.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -961,7 +705,7 @@
     <Content Include="Areas\Projects\Views\Projects\Index.cshtml" />
     <Content Include="Areas\Projects\Views\Projects\_ProjectListItem.cshtml" />
     <Content Include="Areas\Projects\Views\Projects\_WipMenu.cshtml" />
-    <Content Include="Scripts\Libs\ng-quick-date.coffee" />
+    <None Include="Scripts\Libs\ng-quick-date.coffee" />
     <Content Include="Areas\Projects\Views\Projects\Project.cshtml" />
     <Content Include="Areas\Projects\Views\Projects\_ProjectMenu.cshtml" />
     <Content Include="Areas\Projects\Views\Projects\RepositoryDirectory.cshtml" />
@@ -972,14 +716,14 @@
     <Content Include="Areas\Projects\Views\Projects\WorkItem.cshtml" />
     <Content Include="Areas\Projects\Views\Projects\_WorkItemComment.cshtml" />
     <Content Include="Areas\Projects\Views\Projects\Settings.cshtml" />
-    <Content Include="Scripts\Manager.ttinclude" />
+    <None Include="Scripts\Manager.ttinclude" />
     <Content Include="Areas\Projects\Views\Projects\_AddWorkItemDialog.cshtml" />
     <None Include="T4MVC.tt.hooks.t4" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
-    <Content Include="tools\package.json" />
+    <None Include="tools\package.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
