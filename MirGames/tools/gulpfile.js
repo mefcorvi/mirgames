@@ -106,13 +106,6 @@ gulp.task('download', function () {
         .pipe(gulp.dest('../temp/'));
 });
 
-gulp.task('inject', function() {
-    return gulp
-            .src(filePath.inject)
-            .pipe(inject(gulp.src(['public/js/*.js', 'public/css/*.css'], { read: false, cwd: '../' })))
-            .pipe(gulp.dest('../Views/Shared'));
-});
-
 gulp.task('clean:maps', function(cb) {
     del(['../public/js/**/*.js.map'], { force: true }, cb);
 });
@@ -128,7 +121,6 @@ gulp.task('compile-ts', function () {
         .pipe(jsFilter)
         .pipe(sourcemaps.init({ loadMaps: true }))
         .pipe(concat('scripts.js', { newLine: ';\r\n' }))
-        .pipe(rev())
         .pipe(jsFilter.restore())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('../public/js'));
@@ -139,7 +131,6 @@ gulp.task('compile-less', function () {
         .pipe(sourcemaps.init())
         .pipe(less({ rootpath: '../../../Content/'  }))
         .pipe(concat('default.css'))
-        .pipe(rev())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('../public/css'));
 });
@@ -157,7 +148,7 @@ gulp.task('minimize-css', function () {
 });
 
 gulp.task('dev', function(cb) {
-    runSequence('clean:temp', ['download', 'clean'], ['compile-less', 'compile-ts'], ['inject', 'clean:maps'], cb);
+    runSequence('clean:temp', ['download', 'clean'], ['compile-less', 'compile-ts'], ['clean:maps'], cb);
 });
 
 gulp.task('publish', function (cb) {

@@ -9,7 +9,6 @@
                 }
             </div>
             <div class="title-block">
-                <a href="@Url.Action(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="avatar-link"><img src="@Model.Author.AvatarUrl" class="avatar" /></a>
                 @if (@Model.Blog.BlogId != null)
                 {
                     <span class="blog-link"><a href="@EntityLinkProvider.GetLink(Model.Blog.EntityId, Model.Blog.EntityType)" title="@Model.Blog.Description">@Model.Blog.Title</a></span>
@@ -17,6 +16,7 @@
                 @Html.ActionLink(Model.Title, MVC.Topics.Topics.Topic(Model.TopicId), new { @class = "topic-title" })
             </div>
             <div class="author-info">
+                <a href="@Url.Action(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="avatar-link"><img src="@Model.Author.AvatarUrl" class="avatar" /></a>
                 <span>@Html.DisplayFor(m => Model.CreationDate)</span>, опубликовал
                 <a href="@Url.Action(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login"><span>@Model.Author.Login</span></a>
             </div>

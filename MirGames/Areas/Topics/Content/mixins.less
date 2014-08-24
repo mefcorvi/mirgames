@@ -73,18 +73,19 @@
                             text-decoration: underline;
                         }
                     }
+                }
+
+                & > .author-info {
+                    margin-top: @indent/4;
 
                     a.avatar-link {
-                        float: right;
+                        display: inline-block;
+                        vertical-align: -7px;
 
                         img {
                             .avatar-tiny();
                         }
                     }
-                }
-
-                & > .author-info {
-                    margin-top: @indent/4;
 
                     & > span {
                         .font-size(1.1);

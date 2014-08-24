@@ -26,6 +26,7 @@
             Providers = new List<OEmbedProviderBase>
                 {
                     new OEmbedProvider<Video>("http://www.youtube.com/oembed", "youtube\\.com/watch.+v=[\\w-]+&?", "YouTube"),
+                    new OEmbedProvider<Video>("http://www.youtube.com/oembed", "youtu\\.be/[\\w-]+[\\?]?", "YouTu.be"),
                     new OEmbedProvider<Video>("http://www.hulu.com/api/oembed.json", "hulu\\.com/watch/.*", "Hulu"),
                     new OEmbedProvider<Video>("http://www.vimeo.com/api/oembed.json", "vimeo\\.com/.*", "Vimeo"),
                     new OEmbedProvider<Photo>("http://www.flickr.com/services/oembed/", "flickr\\.com/photos/[-.\\w@]+/\\d+/?", "Flickr Photos")

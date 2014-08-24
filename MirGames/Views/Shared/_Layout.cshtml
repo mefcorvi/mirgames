@@ -1,4 +1,4 @@
-@using System.Diagnostics
+﻿@using System.Diagnostics
 @using MirGames.Domain.Users.ViewModels
 @{
     Debug.Assert(Request.Url != null, "Request.Url != null");
@@ -9,9 +9,7 @@
     <head>
         <title>@(string.IsNullOrWhiteSpace(this.Title) ? "" : string.Format("{0} / ", this.Title))MirGames - сообщество разработчиков игр</title>
         <meta charset="utf-8" />
-        <!-- inject:css -->
-        <link rel="stylesheet" href="/public/css/default-506a80b2.css">
-        <!-- endinject -->
+        <link rel="stylesheet" href="~/public/css/default.css">
         <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         @if (!string.IsNullOrEmpty(ViewBag.RssUrl))
@@ -95,7 +93,7 @@
             window.pageData = JSON.parse(document.getElementById('page-data').value);
         </script>
         <!-- inject:js -->
-        <script src="/public/js/scripts-4a94eec1.js"></script>
+        <script src="~/public/js/scripts.js"></script>
         <!-- endinject -->
         @RenderSection("scripts", required: false)
         <script type="text/javascript">
