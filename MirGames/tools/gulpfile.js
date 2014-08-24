@@ -9,6 +9,9 @@ var concat = require('gulp-concat');
 var gulpFilter = require('gulp-filter');
 var del = require('del');
 var runSequence = require('run-sequence');
+var download = require('gulp-download');
+var inject = require("gulp-inject");
+var rev = require('gulp-rev');
 
 var filePath = {
     less: [
@@ -18,9 +21,12 @@ var filePath = {
         "../Content/ui/*.less",
         "../Content/users/*.less",
         "../Content/*.less",
-        "../Areas/**/*.less"
+        "../Areas/**/*.less",
+        '../temp/zenburn.min.css'
     ],
     scripts: [
+        "../temp/highlight.min.js",
+        "../temp/recaptcha_ajax.js",
         "../Scripts/Libs/jquery-1.7.1.js",
         "../Scripts/Libs/jquery.signalR-2.0.2.js",
         "../Scripts/Libs/jquery.cookie.js",
@@ -69,7 +75,19 @@ var filePath = {
         "../Scripts/OnlineUsersController.ts",
         "../Scripts/UserNotificationController.ts",
         "../Scripts/RequestNotificationController.ts",
-        "../Scripts/SocketNotificationController.ts"
+        "../Scripts/SocketNotificationController.ts",
+        '../temp/hubs.js',
+        '../temp/route.js'
+    ],
+    external: [
+        'http://yandex.st/highlightjs/7.3/highlight.min.js',
+        'http://www.google.com/recaptcha/api/js/recaptcha_ajax.js',
+        'http://yandex.st/highlightjs/7.3/styles/zenburn.min.css',
+        { url: 'https://local.mirgames.ru/routejs.axd', file: 'route.js' },
+        { url: 'https://local.mirgames.ru/signalr/hubs', file: 'hubs.js' }
+    ],
+    inject: [
+        '../Views/Shared/_Layout.cshtml'
     ]
 };
 
@@ -77,11 +95,29 @@ gulp.task('clean', function (cb) {
     del(['../public'], { force: true }, cb);
 });
 
+gulp.task('clean:temp', function (cb) {
+    del(['../temp'], { force: true }, cb);
+});
+
+gulp.task('download', function () {
+    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+
+    return download(filePath.external)
+        .pipe(gulp.dest('../temp/'));
+});
+
+gulp.task('inject', function() {
+    return gulp
+            .src(filePath.inject)
+            .pipe(inject(gulp.src(['public/js/*.js', 'public/css/*.css'], { read: false, cwd: '../' })))
+            .pipe(gulp.dest('../Views/Shared'));
+});
+
 gulp.task('clean:maps', function(cb) {
     del(['../public/js/**/*.js.map'], { force: true }, cb);
 });
 
-gulp.task('compile-ts', ['clean'], function (cb) {
+gulp.task('compile-ts', function () {
     var tsFilter = gulpFilter('**/*.ts');
     var jsFilter = gulpFilter('**/*.js');
 
@@ -91,21 +127,45 @@ gulp.task('compile-ts', ['clean'], function (cb) {
         .pipe(tsFilter.restore())
         .pipe(jsFilter)
         .pipe(sourcemaps.init({ loadMaps: true }))
-        .pipe(concat('scripts.js'))
+        .pipe(concat('scripts.js', { newLine: ';\r\n' }))
+        .pipe(rev())
         .pipe(jsFilter.restore())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('../public/js'));
 });
 
-gulp.task('compile-less', ['clean'], function () {
+gulp.task('compile-less', function () {
     return gulp.src(filePath.less, { base: '../' })
         .pipe(sourcemaps.init())
         .pipe(less({ rootpath: '../../../Content/'  }))
         .pipe(concat('default.css'))
+        .pipe(rev())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('../public/css'));
 });
 
-gulp.task('default', function(cb) {
-    runSequence(['compile-less', 'compile-ts'], 'clean:maps', cb);
+gulp.task('minimize-js', function() {
+    return gulp.src('../public/js/*.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('../public/js'));
 });
+
+gulp.task('minimize-css', function () {
+    return gulp.src('../public/css/*.css')
+        .pipe(csso())
+        .pipe(gulp.dest('../public/css'));
+});
+
+gulp.task('dev', function(cb) {
+    runSequence('clean:temp', ['download', 'clean'], ['compile-less', 'compile-ts'], ['inject', 'clean:maps'], cb);
+});
+
+gulp.task('publish', function (cb) {
+    runSequence('dev', ['minimize-js', 'minimize-css'], cb);
+});
+
+if (process.env.NODE_ENV === 'Release') {
+    gulp.task('default', ['publish']);
+} else {
+    gulp.task('default', ['dev']);
+}

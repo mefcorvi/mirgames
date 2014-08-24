@@ -498,8 +498,6 @@
     <None Include="Scripts\Core\CurrentUser.ts" />
     <None Include="Scripts\ActivationNotificationController.ts" />
     <None Include="Scripts\UserNotificationController.ts" />
-    <Content Include="public\css\default.css" />
-    <Content Include="public\js\scripts.js" />
     <None Include="Scripts\Libs\jquery.signalR-2.0.2.js" />
     <None Include="Scripts\Libs\jquery.signalR-2.0.2.min.js" />
     <None Include="Scripts\Libs\ion.sound.d.ts" />
@@ -657,9 +655,6 @@
     <Content Include="Views\Account\_SignUpDialog.cshtml" />
     <Content Include="Views\Shared\_Dialog.cshtml" />
     <Content Include="Areas\Topics\Views\Topics\Edit.cshtml" />
-    <Content Include="public\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\_UsersMenu.cshtml" />
     <Content Include="Views\Users\Settings.cshtml" />
@@ -877,12 +872,29 @@
     <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>
-if not exist "$(TargetDir)NativeBinaries" md "$(TargetDir)NativeBinaries"
+    <CopyAllFilesToSingleFolderForPackageDependsOn>
+      CustomCollectFiles;
+      $(CopyAllFilesToSingleFolderForPackageDependsOn);
+    </CopyAllFilesToSingleFolderForPackageDependsOn>
+  </PropertyGroup>
+  <Target Name="CustomCollectFiles">
+    <ItemGroup>
+      <_CustomFiles Include="public\**\*" />
+      <FilesForPackagingFromProject Include="%(_CustomFiles.Identity)">
+        <DestinationRelativePath>public\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+      </FilesForPackagingFromProject>
+    </ItemGroup>
+  </Target>
+  <PropertyGroup>
+    <PostBuildEvent>if not exist "$(TargetDir)NativeBinaries" md "$(TargetDir)NativeBinaries"
 if not exist "$(TargetDir)NativeBinaries\x86" md "$(TargetDir)NativeBinaries\x86"
 xcopy /s /y /d "$(SolutionDir)packages\LibGit2Sharp.0.18.1.0\lib\net40\NativeBinaries\x86\*.*" "$(TargetDir)NativeBinaries\x86"
 if not exist "$(TargetDir)NativeBinaries\amd64" md "$(TargetDir)NativeBinaries\amd64"
-xcopy /s /y /d "$(SolutionDir)packages\LibGit2Sharp.0.18.1.0\lib\net40\NativeBinaries\amd64\*.*" "$(TargetDir)NativeBinaries\amd64"</PostBuildEvent>
+xcopy /s /y /d "$(SolutionDir)packages\LibGit2Sharp.0.18.1.0\lib\net40\NativeBinaries\amd64\*.*" "$(TargetDir)NativeBinaries\amd64"
+
+cd $(ProjectDir)tools\
+set NODE_ENV=$(ConfigurationName)
+gulp</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -18,7 +18,7 @@ namespace MirGames.Domain.Users
         /// <inheritdoc />
         public string GetAvatarUrl(string mail, string login)
         {
-            return string.Format("http://www.gravatar.com/avatar/{0}?d=identicon", (mail ?? login).GetMd5Hash());
+            return string.Format("https://www.gravatar.com/avatar/{0}?d=identicon", (mail ?? login).GetMd5Hash());
         }
     }
 }

@@ -18,7 +18,7 @@ namespace MirGames.Domain.Wip.Services
         /// <inheritdoc />
         public string GetLogoUrl(string projectAlias)
         {
-            return string.Format("http://www.gravatar.com/avatar/{0}?d=identicon", projectAlias.GetMd5Hash());
+            return string.Format("https://www.gravatar.com/avatar/{0}?d=identicon", projectAlias.GetMd5Hash());
         }
     }
 }

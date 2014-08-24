@@ -115,7 +115,7 @@ namespace Xilium.MarkdownDeep
 
             if (video != null)
             {
-                b.Append(video.Html);
+                b.Append(video.Html.Replace("http://", "https://"));
                 return;
             }
 
@@ -123,7 +123,7 @@ namespace Xilium.MarkdownDeep
 
             if (image != null)
             {
-                this.url = image.Url;
+                this.url = image.Url.Replace("http://", "https://");
             }
 
             this.RenderImage(m, b, alt_text);
