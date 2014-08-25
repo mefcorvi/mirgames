@@ -278,6 +278,7 @@
     <Compile Include="AppController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Content Include="App_Code\UrlHelperExtensions.cs" />
     <Compile Include="Areas\Chat\ChatAreaRegistration.cs" />
     <Compile Include="Areas\Forum\ForumAreaRegistration.cs" />
     <Compile Include="Areas\Projects\ProjectLinkRegistrar.cs" />
