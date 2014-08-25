@@ -106,6 +106,7 @@
 
             & > .message-toolbar {
                 text-align: right;
+                line-height: 16px;
             }
 
             & > header {
@@ -121,20 +122,10 @@
                 }
             }
 
-            &.own-message > header {
-                text-align: right;
-                
-                & > .user-login {
-                    margin-left: 0px;
-                }
-
-                & > .avatar-link {
-                    float: right;
-                }
-            }
-
             & > .date, & > .edit-date, & > .message-toolbar {
                 float: none;
+                margin-left: 0;
+                padding: 0;
             }
 
             & > .date, & > .edit-date {
@@ -142,10 +133,6 @@
                 text-align: left;
                 margin: 0;
                 margin-right: 5px;
-            }
-
-            &.own-message {
-                padding-left: @indent/2;
             }
 
             &.own-message > .text, & > .text {
