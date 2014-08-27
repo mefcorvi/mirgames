@@ -24,8 +24,6 @@ html, body {
 }
 
 body {
-    overflow: hidden;
-    overflow-x: auto;
     .box-sizing(border-box);
 }
 
@@ -72,6 +70,8 @@ a.authorization-required {
 }
 
 body {
+    padding-top: 100px;
+
     & > .ajax-request {
         z-index: 100000;
         position: fixed;
@@ -131,19 +131,13 @@ body {
             width: 100vw;
         }
 
-        overflow: auto;
-        overflow-x: hidden;
-        overflow-y: auto;
         height: 100%;
         .box-sizing(border-box);
-        margin-left: @menu-width + @section-width;
+        margin-right: @section-width;
         background: @background-color;
         z-index: 50;
-        position: relative;
         margin-top: 0;
-
-        .box-shadow(-3px 0px 3px 0px rgba(50, 50, 50, 0.3));
-
+        //.box-shadow(-3px 0px 3px 0px rgba(50, 50, 50, 0.3));
         a {
             .default-link();
         }
@@ -155,29 +149,31 @@ body {
     // Главное меню
     & > header {
         .header-font();
-        position: absolute;
+        width: 100%;
+        height: 60px;
+        position: fixed;
         left: 0;
-        width: @menu-width;
-        height: 100%;
-        overflow-x: hidden;
+        top: 0;
         background: @background-color;
         z-index: 3;
+        overflow: hidden;
 
         & > h1 {
             padding: 0;
             margin: 0;
-            background: @header-background url("images/header_bgr.png") left bottom;
             height: 60px;
+            width: @section-width;
+            float: left;
 
             & > a {
                 .header-font();
                 .font-size(1.6);
-                color: contrast(@header-background);
+                color: @font-color;
                 text-decoration: none;
                 display: block;
                 text-shadow: rgba(255, 255, 255, 0.6) 0px 0px 1px;
                 padding-left: 80px;
-                line-height: 50px;
+                line-height: 60px;
                 background: url("images/logo.png") no-repeat 15px center;
 
                 &:hover {
@@ -189,7 +185,7 @@ body {
         & > nav {
             & > .profile-section {
                 border-top: 1px solid mix(@background-color, @font-color, 96%);
-                border-bottom: 1px solid  mix(@background-color, @font-color, 96%);
+                border-bottom: 1px solid mix(@background-color, @font-color, 96%);
 
                 &:hover {
                     opacity: 1;
@@ -201,11 +197,12 @@ body {
                 }
 
                 & > a, & > .profile-section > a {
+                    float: left;
                     .font-size(1.3);
                     display: block;
                     padding: 0px 20px;
-                    height: @section-link-height;
-                    line-height: @section-link-height;
+                    height: 60px;
+                    line-height: 60px;
                     position: relative;
 
                     .counter {
@@ -244,27 +241,52 @@ body {
                     &.avatar-link {
                         img {
                             .avatar-small();
-                            margin-top: (@section-link-height - @avatar-small)/2;
+                            margin-top: 13px;
                         }
 
                         span {
-                            height: @section-link-height;
-                            line-height: @section-link-height;
+                            padding-left: 10px;
                         }
                     }
                 }
         }
     }
+
+    & > .user-notifications {
+        position: fixed;
+        top: 60px;
+        height: 30px;
+        line-height: 30px;
+        padding-left: 20px;
+        border-top: 5px solid mix(@header-background, @background-color, 10%);
+        background: mix(@header-background, @background-color, 3%);
+        border-bottom: 1px solid mix(@header-background, @background-color, 6%);
+        z-index: 10;
+        width: 100%;
+        .font-size(1.6);
+
+        a {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+            color: @link-color;
+            // background: mix(@header-background, @background-color, 30%);
+        }
+    }
+
     // Секция среднего меню
     & > nav {
         .header-font();
         .transition(left);
-        position: absolute;
-        left: @menu-width;
+        position: fixed;
+        top: 100px;
+        right: 0px;
         width: @section-width;
         height: 100%;
         overflow: hidden;
-        background: mix(@header-background, @background-color, 5%);
+        background: @background-color;
         z-index: 6;
 
         .fa {
@@ -273,8 +295,6 @@ body {
         }
 
         .subsection {
-            background: mix(@header-background, @background-color, 15%);
-
             .subsection {
                 padding-left: @indent/2;
                 padding-right: @indent/2;
@@ -288,13 +308,9 @@ body {
                 }
 
                 &.avatar-link {
-                    background: mix(@font-color, @background-color, 30%);
-                    background: rgba(0, 0, 0, 0.3);
                     color: @background-color;
 
                     &:hover {
-                        background: mix(@font-color, @background-color, 50%);
-                        background: rgba(0, 0, 0, 0.5);
                         color: @background-color;
                     }
 
@@ -370,6 +386,7 @@ body {
             .page-header();
             position: relative;
             z-index: 2;
+            display: none;
         }
     }
 
