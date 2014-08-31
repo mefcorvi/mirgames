@@ -9,6 +9,7 @@
 namespace MirGames.Domain.Chat.CommandHandlers
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Security.Claims;
 
     using MirGames.Domain.Acl.Public.Commands;
@@ -73,6 +74,11 @@ namespace MirGames.Domain.Chat.CommandHandlers
                 {
                     UserId = userId
                 });
+
+            if (string.IsNullOrEmpty(command.Message))
+            {
+                throw new ValidationException("Message have to be specified.");
+            }
 
             command.Message = this.commandProcessor.Execute(new TransformMentionsCommand
             {
