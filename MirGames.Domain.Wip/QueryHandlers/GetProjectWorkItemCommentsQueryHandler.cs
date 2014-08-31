@@ -77,7 +77,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
         /// <returns>Set of project work items.</returns>
         private IQueryable<ProjectWorkItemComment> GetComments(IReadContext readContext, GetProjectWorkItemCommentsQuery query)
         {
-            return readContext.Query<ProjectWorkItemComment>().Where(p => p.WorkItemId == query.WorkItemId);
+            return readContext.Query<ProjectWorkItemComment>().Where(p => p.WorkItemId == query.WorkItemId).OrderBy(comment => comment.Date);
         }
     }
 }

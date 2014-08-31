@@ -78,7 +78,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
             var workItemViewModel = new ProjectWorkItemViewModel
             {
                 CreatedDate = workItem.CreatedDate,
-                Description = workItem.Description,
+                Description = this.textProcessor.GetHtml(workItem.Description),
                 ShortDescription = this.textProcessor.GetShortText(workItem.Description),
                 InternalId = workItem.InternalId,
                 ItemType = workItem.ItemType,

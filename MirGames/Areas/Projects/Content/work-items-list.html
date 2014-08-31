@@ -11,7 +11,8 @@
             <span class="feature-type" title="Фича" ng-show="item.type == 'Feature'"><i class="fa fa-lightbulb-o"></i></span>
         </div>
         <div class="title">
-            <a href="{{item.url}}">
+            <a href="javascript:void(0)" dialog="{{item.dialogUrl}}" title="Редактировать"
+               resolve="{ 'work-item-id': {{item.internalId}}, 'project-alias': '{{item.projectAlias}}' }" dialog-controller="MirGames.Projects.WorkItemDialogController">
                 {{item.title}}
             </a>
             <div class="description">{{item.description}}</div>

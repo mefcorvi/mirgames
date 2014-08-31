@@ -82,6 +82,7 @@ module MirGames.Wip {
         private convertItemToScope(item: Domain.Wip.ViewModels.ProjectWorkItemViewModel): IProjectWorkItemScope {
             var workItem: IProjectWorkItemScope = {
                 workItemId: item.WorkItemId,
+                projectAlias: this.pageData.projectAlias,
                 type: Domain.Wip.ViewModels.WorkItemType[item.ItemType],
                 internalId: item.InternalId,
                 state: Domain.Wip.ViewModels.WorkItemState[item.State],
@@ -90,7 +91,7 @@ module MirGames.Wip {
                 canBeDeleted: item.CanBeDeleted,
                 tags: this.convertTagsToScope(item.TagsList),
                 description: item.ShortDescription,
-                url: Router.action("Projects", "WorkItem", { projectAlias: this.pageData.projectAlias, workItemId: item.InternalId }),
+                dialogUrl: Router.action("Projects", "WorkItemDialog"),
                 priority: Math.round(Math.max(0, item.Priority) / 25),
                 author: {
                     avatar: item.Author.AvatarUrl,

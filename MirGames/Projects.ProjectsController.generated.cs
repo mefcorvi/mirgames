@@ -3,8 +3,8 @@
 // Don't change it directly as your change would get overwritten.  Instead, make changes
 // to the .tt file (i.e. the T4 template) and save it to regenerate this file.
 
-// Make sure the compiler doesn't complain about missing Xml comments
-#pragma warning disable 1591
+// Make sure the compiler doesn't complain about missing Xml comments and CLS compliance
+#pragma warning disable 1591, 3008, 3009
 #region T4MVC
 
 using System;
@@ -80,12 +80,6 @@ namespace MirGames.Areas.Projects.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult WorkItem()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.WorkItem);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Settings()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Settings);
@@ -117,7 +111,7 @@ namespace MirGames.Areas.Projects.Controllers
             public readonly string Project = "Project";
             public readonly string Archive = "Archive";
             public readonly string WorkItems = "WorkItems";
-            public readonly string WorkItem = "WorkItem";
+            public readonly string WorkItemDialog = "WorkItemDialog";
             public readonly string New = "New";
             public readonly string Settings = "Settings";
             public readonly string Code = "Code";
@@ -132,7 +126,7 @@ namespace MirGames.Areas.Projects.Controllers
             public const string Project = "Project";
             public const string Archive = "Archive";
             public const string WorkItems = "WorkItems";
-            public const string WorkItem = "WorkItem";
+            public const string WorkItemDialog = "WorkItemDialog";
             public const string New = "New";
             public const string Settings = "Settings";
             public const string Code = "Code";
@@ -183,15 +177,6 @@ namespace MirGames.Areas.Projects.Controllers
             public readonly string tag = "tag";
             public readonly string itemType = "itemType";
         }
-        static readonly ActionParamsClass_WorkItem s_params_WorkItem = new ActionParamsClass_WorkItem();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_WorkItem WorkItemParams { get { return s_params_WorkItem; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_WorkItem
-        {
-            public readonly string projectAlias = "projectAlias";
-            public readonly string workItemId = "workItemId";
-        }
         static readonly ActionParamsClass_Settings s_params_Settings = new ActionParamsClass_Settings();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Settings SettingsParams { get { return s_params_Settings; } }
@@ -225,13 +210,13 @@ namespace MirGames.Areas.Projects.Controllers
                 public readonly string _ProjectMenu = "_ProjectMenu";
                 public readonly string _WipMenu = "_WipMenu";
                 public readonly string _WorkItemComment = "_WorkItemComment";
+                public readonly string _WorkItemDialog = "_WorkItemDialog";
                 public readonly string Index = "Index";
                 public readonly string New = "New";
                 public readonly string Project = "Project";
                 public readonly string RepositoryDirectory = "RepositoryDirectory";
                 public readonly string RepositoryFile = "RepositoryFile";
                 public readonly string Settings = "Settings";
-                public readonly string WorkItem = "WorkItem";
                 public readonly string WorkItems = "WorkItems";
             }
             public readonly string _AddWorkItemDialog = "~/Areas/Projects/Views/Projects/_AddWorkItemDialog.cshtml";
@@ -240,13 +225,13 @@ namespace MirGames.Areas.Projects.Controllers
             public readonly string _ProjectMenu = "~/Areas/Projects/Views/Projects/_ProjectMenu.cshtml";
             public readonly string _WipMenu = "~/Areas/Projects/Views/Projects/_WipMenu.cshtml";
             public readonly string _WorkItemComment = "~/Areas/Projects/Views/Projects/_WorkItemComment.cshtml";
+            public readonly string _WorkItemDialog = "~/Areas/Projects/Views/Projects/_WorkItemDialog.cshtml";
             public readonly string Index = "~/Areas/Projects/Views/Projects/Index.cshtml";
             public readonly string New = "~/Areas/Projects/Views/Projects/New.cshtml";
             public readonly string Project = "~/Areas/Projects/Views/Projects/Project.cshtml";
             public readonly string RepositoryDirectory = "~/Areas/Projects/Views/Projects/RepositoryDirectory.cshtml";
             public readonly string RepositoryFile = "~/Areas/Projects/Views/Projects/RepositoryFile.cshtml";
             public readonly string Settings = "~/Areas/Projects/Views/Projects/Settings.cshtml";
-            public readonly string WorkItem = "~/Areas/Projects/Views/Projects/WorkItem.cshtml";
             public readonly string WorkItems = "~/Areas/Projects/Views/Projects/WorkItems.cshtml";
         }
     }
@@ -320,15 +305,13 @@ namespace MirGames.Areas.Projects.Controllers
         }
 
         [NonAction]
-        partial void WorkItemOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string projectAlias, int workItemId);
+        partial void WorkItemDialogOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult WorkItem(string projectAlias, int workItemId)
+        public override System.Web.Mvc.ActionResult WorkItemDialog()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.WorkItem);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "projectAlias", projectAlias);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "workItemId", workItemId);
-            WorkItemOverride(callInfo, projectAlias, workItemId);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.WorkItemDialog);
+            WorkItemDialogOverride(callInfo);
             return callInfo;
         }
 
@@ -383,4 +366,4 @@ namespace MirGames.Areas.Projects.Controllers
 }
 
 #endregion T4MVC
-#pragma warning restore 1591
+#pragma warning restore 1591, 3008, 3009

@@ -22,8 +22,6 @@ namespace MirGames.Areas.Projects.Controllers
     using MirGames.Infrastructure.Queries;
     using MirGames.Models;
 
-    using RestSharp;
-
     /// <summary>
     /// The WIP controller.
     /// </summary>
@@ -182,9 +180,9 @@ namespace MirGames.Areas.Projects.Controllers
         }
 
         /// <inheritdoc />
-        public virtual ActionResult WorkItem(string projectAlias, int workItemId)
+        public virtual ActionResult WorkItemDialog()
         {
-            var project = this.QueryProcessor.Process(
+            /*var project = this.QueryProcessor.Process(
                 new GetWipProjectQuery
                 {
                     Alias = projectAlias
@@ -211,7 +209,8 @@ namespace MirGames.Areas.Projects.Controllers
             this.ViewBag.BackUrl = this.GetBackUrl();
             this.ViewBag.Comments = comments;
 
-            return this.View(project);            
+            return this.View(project);            */
+            return this.PartialView("_WorkItemDialog");
         }
 
         /// <inheritdoc />
