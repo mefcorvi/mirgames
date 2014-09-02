@@ -48,6 +48,7 @@ module MirGames.Wip {
 
     export interface IProjectWorkItemScope {
         workItemId: number;
+        projectAlias: string;
         type: string;
         state: string;
         title: string;
@@ -56,7 +57,7 @@ module MirGames.Wip {
         canBeEdited: boolean;
         canBeDeleted: boolean;
         priority: number;
-        url: string;
+        dialogUrl: string;
         tags: IProjectWorkItemTagScope[];
         author: IWorkItemUserScope;
         assignedTo: IWorkItemUserScope;

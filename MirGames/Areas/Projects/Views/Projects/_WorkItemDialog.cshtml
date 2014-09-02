@@ -1,0 +1,86 @@
+﻿@{
+    Layout = "~/Views/Shared/_Dialog.cshtml";
+}
+
+@section DialogTitle
+{
+    <small>#{{ internalId }}</small>
+    <span class="bug-type" title="Баг" ng-show="itemType == 'Bug'"><i class="fa fa-bug"></i></span>
+    <span class="task-type" title="Задача" ng-show="itemType == 'Task'"><i class="fa fa-tasks"></i></span>
+    <span class="feature-type" title="Фича" ng-show="itemType == 'Feature'"><i class="fa fa-lightbulb-o"></i></span>
+    {{ title }}
+}
+
+@section DialogNotifications
+{
+}
+
+@section DialogButtons
+{
+}
+
+@section DialogContent
+{
+    <div class="work-item">
+        <article class="text" ng-bind-html="description | unsafe">
+        </article>
+        <footer>
+            <div class="author">
+                <span>Автор:</span>
+                <a author-link="author.Id" class="avatar-link">
+                    <img ng-src="{{author.AvatarUrl}}" class="avatar avatar-tiny" />
+                    {{ author.Login }}
+                </a>
+            </div>
+            <div class="assigned-to">
+                <span>Назначено на</span>
+                <a author-link="assignedTo.Id" class="avatar-link">
+                    <img ng-src="{{assignedTo.AvatarUrl}}" class="avatar avatar-tiny" />
+                    {{ assignedTo.Login }}
+                </a>
+            </div>
+            <div class="creation-date">
+                <span>Создано</span>
+                <span class="creation-date">{{ createdDate | date:'dd.MM.yy HH:mm' }}</span>
+            </div>
+            <ul class="tags">
+                <li ng-repeat="tag in tags"><a href="{{tag.url}}">{{tag.text}}</a></li>
+            </ul>
+        </footer>
+    </div>
+    <h4 ng-show="comments.length">Комментарии</h4>
+    <div class="comments-list">
+        <div class="data-loading" ng-show="commentsLoading" ng-cloak></div>
+        <div class="comment" comment-id="{{comment.CommentId}}" ng-repeat="comment in comments" ng-cloak>
+            <header id="{{'c' + comment.CommentId}}">
+                <a author-link="comment.Author.AuthorId" class="avatar-link">
+                    <img ng-src="{{comment.Author.AvatarUrl}}" class="avatar" />
+                </a>
+                <a author-link="comment.Author.AuthorId" class="user-login">{{comment.Author.Login}}</a>
+                <span class="comment-date">({{comment.Date | date:'dd.MM.yy HH:mm'}})</span>
+                <div class="message-bar">
+                    <a ng-show="comment.CanBeEdited" class="edit-post" href="javascript:void(0);" dialog="@Url.Action("EditCommentDialog", "Topics")" title="Редактировать"
+                       dialog-close="$parent.reloadComment(comment.CommentId)"
+                       resolve="{ 'comment-id': {{comment.CommentId}} }" dialog-controller="MirGames.Topics.EditCommentDialogController"><i class="fa fa-pencil-square-o"></i></a>
+                    <a ng-show="comment.CanBeDeleted" class="delete-post" href="javascript:void(0);" title="Удалить" dialog="@Url.Action("DeleteCommentDialog", "Topics")"
+                       dialog-close="hideComment(comment.CommentId)" resolve="{ 'comment-id': {{comment.CommentId}} }"
+                       dialog-controller="MirGames.Topics.DeleteCommentDialogController"><i class="fa fa-times"></i></a>
+                    <div ng-show="comment.UpdatedDate > comment.Date" class="edited">Отредактировано: {{comment.UpdatedDate | date:'dd.MM.yy HH:mm'}}</div>
+                </div>
+            </header>
+            <div class="text" ng-bind-html="comment.Text | unsafe"></div>
+        </div>
+    </div>
+
+    <div ng-show="canBeCommented">
+        <h4 id="new-comment">Новый комментарий</h4>
+        <div class="comment-form">
+            <form class="new-comment-form" ng-submit="comment.post()" novalidate name="postCommentForm">
+                <texteditor show-preview="true" required="true" focus="comment.focus" text="comment.text" post="comment.post()" attachments="comment.attachments" entity-type="project-work-item-comment"></texteditor>
+                <div class="buttons">
+                    <a href="javascript:void(0);" ng-click="comment.post()" ng-class="{ 'button-disabled': postCommentForm.$invalid }" class="button">Оставить комментарий</a>
+                </div>
+            </form>
+        </div>
+    </div>
+}

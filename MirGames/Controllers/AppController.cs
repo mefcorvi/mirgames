@@ -14,8 +14,6 @@ namespace MirGames.Controllers
     using System.Web.Mvc;
 
     using MirGames.Domain.Forum.Queries;
-    using MirGames.Domain.Notifications.Queries;
-    using MirGames.Domain.Topics.Notifications;
     using MirGames.Domain.Topics.Queries;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;

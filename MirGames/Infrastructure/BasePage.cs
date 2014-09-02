@@ -14,6 +14,7 @@ namespace MirGames
     using System.Web.Mvc;
 
     using MirGames.Domain.Users.ViewModels;
+    using MirGames.Infrastructure;
 
     /// <summary>
     /// The base class of application page.
@@ -45,6 +46,14 @@ namespace MirGames
         {
             get { return this.ViewBag.Title; }
             set { this.ViewBag.Title = value; }
+        }
+
+        /// <summary>
+        /// Gets the recapcha public key.
+        /// </summary>
+        public string RecapchaPublicKey
+        {
+            get { return DependencyResolver.Current.GetService<IRecaptchaSettings>().GetPublicKey(); }
         }
 
         /// <summary>

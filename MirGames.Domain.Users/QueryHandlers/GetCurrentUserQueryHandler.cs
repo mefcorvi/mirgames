@@ -9,6 +9,7 @@
 namespace MirGames.Domain.Users.QueryHandlers
 {
     using System.Collections.Generic;
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
@@ -33,12 +34,22 @@ namespace MirGames.Domain.Users.QueryHandlers
         private readonly IEnumerable<IUserSettingHandler> userSettingHandlers;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetCurrentUserQueryHandler"/> class.
+        /// The avatar provider.
+        /// </summary>
+        private readonly IAvatarProvider avatarProvider;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetCurrentUserQueryHandler" /> class.
         /// </summary>
         /// <param name="userSettingHandlers">The user setting handlers.</param>
-        public GetCurrentUserQueryHandler(IEnumerable<IUserSettingHandler> userSettingHandlers)
+        /// <param name="avatarProvider">The avatar provider.</param>
+        public GetCurrentUserQueryHandler(IEnumerable<IUserSettingHandler> userSettingHandlers, IAvatarProvider avatarProvider)
         {
+            Contract.Requires(userSettingHandlers != null);
+            Contract.Requires(avatarProvider != null);
+
             this.userSettingHandlers = userSettingHandlers;
+            this.avatarProvider = avatarProvider;
         }
 
         /// <inheritdoc />
@@ -54,7 +65,8 @@ namespace MirGames.Domain.Users.QueryHandlers
                         u.Name,
                         u.SettingsJson,
                         u.Timezone,
-                        u.IsActivated
+                        u.IsActivated,
+                        u.Mail
                     }).FirstOrDefault();
 
             if (user == null)
@@ -65,7 +77,7 @@ namespace MirGames.Domain.Users.QueryHandlers
             var settings = JsonConvert.DeserializeObject<Dictionary<string, object>>(user.SettingsJson);
             var settingsViewModel = new Dictionary<string, object>();
 
-            foreach (IUserSettingHandler settingHandler in userSettingHandlers)
+            foreach (IUserSettingHandler settingHandler in this.userSettingHandlers)
             {
                 string key = settingHandler.SettingKey;
                 settingsViewModel[key] = settingHandler.ToViewModel(settings.ContainsKey(key) ? settings[key] : null);
@@ -75,7 +87,7 @@ namespace MirGames.Domain.Users.QueryHandlers
 
             return new CurrentUserViewModel
                 {
-                    AvatarUrl = user.AvatarUrl,
+                    AvatarUrl = user.AvatarUrl ?? this.avatarProvider.GetAvatarUrl(user.Mail, user.Login),
                     Id = user.Id,
                     Login = user.Login,
                     Name = user.Name,

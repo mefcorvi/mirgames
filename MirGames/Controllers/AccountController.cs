@@ -9,6 +9,7 @@
 namespace MirGames.Controllers
 {
     using System;
+    using System.Diagnostics.Contracts;
     using System.Web.Mvc;
 
     using MirGames.Domain.Users.Commands;
@@ -17,8 +18,6 @@ namespace MirGames.Controllers
     using MirGames.Filters;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Exception;
-
-    using Recaptcha.MvcModel;
 
     /// <summary>
     /// The account controller.
@@ -31,18 +30,29 @@ namespace MirGames.Controllers
         private readonly ISessionManager sessionManager;
 
         /// <summary>
+        /// The recaptcha verification processor.
+        /// </summary>
+        private readonly IRecaptchaVerificationProcessor recaptchaVerificationProcessor;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="AccountController" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="commandProcessor">The command processor.</param>
         /// <param name="sessionManager">The session manager.</param>
+        /// <param name="recaptchaVerificationProcessor">The recaptcha verification processor.</param>
         public AccountController(
             IQueryProcessor queryProcessor,
             ICommandProcessor commandProcessor,
-            ISessionManager sessionManager)
+            ISessionManager sessionManager,
+            IRecaptchaVerificationProcessor recaptchaVerificationProcessor)
             : base(queryProcessor, commandProcessor)
         {
+            Contract.Requires(sessionManager != null);
+            Contract.Requires(recaptchaVerificationProcessor != null);
+
             this.sessionManager = sessionManager;
+            this.recaptchaVerificationProcessor = recaptchaVerificationProcessor;
         }
 
         /// <summary>
@@ -169,11 +179,12 @@ namespace MirGames.Controllers
         {
             command.Password = command.Password.GetMd5Hash();
 
-            if (!this.Request.ValidateCaptcha().IsValid)
+            var recaptchaResult = this.recaptchaVerificationProcessor.Verify();
+            if (recaptchaResult != RecaptchaVerificationResult.Success)
             {
-                return this.Json(new { result = "WrongCaptcha" });
+                return this.Json(new { result = "WrongCaptcha", error = recaptchaResult });
             }
-
+           
             try
             {
                 this.CommandProcessor.Execute(command);

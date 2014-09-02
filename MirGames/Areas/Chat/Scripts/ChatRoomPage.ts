@@ -30,7 +30,7 @@ module MirGames.Chat {
             this.$chatMessages = $('.chat-messages');
 
             $scope.reply = {
-                message: "",
+                message: null,
                 attachments: [],
                 post: this.reply.bind(this),
                 focus: true,

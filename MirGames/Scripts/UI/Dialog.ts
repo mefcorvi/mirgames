@@ -126,6 +126,15 @@ module UI {
                     }
                 });
 
+                var dialogContent = $('.dialog-body > .dialog-content', this.$dialogContainer);
+                var maxHeight = $(window).innerHeight()
+                    - $('.dialog-body > h1', this.$dialogContainer).outerHeight()
+                    - $('.dialog-body > .dialog-buttons').outerHeight()
+                    - dialogContent.outerHeight()
+                    + dialogContent.height()
+                    - 10;
+                $('.dialog-content', this.$dialogContainer).css('max-height', maxHeight);
+
                 this._bindEvents();
                 this.eventBus.emit('ajax-request.executed');
             });

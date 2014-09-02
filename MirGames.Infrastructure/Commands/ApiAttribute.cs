@@ -16,5 +16,9 @@ namespace MirGames.Infrastructure.Commands
     [AttributeUsage(AttributeTargets.Class)]
     public class ApiAttribute : Attribute
     {
+        /// <summary>
+        /// Gets or sets the execution interval in milliseconds.
+        /// </summary>
+        public int? ExecutionInterval { get; set; }
     }
 }

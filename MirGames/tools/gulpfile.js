@@ -27,8 +27,8 @@ var filePath = {
     scripts: [
         "../temp/highlight.min.js",
         "../temp/recaptcha_ajax.js",
-        "../Scripts/Libs/jquery-1.7.1.js",
-        "../Scripts/Libs/jquery.signalR-2.0.2.js",
+        "../Scripts/Libs/jquery-2.1.1.js",
+        "../Scripts/Libs/jquery.signalR-2.1.1.js",
         "../Scripts/Libs/jquery.cookie.js",
         "../Scripts/Libs/jquery.nanoscroller.js",
         "../Scripts/Libs/jquery.naturalWidth.js",
@@ -100,7 +100,7 @@ gulp.task('clean:temp', function (cb) {
 });
 
 gulp.task('download', function () {
-    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
     return download(filePath.external)
         .pipe(gulp.dest('../temp/'));
