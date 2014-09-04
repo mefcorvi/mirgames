@@ -9,17 +9,16 @@
     }
 }
 
+@section Nav
+{
+    <a href="javascript:void(0);" ng-click="loadHistory()" ng-class="{ 'button-disabled': !historyAvailable }"><i class="fa fa-arrow-circle-up"></i>Загрузить предыдущие</a>
+}
+
 <div class="socket-notification page-notification" ng-controller="MirGames.SocketNotificationController" ng-cloak>
     <div ng-show="state == 'connecting'" class="socket-connecting notification info">Подключение к серверу...</div>
     <div ng-show="state == 'reconnecting'" class="socket-reconnecting notification info">Подключение к серверу...</div>
     <div ng-show="state == 'disconnected'" class="socket-disconnected notification error">Соединение разорвано</div>
     <div ng-show="state == 'connection-slow'" class="connection-slow notification warning">Соединение неустойчиво</div>
-</div>
-<header>
-    <h3>Чат</h3>
-</header>
-<div class="toolbar" ng-cloak>
-    <a href="javascript:void(0);" ng-click="loadHistory()" class="button" ng-class="{ 'button-disabled': !historyAvailable }">Загрузить предыдущие</a>
 </div>
 <div class="chat-messages">
     <article message-id="{{message.id}}" ng-class="{ 'message': 1, 'message-chain': message.inChain, 'own-message': message.ownMessage, 'first-unread': message.firstUnreadMessage, 'editing': message.isEditing, 'system-message': message.isSystem }" ng-repeat="message in messages" ng-cloak>

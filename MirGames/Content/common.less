@@ -12,7 +12,6 @@ html, body {
     color: @font-color;
     background: @background-color;
     width: 100%;
-    height: 100%;
     margin: 0;
     padding: 0;
     min-width: @screen-xs-max;
@@ -23,8 +22,18 @@ html, body {
     }
 }
 
+html {
+    background: mix(@header-background, @background-color, 10%);
+    height: 100%;
+}
+
 body {
     .box-sizing(border-box);
+    padding-top: 55px;
+    background: @background-color;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100%;
 }
 
 textarea, input[type="text"] {
@@ -70,8 +79,6 @@ a.authorization-required {
 }
 
 body {
-    padding-top: 100px;
-
     & > .ajax-request {
         z-index: 100000;
         position: fixed;
@@ -133,7 +140,6 @@ body {
 
         height: 100%;
         .box-sizing(border-box);
-        margin-right: @section-width;
         background: @background-color;
         z-index: 50;
         margin-top: 0;
@@ -143,25 +149,33 @@ body {
         }
     }
 
-    & > footer {
-        margin-left: @menu-width + @section-width;
-    }
     // Главное меню
     & > header {
+        @height: 50px;
         .header-font();
         width: 100%;
-        height: 60px;
-        position: fixed;
-        left: 0;
-        top: 0;
+        height: @height;
         background: @background-color;
-        z-index: 3;
+        z-index: 10;
         overflow: hidden;
+        border-bottom: 5px solid mix(@header-background, @background-color, 10%);
+        position: fixed;
+        top: 0;
+        max-width: 1400px;
+
+        & > .search-form {
+            float: right;
+            max-width: 300px;
+            min-width: 100px;
+            width: 15%;
+            margin-right: @indent;
+            margin-top: 7px;
+        }
 
         & > h1 {
             padding: 0;
             margin: 0;
-            height: 60px;
+            height: @height;
             width: @section-width;
             float: left;
 
@@ -173,7 +187,7 @@ body {
                 display: block;
                 text-shadow: rgba(255, 255, 255, 0.6) 0px 0px 1px;
                 padding-left: 80px;
-                line-height: 60px;
+                line-height: @height;
                 background: url("images/logo.png") no-repeat 15px center;
 
                 &:hover {
@@ -201,8 +215,8 @@ body {
                     .font-size(1.3);
                     display: block;
                     padding: 0px 20px;
-                    height: 60px;
-                    line-height: 60px;
+                    height: @height;
+                    line-height: @height;
                     position: relative;
 
                     .counter {
@@ -241,7 +255,7 @@ body {
                     &.avatar-link {
                         img {
                             .avatar-small();
-                            margin-top: 13px;
+                            margin-top: 9px;
                         }
 
                         span {
@@ -251,160 +265,50 @@ body {
                 }
         }
     }
+}
 
-    & > .user-notifications {
-        position: fixed;
-        top: 60px;
-        height: 30px;
-        line-height: 30px;
-        padding-left: 20px;
-        border-top: 5px solid mix(@header-background, @background-color, 10%);
-        background: mix(@header-background, @background-color, 3%);
-        border-bottom: 1px solid mix(@header-background, @background-color, 6%);
-        z-index: 10;
-        width: 100%;
-        .font-size(1.6);
+nav.toolbar {
+    .header-font();
+    .box-sizing(border-box);
+    overflow: hidden;
+    background: mix(@header-background, @background-color, 5%);
+    padding-left: @indent;
+    padding-right: @indent;
 
-        a {
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            line-height: 24px;
-            text-align: center;
-            color: @link-color;
-            // background: mix(@header-background, @background-color, 30%);
-        }
-    }
-
-    // Секция среднего меню
-    & > nav {
-        .header-font();
-        .transition(left);
-        position: fixed;
-        top: 100px;
-        right: 0px;
-        width: @section-width;
-        height: 100%;
-        overflow: hidden;
-        background: @background-color;
-        z-index: 6;
+    a {
+        .font-size(1.3);
+        display: inline-block;
+        margin-top: @indent/2;
+        margin-bottom: @indent/2;
+        margin-right: @indent;
+        color: @font-color;
+        text-decoration: none;
 
         .fa {
-            .font-size(1.6);
-            margin-right: 7px;
+            margin-right: 5px;
         }
 
-        .subsection {
-            .subsection {
-                padding-left: @indent/2;
-                padding-right: @indent/2;
-            }
+        &.selected {
+            color: @link-color-hover;
+        }
 
-            a {
-                padding-left: 15px;
+        &.disabled {
+            color: mix(@background-color, @font-color, 60%);
 
-                &.disabled {
-                    opacity: 0.5;
-                }
-
-                &.avatar-link {
-                    color: @background-color;
-
-                    &:hover {
-                        color: @background-color;
-                    }
-
-                    img {
-                        .avatar-small();
-                        margin-top: (@section-link-height - @avatar-small) / 2;
-                        margin-right: 5px;
-                    }
-                }
+            &:hover, &:active, &:focus {
+                color: mix(@background-color, @font-color, 60%);
+                cursor: default;
             }
         }
 
-        a > .counter {
-            @background-color: desaturate(lighten(@header-background, 20%), 40%);
-            float: right;
-            background: @background-color;
-            color: contrast(@background-color);
-            width: 20px;
-            height: 20px;
-            text-align: center;
-            line-height: 20px;
-            display: block;
-            .font-size(1.1);
+        &:hover, &:active, &:focus {
+            outline: 0;
+            color: @link-color-hover;
+            text-decoration: none;
 
-            &.unread {
-                background: @header-background;
-                color: contrast(@header-background);
+            &.selected {
+                color: @link-color-hover;
             }
-        }
-
-        & > .section-content {
-            .box-sizing(border-box);
-            height: 100%;
-            border-top: 60px solid transparent;
-            position: relative;
-            top: -60px;
-            @selectedBackground: lighten(spin(@header-background, 0), 40%);
-
-            a {
-                .font-size(1.3);
-                display: block;
-                padding: ((@section-link-height - 17px) / 2) 20px;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-
-                &.avatar-link {
-                    position: relative;
-
-                    img {
-                        position: absolute;
-                        top: 0;
-                    }
-                }
-
-                &.selected {
-                    background: @selectedBackground;
-                    color: contrast(@selectedBackground);
-                }
-            }
-
-                a:hover, a:active, a:focus {
-                    background: mix(@header-background, @background-color, 70%);
-                    outline: 0;
-                    color: mix(@header-background, @background-color, 10%);
-
-                    &.selected {
-                        background: @selectedBackground;
-                        color: mix(@header-background, @font-color, 70%);
-                    }
-                }
-        }
-
-        & > h1 {
-            .page-header();
-            position: relative;
-            z-index: 2;
-            display: none;
-        }
-    }
-
-    &.nav-hidden {
-        & > .notification-block {
-            margin-left: @menu-width + @section-hidden-width;
-        }
-
-        & > section {
-            margin-left: @menu-width + @section-hidden-width;
-        }
-
-        & > nav {
-            width: @section-hidden-width;
-        }
-
-        & > footer {
-            margin-left: @menu-width + @section-hidden-width;
         }
     }
 }
@@ -554,14 +458,15 @@ ul.share {
   display: none !important;
 }
 
-body > header > .online-users {
-    padding: @indent;
+body > .online-users {
     overflow: hidden;
+    position: fixed;
+    display: none;
+    padding-left: @indent/4;
 
     & > .user {
-        float: left;
         position: relative;
-        margin-right: @indent/5;
+        margin-top: @indent/4;
 
         &.user-in-chat {
             img {

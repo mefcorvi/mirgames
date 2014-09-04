@@ -68,10 +68,14 @@ namespace MirGames.Domain.Forum.QueryHandlers
                         PostId = p.PostId,
                         TopicId = p.TopicId,
                         UpdatedDate = p.UpdatedDate,
-                        TopicTitle = t.Title
+                        TopicTitle = t.Title,
+                        ForumId = t.ForumId
                     });
 
             var posts = postsQuery.ToList();
+            var forums = this.queryProcessor.Process(new GetForumsQuery());
+
+            posts.ForEach(post => post.ForumAlias = forums.Where(f => f.ForumId == post.ForumId).Select(f => f.Alias).FirstOrDefault());
 
             this.queryProcessor.Process(
                 new ResolveAuthorsQuery

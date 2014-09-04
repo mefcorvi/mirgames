@@ -1,17 +1,8 @@
-﻿@{ Layout = "~/Views/Shared/_Nav.cshtml"; }
+﻿<a href="@Url.Action("Index")" class="@(ViewBag.SectionMode == "Active" ? "selected" : string.Empty)">По активности</a>
+<a href="@Url.Action("Top")" class="@(ViewBag.SectionMode == "Top" ? "selected" : string.Empty)">По рейтингу</a>
+<a href="@Url.Action("Online")" class="@(ViewBag.SectionMode == "Online" ? "selected" : string.Empty)">Онлайн</a>
 
-@section SectionTitle { Пользователи }
-
-@section SectionMenu
+@if (User.IsInRole("Administrator"))
 {
-    <div class="users-menu">
-        <a href="@Url.Action("Index")" class="@(ViewBag.SectionMode == "Active" ? "selected" : string.Empty)">По активности</a>
-        <a href="@Url.Action("Top")" class="@(ViewBag.SectionMode == "Top" ? "selected" : string.Empty)">По рейтингу</a>
-        <a href="@Url.Action("Online")" class="@(ViewBag.SectionMode == "Online" ? "selected" : string.Empty)">Онлайн</a>
-
-        @if (User.IsInRole("Administrator"))
-        {
-            <a href="@Url.Action("NotActivated")" class="@(ViewBag.SectionMode == "NotActivated" ? "selected" : string.Empty)">Неактивированные</a>
-        }
-    </div>
+    <a href="@Url.Action("NotActivated")" class="@(ViewBag.SectionMode == "NotActivated" ? "selected" : string.Empty)">Неактивированные</a>
 }

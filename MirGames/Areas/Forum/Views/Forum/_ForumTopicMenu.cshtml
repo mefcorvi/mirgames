@@ -1,17 +1,9 @@
 ﻿@using MirGames.Models
 @model MirGames.Domain.Forum.ViewModels.ForumTopicViewModel
-@{ Layout = "~/Views/Shared/_Nav.cshtml"; }
-
-@section SectionTitle { @Model.Title }
-
-@section SectionMenu
-{
-    <div class="forum-topic-menu">
-        <a href="@Url.Action("Index")" class="back-to-topics"><i class="fa fa-arrow-left"></i>Вернуться к темам</a>
-        @if (Model.CanBeAnswered)
-        {
-            <a href="@Url.Action(MVC.Forum.Forum.Topic(Model.TopicId, ((PaginationViewModel)ViewBag.Pagination).PagesCount))#new-answer"
-               ng-click="focusAnswer()" class="comment"><i class="fa fa-comment"></i>Ответить</a>
-        }
-    </div>
-}
+<div class="forum-topic-menu">
+    @if (Model.CanBeAnswered)
+    {
+        <a href="@Url.Action(MVC.Forum.Forum.Topic(Model.ForumAlias, Model.TopicId, ((PaginationViewModel)ViewBag.Pagination).PagesCount))#new-answer"
+            ng-click="focusAnswer()" class="comment"><i class="fa fa-comment"></i>Ответить</a>
+    }
+</div>

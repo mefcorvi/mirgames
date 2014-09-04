@@ -14,7 +14,7 @@
 <a href="@Url.Action(MVC.Forum.Forum.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Forum") ng-controller="MirGames.Forum.UnreadMenuItemController">
     Форум
     <span @Html.Css("updates-count").Add("counter").Add("ng-hide", @ViewBag.ForumTopicsUnread == 0) title="Перейти к непрочитанным обсуждениям"
-          ng-click="goToUnread('@Url.Action(MVC.Forum.Forum.Index(onlyUnread:true))', $event.which == 2); $event.preventDefault();"
+          ng-click="goToUnread('@Url.Action(MVC.Forum.Forum.Topics(onlyUnread: true))', $event.which == 2); $event.preventDefault();"
           ng-show="unreadCount > 0" ng-bind="'+' + unreadCount">+@ViewBag.ForumTopicsUnread</span>
 </a>
 @Html.ActionLink("Проекты", MVC.Projects.Projects.Index(), new { @class = ViewBag.CurrentSection == "WIP" ? "selected" : string.Empty })

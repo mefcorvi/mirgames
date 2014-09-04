@@ -51,12 +51,13 @@
                 @Html.Partial("_Menu")
                 @Html.Partial("_UserMenu")
             </nav>
-            @Html.Partial("_OnlineUsers", onlineUsers)
+            <form class="search-form">
+                <div class="form-field">
+                    <input type="text" placeholder="Поиск..." ng-model="searchQuery" />
+                </div>
+            </form>
         </header>
-        <div class="user-notifications">
-            <a href="#"><i class="fa fa-comments-o"></i></a>
-        </div>
-        <nav class="header-font">
+        <nav class="toolbar">
             @RenderSection("Nav", required: false)
         </nav>
         @if (this.UserEntity != null && !this.UserEntity.IsActivated)
@@ -71,22 +72,10 @@
             </div>
         }
         <section>
-            <script type="text/javascript">
-                (function() {
-                    var oldScroll = sessionStorage.getItem("window.scrollLeft") * 1;
-                    window.pageXOffset = oldScroll;
-                    document.body.scrollLeft = oldScroll;
-                    document.documentElement.scrollLeft = oldScroll;
-
-                    window.addEventListener('scroll', function() {
-                        var newScroll = window.pageXOffset;
-                        sessionStorage.setItem("window.scrollLeft", newScroll.toString());
-                    });
-                })();
-            </script>
             @RenderBody()
         </section>
         @RenderSection("SectionFooter", required: false)
+        @Html.Partial("_OnlineUsers", onlineUsers)
         <input type="hidden" id="page-data" value="@Html.ToJson((object)this.ViewBag.PageData).ToString()"/>
         <script type="text/javascript">
             window.config = {
@@ -96,7 +85,6 @@
             window.pageData = JSON.parse(document.getElementById('page-data').value);
         </script>
         <script src="@Url.Script("scripts.js")"></script>
-        @RenderSection("scripts", required: false)
         <script type="text/javascript">
             hljs.initHighlightingOnLoad();
         </script>

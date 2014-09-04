@@ -184,9 +184,8 @@ namespace Links
             public static readonly string eventEmitter_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/eventEmitter.min.js") ? Url("eventEmitter.min.js") : Url("eventEmitter.js");
             public static readonly string ion_sound_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ion.sound.d.min.js") ? Url("ion.sound.d.min.js") : Url("ion.sound.d.js");
             public static readonly string ion_sound_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ion.sound.min.js") ? Url("ion.sound.min.js") : Url("ion.sound.js");
-            public static readonly string jquery_1_7_1_intellisense_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.7.1.intellisense.min.js") ? Url("jquery-1.7.1.intellisense.min.js") : Url("jquery-1.7.1.intellisense.js");
-            public static readonly string jquery_1_7_1_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.7.1.min.js") ? Url("jquery-1.7.1.min.js") : Url("jquery-1.7.1.js");
-            public static readonly string jquery_1_7_1_min_js = Url("jquery-1.7.1.min.js");
+            public static readonly string jquery_2_1_1_intellisense_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.1.1.intellisense.min.js") ? Url("jquery-2.1.1.intellisense.min.js") : Url("jquery-2.1.1.intellisense.js");
+            public static readonly string jquery_2_1_1_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.1.1.min.js") ? Url("jquery-2.1.1.min.js") : Url("jquery-2.1.1.js");
             public static readonly string jquery_autosize_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.autosize.d.min.js") ? Url("jquery.autosize.d.min.js") : Url("jquery.autosize.d.js");
             public static readonly string jquery_autosize_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.autosize.min.js") ? Url("jquery.autosize.min.js") : Url("jquery.autosize.js");
             public static readonly string jquery_cookie_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.cookie.d.min.js") ? Url("jquery.cookie.d.min.js") : Url("jquery.cookie.d.js");
@@ -197,8 +196,7 @@ namespace Links
             public static readonly string jquery_nanoscroller_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.nanoscroller.min.js") ? Url("jquery.nanoscroller.min.js") : Url("jquery.nanoscroller.js");
             public static readonly string jquery_naturalWidth_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.naturalWidth.d.min.js") ? Url("jquery.naturalWidth.d.min.js") : Url("jquery.naturalWidth.d.js");
             public static readonly string jquery_naturalWidth_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.naturalWidth.min.js") ? Url("jquery.naturalWidth.min.js") : Url("jquery.naturalWidth.js");
-            public static readonly string jquery_signalR_2_0_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.signalR-2.0.2.min.js") ? Url("jquery.signalR-2.0.2.min.js") : Url("jquery.signalR-2.0.2.js");
-            public static readonly string jquery_signalR_2_0_2_min_js = Url("jquery.signalR-2.0.2.min.js");
+            public static readonly string jquery_signalR_2_1_1_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.signalR-2.1.1.min.js") ? Url("jquery.signalR-2.1.1.min.js") : Url("jquery.signalR-2.1.1.js");
             public static readonly string linq_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/linq.d.min.js") ? Url("linq.d.min.js") : Url("linq.d.js");
             public static readonly string linq_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/linq.min.js") ? Url("linq.min.js") : Url("linq.js");
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -467,6 +465,7 @@ namespace Links
                 private const string URLPATH = "~/Areas/Forum/Content";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string forums_less = Url("forums.less");
                 public static readonly string mixins_less = Url("mixins.less");
                 public static readonly string new_topic_less = Url("new-topic.less");
                 public static readonly string references_less = Url("references.less");

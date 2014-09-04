@@ -83,6 +83,7 @@ namespace MirGames.Areas.Forum.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string Topics = "Topics";
             public readonly string Rss = "Rss";
             public readonly string New = "New";
             public readonly string Topic = "Topic";
@@ -97,6 +98,7 @@ namespace MirGames.Areas.Forum.Controllers
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string Topics = "Topics";
             public const string Rss = "Rss";
             public const string New = "New";
             public const string Topic = "Topic";
@@ -108,12 +110,13 @@ namespace MirGames.Areas.Forum.Controllers
         }
 
 
-        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        static readonly ActionParamsClass_Topics s_params_Topics = new ActionParamsClass_Topics();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        public ActionParamsClass_Topics TopicsParams { get { return s_params_Topics; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Index
+        public class ActionParamsClass_Topics
         {
+            public readonly string forumAlias = "forumAlias";
             public readonly string tag = "tag";
             public readonly string searchString = "searchString";
             public readonly string onlyUnread = "onlyUnread";
@@ -134,6 +137,7 @@ namespace MirGames.Areas.Forum.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Topic
         {
+            public readonly string forumAlias = "forumAlias";
             public readonly string topicId = "topicId";
             public readonly string page = "page";
         }
@@ -167,6 +171,7 @@ namespace MirGames.Areas.Forum.Controllers
                 public readonly string Index = "Index";
                 public readonly string New = "New";
                 public readonly string Topic = "Topic";
+                public readonly string Topics = "Topics";
             }
             public readonly string _DeletePostDialog = "~/Areas/Forum/Views/Forum/_DeletePostDialog.cshtml";
             public readonly string _DeleteTopicDialog = "~/Areas/Forum/Views/Forum/_DeleteTopicDialog.cshtml";
@@ -180,6 +185,7 @@ namespace MirGames.Areas.Forum.Controllers
             public readonly string Index = "~/Areas/Forum/Views/Forum/Index.cshtml";
             public readonly string New = "~/Areas/Forum/Views/Forum/New.cshtml";
             public readonly string Topic = "~/Areas/Forum/Views/Forum/Topic.cshtml";
+            public readonly string Topics = "~/Areas/Forum/Views/Forum/Topics.cshtml";
         }
     }
 
@@ -189,17 +195,29 @@ namespace MirGames.Areas.Forum.Controllers
         public T4MVC_ForumController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string tag, string searchString, bool onlyUnread, int page);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index(string tag, string searchString, bool onlyUnread, int page)
+        public override System.Web.Mvc.ActionResult Index()
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void TopicsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string forumAlias, string tag, string searchString, bool onlyUnread, int page);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Topics(string forumAlias, string tag, string searchString, bool onlyUnread, int page)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Topics);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "forumAlias", forumAlias);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "tag", tag);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "searchString", searchString);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "onlyUnread", onlyUnread);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "page", page);
-            IndexOverride(callInfo, tag, searchString, onlyUnread, page);
+            TopicsOverride(callInfo, forumAlias, tag, searchString, onlyUnread, page);
             return callInfo;
         }
 
@@ -228,15 +246,16 @@ namespace MirGames.Areas.Forum.Controllers
         }
 
         [NonAction]
-        partial void TopicOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int topicId, int page);
+        partial void TopicOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string forumAlias, int topicId, int page);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Topic(int topicId, int page)
+        public override System.Web.Mvc.ActionResult Topic(string forumAlias, int topicId, int page)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Topic);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "forumAlias", forumAlias);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "topicId", topicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "page", page);
-            TopicOverride(callInfo, topicId, page);
+            TopicOverride(callInfo, forumAlias, topicId, page);
             return callInfo;
         }
 

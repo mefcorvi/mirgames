@@ -128,8 +128,13 @@ angular
         });
     }]);
 
+$(() => {
+    var bodyPosition = $(document.body).offset();
+    var bodyWidth = $(document.body).outerWidth();
 
-$(function () {
-    var $element = <any>$(".nano");
-    $element.nanoScroller();
-});
+    $('.online-users').css({
+        'display': 'block',
+        'top': 0,
+        'left': bodyPosition.left + bodyWidth
+    });
+})

@@ -2,7 +2,6 @@
 @model IEnumerable<OnlineUserViewModel>
 
 <div @Html.Css("online-users").Add("ng-hide", ViewBag.OnlineUsers.Count == 0) ng-controller="MirGames.OnlineUsersController" ng-show="users.length > 0">
-    <h3>Онлайн</h3>
     @foreach (OnlineUserViewModel user in Model.Reverse())
     {
         <div class="user" ng-show="false">

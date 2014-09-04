@@ -112,6 +112,7 @@
     <Compile Include="CommandHandlers\ReplyForumTopicCommandHandler.cs" />
     <Compile Include="Commands\MarkTopicAsUnreadForUsersCommand.cs" />
     <Compile Include="Commands\ReindexForumTopicCommand.cs" />
+    <Compile Include="Entities\Forum.cs" />
     <Compile Include="Entities\ForumTopicUnread.cs" />
     <Compile Include="Entities\ForumTag.cs" />
     <Compile Include="Entities\ForumTopicRead.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="EntityMapper.cs" />
     <Compile Include="EventListeners\ForumTopicCreatedEventListener.cs" />
     <Compile Include="EventListeners\ForumTopicRepliedEventListener.cs" />
+    <Compile Include="Mapping\ForumMap.cs" />
     <Compile Include="Mapping\ForumTopicUnreadMap.cs" />
     <Compile Include="Mapping\ForumTagMap.cs" />
     <Compile Include="Mapping\ForumPostMap.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="Mapping\ForumTopicReadMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryHandlers\GetForumNotificationsCountQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetForumsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetForumTopicPostsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetForumPostForEditQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetForumPostQueryHandler.cs" />

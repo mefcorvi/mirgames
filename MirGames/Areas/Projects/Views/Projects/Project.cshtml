@@ -13,11 +13,6 @@
     var commits = (IEnumerable<WipProjectCommitViewModel>)ViewBag.Commits;
 }
 
-@section Nav
-{
-    @Html.Partial("_ProjectMenu", Model)
-}
-
 @Html.Partial("_ProjectInfo", Model)
 
 <section>

@@ -1,19 +1,10 @@
 ﻿@using MirGames.Domain.Security
 @model IEnumerable<MirGames.Domain.Topics.ViewModels.TopicsListItem>
-@{ Layout = "~/Views/Shared/_Nav.cshtml"; }
-
-@section SectionTitle { Блог }
-
-@section SectionMenu
+@if (User.Can("Create", "Topic"))
 {
-    @if (User.Can("Create", "Topic"))
-    {
-        <a href="@Url.Action(MVC.Topics.Topics.New())" class="add-topic"><i class="fa fa-plus"></i>Новая тема</a>
-    }
-    <div class="subsection">
-    @foreach (string tag in ViewBag.Tags)
-    {
-        @Html.ActionLink(tag, MVC.Topics.Topics.Index(tag), new { @class = string.Equals(tag, ViewBag.Tag, StringComparison.InvariantCultureIgnoreCase) ? "selected" : string.Empty })
-    }
-    </div>
+    <a href="@Url.Action(MVC.Topics.Topics.New())" class="add-topic"><i class="fa fa-pencil"></i>Новая тема</a>
+}
+@foreach (string tag in ViewBag.Tags)
+{
+    @Html.ActionLink(tag, MVC.Topics.Topics.Index(tag), new { @class = string.Equals(tag, ViewBag.Tag, StringComparison.InvariantCultureIgnoreCase) ? "selected" : string.Empty })
 }

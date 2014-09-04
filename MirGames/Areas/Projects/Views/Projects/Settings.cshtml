@@ -7,11 +7,6 @@
     AddPageCssClass("project-settings-page");
 }
 
-@section Nav
-{
-    @Html.Partial("_ProjectMenu", Model)
-}
-
 @Html.Partial("_ProjectInfo", Model)
 
 <form class="new-project-form" name="newProjectForm" ng-cloak>

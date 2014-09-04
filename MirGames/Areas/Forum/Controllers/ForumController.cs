@@ -38,17 +38,17 @@ namespace MirGames.Areas.Forum.Controllers
         {
         }
 
-        /// <summary>
-        /// The index action.
-        /// </summary>
-        /// <param name="tag">The tag.</param>
-        /// <param name="searchString">The search string.</param>
-        /// <param name="onlyUnread">if set to <c>true</c> then only unread topics will be returned.</param>
-        /// <param name="page">The page.</param>
-        /// <returns>
-        /// The action result.
-        /// </returns>
-        public virtual ActionResult Index(string tag = null, string searchString = null, bool onlyUnread = false, int page = 1)
+        /// <inheritdoc />
+        public virtual ActionResult Index()
+        {
+            var forums = this.QueryProcessor.Process(new GetForumsQuery()).ToList();
+            this.ViewBag.OnlyUnread = false;
+
+            return this.View(forums.Where(f => f.IsRetired == false));
+        }
+
+        /// <inheritdoc />
+        public virtual ActionResult Topics(string forumAlias = null, string tag = null, string searchString = null, bool onlyUnread = false, int page = 1)
         {
             if (page < 1)
             {
@@ -59,7 +59,8 @@ namespace MirGames.Areas.Forum.Controllers
                 {
                     Tag = tag,
                     SearchString = searchString,
-                    OnlyUnread = onlyUnread
+                    OnlyUnread = onlyUnread,
+                    ForumAlias = forumAlias
                 };
 
             var paginationSettings = new PaginationSettings(page - 1, 20);
@@ -75,20 +76,17 @@ namespace MirGames.Areas.Forum.Controllers
                     new PaginationViewModel(
                         new PaginationSettings(PaginationSettings.GetItemPage(topic.PostsCount, 20), 20),
                         topic.PostsCount,
-                        p => this.GetTopicPageUrl(p, topicId))
+                        p => this.GetTopicPageUrl(p, topicId, forumAlias))
                         {
                             ShowPrevNextNavigation = false,
                             HightlightCurrentPage = false
                         };
             }
 
-            var tags = this.QueryProcessor.Process(new GetForumTagsQuery());
-            this.ViewBag.Tags = tags;
-            this.ViewBag.Tag = tag;
             this.ViewBag.OnlyUnread = onlyUnread;
             this.ViewBag.RssUrl = this.Url.Action(MVC.Forum.Forum.Rss());
             this.ViewBag.Pagination = new PaginationViewModel(
-                 paginationSettings, topicsCount, p => this.Url.Action(MVC.Forum.Forum.Index(tag, searchString, page: p)));
+                 paginationSettings, topicsCount, p => this.Url.Action(MVC.Forum.Forum.Topics(forumAlias, tag, searchString, page: p)));
             this.ViewBag.TopicsPagination = topicsPagination;
             
             this.ViewBag.PageData["tag"] = tag;
@@ -107,7 +105,7 @@ namespace MirGames.Areas.Forum.Controllers
 
             var posts = this.QueryProcessor.Process(topicsQuery, new PaginationSettings(0, 20));
             var feed = new SyndicationFeed(
-                "Новые сообщения на форуме MirGames.ru", "Новые сообщения", this.GetAbsoluteUri(this.Url.Action(MVC.Forum.Forum.Index())))
+                "Новые сообщения на форуме MirGames.ru", "Новые сообщения", this.GetAbsoluteUri(this.Url.Action(MVC.Forum.Forum.Topics())))
             {
                 Items = posts.Select(this.CreateTopicSyndicationItem).ToList()
             };
@@ -125,13 +123,8 @@ namespace MirGames.Areas.Forum.Controllers
             return this.View();
         }
 
-        /// <summary>
-        /// Shows topic with the specified ID.
-        /// </summary>
-        /// <param name="topicId">The topic id.</param>
-        /// <param name="page">The page.</param>
-        /// <returns>The action result.</returns>
-        public virtual ActionResult Topic(int topicId, int page = 1)
+        /// <inheritdoc />
+        public virtual ActionResult Topic(string forumAlias, int topicId, int page = 1)
         {
             var topic = this.QueryProcessor.Process(new GetForumTopicQuery { TopicId = topicId });
 
@@ -157,7 +150,7 @@ namespace MirGames.Areas.Forum.Controllers
                 this.CommandProcessor.Execute(new MarkTopicAsReadCommand { TopicId = topic.TopicId });
             }
 
-            this.ViewBag.Pagination = new PaginationViewModel(pagination, postsCount, p => this.GetTopicPageUrl(p, topicId));
+            this.ViewBag.Pagination = new PaginationViewModel(pagination, postsCount, p => this.GetTopicPageUrl(p, topicId, forumAlias));
             this.ViewBag.Posts = posts;
             this.ViewBag.PageData["topicId"] = topicId;
             this.ViewBag.PageData["pagesCount"] = this.ViewBag.Pagination.PagesCount;
@@ -226,7 +219,7 @@ namespace MirGames.Areas.Forum.Controllers
         /// <returns>The syndication item.</returns>
         private SyndicationItem CreateTopicSyndicationItem(ForumPostViewModel post)
         {
-            var topicUrl = this.Url.Action(MVC.Forum.Forum.Topic(post.TopicId));
+            var topicUrl = this.Url.Action(MVC.Forum.Forum.Topic(post.ForumAlias, post.TopicId));
 
             var item = new SyndicationItem(
                 string.Format("{0} > {1} (#{2})", post.TopicTitle, post.Author.Login, post.PostId),
@@ -261,10 +254,13 @@ namespace MirGames.Areas.Forum.Controllers
         /// </summary>
         /// <param name="page">The page.</param>
         /// <param name="topicId">The topic unique identifier.</param>
-        /// <returns>The topic page URL.</returns>
-        private string GetTopicPageUrl(int page, int topicId)
+        /// <param name="forumAlias">The forum alias.</param>
+        /// <returns>
+        /// The topic page URL.
+        /// </returns>
+        private string GetTopicPageUrl(int page, int topicId, string forumAlias)
         {
-            return this.Url.Action(MVC.Forum.Forum.Topic(topicId, page)) + "#posts";
+            return this.Url.Action(MVC.Forum.Forum.Topic(forumAlias, topicId, page)) + "#posts";
         }
     }
 }

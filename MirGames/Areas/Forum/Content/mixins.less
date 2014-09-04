@@ -10,38 +10,13 @@
             border-bottom: 0;
         }
 
-        .fa-envelope {
-            color: @link-color-hover;
+        .fa-file-text-o{
+            color: mix(@background-color, @font-color, 80%);
             position: absolute;
             top: 50%;
             left: 0px;
             margin-top: -0.5em;
-        }
-
-        .fa-envelope-o {
-            color: desaturate(lighten(@link-color, 20%), 50%);
-            position: absolute;
-            top: 50%;
-            left: 0px;
-            margin-top: -0.5em;
-        }
-
-        &.read {
-            .fa-envelope {
-                display: none;
-            }
-
-            & > .message-content {
-                & > .topic-title-block > .topic-title {
-                    color: lighten(@link-color, 10%);
-                }
-            }
-        }
-
-        &.unread {
-            .fa-envelope-o {
-                display: none;
-            }
+            .font-size(1.8);
         }
 
         & > .message-content {

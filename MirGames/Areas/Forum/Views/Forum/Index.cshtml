@@ -1,42 +1,52 @@
-﻿@using MirGames.Models
-@model IEnumerable<MirGames.Domain.Forum.ViewModels.ForumTopicsListItemViewModel>
+﻿@using MirGames.Domain.Security
+@model IEnumerable<MirGames.Domain.Forum.ViewModels.ForumViewModel>
 
 @{
-    ViewBag.Title = (ViewBag.Tag ?? "Все обсуждения") + " / Форум";
-    PageScriptController = "MirGames.Forum.TopicsPage";
-    AddPageCssClass("forum-topics-page");
+    ViewBag.Title = "Форум";
+    PageScriptController = "MirGames.Forum.ForumsPage";
+    AddPageCssClass("forums-page");
 }
-
+    
 @section Nav { @Html.Partial("_ForumTopicsMenu") }
 
-@if (@ViewBag.OnlyUnread)
-{
-    <h3>Новые обсуждения и ответы</h3>
-} else
-{
-    <h3>@(ViewBag.Tag ?? "Все обсуждения")</h3>
-}
-<form ng-controller="MirGames.Forum.SearchPanelController" ng-submit="search()">
-    <div class="form-field">
-        <input type="text" placeholder="Поиск..." ng-model="searchQuery" />
-    </div>
-</form>
-    
-@Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
 <article class="message message-header">
     <div class="message-content">
-        <div class="envelope-icon">
+        <div class="forum-title-block">
+            Форум
         </div>
-        <div class="topic-title-block">
-            Темы
+        <div class="topics-count">
+            Тем
         </div>
         <div class="replies-count">
             Ответов
         </div>
-        <div class="last-post-info">
+        <div class="last-topic-info">
             Последнее сообщение
         </div>
     </div>
 </article>
-@Html.Partial("_ForumTopicsList")
-@Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
+
+@foreach (var forum in Model)
+{
+    <article @Html.Css("message")>
+        <div class="message-content">
+            <div class="forum-title-block">
+                <a href="@Url.Action(MVC.Forum.Forum.Topics(forum.Alias))" class="topic-title">@forum.Title</a>
+                <footer>
+                    @forum.Description
+                </footer>
+            </div>
+            <div @Html.Css("topics-count")>
+                <span>@(forum.TopicsCount)</span>
+            </div>
+            <div @Html.Css("replies-count")>
+                <span>@(forum.PostsCount)</span>
+            </div>
+            <div class="last-topic-info">
+                @Author.UserAvatarLink(forum.LastAuthor, "avatar-small", "user-login", true)
+                <span class="last-topic-title">@forum.LastTopicTitle </span>
+                <span class="topic-updated-date">@forum.LastPostDate.GetValueOrDefault().Format()</span>
+            </div>
+        </div>
+    </article>
+}

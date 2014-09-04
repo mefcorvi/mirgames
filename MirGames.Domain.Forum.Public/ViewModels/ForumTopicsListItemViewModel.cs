@@ -80,5 +80,15 @@ namespace MirGames.Domain.Forum.ViewModels
         /// Gets or sets a value indicating whether this topic was been read by current user.
         /// </summary>
         public bool IsRead { get; set; }
+
+        /// <summary>
+        /// Gets or sets the forum identifier.
+        /// </summary>
+        public int? ForumId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the forum alias.
+        /// </summary>
+        public string ForumAlias { get; set; }
     }
 }

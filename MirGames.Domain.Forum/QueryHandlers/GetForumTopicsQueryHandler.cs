@@ -113,13 +113,18 @@ namespace MirGames.Domain.Forum.QueryHandlers
                         TopicId = g.Key,
                         Count = g.Count()
                     }).ToDictionary(g => g.TopicId, g => g.Count);
-                
+
+                var forums = this.queryProcessor.Process(new GetForumsQuery())
+                                 .ToList();
+
                 foreach (var topic in topics)
                 {
                     topic.IsRead = !unreadPosts.ContainsKey(topic.TopicId);
                     topic.UnreadPostsCount = unreadPosts.ContainsKey(topic.TopicId)
                                                  ? unreadPosts[topic.TopicId]
                                                  : (int?)null;
+
+                    topic.ForumAlias = forums.Where(f => f.ForumId == topic.ForumId).Select(f => f.Alias).FirstOrDefault();
 
                     if (newTopicsNotifications.Contains(topic.TopicId))
                     {
@@ -175,7 +180,13 @@ namespace MirGames.Domain.Forum.QueryHandlers
                 topics = topics.Where(t => topicIdentifiers.Contains(t.TopicId));
             }
 
-            return topics.OrderByDescending(t => t.UpdatedDate).Select(t => new ForumTopicsListItemViewModel
+            if (!string.IsNullOrEmpty(query.ForumAlias))
+            {
+                var forum = this.queryProcessor.Process(new GetForumsQuery()).Single(f => f.Alias == query.ForumAlias);
+                topics = topics.Where(t => t.ForumId == forum.ForumId);
+            }
+
+            var topicsResult = topics.OrderByDescending(t => t.UpdatedDate).Select(t => new ForumTopicsListItemViewModel
             {
                 Author = new AuthorViewModel
                 {
@@ -193,8 +204,11 @@ namespace MirGames.Domain.Forum.QueryHandlers
                 Title = t.Title,
                 TopicId = t.TopicId,
                 TagsList = t.TagsList,
-                UpdatedDate = t.UpdatedDate
+                UpdatedDate = t.UpdatedDate,
+                ForumId = t.ForumId
             });
+
+            return topicsResult;
         }
 
         /// <summary>

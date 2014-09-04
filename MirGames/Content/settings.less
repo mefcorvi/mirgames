@@ -47,8 +47,8 @@
 @grid-float-breakpoint-max: (@grid-float-breakpoint - 1);
 
 .indent() {
-    padding-top: @indent/2;
-    padding-bottom: @indent/2;
+    padding-top: @indent;
+    padding-bottom: @indent;
     padding-left: @indent;
     padding-right: @indent;
 }
@@ -390,7 +390,7 @@
 }
 
 .default-link() {
-    text-decoration: underline;
+    text-decoration: none;
     color: @link-color;
     .active-link-color(@link-color-hover);
 

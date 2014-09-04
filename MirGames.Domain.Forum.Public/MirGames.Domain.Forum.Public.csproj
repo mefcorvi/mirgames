@@ -57,6 +57,7 @@
     <Compile Include="Queries\GetForumPostForEditQuery.cs" />
     <Compile Include="Queries\GetForumPostsQuery.cs" />
     <Compile Include="Queries\GetForumPostQuery.cs" />
+    <Compile Include="Queries\GetForumsQuery.cs" />
     <Compile Include="Queries\GetForumTopicsQuery.cs" />
     <Compile Include="Queries\GetForumTopicQuery.cs" />
     <Compile Include="Queries\GetForumTagsQuery.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="ViewModels\ForumTopicsListItemViewModel.cs" />
     <Compile Include="ViewModels\ForumTopicViewModel.cs" />
     <Compile Include="Notifications\NewForumTopicNotification.cs" />
+    <Compile Include="ViewModels\ForumViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MirGames.Domain.Notifications.Public\MirGames.Domain.Notifications.Public.csproj">

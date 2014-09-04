@@ -17,6 +17,11 @@ namespace MirGames.Domain.Forum.Queries
     public sealed class GetForumTopicsQuery : Query<ForumTopicsListItemViewModel>
     {
         /// <summary>
+        /// Gets or sets the forum identifier.
+        /// </summary>
+        public string ForumAlias { get; set; }
+
+        /// <summary>
         /// Gets or sets the tag.
         /// </summary>
         public string Tag { get; set; }

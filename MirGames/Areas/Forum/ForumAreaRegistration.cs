@@ -14,32 +14,37 @@
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
+                "ForumUnreadItems",
+                "forum/unread",
+                new { controller = "Forum", action = "Topics", onlyUnread = true });
+
+            context.MapRoute(
+                "ForumTopicItems",
+                "forum/{forumAlias}",
+                new { controller = "Forum", action = "Topics", onlyUnread = false, page = 1 });
+
+            context.MapRoute(
+                "ForumTopicsListWithPage",
+                "forum/{forumAlias}/page{page}",
+                new { controller = "Forum", action = "Topics", onlyUnread = false },
+                new { page = @"\d+" });
+
+            context.MapRoute(
                 "ForumTopicItemFirstPage",
-                "forum/{topicId}",
+                "forum/{forumAlias}/{topicId}",
                 new { controller = "Forum", action = "Topic", page = 1 },
-                new { topicId = @"\d+" });
+                new { topicId = @"\d+", page = @"\d+" });
 
             context.MapRoute(
                 "ForumTopicItem",
-                "forum/{topicId}/{page}",
+                "forum/{forumAlias}/{topicId}/{page}",
                 new { controller = "Forum", action = "Topic" },
                 new { topicId = @"\d+", page = @"\d+" });
 
             context.MapRoute(
                 "ForumAllItems",
                 "forum",
-                new { controller = "Forum", action = "Index", onlyUnread = false, page = 1 });
-
-            context.MapRoute(
-                "ForumUnreadItems",
-                "forum/unread",
-                new { controller = "Forum", action = "Index", onlyUnread = true, page = 1 });
-
-            context.MapRoute(
-                "ForumTopicsListWithPage",
-                "forum/page{page}",
-                new { controller = "Forum", action = "Index" },
-                new { page = @"\d+" });
+                new { controller = "Forum", action = "Index" });
 
             context.MapRouteLowercase(
                 "Forum_default",

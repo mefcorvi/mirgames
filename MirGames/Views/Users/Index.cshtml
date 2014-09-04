@@ -10,12 +10,6 @@
 
 <h3>@(ViewBag.SectionTitle ?? "Пользователи")</h3>
 
-<form ng-controller="MirGames.Users.SearchPanelController" ng-submit="search()" class="search-panel">
-    <div class="form-field">
-        <input type="text" placeholder="Поиск..." ng-model="searchQuery" />
-    </div>
-</form>
-
 @if (!Model.Any())
 {
     <div class="users-not-found">
@@ -23,7 +17,6 @@
     </div>
 }
 
-@Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
 <div class="users-list">
 @foreach (var user in Model)
 {

@@ -152,21 +152,17 @@
         display: block;
         bottom: 0;
         height: 155px;
-        border-top: 1px solid darken(@sidebar-background, 10%);
-        position: absolute;
+        border-top: 5px solid mix(@header-background, @background-color, 10%);
+        position: fixed;
         background: @sidebar-background;
-        left: 0px;
-        right: 0;
+        bottom: 0;
         .box-sizing(border-box);
         .indent();
         z-index: 20000;
         overflow: hidden;
-        .box-shadow(-3px 0 3px 0 rgba(50, 50, 50, 0.3));
 
-        @media (max-width: @screen-xs-max) {
-            width: 100%;
-            width: 100vw;
-        }
+        width: 100%;
+        max-width: 1400px;
 
         .buttons {
             margin-top: @indent/2;
@@ -189,6 +185,7 @@
             .button.sendKey {
                 float: right;
             }
+            padding-bottom: @indent/2;
         }
 
         textarea {
@@ -229,7 +226,6 @@
 
         & > .chat-messages {
             .indent();
-            padding-top: 0;
             .message();
         }
 

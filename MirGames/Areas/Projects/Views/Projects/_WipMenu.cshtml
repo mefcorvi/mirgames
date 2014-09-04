@@ -1,18 +1,10 @@
 ﻿@using MirGames.Domain.Security
-@{ Layout = "~/Views/Shared/_Nav.cshtml"; }
-
-@section SectionTitle { Проекты }
-
-@section SectionMenu
+@if (User.Can("Create", "WipProject"))
 {
-    @if (User.Can("Create", "WipProject"))
-    {
-        <a href="@Url.Action("New", "Projects")" class="add-wip-project"><i class="fa fa-plus"></i>Новый проект</a>
-    }
-    <div class="subsection">
-        @foreach (string tag in ViewBag.Tags)
-        {
-            @Html.ActionLink(tag, "Index", "Projects", new { tag }, new { @class = string.Equals(tag, ViewBag.Tag, StringComparison.InvariantCultureIgnoreCase) ? "selected" : string.Empty })
-        }
-    </div>
+    <a href="@Url.Action("New", "Projects")" class="add-wip-project"><i class="fa fa-plus"></i>Новый проект</a>
+}
+
+@foreach (string tag in ViewBag.Tags)
+{
+    @Html.ActionLink(tag, "Index", "Projects", new { tag }, new { @class = string.Equals(tag, ViewBag.Tag, StringComparison.InvariantCultureIgnoreCase) ? "selected" : string.Empty })
 }

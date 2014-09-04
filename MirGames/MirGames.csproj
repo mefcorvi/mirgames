@@ -24,7 +24,7 @@
     <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <TypeScriptToolsVersion>0.9</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -411,6 +411,8 @@
     <Content Include="Areas\Chat\Views\_ViewStart.cshtml" />
     <None Include="Areas\Chat\Content\references.less" />
     <None Include="Areas\Forum\Content\references.less" />
+    <Content Include="Areas\Forum\Views\Forum\Index.cshtml" />
+    <Content Include="Areas\Forum\Content\forums.less" />
     <None Include="Areas\Topics\Content\references.less" />
     <Content Include="Areas\Projects\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Projects\Views\Web.config" />
@@ -680,7 +682,7 @@
     <Content Include="Views\Users\Settings.cshtml" />
     <Content Include="Views\Users\_UserListItem.cshtml" />
     <Content Include="Views\Users\_WallRecord.cshtml" />
-    <Content Include="Areas\Forum\Views\Forum\Index.cshtml" />
+    <Content Include="Areas\Forum\Views\Forum\Topics.cshtml" />
     <Content Include="Areas\Forum\Views\Forum\_ForumTopicsList.cshtml" />
     <Content Include="Areas\Forum\Views\Forum\_ForumTopicsMenu.cshtml" />
     <Content Include="Areas\Forum\Views\Forum\_ForumTopicListItem.cshtml" />

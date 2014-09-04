@@ -17,11 +17,6 @@
         path => string.Format(@"{0}/{1}", Url.Action("Code", "Projects", new { projectAlias = Model.Alias, path = "/" }), path.TrimStart('/'));
 }
 
-@section Nav
-{
-    @Html.Partial("_ProjectMenu", Model)
-}
-
 @Html.Partial("_ProjectInfo", Model)
 
 <section>
