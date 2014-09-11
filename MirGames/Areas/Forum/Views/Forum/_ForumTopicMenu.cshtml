@@ -1,9 +1,2 @@
 ﻿@using MirGames.Models
 @model MirGames.Domain.Forum.ViewModels.ForumTopicViewModel
-<div class="forum-topic-menu">
-    @if (Model.CanBeAnswered)
-    {
-        <a href="@Url.Action(MVC.Forum.Forum.Topic(Model.ForumAlias, Model.TopicId, ((PaginationViewModel)ViewBag.Pagination).PagesCount))#new-answer"
-            ng-click="focusAnswer()" class="comment"><i class="fa fa-comment"></i>Ответить</a>
-    }
-</div>

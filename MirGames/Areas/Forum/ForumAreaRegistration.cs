@@ -19,6 +19,16 @@
                 new { controller = "Forum", action = "Topics", onlyUnread = true });
 
             context.MapRoute(
+                "ForumNewItems",
+                "forum/new",
+                new { controller = "Forum", action = "New" });
+
+            context.MapRoute(
+                "ForumDeleteDialogs",
+                "forum/deletepostdialog",
+                new { controller = "Forum", action = "DeletePostDialog" });
+
+            context.MapRoute(
                 "ForumTopicItems",
                 "forum/{forumAlias}",
                 new { controller = "Forum", action = "Topics", onlyUnread = false, page = 1 });

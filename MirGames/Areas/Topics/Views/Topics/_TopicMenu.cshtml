@@ -5,13 +5,6 @@
     <a href="@EntityLinkProvider.GetLink(Model.Blog.EntityId, Model.Blog.EntityType)" class="back-to-topics"><i class="fa fa-arrow-left"></i>@Model.Blog.Description</a>
 }
 
-<a href="@Url.Action("Topic", new { topicId = Model.Id })#comments" class="comments"><i class="fa fa-comments"></i>Комментарии <span class="comments-count counter">@Model.CommentsCount</span></a>
-
-@if (Model.CanBeCommented)
-{
-    <a href="@Url.Action("Topic", new { topicId = Model.Id })#new-comment" class="comment"><i class="fa fa-comment"></i>Комментировать</a>
-}
-
 <div class="topic-info subsection">
 </div>
 @*        @if (User.IsInRole("User"))

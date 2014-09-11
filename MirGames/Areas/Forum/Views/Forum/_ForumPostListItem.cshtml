@@ -32,7 +32,7 @@
     </div>
     <div class="post-block">
         <div class="created-date">
-            <i class="fa fa-clock-o"></i> <span class="topic-created-date">@Model.CreatedDate.Format()</span>
+            <i class="fa fa-clock-o"></i> <span class="topic-created-date">@Html.RelativeDate(Model.CreatedDate)</span>
         </div>
         <div class="text">
             @Html.Raw(Model.Text)

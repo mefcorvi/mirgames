@@ -6,7 +6,8 @@
     AddPageCssClass("new-topic-page");
 }
 
-<h3>Блог / Новая тема</h3>
+@section Nav { @Html.Partial("_TopicsMenu") }
+
 <form class="new-topic-form" name="newTopicForm">
     <div class="form-field">
         <label>Заголовок</label>

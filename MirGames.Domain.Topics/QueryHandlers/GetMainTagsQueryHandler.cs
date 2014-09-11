@@ -25,24 +25,34 @@ namespace MirGames.Domain.Topics.QueryHandlers
         /// <inheritdoc />
         protected override IEnumerable<string> Execute(IReadContext readContext, GetMainTagsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
-            return this.GetTagsQuery(readContext).Take(20).OrderBy(t => t);
+            return this.GetTagsQuery(readContext, query).Take(20).OrderBy(t => t);
         }
 
         /// <inheritdoc />
         protected override int GetItemsCount(IReadContext readContext, GetMainTagsQuery query, ClaimsPrincipal principal)
         {
-            return this.GetTagsQuery(readContext).Count();
+            return this.GetTagsQuery(readContext, query).Count();
         }
 
         /// <summary>
         /// Gets the tags query.
         /// </summary>
         /// <param name="readContext">The read context.</param>
-        /// <returns>The tags query.</returns>
-        private IQueryable<string> GetTagsQuery(IReadContext readContext)
+        /// <param name="query">The query.</param>
+        /// <returns>
+        /// The tags query.
+        /// </returns>
+        private IQueryable<string> GetTagsQuery(IReadContext readContext, GetMainTagsQuery query)
         {
-            return readContext
-                .Query<TopicTag>()
+            var tags = readContext
+                .Query<TopicTag>();
+
+            if (!string.IsNullOrEmpty(query.Filter))
+            {
+                tags = tags.Where(t => t.TagText.StartsWith(query.Filter));
+            }
+
+            return tags
                 .GroupBy(t => t.TagText, (tag, rows) => new { Tag = tag, Count = rows.Count() })
                 .OrderByDescending(t => t.Count)
                 .Select(t => t.Tag);

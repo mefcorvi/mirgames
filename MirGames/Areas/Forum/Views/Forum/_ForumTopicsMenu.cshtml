@@ -1,11 +1,11 @@
 ﻿@using MirGames.Domain.Security
 
-<a href="@Url.Action(MVC.Forum.Forum.Index())" @Html.Css("selected", string.IsNullOrEmpty((string)ViewBag.Tag) && !(bool)ViewBag.OnlyUnread)>Все обсуждения</a>
-<a href="@Url.Action(MVC.Forum.Forum.Topics(onlyUnread: true))" @Html.Css("selected", string.IsNullOrEmpty((string)ViewBag.Tag) && (bool)ViewBag.OnlyUnread)>Непрочитанные</a>
+<a href="@Url.Action(MVC.Forum.Forum.Index())" @Html.Css("selected", (string)ViewBag.Subsection == "All")>Все обсуждения</a>
+<a href="@Url.Action(MVC.Forum.Forum.Topics(onlyUnread: true))" @Html.Css("selected", (string)ViewBag.Subsection == "Unread")>Непрочитанные</a>
 
 @if (User.Can("Create", "ForumTopic"))
 {
-    <a href="@Url.Action(MVC.Forum.Forum.New())" class="add-forum-topic"><i class="fa fa-pencil"></i>Новое обсуждение</a>
+    <a href="@Url.Action(MVC.Forum.Forum.New())" @Html.Css("selected", (string)ViewBag.Subsection == "New")><i class="fa fa-pencil"></i>Новое обсуждение</a>
 }
     
 @if (ViewBag.ForumTopicsUnread > 0)

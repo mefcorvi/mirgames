@@ -1,4 +1,6 @@
-﻿body {} @import "../settings.less";
+﻿body {}
+
+@import "../settings.less";
 @import "mixins.less";
 @import "../../Areas/Topics/Content/mixins.less";
 @import "../../Areas/Forum/Content/mixins.less";
@@ -6,7 +8,7 @@
 .dashboard-page {
     & > section {
         @border-color: mix(@background-color, @header-background, 93%);
-        .make-row(flex-start);
+        overflow: hidden;
 
         & > article {
             .indent();
@@ -24,28 +26,22 @@
             .box-sizing(border-box);
             overflow: hidden;
             padding: @indent;
-            .make-xs-column(12);
-            .make-sm-column(6);
+            float: left;
 
             & > h3 {
                 .page-subtitle();
             }
 
             &.projects-subsection {
-                .make-sm-column(12);
-                padding-bottom: @indent;
                 margin-bottom: @indent;
-                border-bottom: 5px solid mix(@background-color, @header-background, 70%);
+                width: 40%;
 
                 & > h3 {
                     margin-bottom: 0;
                 }
 
                 & > .projects-list {
-                    .make-row();
-
                     & > .project-list-item {
-                        .make-xs-column(3);
                         min-width: 300px;
                         margin-top: @indent;
                         padding-right: @indent/4;
@@ -110,9 +106,7 @@
             }
 
             &.blog-subsection {
-                .make-lg-column(7);
-                padding-right: @indent;
-                padding-top: 0;
+                width: 60%;
 
                 & > .topics-list {
                     .topics-list-item();
@@ -126,10 +120,9 @@
             }
 
             &.forum-subsection {
-                .make-lg-column(5);
                 padding-top: 0;
                 padding-left: @indent;
-                border-left: 1px solid @border-color;
+                width: 40%;
 
                 .forum-topics-list {
                     .forum-topic-list(0);
@@ -142,13 +135,9 @@
                             .box-sizing(border-box);
 
                             & > .topic-title-block {
-                                .make-xs-column(8);
-                                .make-lg-column(10);
                             }
 
                             & > .replies-count {
-                                .make-xs-column(4);
-                                .make-lg-column(2);
                             }
 
                             &:first-child {
@@ -157,9 +146,9 @@
                         }
                     }
 
-                        & > .message:nth-child(odd) {
-                            background: @background-color;
-                        }
+                    & > .message:nth-child(odd) {
+                        background: @background-color;
+                    }
                 }
             }
         }

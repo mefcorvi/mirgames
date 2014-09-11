@@ -12,6 +12,7 @@
 /// <reference path="libs/ion.sound.d.ts" />
 /// <reference path="libs/MD5.d.ts" />
 /// <reference path="libs/moment.d.ts" />
+/// <reference path="libs/selectize.d.ts" />
 
 /// <reference path="Router.d.ts" />
 /// <reference path="TypeLite.d.ts" />

@@ -32,6 +32,8 @@ interface Query1 extends MirGames.Infrastructure.Queries.Query {
 }
 interface Query1 extends MirGames.Infrastructure.Queries.Query {
 }
+interface Query1 extends MirGames.Infrastructure.Queries.Query {
+}
 interface SingleItemQuery1 extends MirGames.Infrastructure.Queries.Query1 {
 }
 interface Query1 extends MirGames.Infrastructure.Queries.Query {
@@ -110,6 +112,9 @@ interface GetCommentForEditQuery extends MirGames.Infrastructure.Queries.SingleI
 }
 interface GetCommentByIdQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
   CommentId: number;
+}
+interface GetMainTagsQuery extends MirGames.Infrastructure.Queries.Query1 {
+  Filter: string;
 }
 }
 declare module MirGames.Domain.Topics.ViewModels {
@@ -304,6 +309,9 @@ interface GetForumPostQuery extends MirGames.Infrastructure.Queries.SingleItemQu
 interface GetForumTopicQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
   TopicId: number;
 }
+interface GetForumTagsQuery extends MirGames.Infrastructure.Queries.Query1 {
+  Filter: string;
+}
 }
 declare module MirGames.Domain.Forum.ViewModels {
 interface ForumPostForEditViewModel {
@@ -324,6 +332,8 @@ interface ForumPostViewModel {
   AuthorIP: string;
   IsHidden: boolean;
   TopicId: number;
+  ForumId: number;
+  ForumAlias: string;
 }
 interface ForumPostsListItemViewModel {
   PostId: number;
@@ -354,6 +364,8 @@ interface ForumTopicsListItemViewModel {
   PostsCount: number;
   UnreadPostsCount: number;
   IsRead: boolean;
+  ForumId: number;
+  ForumAlias: string;
 }
 interface ForumTopicViewModel {
   TopicId: number;
@@ -369,6 +381,20 @@ interface ForumTopicViewModel {
   CanBeEdited: boolean;
   CanBeDeleted: boolean;
   IsRead: boolean;
+  ForumAlias: string;
+}
+interface ForumViewModel {
+  ForumId: number;
+  Title: string;
+  Description: string;
+  IsRetired: boolean;
+  Alias: string;
+  LastAuthor: MirGames.Domain.Users.ViewModels.AuthorViewModel;
+  LastTopicTitle: string;
+  LastTopicId: number;
+  LastPostDate: Date;
+  TopicsCount: number;
+  PostsCount: number;
 }
 }
 declare module MirGames.Domain.Chat.Commands {
@@ -495,6 +521,9 @@ interface GetProjectWorkItemsQuery extends MirGames.Infrastructure.Queries.Query
   WorkItemType: MirGames.Domain.Wip.ViewModels.WorkItemType;
   WorkItemState: MirGames.Domain.Wip.ViewModels.WorkItemState;
   OrderBy: MirGames.Domain.Wip.ViewModels.WorkItemsOrderType;
+}
+interface GetWipTagsQuery extends MirGames.Infrastructure.Queries.Query1 {
+  Filter: string;
 }
 }
 declare module MirGames.Domain.Wip.ViewModels {

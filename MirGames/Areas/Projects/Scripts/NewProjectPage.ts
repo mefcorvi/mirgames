@@ -12,6 +12,29 @@ module MirGames.Wip {
 
             this.$scope.save = () => this.save();
             this.$scope.fileUploaded = (attachmentId) => this.fileUploaded(attachmentId);
+
+            this.initializeTags();
+        }
+
+        private initializeTags() {
+            $('.topic-tags').selectize({
+                load: (query, callback) => {
+                    var command: MirGames.Domain.Wip.Queries.GetWipTagsQuery = {
+                        Filter: query
+                    };
+
+                    this.apiService.getAll('GetWipTagsQuery', command, 1, 30, (result: string[]) => {
+                        var items = Enumerable.from(result).select(r => {
+                            return { text: r, value: r };
+                        }).toArray();
+
+                        callback(items);
+                    });
+                },
+                create: (input) => {
+                        return { text: input, value: input }
+                    }
+            });
         }
 
         private fileUploaded(attachmentId: number) {

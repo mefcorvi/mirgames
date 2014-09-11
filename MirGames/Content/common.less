@@ -23,7 +23,7 @@ html, body {
 }
 
 html {
-    background: mix(@header-background, @background-color, 10%);
+    background: @sub-background;
     height: 100%;
 }
 
@@ -158,7 +158,7 @@ body {
         background: @background-color;
         z-index: 10;
         overflow: hidden;
-        border-bottom: 5px solid mix(@header-background, @background-color, 10%);
+        border-bottom: 5px solid @sub-background;
         position: fixed;
         top: 0;
         max-width: 1400px;
@@ -191,7 +191,7 @@ body {
                 background: url("images/logo.png") no-repeat 15px center;
 
                 &:hover {
-                    background-color: rgba(0, 0, 0, 0.1);
+                    color: @link-color-hover;
                 }
             }
         }
@@ -278,9 +278,7 @@ nav.toolbar {
     a {
         .font-size(1.3);
         display: inline-block;
-        margin-top: @indent/2;
-        margin-bottom: @indent/2;
-        margin-right: @indent;
+        padding: @indent/2;
         color: @font-color;
         text-decoration: none;
 
@@ -290,6 +288,7 @@ nav.toolbar {
 
         &.selected {
             color: @link-color-hover;
+            background: @background-color;
         }
 
         &.disabled {
@@ -305,6 +304,7 @@ nav.toolbar {
             outline: 0;
             color: @link-color-hover;
             text-decoration: none;
+            background: mix(@header-background, @background-color, 1%);
 
             &.selected {
                 color: @link-color-hover;

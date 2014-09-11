@@ -75,43 +75,6 @@ var MarkdownDeepEditorUI = new function () {
         return str;
     };
 
-    // Handle click on resize bar
-    this.onResizerMouseDown = function(e) {
-        // Initialize state
-        var srcElement = (window.event) ? e.srcElement : e.target,
-            $editor = $(srcElement).closest('.mdd_resizer_wrap').parent(),
-            $textarea = $('textarea.mdd_editor', $editor),
-            $previewArea = $('.mdd_preview', $editor),
-            iOriginalMouse = e.clientY,
-            iOriginalHeight = $textarea.is(':visible') ? $textarea.outerHeight() : $previewArea.outerHeight();
-
-        // Bind to required events
-        $(document).bind("mousemove.mdd", DoDrag);
-        $(document).bind("mouseup.mdd", EndDrag);
-
-        // Suppress default
-        return false;
-
-        // End the drag operation        
-
-        function EndDrag(e) {
-            $(document).unbind("mousemove.mdd");
-            $(document).unbind("mouseup.mdd");
-            return false;
-        }
-
-        // Handle drag operation
-
-        function DoDrag(e) {
-            var newHeight = iOriginalHeight + e.clientY - iOriginalMouse;
-            if (newHeight < 50)
-                newHeight = 50;
-            $textarea.height(newHeight);
-            $previewArea.height(newHeight);
-            return false;
-        }
-    };
-
     // Used to store the scroll position of the help
     var scrollPos = 0;
     var contentLoaded = false;
@@ -315,27 +278,6 @@ How the associated UI components are located:
                     $("#mdd_close_help").click(MarkdownDeepEditorUI.onCloseHelpPopup);
                     MarkdownDeepEditorUI.HelpHtmlWritten = true;
                 }
-            }
-
-            // Create the resize bar
-            var resizer, resizerwrap;
-            if (settings.resizebar) {
-                resizerwrap = $(".mdd_resizer_wrap", editorwrap.parent()),
-                resizer = (resizerwrap.length == 0) ? $(".mdd_resizer", editorwrap.parent()) : resizerwrap.children('.mdd_resizer');
-                if (resizerwrap.length == 0) {
-                    if (resizer.length == 0) {
-                        resizer = $("<div class=\"mdd_resizer\" />");
-                        resizer.insertAfter(editorwrap);
-                    }
-                    // Add our wrapper div (whether or not we created the toolbar or found it)
-                    resizerwrap = resizer.wrap('<div class=\"mdd_resizer_wrap\" />').parent();
-                } else {
-                    if (resizer.length == 0) {
-                        resizer = $("<div class=\"mdd_resizer\" />");
-                        resizerwrap.html(resizer);
-                    }
-                }
-                resizerwrap.bind("mousedown", MarkdownDeepEditorUI.onResizerMouseDown);
             }
 
             // Work out the preview div, by:

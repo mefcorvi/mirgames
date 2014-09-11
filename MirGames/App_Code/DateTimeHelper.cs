@@ -77,14 +77,7 @@ namespace System.Web.Mvc
                 return ts.Days.Pluralize("день", "дн€", "дней", format);
             }
 
-            if (delta < 12 * Month)
-            {
-                int months = Convert.ToInt32(Math.Floor((double)ts.Days / 30));
-                return months.Pluralize("мес€ц", "мес€ца", "мес€цев", format);
-            }
-
-            int years = Convert.ToInt32(Math.Floor((double)ts.Days / 365));
-            return years.Pluralize("год", "года", "лет", format);
+            return date.Format();
         }
 
         /// <summary>

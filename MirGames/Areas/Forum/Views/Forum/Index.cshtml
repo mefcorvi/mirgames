@@ -43,9 +43,11 @@
                 <span>@(forum.PostsCount)</span>
             </div>
             <div class="last-topic-info">
-                @Author.UserAvatarLink(forum.LastAuthor, "avatar-small", "user-login", true)
-                <span class="last-topic-title">@forum.LastTopicTitle </span>
-                <span class="topic-updated-date">@forum.LastPostDate.GetValueOrDefault().Format()</span>
+                @Author.UserAvatarLink(forum.LastAuthor, "avatar-tiny", "user-login", true)
+                <div class ="last-topic-title">
+                    <a href="@Url.Action(MVC.Forum.Forum.Topic(forum.Alias, forum.LastTopicId.GetValueOrDefault()))">@forum.LastTopicTitle</a>
+                </div>
+                <span class="topic-updated-date">@Html.RelativeDate(forum.LastPostDate.GetValueOrDefault())</span>
             </div>
         </div>
     </article>

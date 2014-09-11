@@ -1,10 +1,1 @@
-﻿@{ Layout = "~/Views/Shared/_Nav.cshtml"; }
-
-@section SectionTitle { Управление }
-
-@section SectionMenu
-{
-    <div class="tools-menu">
-        <a href="@Url.Action("Events")" class="@(ViewBag.SectionMode == "Events" ? "selected" : string.Empty)">Журнал событий</a>
-    </div>
-}
+﻿<a href="@Url.Action("Events")" class="@(ViewBag.SectionMode == "Events" ? "selected" : string.Empty)">Журнал событий</a>

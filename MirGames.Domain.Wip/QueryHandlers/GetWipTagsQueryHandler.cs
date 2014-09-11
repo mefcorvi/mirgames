@@ -25,26 +25,34 @@ namespace MirGames.Domain.Wip.QueryHandlers
         /// <inheritdoc />
         protected override IEnumerable<string> Execute(IReadContext readContext, GetWipTagsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
-            return this.GetTagsQuery(readContext).Take(20).OrderBy(t => t);
+            return this.GetTagsQuery(readContext, query).Take(20).OrderBy(t => t);
         }
 
         /// <inheritdoc />
         protected override int GetItemsCount(IReadContext readContext, GetWipTagsQuery query, ClaimsPrincipal principal)
         {
-            return this.GetTagsQuery(readContext).Count();
+            return this.GetTagsQuery(readContext, query).Count();
         }
 
         /// <summary>
         /// Gets the tags query.
         /// </summary>
         /// <param name="readContext">The read context.</param>
+        /// <param name="query">The query.</param>
         /// <returns>
         /// The tags query.
         /// </returns>
-        private IQueryable<string> GetTagsQuery(IReadContext readContext)
+        private IQueryable<string> GetTagsQuery(IReadContext readContext, GetWipTagsQuery query)
         {
-            return readContext
-                .Query<ProjectTag>()
+            var set = readContext
+                .Query<ProjectTag>();
+
+            if (!string.IsNullOrEmpty(query.Filter))
+            {
+                set = set.Where(q => q.TagText.StartsWith(query.Filter));
+            }
+
+            return set
                 .GroupBy(t => t.TagText, (tag, rows) => new { Tag = tag, Count = rows.Count() })
                 .OrderByDescending(t => t.Count)
                 .Select(t => t.Tag);

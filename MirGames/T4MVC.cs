@@ -219,6 +219,8 @@ namespace Links
             public static readonly string ng_quick_date_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ng-quick-date.min.js") ? Url("ng-quick-date.min.js") : Url("ng-quick-date.js");
             public static readonly string ng_quick_date_min_js = Url("ng-quick-date.min.js");
             public static readonly string qbaka_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/qbaka.min.js") ? Url("qbaka.min.js") : Url("qbaka.js");
+            public static readonly string selectize_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/selectize.d.min.js") ? Url("selectize.d.min.js") : Url("selectize.d.js");
+            public static readonly string selectize_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/selectize.min.js") ? Url("selectize.min.js") : Url("selectize.js");
             public static readonly string signalr_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/signalr.d.min.js") ? Url("signalr.d.min.js") : Url("signalr.d.js");
             public static readonly string tinycon_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/tinycon.d.min.js") ? Url("tinycon.d.min.js") : Url("tinycon.d.js");
             public static readonly string tinycon_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/tinycon.min.js") ? Url("tinycon.min.js") : Url("tinycon.js");

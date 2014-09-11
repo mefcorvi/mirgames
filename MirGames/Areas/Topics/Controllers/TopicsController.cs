@@ -104,6 +104,7 @@ namespace MirGames.Areas.Topics.Controllers
             this.ViewBag.Pagination = new PaginationViewModel(
                 paginationSettings, topicsCount, p => this.Url.Action("Index", "Topics", new { tag, searchString, page = p }));
 
+            this.ViewBag.Subsection = "All";
             this.ViewBag.PageData["tag"] = tag;
             this.ViewBag.PageData["searchString"] = searchString;
             this.ViewBag.OnlyUnread = onlyUnread;
@@ -146,6 +147,7 @@ namespace MirGames.Areas.Topics.Controllers
         [Authorize(Roles = "User")]
         public virtual ActionResult New()
         {
+            this.ViewBag.Subsection = "New";
             return this.View();
         }
 

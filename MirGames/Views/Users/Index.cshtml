@@ -8,8 +8,6 @@
 
 @section Nav { @Html.Partial("_UsersMenu") }
 
-<h3>@(ViewBag.SectionTitle ?? "Пользователи")</h3>
-
 @if (!Model.Any())
 {
     <div class="users-not-found">

@@ -10,7 +10,6 @@
     @Html.Partial("_ProfileMenu", Model.User)
 }
 
-<h3>@Model.User.Login</h3>
 @Html.Partial("_UserInfo", Model.User)
 
 @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)

@@ -10,7 +10,7 @@
                 @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.TopicsPagination[Model.TopicId])
             </div>
             <footer>
-                <span class="created-date"><span class="topic-created-date">@Html.DisplayFor(m => Model.CreatedDate)</span></span>,
+                <span class="created-date"><span class="topic-created-date">@Html.RelativeDate(Model.CreatedDate)</span></span>,
                 <span class="author">
                     @Author.UserLink(Model.Author, "topic-author")
                 </span>
@@ -32,7 +32,7 @@
         </div>
         <div class="last-post-info">
             @Author.UserAvatarLink(Model.LastPostAuthor, "avatar-small", "user-login", true)
-            <span class="topic-updated-date">@Html.DisplayFor(m => Model.UpdatedDate)</span>
+            <span class="topic-updated-date">@Html.RelativeDate(Model.UpdatedDate)</span>
         </div>
     </div>
 </article>

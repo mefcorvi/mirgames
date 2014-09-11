@@ -9,29 +9,29 @@
 
 @section Nav { @Html.Partial("_ForumTopicsMenu") }
 
-@if (@ViewBag.OnlyUnread)
+@if (!Model.Any())
 {
-    <h3>Новые обсуждения и ответы</h3>
+    <div class="topics-not-found">
+        Обсуждения не найдены
+    </div>
 }
 else
 {
-    <h3>@(ViewBag.Tag ?? "Все обсуждения")</h3>
+    <article class="message message-header">
+        <div class="message-content">
+            <div class="envelope-icon">
+            </div>
+            <div class="topic-title-block">
+                Темы
+            </div>
+            <div class="replies-count">
+                Ответов
+            </div>
+            <div class="last-post-info">
+                Последнее сообщение
+            </div>
+        </div>
+    </article>
+    @Html.Partial("_ForumTopicsList")
+    @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
 }
-
-<article class="message message-header">
-    <div class="message-content">
-        <div class="envelope-icon">
-        </div>
-        <div class="topic-title-block">
-            Темы
-        </div>
-        <div class="replies-count">
-            Ответов
-        </div>
-        <div class="last-post-info">
-            Последнее сообщение
-        </div>
-    </div>
-</article>
-@Html.Partial("_ForumTopicsList")
-@Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)

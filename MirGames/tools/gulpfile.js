@@ -46,6 +46,7 @@ var filePath = {
         "../Scripts/Libs/moment.js",
         "../Scripts/Libs/markdown/AutoLinkTransform.ts",
         "../Scripts/Libs/markdown/*.js",
+        "../Scripts/Libs/selectize.js",
         "../Scripts/Core/Base64.ts",
         "../Scripts/Core/Utils.ts",
         "../Scripts/Core/Config.ts",

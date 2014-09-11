@@ -259,14 +259,6 @@
       <HintPath>..\packages\T4MVCExtensions.3.9.2\lib\net40\T4MVCExtensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="TypeLite">
-      <HintPath>..\packages\TypeLite.0.9.4.0\lib\net4\TypeLite.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="TypeLite.Net4">
-      <HintPath>..\packages\TypeLite.0.9.4.0\lib\net4\TypeLite.Net4.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="WebMatrix.Data">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.3.2.2\lib\net45\WebMatrix.Data.dll</HintPath>
       <Private>True</Private>
@@ -456,6 +448,7 @@
     <None Include="Areas\Topics\Scripts\AddNewTopicDialogController.ts" />
     <None Include="Areas\Topics\Scripts\UnreadMenuItemController.ts" />
     <None Include="Areas\Topics\Scripts\_references.ts" />
+    <Content Include="Content\ui\selectize.less" />
     <None Include="Scripts\BasePage.ts" />
     <None Include="Scripts\Commands.ts" />
     <None Include="Scripts\Core\Application.ts" />
@@ -472,6 +465,7 @@
     <None Include="Areas\Projects\Scripts\ProjectWorkItemList.ts" />
     <None Include="Areas\Projects\Scripts\ProjectWorkItemsPage.ts" />
     <None Include="Areas\Topics\Scripts\Topic.ts" />
+    <Content Include="Scripts\Libs\selectize.js" />
     <Content Include="Scripts\Manager.ttinclude" />
     <None Include="Scripts\Settings.ts" />
     <None Include="Scripts\Core\Config.ts" />
@@ -842,12 +836,23 @@
       <Project>{af432bc9-d24f-4352-8451-9b7768682648}</Project>
       <Name>RouteJs</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TypeLite\TypeLite.Net4\TypeLite.Net4.csproj">
+      <Project>{0ad860b2-2aaa-47cc-acba-f2d97be19d66}</Project>
+      <Name>TypeLite.Net4</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypeLite\TypeLite\TypeLite.csproj">
+      <Project>{43dcb624-f929-4572-97a3-6b14ac6ad158}</Project>
+      <Name>TypeLite</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Projects\Scripts\WorkItemDialogController.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\Libs\selectize.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

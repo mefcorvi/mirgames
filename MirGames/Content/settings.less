@@ -4,6 +4,7 @@
 @font-color: #000;
 @background-color: #fff;
 @header-background: hsl(205.2, 39%, 34.7%);
+@sub-background: mix(@header-background, @background-color, 10%);
 
 @section-width: 180px;
 @menu-width: 180px;
@@ -24,7 +25,6 @@
 @date-color: darken(saturate(spin(@header-background, -140), 50%), 10%);
 
 @normal-duration: 0.5s;
-@sub-background: hsl(hue(@header-background)-140, 100%, 35.1%);
 @indent: 20px;
 
 //== Media queries breakpoints
@@ -47,10 +47,7 @@
 @grid-float-breakpoint-max: (@grid-float-breakpoint - 1);
 
 .indent() {
-    padding-top: @indent;
-    padding-bottom: @indent;
-    padding-left: @indent;
-    padding-right: @indent;
+    padding: @indent;
 }
 
 .transition(@property, @duration: @normal-duration, @timing: ease) {
@@ -298,7 +295,7 @@
     }
 
     background: @background-color;
-    border-bottom: 5px solid mix(@background-color, @header-background, 70%);
+    border-bottom: 5px solid @sub-background;
 }
 
 .page-block() {

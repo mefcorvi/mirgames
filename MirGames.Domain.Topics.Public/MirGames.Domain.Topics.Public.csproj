@@ -57,7 +57,7 @@
     <Compile Include="Queries\GetCommentsQuery.cs" />
     <Compile Include="Queries\GetCommentByIdQuery.cs" />
     <Compile Include="Queries\GetTopicsNotificationsCountQuery.cs" />
-    <Compile Include="Queries\GetForumTagsQuery.cs" />
+    <Compile Include="Queries\GetMainTagsQuery.cs" />
     <Compile Include="Queries\GetTopicForEditQuery.cs" />
     <Compile Include="Queries\GetTopicQuery.cs" />
     <Compile Include="Queries\GetTopicsByUserQuery.cs" />

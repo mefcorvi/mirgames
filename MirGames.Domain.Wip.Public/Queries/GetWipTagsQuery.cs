@@ -8,12 +8,18 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Wip.Queries
 {
+    using MirGames.Infrastructure.Commands;
     using MirGames.Infrastructure.Queries;
 
     /// <summary>
     /// Returns WIP tags.
     /// </summary>
+    [Api]
     public class GetWipTagsQuery : Query<string>
     {
+        /// <summary>
+        /// Gets or sets the filter.
+        /// </summary>
+        public string Filter { get; set; }
     }
 }

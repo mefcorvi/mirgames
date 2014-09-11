@@ -368,9 +368,9 @@ module MirGames.Chat {
 
         /** Adjusts text area height */
         private adjustTextAreaHeight() {
-            var newHeight = $('body > footer .answer-form').height() + 20;
+            var newHeight = $('body > footer .answer-form').height() + 10;
 
-            if (newHeight > 20) {
+            if (newHeight > 10) {
                 $('body').css('padding-bottom', newHeight);
                 this.$footer.css('height', newHeight);
             }

@@ -8,8 +8,6 @@
 
 @section Nav { @Html.Partial("_WipMenu") }
 
-<h3>@(ViewBag.SectionTitle ?? "Проекты в разработке")</h3>
-
 @if (!Model.Any())
 {
     <div class="projects-not-found">

@@ -42,7 +42,7 @@ namespace MirGames.Areas.Forum.Controllers
         public virtual ActionResult Index()
         {
             var forums = this.QueryProcessor.Process(new GetForumsQuery()).ToList();
-            this.ViewBag.OnlyUnread = false;
+            this.ViewBag.Subsection = "All";
 
             return this.View(forums.Where(f => f.IsRetired == false));
         }
@@ -93,7 +93,7 @@ namespace MirGames.Areas.Forum.Controllers
             this.ViewBag.PageData["searchString"] = searchString;
 
             this.ViewBag.TopicsCount = topicsCount;
-            this.ViewBag.SectionMode = "Active";
+            this.ViewBag.Subsection = onlyUnread ? "Unread" : "All";
 
             return this.View(topics);
         }
@@ -120,6 +120,7 @@ namespace MirGames.Areas.Forum.Controllers
         [Authorize(Roles = "User")]
         public virtual ActionResult New()
         {
+            this.ViewBag.Subsection = "New";
             return this.View();
         }
 

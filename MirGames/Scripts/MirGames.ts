@@ -85,6 +85,16 @@ angular
             }
         }
     })
+    .directive("selectize", ($timeout: ng.ITimeoutService) => {
+        return {
+            restrict: "AE",
+            link: (scope: ng.IScope, element: JQuery, attrs: any) => {
+                return $timeout(() => {
+                    return $(element).selectize(scope.$eval(attrs.selectize));
+                });
+            }
+        };
+    })
     .config(['$httpProvider', function ($httpProvider: ng.IHttpProvider) {
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
     }])
