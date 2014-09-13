@@ -12,6 +12,7 @@ namespace MirGames.Domain.Notifications
     using Autofac;
 
     using MirGames.Domain.Notifications.Services;
+    using MirGames.Infrastructure;
 
     /// <summary>
     /// The notifications domain module.

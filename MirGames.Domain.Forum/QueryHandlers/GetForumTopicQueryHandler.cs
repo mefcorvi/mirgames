@@ -52,7 +52,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
         }
 
         /// <inheritdoc />
-        public override ForumTopicViewModel Execute(IReadContext readContext, GetForumTopicQuery query, ClaimsPrincipal principal)
+        protected override ForumTopicViewModel Execute(IReadContext readContext, GetForumTopicQuery query, ClaimsPrincipal principal)
         {
             var topic = this.GetTopic(readContext, query);
 

@@ -51,7 +51,7 @@ namespace MirGames.Services.Git.QueryHandlers
         }
 
         /// <inheritdoc />
-        public override GitRepositoryFileViewModel Execute(IReadContext readContext, GetRepositoryFileQuery query, ClaimsPrincipal principal)
+        protected override GitRepositoryFileViewModel Execute(IReadContext readContext, GetRepositoryFileQuery query, ClaimsPrincipal principal)
         {
             Contract.Requires(query != null);
             Contract.Requires(!string.IsNullOrWhiteSpace(query.FilePath));

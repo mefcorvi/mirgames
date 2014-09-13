@@ -42,7 +42,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
         }
 
         /// <inheritdoc />
-        public override WipProjectFileViewModel Execute(
+        protected override WipProjectFileViewModel Execute(
             IReadContext readContext,
             GetWipProjectFileQuery query,
             ClaimsPrincipal principal)

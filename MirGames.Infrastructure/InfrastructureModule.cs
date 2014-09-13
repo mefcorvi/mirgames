@@ -43,6 +43,12 @@ namespace MirGames.Infrastructure
             builder.RegisterType<ContentTypeProvider>().As<IContentTypeProvider>().SingleInstance();
             builder.RegisterType<TransactionExecutor>().As<ITransactionExecutor>().SingleInstance();
             builder.RegisterType<DatabaseInitializer>().As<IDatabaseInitializer>().SingleInstance();
+
+            builder
+                .RegisterAssemblyTypes(this.GetType().Assembly)
+                .AssignableTo<IQueryHandlerDecorator>()
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
         }
     }
 }

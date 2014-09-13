@@ -61,6 +61,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache\NotificationQueryCacheContainer.cs" />
     <Compile Include="CommandHandlers\RemoveNotificationsCommandHandler.cs" />
     <Compile Include="QueryHandlers\GetNotificationsQueryHandler.cs" />
     <Compile Include="Services\NotificationTypeResolver.cs" />

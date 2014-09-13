@@ -41,7 +41,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
         }
 
         /// <inheritdoc />
-        public override TopicForEditViewModel Execute(IReadContext readContext, GetTopicForEditQuery query, ClaimsPrincipal principal)
+        protected override TopicForEditViewModel Execute(IReadContext readContext, GetTopicForEditQuery query, ClaimsPrincipal principal)
         {
             Topic topic = readContext
                 .Query<Topic>()

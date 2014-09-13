@@ -12,6 +12,7 @@ namespace MirGames.Domain.Acl
     using Autofac;
 
     using MirGames.Domain.Acl.Services;
+    using MirGames.Infrastructure;
 
     /// <summary>
     /// The domain module.

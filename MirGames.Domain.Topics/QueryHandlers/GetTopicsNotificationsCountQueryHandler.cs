@@ -27,7 +27,7 @@
         }
 
         /// <inheritdoc />
-        public override int Execute(IReadContext readContext, GetTopicsNotificationsCountQuery query, ClaimsPrincipal principal)
+        protected override int Execute(IReadContext readContext, GetTopicsNotificationsCountQuery query, ClaimsPrincipal principal)
         {
             var notificationsQuery = new GetNotificationsQuery
             {

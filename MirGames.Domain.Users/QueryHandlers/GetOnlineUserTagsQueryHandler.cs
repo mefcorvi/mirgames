@@ -35,7 +35,7 @@ namespace MirGames.Domain.Users.QueryHandlers
         }
 
         /// <inheritdoc />
-        public override IDictionary<int, IEnumerable<string>> Execute(IReadContext readContext, GetOnlineUserTagsQuery query, ClaimsPrincipal principal)
+        protected override IDictionary<int, IEnumerable<string>> Execute(IReadContext readContext, GetOnlineUserTagsQuery query, ClaimsPrincipal principal)
         {
             return this.onlineUsersManager.GetUserTags();
         }

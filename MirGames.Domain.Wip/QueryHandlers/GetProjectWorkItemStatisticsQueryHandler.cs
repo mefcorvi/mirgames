@@ -45,7 +45,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
         }
 
         /// <inheritdoc />
-        public override ProjectWorkItemStatisticsViewModel Execute(
+        protected override ProjectWorkItemStatisticsViewModel Execute(
             IReadContext readContext,
             GetProjectWorkItemStatisticsQuery query,
             ClaimsPrincipal principal)

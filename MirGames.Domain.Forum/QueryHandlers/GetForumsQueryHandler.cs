@@ -9,7 +9,6 @@
 
 namespace MirGames.Domain.Forum.QueryHandlers
 {
-    using System;
     using System.Collections.Generic;
     using System.Diagnostics.Contracts;
     using System.Linq;
@@ -20,7 +19,6 @@ namespace MirGames.Domain.Forum.QueryHandlers
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
     using MirGames.Infrastructure;
-    using MirGames.Infrastructure.Cache;
     using MirGames.Infrastructure.Queries;
 
     internal sealed class GetForumsQueryHandler : QueryHandler<GetForumsQuery, ForumViewModel>
@@ -31,22 +29,13 @@ namespace MirGames.Domain.Forum.QueryHandlers
         private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
-        /// The cache manager.
-        /// </summary>
-        private readonly ICacheManager cacheManager;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="GetForumsQueryHandler" /> class.
         /// </summary>
-        /// <param name="cacheManagerFactory">The cache manager factory.</param>
         /// <param name="queryProcessor">The query processor.</param>
-        public GetForumsQueryHandler(ICacheManagerFactory cacheManagerFactory, IQueryProcessor queryProcessor)
+        public GetForumsQueryHandler(IQueryProcessor queryProcessor)
         {
-            Contract.Requires(cacheManagerFactory != null);
             Contract.Requires(queryProcessor != null);
-
             this.queryProcessor = queryProcessor;
-            this.cacheManager = cacheManagerFactory.Create("Forum");
         }
 
         /// <inheritdoc />
@@ -62,67 +51,61 @@ namespace MirGames.Domain.Forum.QueryHandlers
             ClaimsPrincipal principal,
             PaginationSettings pagination)
         {
-            return this.cacheManager.GetOrAdd(
-                "Forums",
-                () =>
-                {
-                    var forumTopics = readContext.Query<Entities.ForumTopic>();
+            var forumTopics = readContext.Query<Entities.ForumTopic>();
 
-                    var forums = readContext
-                        .Query<Entities.Forum>()
-                        .GroupJoin(
-                            forumTopics,
-                            forum => forum.ForumId,
-                            topic => topic.ForumId,
-                            (forum, topics) =>
-                            new
-                            {
-                                Forum = forum,
-                                TopicsCount = topics.Count(),
-                                PostsCount = topics.Sum(t => t.PostsCount),
-                                LastTopic = topics.OrderByDescending(t => t.UpdatedDate).FirstOrDefault()
-                            })
-                        .ToList();
-
-                    var forumViewModels = forums
-                        .Select(f =>
-                        {
-                            var forum = new ForumViewModel
-                            {
-                                Description = f.Forum.Description,
-                                ForumId = f.Forum.ForumId,
-                                Title = f.Forum.Title,
-                                PostsCount = f.PostsCount,
-                                TopicsCount = f.TopicsCount,
-                                IsRetired = f.Forum.IsRetired,
-                                Alias = f.Forum.Alias
-                            };
-
-                            if (f.LastTopic != null)
-                            {
-                                forum.LastAuthor = new AuthorViewModel
-                                {
-                                    Login = f.LastTopic.LastPostAuthorLogin,
-                                    Id = f.LastTopic.LastPostAuthorId
-                                };
-
-                                forum.LastPostDate = f.LastTopic.UpdatedDate;
-                                forum.LastTopicId = f.LastTopic.TopicId;
-                                forum.LastTopicTitle = f.LastTopic.Title;
-                            }
-
-                            return forum;
-                        })
-                        .ToList();
-
-                    this.queryProcessor.Process(new ResolveAuthorsQuery
+            var forums = readContext
+                .Query<Entities.Forum>()
+                .GroupJoin(
+                    forumTopics,
+                    forum => forum.ForumId,
+                    topic => topic.ForumId,
+                    (forum, topics) =>
+                    new
                     {
-                        Authors = forumViewModels.Select(f => f.LastAuthor)
-                    });
+                        Forum = forum,
+                        TopicsCount = topics.Count(),
+                        PostsCount = topics.Sum(t => t.PostsCount),
+                        LastTopic = topics.OrderByDescending(t => t.UpdatedDate).FirstOrDefault()
+                    })
+                .ToList();
 
-                    return forumViewModels;
-                },
-                DateTimeOffset.Now.AddDays(1));
+            var forumViewModels = forums
+                .Select(f =>
+                {
+                    var forum = new ForumViewModel
+                    {
+                        Description = f.Forum.Description,
+                        ForumId = f.Forum.ForumId,
+                        Title = f.Forum.Title,
+                        PostsCount = f.PostsCount,
+                        TopicsCount = f.TopicsCount,
+                        IsRetired = f.Forum.IsRetired,
+                        Alias = f.Forum.Alias
+                    };
+
+                    if (f.LastTopic != null)
+                    {
+                        forum.LastAuthor = new AuthorViewModel
+                        {
+                            Login = f.LastTopic.LastPostAuthorLogin,
+                            Id = f.LastTopic.LastPostAuthorId
+                        };
+
+                        forum.LastPostDate = f.LastTopic.UpdatedDate;
+                        forum.LastTopicId = f.LastTopic.TopicId;
+                        forum.LastTopicTitle = f.LastTopic.Title;
+                    }
+
+                    return forum;
+                })
+                .ToList();
+
+            this.queryProcessor.Process(new ResolveAuthorsQuery
+            {
+                Authors = forumViewModels.Select(f => f.LastAuthor)
+            });
+
+            return forumViewModels;
         }
 
         private IQueryable<Entities.Forum> GetQuery(IReadContext readContext)

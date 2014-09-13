@@ -13,6 +13,7 @@ namespace MirGames.Domain.Chat
     using MirGames.Domain.Chat.Services;
     using MirGames.Domain.Chat.UserSettings;
     using MirGames.Domain.Users.Services;
+    using MirGames.Infrastructure;
 
     /// <summary>
     /// The domain module.

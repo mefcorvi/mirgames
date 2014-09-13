@@ -6,11 +6,10 @@
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace MirGames.Domain
+namespace MirGames.Infrastructure
 {
     using Autofac;
 
-    using MirGames.Infrastructure;
     using MirGames.Infrastructure.Events;
     using MirGames.Infrastructure.Queries;
     using MirGames.Infrastructure.Security;
@@ -41,7 +40,13 @@ namespace MirGames.Domain
 
             builder
                 .RegisterAssemblyTypes(currentAssembly)
-                .AssignableTo<IQueryItemPostProcessor>()
+                .AssignableTo<IQueryHandlerDecorator>()
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+
+            builder
+                .RegisterAssemblyTypes(currentAssembly)
+                .AssignableTo<IQueryCacheContainer>()
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
 

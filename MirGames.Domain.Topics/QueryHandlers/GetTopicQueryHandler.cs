@@ -78,7 +78,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
         }
 
         /// <inheritdoc />
-        public override TopicViewModel Execute(IReadContext readContext, GetTopicQuery query, ClaimsPrincipal principal)
+        protected override TopicViewModel Execute(IReadContext readContext, GetTopicQuery query, ClaimsPrincipal principal)
         {
             TopicViewModel topic = readContext
                 .Query<Topic>()

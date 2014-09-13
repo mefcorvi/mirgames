@@ -11,6 +11,8 @@ namespace MirGames.Domain.Tools
 {
     using Autofac;
 
+    using MirGames.Infrastructure;
+
     public sealed class ToolsDomainModule : DomainModuleBase
     {
         /// <inheritdoc />

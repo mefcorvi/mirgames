@@ -14,6 +14,7 @@ namespace MirGames.Domain.Users
     using MirGames.Domain.Users.Security;
     using MirGames.Domain.Users.Services;
     using MirGames.Domain.Users.UserSettings;
+    using MirGames.Infrastructure;
 
     /// <summary>
     /// The domain module.

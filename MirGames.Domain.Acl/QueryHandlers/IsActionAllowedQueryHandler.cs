@@ -58,7 +58,7 @@ namespace MirGames.Domain.Acl.QueryHandlers
         }
 
         /// <inheritdoc />
-        public override bool Execute(IReadContext readContext, IsActionAllowedQuery query, ClaimsPrincipal principal)
+        protected override bool Execute(IReadContext readContext, IsActionAllowedQuery query, ClaimsPrincipal principal)
         {
             if (principal.IsInRole("Administrator"))
             {

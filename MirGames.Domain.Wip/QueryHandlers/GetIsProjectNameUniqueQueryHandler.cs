@@ -22,7 +22,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
     internal sealed class GetIsProjectNameUniqueQueryHandler : SingleItemQueryHandler<GetIsProjectNameUniqueQuery, bool>
     {
         /// <inheritdoc />
-        public override bool Execute(IReadContext readContext, GetIsProjectNameUniqueQuery query, ClaimsPrincipal principal)
+        protected override bool Execute(IReadContext readContext, GetIsProjectNameUniqueQuery query, ClaimsPrincipal principal)
         {
             return !readContext
                 .Query<Project>()

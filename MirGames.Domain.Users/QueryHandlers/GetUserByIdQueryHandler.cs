@@ -46,7 +46,7 @@ namespace MirGames.Domain.Users.QueryHandlers
         }
 
         /// <inheritdoc />
-        public override UserViewModel Execute(IReadContext readContext, GetUserByIdQuery query, ClaimsPrincipal principal)
+        protected override UserViewModel Execute(IReadContext readContext, GetUserByIdQuery query, ClaimsPrincipal principal)
         {
             var user = readContext
                 .Query<User>().SingleOrDefault(u => u.Id == query.UserId);

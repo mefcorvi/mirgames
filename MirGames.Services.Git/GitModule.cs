@@ -11,6 +11,7 @@ namespace MirGames.Services.Git
     using Autofac;
 
     using MirGames.Domain;
+    using MirGames.Infrastructure;
     using MirGames.Services.Git.Services;
 
     /// <summary>

@@ -57,7 +57,7 @@ namespace MirGames.Domain.Chat.QueryHandlers
         }
 
         /// <inheritdoc />
-        public override ChatMessageViewModel Execute(IReadContext readContext, GetChatMessageQuery query, ClaimsPrincipal principal)
+        protected override ChatMessageViewModel Execute(IReadContext readContext, GetChatMessageQuery query, ClaimsPrincipal principal)
         {
             var messageEntity = readContext.Query<ChatMessage>().FirstOrDefault(m => m.MessageId == query.MessageId);
 

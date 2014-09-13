@@ -57,7 +57,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
         }
 
         /// <inheritdoc />
-        public override CommentViewModel Execute(IReadContext readContext, GetCommentByIdQuery query, ClaimsPrincipal principal)
+        protected override CommentViewModel Execute(IReadContext readContext, GetCommentByIdQuery query, ClaimsPrincipal principal)
         {
             var comment = readContext
                 .Query<Comment>()

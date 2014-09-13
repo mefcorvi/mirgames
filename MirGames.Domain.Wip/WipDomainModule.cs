@@ -12,6 +12,7 @@ namespace MirGames.Domain.Wip
 
     using MirGames.Domain.Attachments.Services;
     using MirGames.Domain.Wip.Services;
+    using MirGames.Infrastructure;
 
     /// <summary>
     /// The domain module.

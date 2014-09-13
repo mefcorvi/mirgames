@@ -10,6 +10,8 @@ namespace MirGames.Domain.Attachments
 {
     using Autofac;
 
+    using MirGames.Infrastructure;
+
     /// <summary>
     /// The domain module.
     /// </summary>

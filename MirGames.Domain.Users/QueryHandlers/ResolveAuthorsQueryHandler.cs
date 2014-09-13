@@ -52,7 +52,7 @@ namespace MirGames.Domain.Users.QueryHandlers
         }
 
         /// <inheritdoc />
-        public override IEnumerable<AuthorViewModel> Execute(IReadContext readContext, ResolveAuthorsQuery query, ClaimsPrincipal principal)
+        protected override IEnumerable<AuthorViewModel> Execute(IReadContext readContext, ResolveAuthorsQuery query, ClaimsPrincipal principal)
         {
             Contract.Requires(query.Authors != null);
 

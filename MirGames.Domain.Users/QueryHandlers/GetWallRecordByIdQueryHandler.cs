@@ -38,7 +38,7 @@ namespace MirGames.Domain.Users.QueryHandlers
         }
 
         /// <inheritdoc />
-        public override UserWallRecordViewModel Execute(IReadContext readContext, GetWallRecordByIdQuery query, ClaimsPrincipal principal)
+        protected override UserWallRecordViewModel Execute(IReadContext readContext, GetWallRecordByIdQuery query, ClaimsPrincipal principal)
         {
             var wallRecord = readContext
                 .Query<WallRecord>()

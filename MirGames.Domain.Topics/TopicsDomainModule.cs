@@ -12,6 +12,7 @@ namespace MirGames.Domain.Topics
     using Autofac;
 
     using MirGames.Domain.Topics.Services;
+    using MirGames.Infrastructure;
 
     /// <summary>
     /// The domain module.

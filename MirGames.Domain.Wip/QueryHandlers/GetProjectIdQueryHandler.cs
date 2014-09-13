@@ -38,7 +38,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
             this.authorizationManager = authorizationManager;
         }
 
-        public override int Execute(
+        protected override int Execute(
             IReadContext readContext,
             GetProjectIdQuery query,
             ClaimsPrincipal principal)

@@ -48,7 +48,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
         }
 
         /// <inheritdoc />
-        public override ForumPostsListItemViewModel Execute(IReadContext readContext, GetForumPostQuery query, ClaimsPrincipal principal)
+        protected override ForumPostsListItemViewModel Execute(IReadContext readContext, GetForumPostQuery query, ClaimsPrincipal principal)
         {
             var post = readContext.Query<ForumPost>()
                 .SingleOrDefault(t => t.PostId == query.PostId);

@@ -152,9 +152,15 @@
     <Compile Include="Commands\CommandProcessor.cs" />
     <Compile Include="Commands\CommandsConverter.cs" />
     <Compile Include="DatabaseInitializer.cs" />
+    <Compile Include="DomainModuleBase.cs" />
     <Compile Include="IDatabaseInitializer.cs" />
     <Compile Include="ParameterReplacerVisitor.cs" />
+    <Compile Include="Queries\IQueryCacheContainer.cs" />
+    <Compile Include="Queries\IQueryHandlerDecorator.cs" />
+    <Compile Include="Queries\QueryCacheContainer.cs" />
+    <Compile Include="QueryHandlerDecorators\CacheQueryHandlerDecorator.cs" />
     <Compile Include="Security\IAuthorizationManager.cs" />
+    <Compile Include="QueryHandlerDecorators\TraceQueryHandlerDecorator.cs" />
     <Compile Include="Transactions\TransactionExecutor.cs" />
     <Compile Include="Commands\DisableTracingAttribute.cs" />
     <Compile Include="Transactions\ITransactionExecutor.cs" />
@@ -187,7 +193,6 @@
     <Compile Include="Queries\PaginationSettings.cs" />
     <Compile Include="Queries\QueryHandler.cs" />
     <Compile Include="Exception\QueryProcessingFailedException.cs" />
-    <Compile Include="Queries\QueryItemPostProcessor.cs" />
     <Compile Include="Queries\SingleItemQueryHandler.cs" />
     <Compile Include="SearchEngine\ISearchEngine.cs" />
     <Compile Include="Notifications\INotificationManager.cs" />
@@ -210,7 +215,6 @@
     <Compile Include="Interfaces\IEntityMappingRegistry.cs" />
     <Compile Include="Interfaces\IQueryProcessor.cs" />
     <Compile Include="Interfaces\IReadContext.cs" />
-    <Compile Include="Interfaces\ISingleItemQueryHandler.cs" />
     <Compile Include="Queries\Query.cs" />
     <Compile Include="Queries\QueryProcessor.cs" />
     <Compile Include="Repositories\ReadContext.cs" />

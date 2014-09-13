@@ -41,7 +41,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
         }
 
         /// <inheritdoc />
-        public override ProjectWorkItemCommentViewModel Execute(
+        protected override ProjectWorkItemCommentViewModel Execute(
             IReadContext readContext,
             GetProjectWorkItemCommentQuery query,
             ClaimsPrincipal principal)

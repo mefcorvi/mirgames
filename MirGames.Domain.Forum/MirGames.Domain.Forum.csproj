@@ -100,6 +100,7 @@
     <Compile Include="AccessRules\ForumTopicEditAccessRule.cs" />
     <Compile Include="AccessRules\ForumTopicMarkAsReadAccessRule.cs" />
     <Compile Include="AccessRules\ForumTopicReplyAccessRule.cs" />
+    <Compile Include="Cache\ForumsQueryCacheContainer.cs" />
     <Compile Include="ClaimsProviders\ForumClaimsProvider.cs" />
     <Compile Include="CommandHandlers\DeleteForumTopicCommandHandler.cs" />
     <Compile Include="CommandHandlers\DeleteForumPostCommandHandler.cs" />

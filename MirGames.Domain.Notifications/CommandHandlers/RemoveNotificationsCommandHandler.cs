@@ -21,7 +21,6 @@ namespace MirGames.Domain.Notifications.CommandHandlers
     using MirGames.Domain.Notifications.Services;
     using MirGames.Domain.Notifications.ViewModels;
     using MirGames.Infrastructure;
-    using MirGames.Infrastructure.Cache;
     using MirGames.Infrastructure.Commands;
     using MirGames.Infrastructure.Events;
     using MirGames.Infrastructure.Security;
@@ -50,32 +49,23 @@ namespace MirGames.Domain.Notifications.CommandHandlers
         private readonly IEventBus eventBus;
 
         /// <summary>
-        /// The cache manager factory.
-        /// </summary>
-        private readonly ICacheManagerFactory cacheManagerFactory;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="RemoveNotificationsCommandHandler" /> class.
         /// </summary>
         /// <param name="mongoDatabaseFactory">The mongo database factory.</param>
         /// <param name="notificationTypeResolver">The event type resolver.</param>
         /// <param name="eventBus">The event bus.</param>
-        /// <param name="cacheManagerFactory">The cache manager factory.</param>
         public RemoveNotificationsCommandHandler(
             IMongoDatabaseFactory mongoDatabaseFactory,
             INotificationTypeResolver notificationTypeResolver,
-            IEventBus eventBus,
-            ICacheManagerFactory cacheManagerFactory)
+            IEventBus eventBus)
         {
             Contract.Requires(mongoDatabaseFactory != null);
             Contract.Requires(notificationTypeResolver != null);
             Contract.Requires(eventBus != null);
-            Contract.Requires(cacheManagerFactory != null);
 
             this.mongoDatabaseFactory = mongoDatabaseFactory;
             this.notificationTypeResolver = notificationTypeResolver;
             this.eventBus = eventBus;
-            this.cacheManagerFactory = cacheManagerFactory;
         }
 
         /// <inheritdoc />
@@ -132,11 +122,6 @@ namespace MirGames.Domain.Notifications.CommandHandlers
             {
                 Notifications = notifications
             });
-
-            foreach (var notification in notifications)
-            {
-                this.cacheManagerFactory.Create("Notifications#" + notification.UserId).Clear();
-            }
         }
     }
 }

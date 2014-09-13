@@ -99,7 +99,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DomainModuleBase.cs" />
     <Compile Include="Entities\ConfigItem.cs" />
     <Compile Include="Exceptions\ItemNotFoundException.cs" />
     <Compile Include="Mapping\ConfigItemMap.cs" />

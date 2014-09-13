@@ -50,7 +50,7 @@ namespace MirGames.Domain.Attachments.QueryHandlers
         }
 
         /// <inheritdoc />
-        public override AttachmentViewModel Execute(IReadContext readContext, GetAttachmentInfoQuery query, ClaimsPrincipal principal)
+        protected override AttachmentViewModel Execute(IReadContext readContext, GetAttachmentInfoQuery query, ClaimsPrincipal principal)
         {
             var attachment = readContext
                 .Query<Attachment>()

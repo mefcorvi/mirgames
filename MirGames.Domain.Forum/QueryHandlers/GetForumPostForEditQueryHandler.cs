@@ -40,7 +40,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
         }
 
         /// <inheritdoc />
-        public override ForumPostForEditViewModel Execute(IReadContext readContext, GetForumPostForEditQuery query, ClaimsPrincipal principal)
+        protected override ForumPostForEditViewModel Execute(IReadContext readContext, GetForumPostForEditQuery query, ClaimsPrincipal principal)
         {
             var post = readContext.Query<ForumPost>()
                 .Include(p => p.Topic)

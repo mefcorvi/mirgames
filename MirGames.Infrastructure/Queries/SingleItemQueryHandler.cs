@@ -19,29 +19,12 @@ namespace MirGames.Infrastructure.Queries
     /// </summary>
     /// <typeparam name="T">The type of the query.</typeparam>
     /// <typeparam name="TResult">The type of the result.</typeparam>
-    public abstract class SingleItemQueryHandler<T, TResult> : ISingleItemQueryHandler<TResult> where T : SingleItemQuery<TResult>
+    public abstract class SingleItemQueryHandler<T, TResult> : IQueryHandler<TResult> where T : SingleItemQuery<TResult>
     {
         /// <inheritdoc />
         public Type QueryType
         {
             get { return typeof(T); }
-        }
-
-        /// <summary>
-        /// Executes the specified query.
-        /// </summary>
-        /// <param name="readContext">The read context.</param>
-        /// <param name="query">The query.</param>
-        /// <param name="principal">The principal.</param>
-        /// <returns>The result.</returns>
-        public abstract TResult Execute(IReadContext readContext, T query, ClaimsPrincipal principal);
-
-        /// <inheritdoc />
-        TResult ISingleItemQueryHandler<TResult>.Execute(IReadContext readContext, SingleItemQuery<TResult> query, ClaimsPrincipal principal)
-        {
-            Contract.Requires(query != null);
-            Contract.Requires(principal != null);
-            return this.Execute(readContext, (T)query, principal);
         }
 
         /// <inheritdoc />
@@ -65,5 +48,14 @@ namespace MirGames.Infrastructure.Queries
         {
             return 1;
         }
+
+        /// <summary>
+        /// Executes the specified query.
+        /// </summary>
+        /// <param name="readContext">The read context.</param>
+        /// <param name="query">The query.</param>
+        /// <param name="principal">The principal.</param>
+        /// <returns>The result.</returns>
+        protected abstract TResult Execute(IReadContext readContext, T query, ClaimsPrincipal principal);
     }
 }

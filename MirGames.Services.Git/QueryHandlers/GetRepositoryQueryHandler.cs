@@ -21,7 +21,7 @@ namespace MirGames.Services.Git.QueryHandlers
     internal sealed class GetRepositoryQueryHandler : SingleItemQueryHandler<GetRepositoryQuery, GitRepositoryViewModel>
     {
         /// <inheritdoc />
-        public override GitRepositoryViewModel Execute(IReadContext readContext, GetRepositoryQuery query, ClaimsPrincipal principal)
+        protected override GitRepositoryViewModel Execute(IReadContext readContext, GetRepositoryQuery query, ClaimsPrincipal principal)
         {
             Contract.Requires(query != null);
 

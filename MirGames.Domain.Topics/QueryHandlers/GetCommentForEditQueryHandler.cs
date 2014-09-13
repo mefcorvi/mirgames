@@ -23,7 +23,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
     internal sealed class GetCommentForEditQueryHandler : SingleItemQueryHandler<GetCommentForEditQuery, CommentForEditViewModel>
     {
         /// <inheritdoc />
-        public override CommentForEditViewModel Execute(IReadContext readContext, GetCommentForEditQuery query, ClaimsPrincipal principal)
+        protected override CommentForEditViewModel Execute(IReadContext readContext, GetCommentForEditQuery query, ClaimsPrincipal principal)
         {
             return readContext
                 .Query<Comment>()

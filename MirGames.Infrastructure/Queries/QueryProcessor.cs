@@ -10,16 +10,13 @@ namespace MirGames.Infrastructure.Queries
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security;
     using System.Security.Claims;
 
-    using MirGames.Infrastructure.Commands;
     using MirGames.Infrastructure.Exception;
-    using MirGames.Infrastructure.Logging;
 
     /// <summary>
     /// Implementation of the query processor.
@@ -32,9 +29,9 @@ namespace MirGames.Infrastructure.Queries
         private readonly Lazy<Dictionary<Type, IQueryHandler>> queryHandlers;
 
         /// <summary>
-        /// The query item post processors.
+        /// The query handler decorators.
         /// </summary>
-        private readonly ILookup<Type, IQueryItemPostProcessor> queryItemPostProcessors;
+        private readonly IEnumerable<IQueryHandlerDecorator> queryHandlerDecorators;
 
         /// <summary>
         /// The claims principal provider.
@@ -47,38 +44,27 @@ namespace MirGames.Infrastructure.Queries
         private readonly IReadContextFactory readContextFactory;
 
         /// <summary>
-        /// The settings.
-        /// </summary>
-        private readonly ISettings settings;
-
-        /// <summary>
-        /// The event log.
-        /// </summary>
-        private readonly IEventLog eventLog;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="QueryProcessor" /> class.
         /// </summary>
         /// <param name="queryHandlers">The query handlers.</param>
-        /// <param name="queryItemPostProcessors">The query item post processors.</param>
+        /// <param name="queryHandlerDecorators">The query handler decorators.</param>
         /// <param name="claimsPrincipalProvider">The claims principal provider.</param>
         /// <param name="readContextFactory">The read context factory.</param>
-        /// <param name="settings">The settings.</param>
-        /// <param name="eventLog">The event log.</param>
-        public QueryProcessor(Lazy<IEnumerable<IQueryHandler>> queryHandlers, IEnumerable<IQueryItemPostProcessor> queryItemPostProcessors, Func<ClaimsPrincipal> claimsPrincipalProvider, IReadContextFactory readContextFactory, ISettings settings, IEventLog eventLog)
+        public QueryProcessor(
+            Lazy<IEnumerable<IQueryHandler>> queryHandlers,
+            IEnumerable<IQueryHandlerDecorator> queryHandlerDecorators,
+            Func<ClaimsPrincipal> claimsPrincipalProvider,
+            IReadContextFactory readContextFactory)
         {
             Contract.Requires(queryHandlers != null);
-            Contract.Requires(queryItemPostProcessors != null);
             Contract.Requires(claimsPrincipalProvider != null);
-            Contract.Requires(settings != null);
-            Contract.Requires(eventLog != null);
+            Contract.Requires(queryHandlerDecorators != null);
 
-            this.queryHandlers = new Lazy<Dictionary<Type, IQueryHandler>>(() => queryHandlers.Value.ToDictionary(c => c.QueryType));
-            this.queryItemPostProcessors = queryItemPostProcessors.ToLookup(c => c.ItemType);
+            this.queryHandlers =
+                new Lazy<Dictionary<Type, IQueryHandler>>(() => queryHandlers.Value.ToDictionary(c => c.QueryType));
+            this.queryHandlerDecorators = queryHandlerDecorators.OrderBy(q => q.Order).ToList();
             this.claimsPrincipalProvider = claimsPrincipalProvider;
             this.readContextFactory = readContextFactory;
-            this.settings = settings;
-            this.eventLog = eventLog;
         }
 
         /// <inheritdoc />
@@ -118,7 +104,7 @@ namespace MirGames.Infrastructure.Queries
 
             return this.CallQueryHandler(
                 query,
-                (handler, principal, readContext) => ((ISingleItemQueryHandler<T>)handler).Execute(readContext, query, principal));
+                (handler, principal, readContext) => handler.Execute(readContext, query, principal, null).Cast<T>().SingleOrDefault());
         }
 
         /// <summary>
@@ -141,27 +127,15 @@ namespace MirGames.Infrastructure.Queries
 
             if (this.queryHandlers.Value.ContainsKey(queryType))
             {
+                var queryHandler = this.queryHandlers.Value[queryType];
+                queryHandler = this.queryHandlerDecorators.Aggregate(queryHandler, (current, handlerDecorator) => handlerDecorator.Decorate(current));
+
                 try
                 {
-                    var sw = new Stopwatch();
-                    sw.Start();
-
-                    T result;
                     using (var readContext = this.readContextFactory.Create())
                     {
-                        result = queryAction(this.queryHandlers.Value[queryType], claimsPrincipal, readContext);
+                        return queryAction(queryHandler, claimsPrincipal, readContext);
                     }
-
-                    sw.Stop();
-
-                    this.TraceQuery(query, queryType, sw.ElapsedMilliseconds);
-
-                    if (!Equals(result, null))
-                    {
-                        this.PostProcessing(result);
-                    }
-
-                    return result;
                 }
                 catch (SecurityException)
                 {
@@ -174,45 +148,6 @@ namespace MirGames.Infrastructure.Queries
             }
 
             throw new InvalidOperationException("Query handler for queries of type " + queryType.FullName + " have not been found.");
-        }
-
-        /// <summary>
-        /// Traces the query.
-        /// </summary>
-        /// <param name="query">The query.</param>
-        /// <param name="queryType">Type of the query.</param>
-        /// <param name="elapsedMilliseconds">The elapsed milliseconds.</param>
-        private void TraceQuery(Query query, Type queryType, long elapsedMilliseconds)
-        {
-            bool isTraceEnabled = this.settings.GetValue("QueryProcessor.TraceEnabled", false);
-            if (isTraceEnabled)
-            {
-                var attributes = queryType.GetCustomAttributes(typeof(DisableTracingAttribute), true).Cast<DisableTracingAttribute>();
-
-                if (attributes.Any())
-                {
-                    return;
-                }
-
-                this.eventLog.Log(
-                    EventLogType.Verbose,
-                    "QueryProcessor",
-                    string.Format("Execution of \"{0}\" have been completed in {1} ms.", queryType.Name, elapsedMilliseconds),
-                    query);
-            }
-        }
-
-        /// <summary>
-        /// Post processing of the result.
-        /// </summary>
-        /// <typeparam name="T">Type of item.</typeparam>
-        /// <param name="result">The result.</param>
-        private void PostProcessing<T>(T result)
-        {
-            foreach (var processor in this.queryItemPostProcessors[result.GetType()])
-            {
-                processor.Process(result);
-            }
         }
     }
 }

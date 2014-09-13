@@ -13,6 +13,7 @@ namespace MirGames.Domain.Forum
     using MirGames.Domain.Forum.Services;
     using MirGames.Domain.Forum.UserSettings;
     using MirGames.Domain.Users.Services;
+    using MirGames.Infrastructure;
 
     /// <summary>
     /// The domain module.
