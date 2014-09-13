@@ -8,7 +8,7 @@
     <h4>@Model.GetName()<div class="user-rating">@Model.Rating&nbsp;<i class="fa fa-thumbs-up"></i></div></h4>
     <div class="user-location">@Model.GetAddress()</div>
     <div class="user-registration-date">С нами уже @Html.RelativeDate(Model.RegistrationDate, "{0} {1}")</div>
-    <div class="user-visit-date">Последний раз был в сети <span>@Html.RelativeDate(Model.LastVisitDate)</span></div>
+    <div class="user-visit-date">Последний раз был в сети <span class="relative" datetime="@Model.LastVisitDate.ToString("O")">@Html.RelativeDate(Model.LastVisitDate)</span></div>
     <div class="user-about">@Model.About</div>
 </article>
 

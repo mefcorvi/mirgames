@@ -48,7 +48,7 @@ namespace MirGames.Areas.Forum.Controllers
         }
 
         /// <inheritdoc />
-        public virtual ActionResult Topics(string forumAlias = null, string tag = null, string searchString = null, bool onlyUnread = false, int page = 1)
+        public virtual ActionResult Unread(string tag = null, string searchString = null, int page = 1)
         {
             if (page < 1)
             {
@@ -56,10 +56,61 @@ namespace MirGames.Areas.Forum.Controllers
             }
 
             var topicsQuery = new GetForumTopicsQuery
+            {
+                Tag = tag,
+                SearchString = searchString,
+                OnlyUnread = true
+            };
+
+            var paginationSettings = new PaginationSettings(page - 1, 20);
+
+            var topics = this.QueryProcessor.Process(topicsQuery, paginationSettings);
+            var topicsCount = this.QueryProcessor.GetItemsCount(topicsQuery);
+
+            var topicsPagination = new Dictionary<int, PaginationViewModel>();
+            foreach (var topic in topics)
+            {
+                int topicId = topic.TopicId;
+                string alias = topic.Forum.Alias;
+                topicsPagination[topicId] =
+                    new PaginationViewModel(
+                        new PaginationSettings(PaginationSettings.GetItemPage(topic.PostsCount, 20), 20),
+                        topic.PostsCount,
+                        p => this.GetTopicPageUrl(p, topicId, alias))
+                    {
+                        ShowPrevNextNavigation = false,
+                        HightlightCurrentPage = false
+                    };
+            }
+
+            this.ViewBag.RssUrl = this.Url.Action(MVC.Forum.Forum.Rss());
+            this.ViewBag.Pagination = new PaginationViewModel(
+                 paginationSettings, topicsCount, p => this.Url.Action(MVC.Forum.Forum.Unread(tag, searchString, page: p)));
+            this.ViewBag.TopicsPagination = topicsPagination;
+
+            this.ViewBag.PageData["tag"] = tag;
+            this.ViewBag.PageData["searchString"] = searchString;
+
+            this.ViewBag.TopicsCount = topicsCount;
+
+            return this.View(topics);
+        }
+
+        /// <inheritdoc />
+        public virtual ActionResult Topics(string forumAlias, string tag = null, string searchString = null, int page = 1)
+        {
+            if (page < 1)
+            {
+                page = 1;
+            }
+
+            var forum = this.QueryProcessor.Process(new GetForumsQuery()).FirstOrDefault(f => f.Alias.EqualsIgnoreCase(forumAlias));
+
+            var topicsQuery = new GetForumTopicsQuery
                 {
                     Tag = tag,
                     SearchString = searchString,
-                    OnlyUnread = onlyUnread,
+                    OnlyUnread = false,
                     ForumAlias = forumAlias
                 };
 
@@ -83,7 +134,6 @@ namespace MirGames.Areas.Forum.Controllers
                         };
             }
 
-            this.ViewBag.OnlyUnread = onlyUnread;
             this.ViewBag.RssUrl = this.Url.Action(MVC.Forum.Forum.Rss());
             this.ViewBag.Pagination = new PaginationViewModel(
                  paginationSettings, topicsCount, p => this.Url.Action(MVC.Forum.Forum.Topics(forumAlias, tag, searchString, page: p)));
@@ -91,9 +141,9 @@ namespace MirGames.Areas.Forum.Controllers
             
             this.ViewBag.PageData["tag"] = tag;
             this.ViewBag.PageData["searchString"] = searchString;
+            this.ViewBag.Forum = forum;
 
             this.ViewBag.TopicsCount = topicsCount;
-            this.ViewBag.Subsection = onlyUnread ? "Unread" : "All";
 
             return this.View(topics);
         }

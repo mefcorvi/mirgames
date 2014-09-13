@@ -45,13 +45,11 @@ namespace MirGames.Domain.Wip.Entities
         /// <summary>
         /// Gets or sets the creation date.
         /// </summary>
-        [DateTimeKind(DateTimeKind.Utc)]
         public DateTime CreationDate { get; set; }
 
         /// <summary>
         /// Gets or sets the updated date.
         /// </summary>
-        [DateTimeKind(DateTimeKind.Utc)]
         public DateTime UpdatedDate { get; set; }
 
         /// <summary>

@@ -40,9 +40,9 @@
                 padding: @indent/2 @indent;
                 .header-font();
                 .font-size(1.6);
-                background: @header-background;
-                color: contrast(@header-background);
-                border-bottom: 1px solid darken(@header-background, 20%);
+                background: @main-color;
+                color: contrast(@main-color);
+                border-bottom: 1px solid darken(@main-color, 20%);
             }
 
             & > .dialog-content {
@@ -67,10 +67,10 @@
             }
 
             padding: @indent/2 @indent;
-            .notification(desaturate(lighten(@header-background, 50%), 30%));
+            .notification(desaturate(lighten(@main-color, 50%), 30%));
 
             &.error {
-                .notification(spin(@header-background, 120));
+                .notification(spin(@main-color, 120));
             }
         }
     }

@@ -16,7 +16,7 @@
             context.MapRoute(
                 "ForumUnreadItems",
                 "forum/unread",
-                new { controller = "Forum", action = "Topics", onlyUnread = true });
+                new { controller = "Forum", action = "Unread" });
 
             context.MapRoute(
                 "ForumNewItems",
@@ -31,12 +31,12 @@
             context.MapRoute(
                 "ForumTopicItems",
                 "forum/{forumAlias}",
-                new { controller = "Forum", action = "Topics", onlyUnread = false, page = 1 });
+                new { controller = "Forum", action = "Topics", page = 1 });
 
             context.MapRoute(
                 "ForumTopicsListWithPage",
                 "forum/{forumAlias}/page{page}",
-                new { controller = "Forum", action = "Topics", onlyUnread = false },
+                new { controller = "Forum", action = "Topics" },
                 new { page = @"\d+" });
 
             context.MapRoute(

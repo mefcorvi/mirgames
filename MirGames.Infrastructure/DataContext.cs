@@ -8,11 +8,15 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Infrastructure
 {
+    using System;
     using System.Collections.Generic;
     using System.Data.Entity;
+    using System.Data.Entity.Core.Objects;
     using System.Data.Entity.Infrastructure;
     using System.Diagnostics;
     using System.Diagnostics.Contracts;
+    using System.Linq;
+    using System.Reflection;
 
     using MirGames.Infrastructure.Repositories;
 
@@ -25,6 +29,11 @@ namespace MirGames.Infrastructure
         /// My trace source.
         /// </summary>
         private static readonly TraceSource TraceSource = new TraceSource("DataContext", SourceLevels.All);
+
+        /// <summary>
+        /// The properties.
+        /// </summary>
+        private static readonly IDictionary<Type, PropertyInfo[]> Properties = new Dictionary<Type, PropertyInfo[]>();
 
         /// <summary>
         /// The entity mappers.
@@ -60,8 +69,7 @@ namespace MirGames.Infrastructure
             this.mappers = mappers;
             this.Database.Log = s => TraceSource.TraceInformation(s);
 
-            ((IObjectContextAdapter)this).ObjectContext.ObjectMaterialized +=
-                (sender, e) => DateTimeKindAttribute.Apply(e.Entity);
+            ((IObjectContextAdapter)this).ObjectContext.ObjectMaterialized += ReadAllDateTimeValuesAsUtc;
         }
 
         /// <inheritdoc />
@@ -73,6 +81,58 @@ namespace MirGames.Infrastructure
             this.Configuration.LazyLoadingEnabled = false;
             this.Configuration.ProxyCreationEnabled = false;
             this.Configuration.AutoDetectChangesEnabled = true;
+        }
+
+        /// <summary>
+        /// Reads all date time values as UTC.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="ObjectMaterializedEventArgs"/> instance containing the event data.</param>
+        private static void ReadAllDateTimeValuesAsUtc(object sender, ObjectMaterializedEventArgs e)
+        {
+            var entityType = e.Entity.GetType();
+            if (!Properties.ContainsKey(entityType))
+            {
+                var entityProperties = entityType.GetProperties()
+                    .Where(property => property.PropertyType == typeof(DateTime) || property.PropertyType == typeof(DateTime?))
+                    .ToArray();
+
+                Properties.Add(entityType, entityProperties);
+            }
+
+            Properties[entityType].ForEach(property => SpecifyUtcKind(property, e.Entity));
+        }
+
+        /// <summary>
+        /// Specifies the kind of the UTC.
+        /// </summary>
+        /// <param name="property">The property.</param>
+        /// <param name="value">The value.</param>
+        private static void SpecifyUtcKind(PropertyInfo property, object value)
+        {
+            var datetime = property.GetValue(value, null);
+
+            if (property.PropertyType == typeof(DateTime))
+            {
+                datetime = DateTime.SpecifyKind((DateTime)datetime, DateTimeKind.Utc);
+            }
+            else if (property.PropertyType == typeof(DateTime?))
+            {
+                var nullable = (DateTime?)datetime;
+                
+                if (!nullable.HasValue)
+                {
+                    return;
+                }
+
+                datetime = (DateTime?)DateTime.SpecifyKind(nullable.Value, DateTimeKind.Utc);
+            }
+            else
+            {
+                return;
+            }
+
+            property.SetValue(value, datetime, null);
         }
     }
 }

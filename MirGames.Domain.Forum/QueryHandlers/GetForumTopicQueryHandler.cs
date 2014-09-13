@@ -129,6 +129,9 @@ namespace MirGames.Domain.Forum.QueryHandlers
                     Authors = new[] { topicViewModel.Author, topicViewModel.StartPost.Author }
                 });
 
+            var forums = this.queryProcessor.Process(new GetForumsQuery()).EnsureCollection();
+            topicViewModel.Forum = forums.FirstOrDefault(f => f.ForumId == topic.ForumId);
+
             return topicViewModel;
         }
 

@@ -12,6 +12,7 @@ namespace MirGames.Domain.Forum.ViewModels
     using System.Collections.Generic;
 
     using MirGames.Domain.Users.ViewModels;
+    using MirGames.Infrastructure;
 
     /// <summary>
     /// The forum topics list item.
@@ -82,13 +83,8 @@ namespace MirGames.Domain.Forum.ViewModels
         public bool IsRead { get; set; }
 
         /// <summary>
-        /// Gets or sets the forum identifier.
+        /// Gets or sets the forum.
         /// </summary>
-        public int? ForumId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the forum alias.
-        /// </summary>
-        public string ForumAlias { get; set; }
+        public ForumViewModel Forum { get; set; }
     }
 }

@@ -1,8 +1,8 @@
 ﻿body {} @import "references.less";
 
-@bug-color: saturate(spin(@header-background, 120), 20%);
-@feature-color: saturate(@header-background, 20%);
-@task-color: saturate(spin(@header-background, 240), 20%);
+@bug-color: saturate(spin(@main-color, 120), 20%);
+@feature-color: saturate(@main-color, 20%);
+@task-color: saturate(spin(@main-color, 240), 20%);
 
 .work-item-type() {
     .bug-type {
@@ -141,10 +141,10 @@
         .page-block(@indent/2, @indent);
         margin-bottom: @indent/2;
         .make-row();
-        background: mix(@background-color, @header-background, 95%);
+        background: mix(@background-color, @main-color, 95%);
         border: 0;
-        border-top: 1px solid mix(@background-color, @header-background, 90%);
-        border-bottom: 5px solid mix(@background-color, @header-background, 70%);
+        border-top: 1px solid mix(@background-color, @main-color, 90%);
+        border-bottom: 5px solid mix(@background-color, @main-color, 70%);
 
         .fa {
             margin-right: 5px;

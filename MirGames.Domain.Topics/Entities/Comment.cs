@@ -50,13 +50,11 @@ namespace MirGames.Domain.Topics.Entities
         /// <summary>
         /// Gets or sets the date.
         /// </summary>
-        [DateTimeKind(DateTimeKind.Utc)]
         public DateTime Date { get; set; }
 
         /// <summary>
         /// Gets or sets the date.
         /// </summary>
-        [DateTimeKind(DateTimeKind.Utc)]
         public DateTime? UpdatedDate { get; set; }
 
         /// <summary>

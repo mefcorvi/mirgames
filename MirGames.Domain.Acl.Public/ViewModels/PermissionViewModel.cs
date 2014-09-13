@@ -34,7 +34,6 @@
         /// <summary>
         /// Gets or sets the created date.
         /// </summary>
-        [DateTimeKind(DateTimeKind.Utc)]
         public DateTime CreatedDate { get; set; }
 
         /// <summary>
@@ -45,7 +44,6 @@
         /// <summary>
         /// Gets or sets the expired date.
         /// </summary>
-        [DateTimeKind(DateTimeKind.Utc)]
         public DateTime? ExpirationDate { get; set; }
     }
 }

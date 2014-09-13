@@ -5,12 +5,12 @@
     <div class="message-content">
         <i class="fa fa-file-text-o"></i>
         <div class="topic-title-block">
-            <a href="@Url.Action(MVC.Forum.Forum.Topic(Model.ForumAlias, Model.TopicId))" class="topic-title">@Model.Title</a>
+            <a href="@Url.Action(MVC.Forum.Forum.Topic(Model.Forum.Alias, Model.TopicId))" class="topic-title">@Model.Title</a>
             <div class="topic-pagination">
                 @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.TopicsPagination[Model.TopicId])
             </div>
             <footer>
-                <span class="created-date"><span class="topic-created-date">@Html.RelativeDate(Model.CreatedDate)</span></span>,
+                <span class="created-date"><span class="topic-created-date relative" datetime="@Model.CreatedDate.ToString("O")">@Html.RelativeDate(Model.CreatedDate)</span></span>,
                 <span class="author">
                     @Author.UserLink(Model.Author, "topic-author")
                 </span>
@@ -26,13 +26,13 @@
             <span>@(Model.PostsCount - 1)</span>
             @if (@Model.UnreadPostsCount.HasValue)
             {
-                <a href="@(Url.Action(MVC.Forum.Forum.Topic(Model.ForumAlias, Model.TopicId, PaginationSettings.GetItemPage(Model.PostsCount - Model.UnreadPostsCount.Value, 20) + 1)) + "#first-unread")"
+                <a href="@(Url.Action(MVC.Forum.Forum.Topic(Model.Forum.Alias, Model.TopicId, PaginationSettings.GetItemPage(Model.PostsCount - Model.UnreadPostsCount.Value, 20) + 1)) + "#first-unread")"
                    class="new-reply">+@Model.UnreadPostsCount.GetValueOrDefault()</a>
             }
         </div>
         <div class="last-post-info">
             @Author.UserAvatarLink(Model.LastPostAuthor, "avatar-small", "user-login", true)
-            <span class="topic-updated-date">@Html.RelativeDate(Model.UpdatedDate)</span>
+            <span class="topic-updated-date relative" datetime="@Model.UpdatedDate.ToString("O")">@Html.RelativeDate(Model.UpdatedDate)</span>
         </div>
     </div>
 </article>

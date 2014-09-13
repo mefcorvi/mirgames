@@ -3,12 +3,11 @@
 
 .forums-page {
     & > section {
-        .indent();
-
         & > .message {
             overflow: hidden;
             margin-bottom: @indent/4;
             border-bottom: 1px solid mix(@background-color, @font-color, 96%);
+            padding: 0 @indent;
 
             &:last-of-type {
                 border-bottom: 0;
@@ -141,9 +140,8 @@
             margin-bottom: @indent/2;
         }
 
-        & > h3 {
-            .page-title();
-            overflow: hidden;
+        & > .page-header {
+            .page-header();
         }
 
         & > .message-header {

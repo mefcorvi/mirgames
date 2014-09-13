@@ -10,6 +10,8 @@ namespace MirGames.Domain.Forum.Entities
 {
     using System;
 
+    using MirGames.Infrastructure;
+
     /// <summary>
     /// The forum topic unread.
     /// </summary>

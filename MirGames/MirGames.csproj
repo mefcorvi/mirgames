@@ -405,6 +405,7 @@
     <None Include="Areas\Forum\Content\references.less" />
     <Content Include="Areas\Forum\Views\Forum\Index.cshtml" />
     <Content Include="Areas\Forum\Content\forums.less" />
+    <Content Include="Areas\Forum\Views\Forum\Unread.cshtml" />
     <None Include="Areas\Topics\Content\references.less" />
     <Content Include="Areas\Projects\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Projects\Views\Web.config" />
@@ -465,6 +466,7 @@
     <None Include="Areas\Projects\Scripts\ProjectWorkItemList.ts" />
     <None Include="Areas\Projects\Scripts\ProjectWorkItemsPage.ts" />
     <None Include="Areas\Topics\Scripts\Topic.ts" />
+    <Content Include="Scripts\Libs\ng-time-relative.js" />
     <Content Include="Scripts\Libs\selectize.js" />
     <Content Include="Scripts\Manager.ttinclude" />
     <None Include="Scripts\Settings.ts" />

@@ -7,7 +7,13 @@
     AddPageCssClass("forums-page");
 }
     
-@section Nav { @Html.Partial("_ForumTopicsMenu") }
+<div class="page-header">
+    <div class="header">
+        <h3>Форумы</h3>
+    </div>
+    <div class="buttons">
+    </div>
+</div>
 
 <article class="message message-header">
     <div class="message-content">
@@ -47,7 +53,7 @@
                 <div class ="last-topic-title">
                     <a href="@Url.Action(MVC.Forum.Forum.Topic(forum.Alias, forum.LastTopicId.GetValueOrDefault()))">@forum.LastTopicTitle</a>
                 </div>
-                <span class="topic-updated-date">@Html.RelativeDate(forum.LastPostDate.GetValueOrDefault())</span>
+                <span class="topic-updated-date relative" datetime="@forum.LastPostDate.GetValueOrDefault().ToString("O")">@Html.RelativeDate(forum.LastPostDate.GetValueOrDefault())</span>
             </div>
         </div>
     </article>

@@ -87,8 +87,8 @@ namespace MirGames.Domain.Forum.ViewModels
         public bool IsRead { get; set; }
 
         /// <summary>
-        /// Gets or sets the forum alias.
+        /// Gets or sets the forum.
         /// </summary>
-        public string ForumAlias { get; set; }
+        public ForumViewModel Forum { get; set; }
     }
 }

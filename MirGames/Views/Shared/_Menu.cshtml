@@ -5,29 +5,26 @@
     </div>
 }
 
-<a href="@Url.Action(MVC.Topics.Topics.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Topics") ng-controller="MirGames.Topics.UnreadMenuItemController">
-    Блог
-    <span @Html.Css("updates-count").Add("counter").Add("ng-hide", @ViewBag.BlogTopicsUnread == 0)
-          title="Перейти к непрочитанным темам блога" ng-click="goToUnread('@Url.Action(MVC.Topics.Topics.Index(onlyUnread:true))', $event.which == 2); $event.preventDefault();"
-          ng-show="unreadCount > 0" ng-bind="'+' + unreadCount">+@ViewBag.BlogTopicsUnread</span>
-</a>
-<a href="@Url.Action(MVC.Forum.Forum.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Forum") ng-controller="MirGames.Forum.UnreadMenuItemController">
-    Форум
-    <span @Html.Css("updates-count").Add("counter").Add("ng-hide", @ViewBag.ForumTopicsUnread == 0) title="Перейти к непрочитанным обсуждениям"
-          ng-click="goToUnread('@Url.Action(MVC.Forum.Forum.Topics(onlyUnread: true))', $event.which == 2); $event.preventDefault();"
-          ng-show="unreadCount > 0" ng-bind="'+' + unreadCount">+@ViewBag.ForumTopicsUnread</span>
-</a>
-@Html.ActionLink("Проекты", MVC.Projects.Projects.Index(), new { @class = ViewBag.CurrentSection == "WIP" ? "selected" : string.Empty })
-
-@Html.ActionLink("Пользователи", MVC.Users.Index(), new { @class = ViewBag.CurrentSection == "Users" ? "selected" : string.Empty })
-
+<span ng-controller="MirGames.Topics.UnreadMenuItemController">
+    <a href="@Url.Action(MVC.Topics.Topics.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Topics")>
+        Блог
+    </a>
+    <a @Html.Css("updates-count").Add("counter").Add("ng-hide", @ViewBag.BlogTopicsUnread == 0) title="Новые темы блога"
+       ng-show="unreadCount > 0" ng-bind="'+' + unreadCount" href="@Url.Action(MVC.Topics.Topics.Index(onlyUnread:true))">+@ViewBag.BlogTopicsUnread</a>
+</span>
+<span ng-controller="MirGames.Forum.UnreadMenuItemController">
+    <a href="@Url.Action(MVC.Forum.Forum.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Forum")>
+        Форум
+    </a>
+    <a @Html.Css("updates-count").Add("counter").Add("ng-hide", @ViewBag.ForumTopicsUnread == 0) title="Новые темы форума"
+       ng-show="unreadCount > 0" ng-bind="'+' + unreadCount" href="@Url.Action(MVC.Forum.Forum.Unread())">+@ViewBag.ForumTopicsUnread</a>
+</span>
+<a href="@Url.Action(MVC.Projects.Projects.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "WIP")>Проекты</a>
+<a href="@Url.Action(MVC.Users.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Users")>Пользователи</a>
 
 @if (User.IsInRole("Administrator"))
 {
-    @Html.ActionLink("Управление", MVC.Tools.Events(), new { @class = ViewBag.CurrentSection == "Tools" ? "selected" : string.Empty })
+    <a href="@Url.Action(MVC.Tools.Events())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Tools")>Управление</a>
 }
 
-@Html.ActionLink("Чат", MVC.Chat.Chat.Index(), new
-{
-    @class = ViewBag.CurrentSection == "Chat" ? "selected" : string.Empty
-})
+<a href="@Url.Action(MVC.Chat.Chat.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Chat")>Чат</a>

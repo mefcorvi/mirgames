@@ -1,4 +1,6 @@
 /// <reference path="_references.ts" />
+moment.lang("ru");
+
 angular.module('mirgames', [
     'core.application',
     'ui.dialog',
@@ -19,7 +21,8 @@ angular.module('mirgames', [
     'core.commandBus',
     'core.eventBus',
     'vcRecaptcha',
-    'mirgames.settings'
+    'mirgames.settings',
+    'timeRelative'
 ]);
 
 angular

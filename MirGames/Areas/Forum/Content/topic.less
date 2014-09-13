@@ -2,13 +2,13 @@
 
 .message() {
     @index-width: 40px;
-    border-bottom: 1px solid mix(@header-background, @background-color, 10%);
+    border-bottom: 1px solid mix(@main-color, @background-color, 10%);
     .make-row(top);
     .flex-wrap(nowrap);
     padding: @indent;
 
     &:nth-of-type(even) {
-        background: mix(@header-background, @background-color, 3%);
+        background: mix(@main-color, @background-color, 3%);
     }
 
     &.unread {
@@ -150,6 +150,7 @@
             .message();
             .indent();
             padding-top: 0;
+            padding-bottom: 0;
             margin-top: @indent;
 
             margin-bottom: @indent/2;
@@ -175,7 +176,7 @@
 
             & > .message-bar {
                 & > .edit-topic, & > .delete-topic {
-                    @bgr: mix(@background-color, @header-background, 80%);
+                    @bgr: mix(@background-color, @main-color, 80%);
                     font-size: 14px;
                     display: inline-block;
                     width: 14px;
@@ -243,12 +244,14 @@
             margin-top: @indent;
         }
 
-        & > header {
-            .header-with-tags();
-            margin: @indent;
+        & > .page-header {
+            .page-header();
 
-            & h3 {
-                margin: 0;
+            & > ul.tags {
+                .tags();
+                float: right;
+                white-space: nowrap;
+                display: table-cell;
             }
         }
     }

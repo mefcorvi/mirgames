@@ -70,19 +70,16 @@ namespace MirGames.Domain.Users.Entities
         /// <summary>
         /// Gets or sets the registration date.
         /// </summary>
-        [DateTimeKind(DateTimeKind.Utc)]
         public DateTime RegistrationDate { get; set; }
 
         /// <summary>
         /// Gets or sets the activation date.
         /// </summary>
-        [DateTimeKind(DateTimeKind.Utc)]
         public DateTime? ActivationDate { get; set; }
 
         /// <summary>
         /// Gets or sets the last comment date.
         /// </summary>
-        [DateTimeKind(DateTimeKind.Utc)]
         public DateTime? LastCommentDate { get; set; }
 
         /// <summary>
@@ -123,7 +120,6 @@ namespace MirGames.Domain.Users.Entities
         /// <summary>
         /// Gets or sets the birthday.
         /// </summary>
-        [DateTimeKind(DateTimeKind.Utc)]
         public DateTime? Birthday { get; set; }
 
         /// <summary>
@@ -134,7 +130,6 @@ namespace MirGames.Domain.Users.Entities
         /// <summary>
         /// Gets or sets the update date.
         /// </summary>
-        [DateTimeKind(DateTimeKind.Utc)]
         public DateTime? UpdateDate { get; set; }
 
         /// <summary>
@@ -194,7 +189,6 @@ namespace MirGames.Domain.Users.Entities
         /// <summary>
         /// Gets or sets the last visit.
         /// </summary>
-        [DateTimeKind(DateTimeKind.Utc)]
         public DateTime LastVisitDate { get; set; }
 
         /// <summary>

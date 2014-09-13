@@ -158,7 +158,6 @@
     <Compile Include="Transactions\TransactionExecutor.cs" />
     <Compile Include="Commands\DisableTracingAttribute.cs" />
     <Compile Include="Transactions\ITransactionExecutor.cs" />
-    <Compile Include="DateTimeKindAttribute.cs" />
     <Compile Include="Events\EventBus.cs" />
     <Compile Include="Events\EventListenerBase.cs" />
     <Compile Include="Events\Event.cs" />

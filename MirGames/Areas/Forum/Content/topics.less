@@ -4,7 +4,6 @@
 .forum-topics-page
 {
     & > section {
-        .indent();
         .forum-topic-list();
 
         & > .topics-not-found {
@@ -15,16 +14,25 @@
             margin-bottom: @indent/2;
         }
 
-        & > h3 {
-            .page-title();
-            overflow: hidden;
+        & > .page-header {
+            .page-header();
         }
 
         & > .message-header {
+            padding-left: @indent;
+
+            & > .message-content {
+                padding-left: 0;
+            }
+
             & > div > div {
                 .header-font();
                 .font-size(1.4);
             }
+        }
+
+        & > .message {
+            padding-left: @indent;
         }
    }
 }

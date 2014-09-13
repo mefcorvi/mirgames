@@ -3,7 +3,7 @@
 @model IEnumerable<MirGames.Domain.Forum.ViewModels.ForumTopicsListItemViewModel>
 
 @{
-    ViewBag.Title = (ViewBag.Tag ?? "Все обсуждения") + " / Форум";
+    ViewBag.Title = "Новые темы / Форум";
     PageScriptController = "MirGames.Forum.TopicsPage";
     AddPageCssClass("forum-topics-page");
 }
@@ -11,7 +11,7 @@
 <div class="page-header">
     <div class="header">
         <h4><a href="@Url.Action(MVC.Forum.Forum.Index())">Форумы</a></h4>
-        <h3>@ViewBag.Forum.Title</h3>
+        <h3>Новые темы</h3>
     </div>
     <div class="buttons">
         @if (User.Can("Create", "ForumTopic"))

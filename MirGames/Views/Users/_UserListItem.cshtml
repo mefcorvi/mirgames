@@ -10,7 +10,7 @@
         <div class="user-last-visit">
             @if (!Model.IsOnline)
             {
-                @Html.RelativeDate(Model.LastVisit)
+                <span class="relative" datetime="@Model.LastVisit.ToString("O")">@Html.RelativeDate(Model.LastVisit)</span>
             }
             else
             {

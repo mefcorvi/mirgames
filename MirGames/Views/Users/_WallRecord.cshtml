@@ -5,7 +5,7 @@
             <img class="avatar avatar-small" src="@Model.Author.AvatarUrl"/>
             <span>@Model.Author.Login</span>
         </a>
-        <span class="record-date">@Html.RelativeDate(Model.DateAdd)</span>
+        <span class="record-date relative" datetime="@Model.DateAdd.ToString("O")">@Html.RelativeDate(Model.DateAdd)</span>
     </div>
     <div class="record-text text">
         @Html.Markdown(Model.Text)

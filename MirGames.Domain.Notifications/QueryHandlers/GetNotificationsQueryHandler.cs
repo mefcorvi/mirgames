@@ -22,6 +22,7 @@ namespace MirGames.Domain.Notifications.QueryHandlers
     using MirGames.Domain.Notifications.ViewModels;
     using MirGames.Domain.Security;
     using MirGames.Infrastructure;
+    using MirGames.Infrastructure.Cache;
     using MirGames.Infrastructure.Queries;
 
     using MongoDB.Driver.Linq;
@@ -42,23 +43,50 @@ namespace MirGames.Domain.Notifications.QueryHandlers
         private readonly INotificationTypeResolver notificationTypeResolver;
 
         /// <summary>
+        /// The cache manager factory.
+        /// </summary>
+        private readonly ICacheManagerFactory cacheManagerFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetNotificationsQueryHandler" /> class.
         /// </summary>
         /// <param name="mongoDatabaseFactory">The mongo database factory.</param>
         /// <param name="notificationTypeResolver">The event type resolver.</param>
-        public GetNotificationsQueryHandler(IMongoDatabaseFactory mongoDatabaseFactory, INotificationTypeResolver notificationTypeResolver)
+        /// <param name="cacheManagerFactory">The cache manager factory.</param>
+        public GetNotificationsQueryHandler(
+            IMongoDatabaseFactory mongoDatabaseFactory,
+            INotificationTypeResolver notificationTypeResolver,
+            ICacheManagerFactory cacheManagerFactory)
         {
             Contract.Requires(notificationTypeResolver != null);
             Contract.Requires(mongoDatabaseFactory != null);
+            Contract.Requires(cacheManagerFactory != null);
 
             this.mongoDatabaseFactory = mongoDatabaseFactory;
             this.notificationTypeResolver = notificationTypeResolver;
+            this.cacheManagerFactory = cacheManagerFactory;
         }
 
         /// <inheritdoc />
         protected override int GetItemsCount(IReadContext readContext, GetNotificationsQuery query, ClaimsPrincipal principal)
         {
-            return this.GetQuery(query, principal).Count();
+            var cacheManager = this.GetCacheManager(principal);
+            var cacheKey = GetCacheKey(query, null);
+
+            if (cacheManager.Contains(cacheKey))
+            {
+                var notifications = cacheManager.Get<ICollection<NotificationViewModel>>(cacheKey);
+
+                if (notifications != null)
+                {
+                    return notifications.Count;
+                }
+            }
+
+            return cacheManager.GetOrAdd(
+                cacheKey + "#Count",
+                () => this.GetQuery(query, principal).Count(),
+                DateTimeOffset.Now.AddHours(1));
         }
 
         /// <inheritdoc />
@@ -68,16 +96,51 @@ namespace MirGames.Domain.Notifications.QueryHandlers
             ClaimsPrincipal principal,
             PaginationSettings pagination)
         {
-            return
-                this.ApplyPagination(this.GetQuery(query, principal), pagination)
-                    .ToList()
-                    .Select(n => new NotificationViewModel
-                    {
-                        NotificationType = query.NotificationType,
-                        Data = n.Data,
-                        NotificationId = n.Id.ToString(),
-                        UserId = n.UserId
-                    });
+            var cacheManager = this.GetCacheManager(principal);
+            var cacheKey = GetCacheKey(query, pagination);
+
+            return cacheManager.GetOrAdd(
+                cacheKey,
+                () => this.LoadNotifications(query, principal, pagination),
+                DateTimeOffset.Now.AddHours(1));
+        }
+
+        private ICacheManager GetCacheManager(ClaimsPrincipal principal)
+        {
+            return this.cacheManagerFactory.Create(string.Format("Notifications#" + principal.GetUserId()));
+        }
+
+        private static string GetCacheKey(GetNotificationsQuery query, PaginationSettings pagination)
+        {
+            return string.Format(
+                "{0}_{1}_{2}",
+                pagination != null ? pagination.GetHashCode() : 0,
+                query.NotificationType,
+                query.Filter);
+        }
+
+        /// <summary>
+        /// Loads the notifications.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <param name="principal">The principal.</param>
+        /// <param name="pagination">The pagination.</param>
+        /// <returns>The notifications.</returns>
+        private ICollection<NotificationViewModel> LoadNotifications(
+            GetNotificationsQuery query,
+            ClaimsPrincipal principal,
+            PaginationSettings pagination)
+        {
+            return this.ApplyPagination(this.GetQuery(query, principal), pagination)
+                       .ToList()
+                       .Select(n => new NotificationViewModel
+                       {
+                           NotificationType = query.NotificationType,
+                           Data = n.Data,
+                           NotificationId = n.Id.ToString(),
+                           UserId = n.UserId
+                       })
+                       .ToList();
         }
 
         /// <summary>

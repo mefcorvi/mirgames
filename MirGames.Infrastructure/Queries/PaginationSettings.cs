@@ -37,6 +37,18 @@ namespace MirGames.Infrastructure.Queries
         /// </summary>
         public int PageSize { get; private set; }
 
+        /// <inheritdoc />
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var result = 0;
+                result = (result * 397) ^ this.PageNum;
+                result = (result * 397) ^ this.PageSize;
+                return result;
+            }
+        }
+
         /// <summary>
         /// Gets the item page.
         /// </summary>

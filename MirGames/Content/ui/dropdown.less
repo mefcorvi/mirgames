@@ -30,7 +30,7 @@
     .font-size(1.2);
     list-style: none;
     background-color: @background-color;
-    border: 1px solid mix(@background-color, @header-background, 70%);
+    border: 1px solid mix(@background-color, @main-color, 70%);
     background-clip: padding-box;
     border: 0;
     overflow: hidden;
@@ -50,7 +50,7 @@
         height: 1px;
         margin: 9px 0;
         overflow: hidden;
-        background-color: mix(@background-color, @header-background, 90%);
+        background-color: mix(@background-color, @main-color, 90%);
     }
 
     & > li > a {
@@ -71,7 +71,7 @@
         &:hover, &:focus, &:active {
             cursor: pointer;
             text-decoration: none;
-            background-color: mix(@background-color, @header-background, 95%);
+            background-color: mix(@background-color, @main-color, 95%);
 
             .fa {
                 opacity: 1;

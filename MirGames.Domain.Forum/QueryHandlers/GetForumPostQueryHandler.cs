@@ -66,7 +66,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
 
             var postIndex = readContext
                 .Query<ForumPost>()
-                .Count(p => p.TopicId == post.TopicId && p.PostId < post.PostId) + 1;
+                .Count(p => p.TopicId == post.TopicId && p.PostId < post.PostId);
 
             return new ForumPostsListItemViewModel
             {
@@ -81,7 +81,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
                 Index = postIndex,
                 IsRead = true,
                 FirstUnread = false,
-                CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "ForumPost", post.PostId) && postIndex > 1,
+                CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "ForumPost", post.PostId),
                 CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "ForumPost", post.PostId)
             };
         }

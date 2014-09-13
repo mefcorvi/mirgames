@@ -40,13 +40,11 @@ namespace MirGames.Domain.Chat.Entities
         /// <summary>
         /// Gets or sets the created date.
         /// </summary>
-        [DateTimeKind(DateTimeKind.Utc)]
         public DateTime CreatedDate { get; set; }
 
         /// <summary>
         /// Gets or sets the updated date.
         /// </summary>
-        [DateTimeKind(DateTimeKind.Utc)]
         public DateTime? UpdatedDate { get; set; }
 
         /// <summary>

@@ -384,6 +384,7 @@ namespace Links
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             public static readonly string dropdown_less = Url("dropdown.less");
+            public static readonly string selectize_less = Url("selectize.less");
             public static readonly string user_notifications_less = Url("user-notifications.less");
         }
     

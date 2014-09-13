@@ -68,30 +68,43 @@ namespace MirGames.Domain.Forum.QueryHandlers
         protected override IEnumerable<ForumTopicsListItemViewModel> Execute(IReadContext readContext, GetForumTopicsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
             var set = this.GetTopicsQueryable(readContext, query, principal.GetUserId());
-            ICollection<ForumTopicsListItemViewModel> topics;
 
-            if (string.IsNullOrWhiteSpace(query.SearchString))
+            ICollection<ForumTopic> topics = string.IsNullOrWhiteSpace(query.SearchString)
+                                                 ? this.ApplyPagination(set, pagination).EnsureCollection()
+                                                 : this.GetSearchResult(query, pagination, set).EnsureCollection();
+
+            var viewModels = topics.Select(t => new ForumTopicsListItemViewModel
             {
-                topics = this.ApplyPagination(set, pagination).EnsureCollection();
-            }
-            else
-            {
-                topics = this.GetSearchResult(query, pagination, set).EnsureCollection();
-            }
+                Author = new AuthorViewModel
+                {
+                    Id = t.AuthorId,
+                    Login = t.AuthorLogin
+                },
+                LastPostAuthor = new AuthorViewModel
+                {
+                    Id = t.LastPostAuthorId,
+                    Login = t.AuthorLogin
+                },
+                AuthorIp = t.AuthorIp,
+                CreatedDate = t.CreatedDate,
+                PostsCount = t.PostsCount,
+                Title = t.Title,
+                TopicId = t.TopicId,
+                TagsList = t.TagsList,
+                UpdatedDate = t.UpdatedDate,
+                IsRead = true,
+                Forum = new ForumViewModel { ForumId = t.ForumId }
+            }).ToList();
 
             this.queryProcessor.Process(
                 new ResolveAuthorsQuery
                     {
-                        Authors = topics.Select(t => t.Author).Concat(topics.Select(t => t.LastPostAuthor))
+                        Authors = viewModels.Select(t => t.Author).Concat(viewModels.Select(t => t.LastPostAuthor))
                     });
 
-            if (!principal.Identity.IsAuthenticated)
+            if (principal.Identity.IsAuthenticated)
             {
-                topics.ForEach(topic => topic.IsRead = true);
-            }
-            else
-            {
-                var topicIdentifiers = topics.Select(t => t.TopicId).ToArray();
+                var topicIdentifiers = viewModels.Select(t => t.TopicId).ToArray();
 
                 var newTopicsNotifications =
                     this.queryProcessor.Process(
@@ -117,14 +130,14 @@ namespace MirGames.Domain.Forum.QueryHandlers
                 var forums = this.queryProcessor.Process(new GetForumsQuery())
                                  .ToList();
 
-                foreach (var topic in topics)
+                foreach (var topic in viewModels)
                 {
                     topic.IsRead = !unreadPosts.ContainsKey(topic.TopicId);
                     topic.UnreadPostsCount = unreadPosts.ContainsKey(topic.TopicId)
                                                  ? unreadPosts[topic.TopicId]
                                                  : (int?)null;
 
-                    topic.ForumAlias = forums.Where(f => f.ForumId == topic.ForumId).Select(f => f.Alias).FirstOrDefault();
+                    topic.Forum = forums.FirstOrDefault(f => f.ForumId == topic.Forum.ForumId);
 
                     if (newTopicsNotifications.Contains(topic.TopicId))
                     {
@@ -134,7 +147,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
                 }
             }
 
-            return topics;
+            return viewModels;
         }
 
         /// <summary>
@@ -146,7 +159,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
         /// <returns>
         /// The prepared query.
         /// </returns>
-        private IQueryable<ForumTopicsListItemViewModel> GetTopicsQueryable(IReadContext readContext, GetForumTopicsQuery query, int? userId)
+        private IQueryable<ForumTopic> GetTopicsQueryable(IReadContext readContext, GetForumTopicsQuery query, int? userId)
         {
             IQueryable<ForumTopic> topics = readContext.Query<ForumTopic>();
 
@@ -186,29 +199,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
                 topics = topics.Where(t => t.ForumId == forum.ForumId);
             }
 
-            var topicsResult = topics.OrderByDescending(t => t.UpdatedDate).Select(t => new ForumTopicsListItemViewModel
-            {
-                Author = new AuthorViewModel
-                {
-                    Id = t.AuthorId,
-                    Login = t.AuthorLogin
-                },
-                LastPostAuthor = new AuthorViewModel
-                {
-                    Id = t.LastPostAuthorId,
-                    Login = t.AuthorLogin
-                },
-                AuthorIp = t.AuthorIp,
-                CreatedDate = t.CreatedDate,
-                PostsCount = t.PostsCount,
-                Title = t.Title,
-                TopicId = t.TopicId,
-                TagsList = t.TagsList,
-                UpdatedDate = t.UpdatedDate,
-                ForumId = t.ForumId
-            });
-
-            return topicsResult;
+            return topics.OrderByDescending(t => t.UpdatedDate);
         }
 
         /// <summary>
@@ -218,7 +209,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
         /// <param name="pagination">The pagination.</param>
         /// <param name="topics">The topics.</param>
         /// <returns>The search result.</returns>
-        private IEnumerable<ForumTopicsListItemViewModel> GetSearchResult(GetForumTopicsQuery query, PaginationSettings pagination, IQueryable<ForumTopicsListItemViewModel> topics)
+        private IEnumerable<ForumTopic> GetSearchResult(GetForumTopicsQuery query, PaginationSettings pagination, IQueryable<ForumTopic> topics)
         {
             var searchResults = this.ApplyPagination(this.searchEngine.Search("ForumTopic", query.SearchString), pagination);
 

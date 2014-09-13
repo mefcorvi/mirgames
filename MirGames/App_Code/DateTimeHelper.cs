@@ -42,19 +42,19 @@ namespace System.Web.Mvc
                 return "прямо сейчас";
             }
 
-            if (delta < 1 * Minute)
+            if (delta < 45 * Second)
             {
-                return ts.Seconds.Pluralize("секунду", "секунды", "секунд", format);
+                return string.Format(format, "несколько", "секунд");
             }
 
-            if (delta < 2 * Minute)
+            if (delta < 90 * Second)
             {
-                return "минуту назад";
+                return string.Format(format, string.Empty, "минуту");
             }
 
             if (delta < 45 * Minute)
             {
-                return ts.Minutes.Pluralize("минуту", "минуты", "минут", format);
+                return Math.Max(ts.Minutes, 2).Pluralize("минуту", "минуты", "минут", format);
             }
 
             if (delta < 90 * Minute)
@@ -62,17 +62,17 @@ namespace System.Web.Mvc
                 return "час назад";
             }
 
-            if (delta < 24 * Hour)
+            if (delta < 22 * Hour)
             {
-                return ts.Hours.Pluralize("час", "часа", "часов", format);
+                return Math.Max(ts.Hours, 2).Pluralize("час", "часа", "часов", format);
             }
 
-            if (delta < 48 * Hour)
+            if (delta < 36 * Hour)
             {
                 return "вчера";
             }
 
-            if (delta < 30 * Day)
+            if (delta < 25 * Day)
             {
                 return ts.Days.Pluralize("день", "дня", "дней", format);
             }

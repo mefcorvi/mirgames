@@ -10,30 +10,33 @@
     var startPost = Model.StartPost;
 }
 
-@section Nav { @Html.Partial("_ForumTopicMenu") }
-
-<header>
+<div class="page-header">
+    <div class="header">
+        <h4><a href="@Url.Action(MVC.Forum.Forum.Index())">Форумы</a> / <a href="@Url.Action(MVC.Forum.Forum.Topics(Model.Forum.Alias))">@Model.Forum.Title</a></h4>
+        <h3>@Model.Title</h3>
+    </div>
     <ul class="tags">
         @foreach (var tag in Model.Tags)
         {
             <li>@Html.ActionLink(tag, "Index", "Forum", new { tag }, null)</li>
         }
     </ul>
-    <h3>@Model.Title</h3>
-</header>
+</div>
 
 <article post-id="@startPost.PostId" id="@(startPost.FirstUnread ? "first-unread": null )" @Html.Css("message").Add("unread", !startPost.IsRead).Add("first-post")>
-    <div class="text">
-        @Html.Raw(startPost.Text)
+    <div class="post-block">
+        <div class="text">
+            @Html.Raw(startPost.Text)
+        </div>
+        @if (startPost.UpdatedDate > startPost.CreatedDate)
+        {
+            <div class="edited">Отредактировано: @Model.UpdatedDate.Format()</div>
+        }
     </div>
 </article>
 <div class="topic-bar">
     <div class="created-date">
-        @Html.DisplayFor(m => m.UpdatedDate)
-        @if (startPost.UpdatedDate > startPost.CreatedDate)
-        {
-            <i class="fa fa-pencil-square-o" title="Создано: @Model.CreatedDate.Format()"></i>
-        }
+        @Html.DisplayFor(m => m.CreatedDate)
     </div>
     @Author.UserAvatarLink(startPost.Author, "avatar-tiny")
     <div class="author">
@@ -96,7 +99,7 @@
         </div>
         <div class="post-block">
             <div class="created-date">
-                <i class="fa fa-clock-o"></i> <span class="topic-created-date">{{post.CreatedDate | date:'dd.MM.yy HH:mm'}}</span>
+                <i class="fa fa-clock-o"></i> <span class="topic-created-date relative">{{post.CreatedDate | date:'dd.MM.yy HH:mm'}}</span>
             </div>
             <div class="text" ng-bind-html="post.Text | unsafe"></div>
             <div class="edited" ng-show="post.UpdatedDate > post.CreatedDate">Отредактировано: {{post.UpdatedDate | date:'dd.MM.yy HH:mm'}}</div>

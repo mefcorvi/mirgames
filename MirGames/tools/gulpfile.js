@@ -47,6 +47,7 @@ var filePath = {
         "../Scripts/Libs/markdown/AutoLinkTransform.ts",
         "../Scripts/Libs/markdown/*.js",
         "../Scripts/Libs/selectize.js",
+        "../Scripts/Libs/ng-time-relative.js",
         "../Scripts/Core/Base64.ts",
         "../Scripts/Core/Utils.ts",
         "../Scripts/Core/Config.ts",

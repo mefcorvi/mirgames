@@ -106,12 +106,12 @@
     width: 100%;
     .box-sizing(border-box);
     padding: @indent/4;
-    border: 1px solid fade(@header-background, 30%);
+    border: 1px solid fade(@main-color, 30%);
     outline: none;
     .transition(@transition, 0.2s);
             
     &.input-active {
-        .box-shadow(@insetShadow, 0 0 5px fade(@header-background, 30%));
+        .box-shadow(@insetShadow, 0 0 5px fade(@main-color, 30%));
 
         &.ng-invalid, &:invalid {
             .box-shadow(@insetShadow, 0 0 5px rgba(150, 0, 0, 0.2));

@@ -35,7 +35,6 @@ namespace MirGames.Domain.Wip.Entities
         /// <summary>
         /// Gets or sets the following date.
         /// </summary>
-        [DateTimeKind(DateTimeKind.Utc)]
         public DateTime FollowingDate { get; set; }
     }
 }
