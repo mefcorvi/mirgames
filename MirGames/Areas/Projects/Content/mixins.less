@@ -139,12 +139,11 @@
 .project-short-info() {
     & > .project-short-info {
         .page-block(@indent/2, @indent);
-        margin-bottom: @indent/2;
         .make-row();
         background: mix(@background-color, @main-color, 95%);
         border: 0;
         border-top: 1px solid mix(@background-color, @main-color, 90%);
-        border-bottom: 5px solid mix(@background-color, @main-color, 70%);
+        border-bottom: 5px solid @sub-background;
 
         .fa {
             margin-right: 5px;

@@ -203,6 +203,24 @@
                 padding-left: @indent/4;
             }
 
+            & > ul.tags {
+                overflow: hidden;
+                list-style-type: none;
+                line-height: normal;
+                .font-size(1.1);
+
+                & > li {
+                    float: left;
+                    margin-right: 2px;
+                    display: block;
+                    .tag-link(none);
+                }
+
+                    & > li:last-child {
+                        margin-right: 0;
+                    }
+            }
+
             & > .created-date {
                 color: @date-color;
 
@@ -219,6 +237,10 @@
 
             & > .message {
                 .message();
+            }
+
+            & > .pagination {
+                padding: 0 @indent;
             }
         }
 
@@ -242,17 +264,6 @@
         & > h4 {
             .page-subtitle();
             margin-top: @indent;
-        }
-
-        & > .page-header {
-            .page-header();
-
-            & > ul.tags {
-                .tags();
-                float: right;
-                white-space: nowrap;
-                display: table-cell;
-            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿@using MirGames.Models
+﻿@using MirGames.Domain.Security
+@using MirGames.Models
 @model IEnumerable<MirGames.Domain.Wip.ViewModels.WipProjectViewModel>
 
 @{
@@ -6,7 +7,17 @@
     AddPageCssClass("wip-page");
 }
 
-@section Nav { @Html.Partial("_WipMenu") }
+<div class="page-header">
+    <div class="header">
+        <h3>Проекты</h3>
+    </div>
+    <div class="buttons">
+        @if (User.Can("Create", "WipProject"))
+        {
+            <a href="@Url.Action("New", "Projects")" class="add-wip-project"><i class="fa fa-plus"></i>Новый проект</a>
+        }
+    </div>
+</div>
 
 @if (!Model.Any())
 {

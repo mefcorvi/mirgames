@@ -73,6 +73,8 @@ namespace MirGames.Domain.Forum.QueryHandlers
                                                  ? this.ApplyPagination(set, pagination).EnsureCollection()
                                                  : this.GetSearchResult(query, pagination, set).EnsureCollection();
 
+            var forums = this.queryProcessor.Process(new GetForumsQuery()).ToList();
+
             var viewModels = topics.Select(t => new ForumTopicsListItemViewModel
             {
                 Author = new AuthorViewModel
@@ -93,7 +95,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
                 TagsList = t.TagsList,
                 UpdatedDate = t.UpdatedDate,
                 IsRead = true,
-                Forum = new ForumViewModel { ForumId = t.ForumId }
+                Forum = forums.FirstOrDefault(f => f.ForumId == t.ForumId)
             }).ToList();
 
             this.queryProcessor.Process(
@@ -127,17 +129,12 @@ namespace MirGames.Domain.Forum.QueryHandlers
                         Count = g.Count()
                     }).ToDictionary(g => g.TopicId, g => g.Count);
 
-                var forums = this.queryProcessor.Process(new GetForumsQuery())
-                                 .ToList();
-
                 foreach (var topic in viewModels)
                 {
                     topic.IsRead = !unreadPosts.ContainsKey(topic.TopicId);
                     topic.UnreadPostsCount = unreadPosts.ContainsKey(topic.TopicId)
                                                  ? unreadPosts[topic.TopicId]
                                                  : (int?)null;
-
-                    topic.Forum = forums.FirstOrDefault(f => f.ForumId == topic.Forum.ForumId);
 
                     if (newTopicsNotifications.Contains(topic.TopicId))
                     {
@@ -161,7 +158,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
         /// </returns>
         private IQueryable<ForumTopic> GetTopicsQueryable(IReadContext readContext, GetForumTopicsQuery query, int? userId)
         {
-            IQueryable<ForumTopic> topics = readContext.Query<ForumTopic>();
+            IQueryable<ForumTopic> topics = readContext.Query<ForumTopic>().Where(f => f.ForumId != null);
 
             if (!string.IsNullOrWhiteSpace(query.Tag))
             {
@@ -195,7 +192,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
 
             if (!string.IsNullOrEmpty(query.ForumAlias))
             {
-                var forum = this.queryProcessor.Process(new GetForumsQuery()).Single(f => f.Alias == query.ForumAlias);
+                var forum = this.queryProcessor.Process(new GetForumsQuery()).Single(f => f.Alias.EqualsIgnoreCase(query.ForumAlias));
                 topics = topics.Where(t => t.ForumId == forum.ForumId);
             }
 

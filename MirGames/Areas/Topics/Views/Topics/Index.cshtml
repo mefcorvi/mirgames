@@ -1,13 +1,37 @@
-﻿@using MirGames.Models
+﻿@using MirGames.Domain.Security
+@using MirGames.Models
 @model IEnumerable<MirGames.Domain.Topics.ViewModels.TopicsListItem>
 
 @{
-    ViewBag.Title = ViewBag.tag != null ? (ViewBag.tag + " / Блог") :  "Блог";
+    ViewBag.Title = ViewBag.Tag != null ? (ViewBag.Tag + " / Блог") :  "Блог";
     AddPageCssClass("topics-page");
     var topics = this.Model.ToList();
 }
 
-@section Nav { @Html.Partial("_TopicsMenu") }
+<div class="page-header">
+    <div class="header">
+        @if (ViewBag.OnlyUnread == true)
+        {
+            <h4><a href="@Url.Action(MVC.Topics.Topics.Index())">Блог</a></h4>
+            <h3>Новые темы и ответы в блоге</h3>
+        }
+        else if (ViewBag.Tag != null)
+        {
+            <h4><a href="@Url.Action(MVC.Topics.Topics.Index())">Блог</a></h4>
+            <h3>@ViewBag.Tag</h3>
+        }
+        else
+        {
+            <h3>Блог</h3>
+        }
+    </div>
+    <div class="buttons">
+        @if (User.Can("Create", "Topic"))
+        {
+            <a href="@Url.Action(MVC.Topics.Topics.New())" @Html.Css("add-topic").Add("selected", ViewBag.Subsection == "New")><i class="fa fa-pencil"></i>Новая тема</a>
+        }
+    </div>
+</div>
     
 <div class="topics-list">
     @foreach (var topic in topics)

@@ -25,7 +25,8 @@
         & > section {
             .box-sizing(border-box);
             overflow: hidden;
-            padding: @indent;
+            padding: 0 @indent;
+            margin: @indent 0;
             float: left;
 
             & > h3 {
@@ -107,6 +108,7 @@
 
             &.blog-subsection {
                 width: 60%;
+                border-right: 1px solid @border-color;
 
                 & > .topics-list {
                     .topics-list-item();

@@ -10,13 +10,23 @@
             border-bottom: 0;
         }
 
-        .fa-file-text-o{
-            color: mix(@background-color, @font-color, 80%);
+        .fa-file-text-o {
+            color: mix(@background-color, @font-color, 90%);
             position: absolute;
             top: 50%;
             left: 0px;
             margin-top: -0.5em;
             .font-size(1.8);
+        }
+
+        &.unread {
+            .fa-file-text-o {
+                color: @link-color-hover;
+            }
+
+            & > .message-content > .topic-title-block > a {
+                color: @link-color-hover;
+            }
         }
 
         & > .message-content {

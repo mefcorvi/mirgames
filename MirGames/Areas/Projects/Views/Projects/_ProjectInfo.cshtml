@@ -6,9 +6,6 @@
 }
 
 <div class="project-info-block">
-    <nav class="toolbar">
-        @Html.Partial("_ProjectMenu", Model)
-    </nav>
     <div class="project-description">
         @if (!string.IsNullOrEmpty(Model.LogoUrl))
         {
@@ -75,3 +72,6 @@
         </div>
     </div>
 </div>
+<nav class="toolbar">
+    @Html.Partial("_ProjectMenu", Model)
+</nav>

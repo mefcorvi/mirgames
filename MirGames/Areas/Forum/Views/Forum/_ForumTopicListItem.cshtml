@@ -5,7 +5,7 @@
     <div class="message-content">
         <i class="fa fa-file-text-o"></i>
         <div class="topic-title-block">
-            <a href="@Url.Action(MVC.Forum.Forum.Topic(Model.Forum.Alias, Model.TopicId))" class="topic-title">@Model.Title</a>
+            <a href="@Url.Action(MVC.Forum.Forum.Topic(Model.Forum.Alias, Model.TopicId, 1))" class="topic-title">@Model.Title</a>
             <div class="topic-pagination">
                 @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.TopicsPagination[Model.TopicId])
             </div>
@@ -18,7 +18,7 @@
             <div class="tags">
                 @foreach (var tag in Model.Tags)
                 {
-                    <span>@Html.ActionLink(tag, "Index", "Forum", new { tag }, null)</span>
+                    <span><a href="@Url.Action(MVC.Forum.Forum.Topics(Model.Forum.Alias, tag.Trim()))">@tag.Trim()</a></span>
                 }
             </div>
         </div>

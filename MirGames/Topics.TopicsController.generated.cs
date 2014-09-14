@@ -206,7 +206,6 @@ namespace MirGames.Areas.Topics.Controllers
                 public readonly string _Comment = "_Comment";
                 public readonly string _DeleteCommentDialog = "_DeleteCommentDialog";
                 public readonly string _EditCommentDialog = "_EditCommentDialog";
-                public readonly string _Topic = "_Topic";
                 public readonly string _TopicListItem = "_TopicListItem";
                 public readonly string _TopicMenu = "_TopicMenu";
                 public readonly string _TopicsList = "_TopicsList";
@@ -220,7 +219,6 @@ namespace MirGames.Areas.Topics.Controllers
             public readonly string _Comment = "~/Areas/Topics/Views/Topics/_Comment.cshtml";
             public readonly string _DeleteCommentDialog = "~/Areas/Topics/Views/Topics/_DeleteCommentDialog.cshtml";
             public readonly string _EditCommentDialog = "~/Areas/Topics/Views/Topics/_EditCommentDialog.cshtml";
-            public readonly string _Topic = "~/Areas/Topics/Views/Topics/_Topic.cshtml";
             public readonly string _TopicListItem = "~/Areas/Topics/Views/Topics/_TopicListItem.cshtml";
             public readonly string _TopicMenu = "~/Areas/Topics/Views/Topics/_TopicMenu.cshtml";
             public readonly string _TopicsList = "~/Areas/Topics/Views/Topics/_TopicsList.cshtml";

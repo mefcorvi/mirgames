@@ -14,17 +14,15 @@ html, body {
     width: 100%;
     margin: 0;
     padding: 0;
-    min-width: @screen-xs-max;
-
-    @media (max-width: @screen-ts-max) {
-        width: 100vw;
-        min-width: 100vw;
-    }
+    min-width: @screen-xs-min;
 }
 
 html {
     background: @sub-background;
     height: 100%;
+    padding-left: 40px;
+    padding-right: 40px;
+    .box-sizing(border-box);
 }
 
 body {
@@ -133,11 +131,6 @@ body {
     }
     // Раздел с текстом
     & > section {
-        @media (max-width: @screen-ts-max) {
-            width: 100%;
-            width: 100vw;
-        }
-
         height: 100%;
         .box-sizing(border-box);
         background: @background-color;
@@ -162,6 +155,19 @@ body {
         position: fixed;
         top: 0;
         max-width: 1400px;
+        transition: transform 200ms linear;
+
+        &.headroom--top {
+            .no-transition();
+        }
+
+        &.headroom--pinned {
+            transform: translateY(0%);
+        }
+
+        &.headroom--unpinned {
+            transform: translateY(-100%);
+        }
 
         & > .search-form {
             float: right;
@@ -204,6 +210,13 @@ body {
                     color: mix(@font-color, @background-color, 50%);
                 }
 
+                & a {
+                    &:hover, &:active, &:focus, &.selected {
+                        color: @link-color-hover;
+                        outline: 0;
+                    }
+                }
+
                 & > a, & > span, & > .profile-section > a {
                     float: left;
                     .font-size(1.3);
@@ -227,11 +240,6 @@ body {
 
                     &.disabled {
                         opacity: 0.3;
-                    }
-
-                    &:hover, &:active, &:focus, &.selected {
-                        color: @link-color-hover;
-                        outline: 0;
                     }
 
                     &.add-topic {
@@ -261,7 +269,7 @@ nav.toolbar {
     .header-font();
     .box-sizing(border-box);
     overflow: hidden;
-    background: mix(@main-color, @background-color, 5%);
+    background: mix(@main-color, @background-color, 10%);
     padding-left: @indent;
     padding-right: @indent;
 
@@ -505,6 +513,10 @@ body > .online-users {
     text-align: center;
     padding: 5px;
     background: url("images/ajax-loader.gif") no-repeat center center;
+}
+
+.page-header {
+    .page-header();
 }
 
 .page-notification {

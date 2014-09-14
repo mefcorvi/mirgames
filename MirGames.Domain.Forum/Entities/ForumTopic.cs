@@ -26,7 +26,7 @@ namespace MirGames.Domain.Forum.Entities
         /// <summary>
         /// Gets or sets the forum identifier.
         /// </summary>
-        public int ForumId { get; set; }
+        public int? ForumId { get; set; }
 
         /// <summary>
         /// Gets or sets the author unique identifier.

@@ -12,7 +12,6 @@ namespace MirGames.Domain.Forum.ViewModels
     using System.Collections.Generic;
 
     using MirGames.Domain.Users.ViewModels;
-    using MirGames.Infrastructure;
 
     /// <summary>
     /// The forum topics list item.

@@ -6,7 +6,17 @@
     AddPageCssClass("users-page");
 }
 
-@section Nav { @Html.Partial("_UsersMenu") }
+<div class="page-header">
+    <div class="header">
+        <h3>Пользователи</h3>
+    </div>
+    <div class="buttons">
+    </div>
+</div>
+    
+<nav class="toolbar">
+    @Html.Partial("_UsersMenu")
+</nav>
 
 @if (!Model.Any())
 {

@@ -19,7 +19,7 @@
         <article class="message">
             <header>
                 <span class="comment-date">@post.CreatedDate.Format()</span>
-                <a href="@Url.Action(MVC.Forum.Forum.Topic(post.TopicId))" class="topic-title">@post.TopicTitle</a>
+                <a href="@Url.Action(MVC.Forum.Forum.Topic(post.ForumAlias, post.TopicId))" class="topic-title">@post.TopicTitle</a>
             </header>
             <div class="text">
                 @Html.Raw(post.Text)

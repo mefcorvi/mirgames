@@ -2,19 +2,20 @@
 
 .event-log-page {
     & > section {
-        .indent();
-
-        & > h3 {
-            .page-title();
+        & > .page-header {
+            margin-bottom: 0;
         }
 
         & > form {
-            .page-block();
+            .indent();
             margin-bottom: @indent/2;
         }
 
+        & > .event-log-items {
+        }
+
         & .event-log-item {
-            .page-block(@indent/4, @indent);
+            padding: @indent/2 @indent;
             margin-bottom: @indent/6;
             overflow: hidden;
 

@@ -1,6 +1,12 @@
 /// <reference path="_references.ts" />
 moment.lang("ru");
 
+declare var Headroom: any;
+
+var myElement = document.querySelector("body > header");
+var headroom = new Headroom(myElement);
+headroom.init(); 
+
 angular.module('mirgames', [
     'core.application',
     'ui.dialog',

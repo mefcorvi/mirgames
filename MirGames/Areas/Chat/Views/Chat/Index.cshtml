@@ -9,10 +9,15 @@
     }
 }
 
-@section Nav
-{
-    <a href="javascript:void(0);" ng-click="loadHistory()" ng-class="{ 'button-disabled': !historyAvailable }"><i class="fa fa-arrow-circle-up"></i>Загрузить предыдущие</a>
-}
+<div class="page-header">
+    <div class="header">
+        <h3>Чат</h3>
+    </div>
+    <div class="buttons">
+    </div>
+</div>
+
+<a href="javascript:void(0);" ng-click="loadHistory()" ng-class="{ 'load-more': 1, 'button-disabled': !historyAvailable }"><i class="fa fa-arrow-circle-up"></i>Загрузить предыдущие</a>
 
 <div class="socket-notification page-notification" ng-controller="MirGames.SocketNotificationController" ng-cloak>
     <div ng-show="state == 'connecting'" class="socket-connecting notification info">Подключение к серверу...</div>

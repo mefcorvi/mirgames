@@ -205,25 +205,26 @@
     }
 
     & > section {
-        & > header {
-            .indent();
-            padding-bottom: 0;
+        & > .load-more {
+            display: block;
+            width: 100%;
+            padding: @indent/2 @indent;
+            .box-sizing(border-box);
+            text-align: center;
+            color: mix(@background-color, @font-color, 60%);
 
-            & > h3 {
-                .page-title();
+            &:hover {
+                color: @font-color;
+                background: mix(@main-color, @background-color, 10%);
+            }
+
+            i.fa {
+                margin-right: 5px;
             }
         }
 
-        & > .toolbar {
-            padding-left: @indent;
-            padding-right: @indent;
-            margin-top: @indent/2;
-            margin-bottom: @indent/2;
-            overflow: hidden;
-
-            & .button {
-                .button();
-            }
+        & > .page-header {
+            margin-bottom: 0;
         }
 
         & > .chat-messages {

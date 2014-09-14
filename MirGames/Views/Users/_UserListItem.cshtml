@@ -1,8 +1,8 @@
 ﻿@model MirGames.Domain.Users.ViewModels.UserListItemViewModel
 <article @Html.Css("user").Add("user-online", Model.IsOnline)>
-    <a class="avatar-link" href="@Url.Action("Profile", new { userId = Model.Id })"><img src="@Model.AvatarUrl" class="avatar avatar-small" /></a>
+    <a class="avatar-link" href="@Url.Action(MVC.Users.Profile(Model.Id))"><img src="@Model.AvatarUrl" class="avatar avatar-small" /></a>
     <div class="user-info">
-        <a class="user-login" href="@Url.Action("Profile", new { userId = Model.Id })">@Model.Login</a>
+        <a class="user-login" href="@Url.Action(MVC.Users.Profile(Model.Id))">@Model.Login</a>
         <div @Html.Css("user-rating").Add("user-rating-positive", Model.UserRating > 0).Add("user-rating-zero", Model.UserRating == 0).Add("user-rating-negative", Model.UserRating < 0)>
             @Model.UserRating&nbsp;<i class="fa fa-thumbs-up"></i>
         </div>

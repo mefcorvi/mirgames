@@ -28,9 +28,12 @@ body > nav > h1 {
 .topics-page
 {
     & > section {
-        .indent();
+        & > .page-header {
+            .page-header();
+        }
 
         & > .topics-list {
+            .indent();
             .topics-list-item();
             margin-top: @indent/2;
 

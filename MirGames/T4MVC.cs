@@ -182,6 +182,7 @@ namespace Links
             public static readonly string angular_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/angular.min.js") ? Url("angular.min.js") : Url("angular.js");
             public static readonly string eventEmitter_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/eventEmitter.d.min.js") ? Url("eventEmitter.d.min.js") : Url("eventEmitter.d.js");
             public static readonly string eventEmitter_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/eventEmitter.min.js") ? Url("eventEmitter.min.js") : Url("eventEmitter.js");
+            public static readonly string headroom_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/headroom.min.js") ? Url("headroom.min.js") : Url("headroom.js");
             public static readonly string ion_sound_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ion.sound.d.min.js") ? Url("ion.sound.d.min.js") : Url("ion.sound.d.js");
             public static readonly string ion_sound_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ion.sound.min.js") ? Url("ion.sound.min.js") : Url("ion.sound.js");
             public static readonly string jquery_2_1_1_intellisense_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.1.1.intellisense.min.js") ? Url("jquery-2.1.1.intellisense.min.js") : Url("jquery-2.1.1.intellisense.js");
@@ -218,6 +219,7 @@ namespace Links
             public static readonly string ng_quick_date_coffee = Url("ng-quick-date.coffee");
             public static readonly string ng_quick_date_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ng-quick-date.min.js") ? Url("ng-quick-date.min.js") : Url("ng-quick-date.js");
             public static readonly string ng_quick_date_min_js = Url("ng-quick-date.min.js");
+            public static readonly string ng_time_relative_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ng-time-relative.min.js") ? Url("ng-time-relative.min.js") : Url("ng-time-relative.js");
             public static readonly string qbaka_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/qbaka.min.js") ? Url("qbaka.min.js") : Url("qbaka.js");
             public static readonly string selectize_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/selectize.d.min.js") ? Url("selectize.d.min.js") : Url("selectize.d.js");
             public static readonly string selectize_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/selectize.min.js") ? Url("selectize.min.js") : Url("selectize.js");

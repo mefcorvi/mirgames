@@ -15,12 +15,7 @@
         <h4><a href="@Url.Action(MVC.Forum.Forum.Index())">Форумы</a> / <a href="@Url.Action(MVC.Forum.Forum.Topics(Model.Forum.Alias))">@Model.Forum.Title</a></h4>
         <h3>@Model.Title</h3>
     </div>
-    <ul class="tags">
-        @foreach (var tag in Model.Tags)
-        {
-            <li>@Html.ActionLink(tag, "Index", "Forum", new { tag }, null)</li>
-        }
-    </ul>
+    <div class="buttons"></div>
 </div>
 
 <article post-id="@startPost.PostId" id="@(startPost.FirstUnread ? "first-unread": null )" @Html.Css("message").Add("unread", !startPost.IsRead).Add("first-post")>
@@ -42,6 +37,12 @@
     <div class="author">
         @Author.UserLink(startPost.Author, "user-login")
     </div>
+    <ul class="tags">
+        @foreach (var tag in Model.Tags)
+        {
+            <li><a href="@Url.Action(MVC.Forum.Forum.Topics(Model.Forum.Alias, tag.Trim()))">@tag.Trim()</a></li>
+        }
+    </ul>
     <div class="message-bar">
         @if (startPost.CanBeEdited)
         {
@@ -59,8 +60,7 @@
     @Html.Partial("_SocialButtons")
 </div>
 
-<div class="topic-posts">
-    <div id="posts"></div>
+<div class="topic-posts" id="posts">
     @Html.Partial("_Pagination", pagination)
     @foreach (ForumPostsListItemViewModel post in ViewBag.Posts)
     {
@@ -111,7 +111,8 @@
     }
 </div>
 
-@if (Model.CanBeAnswered) { 
+@if (Model.CanBeAnswered)
+{
     <div class="answer-form">
         <h4 id="new-answer">Ответить</h4>
         <form class="new-answer-form" ng-submit="reply.post()" novalidate name="postAnswerForm">

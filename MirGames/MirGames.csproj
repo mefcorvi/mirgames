@@ -411,7 +411,6 @@
     <Content Include="Areas\Projects\Views\Web.config" />
     <None Include="Areas\Projects\Content\references.less" />
     <Content Include="Areas\Topics\Views\Topics\_AddTopicDialog.cshtml" />
-    <Content Include="Areas\Topics\Views\Topics\_Topic.cshtml" />
     <Content Include="Content\images\providers\bitbucket.png" />
     <Content Include="Content\images\providers\facebook.png" />
     <Content Include="Content\images\providers\github.png" />
@@ -456,6 +455,7 @@
     <None Include="Scripts\Account\LoginFormController.ts" />
     <None Include="Scripts\Account\SignUpFormController.ts" />
     <None Include="Scripts\Libs\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\Libs\headroom.js" />
     <Content Include="Scripts\Libs\jquery-2.1.1.js" />
     <None Include="Scripts\Libs\jquery.d.ts" />
     <None Include="Areas\Projects\Scripts\AddWorkItemDialogController.ts" />

@@ -6,7 +6,17 @@
     PageScriptController = "MirGames.Tools.EventLogPage";
 }
 
-@section Nav { @Html.Partial("_ToolsMenu")  }
+<div class="page-header">
+    <div class="header">
+        <h3>Управление</h3>
+    </div>
+    <div class="buttons">
+    </div>
+</div>
+    
+<nav class="toolbar">
+    @Html.Partial("_ToolsMenu")
+</nav>
 
 <form class="event-log-form" name="eventLogForm" ng-submit="filter()">
     <div class="form-field">
@@ -38,12 +48,14 @@
     </div>
 </form>
 
-<div ng-cloak ng-repeat="item in items" ng-class="{ 'event-log-item': 1, 'event-log-error': item.EventLogType == 0, 'event-log-warning': item.EventLogType == 1, 'event-log-verbose': item.EventLogType == 3 }">
-    <span class="event-log-id">#{{item.Id}}</span>
-    <span class="event-log-type">{{logTypes[item.EventLogType].key}}</span>
-    <span class="event-log-user">{{item.Login}}</span>
-    <span class="event-log-date">{{item.Date | date:'dd.MM.yy HH:mm'}}</span>
-    <span class="event-log-source" title="{{item.Source}}">{{item.Source}}</span>
-    <span class="event-log-message">{{item.Message}}</span>
-    <div class="event-log-details">{{item.Details}}</div>
+<div class="event-log-items">
+    <div ng-cloak ng-repeat="item in items" ng-class="{ 'event-log-item': 1, 'event-log-error': item.EventLogType == 0, 'event-log-warning': item.EventLogType == 1, 'event-log-verbose': item.EventLogType == 3 }">
+        <span class="event-log-id">#{{item.Id}}</span>
+        <span class="event-log-type">{{logTypes[item.EventLogType].key}}</span>
+        <span class="event-log-user">{{item.Login}}</span>
+        <span class="event-log-date">{{item.Date | date:'dd.MM.yy HH:mm'}}</span>
+        <span class="event-log-source" title="{{item.Source}}">{{item.Source}}</span>
+        <span class="event-log-message">{{item.Message}}</span>
+        <div class="event-log-details">{{item.Details}}</div>
+    </div>
 </div>
