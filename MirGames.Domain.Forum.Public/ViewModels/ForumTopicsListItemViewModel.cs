@@ -85,5 +85,10 @@ namespace MirGames.Domain.Forum.ViewModels
         /// Gets or sets the forum.
         /// </summary>
         public ForumViewModel Forum { get; set; }
+
+        /// <summary>
+        /// Gets or sets the short description.
+        /// </summary>
+        public string ShortDescription { get; set; }
     }
 }

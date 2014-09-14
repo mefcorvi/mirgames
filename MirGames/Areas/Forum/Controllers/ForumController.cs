@@ -168,8 +168,18 @@ namespace MirGames.Areas.Forum.Controllers
         /// </summary>
         /// <returns>The action result.</returns>
         [Authorize(Roles = "User")]
-        public virtual ActionResult New()
+        public virtual ActionResult New(string forumAlias)
         {
+            var forums = this.QueryProcessor.Process(new GetForumsQuery()).ToList();
+            var forum = forums.FirstOrDefault(f => f.Alias.EqualsIgnoreCase(forumAlias));
+
+            if (forum == null)
+            {
+                return this.HttpNotFound();
+            }
+
+            this.PageData["forumAlias"] = forum.Alias;
+            this.ViewBag.Forum = forum;
             this.ViewBag.Subsection = "New";
             return this.View();
         }
@@ -238,22 +248,6 @@ namespace MirGames.Areas.Forum.Controllers
         {
             this.CommandProcessor.Execute(new MarkAllTopicsAsReadCommand());
             return this.Json(new { result = true });
-        }
-
-        /// <summary>
-        /// Posts the new topic.
-        /// </summary>
-        /// <param name="command">The command.</param>
-        /// <returns>The new topic.</returns>
-        [HttpPost]
-        [AjaxOnly]
-        [AntiForgery]
-        [Authorize(Roles = "User")]
-        [ValidateInput(false)]
-        public virtual ActionResult PostNewTopic(PostNewForumTopicCommand command)
-        {
-            var topicId = this.CommandProcessor.Execute(command);
-            return this.Json(new { topicId });
         }
 
         /// <inheritdoc />

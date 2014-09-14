@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="Commands\DeleteForumPostCommand.cs" />
     <Compile Include="Commands\DeleteForumTopicCommand.cs" />
+    <Compile Include="Commands\UpgradeForumCommand.cs" />
     <Compile Include="Commands\UpdateForumPostCommand.cs" />
     <Compile Include="Commands\MarkAllTopicsAsReadCommand.cs" />
     <Compile Include="Commands\MarkTopicAsReadCommand.cs" />

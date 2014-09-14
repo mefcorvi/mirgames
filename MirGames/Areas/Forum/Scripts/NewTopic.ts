@@ -1,10 +1,12 @@
 /// <reference path="_references.ts" />
 module MirGames.Forum {
 
-    export class NewTopicPage {
-        static $inject = ['$scope', '$element', 'commandBus', 'eventBus', 'apiService'];
+    export class NewTopicPage extends MirGames.BasePage<INewTopicPageData, INewTopicPageScope> {
+        static $inject = ['$scope', '$element', 'eventBus', 'apiService'];
 
-        constructor(private $scope: INewTopicPageScope, private $element: JQuery, private commandBus: Core.ICommandBus, private eventBus: Core.IEventBus, private apiService: Core.IApiService) {
+        constructor($scope: INewTopicPageScope, private $element: JQuery, eventBus: Core.IEventBus, private apiService: Core.IApiService) {
+            super($scope, eventBus);
+            this.$scope.forumAlias = this.pageData.forumAlias;
             this.$scope.post = this.submit.bind(this);
             this.$scope.attachments = [];
             this.$scope.switchPreviewMode = () => {
@@ -36,12 +38,23 @@ module MirGames.Forum {
         }
 
         private submit() {
-            var command = this.commandBus.createCommandFromScope(Domain.PostNewForumTopicCommand, this.$scope);
+            var command: MirGames.Domain.Forum.Commands.PostNewForumTopicCommand = {
+                Attachments: this.$scope.attachments,
+                ForumAlias: this.$scope.forumAlias,
+                Tags: this.$scope.tags,
+                Text: this.$scope.text,
+                Title: this.$scope.title
+            };
 
-            this.commandBus.executeCommand(Router.action("Forum", "PostNewTopic"), command, (result) => {
-                Core.Application.getInstance().navigateToUrl(Router.action("Forum", "Topic", { topicId: result.topicId }));
+            this.apiService.executeCommand('PostNewForumTopicCommand', command, (result: number) => {
+                var url = Router.action("Forum", "Topic", { topicId: result, area: 'Forum', forumAlias: this.$scope.forumAlias });
+                Core.Application.getInstance().navigateToUrl(url);
             });
         }
+    }
+
+    export interface INewTopicPageData extends IPageData {
+        forumAlias: string;
     }
 
     export interface INewTopicPageScope extends IPageScope {
@@ -49,6 +62,7 @@ module MirGames.Forum {
         showPreview: boolean;
         title: string;
         tags: string;
+        forumAlias: string;
         post(): void;
         attachments: number[];
         isTitleFocused: boolean;

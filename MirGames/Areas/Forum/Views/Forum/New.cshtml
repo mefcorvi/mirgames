@@ -1,12 +1,14 @@
-﻿@{
+﻿@using MirGames.Domain.Forum.ViewModels
+@{
     Title = "Новое обсуждение / Форум";
     PageScriptController = "MirGames.Forum.NewTopicPage";
     AddPageCssClass("new-forum-topic-page");
+    var forum = (ForumViewModel)this.ViewBag.Forum;
 }
 
 <div class="page-header">
     <div class="header">
-        <h4>Форумы / DirectX API</h4>
+        <h4><a href="@Url.Action(MVC.Forum.Forum.Index())">Форумы</a> / <a href="@Url.Action(MVC.Forum.Forum.Topics(forum.Alias))">@forum.Title</a></h4>
         <h3>Новая тема</h3>
     </div>
     <div class="buttons">
@@ -29,7 +31,7 @@
     <div class="form-field">
         <label>Текст</label>
         <div class="form-field-description">
-            Текст форматируется с использованием <a href="https://ru.wikipedia.org/wiki/Markdown" target="_blank">markdown</a> разметки.<br />
+            Текст форматируется с использованием <a href="https://ru.wikipedia.org/wiki/Markdown" target="_blank" tabindex="-1">markdown</a> разметки.<br />
             Картинки могут быть вставлены непосредственно из буфера обмена.<br />
             Для прикрепления файлов, можно использовать drag&amp;drop или специальную кнопку в панели инструментов.<br />
             Для вставки видео может быть использован тот же синтаксис, что и для вставки картинки.

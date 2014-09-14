@@ -95,6 +95,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
                 TagsList = t.TagsList,
                 UpdatedDate = t.UpdatedDate,
                 IsRead = true,
+                ShortDescription = t.ShortDescription,
                 Forum = forums.FirstOrDefault(f => f.ForumId == t.ForumId)
             }).ToList();
 

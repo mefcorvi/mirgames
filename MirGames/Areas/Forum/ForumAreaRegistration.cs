@@ -19,8 +19,28 @@
                 new { controller = "Forum", action = "Unread" });
 
             context.MapRoute(
+                "Rss",
+                "forum/rss",
+                new { controller = "Forum", action = "Rss" });
+
+            context.MapRoute(
+                "EditPostDialog",
+                "forum/editPostDialog",
+                new { controller = "Forum", action = "EditPostDialog" });
+
+            context.MapRoute(
+                "DeletePostDialog",
+                "forum/deletePostDialog",
+                new { controller = "Forum", action = "DeletePostDialog" });
+
+            context.MapRoute(
+                "DeleteTopicDialog",
+                "forum/deleteTopicDialog",
+                new { controller = "Forum", action = "DeleteTopicDialog" });
+
+            context.MapRoute(
                 "ForumNewItems",
-                "forum/new",
+                "forum/{forumAlias}/new",
                 new { controller = "Forum", action = "New" });
 
             context.MapRoute(

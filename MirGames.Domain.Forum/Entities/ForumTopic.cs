@@ -82,5 +82,10 @@ namespace MirGames.Domain.Forum.Entities
         /// Gets or sets the posts.
         /// </summary>
         public ICollection<ForumPost> Posts { get; set; }
+
+        /// <summary>
+        /// Gets or sets the short description.
+        /// </summary>
+        public string ShortDescription { get; set; }
     }
 }

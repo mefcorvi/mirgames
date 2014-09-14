@@ -10,13 +10,16 @@ namespace MirGames.Domain.Forum.CommandHandlers
 {
     using System;
     using System.Diagnostics.Contracts;
+    using System.Linq;
     using System.Security.Claims;
 
     using MirGames.Domain.Acl.Public.Commands;
     using MirGames.Domain.Attachments.Commands;
+    using MirGames.Domain.Exceptions;
     using MirGames.Domain.Forum.Commands;
     using MirGames.Domain.Forum.Entities;
     using MirGames.Domain.Forum.Events;
+    using MirGames.Domain.Forum.Queries;
     using MirGames.Domain.Security;
     using MirGames.Domain.TextTransform;
     using MirGames.Domain.Users.Queries;
@@ -90,6 +93,15 @@ namespace MirGames.Domain.Forum.CommandHandlers
 
             int authorId = principal.GetUserId().GetValueOrDefault();
             var author = this.queryProcessor.Process(new GetAuthorQuery { UserId = authorId });
+            
+            var forum =
+                this.queryProcessor.Process(new GetForumsQuery())
+                    .FirstOrDefault(f => f.Alias.EqualsIgnoreCase(command.ForumAlias));
+
+            if (forum == null)
+            {
+                throw new ItemNotFoundException("Forum", command.ForumAlias);
+            }
 
             var topic = new ForumTopic
             {
@@ -102,7 +114,9 @@ namespace MirGames.Domain.Forum.CommandHandlers
                 LastPostAuthorLogin = author.Login,
                 Title = command.Title,
                 UpdatedDate = DateTime.UtcNow,
-                PostsCount = 1
+                PostsCount = 1,
+                ForumId = forum.ForumId,
+                ShortDescription = this.textProcessor.GetShortText(command.Text)
             };
 
             authorizationManager.EnsureAccess(principal, "Create", "ForumTopic");

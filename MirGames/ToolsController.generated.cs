@@ -71,6 +71,7 @@ namespace MirGames.Controllers
         public class ActionNamesClass
         {
             public readonly string ReIndex = "ReIndex";
+            public readonly string UpgradeForum = "UpgradeForum";
             public readonly string ReIndexForum = "ReIndexForum";
             public readonly string Events = "Events";
         }
@@ -79,6 +80,7 @@ namespace MirGames.Controllers
         public class ActionNameConstants
         {
             public const string ReIndex = "ReIndex";
+            public const string UpgradeForum = "UpgradeForum";
             public const string ReIndexForum = "ReIndexForum";
             public const string Events = "Events";
         }
@@ -117,6 +119,17 @@ namespace MirGames.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ReIndex);
             ReIndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void UpgradeForumOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UpgradeForum()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpgradeForum);
+            UpgradeForumOverride(callInfo);
             return callInfo;
         }
 

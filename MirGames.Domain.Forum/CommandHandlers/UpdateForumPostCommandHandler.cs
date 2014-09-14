@@ -101,6 +101,7 @@ namespace MirGames.Domain.Forum.CommandHandlers
                     var topic = post.Topic;
                     topic.Title = command.TopicTitle;
                     topic.TagsList = command.TopicsTags;
+                    topic.ShortDescription = this.textProcessor.GetShortText(command.Text);
 
                     var oldTags = writeContext.Set<ForumTag>().Where(t => t.TopicId == topic.TopicId);
                     writeContext.Set<ForumTag>().RemoveRange(oldTags);

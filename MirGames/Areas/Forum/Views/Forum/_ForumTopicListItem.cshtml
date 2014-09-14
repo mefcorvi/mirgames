@@ -9,18 +9,13 @@
             <div class="topic-pagination">
                 @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.TopicsPagination[Model.TopicId])
             </div>
+            <div class="short-description text">@Model.ShortDescription</div>
             <footer>
                 <span class="created-date"><span class="topic-created-date relative" datetime="@Model.CreatedDate.ToString("O")">@Html.RelativeDate(Model.CreatedDate)</span></span>,
                 <span class="author">
                     @Author.UserLink(Model.Author, "topic-author")
                 </span>
             </footer>
-            <div class="tags">
-                @foreach (var tag in Model.Tags)
-                {
-                    <span><a href="@Url.Action(MVC.Forum.Forum.Topics(Model.Forum.Alias, tag.Trim()))">@tag.Trim()</a></span>
-                }
-            </div>
         </div>
         <div @Html.Css("replies-count")>
             <span>@(Model.PostsCount - 1)</span>

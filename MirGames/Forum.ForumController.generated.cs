@@ -62,15 +62,15 @@ namespace MirGames.Areas.Forum.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Topic()
+        public virtual System.Web.Mvc.ActionResult New()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Topic);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.New);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult PostNewTopic()
+        public virtual System.Web.Mvc.ActionResult Topic()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PostNewTopic);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Topic);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -98,7 +98,6 @@ namespace MirGames.Areas.Forum.Controllers
             public readonly string DeletePostDialog = "DeletePostDialog";
             public readonly string DeleteTopicDialog = "DeleteTopicDialog";
             public readonly string MarkAllTopicsAsRead = "MarkAllTopicsAsRead";
-            public readonly string PostNewTopic = "PostNewTopic";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -114,7 +113,6 @@ namespace MirGames.Areas.Forum.Controllers
             public const string DeletePostDialog = "DeletePostDialog";
             public const string DeleteTopicDialog = "DeleteTopicDialog";
             public const string MarkAllTopicsAsRead = "MarkAllTopicsAsRead";
-            public const string PostNewTopic = "PostNewTopic";
         }
 
 
@@ -148,6 +146,14 @@ namespace MirGames.Areas.Forum.Controllers
             public readonly string tag = "tag";
             public readonly string searchString = "searchString";
         }
+        static readonly ActionParamsClass_New s_params_New = new ActionParamsClass_New();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_New NewParams { get { return s_params_New; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_New
+        {
+            public readonly string forumAlias = "forumAlias";
+        }
         static readonly ActionParamsClass_Topic s_params_Topic = new ActionParamsClass_Topic();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Topic TopicParams { get { return s_params_Topic; } }
@@ -157,14 +163,6 @@ namespace MirGames.Areas.Forum.Controllers
             public readonly string forumAlias = "forumAlias";
             public readonly string topicId = "topicId";
             public readonly string page = "page";
-        }
-        static readonly ActionParamsClass_PostNewTopic s_params_PostNewTopic = new ActionParamsClass_PostNewTopic();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_PostNewTopic PostNewTopicParams { get { return s_params_PostNewTopic; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_PostNewTopic
-        {
-            public readonly string command = "command";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -183,7 +181,6 @@ namespace MirGames.Areas.Forum.Controllers
                 public readonly string _ForumTopicListItem = "_ForumTopicListItem";
                 public readonly string _ForumTopicMenu = "_ForumTopicMenu";
                 public readonly string _ForumTopicsList = "_ForumTopicsList";
-                public readonly string _ForumTopicsMenu = "_ForumTopicsMenu";
                 public readonly string _NewTopicMenu = "_NewTopicMenu";
                 public readonly string Index = "Index";
                 public readonly string New = "New";
@@ -198,7 +195,6 @@ namespace MirGames.Areas.Forum.Controllers
             public readonly string _ForumTopicListItem = "~/Areas/Forum/Views/Forum/_ForumTopicListItem.cshtml";
             public readonly string _ForumTopicMenu = "~/Areas/Forum/Views/Forum/_ForumTopicMenu.cshtml";
             public readonly string _ForumTopicsList = "~/Areas/Forum/Views/Forum/_ForumTopicsList.cshtml";
-            public readonly string _ForumTopicsMenu = "~/Areas/Forum/Views/Forum/_ForumTopicsMenu.cshtml";
             public readonly string _NewTopicMenu = "~/Areas/Forum/Views/Forum/_NewTopicMenu.cshtml";
             public readonly string Index = "~/Areas/Forum/Views/Forum/Index.cshtml";
             public readonly string New = "~/Areas/Forum/Views/Forum/New.cshtml";
@@ -267,13 +263,14 @@ namespace MirGames.Areas.Forum.Controllers
         }
 
         [NonAction]
-        partial void NewOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void NewOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string forumAlias);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult New()
+        public override System.Web.Mvc.ActionResult New(string forumAlias)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.New);
-            NewOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "forumAlias", forumAlias);
+            NewOverride(callInfo, forumAlias);
             return callInfo;
         }
 
@@ -332,18 +329,6 @@ namespace MirGames.Areas.Forum.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.MarkAllTopicsAsRead);
             MarkAllTopicsAsReadOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void PostNewTopicOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MirGames.Domain.Forum.Commands.PostNewForumTopicCommand command);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult PostNewTopic(MirGames.Domain.Forum.Commands.PostNewForumTopicCommand command)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PostNewTopic);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
-            PostNewTopicOverride(callInfo, command);
             return callInfo;
         }
 

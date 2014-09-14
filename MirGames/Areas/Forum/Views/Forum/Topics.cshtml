@@ -16,7 +16,7 @@
     <div class="buttons">
         @if (User.Can("Create", "ForumTopic"))
         {
-            <a href="@Url.Action(MVC.Forum.Forum.New())"><i class="fa fa-pencil"></i>Новая тема</a>
+            <a href="@Url.Action(MVC.Forum.Forum.New((string)ViewBag.Forum.Alias))"><i class="fa fa-pencil"></i>Новая тема</a>
         }
     </div>
 </div>

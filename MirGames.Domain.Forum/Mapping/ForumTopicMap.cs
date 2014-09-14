@@ -43,6 +43,7 @@ namespace MirGames.Domain.Forum.Mapping
             this.Property(t => t.TagsList).IsRequired().HasMaxLength(1024).HasColumnName("tags_list");
             this.Property(t => t.ForumId).HasColumnName("forum_id");
             this.Property(t => t.Title).IsRequired().HasMaxLength(1024).HasColumnName("title");
+            this.Property(t => t.ShortDescription).HasMaxLength(1024).HasColumnName("short_description");
 
             this.HasMany(t => t.Posts).WithRequired(t => t.Topic).HasForeignKey(t => t.TopicId).WillCascadeOnDelete();
         }

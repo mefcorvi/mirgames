@@ -289,6 +289,13 @@ interface UpdateForumPostCommand extends MirGames.Infrastructure.Commands.Comman
   TopicsTags: string;
   PostId: number;
 }
+interface PostNewForumTopicCommand extends MirGames.Infrastructure.Commands.Command1 {
+  ForumAlias: string;
+  Title: string;
+  Text: string;
+  Tags: string;
+  Attachments: number[];
+}
 interface ReplyForumTopicCommand extends MirGames.Infrastructure.Commands.Command1 {
   Attachments: number[];
   Text: string;
@@ -364,8 +371,20 @@ interface ForumTopicsListItemViewModel {
   PostsCount: number;
   UnreadPostsCount: number;
   IsRead: boolean;
+  Forum: MirGames.Domain.Forum.ViewModels.ForumViewModel;
+}
+interface ForumViewModel {
   ForumId: number;
-  ForumAlias: string;
+  Title: string;
+  Description: string;
+  IsRetired: boolean;
+  Alias: string;
+  LastAuthor: MirGames.Domain.Users.ViewModels.AuthorViewModel;
+  LastTopicTitle: string;
+  LastTopicId: number;
+  LastPostDate: Date;
+  TopicsCount: number;
+  PostsCount: number;
 }
 interface ForumTopicViewModel {
   TopicId: number;
@@ -381,20 +400,7 @@ interface ForumTopicViewModel {
   CanBeEdited: boolean;
   CanBeDeleted: boolean;
   IsRead: boolean;
-  ForumAlias: string;
-}
-interface ForumViewModel {
-  ForumId: number;
-  Title: string;
-  Description: string;
-  IsRetired: boolean;
-  Alias: string;
-  LastAuthor: MirGames.Domain.Users.ViewModels.AuthorViewModel;
-  LastTopicTitle: string;
-  LastTopicId: number;
-  LastPostDate: Date;
-  TopicsCount: number;
-  PostsCount: number;
+  Forum: MirGames.Domain.Forum.ViewModels.ForumViewModel;
 }
 }
 declare module MirGames.Domain.Chat.Commands {

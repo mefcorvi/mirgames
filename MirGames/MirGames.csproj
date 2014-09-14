@@ -474,7 +474,7 @@
     <None Include="Scripts\Core\CommandBus.ts" />
     <None Include="Scripts\Core\EventBus.ts" />
     <None Include="Scripts\RequestNotificationController.ts" />
-    <None Include="Areas\Forum\Scripts\TopicsPage.ts" />
+    <None Include="Areas\Forum\Scripts\ForumsPage.ts" />
     <None Include="Areas\Forum\Scripts\TopicPage.ts" />
     <None Include="Scripts\TypeLite.d.ts">
       <AutoGen>True</AutoGen>
@@ -680,7 +680,6 @@
     <Content Include="Views\Users\_WallRecord.cshtml" />
     <Content Include="Areas\Forum\Views\Forum\Topics.cshtml" />
     <Content Include="Areas\Forum\Views\Forum\_ForumTopicsList.cshtml" />
-    <Content Include="Areas\Forum\Views\Forum\_ForumTopicsMenu.cshtml" />
     <Content Include="Areas\Forum\Views\Forum\_ForumTopicListItem.cshtml" />
     <Content Include="Areas\Forum\Views\Forum\Topic.cshtml" />
     <Content Include="Areas\Forum\Views\Forum\_ForumPostListItem.cshtml" />
@@ -854,6 +853,7 @@
     <Content Include="Areas\Projects\Scripts\WorkItemDialogController.ts" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Areas\Forum\Scripts\TopicsPage.ts" />
     <TypeScriptCompile Include="Scripts\Libs\selectize.d.ts" />
   </ItemGroup>
   <PropertyGroup>

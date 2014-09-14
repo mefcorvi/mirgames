@@ -41,6 +41,14 @@ namespace MirGames.Controllers
 
         /// <inheritdoc />
         [Authorize(Roles = "Administrator")]
+        public virtual ActionResult UpgradeForum()
+        {
+            this.CommandProcessor.Execute(new UpgradeForumCommand());
+            return this.Content("ok");
+        }
+
+        /// <inheritdoc />
+        [Authorize(Roles = "Administrator")]
         public virtual ActionResult ReIndexForum()
         {
             this.CommandProcessor.Execute(new ReindexForumTopicsCommand());
