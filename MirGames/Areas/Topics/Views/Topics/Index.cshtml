@@ -38,5 +38,8 @@
     {
         @Html.Partial("_TopicListItem", topic)
     }
+    @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
 </div>
-@Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
+<div class="last-activities">
+    
+</div>
