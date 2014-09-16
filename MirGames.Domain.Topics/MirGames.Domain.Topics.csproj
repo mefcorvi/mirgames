@@ -94,6 +94,7 @@
     <Compile Include="AccessRules\TopicCreateAccessRule.cs" />
     <Compile Include="AccessRules\TopicDeleteAccessRule.cs" />
     <Compile Include="AccessRules\TopicEditAccessRule.cs" />
+    <Compile Include="Cache\TagsQueryCacheContainer.cs" />
     <Compile Include="ClaimsProviders\TopicsClaimsProvider.cs" />
     <Compile Include="CommandHandlers\AddNewBlogCommandHandler.cs" />
     <Compile Include="CommandHandlers\AddNewTopicCommandHandler.cs" />

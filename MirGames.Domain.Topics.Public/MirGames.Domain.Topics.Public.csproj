@@ -65,6 +65,7 @@
     <Compile Include="ViewModels\BlogViewModel.cs" />
     <Compile Include="ViewModels\CommentForEditViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
+    <Compile Include="ViewModels\TagViewModel.cs" />
     <Compile Include="ViewModels\TopicForEditViewModel.cs" />
     <Compile Include="ViewModels\TopicsListItem.cs" />
     <Compile Include="ViewModels\TopicViewModel.cs" />

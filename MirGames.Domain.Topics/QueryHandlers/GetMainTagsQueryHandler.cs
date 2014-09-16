@@ -14,18 +14,19 @@ namespace MirGames.Domain.Topics.QueryHandlers
 
     using MirGames.Domain.Topics.Entities;
     using MirGames.Domain.Topics.Queries;
+    using MirGames.Domain.Topics.ViewModels;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Queries;
 
     /// <summary>
     /// Handles the GetMainTagsQuery.
     /// </summary>
-    internal sealed class GetMainTagsQueryHandler : QueryHandler<GetMainTagsQuery, string>
+    internal sealed class GetMainTagsQueryHandler : QueryHandler<GetMainTagsQuery, TagViewModel>
     {
         /// <inheritdoc />
-        protected override IEnumerable<string> Execute(IReadContext readContext, GetMainTagsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
+        protected override IEnumerable<TagViewModel> Execute(IReadContext readContext, GetMainTagsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
-            return this.GetTagsQuery(readContext, query).Take(20).OrderBy(t => t);
+            return this.ApplyPagination(this.GetTagsQuery(readContext, query), pagination).ToList();
         }
 
         /// <inheritdoc />
@@ -42,7 +43,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
         /// <returns>
         /// The tags query.
         /// </returns>
-        private IQueryable<string> GetTagsQuery(IReadContext readContext, GetMainTagsQuery query)
+        private IQueryable<TagViewModel> GetTagsQuery(IReadContext readContext, GetMainTagsQuery query)
         {
             var tags = readContext
                 .Query<TopicTag>();
@@ -55,7 +56,11 @@ namespace MirGames.Domain.Topics.QueryHandlers
             return tags
                 .GroupBy(t => t.TagText, (tag, rows) => new { Tag = tag, Count = rows.Count() })
                 .OrderByDescending(t => t.Count)
-                .Select(t => t.Tag);
+                .Select(t => new TagViewModel
+                {
+                    Count = t.Count,
+                    Tag = t.Tag
+                });
         }
     }
 }

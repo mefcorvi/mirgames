@@ -20,5 +20,10 @@ namespace MirGames.Domain.Topics.Queries
         /// Gets or sets the author unique identifier.
         /// </summary>
         public int? AuthorId { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether only short text should be loaded.
+        /// </summary>
+        public bool LoadOnlyShortText { get; set; }
     }
 }

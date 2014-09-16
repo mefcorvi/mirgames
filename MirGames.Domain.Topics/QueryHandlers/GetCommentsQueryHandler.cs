@@ -74,21 +74,25 @@ namespace MirGames.Domain.Topics.QueryHandlers
             var commentViewModels = comments
                 .Select(
                     c => new CommentViewModel
+                    {
+                        Author = new AuthorViewModel
                         {
-                            Author = new AuthorViewModel
-                                {
-                                    Id = c.UserId,
-                                    Login = c.UserLogin
-                                },
-                            CreationDate = c.Date,
-                            UpdatedDate = c.UpdatedDate,
-                            Text = c.Text ?? this.textProcessor.GetHtml(c.SourceText),
-                            Id = c.CommentId,
-                            TopicId = c.TopicId,
-                            TopicTitle = topics.ContainsKey(c.TopicId) ? topics[c.TopicId] : null,
-                            CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "Comment", c.CommentId),
-                            CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "Comment", c.CommentId)
-                        }).ToList();
+                            Id = c.UserId,
+                            Login = c.UserLogin
+                        },
+                        CreationDate = c.Date,
+                        UpdatedDate = c.UpdatedDate,
+                        Text =
+                            query.LoadOnlyShortText
+                                ? this.textProcessor.GetShortText(c.SourceText)
+                                : (c.Text ?? this.textProcessor.GetHtml(c.SourceText)),
+                        Id = c.CommentId,
+                        TopicId = c.TopicId,
+                        TopicTitle = topics.ContainsKey(c.TopicId) ? topics[c.TopicId] : null,
+                        CanBeDeleted =
+                            this.authorizationManager.CheckAccess(principal, "Delete", "Comment", c.CommentId),
+                        CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "Comment", c.CommentId)
+                    }).ToList();
 
             this.queryProcessor.Process(new ResolveAuthorsQuery { Authors = commentViewModels.Select(c => c.Author) });
 

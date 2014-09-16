@@ -10,6 +10,7 @@ namespace MirGames.Infrastructure
 {
     using System;
     using System.Diagnostics.Contracts;
+    using System.Globalization;
     using System.Security.Cryptography;
     using System.Text;
 
@@ -47,6 +48,21 @@ namespace MirGames.Infrastructure
         public static bool EqualsIgnoreCase(this string a, string b)
         {
             return string.Equals(a, b, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        /// <summary>
+        /// To the title case.
+        /// </summary>
+        /// <param name="str">The string.</param>
+        /// <returns>String in the title case.</returns>
+        public static string ToTitleCase(this string str)
+        {
+            if (str == null)
+            {
+                return null;
+            }
+
+            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str.ToLower());
         }
     }
 }

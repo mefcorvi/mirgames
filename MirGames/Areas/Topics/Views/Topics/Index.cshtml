@@ -1,11 +1,16 @@
 ﻿@using MirGames.Domain.Security
+@using MirGames.Domain.Topics.ViewModels
+@using MirGames.Infrastructure
 @using MirGames.Models
-@model IEnumerable<MirGames.Domain.Topics.ViewModels.TopicsListItem>
+@model IEnumerable<TopicsListItem>
 
 @{
-    ViewBag.Title = ViewBag.Tag != null ? (ViewBag.Tag + " / Блог") :  "Блог";
+    var currentTag = (string)ViewBag.Tag;
+    ViewBag.Title = currentTag != null ? (currentTag.ToTitleCase() + " / Блог") :  "Блог";
     AddPageCssClass("topics-page");
     var topics = this.Model.ToList();
+    var tags = ((IEnumerable<TagViewModel>)ViewBag.Tags).OrderBy(t => t.Tag).ToList();
+    var comments = (IEnumerable<CommentViewModel>)ViewBag.Comments;
 }
 
 <div class="page-header">
@@ -15,10 +20,10 @@
             <h4><a href="@Url.Action(MVC.Topics.Topics.Index())">Блог</a></h4>
             <h3>Новые темы и ответы в блоге</h3>
         }
-        else if (ViewBag.Tag != null)
+        else if (currentTag != null)
         {
             <h4><a href="@Url.Action(MVC.Topics.Topics.Index())">Блог</a></h4>
-            <h3>@ViewBag.Tag</h3>
+            <h3>@currentTag.ToTitleCase()</h3>
         }
         else
         {
@@ -41,5 +46,25 @@
     @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
 </div>
 <div class="last-activities">
-    
+    <h3>Последние комментарии</h3>
+    <div class="comments">
+        @foreach (var comment in comments)
+        {
+            <div class="comment-item">
+                <a href="@Url.Action(MVC.Topics.Topics.Topic(comment.TopicId))">@comment.TopicTitle</a>
+                <div class="short-text">@comment.Text</div>
+                <div class="topic-info"><span class="date relative" datetime="@comment.CreationDate.ToString("O")">@Html.RelativeDate(comment.CreationDate)</span>, <a href="@Url.Action(MVC.Users.Profile(comment.Author.Id.GetValueOrDefault()))">@comment.Author.Login</a></div>
+            </div>
+        }
+    </div>
+    <h3>Тэги</h3>
+    <div class="tags">
+        @{
+            var maxTagsCount = tags.Max(t => t.Count);
+        }
+        @foreach (var tag in tags)
+        {
+            <a href="@Url.Action(MVC.Topics.Topics.Index(tag.Tag.Trim()))" @Html.Css(string.Format("tag-size-{0}", (tag.Count * 5 / maxTagsCount))).Add("selected", tag.Tag.EqualsIgnoreCase(currentTag))>@tag.Tag.Trim()</a>
+        }
+    </div>
 </div>

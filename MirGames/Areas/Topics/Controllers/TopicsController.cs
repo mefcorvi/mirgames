@@ -96,13 +96,16 @@ namespace MirGames.Areas.Topics.Controllers
             var topics = this.QueryProcessor.Process(topicsQuery, paginationSettings);
             var topicsCount = this.QueryProcessor.GetItemsCount(topicsQuery);
             
-            var tags = this.QueryProcessor.Process(new GetMainTagsQuery());
+            var tags = this.QueryProcessor.Process(new GetMainTagsQuery(), new PaginationSettings(0, 50));
             this.ViewBag.Tags = tags;
             this.ViewBag.Tag = tag;
             this.ViewBag.TopicsCount = topicsCount;
             this.ViewBag.RssUrl = this.Url.Action("Rss", "Topics", new { tag, searchString });
             this.ViewBag.Pagination = new PaginationViewModel(
                 paginationSettings, topicsCount, p => this.Url.Action("Index", "Topics", new { tag, searchString, page = p }));
+
+            var comments = this.QueryProcessor.Process(new GetCommentsQuery { LoadOnlyShortText = true }, new PaginationSettings(0, 10));
+            this.ViewBag.Comments = comments;
 
             this.ViewBag.Subsection = "All";
             this.ViewBag.PageData["tag"] = tag;
