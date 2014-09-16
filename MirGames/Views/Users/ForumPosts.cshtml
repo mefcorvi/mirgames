@@ -5,12 +5,7 @@
     AddPageCssClass("user-forum-posts-page");
 }
 
-@section Nav
-{
-    @Html.Partial("_ProfileMenu", Model.User)
-}
-
-@Html.Partial("_UserInfo", Model.User)
+@Html.Partial("_ProfileMenu", Model.User)
 
 @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
 <div class="posts-list">

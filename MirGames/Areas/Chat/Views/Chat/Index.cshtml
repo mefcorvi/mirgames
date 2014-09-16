@@ -45,7 +45,7 @@
 {
     @if (User.IsInRole("ChatMember"))
     {
-        <footer>
+        <div class="chat-answer">
             <div class="answer-form">
                 <form class="new-answer-form" ng-submit="reply.post()" novalidate name="postAnswerForm">
                     <tinyeditor text="reply.message" required="true" post="reply.post()" attachments="reply.attachments" focus="reply.focus" caret="reply.caret" entity-type="chatMessage" use-enter-to-post="{{useEnterToPost}}"></tinyeditor>
@@ -57,11 +57,12 @@
                     </div>
                 </form>
             </div>
-        </footer>
-    } else
+        </div>
+    }
+    else
     {
-        <footer>
+        <div class="chat-answer">
             Вам необходимо войти в систему, прежде чем вы сможете отправлять сообщения.
-        </footer>
+        </div>
     }
 }

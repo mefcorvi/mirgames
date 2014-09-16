@@ -46,16 +46,18 @@
         </div>
         @Html.AntiForgeryToken()
         <header class="header-font">
-            <h1>@Html.ActionLink("MirGames", "Index", "Dashboard", new { Area = "" }, new { title = "На главную" })</h1>
-            <nav>
-                @Html.Partial("_Menu")
-                @Html.Partial("_UserMenu")
-            </nav>
-            <form class="search-form">
-                <div class="form-field">
-                    <input type="text" placeholder="Поиск по сайту..." ng-model="searchQuery" />
-                </div>
-            </form>
+            <div class="wrap">
+                <h1>@Html.ActionLink("MirGames", "Index", "Dashboard", new { Area = "" }, new { title = "На главную" })</h1>
+                <nav>
+                    @Html.Partial("_Menu")
+                    @Html.Partial("_UserMenu")
+                </nav>
+                <form class="search-form">
+                    <div class="form-field">
+                        <input type="text" placeholder="Поиск по сайту..." ng-model="searchQuery" />
+                    </div>
+                </form>
+            </div>
         </header>
         <nav class="toolbar">
             @RenderSection("Nav", required: false)
@@ -75,6 +77,13 @@
             @RenderBody()
         </section>
         @RenderSection("SectionFooter", required: false)
+        <footer>
+            <nav>
+                <a href="">О сайте</a>
+                <a href="">Правила</a>
+                <a href="">Помощь</a>
+            </nav>
+        </footer>
         @Html.Partial("_OnlineUsers", onlineUsers)
         <input type="hidden" id="page-data" value="@Html.ToJson((object)this.ViewBag.PageData).ToString()"/>
         <script type="text/javascript">

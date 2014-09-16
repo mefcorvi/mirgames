@@ -5,6 +5,7 @@
 {
     & > section {
         .forum-topic-list();
+        padding-bottom: @indent/2;
 
         & > .topics-not-found {
             .page-block();
@@ -19,8 +20,6 @@
         }
 
         & > .message-header {
-            padding-left: @indent;
-
             & > .message-content {
             }
 
@@ -31,7 +30,7 @@
         }
 
         & > .message {
-            padding-left: @indent;
+            margin: 0 @indent;
         }
 
         & > .pagination {

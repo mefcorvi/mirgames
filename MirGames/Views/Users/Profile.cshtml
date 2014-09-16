@@ -5,13 +5,16 @@
     AddPageCssClass("user-page");
 }
 
-@section Nav
-{
-    @Html.Partial("_ProfileMenu", Model.User)
-}
+@Html.Partial("_ProfileMenu", Model.User)
 
-<h3>@Model.User.Login</h3>
-@Html.Partial("_UserInfo", Model.User)
+<article class="user-info">
+    <img src="@Model.User.AvatarUrl" class="avatar avatar-big" />
+    <h4>@Model.User.GetName()<div class="user-rating">@Model.User.Rating&nbsp;<i class="fa fa-thumbs-up"></i></div></h4>
+    <div class="user-location">@Model.User.GetAddress()</div>
+    <div class="user-registration-date">С нами уже @Html.RelativeDate(Model.User.RegistrationDate, "{0} {1}")</div>
+    <div class="user-visit-date">Последний раз был в сети <span class="relative" datetime="@Model.User.LastVisitDate.ToString("O")">@Html.RelativeDate(Model.User.LastVisitDate)</span></div>
+    <div class="user-about">@Model.User.About</div>
+</article>
 
 @*<div class="wall-records">
     @if (Model.User.WallRecordCanBeAdded)

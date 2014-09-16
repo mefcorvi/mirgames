@@ -148,12 +148,17 @@ angular
     }]);
 
 $(() => {
-    var bodyPosition = $(document.body).offset();
-    var bodyWidth = $(document.body).outerWidth();
+    var repositionOnlineUsers = () => {
+        var bodyPosition = $(document.body).offset();
+        var bodyWidth = $(document.body).outerWidth();
 
-    $('.online-users').css({
-        'display': 'block',
-        'top': 0,
-        'left': bodyPosition.left + bodyWidth
-    });
+        $('.online-users').css({
+            'display': 'block',
+            'top': 0,
+            'left': bodyPosition.left + bodyWidth
+        });
+    };
+
+    repositionOnlineUsers();
+    $(window).resize(repositionOnlineUsers);
 })

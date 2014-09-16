@@ -8,7 +8,7 @@
 @second-color: spin(@main-color, 120);
 @third-color: spin(@main-color, 240);
 @sub-background: mix(@main-color, @background-color, 15%);
-@page-header-background: mix(@main-color, @background-color, 5%);
+@page-header-background: @background-color;
 
 @section-width: 180px;
 @menu-width: 180px;
@@ -23,7 +23,7 @@
 
 @section-link-height: 42px;
 
-@link-color: saturate(@main-color, 20%);
+@link-color: hsl(205.2, 69%, 34.7%);
 @link-color-hover: lighten(spin(@link-color, 120), 20%);
 
 @date-color: darken(saturate(spin(@main-color, -140), 50%), 10%);
@@ -110,6 +110,11 @@
 .header-font() {
     font-family: "Droid Sans", Tahoma, sans-serif;
 }
+
+.small-header-font() {
+    font-family: Tahoma, sans-serif;
+}
+
 
 .button-font() {
     font-family: "Droid Sans", Tahoma, sans-serif;
@@ -327,11 +332,11 @@
 
 .page-header() {
     background: @page-header-background;
-    padding: @indent/2 @indent;
+    margin: @indent @indent;
     margin-bottom: @indent/2;
     .box-sizing(border-box);
     padding-bottom: @indent/2 - 1px;
-    border-bottom: 1px solid @sub-background;
+    // border-bottom: 1px solid @border-color;
     display: table;
     table-layout: fixed;
 
@@ -355,9 +360,12 @@
     & > .buttons {
         display: table-cell;
         vertical-align: middle;
+        white-space: nowrap;
 
         a {
             white-space: nowrap;
+            float: none;
+            display: inline-block;
         }
     }
 }

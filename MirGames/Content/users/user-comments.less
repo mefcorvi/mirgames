@@ -4,18 +4,13 @@
 
 .user-comments-page {
     & > section {
-        .indent();
-
-        & > h3 {
-            .page-title()
-        }
-
-        & > .user-info {
-            .user-info();
+        & > .page-header {
+            margin-bottom: 0;
         }
 
         & > .comments-list {
-            .topic-title {
+           padding: 0 @indent;
+             .topic-title {
                 .header-font();
                 .font-size(1.5);
             }

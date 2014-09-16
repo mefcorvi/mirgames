@@ -4,17 +4,12 @@
 
 .user-topics-page {
     & > section {
-        .indent();
-
-        & > h3 {
-            .page-title()
-        }
-
-        & > .user-info {
-            .user-info();
+        & > .page-header {
+            margin-bottom: 0;
         }
 
         & > .topics-list {
+            padding: 0 @indent;
             .topics-list-item();
         }
     }

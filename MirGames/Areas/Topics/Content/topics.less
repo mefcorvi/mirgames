@@ -33,16 +33,21 @@ body > nav > h1 {
         }
 
         & > .topics-list {
-            .indent();
             .topics-list-item();
-            margin-top: @indent/2;
 
             & > .message {
+                padding-left: @indent;
+                padding-right: @indent;
             }
 
             & > .message > .message-content > header {
                 .font-size(2);
                 margin-bottom: @indent/2;
+            }
+
+            & > .pagination {
+                padding-left: @indent;
+                padding-right: @indent;
             }
         }
 

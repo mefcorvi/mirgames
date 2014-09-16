@@ -3,18 +3,14 @@
 
 .user-forum-posts-page {
     & > section {
-        .indent();
-
-        & > h3 {
-            .page-title()
-        }
-
-        & > .user-info {
-            .user-info();
+        & > .page-header {
+            margin-bottom: 0;
         }
 
         & > .posts-list {
-            & > .message {
+          padding: 0 @indent;
+
+             & > .message {
                 .page-block(@indent/2, @indent);
                 overflow: hidden;
                 position: relative;
