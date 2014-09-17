@@ -79,6 +79,11 @@ namespace MirGames.Domain.Forum.Entities
         public int PostsCount { get; set; }
 
         /// <summary>
+        /// Gets or sets the visits.
+        /// </summary>
+        public int Visits { get; set; }
+
+        /// <summary>
         /// Gets or sets the posts.
         /// </summary>
         public ICollection<ForumPost> Posts { get; set; }

@@ -106,6 +106,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
                         },
                     Description = project.Description,
                     ShortDescription = this.textProcessor.GetShortText(project.Description),
+                    Genre = project.Genre,
                     Alias = project.Alias,
                     FollowersCount = project.FollowersCount,
                     ProjectId = project.ProjectId,

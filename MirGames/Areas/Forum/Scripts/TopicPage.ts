@@ -18,11 +18,13 @@ module MirGames.Forum {
                 attachments: [],
                 topicId: this.pageData.topicId,
                 post: this.reply.bind(this),
-                focus: false
+                focus: false,
+                caret: 0
             };
 
             $scope.hidePost = this.hidePost.bind(this);
             $scope.reloadPost = this.reloadPost.bind(this);
+            $scope.addMention = login => this.addMention(login);
 
             this.$scope.focusAnswer = this.focusAnswer.bind(this);
 
@@ -148,6 +150,17 @@ module MirGames.Forum {
                 });
             });
         }
+
+        private addMention(login: string): void {
+            if (this.$scope.reply.text.length > 0) {
+                this.$scope.reply.text += "\r\n\r\n";
+            }
+
+            this.$scope.reply.text += '**' + login + '**  \r\n';
+            this.$scope.reply.focus = true;
+            this.$scope.reply.caret = this.$scope.reply.text.length;
+            this.scrollToBottom();
+        }
     }
 
     export interface ITopicPageData extends IPageData {
@@ -164,6 +177,7 @@ module MirGames.Forum {
             attachments: number[];
             post(): void;
             focus: boolean;
+            caret: number;
         };
         posts: MirGames.Domain.Forum.ViewModels.ForumPostViewModel[];
         hidePost(postId: number): void;
@@ -175,5 +189,6 @@ module MirGames.Forum {
         answersLoading: boolean;
         returnBack: () => void;
         postAnswerForm: ng.IFormController;
-    }
+        addMention: (login: string) => void;
+}
 }

@@ -80,7 +80,9 @@ namespace MirGames.Domain.Notifications.CommandHandlers
             }).ToArray();
 
             var notificationsCollection = this.mongoDatabaseFactory.CreateDatabase().GetCollection<Notification>("notifications");
-            notificationsCollection.CreateIndex("NotificationTypeId", "UserId", "Data._t");
+            notificationsCollection.CreateIndex("NotificationTypeId");
+            notificationsCollection.CreateIndex("UserId");
+            notificationsCollection.CreateIndex("Data._t");
             notificationsCollection.InsertBatch(notifications);
 
             this.eventBus.Raise(new NotificationsAddedEvent

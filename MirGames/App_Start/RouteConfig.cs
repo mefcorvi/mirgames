@@ -44,6 +44,21 @@ namespace MirGames
                 new { controller = "Git", action = "ReceivePack" });
 
             routes.MapRoute(
+                "AboutPage",
+                "about",
+                new { controller = "Pages", action = "About" });
+
+            routes.MapRoute(
+                "RulesPage",
+                "rules",
+                new { controller = "Pages", action = "Rules" });
+
+            routes.MapRoute(
+                "HelpPage",
+                "help",
+                new { controller = "Pages", action = "Help" });
+
+            routes.MapRoute(
                 "OAuthItem",
                 "auth",
                 new { controller = "OAuth", action = "Index" });

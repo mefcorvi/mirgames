@@ -55,7 +55,7 @@ namespace MirGames.Areas.Projects.Controllers
             var projects = this.QueryProcessor.Process(query, paginationSettings);
             var projectsCount = this.QueryProcessor.GetItemsCount(query);
 
-            var tags = this.QueryProcessor.Process(new GetWipTagsQuery());
+            var tags = this.QueryProcessor.Process(new GetWipTagsQuery(), new PaginationSettings(0, 50));
             ViewBag.Tags = tags;
             ViewBag.Tag = tag;
 

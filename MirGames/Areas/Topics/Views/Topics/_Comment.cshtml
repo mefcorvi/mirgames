@@ -5,7 +5,7 @@
             <img src="@Model.Author.AvatarUrl" class="avatar" />
         </a>
         <a href="@Url.Action(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login">@Model.Author.Login</a>
-        <span class="comment-date">(@Html.DisplayFor(c => c.CreationDate))</span>
+        <span class="comment-date relative" datetime="@Model.CreationDate.ToString("O")">@Html.RelativeDate(Model.CreationDate)</span>
         <div class="message-bar">
             @if (Model.CanBeEdited)
             {
@@ -21,7 +21,7 @@
             }
             @if (Model.UpdatedDate > Model.CreationDate)
             {
-                <div class="edited">Отредактировано: @Html.DisplayFor(m => m.UpdatedDate)</div>
+                <div class="edited">Отредактировано: <span class="relative" datetime="@Model.UpdatedDate.GetValueOrDefault().ToString("O")">@Html.RelativeDate(Model.UpdatedDate.GetValueOrDefault())</span></div>
             }
         </div>
     </header>

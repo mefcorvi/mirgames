@@ -20,6 +20,7 @@ var filePath = {
         "../Content/tools/*.less",
         "../Content/ui/*.less",
         "../Content/users/*.less",
+        "../Content/pages/*.less",
         "../Content/*.less",
         "../Areas/**/*.less",
         '../temp/zenburn.min.css'

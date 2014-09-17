@@ -90,6 +90,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
                 AuthorIp = t.AuthorIp,
                 CreatedDate = t.CreatedDate,
                 PostsCount = t.PostsCount,
+                Visits = t.Visits,
                 Title = t.Title,
                 TopicId = t.TopicId,
                 TagsList = t.TagsList,

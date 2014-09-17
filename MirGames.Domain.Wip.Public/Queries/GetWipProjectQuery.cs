@@ -9,11 +9,13 @@
 namespace MirGames.Domain.Wip.Queries
 {
     using MirGames.Domain.Wip.ViewModels;
+    using MirGames.Infrastructure.Commands;
     using MirGames.Infrastructure.Queries;
 
     /// <summary>
     /// Returns the WIP project.
     /// </summary>
+    [Api]
     public sealed class GetWipProjectQuery : SingleItemQuery<WipProjectViewModel>
     {
         /// <summary>

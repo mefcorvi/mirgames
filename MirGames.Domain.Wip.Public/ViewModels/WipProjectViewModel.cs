@@ -40,6 +40,11 @@ namespace MirGames.Domain.Wip.ViewModels
         public string Description { get; set; }
 
         /// <summary>
+        /// Gets or sets the genre.
+        /// </summary>
+        public string Genre { get; set; }
+
+        /// <summary>
         /// Gets or sets the author.
         /// </summary>
         public AuthorViewModel Author { get; set; }

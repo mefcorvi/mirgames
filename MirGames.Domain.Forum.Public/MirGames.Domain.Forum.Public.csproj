@@ -40,7 +40,7 @@
     <Compile Include="Commands\UpgradeForumCommand.cs" />
     <Compile Include="Commands\UpdateForumPostCommand.cs" />
     <Compile Include="Commands\MarkAllTopicsAsReadCommand.cs" />
-    <Compile Include="Commands\MarkTopicAsReadCommand.cs" />
+    <Compile Include="Commands\MarkTopicAsVisitedCommand.cs" />
     <Compile Include="Commands\PostNewForumTopicCommand.cs" />
     <Compile Include="Commands\ReindexForumTopicsCommand.cs" />
     <Compile Include="Commands\ReplyForumTopicCommand.cs" />

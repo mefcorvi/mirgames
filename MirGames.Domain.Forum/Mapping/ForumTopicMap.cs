@@ -40,6 +40,7 @@ namespace MirGames.Domain.Forum.Mapping
             this.Property(t => t.LastPostAuthorId).HasColumnName("last_post_author_id");
             this.Property(t => t.LastPostAuthorLogin).HasColumnName("last_post_author_login");
             this.Property(t => t.PostsCount).HasColumnName("posts_count");
+            this.Property(t => t.Visits).HasColumnName("visits");
             this.Property(t => t.TagsList).IsRequired().HasMaxLength(1024).HasColumnName("tags_list");
             this.Property(t => t.ForumId).HasColumnName("forum_id");
             this.Property(t => t.Title).IsRequired().HasMaxLength(1024).HasColumnName("title");

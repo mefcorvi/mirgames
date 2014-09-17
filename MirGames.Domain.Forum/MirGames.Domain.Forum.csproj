@@ -107,7 +107,7 @@
     <Compile Include="CommandHandlers\DeleteForumPostCommandHandler.cs" />
     <Compile Include="CommandHandlers\UpdateForumPostCommandHandler.cs" />
     <Compile Include="CommandHandlers\MarkAllTopicsAsReadCommandHandler.cs" />
-    <Compile Include="CommandHandlers\MarkTopicAsReadCommandHandler.cs" />
+    <Compile Include="CommandHandlers\MarkTopicAsVisitedCommandHandler.cs" />
     <Compile Include="CommandHandlers\PostNewForumTopicCommandHandler.cs" />
     <Compile Include="CommandHandlers\ReindexForumTopicCommandHandler.cs" />
     <Compile Include="CommandHandlers\ReindexForumTopicsCommandHandler.cs" />

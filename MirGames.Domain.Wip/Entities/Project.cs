@@ -10,8 +10,6 @@ namespace MirGames.Domain.Wip.Entities
 {
     using System;
 
-    using MirGames.Infrastructure;
-
     /// <summary>
     /// The comment entity.
     /// </summary>
@@ -36,6 +34,11 @@ namespace MirGames.Domain.Wip.Entities
         /// Gets or sets the description.
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the genre.
+        /// </summary>
+        public string Genre { get; set; }
 
         /// <summary>
         /// Gets or sets the author unique identifier.

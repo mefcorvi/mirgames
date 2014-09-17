@@ -14,18 +14,19 @@ namespace MirGames.Domain.Wip.QueryHandlers
 
     using MirGames.Domain.Wip.Entities;
     using MirGames.Domain.Wip.Queries;
+    using MirGames.Domain.Wip.ViewModels;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Queries;
 
     /// <summary>
     /// Handles the GetWipTagsQuery.
     /// </summary>
-    internal sealed class GetWipTagsQueryHandler : QueryHandler<GetWipTagsQuery, string>
+    internal sealed class GetWipTagsQueryHandler : QueryHandler<GetWipTagsQuery, WipTagViewModel>
     {
         /// <inheritdoc />
-        protected override IEnumerable<string> Execute(IReadContext readContext, GetWipTagsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
+        protected override IEnumerable<WipTagViewModel> Execute(IReadContext readContext, GetWipTagsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
-            return this.GetTagsQuery(readContext, query).Take(20).OrderBy(t => t);
+            return this.ApplyPagination(this.GetTagsQuery(readContext, query), pagination).ToList();
         }
 
         /// <inheritdoc />
@@ -42,7 +43,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
         /// <returns>
         /// The tags query.
         /// </returns>
-        private IQueryable<string> GetTagsQuery(IReadContext readContext, GetWipTagsQuery query)
+        private IQueryable<WipTagViewModel> GetTagsQuery(IReadContext readContext, GetWipTagsQuery query)
         {
             var set = readContext
                 .Query<ProjectTag>();
@@ -55,7 +56,11 @@ namespace MirGames.Domain.Wip.QueryHandlers
             return set
                 .GroupBy(t => t.TagText, (tag, rows) => new { Tag = tag, Count = rows.Count() })
                 .OrderByDescending(t => t.Count)
-                .Select(t => t.Tag);
+                .Select(t => new WipTagViewModel
+                {
+                    Tag = t.Tag,
+                    Count = t.Count
+                });
         }
     }
 }

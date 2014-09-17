@@ -1,35 +1,29 @@
 ﻿@model MirGames.Domain.Wip.ViewModels.WipProjectViewModel
 <article @Html.Css("project")>
-    @if (!string.IsNullOrEmpty(Model.LogoUrl))
-    {
-        <div class="logo">
-            <img src="@Model.LogoUrl" />
-        </div>
-    }
-    else
-    {
-        <div class="logo">
-            <img src="" />
-        </div>
-    }
     <div class="project-info">
-        <h1><a href="@Url.Action("Project", "Projects", new { projectAlias = Model.Alias })">@Model.Title</a></h1>
-        <div class="project-description text">@Model.ShortDescription</div>
-        @if (!string.IsNullOrEmpty(@Model.LastCommitMessage))
-        {
-            <div class="last-commit-message text">Последний коммит: @Model.LastCommitMessage</div>
-        }
-        <footer>
-            <a href="@Url.Action("Profile", "Users", new { userId = Model.Author.Id })" class="user-login avatar-link"><img src="@Model.Author.AvatarUrl" class="avatar avatar-tiny" /><span>@Model.Author.Login</span></a>
-            <span class="creation-date" title="Дата последнего изменения"><i class="fa fa-clock-o"></i>@Model.UpdatedDate.Format()</span>
-            <span class="followers-count" title="Наблюдатели"><i class="fa fa-eye"></i>@Model.FollowersCount</span>
-            <span class="votes" title="Рейтинг"><i class="fa fa-thumbs-up"></i>@Model.Votes</span>
-            <ul class="tags">
+        <a class="avatar-link" href="@Url.Action(MVC.Projects.Projects.Project(Model.Alias))"><img src="@Model.LogoUrl" class="avatar avatar-small" /></a>
+        <div class="project-title">
+            <a class="project-title" href="@Url.Action(MVC.Projects.Projects.Project(Model.Alias))">@Model.Title</a>
+            <div class="short-description">@Model.ShortDescription</div>
+            <div class="tags">
                 @foreach (var tag in Model.Tags)
                 {
-                    <li>@Html.ActionLink(tag.Trim(), "Index", "Projects", new { tag = tag.Trim() }, null)</li>
+                    <span><a href="@Url.Action(MVC.Projects.Projects.Index(tag.Trim()))">@tag.Trim()</a></span>
                 }
-            </ul>
-        </footer>
+            </div>
+        </div>
+        <div @Html.Css("genre")>
+            @Model.Genre
+        </div>
+        <div @Html.Css("project-rating")>
+            @Model.Votes&nbsp;<i class="fa fa-thumbs-up"></i>
+        </div>
+        <div @Html.Css("followers-count")>
+            @Model.FollowersCount&nbsp;<i class="fa fa-eye"></i>
+        </div>
+
+        <div class="project-updated">
+            <span class="relative" datetime="@Model.UpdatedDate.ToString("O")">@Html.RelativeDate(Model.UpdatedDate)</span>
+        </div>
     </div>
 </article>

@@ -77,6 +77,11 @@ namespace MirGames.Domain.Forum.ViewModels
         public int? UnreadPostsCount { get; set; }
 
         /// <summary>
+        /// Gets or sets the visits.
+        /// </summary>
+        public int Visits { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether this topic was been read by current user.
         /// </summary>
         public bool IsRead { get; set; }

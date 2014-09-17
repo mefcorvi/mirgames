@@ -31,7 +31,7 @@ namespace MirGames.Domain.Notifications.CommandHandlers
     /// <summary>
     /// Handles the login command.
     /// </summary>
-    internal sealed class RemoveNotificationsCommandHandler : CommandHandler<RemoveNotificationsCommand>
+    internal sealed class RemoveNotificationsCommandHandler : CommandHandler<RemoveNotificationsCommand, int>
     {
         /// <summary>
         /// The mongo database factory.
@@ -69,7 +69,7 @@ namespace MirGames.Domain.Notifications.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(
+        public override int Execute(
             RemoveNotificationsCommand command,
             ClaimsPrincipal principal,
             IAuthorizationManager authorizationManager)
@@ -115,13 +115,19 @@ namespace MirGames.Domain.Notifications.CommandHandlers
                 })
                 .ToArray();
 
-            var mongoQuery = new MongoQueryProvider(collection).BuildMongoQuery((MongoQueryable<Notification>)notificationsQuery);
-            collection.Remove(mongoQuery);
-
-            this.eventBus.Raise(new NotificationsRemovedEvent
+            if (notifications.Length > 0)
             {
-                Notifications = notifications
-            });
+                var mongoQuery =
+                    new MongoQueryProvider(collection).BuildMongoQuery((MongoQueryable<Notification>)notificationsQuery);
+                collection.Remove(mongoQuery);
+
+                this.eventBus.Raise(new NotificationsRemovedEvent
+                {
+                    Notifications = notifications
+                });
+            }
+
+            return notifications.Length;
         }
     }
 }

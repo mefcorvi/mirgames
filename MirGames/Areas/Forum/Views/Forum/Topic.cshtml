@@ -73,7 +73,7 @@
         <a class="message-index" href="#{{post.Index}}" id="{{post.Index}}">#{{post.Index}}</a>
         <div class="author-block">
             <div class="author-name">
-                <a author-link="post.Author.Id" class="user-login" ng-show="post.Author.Id > 0">{{post.Author.Login}}</a>
+                <a href="javascript:void(0);" ng-click="addMention(post.Author.Login)" class="topic-author" title="Вставить логин в форму ответа" ng-show="post.Author.Id > 0">{{post.Author.Login}}</a>
                 <span class="user-login" ng-show="post.Author.Id <= 0">{{post.Author.Login}}</span>
             </div>
             <div class="avatar">
@@ -116,7 +116,7 @@
     <div class="answer-form">
         <h4 id="new-answer">Ответить</h4>
         <form class="new-answer-form" ng-submit="reply.post()" novalidate name="postAnswerForm">
-            <texteditor text="reply.text" required="true" show-preview="true" post="reply.post()" attachments="reply.attachments" focus="reply.focus" entity-type="forumPost"></texteditor>
+            <texteditor text="reply.text" required="true" show-preview="true" post="reply.post()" caret="reply.caret" attachments="reply.attachments" focus="reply.focus" entity-type="forumPost"></texteditor>
             <div class="buttons">
                 <a href="javascript:void(0);" ng-click="reply.post()" ng-class="{ 'button-disabled': postAnswerForm.$invalid }" class="button">Отправить</a>
             </div>

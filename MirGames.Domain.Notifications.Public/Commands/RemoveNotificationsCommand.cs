@@ -20,7 +20,7 @@ namespace MirGames.Domain.Notifications.Commands
     /// <summary>
     /// Removes the notifications.
     /// </summary>
-    public sealed class RemoveNotificationsCommand : Command
+    public sealed class RemoveNotificationsCommand : Command<int>
     {
         /// <summary>
         /// Gets or sets the notification identifiers.

@@ -39,6 +39,7 @@ public static partial class MVC
     public static MirGames.Controllers.ErrorController Error = new MirGames.Controllers.T4MVC_ErrorController();
     public static MirGames.Controllers.GitController Git = new MirGames.Controllers.T4MVC_GitController();
     public static MirGames.Controllers.OAuthController OAuth = new MirGames.Controllers.T4MVC_OAuthController();
+    public static MirGames.Controllers.PagesController Pages = new MirGames.Controllers.T4MVC_PagesController();
     public static MirGames.Controllers.ToolsController Tools = new MirGames.Controllers.T4MVC_ToolsController();
     public static MirGames.Controllers.UsersController Users = new MirGames.Controllers.T4MVC_UsersController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();

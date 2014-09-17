@@ -7,7 +7,14 @@
     }
     <div class="author-block">
         <div class="author-name">
-            @Author.UserLink(Model.Author, "topic-author")
+            @if (Model.Author.Id > 0)
+            {
+                <a href="javascript:void(0)" ng-click="addMention('@Model.Author.Login')" class="topic-author" title="Вставить логин в форму ответа">@(Model.Author.Login)</a>
+            }
+            else
+            {
+                <span class="topic-author">@(Model.Author.Login)</span>
+            }
         </div>
         <div class="avatar">
             @Author.UserAvatarLink(Model.Author, "author-avatar")

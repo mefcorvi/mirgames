@@ -33,7 +33,7 @@
             </a>
             <a class="user-login" href="javascript:void(0)" ng-click="quoteLogin(message.login)">{{message.login}}</a>
         </header>
-        <div ng-class="{ 'date': !message.editDate, 'edit-date': message.editDate  }" ng-show="message.showDate"><i class="fa fa-pencil"></i>{{(message.editDate || message.date) | date:message.dateFormat}}</div>
+        <div ng-class="{ 'date': !message.editDate, 'edit-date': message.editDate }" class="relative" ng-show="message.showDate"><i class="fa fa-pencil"></i>{{(message.editDate || message.date) | date:message.dateFormat}}</div>
         <div class="message-toolbar">
             <a href="javascript:void(0)" ng-click="$parent.editMessage(message)" ng-show="message.canBeEdited"><i class="fa fa-pencil-square-o"></i></a>
         </div>

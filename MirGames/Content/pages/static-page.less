@@ -1,0 +1,15 @@
+﻿body {} @import "../settings.less";
+
+.static-page {
+    & > section {
+        padding-bottom: @indent;
+
+        & > .page-header {
+            margin-bottom: 0;
+        }
+
+        & > .text {
+            padding: 0 @indent;
+        }
+    }
+}

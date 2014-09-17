@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -24,7 +23,6 @@
     <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -277,6 +275,7 @@
     <Compile Include="AccountController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Infrastructure\AntiForgeryAttribute.cs" />
     <Content Include="App_Code\UrlHelperExtensions.cs" />
     <Compile Include="AppController.generated.cs">
@@ -315,6 +314,9 @@
     <Compile Include="Infrastructure\Recaptcha\RecaptchaVerificationProcessor.cs" />
     <Compile Include="Infrastructure\Recaptcha\RecaptchaVerificationResult.cs" />
     <Compile Include="OAuthController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PagesController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Projects.ProjectsController.generated.cs">
@@ -420,6 +422,7 @@
     <Content Include="Areas\Projects\Content\item-block-template.html" />
     <Content Include="Areas\Projects\Content\work-item-blocks.html" />
     <Content Include="Areas\Projects\Content\work-items-list.html" />
+    <Content Include="Content\pages\static-page.less" />
     <None Include="Content\quick-date.less" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\droidsans-webfont.svg" />
@@ -731,6 +734,9 @@
     <Content Include="Areas\Projects\Views\Projects\_AddWorkItemDialog.cshtml" />
     <None Include="T4MVC.tt.hooks.t4" />
     <None Include="tools\package.json" />
+    <Content Include="Views\Pages\About.cshtml" />
+    <Content Include="Views\Pages\Rules.cshtml" />
+    <Content Include="Views\Pages\Help.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -853,15 +859,14 @@
     <Content Include="Areas\Projects\Scripts\WorkItemDialogController.ts" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Areas\Forum\Scripts\TopicsPage.ts" />
-    <TypeScriptCompile Include="Scripts\Libs\selectize.d.ts" />
+    <None Include="Areas\Forum\Scripts\TopicsPage.ts" />
+    <None Include="Scripts\Libs\selectize.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">

@@ -1,10 +1,14 @@
 ﻿@using MirGames.Domain.Security
+@using MirGames.Domain.Wip.ViewModels
+@using MirGames.Infrastructure
 @using MirGames.Models
-@model IEnumerable<MirGames.Domain.Wip.ViewModels.WipProjectViewModel>
+@model IEnumerable<WipProjectViewModel>
 
 @{
     ViewBag.Title = ViewBag.SectionTitle ?? "Проекты в разработке";
     AddPageCssClass("wip-page");
+    var tags = (IEnumerable<WipTagViewModel>)ViewBag.Tags;
+    var currentTag = (string)ViewBag.Tag;
 }
 
 <div class="page-header">
@@ -27,9 +31,43 @@
 }
 
 <div class="projects-list">
-@foreach (var user in Model)
-{
-    @Html.Partial("_ProjectListItem", user)
-}
+    <article @Html.Css("project").Add("project-header")>
+        <div class="project-info">
+            <span class="avatar-link"></span>
+            <div class="project-title">
+                Проект
+            </div>
+            <div @Html.Css("genre")>
+                Жанр
+            </div>
+            <div @Html.Css("project-rating")>
+                Рейтинг
+            </div>
+            <div @Html.Css("followers-count")>
+                Подписчики
+            </div>
+            <div class="project-updated">
+                Дата обновления
+            </div>
+        </div>
+    </article>
+
+    @foreach (var user in Model)
+    {
+        @Html.Partial("_ProjectListItem", user)
+    }
+    
+    @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
 </div>
-@Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
+<div class="projects-more-info">
+    <h3>Тэги</h3>
+    <div class="tags tags-cloud">
+        @{
+            var maxTagsCount = tags.Max(t => t.Count);
+        }
+        @foreach (var tag in tags)
+        {
+            <a href="@Url.Action(MVC.Projects.Projects.Index(tag.Tag.Trim()))" @Html.Css(string.Format("tag-size-{0}", (tag.Count * 5 / maxTagsCount))).Add("selected", tag.Tag.EqualsIgnoreCase(currentTag))>@tag.Tag.Trim()</a>
+        }
+    </div>
+</div>

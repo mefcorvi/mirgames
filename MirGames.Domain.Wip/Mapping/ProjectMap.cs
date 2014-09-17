@@ -41,6 +41,7 @@ namespace MirGames.Domain.Wip.Mapping
             this.Property(t => t.RepositoryId).HasColumnName("repository_id").IsOptional();
             this.Property(t => t.RepositoryType).HasColumnName("repository_type").IsOptional();
             this.Property(t => t.BlogId).HasColumnName("blog_id").IsOptional();
+            this.Property(t => t.Genre).HasColumnName("genre").IsOptional();
         }
     }
 }
