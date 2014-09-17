@@ -45,6 +45,9 @@ else
             </div>
         </div>
     </article>
-    @Html.Partial("_ForumTopicsList")
+    foreach (var topic in Model)
+    {
+        @Html.Partial("_ForumTopicListItem", topic)
+    }
     @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
 }

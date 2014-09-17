@@ -185,7 +185,13 @@ namespace MirGames.Domain.Forum.CommandHandlers
                 EntityType = "ForumTopic"
             });
 
-            this.eventBus.Raise(new ForumTopicCreatedEvent { TopicId = topic.TopicId, AuthorId = author.Id, CreationDate = topic.CreatedDate });
+            this.eventBus.Raise(new ForumTopicCreatedEvent
+            {
+                TopicId = topic.TopicId,
+                ForumId = topic.ForumId,
+                AuthorId = author.Id,
+                CreationDate = topic.CreatedDate
+            });
 
             return topic.TopicId;
         }

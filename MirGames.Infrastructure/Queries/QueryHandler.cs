@@ -54,7 +54,7 @@ namespace MirGames.Infrastructure.Queries
             Contract.Requires(query != null);
             Contract.Requires(principal != null);
 
-            return this.Execute(readContext, (T)query, principal, pagination);
+            return this.Execute(readContext, (T)query, principal, pagination).EnsureCollection();
         }
 
         /// <summary>

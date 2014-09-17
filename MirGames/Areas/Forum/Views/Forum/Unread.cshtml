@@ -1,6 +1,7 @@
-﻿@using MirGames.Domain.Security
+﻿@using MirGames.Domain.Forum.ViewModels
+@using MirGames.Infrastructure.Queries
 @using MirGames.Models
-@model IEnumerable<MirGames.Domain.Forum.ViewModels.ForumTopicsListItemViewModel>
+@model IEnumerable<ForumTopicsListItemViewModel>
 
 @{
     ViewBag.Title = "Новые темы / Форум";
@@ -41,6 +42,44 @@ else
             </div>
         </div>
     </article>
-    @Html.Partial("_ForumTopicsList")
+    foreach (var topic in Model)
+    {
+        <article @Html.Css("message").Add("unread", !topic.IsRead).Add("read", topic.IsRead)>
+            <div class="message-content">
+                <div class="topic-title-block">
+                    <span class="forum-title"><a href="@Url.Action(MVC.Forum.Forum.Topics(topic.Forum.Alias))">@topic.Forum.Title</a></span>
+                    @if (@topic.UnreadPostsCount.HasValue)
+                    {
+                        <a href="@(Url.Action(MVC.Forum.Forum.Topic(topic.Forum.Alias, topic.TopicId, PaginationSettings.GetItemPage(topic.PostsCount - topic.UnreadPostsCount.Value, 20) + 1)) + "#first-unread")"
+                           class="topic-title">@topic.Title<span>(+@topic.UnreadPostsCount.GetValueOrDefault())</span></a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action(MVC.Forum.Forum.Topic(topic.Forum.Alias, topic.TopicId, 1))" class="topic-title">@topic.Title</a>
+                    }
+                    <div class="topic-pagination">
+                        @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.TopicsPagination[topic.TopicId])
+                    </div>
+                    <div class="short-description text">@topic.ShortDescription</div>
+                    <footer>
+                        <span class="created-date"><span class="topic-created-date relative" datetime="@topic.CreatedDate.ToString("O")">@Html.RelativeDate(topic.CreatedDate)</span></span>,
+                        <span class="author">
+                            @Author.UserLink(topic.Author, "topic-author")
+                        </span>
+                    </footer>
+                </div>
+                <div @Html.Css("replies-count")>
+                    <span>@(topic.PostsCount - 1)</span>
+                </div>
+                <div @Html.Css("visits-count")>
+                    @topic.Visits
+                </div>
+                <div class="last-post-info">
+                    @Author.UserAvatarLink(topic.LastPostAuthor, "avatar-small", "user-login", true)
+                    <span class="topic-updated-date relative" datetime="@topic.UpdatedDate.ToString("O")">@Html.RelativeDate(topic.UpdatedDate)</span>
+                </div>
+            </div>
+        </article>
+    }
     @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
 }

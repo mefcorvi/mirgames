@@ -42,6 +42,9 @@ namespace MirGames.Areas.Forum.Controllers
         public virtual ActionResult Index()
         {
             var forums = this.QueryProcessor.Process(new GetForumsQuery()).ToList();
+            var unreadForums = new HashSet<int>(this.QueryProcessor.Process(new GetUnreadForumsQuery()));
+
+            this.ViewBag.UnreadForums = unreadForums;
             this.ViewBag.Subsection = "All";
 
             return this.View(forums.Where(f => f.IsRetired == false));
@@ -163,10 +166,7 @@ namespace MirGames.Areas.Forum.Controllers
             return new RssActionResult(feed);
         }
 
-        /// <summary>
-        /// Creates the topic.
-        /// </summary>
-        /// <returns>The action result.</returns>
+        /// <inheritdoc />
         [Authorize(Roles = "User")]
         public virtual ActionResult New(string forumAlias)
         {

@@ -51,6 +51,7 @@
     <Compile Include="Events\ForumTopicReadEvent.cs" />
     <Compile Include="Events\ForumTopicRepliedEvent.cs" />
     <Compile Include="Events\ForumTopicUnreadEvent.cs" />
+    <Compile Include="Notifications\ForumTopicNotificationData.cs" />
     <Compile Include="Notifications\NewForumAnswerNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetForumNotificationsCountQuery.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Queries\GetForumTopicsQuery.cs" />
     <Compile Include="Queries\GetForumTopicQuery.cs" />
     <Compile Include="Queries\GetForumTagsQuery.cs" />
+    <Compile Include="Queries\GetUnreadForumsQuery.cs" />
     <Compile Include="ViewModels\ForumPostForEditViewModel.cs" />
     <Compile Include="ViewModels\ForumPostViewModel.cs" />
     <Compile Include="ViewModels\ForumPostsListItemViewModel.cs" />

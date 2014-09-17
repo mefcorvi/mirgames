@@ -14,7 +14,6 @@ namespace MirGames.Domain.Forum.EventListeners
     using MirGames.Domain.Forum.Commands;
     using MirGames.Domain.Forum.Events;
     using MirGames.Domain.Forum.Notifications;
-    using MirGames.Domain.Forum.ViewModels;
     using MirGames.Domain.Notifications.Commands;
     using MirGames.Domain.Users.Queries;
     using MirGames.Infrastructure;
@@ -58,7 +57,7 @@ namespace MirGames.Domain.Forum.EventListeners
             
             this.commandProcessor.Execute(new NotifyUsersCommand
             {
-                Data = new NewForumTopicNotification { TopicId = @event.TopicId },
+                Data = new NewForumTopicNotification { TopicId = @event.TopicId, ForumId = @event.ForumId },
                 UserIdentifiers = users.ToArray()
             });
         }

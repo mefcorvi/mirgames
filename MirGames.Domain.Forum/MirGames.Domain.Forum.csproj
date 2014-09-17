@@ -145,6 +145,7 @@
     <Compile Include="QueryHandlers\GetForumTopicsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetForumTopicQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetForumTagsQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetUnreadForumsQueryHandler.cs" />
     <Compile Include="Services\ForumPostUploadProcessor.cs" />
     <Compile Include="UserSettings\UseContiniousPaginationSetting.cs" />
   </ItemGroup>

@@ -682,7 +682,6 @@
     <Content Include="Views\Users\_UserListItem.cshtml" />
     <Content Include="Views\Users\_WallRecord.cshtml" />
     <Content Include="Areas\Forum\Views\Forum\Topics.cshtml" />
-    <Content Include="Areas\Forum\Views\Forum\_ForumTopicsList.cshtml" />
     <Content Include="Areas\Forum\Views\Forum\_ForumTopicListItem.cshtml" />
     <Content Include="Areas\Forum\Views\Forum\Topic.cshtml" />
     <Content Include="Areas\Forum\Views\Forum\_ForumPostListItem.cshtml" />

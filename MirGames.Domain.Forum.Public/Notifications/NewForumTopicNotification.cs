@@ -9,15 +9,8 @@
 
 namespace MirGames.Domain.Forum.Notifications
 {
-    using MirGames.Domain.Notifications.ViewModels;
-
-    public sealed class NewForumTopicNotification : NotificationData
+    public sealed class NewForumTopicNotification : ForumTopicNotificationData
     {
-        /// <summary>
-        /// Gets or sets the topic identifier.
-        /// </summary>
-        public int TopicId { get; set; }
-
         /// <inheritdoc />
         public override string NotificationType
         {

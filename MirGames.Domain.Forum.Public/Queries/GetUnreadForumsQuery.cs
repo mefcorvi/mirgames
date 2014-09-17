@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="NewForumAnswerNotification.cs">
+// <copyright company="MirGames" file="GetUnreadForumsQuery.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -7,19 +7,14 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MirGames.Domain.Forum.Notifications
+namespace MirGames.Domain.Forum.Queries
 {
-    public sealed class NewForumAnswerNotification : ForumTopicNotificationData
-    {
-        /// <summary>
-        /// Gets or sets the post identifier.
-        /// </summary>
-        public int PostId { get; set; }
+    using MirGames.Infrastructure.Queries;
 
-        /// <inheritdoc />
-        public override string NotificationType
-        {
-            get { return "Forum.NewAnswer"; }
-        }
+    /// <summary>
+    /// Gets identifiers of the forums that contains unread topics.
+    /// </summary>
+    public sealed class GetUnreadForumsQuery : Query<int>
+    {
     }
 }

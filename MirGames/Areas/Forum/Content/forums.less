@@ -13,17 +13,11 @@
                 border-bottom: 0;
             }
 
-            &.read {
-                .fa-envelope {
-                    display: none;
-                }
+        &.unread {
+            & > .message-content > .forum-title-block > a {
+                color: @link-color-hover;
             }
-
-            &.unread {
-                .fa-envelope-o {
-                    display: none;
-                }
-            }
+        }
 
             & > .message-content {
                 padding-top: @indent/2;

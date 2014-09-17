@@ -148,7 +148,14 @@ namespace MirGames.Domain.Forum.CommandHandlers
                 ExpirationDate = DateTime.UtcNow.AddMinutes(30)
             });
 
-            this.eventBus.Raise(new ForumTopicRepliedEvent { TopicId = topic.TopicId, AuthorId = author.Id, PostId = post.PostId, RepliedDate = post.CreatedDate });
+            this.eventBus.Raise(new ForumTopicRepliedEvent
+            {
+                TopicId = topic.TopicId,
+                ForumId = topic.ForumId,
+                AuthorId = author.Id,
+                PostId = post.PostId,
+                RepliedDate = post.CreatedDate
+            });
 
             return post.PostId;
         }

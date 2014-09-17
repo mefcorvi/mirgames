@@ -5,6 +5,7 @@
     ViewBag.Title = "Форум";
     PageScriptController = "MirGames.Forum.ForumsPage";
     AddPageCssClass("forums-page");
+    var unreadForums = (HashSet<int>)this.ViewBag.UnreadForums;
 }
     
 <div class="page-header">
@@ -34,7 +35,7 @@
 
 @foreach (var forum in Model)
 {
-    <article @Html.Css("message")>
+    <article @Html.Css("message").Add("unread", unreadForums.Contains(forum.ForumId))>
         <div class="message-content">
             <div class="forum-title-block">
                 <a href="@Url.Action(MVC.Forum.Forum.Topics(forum.Alias))" class="topic-title">@forum.Title</a>
