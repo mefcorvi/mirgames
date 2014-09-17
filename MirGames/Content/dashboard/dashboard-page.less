@@ -31,75 +31,86 @@
 
             & > h3 {
                 .page-subtitle();
+
+                a {
+                    color: @font-color;
+                    .active-link-color(@link-color-hover);
+                }
             }
 
             &.projects-subsection {
                 margin-bottom: @indent;
                 width: 40%;
 
-                & > h3 {
-                    margin-bottom: 0;
-                }
-
                 & > .projects-list {
-                    & > .project-list-item {
-                        min-width: 300px;
-                        margin-top: @indent;
-                        padding-right: @indent/4;
+                    & > .project {
+                        overflow: hidden;
+                        padding-top: @indent/2;
+                        padding-bottom: @indent/2;
+                        border-bottom: 1px solid @border-color;
 
                         &:last-child {
-                            padding-right: 0;
+                            padding-bottom: 0;
+                            border-bottom: 0;
                         }
 
                         & > .project-info {
-                            .page-block(@indent/2);
-                            overflow: hidden;
-                            .box-sizing(border-box);
+                            display: table;
+                            table-layout: fixed;
+                            width: 100%;
 
-                            a {
-                                overflow: hidden;
+                            & > .avatar-link {
+                                display: table-cell;
+                                text-align: right;
+                                width: @avatar-small + @indent/4;
                             }
 
-                            & > .description {
-                                height: 30px;
-                                margin-bottom: 5px;
-                                overflow: hidden;
-                                -ms-text-overflow: ellipsis;
-                                -o-text-overflow: ellipsis;
-                                text-overflow: ellipsis;
-                            }
+                            & > .project-title {
+                                display: table-cell;
+                                width: 100%;
+                                padding-right: 10px;
+                                .box-sizing(border-box);
+                                vertical-align: middle;
 
-                            & > .user-login {
-                                .font-size(1.1);
-
-                                & > .avatar {
-                                    .avatar(16px);
+                                & > a {
+                                    .small-header-font();
+                                    .font-size(1.3);
+                                    font-weight: bold;
                                 }
 
-                                & > span {
-                                    margin-left: 20px;
+                                & > .short-description {
+                                    color: mix(@background-color, @font-color, 50%);
+                                    margin: @indent/4 0;
                                 }
-                            }
 
-                            & > .logo {
-                                float: left;
-                                margin-right: @indent/2;
-                                .hidden-sm();
-
-                                & > img {
-                                    max-width: 100%;
-                                    max-height: 200px;
-                                    border: 1px solid @border-color;
-                                    padding: 2px;
-                                    background: @background-color;
-                                    .box-shadow(0px 2px 2px rgba(0, 0, 0, 0.2));
+                                & > .project-rating {
+                                    .header-font();
+                                    margin-left: 5px;
                                 }
-                            }
 
-                            & > h1 {
-                                .header-font();
-                                .font-size(1.5);
-                                margin-bottom: 5px;
+                                & > .followers-count {
+                                    .header-font();
+                                    margin-left: 5px;
+                                    .fa {
+                                        color: #8c8c0c;
+                                    }
+                                }
+
+                                & > .tags {
+                                    .font-size(1.1);
+
+                                    & > span {
+                                        &::after {
+                                            content: ", ";
+                                        }
+
+                                        &:last-child {
+                                            &::after {
+                                                content: "";
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

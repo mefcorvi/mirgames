@@ -22,12 +22,6 @@
 
 @helper UserLink(AuthorViewModel model, string className)
 {
-    if (model.Id > 0)
-    {
-        <a href="@Url.Action(MVC.Users.Profile(model.Id.GetValueOrDefault()))" class="@className">@(model.Login)</a>
-    }
-    else
-    {
-        <span class="@className">@(model.Login)</span>
-    }
+    if (model.Id > 0) {<a href="@Url.Action(MVC.Users.Profile(model.Id.GetValueOrDefault()))" class="@className">@(model.Login)</a>}
+    else{<span class="@className">@(model.Login)</span>}
 }

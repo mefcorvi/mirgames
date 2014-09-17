@@ -1,4 +1,6 @@
-﻿@model MirGames.Controllers.DashboardController.DashboardViewModel
+﻿@using MirGames.Infrastructure.Queries
+@using MirGames.Models
+@model MirGames.Controllers.DashboardController.DashboardViewModel
 @{
     ViewBag.Title = "";
     // PageScriptController = "MirGames.Chat.ChatRoomPage";
@@ -11,7 +13,7 @@
 }
 
 <section class="blog-subsection">
-    <h3>Блог</h3>
+    <h3><a href="@Url.Action(MVC.Topics.Topics.Index())">Блог</a></h3>
     <div class="topics-list">
     @foreach(var topic in Model.Topics)
     {
@@ -20,36 +22,59 @@
     </div>
 </section>
 <section class="projects-subsection">
-    <h3>Проекты</h3>
+    <h3><a href="@Url.Action(MVC.Projects.Projects.Index())">Проекты</a></h3>
     <div class="projects-list">
         @foreach (var project in Model.Projects)
         {
-            <div class="project-list-item">
-                <div @Html.Css("project-info").Add("with-logo", !string.IsNullOrEmpty(project.LogoUrl))>
-                    @if (!string.IsNullOrEmpty(project.LogoUrl))
-                    {
-                        <div class="logo">
-                            <img src="@project.LogoUrl" />
+            <article @Html.Css("project")>
+                <div class="project-info">
+                    <div class="project-title">
+                        <a class="project-title" href="@Url.Action(MVC.Projects.Projects.Project(project.Alias))">@project.Title</a>
+                        <span class="project-rating">@project.Votes&nbsp;<i class="fa fa-thumbs-up"></i></span>
+                        <span class="followers-count">@project.FollowersCount&nbsp;<i class="fa fa-eye"></i></span>
+                        <div class="short-description">@project.ShortDescription</div>
+                        <div class="tags">
+                            @foreach (var tag in project.Tags)
+                            {
+                                <span><a href="@Url.Action(MVC.Projects.Projects.Index(tag.Trim()))">@tag.Trim()</a></span>
+                            }
                         </div>
-                    }
-                    <h1><a href="@Url.Action(MVC.Projects.Projects.Project(project.Alias))">@project.Title</a></h1>
-                    <div class="description">
-                        @project.ShortDescription
                     </div>
-                    <a href="@Url.Action("Profile", "Users", new { userId = project.Author.Id })" class="user-login avatar-link">
-                        <img src="@project.Author.AvatarUrl" class="avatar" /><span>@project.Author.Login</span>
-                    </a>
+                    <a class="avatar-link" href="@Url.Action(MVC.Projects.Projects.Project(project.Alias))"><img src="@project.LogoUrl" class="avatar avatar-small" /></a>
                 </div>
-            </div>
+            </article>
         }
     </div>
 </section>
 <section class="forum-subsection">
-    <h3>Форум</h3>
+    <h3><a href="@Url.Action(MVC.Forum.Forum.Index())">Форум</a></h3>
     <div class="forum-topics-list">
         @foreach (var topic in Model.ForumTopics)
         {
-            @Html.Partial("../../Areas/Forum/Views/Forum/_ForumTopicListItem", topic)
+            <article @Html.Css("message").Add("unread", !topic.IsRead).Add("read", topic.IsRead)>
+                <div class="message-content">
+                    <div class="topic-title-block">
+                        @if (@topic.UnreadPostsCount.HasValue)
+                        {
+                            <a href="@(Url.Action(MVC.Forum.Forum.Topic(topic.Forum.Alias, topic.TopicId, PaginationSettings.GetItemPage(topic.PostsCount - topic.UnreadPostsCount.Value, 20) + 1)) + "#first-unread")"
+                               class="topic-title">@topic.Title<span>(+@topic.UnreadPostsCount.GetValueOrDefault())</span></a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action(MVC.Forum.Forum.Topic(topic.Forum.Alias, topic.TopicId, 1))" class="topic-title">@topic.Title</a>
+                        }
+                        <div class="topic-pagination">
+                            @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.TopicsPagination[topic.TopicId])
+                        </div>
+                        <div class="short-description text">@topic.ShortDescription</div>
+                        <footer>
+                            <span class="created-date"><span class="topic-created-date relative" datetime="@topic.CreatedDate.ToString("O")">@Html.RelativeDate(topic.CreatedDate)</span></span>,
+                            <span class="author">@Author.UserLink(topic.Author, "topic-author")</span>,
+                            <span class="replies-count">Ответов: @(topic.PostsCount - 1)</span>
+                        </footer>
+                    </div>
+                </div>
+            </article>
         }
     </div>
 </section>
