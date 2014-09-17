@@ -34,14 +34,14 @@ module MirGames {
                     }
 
                     user.tags = Enumerable.from(user.tags).where(item => item != tag).toArray();
-                })
+                });
             });
 
             socketService.addHandler('eventsHub', 'userOnline', (userJson?: string) => {
                 var user = JSON.parse(userJson);
                 this.$scope.$apply(() => {
                     this.addUser(user);
-                })
+                });
             });
 
             socketService.addHandler('eventsHub', 'userOffline', (userJson?: string) => {

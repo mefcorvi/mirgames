@@ -110,6 +110,7 @@
         @Html.Partial("_Pagination", pagination)
     }
 </div>
+<div class="data-loading" ng-show="answersLoading" ng-cloak></div>
 
 @if (Model.CanBeAnswered)
 {

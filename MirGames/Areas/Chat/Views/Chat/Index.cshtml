@@ -26,18 +26,20 @@
     <div ng-show="state == 'connection-slow'" class="connection-slow notification warning">Соединение неустойчиво</div>
 </div>
 <div class="chat-messages">
-    <article message-id="{{message.id}}" ng-class="{ 'message': 1, 'message-chain': message.inChain, 'own-message': message.ownMessage, 'first-unread': message.firstUnreadMessage, 'editing': message.isEditing, 'system-message': message.isSystem }" ng-repeat="message in messages" ng-cloak>
-        <header ng-show="message.showAuthor">
-            <a author-link="message.authorId" class="avatar-link">
-                <img ng-src="{{message.avatarUrl}}" class="avatar avatar-tiny" />
+    <article message-id="{{message.id}}" ng-class="{ 'message': 1, 'message-chain-first': message.firstInChain, 'own-message': message.ownMessage, 'first-unread': message.firstUnreadMessage, 'editing': message.isEditing, 'system-message': message.isSystem }" ng-repeat="message in messages" ng-cloak>
+        <header>
+            <a author-link="message.authorId" class="avatar-link" ng-show="message.showAuthor">
+                <img ng-src="{{message.avatarUrl}}" class="avatar avatar-small" />
             </a>
-            <a class="user-login" href="javascript:void(0)" ng-click="quoteLogin(message.login)">{{message.login}}</a>
         </header>
-        <div ng-class="{ 'date': !message.editDate, 'edit-date': message.editDate }" class="relative" ng-show="message.showDate"><i class="fa fa-pencil"></i>{{(message.editDate || message.date) | date:message.dateFormat}}</div>
+        <div class="chat-message">
+            <a class="user-login" href="javascript:void(0)" ng-click="quoteLogin(message.login)" ng-show="message.showAuthor">{{message.login}}</a>
+            <div class="text" ng-bind-html="message.text | unsafe"></div>
+        </div>
+        <div ng-class="{ 'date': !message.editDate, 'edit-date': message.editDate }" class="relative" ng-show="message.showDate" datetime="{{(message.editDate || message.date) | date:'yyyy-MM-dd HH:mm:ss Z'}}">{{(message.editDate || message.date) | date:message.dateFormat}}</div>
         <div class="message-toolbar">
             <a href="javascript:void(0)" ng-click="$parent.editMessage(message)" ng-show="message.canBeEdited"><i class="fa fa-pencil-square-o"></i></a>
         </div>
-        <div class="text" ng-bind-html="message.text | unsafe"></div>
     </article>
 </div>
 

@@ -40,6 +40,6 @@
 
 @section DialogButtons
 {
-    <a href="javascript:void(0)" ng-class="{ 'button-disabled': signUpForm.$invalid }" ng-click="processSignUp('@Url.Action("ProcessSignUp", "Account")')">Зарегистрироваться</a>
+    <a href="javascript:void(0)" ng-class="{ 'button-disabled': signUpForm.$invalid || !agreement }" ng-click="processSignUp('@Url.Action("ProcessSignUp", "Account")')">Зарегистрироваться</a>
     <a href="javascript:void(0)" class="cancel" ng-click="close()">Отмена</a>
 }

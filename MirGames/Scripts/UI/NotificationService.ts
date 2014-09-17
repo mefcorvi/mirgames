@@ -3,6 +3,7 @@ module UI {
     export interface INotificationService {
         setBubble(count: number, playSound?: boolean): void;
         reset(): void;
+        notifyEvent(playSound?: boolean): void;
     }
 
     class NotificationService implements INotificationService {
@@ -43,6 +44,14 @@ module UI {
         public reset() {
             this.setTitle(0);
             Tinycon.setBubble('');
+        }
+
+        public notifyEvent(playSound: boolean = true) {
+            if (playSound) {
+                $.ionSound.play('notify');
+            }
+
+            headroom.pin();
         }
 
         private setTitle(count: number) {

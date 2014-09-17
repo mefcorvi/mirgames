@@ -8,6 +8,7 @@ module Account {
             $scope.email = '';
             $scope.password = '';
             $scope.isFocused = true;
+            $scope.agreement = false;
 
             $scope.processSignUp = url => {
                 if ($scope.signUpForm.$invalid) {
@@ -52,6 +53,7 @@ module Account {
         loginFailed: boolean;
         signUpForm: ng.IFormController;
         activationUrl: string;
+        agreement: boolean;
 
         processSignUp(url: string): void;
         close(): void;

@@ -26,7 +26,7 @@ module MirGames.Chat {
             this.$scope.quoteLogin = text => this.quoteLogin(text);
 
             this.$textArea = $('.new-answer-form textarea');
-            this.$footer = $('body > footer');
+            this.$footer = $('body > .chat-answer');
             this.$chatMessages = $('.chat-messages');
 
             $scope.reply = {
@@ -111,7 +111,7 @@ module MirGames.Chat {
                     showDate: true,
                     text: message,
                     dateFormat: 'HH:mm',
-                    inChain: false,
+                    firstInChain: false,
                     isEditing: false,
                     ownMessage: false,
                     firstUnreadMessage: false,
@@ -160,9 +160,12 @@ module MirGames.Chat {
         /** Loads messages */
         private loadMessages(query: MirGames.Domain.Chat.Queries.GetChatMessagesQuery, anchorItem?: JQuery) {
             var oldTop: number = null;
+            var oldScrollTop: number = null;
 
             if (anchorItem != null && anchorItem.length > 0) {
                 oldTop = anchorItem.position().top;
+                oldScrollTop = this.getScrollTop();
+                console.log(oldTop);
             }
 
             this.apiService.getAll('GetChatMessagesQuery', query, 0, 50, (result: MirGames.Domain.Chat.ViewModels.ChatMessageViewModel[]) => {
@@ -177,9 +180,9 @@ module MirGames.Chat {
                 this.$scope.$apply();
 
                 if (oldTop != null) {
-                    var newPosition = anchorItem.position();
-                    var oldScrollTop = this.getScrollTop();
-                    this.setScrollTop(oldScrollTop + newPosition.top - oldTop);
+                    var newTop = anchorItem.position().top;
+                    console.log(newTop);
+                    this.setScrollTop(oldScrollTop + newTop - oldTop);
                 } else {
                     this.scrollToBottom();
                 }
@@ -197,6 +200,8 @@ module MirGames.Chat {
 
         /** Loads message for editing */
         private editMessage(message: IChatMessageScope) {
+            this.cancelEdit();
+
             var query: MirGames.Domain.Chat.Queries.GetChatMessageForEditQuery = {
                 MessageId: message.id
             };
@@ -207,6 +212,7 @@ module MirGames.Chat {
                     this.$scope.editMode = true;
                     message.isEditing = true;
                     this.$scope.editedMessage = message;
+                    this.$scope.reply.caret = result.SourceText.length;
                     this.focusAnswer();
                 });
                 this.$textArea.trigger('autosize.resize');
@@ -368,11 +374,20 @@ module MirGames.Chat {
 
         /** Adjusts text area height */
         private adjustTextAreaHeight() {
-            var newHeight = $('body > footer .answer-form').height() + 10;
+            var newHeight = $('body > .chat-answer .answer-form').height() + 10;
 
             if (newHeight > 10) {
+                var oldScrollTop = this.getScrollTop();
+                var isBottom = this.isScrollBottom();
+
                 $('body').css('padding-bottom', newHeight);
                 this.$footer.css('height', newHeight);
+
+                if (isBottom) {
+                    this.scrollToBottom(0);
+                } else {
+                    this.scrollTo(oldScrollTop, 0);
+                }
             }
         }
 
@@ -405,22 +420,25 @@ module MirGames.Chat {
             }
 
             if (prevMessage && !prevMessage.isSystem) {
-                message.showAuthor = message.authorId != prevMessage.authorId;
-                message.showDate = message.date.getTime() > (prevMessage.date.getTime() + 60000)
-                || message.date.getMinutes() != prevMessage.date.getMinutes();
+                var currentDate = moment(message.date);
+                var prevDate = moment(prevMessage.date);
 
-                if (!message.showAuthor) {
-                    prevMessage.inChain = true;
+                message.showAuthor = message.authorId != prevMessage.authorId;
+                message.showDate = this.getDateDiff(currentDate, moment()) != this.getDateDiff(prevDate, moment());
+
+                if (message.showAuthor) {
+                    message.firstInChain = true;
                 }
             }
-
-            var currentDate = new Date();
-            var day = 24 * 60 * 60 * 1000;
-
-            if (message.date.getTime() > (currentDate.getTime() + day) || message.date.getDate() != currentDate.getDate()) {
-                message.dateFormat = 'dd.MM.yy HH:mm';
-            }
         }
+
+        private getDateDiff(a: Moment, b: Moment) {
+            if (Math.abs(a.clone().startOf('day').diff(b, 'days', true)) < 25)
+                return a.from(b);
+            else
+                return a.format('DD.MM.YY HH:mm');
+        }
+
 
         /** Converts message from viewmodel to scope */
         private convertMessage(message: MirGames.Domain.Chat.ViewModels.ChatMessageViewModel): IChatMessageScope {
@@ -435,7 +453,7 @@ module MirGames.Chat {
                 showDate: true,
                 text: message.Text,
                 dateFormat: 'HH:mm',
-                inChain: false,
+                firstInChain: false,
                 isEditing: false,
                 ownMessage: message.Author.Id == this.currentUser.getUserId(),
                 firstUnreadMessage: false,
@@ -541,7 +559,7 @@ module MirGames.Chat {
         editDate?: Date;
         showDate: boolean;
         showAuthor: boolean;
-        inChain: boolean;
+        firstInChain: boolean;
         isSystem: boolean;
         dateFormat: string;
         ownMessage: boolean;

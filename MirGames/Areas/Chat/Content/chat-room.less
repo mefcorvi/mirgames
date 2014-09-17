@@ -2,25 +2,87 @@
 
 .message() {
     & > .message {
-        .page-block();
         @login-width: 150px;
         @date-width: 80px;
-        padding-top: @indent/2;
-        padding-bottom: @indent/2;
         overflow: hidden;
-        position: relative;
         border: 0;
-        margin-bottom: 1px;
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+        .box-sizing(border-box);
+        padding: @indent/4 @indent;
 
-        &.message-chain {
-            border-top: 0;
-            border-bottom: 0;
-            margin-bottom: 0;
-            padding-bottom: 0;
+        & > header {
+            width: @avatar-small + @indent/2;
+            display: table-cell;
+            text-align: right;
+            padding-right: @indent/2;
+            .box-sizing(border-box);
+            vertical-align: top;
+
+            & > .avatar-link {
+                float: right;
+
+                & > img {
+                    float: none;
+                }
+            }
+        }
+
+        & > .chat-message {
+            display: table-cell;
+            width: 100%;
+            vertical-align: top;
+            position: relative;
+            padding-right: 100px;
+
+            & > .user-login {
+                margin-right: @indent/2;
+                line-height: @avatar-tiny;
+                font-weight: bold;
+            }
+
+        }
+
+        & > .date, & > .edit-date {
+            .font-size(1.1);
+            color: @date-color;
+            display: table-cell;
+            vertical-align: middle;
+            width: 80px;
+        }
+
+        & > .edit-date {
+            color: @link-color-hover;
+        }
+
+        & > .message-toolbar {
+            display: table-cell;
+            vertical-align: middle;
+            .font-size(1.5);
+            color: @date-color;
+            width: 20px;
+            visibility: hidden;
+            text-align: right;
+        }
+
+        &:hover {
+            background: mix(@main-color, @background-color, 3%);
+
+            & > .message-toolbar {
+                visibility: visible;
+            }
+        }
+
+        &.message-chain-first {
+            margin-top: @indent/2;
+
+            & > .chat-message {
+            }
         }
 
         &.own-message {
-            & > header > .user-login {
+            & > .chat-message > .user-login {
                 color: @link-color-hover;
             }
         }
@@ -36,66 +98,6 @@
 
         &.editing {
             background: mix(@date-color, @background-color, 10%);
-        }
-
-        & > header {
-            width: @login-width;
-            float: left;
-            text-align: right;
-
-            & > .user-login {
-                margin-right: @indent;
-                line-height: @avatar-tiny;
-                font-weight: bold;
-            }
-
-            & > .avatar-link {
-                float: right;
-
-                & > img {
-                    float: none;
-                }
-            }
-        }
-
-        & > .date {
-            margin-top: 2px;
-            .font-size(1.2);
-            padding: 3px;
-            color: @date-color;
-            text-align: right;
-            float: right;
-
-            .fa-pencil {
-                display: none;
-            }
-        }
-
-        & > .edit-date {
-            margin-top: 2px;
-            .font-size(1.2);
-            padding: 3px;
-            color: spin(@date-color, 120);
-            text-align: right;
-            margin-left: 1px;
-            float: right;
-
-            .fa-pencil {
-                margin-right: 5px;
-            }
-        }
-
-        & > .message-toolbar {
-            float: right;
-            margin-right: 5px;
-            .font-size(1.3);
-            line-height: 24px;
-        }
-
-        & > .text {
-            padding-top: 2px;
-            margin-left: @login-width + @indent;
-            margin-right: @date-width;
         }
 
         @media (max-width: @screen-sm-max) {
@@ -228,8 +230,8 @@
         }
 
         & > .chat-messages {
-            .indent();
             .message();
+            padding-bottom: @indent/2;
         }
 
         & > h4 {

@@ -36,10 +36,11 @@ module MirGames.Forum {
             });
 
             if (this.pageData.currentUser && this.pageData.currentUser.Settings.ForumContiniousPagination) {
-                $('body > section').bind('scroll', () => {
-                    if (this.isScrollBottom()) {
+                $(window).scroll(() => {
+                    if (this.isScrollBottom(500)) {
                         if (this.$scope.nextPage < this.$scope.pagesCount) {
                             this.loadAnswers();
+                            this.$scope.$apply();
                         }
                     }
                 });
