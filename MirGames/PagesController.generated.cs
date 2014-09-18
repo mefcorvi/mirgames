@@ -26,9 +26,6 @@ namespace MirGames.Controllers
     public partial class PagesController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public PagesController() { }
-
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected PagesController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -76,6 +73,8 @@ namespace MirGames.Controllers
             public readonly string About = "About";
             public readonly string Rules = "Rules";
             public readonly string Help = "Help";
+            public readonly string Markdown = "Markdown";
+            public readonly string Api = "Api";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -84,6 +83,8 @@ namespace MirGames.Controllers
             public const string About = "About";
             public const string Rules = "Rules";
             public const string Help = "Help";
+            public const string Markdown = "Markdown";
+            public const string Api = "Api";
         }
 
 
@@ -98,11 +99,15 @@ namespace MirGames.Controllers
             public class _ViewNamesClass
             {
                 public readonly string About = "About";
+                public readonly string Api = "Api";
                 public readonly string Help = "Help";
+                public readonly string Markdown = "Markdown";
                 public readonly string Rules = "Rules";
             }
             public readonly string About = "~/Views/Pages/About.cshtml";
+            public readonly string Api = "~/Views/Pages/Api.cshtml";
             public readonly string Help = "~/Views/Pages/Help.cshtml";
+            public readonly string Markdown = "~/Views/Pages/Markdown.cshtml";
             public readonly string Rules = "~/Views/Pages/Rules.cshtml";
         }
     }
@@ -142,6 +147,28 @@ namespace MirGames.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Help);
             HelpOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void MarkdownOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Markdown()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Markdown);
+            MarkdownOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ApiOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Api()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Api);
+            ApiOverride(callInfo);
             return callInfo;
         }
 

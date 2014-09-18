@@ -83,8 +83,9 @@ namespace MirGames.Areas.Topics.Controllers
         /// <param name="searchString">The search string.</param>
         /// <param name="page">The page.</param>
         /// <param name="onlyUnread">if set to <c>true</c> only unread topics will be returned.</param>
+        /// <param name="isTutorial">The is tutorial.</param>
         /// <returns>The action result.</returns>
-        public virtual ActionResult Index(string tag = null, string searchString = null, int page = 1, bool onlyUnread = false)
+        public virtual ActionResult Index(string tag = null, string searchString = null, int page = 1, bool onlyUnread = false, bool? isTutorial = null)
         {
             if (page < 1)
             {
@@ -92,7 +93,16 @@ namespace MirGames.Areas.Topics.Controllers
             }
 
             var paginationSettings = new PaginationSettings(page - 1, 20);
-            var topicsQuery = new GetTopicsQuery { IsPublished = true, Tag = tag, SearchString = searchString, OnlyUnread = onlyUnread };
+            
+            var topicsQuery = new GetTopicsQuery
+            {
+                IsPublished = true,
+                Tag = tag,
+                SearchString = searchString,
+                OnlyUnread = onlyUnread,
+                IsTutorial = isTutorial
+            };
+
             var topics = this.QueryProcessor.Process(topicsQuery, paginationSettings);
             var topicsCount = this.QueryProcessor.GetItemsCount(topicsQuery);
             

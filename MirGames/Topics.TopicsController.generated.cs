@@ -151,6 +151,7 @@ namespace MirGames.Areas.Topics.Controllers
             public readonly string searchString = "searchString";
             public readonly string page = "page";
             public readonly string onlyUnread = "onlyUnread";
+            public readonly string isTutorial = "isTutorial";
         }
         static readonly ActionParamsClass_Topic s_params_Topic = new ActionParamsClass_Topic();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -260,17 +261,18 @@ namespace MirGames.Areas.Topics.Controllers
         }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string tag, string searchString, int page, bool onlyUnread);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string tag, string searchString, int page, bool onlyUnread, bool? isTutorial);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index(string tag, string searchString, int page, bool onlyUnread)
+        public override System.Web.Mvc.ActionResult Index(string tag, string searchString, int page, bool onlyUnread, bool? isTutorial)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "tag", tag);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "searchString", searchString);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "page", page);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "onlyUnread", onlyUnread);
-            IndexOverride(callInfo, tag, searchString, page, onlyUnread);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "isTutorial", isTutorial);
+            IndexOverride(callInfo, tag, searchString, page, onlyUnread, isTutorial);
             return callInfo;
         }
 

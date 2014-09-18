@@ -167,6 +167,11 @@ namespace MirGames.Domain.Topics.QueryHandlers
                 topics = topics.Where(t => t.BlogId == query.BlogId);
             }
 
+            if (query.IsTutorial.HasValue)
+            {
+                topics = topics.Where(t => t.IsTutorial == query.IsTutorial);
+            }
+
             if (!string.IsNullOrWhiteSpace(query.Tag))
             {
                 var tags = readContext.Query<TopicTag>().Where(t => t.TagText == query.Tag);
@@ -210,6 +215,10 @@ namespace MirGames.Domain.Topics.QueryHandlers
                 Tags = x.TagsList,
                 Title = x.TopicTitle,
                 TopicId = x.Id,
+                SourceAuthor = x.SourceAuthor,
+                SourceLink = x.SourceLink,
+                IsTutorial = x.IsTutorial,
+                IsRepost = x.IsRepost,
                 CommentsCount = x.CountComment
             });
         }

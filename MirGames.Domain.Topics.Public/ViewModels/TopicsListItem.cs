@@ -44,6 +44,11 @@ namespace MirGames.Domain.Topics.ViewModels
         public string Title { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this instance is tutorial.
+        /// </summary>
+        public bool? IsTutorial { get; set; }
+
+        /// <summary>
         /// Gets or sets the comments count.
         /// </summary>
         public int CommentsCount { get; set; }
@@ -90,5 +95,20 @@ namespace MirGames.Domain.Topics.ViewModels
         /// Gets or sets the tags.
         /// </summary>
         public string Tags { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is repost.
+        /// </summary>
+        public bool? IsRepost { get; set; }
+
+        /// <summary>
+        /// Gets or sets the source author.
+        /// </summary>
+        public string SourceAuthor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the source link.
+        /// </summary>
+        public string SourceLink { get; set; }
     }
 }

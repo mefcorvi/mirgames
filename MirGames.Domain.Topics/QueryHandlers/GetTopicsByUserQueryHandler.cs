@@ -145,7 +145,11 @@ namespace MirGames.Domain.Topics.QueryHandlers
                     ShortText = topic.Content.TopicTextShort,
                     Tags = topic.TagsList,
                     TopicId = topic.Id,
-                    Title = topic.TopicTitle
+                    Title = topic.TopicTitle,
+                    IsTutorial = topic.IsTutorial,
+                    IsRepost = topic.IsRepost,
+                    SourceAuthor = topic.SourceAuthor,
+                    SourceLink = topic.SourceLink
                 };
         }
     }

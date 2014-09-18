@@ -370,6 +370,14 @@ namespace Links
         }
     
         public static readonly string nanoscroller_less = Url("nanoscroller.less");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class pages {
+            private const string URLPATH = "~/Content/pages";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string static_page_less = Url("static-page.less");
+        }
+    
         public static readonly string quick_date_less = Url("quick-date.less");
         public static readonly string settings_less = Url("settings.less");
         public static readonly string text_less = Url("text.less");

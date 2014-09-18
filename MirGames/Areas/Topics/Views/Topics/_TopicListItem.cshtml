@@ -14,6 +14,10 @@
                     <span class="blog-link"><a href="@EntityLinkProvider.GetLink(Model.Blog.EntityId, Model.Blog.EntityType)" title="@Model.Blog.Description">@Model.Blog.Title</a></span>
                 }
                 @Html.ActionLink(Model.Title, MVC.Topics.Topics.Topic(Model.TopicId), new { @class = "topic-title" })
+                @if (Model.IsTutorial == true)
+                {
+                    <i class="fa fa-graduation-cap"></i>
+                }
             </div>
             <div class="author-info">
                 <a href="@Url.Action(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="avatar-link"><img src="@Model.Author.AvatarUrl" class="avatar" /></a>

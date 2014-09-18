@@ -180,7 +180,6 @@ namespace MirGames.Areas.Forum.Controllers
                 public readonly string _ForumPostListItem = "_ForumPostListItem";
                 public readonly string _ForumTopicListItem = "_ForumTopicListItem";
                 public readonly string _ForumTopicMenu = "_ForumTopicMenu";
-                public readonly string _ForumTopicsList = "_ForumTopicsList";
                 public readonly string _NewTopicMenu = "_NewTopicMenu";
                 public readonly string Index = "Index";
                 public readonly string New = "New";
@@ -194,7 +193,6 @@ namespace MirGames.Areas.Forum.Controllers
             public readonly string _ForumPostListItem = "~/Areas/Forum/Views/Forum/_ForumPostListItem.cshtml";
             public readonly string _ForumTopicListItem = "~/Areas/Forum/Views/Forum/_ForumTopicListItem.cshtml";
             public readonly string _ForumTopicMenu = "~/Areas/Forum/Views/Forum/_ForumTopicMenu.cshtml";
-            public readonly string _ForumTopicsList = "~/Areas/Forum/Views/Forum/_ForumTopicsList.cshtml";
             public readonly string _NewTopicMenu = "~/Areas/Forum/Views/Forum/_NewTopicMenu.cshtml";
             public readonly string Index = "~/Areas/Forum/Views/Forum/Index.cshtml";
             public readonly string New = "~/Areas/Forum/Views/Forum/New.cshtml";

@@ -40,6 +40,11 @@ namespace MirGames.Domain.Topics.Queries
         public bool IsPublished { get; set; }
 
         /// <summary>
+        /// Gets or sets the is tutorial.
+        /// </summary>
+        public bool? IsTutorial { get; set; }
+
+        /// <summary>
         /// Gets or sets the blog identifier.
         /// </summary>
         public int? BlogId { get; set; }
