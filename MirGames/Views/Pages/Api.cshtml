@@ -1,0 +1,23 @@
+﻿@using MirGames.Infrastructure.Commands
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    AddPageCssClass("static-page");
+    var apiItems = (List<Type>)this.ViewBag.ApiItems;
+}
+
+<div class="page-header">
+    <div class="header">
+        <h4><a href="@Url.Action(MVC.Pages.Help())">Помощь</a></h4>
+        <h3>API</h3>
+    </div>
+    <div class="buttons">
+    </div>
+</div>
+
+<div class="text">
+    @foreach (var type in apiItems)
+    {
+        <div>@type.FullName</div>
+    }
+</div>    
+

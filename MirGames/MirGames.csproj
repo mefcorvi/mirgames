@@ -736,6 +736,8 @@
     <Content Include="Views\Pages\About.cshtml" />
     <Content Include="Views\Pages\Rules.cshtml" />
     <Content Include="Views\Pages\Help.cshtml" />
+    <Content Include="Views\Pages\Markdown.cshtml" />
+    <Content Include="Views\Pages\Api.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

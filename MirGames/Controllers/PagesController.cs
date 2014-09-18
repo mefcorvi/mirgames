@@ -9,9 +9,13 @@
 
 namespace MirGames.Controllers
 {
+    using System;
+    using System.Linq;
+    using System.Reflection;
     using System.Web.Mvc;
 
     using MirGames.Infrastructure;
+    using MirGames.Infrastructure.Commands;
 
     /// <summary>
     /// The static pages controller.
@@ -43,6 +47,27 @@ namespace MirGames.Controllers
         /// <inheritdoc />
         public virtual ActionResult Help()
         {
+            return this.View();
+        }
+
+        /// <inheritdoc />
+        public virtual ActionResult Markdown()
+        {
+            return this.View();
+        }
+        
+        /// <inheritdoc />
+        public virtual ActionResult Api()
+        {
+            var apiItems =
+                AppDomain.CurrentDomain.GetAssemblies()
+                         .Where(a => a.FullName.Contains(".Public"))
+                         .SelectMany(a => a.GetTypes())
+                         .Where(t => t.GetCustomAttribute<ApiAttribute>() != null)
+                         .ToList();
+
+            this.ViewBag.ApiItems = apiItems;
+
             return this.View();
         }
     }

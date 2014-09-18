@@ -150,6 +150,10 @@
     @sidebar-background: @background-color;
     padding-bottom: 155px;
 
+    & > footer {
+        display: none;
+    }
+
     & > .chat-answer {
         display: block;
         bottom: 0;
@@ -164,6 +168,14 @@
         padding-bottom: @indent/4;
         z-index: 20000;
         overflow: hidden;
+
+        &.login-required {
+            height: 30px;
+            & > .answer-form {
+                height: 30px;
+                line-height: 30px;
+            }
+        }
 
         width: 100%;
         max-width: 1400px;

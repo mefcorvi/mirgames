@@ -59,6 +59,16 @@ namespace MirGames
                 new { controller = "Pages", action = "Help" });
 
             routes.MapRoute(
+                "MarkdownPage",
+                "help/markdown",
+                new { controller = "Pages", action = "Markdown" });
+
+            routes.MapRoute(
+                "ApiPage",
+                "help/api",
+                new { controller = "Pages", action = "Api" });
+
+            routes.MapRoute(
                 "OAuthItem",
                 "auth",
                 new { controller = "OAuth", action = "Index" });

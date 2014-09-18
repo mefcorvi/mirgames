@@ -3,6 +3,17 @@
     AddPageCssClass("static-page");
 }
 
-<div class="text">
-    
+<div class="page-header">
+    <div class="header">
+        <h3>Помощь</h3>
+    </div>
+    <div class="buttons">
+    </div>
 </div>
+
+<div class="text">
+    @Html.Markdown(@"Оформление текстов
+--------------------------
+[Справка по Markdown](markdown)")
+</div>    
+

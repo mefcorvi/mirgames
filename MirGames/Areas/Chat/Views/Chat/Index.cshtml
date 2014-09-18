@@ -36,7 +36,7 @@
             <a class="user-login" href="javascript:void(0)" ng-click="quoteLogin(message.login)" ng-show="message.showAuthor">{{message.login}}</a>
             <div class="text" ng-bind-html="message.text | unsafe"></div>
         </div>
-        <div ng-class="{ 'date': !message.editDate, 'edit-date': message.editDate }" class="relative" ng-show="message.showDate" datetime="{{(message.editDate || message.date) | date:'yyyy-MM-dd HH:mm:ss Z'}}">{{(message.editDate || message.date) | date:message.dateFormat}}</div>
+        <div ng-class="{ 'date': !message.editDate, 'edit-date': message.editDate }" class="relative" ng-show="message.showDate" datetime="{{(message.editDate || message.date) | date:'yyyy-MM-ddTHH:mm:ssZ'}}">{{(message.editDate || message.date) | date:message.dateFormat}}</div>
         <div class="message-toolbar">
             <a href="javascript:void(0)" ng-click="$parent.editMessage(message)" ng-show="message.canBeEdited"><i class="fa fa-pencil-square-o"></i></a>
         </div>
@@ -63,8 +63,10 @@
     }
     else
     {
-        <div class="chat-answer">
-            Вам необходимо войти в систему, прежде чем вы сможете отправлять сообщения.
+        <div class="chat-answer login-required">
+            <div class="answer-form">
+                Вам необходимо войти в систему, прежде чем вы сможете отправлять сообщения.
+            </div>
         </div>
     }
 }
