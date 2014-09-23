@@ -465,7 +465,6 @@
     <None Include="Areas\Projects\Scripts\AddWorkItemDialogController.ts" />
     <None Include="Areas\Projects\Scripts\ProjectSettingsPage.ts" />
     <None Include="Areas\Projects\Scripts\NewProjectPage.ts" />
-    <None Include="Areas\Projects\Scripts\ProjectWorkItemPage.ts" />
     <None Include="Areas\Projects\Scripts\ProjectWorkItemBlocks.ts" />
     <None Include="Areas\Projects\Scripts\ProjectWorkItemList.ts" />
     <None Include="Areas\Projects\Scripts\ProjectWorkItemsPage.ts" />

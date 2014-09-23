@@ -38,7 +38,7 @@ module MirGames.Projects {
                     WorkItemId: data.WorkItemId
                 };
 
-                this.apiService.getAll('GetProjectWorkItemCommentsQuery', commentsQuery, 1, 100,
+                this.apiService.getAll('GetProjectWorkItemCommentsQuery', commentsQuery, 0, 100,
                 (comments: MirGames.Domain.Wip.ViewModels.ProjectWorkItemCommentViewModel[]) => {
                     $scope.comments = comments;
                     $scope.commentsLoading = false;
@@ -46,13 +46,58 @@ module MirGames.Projects {
                 });
             });
 
+            $scope.comment = {
+                post: () => this.postComment(),
+                attachments: [],
+                focus: false,
+                text: ''
+            };
+
             $scope.close = () => {
                 dialog.cancel();
             }
         }
 
-        getTagUrl(tag: string): string {
+        private getTagUrl(tag: string): string {
             return Router.action("Projects", "WorkItems", { projectAlias: this.$scope.projectAlias, tag: tag.trim(), area: 'Projects', itemType: null });
+        }
+
+        private getCommentForm(): IProjectNewWorkItemCommentScope {
+            return {
+                attachments: [],
+                focus: false,
+                post: () => this.postComment(),
+                text: ''
+            };
+        }
+
+        private postComment(): void {
+            var command: Domain.Wip.Commands.PostWorkItemCommentCommand = {
+                Attachments: this.$scope.comment.attachments,
+                Text: this.$scope.comment.text,
+                WorkItemId: this.$scope.id
+            };
+
+            this.apiService.executeCommand('PostWorkItemCommentCommand', command, (commentId: number) => {
+                this.$scope.$apply(() => {
+                    this.loadComment(commentId);
+                    this.$scope.comment = this.getCommentForm();
+                });
+            });
+        }
+
+        private loadComment(commentId: number): void {
+            var query: Domain.Wip.Queries.GetProjectWorkItemCommentQuery = {
+                CommentId: commentId
+            };
+
+            this.$scope.commentsLoading = true;
+
+            this.apiService.getOne('GetProjectWorkItemCommentQuery', query, (comment: Domain.Wip.ViewModels.ProjectWorkItemCommentViewModel) => {
+                this.$scope.comments.push(comment);
+                this.$scope.commentsLoading = false;
+                this.$scope.$apply();
+            });
         }
     }
 
@@ -67,13 +112,27 @@ module MirGames.Projects {
         canBeCommented: boolean;
         commentsLoading: boolean;
         close(): void;
+        postComment(): void;
         projectAlias: string;
         assignedTo: MirGames.Domain.Users.ViewModels.AuthorViewModel;
         comments: MirGames.Domain.Wip.ViewModels.ProjectWorkItemCommentViewModel[];
+        comment: IProjectNewWorkItemCommentScope;
         width: string;
     }
 
     export interface IWorkItemCommentScope extends ng.IScope {
         
+    }
+
+    export interface IProjectNewWorkItemCommentScope {
+        text: string;
+        focus: boolean;
+        attachments: number[];
+        post: () => void;
+    }
+
+    export interface IProjectWorkItemPageData {
+        projectAlias: string;
+        workItemId: number;
     }
 } 

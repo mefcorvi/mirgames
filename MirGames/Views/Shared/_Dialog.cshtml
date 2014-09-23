@@ -1,8 +1,8 @@
-﻿<div class="dialog-body" ng-style="{ 'width': width, 'max-width': width, height: height, 'max-height': height }">
+﻿<div @Html.Css("dialog-body") class="dialog-body" ng-style="{ 'width': width, 'max-width': width, height: height, 'max-height': height }">
     <h1>@RenderSection("DialogTitle", required: true)</h1>
     @RenderSection("DialogNotifications")
     <div class="dialog-content">
-        <div>
+        <div @Html.Css((string)ViewBag.DialogCss, (string)ViewBag.DialogCss != null)>
             @RenderSection("DialogContent", required: true)
         </div>
     </div>

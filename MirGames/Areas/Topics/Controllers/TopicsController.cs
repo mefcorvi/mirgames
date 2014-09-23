@@ -103,7 +103,7 @@ namespace MirGames.Areas.Topics.Controllers
             this.ViewBag.TopicsCount = topicsCount;
             this.ViewBag.RssUrl = this.Url.Action("Rss", "Topics", new { tag, searchString });
             this.ViewBag.Pagination = new PaginationViewModel(
-                paginationSettings, topicsCount, p => this.Url.Action(MVC.Topics.Topics.Index(tag, searchString, page, onlyUnread)));
+                paginationSettings, topicsCount, p => this.Url.Action(MVC.Topics.Topics.Index(tag, searchString, p, onlyUnread)));
 
             var comments = this.QueryProcessor.Process(new GetCommentsQuery { LoadOnlyShortText = true }, new PaginationSettings(0, 10));
             this.ViewBag.Comments = comments;
