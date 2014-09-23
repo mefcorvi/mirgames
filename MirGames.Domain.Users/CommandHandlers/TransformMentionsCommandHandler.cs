@@ -35,7 +35,7 @@
         }
 
         /// <inheritdoc />
-        public override string Execute(TransformMentionsCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override string Execute(TransformMentionsCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             if (string.IsNullOrWhiteSpace(command.Text))
             {

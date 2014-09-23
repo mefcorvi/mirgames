@@ -63,7 +63,7 @@ namespace MirGames.Domain.Users.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(SignUpCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override void Execute(SignUpCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             using (var writeContext = this.writeContextFactory.Create())
             {

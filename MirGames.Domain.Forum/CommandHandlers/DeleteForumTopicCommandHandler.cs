@@ -64,7 +64,7 @@ namespace MirGames.Domain.Forum.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(DeleteForumTopicCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override void Execute(DeleteForumTopicCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             Contract.Requires(principal.GetUserId() != null);
             ForumTopic topic;

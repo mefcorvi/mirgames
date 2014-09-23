@@ -45,7 +45,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(ReindexTopicsCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override void Execute(ReindexTopicsCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             this.searchEngine.ClearIndex();
             using (var writeContext = this.writeContextFactory.Create())

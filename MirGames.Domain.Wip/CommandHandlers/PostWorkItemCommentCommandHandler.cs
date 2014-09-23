@@ -50,7 +50,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override int Execute(
+        protected override int Execute(
             PostWorkItemCommentCommand command, 
             ClaimsPrincipal principal, 
             IAuthorizationManager authorizationManager)

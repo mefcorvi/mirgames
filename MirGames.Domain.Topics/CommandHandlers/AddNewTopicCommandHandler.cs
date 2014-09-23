@@ -83,7 +83,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override int Execute(AddNewTopicCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override int Execute(AddNewTopicCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             Contract.Requires(principal.GetUserId() != null);
 
@@ -107,7 +107,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
                 IsPublishedDraft = false,
                 IsPublishedIndex = false,
                 IsRepost = false,
-                IsTutorial = false,
+                IsTutorial = command.IsTutorial,
                 Rating = 0,
                 SourceAuthor = null,
                 SourceLink = null,
@@ -122,6 +122,13 @@ namespace MirGames.Domain.Topics.CommandHandlers
             if (command.BlogId.HasValue)
             {
                 authorizationManager.EnsureAccess(principal, "CreateTopic", "Blog", command.BlogId);
+            }
+
+            if (command.IsRepost)
+            {
+                topic.SourceAuthor = command.SourceAuthor;
+                topic.SourceLink = command.SourceLink;
+                topic.IsRepost = true;
             }
 
             using (var writeContext = this.writeContextFactory.Create())

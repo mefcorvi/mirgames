@@ -22,7 +22,7 @@ module UI {
 
             $.ionSound({
                 sounds: ['notify'],
-                path: 'sounds/',
+                path: '/sounds/',
                 multiPlay: false,
                 volume: 1
             });

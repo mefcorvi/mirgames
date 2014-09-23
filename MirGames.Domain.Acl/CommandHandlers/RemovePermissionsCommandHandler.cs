@@ -62,7 +62,7 @@ namespace MirGames.Domain.Acl.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(RemovePermissionsCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override void Execute(RemovePermissionsCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             int? entityTypeId = this.GetEntityTypeId(command);
             int? actionId = this.GetActionId(command, entityTypeId);

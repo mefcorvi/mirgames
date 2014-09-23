@@ -1,0 +1,37 @@
+﻿@using MirGames.Domain.Security
+@using MirGames.Infrastructure
+
+@{
+    var currentTag = (string)ViewBag.Tag;
+    var subsection = (string)ViewBag.Subsection;
+}
+
+
+<div class="page-header">
+    <div class="header">
+        @if (ViewBag.OnlyUnread == true)
+        {
+            <h4><a href="@Url.Action(MVC.Topics.Topics.Index())">Блог</a></h4>
+            <h3>Новые темы и ответы в блоге</h3>
+        }
+        else if (currentTag != null)
+        {
+            <h4><a href="@Url.Action(MVC.Topics.Topics.Index())">Блог</a></h4>
+            <h3>@currentTag.ToTitleCase()</h3>
+        }
+        else
+        {
+            <h3>Блог</h3>
+        }
+    </div>
+    <div class="buttons">
+        @if (User.Can("Create", "Topic"))
+        {
+            <a href="@Url.Action(MVC.Topics.Topics.New())" @Html.Css("add-topic").Add("selected", ViewBag.Subsection == "New")><i class="fa fa-pencil"></i>Новый пост</a>
+        }
+    </div>
+</div>
+<nav class="toolbar">
+    <a href="@Url.Action(MVC.Topics.Topics.Index())" @Html.Css("selected", subsection == "All")>Все посты</a>
+    <a href="@Url.Action(MVC.Topics.Topics.Tutorials())" @Html.Css("selected", subsection == "Tutorials")><i class="fa fa-graduation-cap"></i>Обучающие статьи</a>
+</nav>

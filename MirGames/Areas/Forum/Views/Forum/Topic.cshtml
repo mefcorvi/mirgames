@@ -99,7 +99,7 @@
         </div>
         <div class="post-block">
             <div class="created-date">
-                <i class="fa fa-clock-o"></i> <span class="topic-created-date relative">{{post.CreatedDate | date:'dd.MM.yy HH:mm'}}</span>
+                <i class="fa fa-clock-o"></i> <span class="topic-created-date relative" datetime="{{post.CreatedDate | date:'yyyy-MM-ddTHH:mm:ssZ'}}">{{post.CreatedDate | date:'dd.MM.yy HH:mm'}}</span>
             </div>
             <div class="text" ng-bind-html="post.Text | unsafe"></div>
             <div class="edited" ng-show="post.UpdatedDate > post.CreatedDate">Отредактировано: {{post.UpdatedDate | date:'dd.MM.yy HH:mm'}}</div>

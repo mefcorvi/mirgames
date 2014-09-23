@@ -103,6 +103,7 @@ namespace MirGames.Areas.Topics.Controllers
             public readonly string Rss = "Rss";
             public readonly string CommentsRss = "CommentsRss";
             public readonly string Index = "Index";
+            public readonly string Tutorials = "Tutorials";
             public readonly string Topic = "Topic";
             public readonly string New = "New";
             public readonly string Edit = "Edit";
@@ -120,6 +121,7 @@ namespace MirGames.Areas.Topics.Controllers
             public const string Rss = "Rss";
             public const string CommentsRss = "CommentsRss";
             public const string Index = "Index";
+            public const string Tutorials = "Tutorials";
             public const string Topic = "Topic";
             public const string New = "New";
             public const string Edit = "Edit";
@@ -151,7 +153,16 @@ namespace MirGames.Areas.Topics.Controllers
             public readonly string searchString = "searchString";
             public readonly string page = "page";
             public readonly string onlyUnread = "onlyUnread";
-            public readonly string isTutorial = "isTutorial";
+        }
+        static readonly ActionParamsClass_Tutorials s_params_Tutorials = new ActionParamsClass_Tutorials();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Tutorials TutorialsParams { get { return s_params_Tutorials; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Tutorials
+        {
+            public readonly string tag = "tag";
+            public readonly string searchString = "searchString";
+            public readonly string page = "page";
         }
         static readonly ActionParamsClass_Topic s_params_Topic = new ActionParamsClass_Topic();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -207,10 +218,11 @@ namespace MirGames.Areas.Topics.Controllers
                 public readonly string _Comment = "_Comment";
                 public readonly string _DeleteCommentDialog = "_DeleteCommentDialog";
                 public readonly string _EditCommentDialog = "_EditCommentDialog";
+                public readonly string _LastComments = "_LastComments";
                 public readonly string _TopicListItem = "_TopicListItem";
                 public readonly string _TopicMenu = "_TopicMenu";
+                public readonly string _TopicsHeader = "_TopicsHeader";
                 public readonly string _TopicsList = "_TopicsList";
-                public readonly string _TopicsMenu = "_TopicsMenu";
                 public readonly string Edit = "Edit";
                 public readonly string Index = "Index";
                 public readonly string New = "New";
@@ -220,10 +232,11 @@ namespace MirGames.Areas.Topics.Controllers
             public readonly string _Comment = "~/Areas/Topics/Views/Topics/_Comment.cshtml";
             public readonly string _DeleteCommentDialog = "~/Areas/Topics/Views/Topics/_DeleteCommentDialog.cshtml";
             public readonly string _EditCommentDialog = "~/Areas/Topics/Views/Topics/_EditCommentDialog.cshtml";
+            public readonly string _LastComments = "~/Areas/Topics/Views/Topics/_LastComments.cshtml";
             public readonly string _TopicListItem = "~/Areas/Topics/Views/Topics/_TopicListItem.cshtml";
             public readonly string _TopicMenu = "~/Areas/Topics/Views/Topics/_TopicMenu.cshtml";
+            public readonly string _TopicsHeader = "~/Areas/Topics/Views/Topics/_TopicsHeader.cshtml";
             public readonly string _TopicsList = "~/Areas/Topics/Views/Topics/_TopicsList.cshtml";
-            public readonly string _TopicsMenu = "~/Areas/Topics/Views/Topics/_TopicsMenu.cshtml";
             public readonly string Edit = "~/Areas/Topics/Views/Topics/Edit.cshtml";
             public readonly string Index = "~/Areas/Topics/Views/Topics/Index.cshtml";
             public readonly string New = "~/Areas/Topics/Views/Topics/New.cshtml";
@@ -261,18 +274,31 @@ namespace MirGames.Areas.Topics.Controllers
         }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string tag, string searchString, int page, bool onlyUnread, bool? isTutorial);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string tag, string searchString, int page, bool onlyUnread);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index(string tag, string searchString, int page, bool onlyUnread, bool? isTutorial)
+        public override System.Web.Mvc.ActionResult Index(string tag, string searchString, int page, bool onlyUnread)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "tag", tag);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "searchString", searchString);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "page", page);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "onlyUnread", onlyUnread);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "isTutorial", isTutorial);
-            IndexOverride(callInfo, tag, searchString, page, onlyUnread, isTutorial);
+            IndexOverride(callInfo, tag, searchString, page, onlyUnread);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void TutorialsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string tag, string searchString, int page);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Tutorials(string tag, string searchString, int page)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Tutorials);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "tag", tag);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "searchString", searchString);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "page", page);
+            TutorialsOverride(callInfo, tag, searchString, page);
             return callInfo;
         }
 

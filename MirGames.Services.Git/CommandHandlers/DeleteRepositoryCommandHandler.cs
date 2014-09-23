@@ -60,7 +60,7 @@ namespace MirGames.Services.Git.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(DeleteRepositoryCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override void Execute(DeleteRepositoryCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             string repositoryName = command.RepositoryName.ToLowerInvariant();
 

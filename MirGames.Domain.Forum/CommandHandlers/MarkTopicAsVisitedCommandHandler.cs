@@ -62,7 +62,7 @@ namespace MirGames.Domain.Forum.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(MarkTopicAsVisitedCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override void Execute(MarkTopicAsVisitedCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             Contract.Requires(principal.GetUserId() != null);
             int userId = principal.GetUserId().GetValueOrDefault();

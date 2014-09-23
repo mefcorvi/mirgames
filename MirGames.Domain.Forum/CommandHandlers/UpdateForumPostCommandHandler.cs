@@ -75,7 +75,7 @@ namespace MirGames.Domain.Forum.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(UpdateForumPostCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override void Execute(UpdateForumPostCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             Contract.Requires(principal.GetUserId() != null);
 

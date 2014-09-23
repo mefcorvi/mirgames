@@ -40,7 +40,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(AssignWorkItemCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override void Execute(AssignWorkItemCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             using (var writeContext = this.writeContextFactory.Create())
             {

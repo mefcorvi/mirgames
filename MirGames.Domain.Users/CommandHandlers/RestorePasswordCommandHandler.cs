@@ -47,7 +47,7 @@ namespace MirGames.Domain.Users.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(RestorePasswordCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override void Execute(RestorePasswordCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             User user;
 

@@ -66,7 +66,7 @@ namespace MirGames.Domain.Forum.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(UpgradeForumCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override void Execute(UpgradeForumCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             bool topicsEnd = false;
             int currentPage = 0;

@@ -82,7 +82,7 @@ namespace MirGames.Domain.Acl.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(SetPermissionCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override void Execute(SetPermissionCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             int entityTypeId = this.entityTypesResolver.GetEntityTypeId(command.EntityType);
 

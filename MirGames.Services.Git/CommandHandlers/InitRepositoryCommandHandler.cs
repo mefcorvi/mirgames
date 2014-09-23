@@ -72,7 +72,7 @@ namespace MirGames.Services.Git.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override int Execute(InitRepositoryCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override int Execute(InitRepositoryCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             Contract.Requires(principal.GetUserId() != null);
 

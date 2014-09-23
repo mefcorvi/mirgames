@@ -13,30 +13,7 @@
     var comments = (IEnumerable<CommentViewModel>)ViewBag.Comments;
 }
 
-<div class="page-header">
-    <div class="header">
-        @if (ViewBag.OnlyUnread == true)
-        {
-            <h4><a href="@Url.Action(MVC.Topics.Topics.Index())">Блог</a></h4>
-            <h3>Новые темы и ответы в блоге</h3>
-        }
-        else if (currentTag != null)
-        {
-            <h4><a href="@Url.Action(MVC.Topics.Topics.Index())">Блог</a></h4>
-            <h3>@currentTag.ToTitleCase()</h3>
-        }
-        else
-        {
-            <h3>Блог</h3>
-        }
-    </div>
-    <div class="buttons">
-        @if (User.Can("Create", "Topic"))
-        {
-            <a href="@Url.Action(MVC.Topics.Topics.New())" @Html.Css("add-topic").Add("selected", ViewBag.Subsection == "New")><i class="fa fa-pencil"></i>Новая тема</a>
-        }
-    </div>
-</div>
+@Html.Partial("_TopicsHeader")
     
 <div class="topics-list">
     @foreach (var topic in topics)
@@ -46,17 +23,7 @@
     @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
 </div>
 <div class="last-activities">
-    <h3>Последние комментарии</h3>
-    <div class="comments">
-        @foreach (var comment in comments)
-        {
-            <div class="comment-item">
-                <a href="@Url.Action(MVC.Topics.Topics.Topic(comment.TopicId))">@comment.TopicTitle</a>
-                <div class="short-text">@comment.Text</div>
-                <div class="topic-info"><span class="date relative" datetime="@comment.CreationDate.ToString("O")">@Html.RelativeDate(comment.CreationDate)</span>, <a href="@Url.Action(MVC.Users.Profile(comment.Author.Id.GetValueOrDefault()))">@comment.Author.Login</a></div>
-            </div>
-        }
-    </div>
+    @Html.Partial("_LastComments", comments)
     <h3>Тэги</h3>
     <div class="tags tags-cloud">
         @{
@@ -64,7 +31,7 @@
         }
         @foreach (var tag in tags)
         {
-            <a href="@Url.Action(MVC.Topics.Topics.Index(tag.Tag.Trim()))" @Html.Css(string.Format("tag-size-{0}", (tag.Count * 5 / maxTagsCount))).Add("selected", tag.Tag.EqualsIgnoreCase(currentTag))>@tag.Tag.Trim()</a>
+            <a href="@Url.Action(MVC.Topics.Topics.Index(tag.Tag.Trim(), (string)ViewBag.SearchString, 1, false))" @Html.Css(string.Format("tag-size-{0}", (tag.Count * 5 / maxTagsCount))).Add("selected", tag.Tag.EqualsIgnoreCase(currentTag))>@tag.Tag.Trim()</a>
         }
     </div>
 </div>

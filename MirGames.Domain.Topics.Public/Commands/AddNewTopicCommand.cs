@@ -9,6 +9,7 @@
 namespace MirGames.Domain.Topics.Commands
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using MirGames.Infrastructure.Commands;
 
@@ -33,6 +34,28 @@ namespace MirGames.Domain.Topics.Commands
         /// Gets or sets the tags.
         /// </summary>
         public string Tags { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is tutorial.
+        /// </summary>
+        public bool IsTutorial { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is repost.
+        /// </summary>
+        public bool IsRepost { get; set; }
+
+        /// <summary>
+        /// Gets or sets the source author.
+        /// </summary>
+        [MaxLength(128)]
+        public string SourceAuthor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the source link.
+        /// </summary>
+        [Url]
+        public string SourceLink { get; set; }
 
         /// <summary>
         /// Gets or sets the blog identifier.

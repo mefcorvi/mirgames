@@ -54,7 +54,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override string Execute(
+        protected override string Execute(
             CreateNewWipProjectCommand command,
             ClaimsPrincipal principal,
             IAuthorizationManager authorizationManager)

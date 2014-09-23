@@ -37,10 +37,10 @@ namespace MirGames.Domain.Users.CommandHandlers
         /// <summary>
         /// Gets or sets the write context factory.
         /// </summary>
-        public IWriteContextFactory WriteContextFactory { get; set; }
+        private IWriteContextFactory WriteContextFactory { get; set; }
 
         /// <inheritdoc />
-        public sealed override void Execute(T command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected sealed override void Execute(T command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             Contract.Requires(principal.GetUserId() != null);
 

@@ -66,7 +66,7 @@ namespace MirGames.Domain.Chat.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override int Execute(PostChatMessageCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override int Execute(PostChatMessageCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             int userId = principal.GetUserId().GetValueOrDefault();
             var author = this.queryProcessor.Process(

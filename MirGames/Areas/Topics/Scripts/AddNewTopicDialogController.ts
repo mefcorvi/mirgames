@@ -19,7 +19,11 @@ module MirGames.Topics {
                 BlogId: this.$scope.blogId,
                 Tags: this.$scope.tags,
                 Text: this.$scope.text,
-                Title: this.$scope.title
+                Title: this.$scope.title,
+                IsRepost: false,
+                IsTutorial: false,
+                SourceAuthor: null,
+                SourceLink: null
             };
 
             this.apiService.executeCommand('AddNewTopicCommand', command, (result) => {

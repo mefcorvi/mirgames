@@ -35,7 +35,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override int Execute(AddNewBlogCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override int Execute(AddNewBlogCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             using (var writeContext = this.writeContextFactory.Create())
             {

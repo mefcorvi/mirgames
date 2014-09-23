@@ -54,7 +54,7 @@ namespace MirGames.Domain.Users.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(RequestPasswordRestoreCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override void Execute(RequestPasswordRestoreCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             User user;
             string secretKey = Guid.NewGuid().ToString().GetMd5Hash();

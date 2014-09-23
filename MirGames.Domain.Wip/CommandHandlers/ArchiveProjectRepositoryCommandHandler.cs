@@ -47,7 +47,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
             this.readContextFactory = readContextFactory;
         }
 
-        public override void Execute(
+        protected override void Execute(
             ArchiveProjectRepositoryCommand command,
             ClaimsPrincipal principal,
             IAuthorizationManager authorizationManager)

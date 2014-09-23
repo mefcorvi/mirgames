@@ -42,7 +42,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override WorkItemState Execute(ChangeWorkItemStateCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override WorkItemState Execute(ChangeWorkItemStateCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             using (var writeContext = this.writeContextFactory.Create())
             {

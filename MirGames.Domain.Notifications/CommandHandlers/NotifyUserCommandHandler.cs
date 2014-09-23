@@ -64,7 +64,7 @@ namespace MirGames.Domain.Notifications.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(
+        protected override void Execute(
             NotifyUsersCommand command,
             ClaimsPrincipal principal,
             IAuthorizationManager authorizationManager)

@@ -45,7 +45,7 @@ namespace MirGames.Domain.Forum.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(ReindexForumTopicCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override void Execute(ReindexForumTopicCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             var posts = this.queryProcessor.Process(new GetForumTopicPostsQuery { TopicId = command.TopicId });
             var sb = new StringBuilder();

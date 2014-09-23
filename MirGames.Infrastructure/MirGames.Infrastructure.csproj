@@ -145,6 +145,8 @@
   <ItemGroup>
     <Compile Include="Cache\CacheManagerFactory.cs" />
     <Compile Include="Cache\ICacheManagerFactory.cs" />
+    <Compile Include="CommandHandlerDecorators\ValidationCommandHandlerDecorator.cs" />
+    <Compile Include="CommandHandlerDecorators\TraceCommandHandlerDecorator.cs" />
     <Compile Include="Commands\ApiAttribute.cs" />
     <Compile Include="Commands\AuthorizeAttribute.cs" />
     <Compile Include="Commands\Command.cs" />
@@ -155,6 +157,7 @@
     <Compile Include="DomainModuleBase.cs" />
     <Compile Include="IDatabaseInitializer.cs" />
     <Compile Include="ParameterReplacerVisitor.cs" />
+    <Compile Include="Commands\ICommandHandlerDecorator.cs" />
     <Compile Include="Queries\IQueryCacheContainer.cs" />
     <Compile Include="Queries\IQueryHandlerDecorator.cs" />
     <Compile Include="Queries\QueryCacheContainer.cs" />

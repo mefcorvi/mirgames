@@ -39,7 +39,7 @@ namespace MirGames.Domain.Users.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(SaveUserProfileCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override void Execute(SaveUserProfileCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             Contract.Requires(principal.GetUserId() != null);
             int userId = principal.GetUserId().GetValueOrDefault();

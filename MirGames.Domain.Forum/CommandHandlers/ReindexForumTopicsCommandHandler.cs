@@ -46,7 +46,7 @@ namespace MirGames.Domain.Forum.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(ReindexForumTopicsCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override void Execute(ReindexForumTopicsCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             ICollection<ForumTopic> topics;
 

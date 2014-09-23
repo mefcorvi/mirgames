@@ -267,25 +267,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Code\Helper.cs" />
-    <Content Include="App_Code\MarkdownHelper.cs" />
-    <Content Include="App_Code\JsonHelper.cs" />
-    <Content Include="App_Code\DateTimeHelper.cs" />
-    <Content Include="App_Code\PluralizationExtensions.cs" />
     <Compile Include="AccountController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\PagesController.cs" />
-    <Compile Include="Infrastructure\AntiForgeryAttribute.cs" />
-    <Content Include="App_Code\UrlHelperExtensions.cs" />
     <Compile Include="AppController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Chat\ChatAreaRegistration.cs" />
-    <Compile Include="Areas\Forum\ForumAreaRegistration.cs" />
-    <Compile Include="Areas\Projects\ProjectLinkRegistrar.cs" />
-    <Compile Include="Areas\Projects\ProjectsAreaRegistration.cs" />
-    <Compile Include="Areas\Topics\TopicsAreaRegistration.cs" />
     <Compile Include="AttachmentController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -295,7 +282,6 @@
     <Compile Include="DashboardController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\EntityLinkProvider.cs" />
     <Compile Include="ErrorController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -305,14 +291,6 @@
     <Compile Include="GitController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Hubs\NotificationsAddedEventListener.cs" />
-    <Compile Include="Infrastructure\IEntityLinkProvider.cs" />
-    <Compile Include="Infrastructure\IEntityLinkRegistrar.cs" />
-    <Compile Include="Infrastructure\Recaptcha\IRecaptchaSettings.cs" />
-    <Compile Include="Infrastructure\Recaptcha\IRecaptchaVerificationProcessor.cs" />
-    <Compile Include="Infrastructure\Recaptcha\RecaptchaSettings.cs" />
-    <Compile Include="Infrastructure\Recaptcha\RecaptchaVerificationProcessor.cs" />
-    <Compile Include="Infrastructure\Recaptcha\RecaptchaVerificationResult.cs" />
     <Compile Include="OAuthController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -325,7 +303,7 @@
     <Compile Include="SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="T4MVC.cs">
+    <Compile Include="T4MVC1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -336,6 +314,31 @@
     <Compile Include="Topics.TopicsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="UsersController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Content Include="App_Code\Helper.cs" />
+    <Content Include="App_Code\MarkdownHelper.cs" />
+    <Content Include="App_Code\JsonHelper.cs" />
+    <Content Include="App_Code\DateTimeHelper.cs" />
+    <Content Include="App_Code\PluralizationExtensions.cs" />
+    <Compile Include="Controllers\PagesController.cs" />
+    <Compile Include="Infrastructure\AntiForgeryAttribute.cs" />
+    <Content Include="App_Code\UrlHelperExtensions.cs" />
+    <Compile Include="Areas\Chat\ChatAreaRegistration.cs" />
+    <Compile Include="Areas\Forum\ForumAreaRegistration.cs" />
+    <Compile Include="Areas\Projects\ProjectLinkRegistrar.cs" />
+    <Compile Include="Areas\Projects\ProjectsAreaRegistration.cs" />
+    <Compile Include="Areas\Topics\TopicsAreaRegistration.cs" />
+    <Compile Include="Infrastructure\EntityLinkProvider.cs" />
+    <Compile Include="Hubs\NotificationsAddedEventListener.cs" />
+    <Compile Include="Infrastructure\IEntityLinkProvider.cs" />
+    <Compile Include="Infrastructure\IEntityLinkRegistrar.cs" />
+    <Compile Include="Infrastructure\Recaptcha\IRecaptchaSettings.cs" />
+    <Compile Include="Infrastructure\Recaptcha\IRecaptchaVerificationProcessor.cs" />
+    <Compile Include="Infrastructure\Recaptcha\RecaptchaSettings.cs" />
+    <Compile Include="Infrastructure\Recaptcha\RecaptchaVerificationProcessor.cs" />
+    <Compile Include="Infrastructure\Recaptcha\RecaptchaVerificationResult.cs" />
     <Compile Include="Infrastructure\UserLinkTextTransform.cs" />
     <Compile Include="Controllers\GitController.cs" />
     <Compile Include="Controllers\OAuthController.cs" />
@@ -346,9 +349,6 @@
     <Compile Include="OAuth\GoogleAuthenticationClientProvider.cs" />
     <Compile Include="OAuth\MicrosoftAuthenticationClientProvider.cs" />
     <Compile Include="Infrastructure\SessionManager.cs" />
-    <Compile Include="UsersController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="Infrastructure\WebModule.cs" />
     <Compile Include="OAuth\GitHubAuthenticationClientProvider.cs" />
     <Compile Include="Infrastructure\ClaimsPrincipalUserIdProvider.cs" />
@@ -423,6 +423,7 @@
     <Content Include="Areas\Projects\Content\work-item-blocks.html" />
     <Content Include="Areas\Projects\Content\work-items-list.html" />
     <Content Include="Content\pages\static-page.less" />
+    <Content Include="Areas\Topics\Views\Topics\_LastComments.cshtml" />
     <None Include="Content\quick-date.less" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\droidsans-webfont.svg" />
@@ -648,7 +649,7 @@
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>T4MVC.cs</LastGenOutput>
+      <LastGenOutput>T4MVC1.cs</LastGenOutput>
     </None>
     <None Include="T4MVC.tt.settings.xml" />
     <None Include="tools\gulpfile.js" />
@@ -670,7 +671,7 @@
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
     <Content Include="Areas\Topics\Views\Topics\New.cshtml" />
     <Content Include="Views\Shared\_Nav.cshtml" />
-    <Content Include="Areas\Topics\Views\Topics\_TopicsMenu.cshtml" />
+    <Content Include="Areas\Topics\Views\Topics\_TopicsHeader.cshtml" />
     <Content Include="Views\Users\_ProfileMenu.cshtml" />
     <Content Include="Views\Account\_LoginDialog.cshtml" />
     <Content Include="Views\Account\_SignUpDialog.cshtml" />

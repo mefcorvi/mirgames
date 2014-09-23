@@ -41,7 +41,7 @@ namespace MirGames.Domain.Attachments.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(RemoveAttachmentsCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override void Execute(RemoveAttachmentsCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             using (var writeContext = this.writeContextFactory.Create())
             {

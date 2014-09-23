@@ -57,7 +57,7 @@ namespace MirGames.Domain.Chat.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(UpdateChatMessageCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override void Execute(UpdateChatMessageCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             int userId = principal.GetUserId().GetValueOrDefault();
 

@@ -51,7 +51,7 @@ namespace MirGames.Domain.Users.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override string Execute(LoginAsUserCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override string Execute(LoginAsUserCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             Contract.Requires(principal.GetUserId() != null);
             Contract.Requires(principal.GetSessionId() != null);

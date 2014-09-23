@@ -28,11 +28,12 @@ namespace MirGames.Infrastructure.Commands
         }
 
         /// <inheritdoc />
-        void ICommandHandler.Execute(Command command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        object ICommandHandler.Execute(Command command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             Contract.Requires(command != null);
             Contract.Requires(principal != null);
             this.Execute((T)command, principal, authorizationManager);
+            return null;
         }
 
         /// <summary>
@@ -41,16 +42,7 @@ namespace MirGames.Infrastructure.Commands
         /// <param name="command">The command.</param>
         /// <param name="principal">The principal.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
-        public abstract void Execute(T command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager);
-
-        /// <summary>
-        /// Gets the event log message.
-        /// </summary>
-        /// <returns>The event log message.</returns>
-        public virtual string GetEventLogMessage()
-        {
-            return null;
-        }
+        protected abstract void Execute(T command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager);
     }
 
     /// <summary>
@@ -59,7 +51,7 @@ namespace MirGames.Infrastructure.Commands
     /// <typeparam name="T">Type of command.</typeparam>
     /// <typeparam name="TResult">The type of the result.</typeparam>
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed. Suppression is OK here.")]
-    public abstract class CommandHandler<T, TResult> : ICommandHandler<TResult> where T : Command<TResult>
+    public abstract class CommandHandler<T, TResult> : ICommandHandler where T : Command<TResult>
     {
         /// <inheritdoc />
         public Type CommandType
@@ -68,23 +60,7 @@ namespace MirGames.Infrastructure.Commands
         }
 
         /// <inheritdoc />
-        void ICommandHandler.Execute(Command command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
-        {
-            Contract.Requires(command != null);
-            Contract.Requires(principal != null);
-            this.Execute((T)command, principal, authorizationManager);
-        }
-
-        /// <inheritdoc />
-        object ICommandHandlerWithResult.Execute(Command command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
-        {
-            Contract.Requires(command != null);
-            Contract.Requires(principal != null);
-            return this.Execute((T)command, principal, authorizationManager);
-        }
-
-        /// <inheritdoc />
-        TResult ICommandHandler<TResult>.Execute(Command<TResult> command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        object ICommandHandler.Execute(Command command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             Contract.Requires(command != null);
             Contract.Requires(principal != null);
@@ -98,6 +74,6 @@ namespace MirGames.Infrastructure.Commands
         /// <param name="principal">The principal.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
         /// <returns>The result.</returns>
-        public abstract TResult Execute(T command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager);
+        protected abstract TResult Execute(T command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager);
     }
 }

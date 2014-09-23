@@ -76,16 +76,8 @@ namespace MirGames.Areas.Topics.Controllers
             return new RssActionResult(feed);
         }
 
-        /// <summary>
-        /// The index action.
-        /// </summary>
-        /// <param name="tag">The tag.</param>
-        /// <param name="searchString">The search string.</param>
-        /// <param name="page">The page.</param>
-        /// <param name="onlyUnread">if set to <c>true</c> only unread topics will be returned.</param>
-        /// <param name="isTutorial">The is tutorial.</param>
-        /// <returns>The action result.</returns>
-        public virtual ActionResult Index(string tag = null, string searchString = null, int page = 1, bool onlyUnread = false, bool? isTutorial = null)
+        /// <inheritdoc />
+        public virtual ActionResult Index(string tag = null, string searchString = null, int page = 1, bool onlyUnread = false)
         {
             if (page < 1)
             {
@@ -99,8 +91,7 @@ namespace MirGames.Areas.Topics.Controllers
                 IsPublished = true,
                 Tag = tag,
                 SearchString = searchString,
-                OnlyUnread = onlyUnread,
-                IsTutorial = isTutorial
+                OnlyUnread = onlyUnread
             };
 
             var topics = this.QueryProcessor.Process(topicsQuery, paginationSettings);
@@ -112,7 +103,7 @@ namespace MirGames.Areas.Topics.Controllers
             this.ViewBag.TopicsCount = topicsCount;
             this.ViewBag.RssUrl = this.Url.Action("Rss", "Topics", new { tag, searchString });
             this.ViewBag.Pagination = new PaginationViewModel(
-                paginationSettings, topicsCount, p => this.Url.Action("Index", "Topics", new { tag, searchString, page = p }));
+                paginationSettings, topicsCount, p => this.Url.Action(MVC.Topics.Topics.Index(tag, searchString, page, onlyUnread)));
 
             var comments = this.QueryProcessor.Process(new GetCommentsQuery { LoadOnlyShortText = true }, new PaginationSettings(0, 10));
             this.ViewBag.Comments = comments;
@@ -121,8 +112,54 @@ namespace MirGames.Areas.Topics.Controllers
             this.ViewBag.PageData["tag"] = tag;
             this.ViewBag.PageData["searchString"] = searchString;
             this.ViewBag.OnlyUnread = onlyUnread;
+            this.ViewBag.OnlyTutorial = false;
+            this.ViewBag.SearchString = searchString;
 
             return this.View(topics);
+        }
+
+        /// <inheritdoc />
+        public virtual ActionResult Tutorials(string tag = null, string searchString = null, int page = 1)
+        {
+            if (page < 1)
+            {
+                page = 1;
+            }
+
+            var paginationSettings = new PaginationSettings(page - 1, 20);
+
+            var topicsQuery = new GetTopicsQuery
+            {
+                IsPublished = true,
+                Tag = tag,
+                SearchString = searchString,
+                OnlyUnread = false,
+                IsTutorial = true
+            };
+
+            var topics = this.QueryProcessor.Process(topicsQuery, paginationSettings);
+            var topicsCount = this.QueryProcessor.GetItemsCount(topicsQuery);
+
+            var tags = this.QueryProcessor.Process(new GetMainTagsQuery(), new PaginationSettings(0, 50));
+            this.ViewBag.Tags = tags;
+            this.ViewBag.Tag = tag;
+            this.ViewBag.TopicsCount = topicsCount;
+            this.ViewBag.RssUrl = this.Url.Action("Rss", "Topics", new { tag, searchString });
+            this.ViewBag.Pagination = new PaginationViewModel(
+                paginationSettings, topicsCount, p => this.Url.Action(MVC.Topics.Topics.Tutorials(tag, searchString, p)));
+
+            var comments = this.QueryProcessor.Process(new GetCommentsQuery { LoadOnlyShortText = true }, new PaginationSettings(0, 10));
+            this.ViewBag.Comments = comments;
+
+            this.ViewBag.Subsection = "All";
+            this.ViewBag.PageData["tag"] = tag;
+            this.ViewBag.PageData["searchString"] = searchString;
+            this.ViewBag.OnlyUnread = false;
+            this.ViewBag.OnlyTutorial = true;
+            this.ViewBag.SearchString = searchString;
+            this.ViewBag.Subsection = "Tutorials";
+
+            return this.View("Index", topics);
         }
 
         /// <summary>

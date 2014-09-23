@@ -51,7 +51,7 @@ namespace MirGames.Domain.Attachments.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(PublishAttachmentsCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override void Execute(PublishAttachmentsCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             Contract.Requires(command.Identifiers != null);
             Contract.Requires(principal.GetUserId() != null);

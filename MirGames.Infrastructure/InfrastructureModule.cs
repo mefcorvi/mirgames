@@ -49,6 +49,12 @@ namespace MirGames.Infrastructure
                 .AssignableTo<IQueryHandlerDecorator>()
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
+
+            builder
+                .RegisterAssemblyTypes(this.GetType().Assembly)
+                .AssignableTo<ICommandHandlerDecorator>()
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
         }
     }
 }

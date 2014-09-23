@@ -69,7 +69,7 @@ namespace MirGames.Domain.Notifications.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override int Execute(
+        protected override int Execute(
             RemoveNotificationsCommand command,
             ClaimsPrincipal principal,
             IAuthorizationManager authorizationManager)

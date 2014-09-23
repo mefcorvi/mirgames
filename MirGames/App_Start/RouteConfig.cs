@@ -13,8 +13,6 @@ namespace MirGames
     using System.Web.Mvc;
     using System.Web.Routing;
 
-    using MirGames.Domain.Wip.ViewModels;
-
     /// <summary>
     /// The route config.
     /// </summary>

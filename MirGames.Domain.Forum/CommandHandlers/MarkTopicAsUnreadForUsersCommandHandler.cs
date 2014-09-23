@@ -48,7 +48,7 @@ namespace MirGames.Domain.Forum.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(MarkTopicAsUnreadForUsersCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override void Execute(MarkTopicAsUnreadForUsersCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             IEnumerable<ForumTopicUnread> newUnreads;
 

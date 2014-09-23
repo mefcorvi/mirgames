@@ -84,7 +84,7 @@ namespace MirGames.Domain.Attachments.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override int Execute(CreateAttachmentCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override int Execute(CreateAttachmentCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             Contract.Requires(principal.GetUserId() != null);
             int userId = principal.GetUserId().GetValueOrDefault();

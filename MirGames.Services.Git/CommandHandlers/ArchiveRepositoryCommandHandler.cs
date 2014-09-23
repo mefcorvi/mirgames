@@ -63,7 +63,7 @@ namespace MirGames.Services.Git.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(ArchiveRepositoryCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override void Execute(ArchiveRepositoryCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             Contract.Requires(command.OutputStream != null);
             Contract.Requires(command.OutputStream.CanWrite);

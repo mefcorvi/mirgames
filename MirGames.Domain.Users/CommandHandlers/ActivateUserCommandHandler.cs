@@ -51,7 +51,7 @@ namespace MirGames.Domain.Users.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override string Execute(ActivateUserCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override string Execute(ActivateUserCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             Contract.Requires(!string.IsNullOrWhiteSpace(command.ActivationKey));
             var sessionId = Guid.NewGuid().ToString("N");

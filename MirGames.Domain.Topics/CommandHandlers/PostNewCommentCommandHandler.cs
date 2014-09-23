@@ -77,7 +77,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override int Execute(PostNewCommentCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override int Execute(PostNewCommentCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             Contract.Requires(principal.GetUserId() != null);
 

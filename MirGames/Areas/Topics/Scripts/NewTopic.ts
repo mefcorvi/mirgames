@@ -2,9 +2,9 @@
 module MirGames.Topics {
 
     export class NewTopicPage {
-        static $inject = ['$scope', '$element', 'commandBus', 'eventBus', 'apiService'];
+        static $inject = ['$scope', '$element', 'eventBus', 'apiService'];
 
-        constructor(private $scope: INewTopicPageScope, private $element: JQuery, private commandBus: Core.ICommandBus, private eventBus: Core.IEventBus, private apiService: Core.IApiService) {
+        constructor(private $scope: INewTopicPageScope, private $element: JQuery, private eventBus: Core.IEventBus, private apiService: Core.IApiService) {
             this.$scope.save = this.submit.bind(this);
             this.$scope.attachments = [];
 
@@ -37,10 +37,20 @@ module MirGames.Topics {
         }
 
         private submit() {
-            var command = this.commandBus.createCommandFromScope(Domain.AddNewTopicCommand, this.$scope);
+            var command: MirGames.Domain.Topics.Commands.AddNewTopicCommand = {
+                Attachments: this.$scope.attachments,
+                BlogId: null,
+                Tags: this.$scope.tags,
+                Text: this.$scope.text,
+                Title: this.$scope.title,
+                IsRepost: this.$scope.isRepost,
+                IsTutorial: this.$scope.isTutorial,
+                SourceAuthor: this.$scope.sourceAuthor,
+                SourceLink: this.$scope.sourceLink
+            };
 
-            this.commandBus.executeCommand(Router.action("Topics", "AddTopic"), command, (result) => {
-                Core.Application.getInstance().navigateToUrl(Router.action("Topics", "Topic", { topicId: result.topicId }));
+            this.apiService.executeCommand('AddNewTopicCommand', command, (topicId: number) => {
+                Core.Application.getInstance().navigateToUrl(Router.action("Topics", "Topic", { topicId: topicId, area: 'Topics' }));
             });
         }
     }
@@ -54,5 +64,9 @@ module MirGames.Topics {
         isTitleFocused: boolean;
         switchPreviewMode(): void;
         attachments: number[];
+        isRepost: boolean;
+        isTutorial: boolean;
+        sourceAuthor: string;
+        sourceLink: string;
     }
 }

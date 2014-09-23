@@ -1,7 +1,7 @@
 ﻿@model MirGames.Domain.Topics.Commands.AddNewTopicCommand
 
 @{
-    Title = "Новая тема";
+    Title = "Новый пост";
     PageScriptController = "MirGames.Topics.NewTopicPage";
     AddPageCssClass("new-topic-page");
 }
@@ -9,7 +9,7 @@
 <div class="page-header">
     <div class="header">
         <h4><a href="@Url.Action(MVC.Topics.Topics.Index())">Блог</a></h4>
-        <h3>Новая тема</h3>
+        <h3>Новый пост</h3>
     </div>
     <div class="buttons">
     </div>
@@ -27,6 +27,27 @@
         <div class="form-field-description">
             Пожалуйста, выберите от 1 до 5 меток. Пост будет доступен только по выбранным меткам. Метки разделяются запятыми.
         </div>
+    </div>
+    <div class="form-field">
+        <label>Тип поста</label>
+        <div>
+            <input type="checkbox" ng-model="isTutorial" id="isTutorial" />
+            <label for="isTutorial">Обучающий материал (туториал)</label>
+        </div>
+        <div>
+            <input type="checkbox" ng-model="isRepost" id="isRepost" />
+            <label for="isRepost">Репост</label>
+        </div>
+    </div>
+    <div class="form-field" ng-show="isRepost">
+        <label>Автор оригинала</label>
+        <input type="text" class="original-author" ng-model="sourceAuthor" ng-required="isRepost" />
+        <div class="form-field-description">Автор или источник материала.</div>
+    </div>
+    <div class="form-field" ng-show="isRepost">
+        <label>Ссылка на оригинал</label>
+        <input type="url" class="original-link" ng-model="sourceLink" ng-required="isRepost" />
+        <div class="form-field-description">Ссылка на автора или источник материала.</div>
     </div>
     <div class="form-field">
         <label>Текст</label>

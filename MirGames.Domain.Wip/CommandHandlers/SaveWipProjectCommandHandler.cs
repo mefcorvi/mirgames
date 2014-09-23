@@ -52,7 +52,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(
+        protected override void Execute(
             SaveWipProjectCommand command,
             ClaimsPrincipal principal,
             IAuthorizationManager authorizationManager)

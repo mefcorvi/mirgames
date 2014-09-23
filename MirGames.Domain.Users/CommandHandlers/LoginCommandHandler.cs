@@ -70,7 +70,7 @@ namespace MirGames.Domain.Users.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override string Execute(LoginCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override string Execute(LoginCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             var sessionId = Guid.NewGuid().ToString("N");
 

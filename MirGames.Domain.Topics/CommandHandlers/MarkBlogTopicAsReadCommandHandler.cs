@@ -52,7 +52,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
         }
 
         /// <inheritdoc />
-        public override void Execute(
+        protected override void Execute(
             MarkBlogTopicAsReadCommand command,
             ClaimsPrincipal principal,
             IAuthorizationManager authorizationManager)

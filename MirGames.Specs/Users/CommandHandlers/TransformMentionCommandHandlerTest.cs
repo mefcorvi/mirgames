@@ -121,10 +121,8 @@
             var readContextFactoryMock = new Mock<IReadContextFactory>();
             readContextFactoryMock.Setup(m => m.Create()).Returns(readContextMock.Object);
 
-            var handler = new TransformMentionsCommandHandler(readContextFactoryMock.Object);
-
-            var result = handler.Execute(command, null, null);
-            return result;
+            ICommandHandler handler = new TransformMentionsCommandHandler(readContextFactoryMock.Object);
+            return (string)handler.Execute(command, null, null);
         }
     }
 }

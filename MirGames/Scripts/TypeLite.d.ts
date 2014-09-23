@@ -44,6 +44,22 @@ interface SingleItemQuery1 extends MirGames.Infrastructure.Queries.Query1 {
 }
 interface Query1 extends MirGames.Infrastructure.Queries.Query {
 }
+interface Query1 extends MirGames.Infrastructure.Queries.Query {
+}
+interface SingleItemQuery1 extends MirGames.Infrastructure.Queries.Query1 {
+}
+interface Query1 extends MirGames.Infrastructure.Queries.Query {
+}
+interface Query1 extends MirGames.Infrastructure.Queries.Query {
+}
+interface SingleItemQuery1 extends MirGames.Infrastructure.Queries.Query1 {
+}
+interface Query1 extends MirGames.Infrastructure.Queries.Query {
+}
+interface SingleItemQuery1 extends MirGames.Infrastructure.Queries.Query1 {
+}
+interface Query1 extends MirGames.Infrastructure.Queries.Query {
+}
 interface SingleItemQuery1 extends MirGames.Infrastructure.Queries.Query1 {
 }
 interface Query1 extends MirGames.Infrastructure.Queries.Query {
@@ -53,12 +69,6 @@ interface Query1 extends MirGames.Infrastructure.Queries.Query {
 interface SingleItemQuery1 extends MirGames.Infrastructure.Queries.Query1 {
 }
 interface Query1 extends MirGames.Infrastructure.Queries.Query {
-}
-interface SingleItemQuery1 extends MirGames.Infrastructure.Queries.Query1 {
-}
-interface Query1 extends MirGames.Infrastructure.Queries.Query {
-}
-interface SingleItemQuery1 extends MirGames.Infrastructure.Queries.Query1 {
 }
 interface Query1 extends MirGames.Infrastructure.Queries.Query {
 }
@@ -89,6 +99,10 @@ interface AddNewTopicCommand extends MirGames.Infrastructure.Commands.Command1 {
   Title: string;
   Text: string;
   Tags: string;
+  IsTutorial: boolean;
+  IsRepost: boolean;
+  SourceAuthor: string;
+  SourceLink: string;
   BlogId: number;
   Attachments: number[];
 }
@@ -140,6 +154,10 @@ interface CommentViewModel {
   CanBeEdited: boolean;
   CanBeDeleted: boolean;
   IsRead: boolean;
+}
+interface TagViewModel {
+  Tag: string;
+  Count: number;
 }
 interface TopicForEditViewModel {
   Id: number;
@@ -289,6 +307,11 @@ interface UpdateForumPostCommand extends MirGames.Infrastructure.Commands.Comman
   TopicsTags: string;
   PostId: number;
 }
+interface MarkAllTopicsAsReadCommand extends MirGames.Infrastructure.Commands.Command {
+}
+interface MarkTopicAsVisitedCommand extends MirGames.Infrastructure.Commands.Command {
+  TopicId: number;
+}
 interface PostNewForumTopicCommand extends MirGames.Infrastructure.Commands.Command1 {
   ForumAlias: string;
   Title: string;
@@ -370,8 +393,10 @@ interface ForumTopicsListItemViewModel {
   UpdatedDate: Date;
   PostsCount: number;
   UnreadPostsCount: number;
+  Visits: number;
   IsRead: boolean;
   Forum: MirGames.Domain.Forum.ViewModels.ForumViewModel;
+  ShortDescription: string;
 }
 interface ForumViewModel {
   ForumId: number;
@@ -528,11 +553,25 @@ interface GetProjectWorkItemsQuery extends MirGames.Infrastructure.Queries.Query
   WorkItemState: MirGames.Domain.Wip.ViewModels.WorkItemState;
   OrderBy: MirGames.Domain.Wip.ViewModels.WorkItemsOrderType;
 }
+interface GetWipProjectTeamQuery extends MirGames.Infrastructure.Queries.Query1 {
+  Alias: string;
+}
+interface GetWipProjectQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
+  ProjectId: number;
+  Alias: string;
+}
 interface GetWipTagsQuery extends MirGames.Infrastructure.Queries.Query1 {
   Filter: string;
 }
 }
 declare module MirGames.Domain.Wip.ViewModels {
+interface WipTagViewModel {
+  Tag: string;
+  Count: number;
+}
+interface WipProjectTeamMemberViewModel {
+  MemberInfo: MirGames.Domain.Users.ViewModels.AuthorViewModel;
+}
 interface ProjectWorkItemStatisticsViewModel {
   OpenBugsCount: number;
   OpenTasksCount: number;
@@ -598,6 +637,7 @@ interface WipProjectViewModel {
   Title: string;
   Alias: string;
   Description: string;
+  Genre: string;
   Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
   LogoUrl: string;
   CreationDate: Date;
