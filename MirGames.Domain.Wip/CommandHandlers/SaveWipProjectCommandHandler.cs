@@ -74,9 +74,15 @@ namespace MirGames.Domain.Wip.CommandHandlers
 
                 authorizationManager.EnsureAccess(principal, "Edit", "Project", project.ProjectId);
 
+                var tags = command
+                    .Tags
+                    .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                    .Where(t => !string.IsNullOrWhiteSpace(t))
+                    .ToList();
+
                 project.Title = command.Title;
                 project.Description = command.Description;
-                project.TagsList = command.Tags;
+                project.TagsList = string.Join(", ", tags);
                 project.UpdatedDate = DateTime.UtcNow;
 
                 writeContext.SaveChanges();
@@ -84,7 +90,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
                 var oldTags = writeContext.Set<ProjectTag>().Where(p => p.ProjectId == project.ProjectId);
                 writeContext.Set<ProjectTag>().RemoveRange(oldTags);
 
-                foreach (var tag in command.Tags.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries))
+                foreach (var tag in tags)
                 {
                     writeContext.Set<ProjectTag>().Add(new ProjectTag { TagText = tag.Trim(), ProjectId = project.ProjectId });
                 }

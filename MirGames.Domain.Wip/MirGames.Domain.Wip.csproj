@@ -102,6 +102,7 @@
     <Compile Include="QueryHandlers\GetWipTagsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetWipProjectsQueryHandler.cs" />
     <Compile Include="Services\IProjectEmptyLogoProvider.cs" />
+    <Compile Include="Services\ProjectDescriptionUploadProcessor.cs" />
     <Compile Include="Services\ProjectEmptyLogoProvider.cs" />
     <Compile Include="Services\ProjectLogoUploadProcessor.cs" />
     <Compile Include="Services\ProjectWorkItemCommentUploadProcessor.cs" />

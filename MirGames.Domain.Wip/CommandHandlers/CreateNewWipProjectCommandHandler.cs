@@ -73,6 +73,12 @@ namespace MirGames.Domain.Wip.CommandHandlers
                     throw new ProjectAlreadyCreatedException(command.Alias);
                 }
 
+                var tags = command
+                    .Tags
+                    .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                    .Where(t => !string.IsNullOrWhiteSpace(t))
+                    .ToList();
+
                 project = new Project
                 {
                     Alias = command.Alias,
@@ -82,7 +88,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
                     Description = command.Description,
                     FollowersCount = 0,
                     RepositoryType = command.RepositoryType,
-                    TagsList = command.Tags,
+                    TagsList = string.Join(", ", tags),
                     Title = command.Title,
                     Version = "1",
                     Votes = 0,
@@ -96,7 +102,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
                 project.RepositoryId = this.CreateRepository(project);
                 writeContext.SaveChanges();
 
-                foreach (var tag in command.Tags.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries))
+                foreach (var tag in tags)
                 {
                     writeContext.Set<ProjectTag>().Add(new ProjectTag { TagText = tag.Trim(), ProjectId = project.ProjectId });
                 }
