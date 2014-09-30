@@ -1,8 +1,6 @@
 ﻿@if (UserEntity != null)
 {
-    <div class="profile-section">
-        <a href="@Url.Action(MVC.Users.Profile(UserEntity.Id))" @Html.Css("avatar-link").Add("selected", ViewBag.CurrentSection == "CurrentUser")><img src="@UserEntity.AvatarUrl" class="avatar avatar-small" /><span>@UserEntity.Login</span></a>
-    </div>
+    <a href="@Url.Action(MVC.Users.Profile(UserEntity.Id))" @Html.Css("avatar-link").Add("selected", ViewBag.CurrentSection == "CurrentUser")><img src="@UserEntity.AvatarUrl" class="avatar avatar-small" /><span>@UserEntity.Login</span></a>
 }
 
 <span ng-controller="MirGames.Topics.UnreadMenuItemController">

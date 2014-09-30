@@ -48,15 +48,18 @@
         <header class="header-font">
             <div class="wrap">
                 <h1>@Html.ActionLink("MirGames", "Index", "Dashboard", new { Area = "" }, new { title = "На главную" })</h1>
-                <nav>
-                    @Html.Partial("_Menu")
-                    @Html.Partial("_UserMenu")
-                </nav>
-                <form class="search-form">
-                    <div class="form-field">
-                        <input type="text" placeholder="Поиск по сайту..." ng-model="searchQuery" />
+                <nav ng-mouseleave="menuCollapsed = true" ng-class="{ 'uncollapsed': menuCollapsed === false }">
+                    <a class="more-items" href="javascript:void(0)" ng-click="menuCollapsed = false"><i class="fa fa-bars"></i></a>
+                    <div class="menu-items">
+                        @Html.Partial("_Menu")
+                        @Html.Partial("_UserMenu")
+                        <form class="search-form">
+                            <div class="form-field">
+                                <input type="text" placeholder="Поиск по сайту..." ng-model="searchQuery" />
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </nav>
             </div>
         </header>
         <nav class="toolbar">
