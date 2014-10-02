@@ -25,6 +25,7 @@ module MirGames.Account {
             this.$scope.useWebSocket = settings.UseWebSocket;
             this.$scope.useEnterToSendChatMessage = settings.UseEnterToSendChatMessage;
             this.$scope.forumContiniousPagination = settings.ForumContiniousPagination;
+            this.$scope.useDarkTheme = settings.Theme == 'dark';
 
             this.$scope.save = this.save.bind(this);
             this.$scope.saveProfile = () => this.saveProfile();
@@ -66,7 +67,8 @@ module MirGames.Account {
                     TimeZone: this.$scope.timeZone,
                     UseEnterToSendChatMessage: this.$scope.useEnterToSendChatMessage,
                     UseWebSocket: this.$scope.useWebSocket,
-                    ForumContiniousPagination: this.$scope.forumContiniousPagination
+                    ForumContiniousPagination: this.$scope.forumContiniousPagination,
+                    Theme: this.$scope.useDarkTheme ? 'dark' : 'light'
                 }
             };
 
@@ -128,6 +130,7 @@ module MirGames.Account {
     export interface IAccountSettingsPageScope extends IPageScope {
         oauthProviders: MirGames.Domain.Users.ViewModels.OAuthProviderViewModel[];
         timeZone: string;
+        useDarkTheme: boolean;
         attachmentId?: number;
         avatarUrl: string;
         useEnterToSendChatMessage: boolean;

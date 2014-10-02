@@ -52,7 +52,7 @@
 
                     & > footer {
                         .font-size(1.2);
-                        color: #999;
+                        color: mix(@background-color, @font-color, 50%);
                         margin-top: @indent/4;
 
                         a {
@@ -79,7 +79,7 @@
 
                 & > .replies-count {
                     .header-font();
-                    color: #000;
+                    color: @font-color;
                     text-align: center;
                     overflow: hidden;
                     white-space: nowrap;
@@ -105,7 +105,7 @@
 
                 & > .topics-count {
                     .header-font();
-                    color: #000;
+                    color: @font-color;
                     text-align: center;
                     display: table-cell;
                     overflow: hidden;
@@ -130,7 +130,7 @@
                     & .topic-updated-date {
                         display: block;
                         .font-size(1.2);
-                        color: #8c8c0c;
+                        color: @date-color;
                     }
 
                     & .user-login {

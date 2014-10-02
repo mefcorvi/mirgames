@@ -71,5 +71,15 @@ namespace MirGames.Domain.Forum.ViewModels
         /// Gets or sets the forum alias.
         /// </summary>
         public string ForumAlias { get; set; }
+
+        /// <summary>
+        /// Gets or sets the votes rating.
+        /// </summary>
+        public int VotesRating { get; set; }
+
+        /// <summary>
+        /// Gets or sets the current user vote.
+        /// </summary>
+        public int? UserVote { get; set; }
     }
 }

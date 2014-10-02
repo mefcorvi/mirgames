@@ -73,6 +73,16 @@ namespace MirGames.Domain.Forum.ViewModels
         public bool FirstUnread { get; set; }
 
         /// <summary>
+        /// Gets or sets the votes rating.
+        /// </summary>
+        public int VotesRating { get; set; }
+
+        /// <summary>
+        /// Gets or sets the current user vote.
+        /// </summary>
+        public int? UserVote { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether this post is first post.
         /// </summary>
         public bool IsFirstPost { get; set; }

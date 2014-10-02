@@ -130,14 +130,21 @@ gulp.task('compile-ts', function () {
         .pipe(gulp.dest('../public/js'));
 });
 
-gulp.task('compile-less', function () {
-    return gulp.src(filePath.less, { base: '../' })
-        .pipe(sourcemaps.init())
-        .pipe(less({ rootpath: '../../../Content/'  }))
-        .pipe(concat('default.css'))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest('../public/css'));
-});
+
+var lessWithTheme = function(theme) {
+    gulp.task('compile-less-' + theme, function () {
+        return gulp.src(filePath.less, { base: '../' })
+            .pipe(sourcemaps.init())
+            .pipe(less({ rootpath: '../../../Content/', modifyVars: { 'theme': theme } }))
+            .pipe(concat(theme + '.css'))
+            .pipe(sourcemaps.write())
+            .pipe(gulp.dest('../public/css'));
+    });
+}
+
+gulp.task('compile-less', ['compile-less-light', 'compile-less-dark']);
+lessWithTheme('light');
+lessWithTheme('dark');
 
 gulp.task('minimize-js', function() {
     return gulp.src('../public/js/*.js')

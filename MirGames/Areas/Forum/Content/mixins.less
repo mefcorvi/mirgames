@@ -54,7 +54,7 @@
                         margin-right: 3px;
 
                         a {
-                            color: #999;
+                            color: mix(@font-color, @background-color, 50%);
                             text-decoration: none;
 
                             &:hover {
@@ -71,7 +71,7 @@
 
                 & > footer {
                     .font-size(1.1);
-                    color: #999;
+                    color: mix(@font-color, @background-color, 50%);
                     margin-top: @indent/4;
 
                     a {
@@ -117,7 +117,7 @@
                         .font-size(1.1);
 
                         & > ol > li {
-                            border: 1px solid #eee;
+                            border: 1px solid @border-color;
                             margin-left: 1px;
                             height: 14px;
 
@@ -137,7 +137,7 @@
 
             & > .replies-count {
                 .header-font();
-                color: #000;
+                color: @font-color;
                 text-align: center;
                 white-space: nowrap;
                 padding-left: 5px;
@@ -150,7 +150,7 @@
 
             & > .visits-count {
                 .header-font();
-                color: #000;
+                color: @font-color;
                 text-align: center;
                 white-space: nowrap;
                 padding-left: 5px;
@@ -179,7 +179,7 @@
                 & .topic-updated-date {
                     display: block;
                     .font-size(1.2);
-                    color: #8c8c0c;
+                    color: @date-color;
                 }
 
                 & .user-login {

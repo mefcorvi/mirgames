@@ -28,6 +28,7 @@ namespace MirGames.Domain.Users
 
             builder.RegisterType<UserAvatarUploadProcessor>().As<IUploadProcessor>().SingleInstance();
             builder.RegisterType<TimeZoneSetting>().As<IUserSettingHandler>().SingleInstance();
+            builder.RegisterType<ThemeSetting>().As<IUserSettingHandler>().SingleInstance();
 
             builder.RegisterType<EntityMapper>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<AuthenticationProvider>().AsImplementedInterfaces().SingleInstance();

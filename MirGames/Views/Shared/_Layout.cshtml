@@ -3,13 +3,14 @@
 @{
     Debug.Assert(Request.Url != null, "Request.Url != null");
     IEnumerable<OnlineUserViewModel> onlineUsers = ViewBag.OnlineUsers;
+    var theme = (UserEntity == null || !UserEntity.Settings.ContainsKey("Theme") || (string)UserEntity.Settings["Theme"] != "dark") ? "light" : "dark";
 }
 <!DOCTYPE html>
 <html ng-app="mirgames">
     <head>
         <title>@(string.IsNullOrWhiteSpace(this.Title) ? "" : string.Format("{0} / ", this.Title))MirGames - сообщество разработчиков игр</title>
         <meta charset="utf-8" />
-        <link rel="stylesheet" href="@Url.Stylesheet("default.css")">
+        <link rel="stylesheet" href="@Url.Stylesheet(theme + ".css")">
         <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         @if (!string.IsNullOrEmpty(ViewBag.RssUrl))

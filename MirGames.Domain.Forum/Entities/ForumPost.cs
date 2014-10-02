@@ -11,8 +11,6 @@ namespace MirGames.Domain.Forum.Entities
 {
     using System;
 
-    using MirGames.Infrastructure;
-
     /// <summary>
     /// The forum post.
     /// </summary>
@@ -77,5 +75,15 @@ namespace MirGames.Domain.Forum.Entities
         /// Gets or sets a value indicating whether current post if first post in the topic.
         /// </summary>
         public bool IsStartPost { get; set; }
+
+        /// <summary>
+        /// Gets or sets the votes rating.
+        /// </summary>
+        public int VotesRating { get; set; }
+
+        /// <summary>
+        /// Gets or sets the votes count.
+        /// </summary>
+        public int VotesCount { get; set; }
     }
 }

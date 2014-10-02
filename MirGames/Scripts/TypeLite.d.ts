@@ -324,6 +324,10 @@ interface ReplyForumTopicCommand extends MirGames.Infrastructure.Commands.Comman
   Text: string;
   TopicId: number;
 }
+interface VoteForForumPostCommand extends MirGames.Infrastructure.Commands.Command {
+  PostId: number;
+  Positive: boolean;
+}
 }
 declare module MirGames.Domain.Forum.Queries {
 interface GetForumTopicPostsQuery extends MirGames.Infrastructure.Queries.Query1 {
@@ -364,6 +368,8 @@ interface ForumPostViewModel {
   TopicId: number;
   ForumId: number;
   ForumAlias: string;
+  VotesRating: number;
+  UserVote: number;
 }
 interface ForumPostsListItemViewModel {
   PostId: number;

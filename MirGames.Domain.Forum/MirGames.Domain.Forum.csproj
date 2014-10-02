@@ -113,9 +113,11 @@
     <Compile Include="CommandHandlers\ReindexForumTopicsCommandHandler.cs" />
     <Compile Include="CommandHandlers\ReplyForumTopicCommandHandler.cs" />
     <Compile Include="CommandHandlers\UpgradeForumCommandHandler.cs" />
+    <Compile Include="CommandHandlers\VoteForForumPostCommandHandler.cs" />
     <Compile Include="Commands\MarkTopicAsUnreadForUsersCommand.cs" />
     <Compile Include="Commands\ReindexForumTopicCommand.cs" />
     <Compile Include="Entities\Forum.cs" />
+    <Compile Include="Entities\ForumPostVote.cs" />
     <Compile Include="Entities\ForumTopicUnread.cs" />
     <Compile Include="Entities\ForumTag.cs" />
     <Compile Include="Entities\ForumTopicRead.cs" />
@@ -130,6 +132,7 @@
     <Compile Include="EventListeners\ForumTopicCreatedEventListener.cs" />
     <Compile Include="EventListeners\ForumTopicRepliedEventListener.cs" />
     <Compile Include="Mapping\ForumMap.cs" />
+    <Compile Include="Mapping\ForumPostVoteMap.cs" />
     <Compile Include="Mapping\ForumTopicUnreadMap.cs" />
     <Compile Include="Mapping\ForumTagMap.cs" />
     <Compile Include="Mapping\ForumPostMap.cs" />

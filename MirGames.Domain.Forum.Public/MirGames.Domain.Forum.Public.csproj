@@ -44,6 +44,7 @@
     <Compile Include="Commands\PostNewForumTopicCommand.cs" />
     <Compile Include="Commands\ReindexForumTopicsCommand.cs" />
     <Compile Include="Commands\ReplyForumTopicCommand.cs" />
+    <Compile Include="Commands\VoteForForumPostCommand.cs" />
     <Compile Include="Events\ForumTopicDeletedEvent.cs" />
     <Compile Include="Events\ForumPostDeletedEvent.cs" />
     <Compile Include="Events\ForumPostUpdatedEvent.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="Events\ForumTopicReadEvent.cs" />
     <Compile Include="Events\ForumTopicRepliedEvent.cs" />
     <Compile Include="Events\ForumTopicUnreadEvent.cs" />
+    <Compile Include="Exceptions\UserAlreadyVotedException.cs" />
     <Compile Include="Notifications\ForumTopicNotificationData.cs" />
     <Compile Include="Notifications\NewForumAnswerNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

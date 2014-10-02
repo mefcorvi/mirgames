@@ -1,4 +1,4 @@
-﻿body {} @import "settings.less";
+﻿@import "settings.less";
 
 @-webkit-viewport{width:device-width}
 @-moz-viewport{width:device-width}
@@ -10,7 +10,7 @@
 
 html, body {
     .font-size(1.2);
-    font-family: Helvetica, Verdana, sans-serif;
+    font-family: @text-font;
     color: @font-color;
     background: @background-color;
     width: 100%;
@@ -148,7 +148,7 @@ body {
     }
 
     & > footer {
-        background: mix(@main-color, @background-color, 10%);
+        background: @footer-background;
         border-top: 5px solid @sub-background;
         height: @footer-height;
         padding: 0 @indent;

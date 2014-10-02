@@ -72,6 +72,11 @@
     <h4>Настройки аккаунта</h4>
     <form class="account-settings-form">
         <div class="form-field">
+            <label>Тема</label>
+            <input type="checkbox" ng-model="useDarkTheme" id="theme" />
+            <label for="theme">Использовать темную тему.</label>
+        </div>
+        <div class="form-field">
             <label>Быстрые клавиши</label>
             <input type="checkbox" ng-model="useEnterToSendChatMessage" id="useEnterToSendChatMessage" />
             <label for="useEnterToSendChatMessage">Отправлять сообщения в чате по нажатию Enter.</label>

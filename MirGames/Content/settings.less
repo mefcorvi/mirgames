@@ -1,35 +1,16 @@
-﻿body {}
+﻿@theme: light;
+
 @import "flexbox.less";
 
-@font-color: #000;
-@background-color: #fff;
-@header-background: @background-color;
-@main-color: hsl(205.2, 39%, 34.7%);
-@second-color: spin(@main-color, 120);
-@third-color: spin(@main-color, 240);
-@sub-background: mix(@main-color, @background-color, 15%);
-@page-header-background: @background-color;
+.import-theme(light) {
+    @import "variables-light.less";
+}
 
-@section-width: 180px;
-@menu-width: 180px;
-@section-hidden-width: 0px;
-@border-color: mix(@background-color, @font-color, 96%);
-@font-size-default: 10px;
+.import-theme(dark) {
+    @import "variables-dark.less";
+}
 
-@avatar-tiny: 24px;
-@avatar-small: 32px;
-@avatar-medium: 40px;
-@avatar-big: 48px;
-
-@section-link-height: 42px;
-
-@link-color: hsl(205.2, 69%, 34.7%);
-@link-color-hover: lighten(spin(@link-color, 120), 20%);
-
-@date-color: darken(saturate(spin(@main-color, -140), 50%), 10%);
-
-@normal-duration: 0.5s;
-@indent: 20px;
+.import-theme(@theme);
 
 //== Media queries breakpoints
 @screen-ts-min:              320px;
@@ -182,7 +163,7 @@
 
 .date-small() {
     .font-size(1.2);
-    color: #8c8c0c;
+    color: @date-color;
 }
 
 .button() {

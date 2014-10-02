@@ -15,6 +15,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
     using MirGames.Domain.Forum.Entities;
     using MirGames.Domain.Forum.Queries;
     using MirGames.Domain.Forum.ViewModels;
+    using MirGames.Domain.Security;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
     using MirGames.Infrastructure;
@@ -69,10 +70,26 @@ namespace MirGames.Domain.Forum.QueryHandlers
                         TopicId = p.TopicId,
                         UpdatedDate = p.UpdatedDate,
                         TopicTitle = t.Title,
-                        ForumId = t.ForumId
+                        ForumId = t.ForumId,
+                        VotesRating = p.VotesRating
                     });
 
             var posts = postsQuery.ToList();
+
+            if (principal.IsInRole("User"))
+            {
+                int userId = principal.GetUserId().GetValueOrDefault();
+                int[] postIdentifiers = posts.Select(p => p.PostId).ToArray();
+                var userVotes =
+                    readContext.Query<ForumPostVote>()
+                               .Where(v => v.UserId == userId && postIdentifiers.Contains(v.PostId)).ToDictionary(v => v.PostId);
+
+                posts.ForEach(post =>
+                {
+                    post.UserVote = userVotes.ContainsKey(post.PostId) ? userVotes[post.PostId].Vote : (int?)null;
+                });
+            }
+
             var forums = this.queryProcessor.Process(new GetForumsQuery());
 
             posts.ForEach(post => post.ForumAlias = forums.Where(f => f.ForumId == post.ForumId).Select(f => f.Alias).FirstOrDefault());

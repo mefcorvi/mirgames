@@ -1,31 +1,41 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="EntityMapper.cs">
+// <copyright company="MirGames" file="UserAlreadyVotedException.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace MirGames.Domain.Forum
+
+namespace MirGames.Domain.Forum.Exceptions
 {
-    using MirGames.Domain.Forum.Mapping;
-    using MirGames.Infrastructure;
+    using System;
 
     /// <summary>
-    /// The entity mapper.
+    /// Raised when user has already voted and trying to vote again.
     /// </summary>
-    internal sealed class EntityMapper : IEntityMapper
+    [Serializable]
+    public sealed class UserAlreadyVotedException : Exception
     {
-        /// <inheritdoc />
-        public void Configure(IEntityMappingRegistry registry)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserAlreadyVotedException"/> class.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="postId">The post identifier.</param>
+        public UserAlreadyVotedException(int userId, int postId)
         {
-            registry.Register(new ForumTagMap());
-            registry.Register(new ForumTopicMap());
-            registry.Register(new ForumTopicReadMap());
-            registry.Register(new ForumTopicUnreadMap());
-            registry.Register(new ForumPostMap());
-            registry.Register(new ForumMap());
-            registry.Register(new ForumPostVoteMap());
+            this.UserId = userId;
+            this.PostId = postId;
         }
+
+        /// <summary>
+        /// Gets the user identifier.
+        /// </summary>
+        public int UserId { get; private set; }
+
+        /// <summary>
+        /// Gets the post identifier.
+        /// </summary>
+        public int PostId { get; private set; }
     }
 }

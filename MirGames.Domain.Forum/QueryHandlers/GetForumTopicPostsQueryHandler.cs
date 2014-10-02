@@ -82,6 +82,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
                     IsRead = true,
                     IsFirstPost = p.IsStartPost,
                     Index = idx + startIndex,
+                    VotesRating = p.VotesRating,
                     CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "ForumPost", p.PostId) && !p.IsStartPost,
                     CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "ForumPost", p.PostId)
                 })
@@ -89,12 +90,24 @@ namespace MirGames.Domain.Forum.QueryHandlers
 
             if (principal.Identity.IsAuthenticated)
             {
+                int userId = principal.GetUserId().GetValueOrDefault();
+                int[] postIdentifiers = posts.Select(p => p.PostId).ToArray();
+                
+                var userVotes = readContext
+                    .Query<ForumPostVote>()
+                    .Where(v => v.UserId == userId && postIdentifiers.Contains(v.PostId)).ToDictionary(v => v.PostId);
+
                 var answerNotifications = this.queryProcessor
                     .Process(new GetNotificationsQuery().WithFilter<NewForumAnswerNotification>(n => n.TopicId == query.TopicId))
                     .Select(n => ((NewForumAnswerNotification)n.Data).PostId)
                     .ToArray();
 
-                posts.ForEach(p => p.IsRead = !answerNotifications.Contains(p.PostId));
+                posts.ForEach(p =>
+                {
+                    p.IsRead = !answerNotifications.Contains(p.PostId);
+                    p.UserVote = userVotes.ContainsKey(p.PostId) ? userVotes[p.PostId].Vote : (int?)null;
+                });
+
                 var firstUnread = posts.FirstOrDefault(p => !p.IsRead);
 
                 if (firstUnread != null)

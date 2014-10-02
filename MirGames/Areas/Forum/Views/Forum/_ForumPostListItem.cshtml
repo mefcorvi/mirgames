@@ -38,8 +38,16 @@
         </div>
     </div>
     <div class="post-block">
-        <div class="created-date">
-            <i class="fa fa-clock-o"></i> <span class="topic-created-date relative" datetime="@Model.CreatedDate.ToString("O")">@Html.RelativeDate(Model.CreatedDate)</span>
+        <div class="post-header">
+            <div class="created-date">
+                <i class="fa fa-clock-o"></i> <span class="topic-created-date relative" datetime="@Model.CreatedDate.ToString("O")">@Html.RelativeDate(Model.CreatedDate)</span>
+            </div>
+            <div @Html.Css("votes-block").Add("voted-down", Model.UserVote < 0).Add("voted-up", Model.UserVote > 0) ng-controller="MirGames.Forum.PostRatingController" ng-class="{ 'voted-down': votedDown, 'voted-up': votedUp }" data-post-id="@Model.PostId">
+                <i class="fa fa-thumbs-down vote-down" ng-click="voteDown()"></i>
+                <span @Html.Css("vote-rating").Add("positive", Model.VotesRating > 0).Add("negative", Model.VotesRating < 0)
+                      ng-class="{ 'positive': voteRating > 0, 'negative': voteRating < 0 }">@Model.VotesRating</span>
+                <i class="fa fa-thumbs-up vote-up" ng-click="voteUp()"></i>
+            </div>
         </div>
         <div class="text">
             @Html.Raw(Model.Text)

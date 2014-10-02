@@ -42,6 +42,8 @@ namespace MirGames.Domain.Forum.Mapping
             this.Property(t => t.UpdatedDate).HasColumnName("updated_date");
             this.Property(t => t.TopicId).HasColumnName("topic_id");
             this.Property(t => t.IsStartPost).HasColumnName("is_start_post");
+            this.Property(t => t.VotesRating).HasColumnName("votes_rating");
+            this.Property(t => t.VotesCount).HasColumnName("votes_count");
             
             this.HasRequired(t => t.Topic).WithMany().HasForeignKey(t => t.TopicId);
         }
