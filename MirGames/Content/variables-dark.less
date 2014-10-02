@@ -1,8 +1,18 @@
 ﻿@text-font: Verdana, sans-serif;
 @font-color: #eee;
 @background-color: #333;
+
 @header-background: mix(@main-color, @background-color, 10%);
 @footer-background: mix(@main-color, @background-color, 10%);
+
+@button-background: darken(desaturate(@link-color, 30%), 40%);
+@button-border: 1px solid darken(@button-background, 10%);
+@button-text-shadow: 0px 0px 4px #000;
+@button-text-color: @font-color;
+@button-focused-background: lighten(@button-background, 20%);
+@button-focused-border: 1px solid darken(@button-focused-background, 10%);
+@button-focused-text-color: @button-text-color;
+
 @main-color: hsl(46, 58%, 74%);
 @second-color: spin(@main-color, 120);
 @third-color: spin(@main-color, 240);
