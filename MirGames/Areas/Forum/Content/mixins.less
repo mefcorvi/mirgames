@@ -54,7 +54,7 @@
                         margin-right: 3px;
 
                         a {
-                            color: mix(@font-color, @background-color, 50%);
+                            color: @font-second-color;
                             text-decoration: none;
 
                             &:hover {
@@ -66,12 +66,12 @@
 
                 & > .short-description {
                     .font-size(1.2);
-                    color: mix(@font-color, @background-color, 50%);
+                    color: @font-second-color;
                 }
 
                 & > footer {
                     .font-size(1.1);
-                    color: mix(@font-color, @background-color, 50%);
+                    color: @font-second-color;
                     margin-top: @indent/4;
 
                     a {
@@ -127,7 +127,7 @@
                                 text-decoration: none;
 
                                 &:hover {
-                                    color: @link-color-hover;
+                                    color: @pagination-color-hover;
                                 }
                             }
                         }

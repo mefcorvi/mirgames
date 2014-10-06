@@ -9,6 +9,7 @@
 namespace MirGames.Domain.Topics.Commands
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using MirGames.Infrastructure.Commands;
 
@@ -26,16 +27,22 @@ namespace MirGames.Domain.Topics.Commands
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
+        [Required]
+        [MinLength(1)]
         public string Title { get; set; }
 
         /// <summary>
         /// Gets or sets the text.
         /// </summary>
+        [Required]
+        [MinLength(1)]
         public string Text { get; set; }
 
         /// <summary>
         /// Gets or sets the tags.
         /// </summary>
+        [Required]
+        [MinLength(1)]
         public string Tags { get; set; }
 
         /// <summary>

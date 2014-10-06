@@ -29,10 +29,6 @@ module MirGames.Topics {
             $scope.reloadComment = this.reloadComment.bind(this);
             $scope.hideComment = this.hideComment.bind(this);
 
-            $('.comment p').mouseup((e) => {
-                var selection = window.getSelection();
-            });
-
             this.loadTopicTitles();
         }
 
@@ -156,6 +152,10 @@ module MirGames.Topics {
         }
 
         private submitComment(): boolean {
+            if (!this.$scope.comment.text) {
+                return false;
+            }
+
             var command: MirGames.Domain.Topics.Commands.PostNewCommentCommand = {
                 Attachments: this.$scope.comment.attachments,
                 Text: this.$scope.comment.text,

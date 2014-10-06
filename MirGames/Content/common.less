@@ -22,18 +22,17 @@ html, body {
 html {
     background: @sub-background;
     height: 100%;
+    .viewport();
     padding-left: 40px;
     padding-right: 40px;
     .box-sizing(border-box);
 }
 
 body {
-    .box-sizing(border-box);
+    .viewport-inner();
     padding-top: 55px;
     padding-bottom: @footer-height;
     background: @background-color;
-    max-width: 1400px;
-    margin: 0 auto;
     min-height: 100%;
     position: relative;
 }
@@ -175,16 +174,13 @@ body {
     & > header {
         @height: 50px;
         .header-font();
-        width: 100%;
         z-index: 10;
         overflow: hidden;
         position: fixed;
         left: 0;
         top: 0;
         transition: transform 200ms linear;
-        padding-left: 40px;
-        padding-right: 40px;
-        .box-sizing(border-box);
+        .viewport();
 
         &.headroom--top {
             .no-transition();
@@ -201,9 +197,8 @@ body {
         & > .wrap {
             background: @header-background;
             border-bottom: 5px solid @sub-background;
-            max-width: 1400px;
             height: @height;
-            margin: 0 auto;
+            .viewport-inner();
 
             & > h1 {
                 padding: 0;
@@ -242,8 +237,10 @@ body {
 
                 & > .menu-items {
                     & a {
+                        color: @menu-link-color;
+
                         &:hover, &:active, &:focus, &.selected {
-                            color: @link-color-hover;
+                            color: @menu-link-color-hover;
                             outline: 0;
                         }
                     }
@@ -361,11 +358,37 @@ body {
                             line-height: 100%;
                             left: 0;
                             display: block;
+                            margin-bottom: 1px;
+                        }
+
+                        & > span {
+                            display: table;
+                            padding: 0;
+                            width: 100%;
+
+                            a {
+                                display: table-cell;
+                                padding: 10px;
+
+                                &.counter {
+                                    width: 25px;
+                                    text-align: center;
+                                    padding: 0;
+                                }
+                            }
+
+                            &:hover {
+                                a.counter {
+                                    background: darken(@link-color-hover, 30%);
+                                }
+                            }
                         }
 
                         & > .search-form {
                             display: block;
                             float: none;
+                            width: 100%;
+                            .box-sizing(border-box);
                         }
                     }
 
@@ -505,7 +528,7 @@ nav.toolbar {
     }
 
     span {
-        color: #999;
+        color: @font-second-color;
     }
 
     & > ol {
@@ -527,7 +550,8 @@ nav.toolbar {
             }
 
             & > a:hover {
-                background: lighten(desaturate(@link-color-hover, 30%), 40%);
+                color: @pagination-color-hover;
+                background: @pagination-background-hover;
             }
         }
 

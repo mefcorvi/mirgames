@@ -43,7 +43,7 @@
                 & > .file {
                     padding-top: @indent/2;
                     padding-bottom: @indent/2;
-                    border-bottom: 1px solid #eee;
+                    border-bottom: 1px solid @border-color;
                     .make-row();
 
                     .fa-folder {
@@ -59,7 +59,7 @@
                     }
 
                     & > .message {
-                        color: mix(@background-color, @font-color, 50%);
+                        color: @font-second-color;
                         .make-md-column(8);
                         .make-xs-column(5);
                         text-overflow: ellipsis;

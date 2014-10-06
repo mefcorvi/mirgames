@@ -88,60 +88,16 @@
         }
 
         &.first-unread {
-            border-top: 1px dashed #999;
+            border-top: 1px dashed @border-color;
         }
 
         &.system-message .text {
             .font-size(1.1);
-            color: #999;
+            color: @font-second-color;
         }
 
         &.editing {
             background: mix(@date-color, @background-color, 10%);
-        }
-
-        @media (max-width: @screen-sm-max) {
-            &.own-message > header, & > header {
-                float: none;
-                width: auto;
-            }
-
-            & > .message-toolbar {
-                text-align: right;
-                line-height: 16px;
-            }
-
-            & > header {
-                text-align: left;
-                height: 27px;
-
-                & > .user-login {
-                    margin-left: 10px;
-                }
-
-                & > .avatar-link {
-                    float: left;
-                }
-            }
-
-            & > .date, & > .edit-date, & > .message-toolbar {
-                float: none;
-                margin-left: 0;
-                padding: 0;
-            }
-
-            & > .date, & > .edit-date {
-                float: left;
-                text-align: left;
-                margin: 0;
-                margin-right: 5px;
-            }
-
-            &.own-message > .text, & > .text {
-                margin-left: 0;
-                margin-right: 0;
-                clear: both;
-            }
         }
     }
 }
@@ -155,66 +111,69 @@
     }
 
     & > .chat-answer {
-        display: block;
-        bottom: 0;
-        height: 155px;
-        border-top: 5px solid mix(@main-color, @background-color, 10%);
         position: fixed;
-        background: @sidebar-background;
         bottom: 0;
-        .box-sizing(border-box);
-        padding: @indent;
-        padding-top: @indent/4;
-        padding-bottom: @indent/4;
-        z-index: 20000;
-        overflow: hidden;
+        left: 0;
+        display: block;
+        .viewport();
 
-        &.login-required {
-            height: 30px;
-            & > .answer-form {
+        & > .answer-form {
+            .viewport-inner();
+            height: 155px;
+            border-top: 5px solid mix(@main-color, @background-color, 10%);
+            background: @sidebar-background;
+            bottom: 0;
+            .box-sizing(border-box);
+            padding: @indent;
+            padding-top: @indent/4;
+            padding-bottom: @indent/4;
+            z-index: 20000;
+            overflow: hidden;
+
+            &.login-required {
                 height: 30px;
-                line-height: 30px;
-            }
-        }
-
-        width: 100%;
-        max-width: 1400px;
-
-        .buttons {
-            margin-top: @indent/2;
-
-            .button {
-                .button();
+                & > .answer-form {
+                    height: 30px;
+                    line-height: 30px;
+                }
             }
 
-            .button.mute {
-                min-width: inherit;
-                width: 20px;
-                height: 20px;
-                display: block;
-                float: right;
-                .font-size(1.6);
+            .buttons {
+                margin-top: @indent/2;
+
+                .button {
+                    .button();
+                }
+
+                .button.mute {
+                    min-width: inherit;
+                    width: 20px;
+                    height: 20px;
+                    display: block;
+                    float: right;
+                    .font-size(1.6);
+                    line-height: 20px;
+                    text-align: center;
+                }
+
+                .button.sendKey {
+                    float: right;
+                }
+                padding-bottom: @indent/2;
+            }
+
+            textarea {
+                height: 50px;
+            }
+
+            & .mdd_preview, & .mdd_resizer_wrap {
+                display: none;
+            }
+
+            & .buttons > a {
                 line-height: 20px;
-                text-align: center;
+                height: 20px;
             }
-
-            .button.sendKey {
-                float: right;
-            }
-            padding-bottom: @indent/2;
-        }
-
-        textarea {
-            height: 50px;
-        }
-
-        & .mdd_preview, & .mdd_resizer_wrap {
-            display: none;
-        }
-
-        & .buttons > a {
-            line-height: 20px;
-            height: 20px;
         }
     }
 

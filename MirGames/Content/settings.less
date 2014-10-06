@@ -35,6 +35,22 @@
     padding: @indent;
 }
 
+.viewport() {
+    width: 100%;
+    padding-left: 40px;
+    padding-right: 40px;
+    .box-sizing(border-box);
+
+    @media (max-width: @screen-xs-max) {
+        padding: 0;
+    }
+}
+
+.viewport-inner() {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
 .transition(@property, @duration: @normal-duration, @timing: ease) {
     -moz-transition-property: @property;
     -o-transition-property: @property;
@@ -204,14 +220,14 @@
 .button-disabled() {
     &.button-disabled {
         opacity: 0.5;
-        color: #999;
+        color: @font-second-color;
         cursor: default;
         @background: #000;
         background: @background;
         border: 1px solid darken(@background, 10%);
 
         &:hover {
-            color: #999;
+            color: @font-second-color;
             background: @background;
             border: 1px solid darken(@background, 10%);
         }
@@ -229,7 +245,7 @@
     .transition(@transition, 0.2s);
             
     &.ng-invalid, &:invalid {
-        border: 1px solid rgba(150, 0, 0, 0.2);
+        border: @input-invalid-border;
     }
             
     &:active, &:focus {

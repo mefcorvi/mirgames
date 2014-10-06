@@ -86,7 +86,7 @@
         <form class="new-comment-form" ng-submit="addComment()" novalidate name="postCommentForm">
             <texteditor show-preview="true" required="true" focus="comment.isFocused" text="comment.text" post="addComment()" attachments="comment.attachments" entity-type="comment"></texteditor>
             <div class="buttons">
-                <a href="javascript:void(0);" ng-click="addComment()" class="button">Оставить комментарий</a>
+                <a href="javascript:void(0);" ng-click="addComment()" class="button" ng-class="{ 'button-disabled': postCommentForm.$invalid }">Оставить комментарий</a>
             </div>
         </form>
     </div>

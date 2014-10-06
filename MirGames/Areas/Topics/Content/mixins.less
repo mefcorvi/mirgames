@@ -177,7 +177,7 @@
             float: left;
             width: 30px;
             height: 30px;
-            border: 1px solid #dcdcdc;
+            border: 1px solid @border-color;
         }
     }
 }
@@ -223,7 +223,7 @@
                 & > .edited {
                     margin-left: 10px;
                     .font-size(1.1);
-                    color: #999;
+                    color: @font-second-color;
                     margin-top: 2px;
                     float: left;
                 }
@@ -246,7 +246,7 @@
                     }
 
                     &.delete-comment {
-                        color: #900;
+                        color: mix(#f00, @font-second-color, 50%);
                         float: right;
                     }
                 }

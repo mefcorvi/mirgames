@@ -16,7 +16,6 @@ namespace MirGames.Domain.Forum.CommandHandlers
     using MirGames.Domain.Exceptions;
     using MirGames.Domain.Forum.Commands;
     using MirGames.Domain.Forum.Entities;
-    using MirGames.Domain.Forum.Exceptions;
     using MirGames.Domain.Security;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Commands;
@@ -50,13 +49,6 @@ namespace MirGames.Domain.Forum.CommandHandlers
 
             using (var writeContext = this.writeContextFactory.Create())
             {
-                var forumPostVote = writeContext.Set<ForumPostVote>().FirstOrDefault(p => p.PostId == command.PostId && p.UserId == userId);
-
-                if (forumPostVote != null)
-                {
-                    throw new UserAlreadyVotedException(userId, command.PostId);
-                }
-
                 var forumPost = writeContext.Set<ForumPost>().FirstOrDefault(p => p.PostId == command.PostId);
 
                 if (forumPost == null)
@@ -64,19 +56,30 @@ namespace MirGames.Domain.Forum.CommandHandlers
                     throw new ItemNotFoundException("ForumPost", command.PostId);
                 }
 
+                var forumPostVote = writeContext.Set<ForumPostVote>().FirstOrDefault(p => p.PostId == command.PostId && p.UserId == userId);
                 int vote = command.Positive ? 1 : -1;
 
-                forumPost.VotesRating += vote;
-                forumPost.VotesCount += 1;
-
-                forumPostVote = new ForumPostVote
+                if (forumPostVote != null)
                 {
-                    PostId = forumPost.PostId,
-                    UserId = userId,
-                    Vote = vote
-                };
+                    forumPost.VotesRating -= forumPostVote.Vote;
+                    forumPost.VotesRating += vote;
+                    forumPostVote.Vote = vote;
+                }
+                else
+                {
+                    forumPost.VotesRating += vote;
+                    forumPost.VotesCount += 1;
 
-                writeContext.Set<ForumPostVote>().Add(forumPostVote);
+                    forumPostVote = new ForumPostVote
+                    {
+                        PostId = forumPost.PostId,
+                        UserId = userId,
+                        Vote = vote
+                    };
+
+                    writeContext.Set<ForumPostVote>().Add(forumPostVote);
+                }
+
                 writeContext.SaveChanges();
 
                 return forumPost.VotesRating;

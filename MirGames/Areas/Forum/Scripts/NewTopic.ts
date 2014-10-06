@@ -23,7 +23,7 @@ module MirGames.Forum {
                         Filter: query
                     };
 
-                    this.apiService.getAll('GetForumTagsQuery', command, 1, 30, (result: string[]) => {
+                    this.apiService.getAll('GetForumTagsQuery', command, 0, 30, (result: string[]) => {
                         var items = Enumerable.from(result).select(r => {
                             return { text: r, value: r };
                         }).toArray();

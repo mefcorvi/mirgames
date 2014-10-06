@@ -22,9 +22,9 @@ module MirGames.Topics {
                         Filter: query
                     };
 
-                    this.apiService.getAll('GetMainTagsQuery', command, 1, 30, (result: string[]) => {
+                    this.apiService.getAll('GetMainTagsQuery', command, 0, 30, (result: MirGames.Domain.Topics.ViewModels.TagViewModel[]) => {
                         var items = Enumerable.from(result).select(r => {
-                            return { text: r, value: r };
+                            return { text: r.Tag, value: r.Tag };
                         }).toArray();
 
                         callback(items);

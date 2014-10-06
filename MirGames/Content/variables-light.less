@@ -1,8 +1,9 @@
 ﻿@text-font: Helvetica, Verdana, sans-serif;
 @font-color: #000;
 @background-color: #fff;
+@font-second-color: mix(@font-color, @background-color, 50%);
 
-@header-background: @background-color;
+@header-background: mix(@main-color, @background-color, 5%);
 @footer-background: mix(@main-color, @background-color, 10%);
 
 @button-background: lighten(desaturate(@link-color, 30%), 20%);
@@ -13,11 +14,15 @@
 @button-focused-border: 1px solid darken(@button-focused-background, 10%);
 @button-focused-text-color: @background-color;
 
+@input-invalid-border: 1px solid mix(#f00, @background-color, 20%);
+
 @main-color: hsl(205.2, 39%, 34.7%);
 @second-color: spin(@main-color, 120);
 @third-color: spin(@main-color, 240);
 @sub-background: mix(@main-color, @background-color, 15%);
 @page-header-background: @background-color;
+@menu-link-color: #000;
+@menu-link-color-hover: @link-color-hover;
 
 @section-width: 180px;
 @menu-width: 180px;
@@ -34,6 +39,9 @@
 
 @link-color: hsl(205.2, 69%, 34.7%);
 @link-color-hover: lighten(spin(@link-color, 120), 20%);
+
+@pagination-background-hover: lighten(desaturate(@link-color-hover, 30%), 40%);
+@pagination-color-hover: @font-color;
 
 @date-color: darken(saturate(spin(@main-color, -140), 50%), 10%);
 

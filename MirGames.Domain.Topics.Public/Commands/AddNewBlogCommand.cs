@@ -8,6 +8,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Topics.Commands
 {
+    using System.ComponentModel.DataAnnotations;
+
     using MirGames.Infrastructure.Commands;
 
     public sealed class AddNewBlogCommand : Command<int>
@@ -15,16 +17,21 @@ namespace MirGames.Domain.Topics.Commands
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
+        [Required]
+        [MinLength(3)]
         public string Title { get; set; }
 
         /// <summary>
         /// Gets or sets the alias.
         /// </summary>
+        [Required]
+        [MinLength(3)]
         public string Alias { get; set; }
 
         /// <summary>
         /// Gets or sets the description.
         /// </summary>
+        [Required]
         public string Description { get; set; }
 
         /// <summary>
@@ -35,6 +42,7 @@ namespace MirGames.Domain.Topics.Commands
         /// <summary>
         /// Gets or sets the type of the entity.
         /// </summary>
+        [Required]
         public string EntityType { get; set; }
     }
 }

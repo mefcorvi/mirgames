@@ -23,16 +23,22 @@ namespace MirGames.Domain.Topics.Commands
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
+        [Required]
+        [MinLength(3)]
         public string Title { get; set; }
 
         /// <summary>
         /// Gets or sets the text.
         /// </summary>
+        [Required]
+        [MinLength(3)]
         public string Text { get; set; }
 
         /// <summary>
         /// Gets or sets the tags.
         /// </summary>
+        [Required]
+        [MinLength(1)]
         public string Tags { get; set; }
 
         /// <summary>

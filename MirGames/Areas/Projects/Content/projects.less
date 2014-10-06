@@ -51,12 +51,17 @@
                         }
 
                         & > .short-description {
-                            color: mix(@background-color, @font-color, 50%);
+                            color: @font-second-color;
                             margin: @indent/4 0;
                         }
 
                         & > .tags {
                             & > span {
+                                & > a {
+                                    color: mix(@link-color, @background-color, 60%);
+                                    .active-link-color(@link-color-hover);
+                                }
+
                                 &::after {
                                     content: ", ";
                                 }
@@ -86,7 +91,7 @@
                         text-align: center;
 
                         .fa {
-                            color: #8c8c0c;
+                            color: @date-color;
                         }
                     }
 

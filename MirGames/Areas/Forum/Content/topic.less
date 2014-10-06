@@ -25,7 +25,6 @@
         width: @index-width;
         text-align: left;
         overflow: hidden;
-        text-overflow: ellipsis;
         vertical-align: top;
         padding-right: @indent/2;
         .active-link-color(@link-color-hover);
@@ -77,21 +76,25 @@
                 }
 
                 & > .vote-down {
+                    cursor: pointer;
                     margin-right: 5px;
                 }
 
                 & > .vote-up {
+                    cursor: pointer;
                     margin-left: 5px;
                 }
 
                 &.voted-down {
                     & > .vote-down {
+                        cursor: default;
                         color: mix(#ff0000, @main-color, 50%);
                     }
                 }
                 
                 &.voted-up {
                     & > .vote-up {
+                        cursor: default;
                         color: mix(#00ff00, @main-color, 50%);
                     }
                 }
@@ -114,6 +117,10 @@
         width: 120px;
         vertical-align: top;
         padding-right: 30px;
+
+        @media (max-width: @screen-xs-max) {
+            width: 80px;
+        }
 
         img.avatar {
             .avatar-medium();
