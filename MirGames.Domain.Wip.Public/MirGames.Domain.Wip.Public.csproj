@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AddWipGalleryImageCommand.cs" />
     <Compile Include="Commands\ArchiveProjectRepositoryCommand.cs" />
     <Compile Include="Commands\AssignWorkItemCommand.cs" />
     <Compile Include="Commands\ChangeWorkItemStateCommand.cs" />

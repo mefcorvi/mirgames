@@ -124,7 +124,8 @@ declare module linqjs {
         takeWhile(predicate: (element: T, index: number) => boolean): GenericEnumerable<T>;
         takeExceptLast(count?: number): GenericEnumerable<T>;
         takeFromLast(count: number): GenericEnumerable<T>;
-        indexOf(item: any): number;
+        indexOf(item: T): number;
+        indexOf(predicate: (element: T) => boolean): number;
         indexOf(predicate: (element: T, index: number) => boolean): number;
         lastIndexOf(item: any): number;
         lastIndexOf(predicate: (element: T, index: number) => boolean): number;

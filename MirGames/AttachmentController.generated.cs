@@ -95,6 +95,7 @@ namespace MirGames.Controllers
         public class ActionParamsClass_Index
         {
             public readonly string attachmentId = "attachmentId";
+            public readonly string size = "size";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -116,14 +117,15 @@ namespace MirGames.Controllers
         public T4MVC_AttachmentController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int attachmentId);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int attachmentId, string size);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index(int attachmentId)
+        public override System.Web.Mvc.ActionResult Index(int attachmentId, string size)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "attachmentId", attachmentId);
-            IndexOverride(callInfo, attachmentId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "size", size);
+            IndexOverride(callInfo, attachmentId, size);
             return callInfo;
         }
 

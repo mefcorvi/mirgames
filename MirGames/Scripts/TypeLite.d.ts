@@ -52,6 +52,8 @@ interface Query1 extends MirGames.Infrastructure.Queries.Query {
 }
 interface Query1 extends MirGames.Infrastructure.Queries.Query {
 }
+interface Query1 extends MirGames.Infrastructure.Queries.Query {
+}
 interface SingleItemQuery1 extends MirGames.Infrastructure.Queries.Query1 {
 }
 interface Query1 extends MirGames.Infrastructure.Queries.Query {
@@ -324,7 +326,7 @@ interface ReplyForumTopicCommand extends MirGames.Infrastructure.Commands.Comman
   Text: string;
   TopicId: number;
 }
-interface VoteForForumPostCommand extends MirGames.Infrastructure.Commands.Command {
+interface VoteForForumPostCommand extends MirGames.Infrastructure.Commands.Command1 {
   PostId: number;
   Positive: boolean;
 }
@@ -383,6 +385,8 @@ interface ForumPostsListItemViewModel {
   Index: number;
   IsRead: boolean;
   FirstUnread: boolean;
+  VotesRating: number;
+  UserVote: number;
   IsFirstPost: boolean;
   CanBeEdited: boolean;
   CanBeDeleted: boolean;
@@ -481,6 +485,13 @@ interface NotificationData {
   NotificationType: string;
 }
 }
+declare module MirGames.Domain.Attachments.Queries {
+interface GetAttachmentsQuery extends MirGames.Infrastructure.Queries.Query1 {
+  EntityId: number;
+  EntityType: string;
+  IsImage: boolean;
+}
+}
 declare module MirGames.Domain.Attachments.ViewModels {
 interface AttachmentViewModel {
   AttachmentId: number;
@@ -497,6 +508,10 @@ interface AttachmentViewModel {
 }
 }
 declare module MirGames.Domain.Wip.Commands {
+interface AddWipGalleryImageCommand extends MirGames.Infrastructure.Commands.Command {
+  Attachments: number[];
+  ProjectAlias: string;
+}
 interface AssignWorkItemCommand extends MirGames.Infrastructure.Commands.Command {
   WorkItemId: number;
   UserId: number;

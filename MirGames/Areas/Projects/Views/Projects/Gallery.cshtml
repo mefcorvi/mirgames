@@ -1,0 +1,29 @@
+﻿@using MirGames.Domain.Attachments.ViewModels
+@using MirGames.Domain.Wip.ViewModels
+@model WipProjectViewModel
+@{
+    var images = (IEnumerable<AttachmentViewModel>)this.ViewBag.Images;
+    ViewBag.Title = "Галерея" + " / " + Model.Title;
+
+    PageScriptController = "MirGames.Wip.ProjectGalleryPage";
+    AddPageCssClass("wip-gallery-page");
+}
+
+@Html.Partial("_ProjectInfo", Model)
+
+<div class="wip-gallery">
+    <h4>Галерея</h4>
+    <div class="wip-gallery-items">
+        @foreach (var attachment in images)
+        {
+            <a href="javascript:void(0)" class="gallery-item" dialog="@Url.Action(MVC.Projects.Projects.GalleryItemDialog())" resolve="{ 'attachment-id': @attachment.AttachmentId, 'attachment-url': '@attachment.AttachmentUrl', 'entity-id': @Model.ProjectId }"
+               dialog-controller="MirGames.Projects.GalleryItemDialogController">
+                <img src="@attachment.AttachmentUrl?size=s" />
+            </a>
+        }
+    </div>
+    <h4>Загрузить изображение</h4>
+    <div class="file-upload">
+        <file uploaded="fileUploaded($attachmentId)" entity-type="project-gallery"></file>
+    </div>
+</div>

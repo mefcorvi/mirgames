@@ -6,7 +6,6 @@ module MirGames.Projects {
         constructor(private $scope: IWorkItemDialogControllerScope, private commandBus: Core.ICommandBus, private dialog: UI.IDialog, private apiService: Core.IApiService, private options: any, private eventBus: Core.IEventBus) {
             $scope.internalId = options['work-item-id'];
             $scope.projectAlias = options['project-alias'];
-            $scope.width = '90%';
 
             if (!$scope.internalId || !$scope.projectAlias) {
                 throw new Error('One or more required parameters have not been specified.');

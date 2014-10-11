@@ -68,6 +68,12 @@ namespace MirGames.Areas.Projects.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Gallery()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Gallery);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Archive()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Archive);
@@ -109,10 +115,12 @@ namespace MirGames.Areas.Projects.Controllers
             public readonly string Index = "Index";
             public readonly string RedirectToProject = "RedirectToProject";
             public readonly string Project = "Project";
+            public readonly string Gallery = "Gallery";
             public readonly string Archive = "Archive";
             public readonly string WorkItems = "WorkItems";
             public readonly string WorkItemDialog = "WorkItemDialog";
             public readonly string New = "New";
+            public readonly string GalleryItemDialog = "GalleryItemDialog";
             public readonly string Settings = "Settings";
             public readonly string Code = "Code";
             public readonly string AddWorkItemDialog = "AddWorkItemDialog";
@@ -124,10 +132,12 @@ namespace MirGames.Areas.Projects.Controllers
             public const string Index = "Index";
             public const string RedirectToProject = "RedirectToProject";
             public const string Project = "Project";
+            public const string Gallery = "Gallery";
             public const string Archive = "Archive";
             public const string WorkItems = "WorkItems";
             public const string WorkItemDialog = "WorkItemDialog";
             public const string New = "New";
+            public const string GalleryItemDialog = "GalleryItemDialog";
             public const string Settings = "Settings";
             public const string Code = "Code";
             public const string AddWorkItemDialog = "AddWorkItemDialog";
@@ -156,6 +166,14 @@ namespace MirGames.Areas.Projects.Controllers
         public ActionParamsClass_Project ProjectParams { get { return s_params_Project; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Project
+        {
+            public readonly string projectAlias = "projectAlias";
+        }
+        static readonly ActionParamsClass_Gallery s_params_Gallery = new ActionParamsClass_Gallery();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Gallery GalleryParams { get { return s_params_Gallery; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Gallery
         {
             public readonly string projectAlias = "projectAlias";
         }
@@ -205,12 +223,14 @@ namespace MirGames.Areas.Projects.Controllers
             public class _ViewNamesClass
             {
                 public readonly string _AddWorkItemDialog = "_AddWorkItemDialog";
+                public readonly string _GalleryItemDialog = "_GalleryItemDialog";
                 public readonly string _ProjectInfo = "_ProjectInfo";
                 public readonly string _ProjectListItem = "_ProjectListItem";
                 public readonly string _ProjectMenu = "_ProjectMenu";
                 public readonly string _WipMenu = "_WipMenu";
                 public readonly string _WorkItemComment = "_WorkItemComment";
                 public readonly string _WorkItemDialog = "_WorkItemDialog";
+                public readonly string Gallery = "Gallery";
                 public readonly string Index = "Index";
                 public readonly string New = "New";
                 public readonly string Project = "Project";
@@ -220,12 +240,14 @@ namespace MirGames.Areas.Projects.Controllers
                 public readonly string WorkItems = "WorkItems";
             }
             public readonly string _AddWorkItemDialog = "~/Areas/Projects/Views/Projects/_AddWorkItemDialog.cshtml";
+            public readonly string _GalleryItemDialog = "~/Areas/Projects/Views/Projects/_GalleryItemDialog.cshtml";
             public readonly string _ProjectInfo = "~/Areas/Projects/Views/Projects/_ProjectInfo.cshtml";
             public readonly string _ProjectListItem = "~/Areas/Projects/Views/Projects/_ProjectListItem.cshtml";
             public readonly string _ProjectMenu = "~/Areas/Projects/Views/Projects/_ProjectMenu.cshtml";
             public readonly string _WipMenu = "~/Areas/Projects/Views/Projects/_WipMenu.cshtml";
             public readonly string _WorkItemComment = "~/Areas/Projects/Views/Projects/_WorkItemComment.cshtml";
             public readonly string _WorkItemDialog = "~/Areas/Projects/Views/Projects/_WorkItemDialog.cshtml";
+            public readonly string Gallery = "~/Areas/Projects/Views/Projects/Gallery.cshtml";
             public readonly string Index = "~/Areas/Projects/Views/Projects/Index.cshtml";
             public readonly string New = "~/Areas/Projects/Views/Projects/New.cshtml";
             public readonly string Project = "~/Areas/Projects/Views/Projects/Project.cshtml";
@@ -279,6 +301,18 @@ namespace MirGames.Areas.Projects.Controllers
         }
 
         [NonAction]
+        partial void GalleryOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string projectAlias);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Gallery(string projectAlias)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Gallery);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "projectAlias", projectAlias);
+            GalleryOverride(callInfo, projectAlias);
+            return callInfo;
+        }
+
+        [NonAction]
         partial void ArchiveOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string projectAlias);
 
         [NonAction]
@@ -323,6 +357,17 @@ namespace MirGames.Areas.Projects.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.New);
             NewOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void GalleryItemDialogOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult GalleryItemDialog()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GalleryItemDialog);
+            GalleryItemDialogOverride(callInfo);
             return callInfo;
         }
 

@@ -138,7 +138,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
 
             this.commandProcessor.Execute(new SetPermissionCommand
             {
-                Actions = new[] { "Edit", "CreateTask", "DeleteWorkItem", "EditWorkItem", "ChangeStateWorkItem", "AssignWorkItem" },
+                Actions = new[] { "Edit", "EditGallery", "CreateTask", "DeleteWorkItem", "EditWorkItem", "ChangeStateWorkItem", "AssignWorkItem" },
                 EntityId = project.ProjectId,
                 EntityType = "Project",
                 UserId = project.AuthorId

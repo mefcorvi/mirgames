@@ -1,12 +1,18 @@
-﻿<div @Html.Css("dialog-body") class="dialog-body" ng-style="{ 'width': width, 'max-width': width, height: height, 'max-height': height }">
-    <h1>@RenderSection("DialogTitle", required: true)</h1>
+﻿<div @Html.Css("dialog-body") class="dialog-body" ng-style="{ 'width': width, 'max-width': maxWidth, height: height, 'max-height': maxHeight }">
+    @if (IsSectionDefined("DialogTitle"))
+    {
+        <h1>@RenderSection("DialogTitle", false)</h1>
+    }
     @RenderSection("DialogNotifications")
     <div class="dialog-content">
         <div @Html.Css((string)ViewBag.DialogCss, (string)ViewBag.DialogCss != null)>
             @RenderSection("DialogContent", required: true)
         </div>
     </div>
-    <div class="buttons dialog-buttons">
-        @RenderSection("DialogButtons", required: true)
-    </div>
+    @if (IsSectionDefined("DialogButtons"))
+    {
+        <div class="buttons dialog-buttons">
+            @RenderSection("DialogButtons", required: false)
+        </div>
+    }
 </div>

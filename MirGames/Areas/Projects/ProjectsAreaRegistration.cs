@@ -67,6 +67,11 @@
                 new { controller = "Projects", action = "WorkItem" });
 
             context.MapRouteLowercase(
+                "WipProjectGallery",
+                "project/{projectAlias}/gallery",
+                new { controller = "Projects", action = "Gallery" });
+
+            context.MapRouteLowercase(
                 "WipProjectCode",
                 "project/{projectAlias}/code",
                 new { controller = "Projects", action = "Code" });

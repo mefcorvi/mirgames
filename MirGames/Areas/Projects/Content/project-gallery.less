@@ -1,0 +1,51 @@
+﻿body {} @import "references.less";
+@import "mixins.less";
+
+.wip-gallery-page {
+    & > section
+    {
+        .project-info();
+
+        & > .wip-gallery {
+            padding: @indent;
+
+            & > h4 {
+                .page-subtitle();
+            }
+
+            & > .wip-gallery-items {
+                overflow: hidden;
+                margin-bottom: @indent;
+
+                .gallery-item {
+                    float: left;
+                    display: block;
+                    height: 0;
+                    width: 18.75%;
+                    padding-bottom: 15%;
+                    margin-right: 1.25%;
+                    margin-bottom: 1.25%;
+                    background: @border-color;
+                    border: 1px solid @border-color;
+                    position: relative;
+                    .box-sizing(border-box);
+
+                    &:nth-child(5) {
+                        margin-right: 0;
+                    }
+
+                    img {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        bottom: 0;
+                        right: 0;
+                        margin: auto;
+                        max-width: 100%;
+                        max-height: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

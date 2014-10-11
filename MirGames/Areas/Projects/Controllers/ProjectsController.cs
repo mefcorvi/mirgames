@@ -94,7 +94,7 @@ namespace MirGames.Areas.Projects.Controllers
                 new GetAttachmentsQuery
                 {
                     EntityId = project.ProjectId,
-                    EntityType = "project",
+                    EntityType = "project-gallery",
                     IsImage = true
                 },
                 new PaginationSettings(0, 5));
@@ -114,6 +114,35 @@ namespace MirGames.Areas.Projects.Controllers
             
             this.ViewBag.BackUrl = this.GetBackUrl();
             this.ViewBag.SubSection = "Project";
+
+            return this.View(project);
+        }
+
+        /// <inheritdoc />
+        public virtual ActionResult Gallery(string projectAlias)
+        {
+            var project = this.QueryProcessor.Process(
+                new GetWipProjectQuery
+                {
+                    Alias = projectAlias
+                });
+
+            var images = this.QueryProcessor.Process(
+                new GetAttachmentsQuery
+                {
+                    EntityId = project.ProjectId,
+                    EntityType = "project-gallery",
+                    IsImage = true
+                },
+                new PaginationSettings(0, 30));
+
+            this.LoadStatistics(project);
+
+            this.ViewBag.Images = images;
+            this.ViewBag.BackUrl = this.GetBackUrl();
+            this.ViewBag.SubSection = "Gallery";
+
+            this.PageData["projectAlias"] = project.Alias;
 
             return this.View(project);
         }
@@ -218,6 +247,12 @@ namespace MirGames.Areas.Projects.Controllers
         public virtual ActionResult New()
         {
             return this.View();
+        }
+
+        /// <inheritdoc />
+        public virtual ActionResult GalleryItemDialog()
+        {
+            return this.View("_GalleryItemDialog");
         }
 
         /// <inheritdoc />

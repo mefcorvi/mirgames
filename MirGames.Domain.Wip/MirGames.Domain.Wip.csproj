@@ -66,6 +66,7 @@
     <Compile Include="AccessRules\ProjectWorkItemEditAccessRule.cs" />
     <Compile Include="AccessRules\ProjectWorkItemDeleteAccessRule.cs" />
     <Compile Include="ClaimsProviders\WipClaimsProvider.cs" />
+    <Compile Include="CommandHandlers\AddWipGalleryImageCommandHandler.cs" />
     <Compile Include="CommandHandlers\ArchiveProjectRepositoryCommandHandler.cs" />
     <Compile Include="CommandHandlers\AssignWorkItemCommandHandler.cs" />
     <Compile Include="CommandHandlers\ChangeWorkItemStateCommandHandler.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Services\ProjectDescriptionUploadProcessor.cs" />
     <Compile Include="Services\ProjectEmptyLogoProvider.cs" />
     <Compile Include="Services\ProjectLogoUploadProcessor.cs" />
+    <Compile Include="Services\ProjectGalleryUploadProcessor.cs" />
     <Compile Include="Services\ProjectWorkItemCommentUploadProcessor.cs" />
     <Compile Include="Services\ProjectWorkItemUploadProcessor.cs" />
     <Compile Include="WipDomainModule.cs" />

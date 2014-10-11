@@ -36,6 +36,7 @@ module UI {
             backdrop: true,
             dialogClass: 'modal',
             backdropClass: 'modal-backdrop',
+            innerBackdropClass: 'modal-backdrop-inner',
             transitionClass: 'fade',
             triggerClass: 'in',
             resolve: {},
@@ -54,7 +55,9 @@ module UI {
         private _open: boolean;
         private backdropEl: JQuery;
         private modalEl: JQuery;
+        private $innerBackdrop: JQuery;
         private $dialogContainer: JQuery;
+        private $hiddenLink: JQuery;
         private $scope: ng.IScope;
         private deferred: ng.IDeferred<any>;
 
@@ -78,7 +81,9 @@ module UI {
                 this.modalEl.removeClass(options.triggerClass);
             }
 
+            this.$innerBackdrop = this.createElement(options.innerBackdropClass);
             this.$dialogContainer = this.createElement('dialog-container');
+            this.$hiddenLink = $('<a href="javascript:void(0)" style="display: block; width: 0; height: 0;"></a>');
         }
 
         public isOpen(): boolean {
@@ -102,6 +107,7 @@ module UI {
             }
 
             this._loadResolves().then((locals: any) => {
+                $('html, body > header').width($('html').width());
                 var $scope = locals.$scope = this.$scope =
                     (locals.$scope ? locals.$scope : this.$rootScope.$new());
 
@@ -126,14 +132,15 @@ module UI {
                     }
                 });
 
-                var dialogContent = $('.dialog-body > .dialog-content', this.$dialogContainer);
+                /*var dialogContent = $('.dialog-body > .dialog-content', this.$dialogContainer);
                 var maxHeight = $(window).innerHeight()
                     - $('.dialog-body > h1', this.$dialogContainer).outerHeight()
                     - $('.dialog-body > .dialog-buttons').outerHeight()
                     - dialogContent.outerHeight()
                     + dialogContent.height()
                     - 10;
-                $('.dialog-content', this.$dialogContainer).css('max-height', maxHeight);
+                $('.dialog-content', this.$dialogContainer).css('max-height', maxHeight);*/
+                $(document.body).addClass('dialog-opened');
 
                 this._bindEvents();
                 this.eventBus.emit('ajax-request.executed');
@@ -157,6 +164,8 @@ module UI {
                 return;
             }
 
+            $(document.body).removeClass('dialog-opened');
+            $('html, body > header').width('');
             this._onCloseComplete(result);
 
             var removeTriggerClass = (el: JQuery) => {
@@ -206,6 +215,8 @@ module UI {
             if (this.options.backdrop && this.options.backdropClick) {
                 this.backdropEl.bind('click.dialog', this.handleBackDropClick.bind(this));
             }
+
+            this.$innerBackdrop.bind('click.dialog', this.handleBackDropClick.bind(this));
         }
 
         private _unbindEvents(): void {
@@ -216,6 +227,8 @@ module UI {
             if (this.options.backdrop && this.options.backdropClick) {
                 this.backdropEl.unbind('click.dialog');
             }
+
+            this.$innerBackdrop.unbind('click.dialog');
         }
 
         private _onCloseComplete(result: any): void {
@@ -227,7 +240,7 @@ module UI {
         }
 
         private _addElementsToDom(): void {
-            Dialog.maxZIndex++;
+            Dialog.maxZIndex += 2;
             $(document.body).append(this.modalEl);
             this.modalEl.append(this.$dialogContainer);
 
@@ -235,8 +248,20 @@ module UI {
                 zIndex: Dialog.maxZIndex
             });
 
+
+            this.$innerBackdrop.width($('html').outerWidth());
+            this.$dialogContainer.append(this.$innerBackdrop);
+            this.$dialogContainer.append(this.$hiddenLink);
+
+            setTimeout(() => {
+                this.$hiddenLink.focus();
+            }, 0);
+
             if (this.options.backdrop) {
-                this.$dialogContainer.append(this.backdropEl);
+                this.backdropEl.css({
+                    zIndex: Dialog.maxZIndex - 1
+                });
+                $(document.body).append(this.backdropEl);
             }
 
             this._open = true;
@@ -244,6 +269,8 @@ module UI {
 
         private _removeElementsFromDom(): void {
             this.modalEl.remove();
+            this.$innerBackdrop.remove();
+            this.$hiddenLink.remove();
             this.$dialogContainer.remove();
 
             if (this.options.backdrop) {
@@ -251,7 +278,7 @@ module UI {
             }
 
             this._open = false;
-            Dialog.maxZIndex--;
+            Dialog.maxZIndex -= 2;
         }
 
         private _loadResolves(): ng.IPromise<any> {

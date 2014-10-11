@@ -136,6 +136,16 @@
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ImageResizer, Version=3.4.3.103, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ImageResizer.3.4.3\lib\ImageResizer.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageResizer.Plugins.AnimatedGifs">
+      <HintPath>..\packages\ImageResizer.Plugins.AnimatedGifs.3.4.3\lib\ImageResizer.Plugins.AnimatedGifs.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageResizer.Plugins.PrettyGifs">
+      <HintPath>..\packages\ImageResizer.Plugins.PrettyGifs.3.4.3\lib\ImageResizer.Plugins.PrettyGifs.dll</HintPath>
+    </Reference>
     <Reference Include="LibGit2Sharp">
       <HintPath>..\packages\LibGit2Sharp.0.19.0.0\lib\net40\LibGit2Sharp.dll</HintPath>
       <Private>True</Private>
@@ -185,6 +195,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http.Extensions">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Extensions.dll</HintPath>
@@ -411,6 +422,10 @@
     <Content Include="Areas\Forum\Content\forums.less" />
     <Content Include="Areas\Forum\Views\Forum\Unread.cshtml" />
     <None Include="Areas\Forum\Scripts\PostRatingController.ts" />
+    <Content Include="Areas\Projects\Views\Projects\Gallery.cshtml" />
+    <Content Include="Areas\Projects\Content\project-gallery.less" />
+    <Content Include="Areas\Projects\Views\Projects\_GalleryItemDialog.cshtml" />
+    <Content Include="Areas\Projects\Content\project-gallery-dialog.less" />
     <None Include="Areas\Topics\Content\references.less" />
     <Content Include="Areas\Projects\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Projects\Views\Web.config" />
@@ -867,6 +882,12 @@
   <ItemGroup>
     <None Include="Areas\Forum\Scripts\TopicsPage.ts" />
     <None Include="Scripts\Libs\selectize.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Projects\Scripts\ProjectGalleryPage.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Projects\Scripts\GalleryItemDialogController.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

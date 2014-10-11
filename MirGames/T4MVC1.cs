@@ -414,6 +414,8 @@ namespace Links
             public static readonly string users_less = Url("users.less");
         }
     
+        public static readonly string variables_dark_less = Url("variables-dark.less");
+        public static readonly string variables_light_less = Url("variables-light.less");
         public static readonly string wmd_less = Url("wmd.less");
     }
 
@@ -505,6 +507,7 @@ namespace Links
                 public static readonly string EditPostDialogController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/EditPostDialogController.min.js") ? Url("EditPostDialogController.min.js") : Url("EditPostDialogController.js");
                 public static readonly string ForumsPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ForumsPage.min.js") ? Url("ForumsPage.min.js") : Url("ForumsPage.js");
                 public static readonly string NewTopic_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/NewTopic.min.js") ? Url("NewTopic.min.js") : Url("NewTopic.js");
+                public static readonly string PostRatingController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PostRatingController.min.js") ? Url("PostRatingController.min.js") : Url("PostRatingController.js");
                 public static readonly string SearchPanelController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SearchPanelController.min.js") ? Url("SearchPanelController.min.js") : Url("SearchPanelController.js");
                 public static readonly string TopicPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/TopicPage.min.js") ? Url("TopicPage.min.js") : Url("TopicPage.js");
                 public static readonly string TopicsPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/TopicsPage.min.js") ? Url("TopicsPage.min.js") : Url("TopicsPage.js");
@@ -542,6 +545,7 @@ namespace Links
                 public static readonly string mixins_less = Url("mixins.less");
                 public static readonly string project_code_file_less = Url("project-code-file.less");
                 public static readonly string project_code_less = Url("project-code.less");
+                public static readonly string project_gallery_less = Url("project-gallery.less");
                 public static readonly string project_new_less = Url("project-new.less");
                 public static readonly string project_settings_less = Url("project-settings.less");
                 public static readonly string project_work_item_less = Url("project-work-item.less");
@@ -567,12 +571,13 @@ namespace Links
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string _references_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
                 public static readonly string AddWorkItemDialogController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/AddWorkItemDialogController.min.js") ? Url("AddWorkItemDialogController.min.js") : Url("AddWorkItemDialogController.js");
+                public static readonly string GalleryItemDialogController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/GalleryItemDialogController.min.js") ? Url("GalleryItemDialogController.min.js") : Url("GalleryItemDialogController.js");
                 public static readonly string NewProjectPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/NewProjectPage.min.js") ? Url("NewProjectPage.min.js") : Url("NewProjectPage.js");
                 public static readonly string ProjectCodeFilePage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectCodeFilePage.min.js") ? Url("ProjectCodeFilePage.min.js") : Url("ProjectCodeFilePage.js");
+                public static readonly string ProjectGalleryPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectGalleryPage.min.js") ? Url("ProjectGalleryPage.min.js") : Url("ProjectGalleryPage.js");
                 public static readonly string ProjectSettingsPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectSettingsPage.min.js") ? Url("ProjectSettingsPage.min.js") : Url("ProjectSettingsPage.js");
                 public static readonly string ProjectWorkItemBlocks_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectWorkItemBlocks.min.js") ? Url("ProjectWorkItemBlocks.min.js") : Url("ProjectWorkItemBlocks.js");
                 public static readonly string ProjectWorkItemList_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectWorkItemList.min.js") ? Url("ProjectWorkItemList.min.js") : Url("ProjectWorkItemList.js");
-                public static readonly string ProjectWorkItemPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectWorkItemPage.min.js") ? Url("ProjectWorkItemPage.min.js") : Url("ProjectWorkItemPage.js");
                 public static readonly string ProjectWorkItemsPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectWorkItemsPage.min.js") ? Url("ProjectWorkItemsPage.min.js") : Url("ProjectWorkItemsPage.js");
                 public static readonly string WorkItemDialogController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/WorkItemDialogController.min.js") ? Url("WorkItemDialogController.min.js") : Url("WorkItemDialogController.js");
             }

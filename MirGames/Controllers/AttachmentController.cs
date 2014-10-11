@@ -9,12 +9,15 @@
 namespace MirGames.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Configuration;
     using System.IO;
     using System.Text;
     using System.Web;
     using System.Web.Configuration;
     using System.Web.Mvc;
+
+    using ImageResizer;
 
     using MirGames.Domain.Attachments.Commands;
     using MirGames.Domain.Attachments.Queries;
@@ -27,6 +30,11 @@ namespace MirGames.Controllers
     public partial class AttachmentController : AppController
     {
         /// <summary>
+        /// The sizes dictionary.
+        /// </summary>
+        private readonly IDictionary<string, string> sizesDictionary;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="AttachmentController"/> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
@@ -34,10 +42,20 @@ namespace MirGames.Controllers
         public AttachmentController(IQueryProcessor queryProcessor, ICommandProcessor commandProcessor)
             : base(queryProcessor, commandProcessor)
         {
+            this.sizesDictionary = new Dictionary<string, string>
+            {
+                { "avatar", "width=64&height=64&crop=auto" },
+                { "xs", "width=100&height=75&crop=auto" },
+                { "s", "width=320&height=240&crop=auto" },
+                { "m", "width=640&height=480&crop=auto" },
+                { "l", "maxwidth=800&maxheight=600" },
+                { "xl", "maxwidth=1024&maxheight=768" },
+                { "xxl", "maxwidth=1680&maxheight=1050" }
+            };
         }
 
         /// <inheritdoc />
-        public virtual ActionResult Index(int attachmentId)
+        public virtual ActionResult Index(int attachmentId, string size)
         {
             var attachment = this.QueryProcessor.Process(new GetAttachmentInfoQuery { AttachmentId = attachmentId });
 
@@ -45,7 +63,26 @@ namespace MirGames.Controllers
             this.Response.Cache.SetMaxAge(TimeSpan.FromDays(7));
             this.Response.Cache.SetExpires(DateTime.UtcNow.AddDays(7));
 
-            return this.File(attachment.FilePath, attachment.ContentType, attachment.IsImage ? null : attachment.FileName);
+            if (!attachment.IsImage || string.IsNullOrEmpty(size) || !this.sizesDictionary.ContainsKey(size))
+            {
+                return this.File(attachment.FilePath, attachment.ContentType, attachment.FileName);
+            }
+
+            string targetPath = string.Format("{0}-{1}.thb", attachment.FilePath, size);
+
+            if (!System.IO.File.Exists(targetPath))
+            {
+                var resizeCropSettings = new ResizeSettings(this.sizesDictionary[size]);
+
+                if (attachment.ContentType.Contains("png"))
+                {
+                    resizeCropSettings["colors"] = "256";
+                }
+
+                ImageBuilder.Current.Build(attachment.FilePath, targetPath, resizeCropSettings);
+            }
+
+            return this.File(targetPath, attachment.ContentType, null);
         }
 
         /// <inheritdoc />
