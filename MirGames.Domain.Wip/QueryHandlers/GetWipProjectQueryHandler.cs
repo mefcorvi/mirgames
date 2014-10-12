@@ -123,6 +123,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
                     CanCreateTask = this.authorizationManager.CheckAccess(principal, "CreateTask", "Project", project.ProjectId),
                     CanCreateFeature = this.authorizationManager.CheckAccess(principal, "CreateFeature", "Project", project.ProjectId),
                     CanReadRepository = this.authorizationManager.CheckAccess(principal, "Read", "GitRepository", project.RepositoryId),
+                    CanEditGallery = this.authorizationManager.CheckAccess(principal, "EditGallery", "Project", project.ProjectId),
                     IsRepositoryPrivate = !this.authorizationManager.CheckAccess(0, "Read", "GitRepository", project.RepositoryId),
                     CanCreateBlogTopic = project.BlogId.HasValue && this.authorizationManager.CheckAccess(principal, "CreateTopic", "Blog", project.BlogId),
                     BlogId = project.BlogId

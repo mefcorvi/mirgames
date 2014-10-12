@@ -5,6 +5,7 @@ module MirGames.Wip {
 
         constructor($scope: IProjectGalleryPageScope, private apiService: Core.IApiService, eventBus: Core.IEventBus) {
             super($scope, eventBus);
+            this.$scope.images = [];
             this.$scope.fileUploaded = (attachmentId) => this.fileUploaded(attachmentId);
         }
 
@@ -15,13 +16,20 @@ module MirGames.Wip {
             };
 
             this.apiService.executeCommand('AddWipGalleryImageCommand', command, () => {
+                var attachmentUrl = Router.action('Attachment', 'Index', { attachmentId: attachmentId });
+                var item = {
+                    attachmentId: attachmentId,
+                    attachmentUrl: attachmentUrl
+                };
 
+                this.$scope.images.push(item);
                 this.$scope.$apply();
             });
         }
     }
 
     export interface IProjectGalleryPageScope extends IPageScope {
+        images: { attachmentId: number; attachmentUrl: string; }[];
         fileUploaded: (attachmentId: number) => void;
     }
 

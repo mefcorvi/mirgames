@@ -42,6 +42,7 @@
     <Compile Include="Commands\PublishAttachmentsCommand.cs" />
     <Compile Include="Exceptions\EntityTypeIsNotSupportedException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\AttachmentsOrderingType.cs" />
     <Compile Include="Queries\GetAttachmentInfoQuery.cs" />
     <Compile Include="Queries\GetAttachmentsQuery.cs" />
     <Compile Include="Services\IUploadProcessor.cs" />

@@ -21,9 +21,22 @@
                 <img src="@attachment.AttachmentUrl?size=s" />
             </a>
         }
+        @if (!images.Any())
+        {
+            <div class="not-found">
+                Ни одного изображения ещё не было добавлено
+            </div>
+        }
+        <a ng-cloak ng-repeat="image in images" href="javascript:void(0)" class="gallery-item" dialog="@Url.Action(MVC.Projects.Projects.GalleryItemDialog())" resolve="{ 'attachment-id': '{{image.attachmentId}}', 'attachment-url': '{{image.attachmentUrl}}', 'entity-id': @Model.ProjectId }"
+           dialog-controller="MirGames.Projects.GalleryItemDialogController">
+            <img ng-src="{{image.attachmentUrl}}?size=s" />
+        </a>
     </div>
-    <h4>Загрузить изображение</h4>
-    <div class="file-upload">
-        <file uploaded="fileUploaded($attachmentId)" entity-type="project-gallery"></file>
-    </div>
+    @if (Model.CanEditGallery)
+    {
+        <h4>Загрузить изображение</h4>
+        <div class="file-upload">
+            <file uploaded="fileUploaded($attachmentId)" entity-type="project-gallery"></file>
+        </div>
+    }
 </div>

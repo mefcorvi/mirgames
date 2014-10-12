@@ -148,5 +148,10 @@ namespace MirGames.Domain.Wip.ViewModels
         /// Gets or sets the blog identifier.
         /// </summary>
         public int? BlogId { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance can edit gallery.
+        /// </summary>
+        public bool CanEditGallery { get; set; }
     }
 }

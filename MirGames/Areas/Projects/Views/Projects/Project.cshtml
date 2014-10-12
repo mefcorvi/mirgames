@@ -23,29 +23,15 @@
                 @Html.Markdown(Model.Description)
             </div>
         </div>
-        @if (Model.BlogId.HasValue)
+        @if (Model.BlogId.HasValue && topics.Any())
         {
             <h4>Блог</h4>
-            if (topics.Any())
-            {
-                <div class="blog-posts">
-                    @foreach (var topic in topics)
-                    {
-                        @Html.Partial(MVC.Topics.Topics.Views._TopicListItem, topic)
-                    }
-                </div>
-            }
-            else
-            {
-                <div class="posts-not-found">
-                    Постов в блоге пока ещё нет.
-                    @if (Model.CanCreateBlogTopic)
-                    {
-                        <a href="javascript:void(0)" dialog="@Url.Action(MVC.Topics.Topics.AddTopicDialog())" resolve="{ 'blog-id': @Model.BlogId }"
-                           dialog-controller="MirGames.Topics.AddNewTopicDialogController">Написать новый.</a>
-                    }
-                </div>
-            }
+            <div class="blog-posts">
+                @foreach (var topic in topics)
+                {
+                    @Html.Partial(MVC.Topics.Topics.Views._TopicListItem, topic)
+                }
+            </div>
         }
     </div>
     <div class="aside-section">
@@ -64,9 +50,9 @@
             <ul class="screenshots">
                 @foreach (var attachment in images)
                 {
-                    <li>
-                        <img src="@attachment.AttachmentUrl?size=s" dialog="@Url.Action(MVC.Projects.Projects.GalleryItemDialog())" resolve="{ 'attachment-id': @attachment.AttachmentId, 'attachment-url': '@attachment.AttachmentUrl', 'entity-id': @Model.ProjectId }"
-                             dialog-controller="MirGames.Projects.GalleryItemDialogController" />
+                    <li dialog ="@Url.Action(MVC.Projects.Projects.GalleryItemDialog())" resolve="{ 'attachment-id': @attachment.AttachmentId, 'attachment-url': '@attachment.AttachmentUrl', 'entity-id': @Model.ProjectId }"
+                              dialog-controller="MirGames.Projects.GalleryItemDialogController">
+                        <img src="@attachment.AttachmentUrl?size=s" />
                     </li>
                 }
             </ul>

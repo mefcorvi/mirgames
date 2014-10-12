@@ -22,19 +22,29 @@
                 .page-block();
                 margin-bottom: @indent * 2;
                 overflow: hidden;
-                padding: @indent/4;
                 list-style-type: none;
                 white-space: nowrap;
+                text-align: center;
 
                 li {
-                    display: inline-block;
+                    .box-sizing(border-box);
+                    text-indent: 0;
+                    width: 100%;
                     padding: @indent/4;
                     .box-sizing(border-box);
-                    max-width: 20%;
+                    margin-bottom: @indent/4;
+                    float: left;
+                    display: block;
+                    background: @border-color;
+                    cursor: pointer;
+
+                    &:hover {
+                        background: @sub-background;
+                    }
 
                     img {
-                        min-width: 128px;
-                        height: 128px;
+                        max-width: 100%;
+                        max-height: 240px;
                     }
                 }
             }

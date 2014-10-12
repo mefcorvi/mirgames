@@ -19,6 +19,18 @@ module MirGames.Projects {
                 $scope.currentIndex = Enumerable.from(result).indexOf(e => e.AttachmentId == $scope.attachmentId);
             });
 
+            $(document.body).bind('keydown.gallery', null, (ev: JQueryKeyEventObject) => {
+                if (ev.which == 37) {
+                    $scope.prev();
+                    $scope.$apply();
+                }
+
+                if (ev.which == 39) {
+                    $scope.next();
+                    $scope.$apply();
+                }
+            });
+
             $scope.next = () => {
                 $scope.currentIndex++;
 
@@ -42,6 +54,7 @@ module MirGames.Projects {
             };
 
             $scope.close = () => {
+                $(document.body).unbind('keypress.gallery');
                 dialog.cancel();
             }
         }

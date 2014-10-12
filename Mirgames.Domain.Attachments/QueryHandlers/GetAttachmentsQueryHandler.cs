@@ -8,6 +8,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Attachments.QueryHandlers
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics.Contracts;
     using System.IO;
@@ -113,7 +114,20 @@ namespace MirGames.Domain.Attachments.QueryHandlers
                 attachmentQuery = attachmentQuery.Where(a => a.EntityType == query.EntityType);
             }
 
-            attachmentQuery = attachmentQuery.OrderByDescending(a => a.CreatedDate);
+            switch (query.OrderingBy)
+            {
+                case AttachmentsOrderingType.CreationDateAscending:
+                    attachmentQuery = attachmentQuery.OrderBy(a => a.CreatedDate);
+                    break;
+                case AttachmentsOrderingType.CreationDateDescending:
+                    attachmentQuery = attachmentQuery.OrderByDescending(a => a.CreatedDate);
+                    break;
+                case AttachmentsOrderingType.Random:
+                    attachmentQuery = attachmentQuery.OrderBy(a => Guid.NewGuid());
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             return attachmentQuery;
         }

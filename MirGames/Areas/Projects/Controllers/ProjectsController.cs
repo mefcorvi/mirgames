@@ -95,9 +95,10 @@ namespace MirGames.Areas.Projects.Controllers
                 {
                     EntityId = project.ProjectId,
                     EntityType = "project-gallery",
-                    IsImage = true
+                    IsImage = true,
+                    OrderingBy = AttachmentsOrderingType.Random
                 },
-                new PaginationSettings(0, 5));
+                new PaginationSettings(0, 3));
 
             this.LoadStatistics(project);
 

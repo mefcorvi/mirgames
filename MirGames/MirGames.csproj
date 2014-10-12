@@ -889,6 +889,9 @@
   <ItemGroup>
     <Content Include="Areas\Projects\Scripts\GalleryItemDialogController.ts" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Projects\Scripts\ProjectPage.ts" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
