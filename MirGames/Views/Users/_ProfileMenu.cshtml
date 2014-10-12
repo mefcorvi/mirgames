@@ -15,6 +15,11 @@
         {
             <a href="javascript:void(0);" ng-click="delete()">Удалить</a>
         }
+        
+        @if (Model.Id == UserEntity.Id)
+        {
+            <a href="@Url.Action(MVC.Account.Logout())" class="account-signout">Выйти</a>
+        }
     </div>
 </div>
 
