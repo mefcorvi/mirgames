@@ -40,7 +40,8 @@
     <Compile Include="Commands\DeleteCommentCommand.cs" />
     <Compile Include="Commands\DeleteTopicCommand.cs" />
     <Compile Include="Commands\EditCommentCommand.cs" />
-    <Compile Include="Commands\MarkTopicAsReadCommand.cs" />
+    <Compile Include="Commands\MarkAllBlogTopicsAsReadCommand.cs" />
+    <Compile Include="Commands\MarkBlogTopicAsReadCommand.cs" />
     <Compile Include="Commands\PostNewCommentCommand.cs" />
     <Compile Include="Commands\ReindexTopicsCommand.cs" />
     <Compile Include="Commands\SaveTopicCommand.cs" />

@@ -8,17 +8,20 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Forum.Commands
 {
+    using System.ComponentModel;
+
     using MirGames.Infrastructure.Commands;
 
     /// <summary>
     /// Marks the specified topic as read.
     /// </summary>
-    [Api]
+    [Api("Помечает топик прочитанным")]
     public sealed class MarkTopicAsVisitedCommand : Command
     {
         /// <summary>
         /// Gets or sets the topic unique identifier.
         /// </summary>
+        [Description("Идентификатор топика")]
         public int TopicId { get; set; }
     }
 }

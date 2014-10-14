@@ -9,6 +9,8 @@
 namespace MirGames.Domain.Forum.Commands
 {
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     using MirGames.Infrastructure.Commands;
 
@@ -16,32 +18,45 @@ namespace MirGames.Domain.Forum.Commands
     /// Posts new command.
     /// </summary>
     [Authorize(Roles = "User")]
-    [Api]
+    [Api("Создаёт новый топик форума", ReturnDescription = "Идентификатор созданного топика")]
     public sealed class PostNewForumTopicCommand : Command<int>
     {
         /// <summary>
         /// Gets or sets the forum alias.
         /// </summary>
+        [Required]
+        [Description("Алиас форума")]
         public string ForumAlias { get; set; }
 
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
+        [Required]
+        [Description("Заголовок поста")]
+        [MinLength(1)]
         public string Title { get; set; }
 
         /// <summary>
         /// Gets or sets the text.
         /// </summary>
+        [Required]
+        [Description("Текст топика")]
+        [MinLength(1)]
         public string Text { get; set; }
 
         /// <summary>
         /// Gets or sets the tags.
         /// </summary>
+        [Required]
+        [Description("Тэги")]
+        [MinLength(1)]
         public string Tags { get; set; }
 
         /// <summary>
         /// Gets or sets the attachments.
         /// </summary>
+        [Required]
+        [Description("Приложенные файлы")]
         public IEnumerable<int> Attachments { get; set; }
     }
 }

@@ -9,6 +9,7 @@
 namespace MirGames.Domain.Chat.Commands
 {
     using System.Collections.Generic;
+    using System.ComponentModel;
 
     using MirGames.Infrastructure.Commands;
 
@@ -16,22 +17,25 @@ namespace MirGames.Domain.Chat.Commands
     /// Updates the chat message.
     /// </summary>
     [Authorize(Roles = "User")]
-    [Api]
+    [Api("Обновляет сообщение чата")]
     public sealed class UpdateChatMessageCommand : Command
     {
         /// <summary>
         /// Gets or sets the message unique identifier.
         /// </summary>
+        [Description("Идентификатор сообщения")]
         public int MessageId { get; set; }
 
         /// <summary>
         /// Gets or sets the message.
         /// </summary>
+        [Description("Текст сообщения")]
         public string Message { get; set; }
 
         /// <summary>
         /// Gets or sets the attachments.
         /// </summary>
+        [Description("Приложенные файлы")]
         public IEnumerable<int> Attachments { get; set; }
     }
 }

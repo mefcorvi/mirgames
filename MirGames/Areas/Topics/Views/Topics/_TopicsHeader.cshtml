@@ -29,6 +29,10 @@
         {
             <a href="@Url.Action(MVC.Topics.Topics.New())" @Html.Css("add-topic").Add("selected", ViewBag.Subsection == "New")><i class="fa fa-pencil"></i>Новый пост</a>
         }
+        @if (ViewBag.BlogTopicsUnread > 0)
+        {
+            <a href="javascript:void(0)" ng-click="markAllTopicsAsRead">Отметить всё как прочитанное</a>
+        }
     </div>
 </div>
 <nav class="toolbar">

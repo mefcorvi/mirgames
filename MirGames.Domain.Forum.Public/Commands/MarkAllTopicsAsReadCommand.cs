@@ -14,7 +14,7 @@ namespace MirGames.Domain.Forum.Commands
     /// Marks the specified topic as read.
     /// </summary>
     [Authorize(Roles = "User")]
-    [Api]
+    [Api("Помечает все топики юзера, как прочитанные")]
     public sealed class MarkAllTopicsAsReadCommand : Command
     {
     }

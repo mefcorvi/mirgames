@@ -8,6 +8,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Chat.Queries
 {
+    using System.ComponentModel;
+
     using MirGames.Domain.Chat.ViewModels;
     using MirGames.Infrastructure.Commands;
     using MirGames.Infrastructure.Queries;
@@ -15,12 +17,13 @@ namespace MirGames.Domain.Chat.Queries
     /// <summary>
     /// Returns the chat messages.
     /// </summary>
-    [Api]
+    [Api("Возвращает сообщение чата для редактирования")]
     public sealed class GetChatMessageForEditQuery : SingleItemQuery<ChatMessageForEditViewModel>
     {
         /// <summary>
         /// Gets or sets the message unique identifier.
         /// </summary>
+        [Description("Идентификатор сообщения")]
         public int MessageId { get; set; }
     }
 }

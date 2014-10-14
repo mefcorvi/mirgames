@@ -15,7 +15,7 @@ namespace MirGames.Domain.Users.Queries
     /// <summary>
     /// Returns set of available OAuth providers.
     /// </summary>
-    [Api]
+    [Api("Возвращает доступные OAuth провайдеры", ReturnDescription = "Список провайдеров")]
     public sealed class GetOAuthProvidersQuery : Query<OAuthProviderViewModel>
     {
     }

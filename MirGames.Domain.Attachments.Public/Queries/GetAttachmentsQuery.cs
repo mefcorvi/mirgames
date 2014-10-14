@@ -15,7 +15,7 @@ namespace MirGames.Domain.Attachments.Queries
     /// <summary>
     /// Returns the attachments.
     /// </summary>
-    [Api]
+    [Api("Возвращает список приложенных файлов")]
     public class GetAttachmentsQuery : Query<AttachmentViewModel>
     {
         /// <summary>

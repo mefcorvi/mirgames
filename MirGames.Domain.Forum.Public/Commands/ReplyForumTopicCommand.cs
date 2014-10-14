@@ -9,6 +9,8 @@
 namespace MirGames.Domain.Forum.Commands
 {
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     using MirGames.Infrastructure.Commands;
 
@@ -16,22 +18,27 @@ namespace MirGames.Domain.Forum.Commands
     /// Posts new reply in the topic.
     /// </summary>
     [Authorize(Roles = "User")]
-    [Api]
+    [Api("Создаёт ответ в топике", ReturnDescription = "Идентификатор поста")]
     public sealed class ReplyForumTopicCommand : Command<int>
     {
         /// <summary>
         /// Gets or sets the attachments.
         /// </summary>
+        [Description("Приложенные файлы")]
         public IEnumerable<int> Attachments { get; set; }
 
         /// <summary>
         /// Gets or sets the text.
         /// </summary>
+        [Required]
+        [Description("Приложенные файлы")]
+        [MinLength(1)]
         public string Text { get; set; }
 
         /// <summary>
         /// Gets or sets the topic unique identifier.
         /// </summary>
+        [Description("Идентификатор топика")]
         public int TopicId { get; set; }
     }
 }

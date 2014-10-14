@@ -17,6 +17,25 @@ namespace MirGames.Infrastructure.Commands
     public class ApiAttribute : Attribute
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="ApiAttribute"/> class.
+        /// </summary>
+        /// <param name="description">The description.</param>
+        public ApiAttribute(string description = null)
+        {
+            this.Description = description;
+        }
+
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the return description.
+        /// </summary>
+        public string ReturnDescription { get; set; }
+
+        /// <summary>
         /// Gets or sets the execution interval in milliseconds.
         /// </summary>
         public int? ExecutionInterval { get; set; }

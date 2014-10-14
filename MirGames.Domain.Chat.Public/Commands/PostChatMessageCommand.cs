@@ -9,6 +9,7 @@
 namespace MirGames.Domain.Chat.Commands
 {
     using System.Collections.Generic;
+    using System.ComponentModel;
 
     using MirGames.Infrastructure.Commands;
 
@@ -16,17 +17,19 @@ namespace MirGames.Domain.Chat.Commands
     /// The message command.
     /// </summary>
     [Authorize(Roles = "User")]
-    [Api]
+    [Api("Отправляет сообщение в чат")]
     public sealed class PostChatMessageCommand : Command<int>
     {
         /// <summary>
         /// Gets or sets the message.
         /// </summary>
+        [Description("Текст сообщения")]
         public string Message { get; set; }
 
         /// <summary>
         /// Gets or sets the attachments.
         /// </summary>
+        [Description("Идентификаторы приложенных файлов")]
         public IEnumerable<int> Attachments { get; set; }
     }
 }

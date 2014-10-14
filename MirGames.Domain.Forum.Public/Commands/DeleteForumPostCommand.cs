@@ -8,6 +8,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Forum.Commands
 {
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     using MirGames.Infrastructure.Commands;
@@ -16,13 +17,14 @@ namespace MirGames.Domain.Forum.Commands
     /// Posts new reply in the topic.
     /// </summary>
     [Authorize(Roles = "User")]
-    [Api]
+    [Api("Удаляет пост форума")]
     public sealed class DeleteForumPostCommand : Command
     {
         /// <summary>
-        /// Gets or sets the topic unique identifier.
+        /// Gets or sets the post unique identifier.
         /// </summary>
         [Required]
+        [Description("Идентификатор поста")]
         public int PostId { get; set; }
     }
 }

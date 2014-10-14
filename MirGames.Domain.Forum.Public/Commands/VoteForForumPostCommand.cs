@@ -9,19 +9,23 @@
 
 namespace MirGames.Domain.Forum.Commands
 {
+    using System.ComponentModel;
+
     using MirGames.Infrastructure.Commands;
 
-    [Api]
+    [Api("Изменяет рейтинг поста", ReturnDescription = "Новый рейтинг поста")]
     public sealed class VoteForForumPostCommand : Command<int>
     {
         /// <summary>
         /// Gets or sets the post identifier.
         /// </summary>
+        [Description("Идентификатор поста")]
         public int PostId { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether vote is positive.
         /// </summary>
+        [Description("В позитивную ли сторону изменяется рейтинг")]
         public bool Positive { get; set; }
     }
 }

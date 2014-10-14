@@ -1,10 +1,13 @@
-﻿@using MirGames.Infrastructure.Commands
+﻿@using System.ComponentModel
+@using MirGames.Infrastructure.Commands
+@using MirGames.Infrastructure.Queries
+@using RestSharp.Extensions
+@using TypeLite.Extensions
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     AddPageCssClass("static-page");
     var apiItems = (List<Type>)this.ViewBag.ApiItems;
 }
-
 <div class="page-header">
     <div class="header">
         <h4><a href="@Url.Action(MVC.Pages.Help())">Помощь</a></h4>
@@ -13,11 +16,148 @@
     <div class="buttons">
     </div>
 </div>
-
 <div class="text">
-    @foreach (var type in apiItems)
-    {
-        <div>@type.FullName</div>
-    }
-</div>    
+    <h2>Авторизация</h2>
+    <p>Для выполнения запросов, описанных ниже, требуются определенные права, которые можно получить авторизовавшись на сайте. К сожалению, сейчас нет способа авторизоваться из стороннего приложения. В рамках тестирования можно залогиниться на сайте и посмотреть свой cookie параметр key. Это и есть sessionID, который можно использовать в API.</p>
+    <p>
+        Адреса для выполнения запросов:
+        <ul>
+            <li>GET @Url.Action("one", "Api", null, Request.Url.Scheme)</li>
+            <li>GET @Url.Action("all", "Api", null, Request.Url.Scheme)</li>
+            <li>POST @Url.Action("Index", "Api", null, Request.Url.Scheme)</li>
+        </ul>
+    </p>
+    <h5>Параметры GetOne запроса</h5>
+    <p>
+        <ul>
+            <li>
+                query - сериализованный в JSON объект запроса
+            </li>
+            <li>
+                sessionId - идентификатор сессии
+            </li>
+        </ul>
+        Аналогичен запросу GetAll, но возвращает лишь один элемент.
+    </p>
+    <h5>Параметры GeAll запроса</h5>
+    <ul>
+        <li>
+            query - сериализованный в JSON объект запроса
+        </li>
+        <li>
+            sessionId - идентификатор сессии
+        </li>
+        <li>
+            pageNum - номер страницы
+        </li>
+        <li>
+            pageSize - размер страницы
+        </li>
+    </ul>
+    <p>
+        Пример запроса:
+        <code>
+            <pre>GET /api/all?pageNum=0&pageSize=50&query=%7B%22FirstIndex%22%3Anull%2C%22LastIndex%22%3Anull%2C%22%24_type%22%3A%22GetChatMessagesQuery%22%7D&sessionId=768de2c1e1854ecca81779bc8daf77bd HTTP/1.1
+Host: mirgames.ru
+Content-Type: application/json; charset=utf-8
+</pre>
+        </code>
+    <p>
+        Запрос возвращает посты чата в указанном диапазоне. Декодированные параметры этого запроса выглядят следующим образом:
+        <code>
+            <pre>pageNum:0
+pageSize:50
+query:{"FirstIndex":null,"LastIndex":null,"$_type":"GetChatMessagesQuery"}
+sessionId:768de2c1e1854ecca81779bc8daf77bd</pre>
+        </code>
+    </p>
+    <h5>Параметры Post запроса</h5>
+    <p>
+        В теле POST запроса ожидается сериализованный объект, который состоит из двух полей:
+        <ul>
+            <li>
+                Command - сериализованный в JSON объект команды
+            </li>
+            <li>
+                SessionId - идентификатор сессии
+            </li>
+        </ul>
+    </p>
+    <p>
+        Пример POST запроса:
+        <code>
+            <pre>POST /api HTTP/1.1
+Host: mirgames.ru
+Connection: keep-alive
+Content-Length: 137
+Accept: application/json, text/javascript, */*; q=0.01
+Content-Type: application/json; charset=UTF-8
 
+{"Command":"{\"Positive\":true,\"PostId\":103787,\"$_type\":\"VoteForForumPostCommand\"}","SessionId":"768de2c1e1854ecca81779bc8daf77bd"}
+</pre>
+        </code>
+    </p>
+    <h2>Строение объекта команды и запроса</h2>
+    <p>Как можно заметить из примеров, и команда и запрос представляют собой обычный JS объект в JSON нотации. Поля доступных запросов и команд представлены ниже. Единственным полем, которое отсутствует в описании - это поле "$_type". Данное поле должно содержать название запроса.</p>
+    <p>
+        К примеру, запрос на получение сообщения чата для редактирования имеет вид:
+        <code>
+            <pre>{ "$_type": "GetChatMessageForEditQuery", "MessageId": 1234 }</pre>
+        </code>
+    </p>
+    <h2>Запросы</h2>
+    @foreach (var type in apiItems.Where(t => typeof(Query).IsAssignableFrom(t)))
+    {
+        var apiAttribute = type.GetAttribute<ApiAttribute>();
+        <h5>@type.Name</h5>
+        <p>@apiAttribute.Description</p>
+        <p>@apiAttribute.ReturnDescription</p>
+        <table>
+            <tr><th>Тип</th><th>Название поля</th><th>Описание</th></tr>
+            @foreach (var member in type.GetProperties())
+            {
+                var description = member.GetAttribute<DescriptionAttribute>();
+                var propertyType = member.PropertyType;
+                string typeName = propertyType.Name;
+                if (propertyType.IsNullable())
+                {
+                    typeName = propertyType.GetGenericArguments().First().Name + "?";
+                }
+                if (propertyType.IsGenericType && propertyType.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                {
+                    typeName = propertyType.GetGenericArguments().First().Name + "[]";
+                }
+
+                <tr><td>@typeName</td><td>@member.Name</td><td>@(description != null ? description.Description : null)</td></tr>
+            }
+        </table>
+    }
+    <h2>Команды</h2>
+    @foreach (var type in apiItems.Where(t => typeof(Command).IsAssignableFrom(t)))
+    {
+        var apiAttribute = type.GetAttribute<ApiAttribute>();
+        <h5>@type.Name</h5>
+        <p>@apiAttribute.Description</p>
+        <p>@apiAttribute.ReturnDescription</p>
+        <table>
+            <tr><th>Тип</th><th>Название поля</th><th>Описание</th></tr>
+            @foreach (var member in type.GetProperties())
+            {
+                var description = member.GetAttribute<DescriptionAttribute>();
+                var propertyType = member.PropertyType;
+                string typeName = propertyType.Name;
+                if (propertyType.IsNullable())
+                {
+                    typeName = propertyType.GetGenericArguments().First().Name + "?";
+                }
+                if (propertyType.IsGenericType && propertyType.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                {
+                    typeName = propertyType.GetGenericArguments().First().Name + "[]";
+                }
+
+                <tr><td>@typeName</td><td>@member.Name</td><td>@(description != null ? description.Description : null)</td></tr>
+            }
+        </table>
+    }
+
+</div>
