@@ -1,9 +1,9 @@
 /// <reference path="_references.ts" />
 module MirGames.Wip {
     export class ProjectCodeFilePage extends MirGames.BasePage<IProjectCodeFilePageData, IProjectCodeFilePageScope> {
-        static $inject = ['$scope', 'commandBus', 'eventBus'];
+        static $inject = ['$scope', 'eventBus'];
 
-        constructor($scope: IProjectCodeFilePageScope, private commandBus: Core.ICommandBus, eventBus: Core.IEventBus) {
+        constructor($scope: IProjectCodeFilePageScope, eventBus: Core.IEventBus) {
             super($scope, eventBus);
         }
     }

@@ -7,9 +7,11 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MirGames.Infrastructure
+namespace MirGames.Domain.Users.Recaptcha
 {
     using System.Diagnostics.Contracts;
+
+    using MirGames.Infrastructure;
 
     /// <summary>
     /// Settings of the Recaptcha.

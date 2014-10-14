@@ -11,7 +11,8 @@ module MirGames.Projects {
             var query: MirGames.Domain.Attachments.Queries.GetAttachmentsQuery = {
                 EntityId: $scope.entityId,
                 EntityType: 'project-gallery',
-                IsImage: true
+                IsImage: true,
+                OrderingBy: MirGames.Domain.Attachments.Queries.AttachmentsOrderingType.CreationDateAscending
             };
 
             this.apiService.getAll('GetAttachmentsQuery', query, 0, 100, (result: MirGames.Domain.Attachments.ViewModels.AttachmentViewModel[]) => {

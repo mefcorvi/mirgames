@@ -53,6 +53,7 @@
     <Compile Include="Commands\SaveUserProfileCommand.cs" />
     <Compile Include="Commands\SetUserAvatarCommand.cs" />
     <Compile Include="Commands\SignUpCommand.cs" />
+    <Compile Include="Commands\SignUpResult.cs" />
     <Compile Include="Commands\TransformMentionsCommand.cs" />
     <Compile Include="Events\OnlineUserTagAddedEvent.cs" />
     <Compile Include="Events\OnlineUserTagRemovedEvent.cs" />

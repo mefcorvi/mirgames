@@ -13,11 +13,9 @@ namespace MirGames.Controllers
     using System.Web.Mvc;
 
     using MirGames.Domain.Users.Commands;
-    using MirGames.Domain.Users.Exceptions;
     using MirGames.Domain.Users.Queries;
     using MirGames.Filters;
     using MirGames.Infrastructure;
-    using MirGames.Infrastructure.Exception;
 
     /// <summary>
     /// The account controller.
@@ -30,29 +28,20 @@ namespace MirGames.Controllers
         private readonly ISessionManager sessionManager;
 
         /// <summary>
-        /// The recaptcha verification processor.
-        /// </summary>
-        private readonly IRecaptchaVerificationProcessor recaptchaVerificationProcessor;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="AccountController" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="commandProcessor">The command processor.</param>
         /// <param name="sessionManager">The session manager.</param>
-        /// <param name="recaptchaVerificationProcessor">The recaptcha verification processor.</param>
         public AccountController(
             IQueryProcessor queryProcessor,
             ICommandProcessor commandProcessor,
-            ISessionManager sessionManager,
-            IRecaptchaVerificationProcessor recaptchaVerificationProcessor)
+            ISessionManager sessionManager)
             : base(queryProcessor, commandProcessor)
         {
             Contract.Requires(sessionManager != null);
-            Contract.Requires(recaptchaVerificationProcessor != null);
 
             this.sessionManager = sessionManager;
-            this.recaptchaVerificationProcessor = recaptchaVerificationProcessor;
         }
 
         /// <summary>
@@ -65,29 +54,6 @@ namespace MirGames.Controllers
             var authProviders = this.QueryProcessor.Process(new GetOAuthProvidersQuery());
 
             return this.PartialView("_LoginDialog", authProviders);
-        }
-
-        /// <summary>
-        /// The login action.
-        /// </summary>
-        /// <param name="command">The command.</param>
-        /// <returns>The action result.</returns>
-        [HttpPost]
-        [AjaxOnly]
-        [AntiForgery]
-        public virtual ActionResult ProcessLogin(LoginCommand command)
-        {
-            command.Password = command.Password.GetMd5Hash();
-            string sessionId = this.CommandProcessor.Execute(command);
-
-            if (string.IsNullOrEmpty(sessionId))
-            {
-                return this.Json(new { result = 0 });
-            }
-
-            this.sessionManager.SetSession(sessionId);
-
-            return this.Json(new { result = 1 });
         }
 
         /// <summary>
@@ -138,83 +104,6 @@ namespace MirGames.Controllers
         {
             this.CommandProcessor.Execute(new RestorePasswordCommand { SecretKey = key });
             return this.RedirectToAction("Index", "Dashboard");
-        }
-
-        /// <inheritdoc />
-        [HttpPost]
-        [AjaxOnly]
-        [AntiForgery]
-        public virtual ActionResult LoginAs(LoginAsUserCommand command)
-        {
-            string sessionId = this.CommandProcessor.Execute(command);
-
-            if (string.IsNullOrWhiteSpace(sessionId))
-            {
-                return this.Json(new { result = 1 });
-            }
-
-            this.sessionManager.SetSession(sessionId);
-            return this.Json(new { result = 0 });
-        }
-
-        /// <inheritdoc />
-        [HttpPost]
-        [AjaxOnly]
-        [AntiForgery]
-        public virtual ActionResult SaveSettings(SaveAccountSettingsCommand command)
-        {
-            this.CommandProcessor.Execute(command);
-            return this.Json(new { result = true });
-        }
-
-        /// <summary>
-        /// The sign up action.
-        /// </summary>
-        /// <param name="command">The command.</param>
-        /// <returns>The action result.</returns>
-        [HttpPost]
-        [AjaxOnly]
-        [AntiForgery]
-        public virtual ActionResult ProcessSignUp(SignUpCommand command)
-        {
-            command.Password = command.Password.GetMd5Hash();
-
-            var recaptchaResult = this.recaptchaVerificationProcessor.Verify();
-            if (recaptchaResult != RecaptchaVerificationResult.Success)
-            {
-                return this.Json(new { result = "WrongCaptcha", error = recaptchaResult });
-            }
-           
-            try
-            {
-                this.CommandProcessor.Execute(command);
-            }
-            catch (CommandProcessorException e)
-            {
-                if (e.InnerException is UserAlreadyRegisteredException)
-                {
-                    this.ViewData.Add("Error", "Пользователь с таким логином или адресом электронной почты уже зарегистрирован.");
-                    return this.Json(new { result = "AlreadyRegistered" });
-                }
-
-                throw;
-            }
-
-            string sessionId = this.CommandProcessor.Execute(
-                new LoginCommand
-                    {
-                        EmailOrLogin = command.Login,
-                        Password = command.Password
-                    });
-
-            if (string.IsNullOrWhiteSpace(sessionId))
-            {
-                this.ViewData.Add("Error", "Не удалось войти под пользователем");
-                return this.Json(new { result = "LoginFailed" });
-            }
-
-            this.sessionManager.SetSession(sessionId);
-            return this.Json(new { result = "Success" });
         }
     }
 }

@@ -144,6 +144,11 @@
     <Compile Include="QueryHandlers\GetOnlineUsersQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetOnlineUserTagsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetUsersIdentifiersQueryHandler.cs" />
+    <Compile Include="Recaptcha\IRecaptchaSettings.cs" />
+    <Compile Include="Recaptcha\IRecaptchaVerificationProcessor.cs" />
+    <Compile Include="Recaptcha\RecaptchaSettings.cs" />
+    <Compile Include="Recaptcha\RecaptchaVerificationProcessor.cs" />
+    <Compile Include="Recaptcha\RecaptchaVerificationResult.cs" />
     <Compile Include="Security\IPrincipalCache.cs" />
     <Compile Include="Security\PrincipalCache.cs" />
     <Compile Include="Services\UserAvatarUploadProcessor.cs" />

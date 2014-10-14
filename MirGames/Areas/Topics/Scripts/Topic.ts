@@ -5,7 +5,7 @@ module MirGames.Topics {
     }
 
     export class TopicPage extends MirGames.BasePage<ITopicPageData, ITopicScope> {
-        static $inject = ['$scope', 'commandBus', 'eventBus', 'apiService'];
+        static $inject = ['$scope', 'eventBus', 'apiService'];
 
         private topicId: number;
         private titles: IPageTitle[];
@@ -14,7 +14,7 @@ module MirGames.Topics {
         private page: number;
         private pageSize: number;
 
-        constructor($scope: ITopicScope, private commandBus: Core.ICommandBus, eventBus: Core.IEventBus, private apiService: Core.IApiService) {
+        constructor($scope: ITopicScope, eventBus: Core.IEventBus, private apiService: Core.IApiService) {
             super($scope, eventBus);
             this.topicId = this.pageData.topicId;
 
@@ -178,9 +178,10 @@ module MirGames.Topics {
         }
 
         private deleteTopic() {
-            var command = new Domain.DeleteTopicCommand();
-            command.topicId = this.topicId;
-            this.commandBus.executeCommand(Router.action("Topics", "DeleteTopic"),  command, (result) => {
+            var command: MirGames.Domain.Topics.Commands.DeleteTopicCommand = {
+                TopicId: this.topicId
+            };
+            this.apiService.executeCommand('DeleteTopicCommand',  command, () => {
                 Core.Application.getInstance().navigateToUrl(Router.action("Topics", "Index"));
             });
         }

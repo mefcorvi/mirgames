@@ -60,8 +60,6 @@ namespace MirGames
 
             builder.RegisterType<MarkdownTextProcessor>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<EntityLinkProvider>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<RecaptchaSettings>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<RecaptchaVerificationProcessor>().AsImplementedInterfaces().SingleInstance();
 
             builder.RegisterModule<RouteJsModule>();
             builder.RegisterModule<InfrastructureModule>();

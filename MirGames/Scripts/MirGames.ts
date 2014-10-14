@@ -24,7 +24,6 @@ angular.module('mirgames', [
     'core.currentUser',
     'core.apiService',
     'core.socketService',
-    'core.commandBus',
     'core.eventBus',
     'vcRecaptcha',
     'mirgames.settings',

@@ -16,7 +16,8 @@ namespace MirGames.Domain.Users.Commands
     /// <summary>
     /// The sign up command.
     /// </summary>
-    public class SignUpCommand : Command
+    [Api("Регистрирует нового пользователя", ExecutionInterval = 5000)]
+    public class SignUpCommand : Command<SignUpResult>
     {
         /// <summary>
         /// Gets or sets the name of the user.
@@ -24,6 +25,7 @@ namespace MirGames.Domain.Users.Commands
         [DisplayName("Логин")]
         [Required(ErrorMessage = "Пожалуйста, введите логин")]
         [DataType(DataType.Text)]
+        [Description("Логин")]
         public string Login { get; set; }
 
         /// <summary>
@@ -32,6 +34,7 @@ namespace MirGames.Domain.Users.Commands
         [DisplayName("E-mail")]
         [Required(ErrorMessage = "Пожалуйста, введите e-mail")]
         [EmailAddress(ErrorMessage = "Некорректный e-mail адрес")]
+        [Description("Адрес электронной почты")]
         public string Email { get; set; }
 
         /// <summary>
@@ -40,6 +43,17 @@ namespace MirGames.Domain.Users.Commands
         [DisplayName("Пароль")]
         [Required(ErrorMessage = "Пожалуйста, введите пароль")]
         [DataType(DataType.Password)]
+        [Description("MD5 хэш от пароля пользователя")]
         public string Password { get; set; }
+
+        /// <summary>
+        /// Gets or sets the captcha challenge.
+        /// </summary>
+        public string CaptchaChallenge { get; set; }
+
+        /// <summary>
+        /// Gets or sets the captcha response.
+        /// </summary>
+        public string CaptchaResponse { get; set; }
     }
 }

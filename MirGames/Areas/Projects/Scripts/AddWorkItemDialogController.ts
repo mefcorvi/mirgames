@@ -1,9 +1,9 @@
 ﻿/// <reference path="_references.ts" />
 module MirGames.Projects {
     export class AddNewWorkItemDialogController {
-        static $inject = ['$scope', 'commandBus', 'dialog', 'apiService', 'dialogOptions', 'eventBus'];
+        static $inject = ['$scope', 'dialog', 'apiService', 'dialogOptions', 'eventBus'];
 
-        constructor(private $scope: IAddNewWorkItemDialogControllerScope, private commandBus: Core.ICommandBus, private dialog: UI.IDialog, private apiService: Core.IApiService, private options: any, private eventBus: Core.IEventBus) {
+        constructor(private $scope: IAddNewWorkItemDialogControllerScope, private dialog: UI.IDialog, private apiService: Core.IApiService, private options: any, private eventBus: Core.IEventBus) {
             $scope.type = <MirGames.Domain.Wip.ViewModels.WorkItemType>options['item-type'];
             $scope.projectAlias = <string>options['project-alias'];
             $scope.focus = true;

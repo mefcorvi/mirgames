@@ -8,17 +8,21 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Topics.Commands
 {
+    using System.ComponentModel;
+
     using MirGames.Infrastructure.Commands;
 
     /// <summary>
     /// The add new topic command.
     /// </summary>
     [Authorize(Roles = "User")]
+    [Api("Удаляет топик блога")]
     public class DeleteTopicCommand : Command
     {
         /// <summary>
         /// Gets or sets the topic id.
         /// </summary>
+        [Description("Идентификатор топика")]
         public int TopicId { get; set; }
     }
 }

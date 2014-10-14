@@ -25,7 +25,6 @@
 /// <reference path="Core/Service.ts" />
 /// <reference path="Core/CurrentUser.ts" />
 /// <reference path="Core/ApiService.ts" />
-/// <reference path="Core/CommandBus.ts" />
 /// <reference path="Core/EventBus.ts" />
 /// <reference path="Core/Application.ts" />
 /// <reference path="Core/SocketService.ts" />

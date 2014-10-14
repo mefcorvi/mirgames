@@ -5,15 +5,15 @@ module MirGames.Users {
     }
 
     export class ProfilePage extends MirGames.BasePage<IProfilePageData, IProfilePageScope> {
-        static $inject = ['$scope', 'commandBus', 'eventBus'];
+        static $inject = ['$scope', 'apiService', 'eventBus'];
 
         private userId: number;
 
-        constructor($scope: IProfilePageScope, private commandBus: Core.ICommandBus, eventBus: Core.IEventBus) {
+        constructor($scope: IProfilePageScope, private apiService: Core.IApiService, eventBus: Core.IEventBus) {
             super($scope, eventBus);
             this.userId = this.pageData.userId;
 
-            $scope['delete'] = this.deleteUser.bind(this);
+            $scope.deleteUser = this.deleteUser.bind(this);
             $scope.switchUser = this.switchUser.bind(this);
             $scope.newRecord = {
                 text: "",
@@ -22,22 +22,27 @@ module MirGames.Users {
         }
 
         private switchUser(): void {
-            var command = new Domain.LoginAsUserCommand();
-            command.userId = this.userId;
-            this.commandBus.executeCommand(Router.action("Account", "LoginAs"), command, (response) => {
-                if (response.result == 0) {
+            var command: MirGames.Domain.Users.Commands.LoginAsUserCommand = {
+                UserId: this.userId
+            };
+
+            this.apiService.executeCommand('LoginAsUserCommand', command, (response) => {
+                if (response != null) {
+                    $.cookie('key', response, {
+                        expires: 365 * 24 * 60 * 60
+                    });
                     Core.Application.getInstance().navigateToUrl(Router.action("Dashboard", "Index"));
                 }
             });
         }
 
         private postWallRecord(): void {
-            var command = new Domain.PostWallRecordCommand();
+            /*var command = new Domain.PostWallRecordCommand();
             command.userId = this.userId;
             command.text = this.$scope.newRecord.text;
             this.commandBus.executeCommand(Router.action("Users", "NewWallRecord"), command, (result) => {
                 this.wallRecordAdded(result);
-            });
+            });*/
         }
 
         private wallRecordAdded(recordHtml: string) {
@@ -49,16 +54,17 @@ module MirGames.Users {
         }
 
         private deleteUser(): void {
-            var command = new Domain.DeleteUserCommand();
-            command.userId = this.userId;
-            this.commandBus.executeCommand(Router.action("Users", "DeleteUser"), command, (result) => {
+            var command: MirGames.Domain.Users.Commands.DeleteUserCommand = {
+                UserId: this.userId
+            };
+            this.apiService.executeCommand('DeleteUserCommand', command, () => {
                 Core.Application.getInstance().navigateToUrl(Router.action("Users", "Index"));
             });
         }
     }
 
     export interface IProfilePageScope extends IPageScope {
-        delete(): void;
+        deleteUser(): void;
         switchUser(): void;
         newRecord: {
             text: string;

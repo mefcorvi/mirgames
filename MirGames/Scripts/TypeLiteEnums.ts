@@ -35,6 +35,11 @@ module MirGames.Domain.Chat.ViewModels {
 module MirGames.Domain.Notifications.ViewModels {
 }
 module MirGames.Domain.Attachments.Queries {
+export enum AttachmentsOrderingType {
+  CreationDateAscending = 0,
+  CreationDateDescending = 1,
+  Random = 2
+}
 }
 module MirGames.Domain.Attachments.ViewModels {
 }

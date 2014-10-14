@@ -1,9 +1,9 @@
 /// <reference path="../_references.ts" />
 module Account {
     export class LoginFormController {
-        static $inject = ['$scope', 'commandBus', 'dialog', 'apiService', 'config', 'eventBus'];
+        static $inject = ['$scope', 'dialog', 'apiService', 'config', 'eventBus'];
 
-        constructor(private $scope: ILoginFormControllerScope, commandBus: Core.ICommandBus, dialog: UI.IDialog, private apiService: Core.IApiService, private config: Core.IConfig, private eventBus: Core.IEventBus) {
+        constructor(private $scope: ILoginFormControllerScope, dialog: UI.IDialog, private apiService: Core.IApiService, private config: Core.IConfig, private eventBus: Core.IEventBus) {
             $scope.emailOrLogin = '';
             $scope.password = '';
             $scope.wrongLoginOrPassword = false;
@@ -15,13 +15,20 @@ module Account {
                     return;
                 }
 
-                var command = commandBus.createCommandFromScope(MirGames.Domain.LoginCommand, $scope);
+                var command: MirGames.Domain.Users.Commands.LoginCommand = {
+                    EmailOrLogin: $scope.emailOrLogin,
+                    Password: MD5($scope.password)
+                };
+
                 $scope.isFocused = false;
 
-                commandBus.executeCommand(url, command, response => {
-                    $scope.wrongLoginOrPassword = response.result === 0;
+                apiService.executeCommand('LoginCommand', command, response => {
+                    $scope.wrongLoginOrPassword = response == null;
 
-                    if (response.result === 1) {
+                    if (response != null) {
+                        $.cookie('key', response, {
+                            expires: 365 * 24 * 60 * 60
+                        });
                         this.eventBus.emit('ajax-request.executing');
                         window.location.reload();
                     } else {

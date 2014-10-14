@@ -38,6 +38,6 @@ namespace MirGames.Infrastructure.Commands
         /// <summary>
         /// Gets or sets the execution interval in milliseconds.
         /// </summary>
-        public int? ExecutionInterval { get; set; }
+        public int ExecutionInterval { get; set; }
     }
 }

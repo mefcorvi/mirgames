@@ -7,13 +7,14 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MirGames.Infrastructure
+namespace MirGames.Domain.Users.Recaptcha
 {
     using System;
     using System.Diagnostics.Contracts;
     using System.IO;
     using System.Net;
-    using System.Web;
+
+    using MirGames.Infrastructure;
 
     /// <summary>
     /// Represents the functionality for verifying user's response to the recpatcha challenge.
@@ -33,27 +34,6 @@ namespace MirGames.Infrastructure
         {
             Contract.Requires(settings != null);
             this.settings = settings;
-        }
-
-        /// <inheritdoc />
-        public RecaptchaVerificationResult Verify()
-        {
-            var httpContext = HttpContext.Current;
-
-            if (httpContext == null || httpContext.Request == null)
-            {
-                throw new InvalidOperationException("Http request context does not exist.");
-            }
-
-            string challenge = httpContext.Request.Form["recaptcha_challenge_field"]
-                               ?? httpContext.Request.Params["recaptcha_challenge_field"];
-
-            string response = httpContext.Request.Form["recaptcha_response_field"]
-                              ?? httpContext.Request.Params["recaptcha_response_field"];
-
-            string userHostAddress = httpContext.Request.UserHostAddress;
-
-            return this.Verify(challenge, response, userHostAddress);
         }
 
         /// <inheritdoc />

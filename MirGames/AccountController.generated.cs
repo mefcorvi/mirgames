@@ -56,12 +56,6 @@ namespace MirGames.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult ProcessLogin()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProcessLogin);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Activation()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Activation);
@@ -71,24 +65,6 @@ namespace MirGames.Controllers
         public virtual System.Web.Mvc.ActionResult RestorePassword()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RestorePassword);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult LoginAs()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LoginAs);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult SaveSettings()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SaveSettings);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult ProcessSignUp()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProcessSignUp);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -107,39 +83,23 @@ namespace MirGames.Controllers
         public class ActionNamesClass
         {
             public readonly string Login = "Login";
-            public readonly string ProcessLogin = "ProcessLogin";
             public readonly string Logout = "Logout";
             public readonly string SignUp = "SignUp";
             public readonly string Activation = "Activation";
             public readonly string RestorePassword = "RestorePassword";
-            public readonly string LoginAs = "LoginAs";
-            public readonly string SaveSettings = "SaveSettings";
-            public readonly string ProcessSignUp = "ProcessSignUp";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Login = "Login";
-            public const string ProcessLogin = "ProcessLogin";
             public const string Logout = "Logout";
             public const string SignUp = "SignUp";
             public const string Activation = "Activation";
             public const string RestorePassword = "RestorePassword";
-            public const string LoginAs = "LoginAs";
-            public const string SaveSettings = "SaveSettings";
-            public const string ProcessSignUp = "ProcessSignUp";
         }
 
 
-        static readonly ActionParamsClass_ProcessLogin s_params_ProcessLogin = new ActionParamsClass_ProcessLogin();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ProcessLogin ProcessLoginParams { get { return s_params_ProcessLogin; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ProcessLogin
-        {
-            public readonly string command = "command";
-        }
         static readonly ActionParamsClass_Activation s_params_Activation = new ActionParamsClass_Activation();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Activation ActivationParams { get { return s_params_Activation; } }
@@ -155,30 +115,6 @@ namespace MirGames.Controllers
         public class ActionParamsClass_RestorePassword
         {
             public readonly string key = "key";
-        }
-        static readonly ActionParamsClass_LoginAs s_params_LoginAs = new ActionParamsClass_LoginAs();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_LoginAs LoginAsParams { get { return s_params_LoginAs; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_LoginAs
-        {
-            public readonly string command = "command";
-        }
-        static readonly ActionParamsClass_SaveSettings s_params_SaveSettings = new ActionParamsClass_SaveSettings();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_SaveSettings SaveSettingsParams { get { return s_params_SaveSettings; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SaveSettings
-        {
-            public readonly string command = "command";
-        }
-        static readonly ActionParamsClass_ProcessSignUp s_params_ProcessSignUp = new ActionParamsClass_ProcessSignUp();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ProcessSignUp ProcessSignUpParams { get { return s_params_ProcessSignUp; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ProcessSignUp
-        {
-            public readonly string command = "command";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -215,18 +151,6 @@ namespace MirGames.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Login);
             LoginOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void ProcessLoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MirGames.Domain.Users.Commands.LoginCommand command);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult ProcessLogin(MirGames.Domain.Users.Commands.LoginCommand command)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProcessLogin);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
-            ProcessLoginOverride(callInfo, command);
             return callInfo;
         }
 
@@ -273,42 +197,6 @@ namespace MirGames.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RestorePassword);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "key", key);
             RestorePasswordOverride(callInfo, key);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void LoginAsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MirGames.Domain.Users.Commands.LoginAsUserCommand command);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult LoginAs(MirGames.Domain.Users.Commands.LoginAsUserCommand command)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LoginAs);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
-            LoginAsOverride(callInfo, command);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void SaveSettingsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MirGames.Domain.Users.Commands.SaveAccountSettingsCommand command);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult SaveSettings(MirGames.Domain.Users.Commands.SaveAccountSettingsCommand command)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SaveSettings);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
-            SaveSettingsOverride(callInfo, command);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void ProcessSignUpOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MirGames.Domain.Users.Commands.SignUpCommand command);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult ProcessSignUp(MirGames.Domain.Users.Commands.SignUpCommand command)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProcessSignUp);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
-            ProcessSignUpOverride(callInfo, command);
             return callInfo;
         }
 

@@ -1,39 +1,21 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="LoginCommand.cs">
+// <copyright company="MirGames" file="MarkAllBlogTopicsAsReadCommand.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace MirGames.Domain.Users.Commands
-{
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
 
+namespace MirGames.Domain.Topics.Commands
+{
     using MirGames.Infrastructure.Commands;
 
     /// <summary>
-    /// The login command.
+    /// Marks all blog topics as read.
     /// </summary>
-    [DisableTracing]
-    [Api("Логиниться с указанными кредами", ReturnDescription = "Идентификатор сессии", ExecutionInterval = 3000)]
-    public class LoginCommand : Command<string>
+    [Authorize(Roles = "User")]
+    public sealed class MarkAllBlogTopicsAsReadCommand : Command
     {
-        /// <summary>
-        /// Gets or sets the email or login.
-        /// </summary>
-        [Required]
-        [Description("Логин или e-mail")]
-        [MinLength(1)]
-        public string EmailOrLogin { get; set; }
-
-        /// <summary>
-        /// Gets or sets the password.
-        /// </summary>
-        [Required]
-        [Description("Пароль")]
-        [MinLength(1)]
-        public string Password { get; set; }
     }
 }

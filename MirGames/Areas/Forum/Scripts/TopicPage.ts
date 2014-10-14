@@ -1,9 +1,9 @@
 /// <reference path="_references.ts" />
 module MirGames.Forum {
     export class TopicPage extends MirGames.BasePage<ITopicPageData, ITopicPageScope> {
-        static $inject = ['$scope', 'commandBus', 'eventBus', 'apiService', '$compile', '$rootScope'];
+        static $inject = ['$scope', 'eventBus', 'apiService', '$compile', '$rootScope'];
 
-        constructor($scope: ITopicPageScope, private commandBus: Core.ICommandBus, eventBus: Core.IEventBus, private apiService: Core.IApiService, private $compile: ng.ICompileService, private $rootScope: ng.IRootScopeService) {
+        constructor($scope: ITopicPageScope, eventBus: Core.IEventBus, private apiService: Core.IApiService, private $compile: ng.ICompileService, private $rootScope: ng.IRootScopeService) {
             super($scope, eventBus);
 
             $scope.posts = [];

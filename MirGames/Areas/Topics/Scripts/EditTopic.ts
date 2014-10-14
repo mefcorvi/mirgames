@@ -3,9 +3,9 @@ module MirGames.Topics {
     declare var ace: any;
 
     export class EditTopicPage {
-        static $inject = ['$scope', '$element', 'commandBus', 'eventBus', 'pageData'];
+        static $inject = ['$scope', '$element', 'apiService', 'pageData'];
 
-        constructor(private $scope: IEditTopicPageScope, private $element: JQuery, private commandBus: Core.ICommandBus, private eventBus: Core.IEventBus, private pageData: IEditTopicPageData) {
+        constructor(private $scope: IEditTopicPageScope, private $element: JQuery, private apiService: Core.IApiService, private pageData: IEditTopicPageData) {
 
             this.$scope.topicId = pageData.topicId;
             this.$scope.title = pageData.title;
@@ -20,9 +20,15 @@ module MirGames.Topics {
         }
 
         private submit() {
-            var command = this.commandBus.createCommandFromScope(Domain.SaveTopicCommand, this.$scope);
+            var command: MirGames.Domain.Topics.Commands.SaveTopicCommand = {
+                Attachments: this.$scope.attachments,
+                Tags: this.$scope.tags,
+                Text: this.$scope.text,
+                Title: this.$scope.title,
+                TopicId: this.$scope.topicId
+            };
 
-            this.commandBus.executeCommand(Router.action("Topics", "SaveTopic"), command, (result) => {
+            this.apiService.executeCommand('SaveTopicCommand', command, () => {
                 Core.Application.getInstance().navigateToUrl(Router.action("Topics", "Topic", { topicId: this.$scope.topicId }));
             });
         }

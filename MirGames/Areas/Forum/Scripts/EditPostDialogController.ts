@@ -1,9 +1,9 @@
 /// <reference path="_references.ts" />
 module MirGames.Forum {
     export class EditPostDialogController {
-        static $inject = ['$scope', 'commandBus', 'dialog', 'apiService', 'dialogOptions'];
+        static $inject = ['$scope', 'dialog', 'apiService', 'dialogOptions'];
 
-        constructor(private $scope: IEditPostDialogControllerScope, private commandBus: Core.ICommandBus, private dialog: UI.IDialog, private apiService: Core.IApiService, private options: any) {
+        constructor(private $scope: IEditPostDialogControllerScope, private dialog: UI.IDialog, private apiService: Core.IApiService, private options: any) {
             var postId: number = options['post-id'];
             $scope.attachments = [];
             $scope.postId = postId;

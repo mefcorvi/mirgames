@@ -1,9 +1,9 @@
 ﻿/// <reference path="_references.ts" />
 module MirGames.Projects {
     export class WorkItemDialogController {
-        static $inject = ['$scope', 'commandBus', 'dialog', 'apiService', 'dialogOptions', 'eventBus'];
+        static $inject = ['$scope', 'dialog', 'apiService', 'dialogOptions', 'eventBus'];
 
-        constructor(private $scope: IWorkItemDialogControllerScope, private commandBus: Core.ICommandBus, private dialog: UI.IDialog, private apiService: Core.IApiService, private options: any, private eventBus: Core.IEventBus) {
+        constructor(private $scope: IWorkItemDialogControllerScope, private dialog: UI.IDialog, private apiService: Core.IApiService, private options: any, private eventBus: Core.IEventBus) {
             $scope.internalId = options['work-item-id'];
             $scope.projectAlias = options['project-alias'];
 

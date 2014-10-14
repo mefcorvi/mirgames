@@ -11,6 +11,7 @@ namespace MirGames.Domain.Users
     using Autofac;
 
     using MirGames.Domain.Attachments.Services;
+    using MirGames.Domain.Users.Recaptcha;
     using MirGames.Domain.Users.Security;
     using MirGames.Domain.Users.Services;
     using MirGames.Domain.Users.UserSettings;
@@ -35,6 +36,9 @@ namespace MirGames.Domain.Users
             builder.RegisterType<AvatarProvider>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<PrincipalCache>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<OnlineUsersManager>().AsImplementedInterfaces().SingleInstance();
+
+            builder.RegisterType<RecaptchaSettings>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<RecaptchaVerificationProcessor>().AsImplementedInterfaces().SingleInstance();
         }
     }
 }

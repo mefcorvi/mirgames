@@ -164,7 +164,6 @@ namespace Links
             public static readonly string ApiService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ApiService.min.js") ? Url("ApiService.min.js") : Url("ApiService.js");
             public static readonly string Application_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Application.min.js") ? Url("Application.min.js") : Url("Application.js");
             public static readonly string Base64_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Base64.min.js") ? Url("Base64.min.js") : Url("Base64.js");
-            public static readonly string CommandBus_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CommandBus.min.js") ? Url("CommandBus.min.js") : Url("CommandBus.js");
             public static readonly string Config_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Config.min.js") ? Url("Config.min.js") : Url("Config.js");
             public static readonly string CurrentUser_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CurrentUser.min.js") ? Url("CurrentUser.min.js") : Url("CurrentUser.js");
             public static readonly string EventBus_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/EventBus.min.js") ? Url("EventBus.min.js") : Url("EventBus.js");
@@ -545,6 +544,7 @@ namespace Links
                 public static readonly string mixins_less = Url("mixins.less");
                 public static readonly string project_code_file_less = Url("project-code-file.less");
                 public static readonly string project_code_less = Url("project-code.less");
+                public static readonly string project_gallery_dialog_less = Url("project-gallery-dialog.less");
                 public static readonly string project_gallery_less = Url("project-gallery.less");
                 public static readonly string project_new_less = Url("project-new.less");
                 public static readonly string project_settings_less = Url("project-settings.less");
@@ -575,6 +575,7 @@ namespace Links
                 public static readonly string NewProjectPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/NewProjectPage.min.js") ? Url("NewProjectPage.min.js") : Url("NewProjectPage.js");
                 public static readonly string ProjectCodeFilePage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectCodeFilePage.min.js") ? Url("ProjectCodeFilePage.min.js") : Url("ProjectCodeFilePage.js");
                 public static readonly string ProjectGalleryPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectGalleryPage.min.js") ? Url("ProjectGalleryPage.min.js") : Url("ProjectGalleryPage.js");
+                public static readonly string ProjectPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectPage.min.js") ? Url("ProjectPage.min.js") : Url("ProjectPage.js");
                 public static readonly string ProjectSettingsPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectSettingsPage.min.js") ? Url("ProjectSettingsPage.min.js") : Url("ProjectSettingsPage.js");
                 public static readonly string ProjectWorkItemBlocks_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectWorkItemBlocks.min.js") ? Url("ProjectWorkItemBlocks.min.js") : Url("ProjectWorkItemBlocks.js");
                 public static readonly string ProjectWorkItemList_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectWorkItemList.min.js") ? Url("ProjectWorkItemList.min.js") : Url("ProjectWorkItemList.js");

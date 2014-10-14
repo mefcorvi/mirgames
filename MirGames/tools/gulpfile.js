@@ -62,7 +62,6 @@ var filePath = {
         "../Scripts/Core/ApiService.ts",
         "../Scripts/Core/Service.ts",
         "../Scripts/Core/EventBus.ts",
-        "../Scripts/Core/CommandBus.ts",
         "../Scripts/Core/SocketService.ts",
         "../Scripts/Account/*.ts",
         "../Scripts/UI/*.ts",

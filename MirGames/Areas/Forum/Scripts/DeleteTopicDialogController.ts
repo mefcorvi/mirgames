@@ -1,9 +1,9 @@
 /// <reference path="_references.ts" />
 module MirGames.Forum {
     export class DeleteTopicDialogController {
-        static $inject = ['$scope', 'commandBus', 'dialog', 'apiService', 'dialogOptions'];
+        static $inject = ['$scope', 'dialog', 'apiService', 'dialogOptions'];
 
-        constructor(private $scope: IDeleteTopicDialogControllerScope, private commandBus: Core.ICommandBus, private dialog: UI.IDialog, private apiService: Core.IApiService, private options: any) {
+        constructor(private $scope: IDeleteTopicDialogControllerScope, private dialog: UI.IDialog, private apiService: Core.IApiService, private options: any) {
             var topicId: number = options['topic-id'];
 
             $scope.deleteTopic = () => {

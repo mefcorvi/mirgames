@@ -8,17 +8,21 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Users.Commands
 {
+    using System.ComponentModel;
+
     using MirGames.Infrastructure.Commands;
 
     /// <summary>
     /// Deletes the specified user.
     /// </summary>
     [Authorize(Roles = "Administrator")]
+    [Api("Удаляет пользователя")]
     public class DeleteUserCommand : Command
     {
         /// <summary>
         /// Gets or sets the user unique identifier.
         /// </summary>
+        [Description("Идентификатор пользователя")]
         public int UserId { get; set; }
     }
 }

@@ -304,6 +304,7 @@
     <Compile Include="GitController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\RecaptchaExtensions.cs" />
     <Compile Include="OAuthController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -347,11 +348,6 @@
     <Compile Include="Hubs\NotificationsAddedEventListener.cs" />
     <Compile Include="Infrastructure\IEntityLinkProvider.cs" />
     <Compile Include="Infrastructure\IEntityLinkRegistrar.cs" />
-    <Compile Include="Infrastructure\Recaptcha\IRecaptchaSettings.cs" />
-    <Compile Include="Infrastructure\Recaptcha\IRecaptchaVerificationProcessor.cs" />
-    <Compile Include="Infrastructure\Recaptcha\RecaptchaSettings.cs" />
-    <Compile Include="Infrastructure\Recaptcha\RecaptchaVerificationProcessor.cs" />
-    <Compile Include="Infrastructure\Recaptcha\RecaptchaVerificationResult.cs" />
     <Compile Include="Infrastructure\UserLinkTextTransform.cs" />
     <Compile Include="Controllers\GitController.cs" />
     <Compile Include="Controllers\OAuthController.cs" />
@@ -494,7 +490,6 @@
     <Content Include="Scripts\Manager.ttinclude" />
     <None Include="Scripts\Settings.ts" />
     <None Include="Scripts\Core\Config.ts" />
-    <None Include="Scripts\Core\CommandBus.ts" />
     <None Include="Scripts\Core\EventBus.ts" />
     <None Include="Scripts\RequestNotificationController.ts" />
     <None Include="Areas\Forum\Scripts\ForumsPage.ts" />

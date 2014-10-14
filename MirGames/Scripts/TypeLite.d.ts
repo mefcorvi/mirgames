@@ -14,6 +14,8 @@ interface Command1 extends MirGames.Infrastructure.Commands.Command {
 }
 interface Command1 extends MirGames.Infrastructure.Commands.Command {
 }
+interface Command1 extends MirGames.Infrastructure.Commands.Command {
+}
 }
 declare module MirGames.Infrastructure.Queries {
 interface Query {
@@ -111,6 +113,9 @@ interface AddNewTopicCommand extends MirGames.Infrastructure.Commands.Command1 {
 interface DeleteCommentCommand extends MirGames.Infrastructure.Commands.Command {
   CommentId: number;
 }
+interface DeleteTopicCommand extends MirGames.Infrastructure.Commands.Command {
+  TopicId: number;
+}
 interface EditCommentCommand extends MirGames.Infrastructure.Commands.Command {
   CommentId: number;
   Text: string;
@@ -119,6 +124,13 @@ interface EditCommentCommand extends MirGames.Infrastructure.Commands.Command {
 interface PostNewCommentCommand extends MirGames.Infrastructure.Commands.Command1 {
   TopicId: number;
   Text: string;
+  Attachments: number[];
+}
+interface SaveTopicCommand extends MirGames.Infrastructure.Commands.Command {
+  TopicId: number;
+  Title: string;
+  Text: string;
+  Tags: string;
   Attachments: number[];
 }
 }
@@ -265,6 +277,16 @@ interface RequestPasswordRestoreCommand extends MirGames.Infrastructure.Commands
 interface RemoveOnlineUserTagCommand extends MirGames.Infrastructure.Commands.Command {
   Tag: string;
 }
+interface DeleteUserCommand extends MirGames.Infrastructure.Commands.Command {
+  UserId: number;
+}
+interface LoginAsUserCommand extends MirGames.Infrastructure.Commands.Command1 {
+  UserId: number;
+}
+interface LoginCommand extends MirGames.Infrastructure.Commands.Command1 {
+  EmailOrLogin: string;
+  Password: string;
+}
 interface ResendActivationCommand extends MirGames.Infrastructure.Commands.Command {
 }
 interface SaveAccountSettingsCommand extends MirGames.Infrastructure.Commands.Command {
@@ -283,6 +305,13 @@ interface SaveUserProfileCommand extends MirGames.Infrastructure.Commands.Comman
 }
 interface SetUserAvatarCommand extends MirGames.Infrastructure.Commands.Command {
   AvatarAttachmentId: number;
+}
+interface SignUpCommand extends MirGames.Infrastructure.Commands.Command1 {
+  Login: string;
+  Email: string;
+  Password: string;
+  CaptchaChallenge: string;
+  CaptchaResponse: string;
 }
 }
 declare module System.Collections.Generic {
@@ -490,6 +519,7 @@ interface GetAttachmentsQuery extends MirGames.Infrastructure.Queries.Query1 {
   EntityId: number;
   EntityType: string;
   IsImage: boolean;
+  OrderingBy: MirGames.Domain.Attachments.Queries.AttachmentsOrderingType;
 }
 }
 declare module MirGames.Domain.Attachments.ViewModels {
@@ -680,6 +710,7 @@ interface WipProjectViewModel {
   ShortDescription: string;
   IsRepositoryPrivate: boolean;
   BlogId: number;
+  CanEditGallery: boolean;
 }
 }
 declare module System {

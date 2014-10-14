@@ -7,19 +7,15 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MirGames.Infrastructure
+namespace MirGames.Domain.Users.Recaptcha
 {
+    using MirGames.Infrastructure;
+
     /// <summary>
     /// Represents the functionality for verifying user's response to the recpatcha challenge.
     /// </summary>
     public interface IRecaptchaVerificationProcessor
     {
-        /// <summary>
-        /// Verifies whether the user's response to the recaptcha request is correct.
-        /// </summary>
-        /// <returns>Returns the result as a value of the <see cref="RecaptchaVerificationResult"/> enum.</returns>
-        RecaptchaVerificationResult Verify();
-
         /// <summary>
         /// Verifies the Recaptcha.
         /// </summary>

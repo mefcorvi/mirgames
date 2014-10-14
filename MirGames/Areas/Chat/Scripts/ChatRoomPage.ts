@@ -1,7 +1,7 @@
 ﻿/// <reference path="_references.ts" />
 module MirGames.Chat {
     export class ChatRoomPage extends MirGames.BasePage<IChatRoomPageData, IChatRoomPageScope> {
-        static $inject = ['$scope', 'commandBus', 'eventBus', 'socketService', 'notificationService', 'apiService', 'currentUser', '$timeout'];
+        static $inject = ['$scope', 'eventBus', 'socketService', 'notificationService', 'apiService', 'currentUser', '$timeout'];
 
         private isActive: boolean = true;
         private markNextMessageUnread: boolean;
@@ -12,7 +12,7 @@ module MirGames.Chat {
         private textWriting: boolean;
         private loadedPageNum: number;
 
-        constructor($scope: IChatRoomPageScope, private commandBus: Core.ICommandBus, eventBus: Core.IEventBus, private socketService: Core.ISocketService, private notificationService: UI.INotificationService, private apiService: Core.IApiService, private currentUser: Core.ICurrentUser, private $timeout: ng.ITimeoutService) {
+        constructor($scope: IChatRoomPageScope, eventBus: Core.IEventBus, private socketService: Core.ISocketService, private notificationService: UI.INotificationService, private apiService: Core.IApiService, private currentUser: Core.ICurrentUser, private $timeout: ng.ITimeoutService) {
             super($scope, eventBus);
 
             this.$scope.editMode = false;

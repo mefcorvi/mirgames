@@ -9,14 +9,15 @@
 namespace MirGames.Domain.Users.CommandHandlers
 {
     using System;
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
     using MirGames.Domain.Security;
     using MirGames.Domain.Users.Commands;
     using MirGames.Domain.Users.Entities;
-    using MirGames.Domain.Users.Exceptions;
     using MirGames.Domain.Users.Notifications;
+    using MirGames.Domain.Users.Recaptcha;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Commands;
     using MirGames.Infrastructure.Notifications;
@@ -25,7 +26,7 @@ namespace MirGames.Domain.Users.CommandHandlers
     /// <summary>
     /// The sign up command handler.
     /// </summary>
-    internal sealed class SignUpCommandHandler : CommandHandler<SignUpCommand>
+    internal sealed class SignUpCommandHandler : CommandHandler<SignUpCommand, SignUpResult>
     {
         /// <summary>
         /// The write context factory.
@@ -48,30 +49,58 @@ namespace MirGames.Domain.Users.CommandHandlers
         private readonly ISettings settings;
 
         /// <summary>
+        /// The recaptcha verification processor.
+        /// </summary>
+        private readonly IRecaptchaVerificationProcessor recaptchaVerificationProcessor;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SignUpCommandHandler" /> class.
         /// </summary>
         /// <param name="writeContextFactory">The write context factory.</param>
         /// <param name="passwordHashProvider">The password hash provider.</param>
         /// <param name="notificationManager">The notification manager.</param>
         /// <param name="settings">The settings.</param>
-        public SignUpCommandHandler(IWriteContextFactory writeContextFactory, IPasswordHashProvider passwordHashProvider, INotificationManager notificationManager, ISettings settings)
+        /// <param name="recaptchaVerificationProcessor">The recaptcha verification processor.</param>
+        public SignUpCommandHandler(
+            IWriteContextFactory writeContextFactory,
+            IPasswordHashProvider passwordHashProvider,
+            INotificationManager notificationManager,
+            ISettings settings,
+            IRecaptchaVerificationProcessor recaptchaVerificationProcessor)
         {
+            Contract.Requires(notificationManager != null);
+            Contract.Requires(passwordHashProvider != null);
+            Contract.Requires(recaptchaVerificationProcessor != null);
+            Contract.Requires(settings != null);
+            Contract.Requires(writeContextFactory != null);
+
             this.writeContextFactory = writeContextFactory;
             this.passwordHashProvider = passwordHashProvider;
             this.notificationManager = notificationManager;
             this.settings = settings;
+            this.recaptchaVerificationProcessor = recaptchaVerificationProcessor;
         }
 
         /// <inheritdoc />
-        protected override void Execute(SignUpCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
+        protected override SignUpResult Execute(SignUpCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
+            var result = this.recaptchaVerificationProcessor.Verify(
+                command.CaptchaChallenge,
+                command.CaptchaResponse,
+                principal.GetHostAddress());
+
+            if (result != RecaptchaVerificationResult.Success)
+            {
+                return SignUpResult.WrongCaptcha;
+            }
+
             using (var writeContext = this.writeContextFactory.Create())
             {
                 bool isUserRegistered = writeContext.Set<User>().Any(u => u.Login == command.Login || u.Mail == command.Email);
 
                 if (isUserRegistered)
                 {
-                    throw new UserAlreadyRegisteredException(command.Login, command.Email);
+                    return SignUpResult.AlreadyRegistered;
                 }
 
                 string salt = Guid.NewGuid().ToString();
@@ -94,6 +123,8 @@ namespace MirGames.Domain.Users.CommandHandlers
                             ActivationLink = activationUrl
                         });
             }
+
+            return SignUpResult.Success;
         }
     }
 }
