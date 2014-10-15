@@ -823,6 +823,14 @@
       <Project>{9966e0ab-a3ce-4532-870c-b0273b28cabf}</Project>
       <Name>MirGames.Domain.Topics</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MirGames.Domain.UserBlogs.Public\MirGames.Domain.UserBlogs.Public.csproj">
+      <Project>{fd1403a6-1fb2-4781-b18f-3a61f9478ea0}</Project>
+      <Name>MirGames.Domain.UserBlogs.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MirGames.Domain.UserBlogs\MirGames.Domain.UserBlogs.csproj">
+      <Project>{03ef170f-2fe2-4136-ac98-6eb95e626b91}</Project>
+      <Name>MirGames.Domain.UserBlogs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MirGames.Domain.Users.Public\MirGames.Domain.Users.Public.csproj">
       <Project>{630bd3d7-d7c8-40e0-bc01-2cf139c16051}</Project>
       <Name>MirGames.Domain.Users.Public</Name>

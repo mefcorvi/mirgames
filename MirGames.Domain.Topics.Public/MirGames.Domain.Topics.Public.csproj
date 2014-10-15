@@ -44,6 +44,7 @@
     <Compile Include="Commands\MarkBlogTopicAsReadCommand.cs" />
     <Compile Include="Commands\PostNewCommentCommand.cs" />
     <Compile Include="Commands\ReindexTopicsCommand.cs" />
+    <Compile Include="Commands\RemoveBlogCommand.cs" />
     <Compile Include="Commands\SaveTopicCommand.cs" />
     <Compile Include="Events\CommentCreatedEvent.cs" />
     <Compile Include="Events\CommentDeletedEvent.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Notifications\NewBlogTopicNotification.cs" />
     <Compile Include="Notifications\NewTopicCommentNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\GetBlogByEntityQuery.cs" />
     <Compile Include="Queries\GetCommentForEditQuery.cs" />
     <Compile Include="Queries\GetCommentsQuery.cs" />
     <Compile Include="Queries\GetCommentByIdQuery.cs" />

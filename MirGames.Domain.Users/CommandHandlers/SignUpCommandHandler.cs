@@ -16,10 +16,12 @@ namespace MirGames.Domain.Users.CommandHandlers
     using MirGames.Domain.Security;
     using MirGames.Domain.Users.Commands;
     using MirGames.Domain.Users.Entities;
+    using MirGames.Domain.Users.Events;
     using MirGames.Domain.Users.Notifications;
     using MirGames.Domain.Users.Recaptcha;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Commands;
+    using MirGames.Infrastructure.Events;
     using MirGames.Infrastructure.Notifications;
     using MirGames.Infrastructure.Security;
 
@@ -54,6 +56,11 @@ namespace MirGames.Domain.Users.CommandHandlers
         private readonly IRecaptchaVerificationProcessor recaptchaVerificationProcessor;
 
         /// <summary>
+        /// The event bus.
+        /// </summary>
+        private readonly IEventBus eventBus;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SignUpCommandHandler" /> class.
         /// </summary>
         /// <param name="writeContextFactory">The write context factory.</param>
@@ -61,24 +68,28 @@ namespace MirGames.Domain.Users.CommandHandlers
         /// <param name="notificationManager">The notification manager.</param>
         /// <param name="settings">The settings.</param>
         /// <param name="recaptchaVerificationProcessor">The recaptcha verification processor.</param>
+        /// <param name="eventBus">The event bus.</param>
         public SignUpCommandHandler(
             IWriteContextFactory writeContextFactory,
             IPasswordHashProvider passwordHashProvider,
             INotificationManager notificationManager,
             ISettings settings,
-            IRecaptchaVerificationProcessor recaptchaVerificationProcessor)
+            IRecaptchaVerificationProcessor recaptchaVerificationProcessor,
+            IEventBus eventBus)
         {
             Contract.Requires(notificationManager != null);
             Contract.Requires(passwordHashProvider != null);
             Contract.Requires(recaptchaVerificationProcessor != null);
             Contract.Requires(settings != null);
             Contract.Requires(writeContextFactory != null);
+            Contract.Requires(eventBus != null);
 
             this.writeContextFactory = writeContextFactory;
             this.passwordHashProvider = passwordHashProvider;
             this.notificationManager = notificationManager;
             this.settings = settings;
             this.recaptchaVerificationProcessor = recaptchaVerificationProcessor;
+            this.eventBus = eventBus;
         }
 
         /// <inheritdoc />
@@ -94,6 +105,8 @@ namespace MirGames.Domain.Users.CommandHandlers
                 return SignUpResult.WrongCaptcha;
             }
 
+            User user;
+
             using (var writeContext = this.writeContextFactory.Create())
             {
                 bool isUserRegistered = writeContext.Set<User>().Any(u => u.Login == command.Login || u.Mail == command.Email);
@@ -105,7 +118,7 @@ namespace MirGames.Domain.Users.CommandHandlers
 
                 string salt = Guid.NewGuid().ToString();
 
-                User user = User.Create(command.Login, command.Email, this.passwordHashProvider.GetHash(command.Password, salt));
+                user = User.Create(command.Login, command.Email, this.passwordHashProvider.GetHash(command.Password, salt));
                 user.RegistrationIP = principal.GetHostAddress();
                 user.PasswordSalt = salt;
                 user.UserActivationKey = Guid.NewGuid().ToString().GetMd5Hash();
@@ -123,6 +136,12 @@ namespace MirGames.Domain.Users.CommandHandlers
                             ActivationLink = activationUrl
                         });
             }
+
+            this.eventBus.Raise(new UserCreatedEvent
+            {
+                UserId = user.Id,
+                UserName = user.Login
+            });
 
             return SignUpResult.Success;
         }

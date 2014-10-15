@@ -60,6 +60,8 @@
     <Compile Include="Events\PasswordRestoredEvent.cs" />
     <Compile Include="Events\PasswordRestoreRequestedEvent.cs" />
     <Compile Include="Events\UserAvatarChangedEvent.cs" />
+    <Compile Include="Events\UserDeletedEvent.cs" />
+    <Compile Include="Events\UserCreatedEvent.cs" />
     <Compile Include="Events\UserOfflineEvent.cs" />
     <Compile Include="Events\UserOnlineEvent.cs" />
     <Compile Include="Exceptions\UserAlreadyRegisteredException.cs" />

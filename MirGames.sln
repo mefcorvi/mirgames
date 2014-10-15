@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30219.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirGames", "MirGames\MirGames.csproj", "{E58F3EA9-4D88-4C43-8398-43FCEB6A150A}"
 EndProject
@@ -66,6 +66,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirGames.Domain.Notifications", "MirGames.Domain.Notifications\MirGames.Domain.Notifications.csproj", "{1B80885A-838A-473C-8B1C-5A9423B2A20D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirGames.Domain.Notifications.Public", "MirGames.Domain.Notifications.Public\MirGames.Domain.Notifications.Public.csproj", "{24821DD1-09A0-48CD-903C-B24D4CC41636}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirGames.Domain.UserBlogs", "MirGames.Domain.UserBlogs\MirGames.Domain.UserBlogs.csproj", "{03EF170F-2FE2-4136-AC98-6EB95E626B91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirGames.Domain.UserBlogs.Public", "MirGames.Domain.UserBlogs.Public\MirGames.Domain.UserBlogs.Public.csproj", "{FD1403A6-1FB2-4781-B18F-3A61F9478EA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -189,13 +193,21 @@ Global
 		{24821DD1-09A0-48CD-903C-B24D4CC41636}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24821DD1-09A0-48CD-903C-B24D4CC41636}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24821DD1-09A0-48CD-903C-B24D4CC41636}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03EF170F-2FE2-4136-AC98-6EB95E626B91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03EF170F-2FE2-4136-AC98-6EB95E626B91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03EF170F-2FE2-4136-AC98-6EB95E626B91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03EF170F-2FE2-4136-AC98-6EB95E626B91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD1403A6-1FB2-4781-B18F-3A61F9478EA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD1403A6-1FB2-4781-B18F-3A61F9478EA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD1403A6-1FB2-4781-B18F-3A61F9478EA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD1403A6-1FB2-4781-B18F-3A61F9478EA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{05776309-1B77-4270-91EF-5AF0165DF408} = {51E6A10C-8DA3-44F1-8803-2875B2D1EBF2}
 		{1569ED47-C7C9-4261-B6F4-7445BD0F2C95} = {51E6A10C-8DA3-44F1-8803-2875B2D1EBF2}
+		{05776309-1B77-4270-91EF-5AF0165DF408} = {51E6A10C-8DA3-44F1-8803-2875B2D1EBF2}
 		{AF432BC9-D24F-4352-8451-9B7768682648} = {51E6A10C-8DA3-44F1-8803-2875B2D1EBF2}
 		{43DCB624-F929-4572-97A3-6B14AC6AD158} = {51E6A10C-8DA3-44F1-8803-2875B2D1EBF2}
 		{0AD860B2-2AAA-47CC-ACBA-F2D97BE19D66} = {51E6A10C-8DA3-44F1-8803-2875B2D1EBF2}

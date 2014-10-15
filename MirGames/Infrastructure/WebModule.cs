@@ -7,8 +7,6 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using MirGames.Services.Git;
-
 namespace MirGames
 {
     using System.Reflection;
@@ -29,11 +27,13 @@ namespace MirGames
     using MirGames.Domain.Notifications;
     using MirGames.Domain.Tools;
     using MirGames.Domain.Topics;
+    using MirGames.Domain.UserBlogs;
     using MirGames.Domain.Users;
     using MirGames.Domain.Wip;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Events;
     using MirGames.OAuth;
+    using MirGames.Services.Git;
 
     using RouteJs;
 
@@ -74,6 +74,7 @@ namespace MirGames
             builder.RegisterModule<ToolsDomainModule>();
             builder.RegisterModule<WipDomainModule>();
             builder.RegisterModule<GitModule>();
+            builder.RegisterModule<UserBlogsDomainModule>();
 
             builder
                 .RegisterAssemblyTypes(Assembly.GetExecutingAssembly())

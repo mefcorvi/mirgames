@@ -104,7 +104,9 @@
     <Compile Include="CommandHandlers\MarkBlogTopicAsReadCommandHandler.cs" />
     <Compile Include="CommandHandlers\PostNewCommentCommandHandler.cs" />
     <Compile Include="CommandHandlers\ReindexTopicsCommandHandler.cs" />
+    <Compile Include="CommandHandlers\RemoveBlogCommandHandler.cs" />
     <Compile Include="CommandHandlers\SaveTopicCommandHandler.cs" />
+    <Compile Include="QueryHandlers\GetBlogByEntityQueryHandler.cs" />
     <Compile Include="TopicsDomainModule.cs" />
     <Compile Include="Entities\Blog.cs" />
     <Compile Include="Entities\Comment.cs" />
