@@ -18,7 +18,7 @@ namespace MirGames.Domain.Forum.Commands
     /// Posts new command.
     /// </summary>
     [Authorize(Roles = "User")]
-    [Api("Создаёт новый топик форума", ReturnDescription = "Идентификатор созданного топика")]
+    [Api("Создаёт новый топик форума", ReturnDescription = "Идентификатор созданного топика", ExecutionInterval = 1000)]
     public sealed class PostNewForumTopicCommand : Command<int>
     {
         /// <summary>

@@ -13,7 +13,7 @@ namespace MirGames.Domain.Users.Commands
     /// <summary>
     /// Resends activation key.
     /// </summary>
-    [Api]
+    [Api("Отправляет активационный код ещё раз", ExecutionInterval = 5000)]
     public class ResendActivationCommand : Command
     {
     }

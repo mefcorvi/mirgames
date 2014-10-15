@@ -57,6 +57,7 @@ namespace MirGames.Domain.Users.CommandHandlers
         protected override string Execute(OAuthLoginCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
             var sessionId = Guid.NewGuid().ToString("N");
+            User user;
 
             using (var writeContext = this.writeContextFactory.Create())
             {
@@ -77,7 +78,7 @@ namespace MirGames.Domain.Users.CommandHandlers
                     return null;
                 }
 
-                var user = writeContext.Set<User>().First(u => u.Id == authToken.UserId);
+                user = writeContext.Set<User>().First(u => u.Id == authToken.UserId);
 
                 writeContext.Set<UserSession>().Add(
                     new UserSession
@@ -96,8 +97,8 @@ namespace MirGames.Domain.Users.CommandHandlers
             this.eventLog.LogInformation(
                 "OAuthLoginCommandHandler",
                 "User \"{0}\" singed-in using \"{1}\" authentication provider",
-                command.ProviderName,
-                sessionId);
+                user.Mail,
+                command.ProviderName);
 
             return sessionId;
         }

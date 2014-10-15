@@ -17,7 +17,7 @@ namespace MirGames.Domain.Topics.Commands
     /// The add new topic command.
     /// </summary>
     [Authorize(Roles = "User")]
-    [Api]
+    [Api("Добавляет новый топик в блог", ReturnDescription = "Идентификатор топика", ExecutionInterval = 1000)]
     public class AddNewTopicCommand : Command<int>
     {
         /// <summary>

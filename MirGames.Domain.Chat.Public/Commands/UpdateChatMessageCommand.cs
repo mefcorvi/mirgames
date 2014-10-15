@@ -17,7 +17,7 @@ namespace MirGames.Domain.Chat.Commands
     /// Updates the chat message.
     /// </summary>
     [Authorize(Roles = "User")]
-    [Api("Обновляет сообщение чата")]
+    [Api("Обновляет сообщение чата", ExecutionInterval = 200)]
     public sealed class UpdateChatMessageCommand : Command
     {
         /// <summary>

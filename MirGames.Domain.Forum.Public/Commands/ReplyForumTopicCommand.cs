@@ -18,7 +18,7 @@ namespace MirGames.Domain.Forum.Commands
     /// Posts new reply in the topic.
     /// </summary>
     [Authorize(Roles = "User")]
-    [Api("Создаёт ответ в топике", ReturnDescription = "Идентификатор поста")]
+    [Api("Создаёт ответ в топике", ReturnDescription = "Идентификатор поста", ExecutionInterval = 1000)]
     public sealed class ReplyForumTopicCommand : Command<int>
     {
         /// <summary>

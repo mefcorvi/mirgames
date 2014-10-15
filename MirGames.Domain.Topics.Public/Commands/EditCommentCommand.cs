@@ -17,7 +17,7 @@ namespace MirGames.Domain.Topics.Commands
     /// Edits the comment.
     /// </summary>
     [Authorize(Roles = "User")]
-    [Api]
+    [Api("Обновляет комментарий", ExecutionInterval = 1000)]
     public sealed class EditCommentCommand : Command
     {
         /// <summary>

@@ -13,8 +13,8 @@ namespace MirGames.Infrastructure.Commands
         /// <summary>
         /// Decorates the specified query handler.
         /// </summary>
-        /// <param name="queryHandler">The query handler.</param>
+        /// <param name="commandHandler">The query handler.</param>
         /// <returns>The decorated query handler.</returns>
-        ICommandHandler Decorate(ICommandHandler queryHandler);
+        ICommandHandler Decorate(ICommandHandler commandHandler);
     }
 }

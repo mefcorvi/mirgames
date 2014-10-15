@@ -17,7 +17,7 @@ namespace MirGames.Domain.Topics.Commands
     /// Adds new comment to the topic and returns an identifier of the command.
     /// </summary>
     [Authorize(Roles = "User")]
-    [Api]
+    [Api("Добавляет новый комментарий в топик", ReturnDescription = "Идентификатор комментария", ExecutionInterval = 1000)]
     public class PostNewCommentCommand : Command<int>
     {
         /// <summary>

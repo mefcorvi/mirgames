@@ -14,7 +14,7 @@ namespace MirGames.Domain.Topics.Commands
     /// Deletes the comment.
     /// </summary>
     [Authorize(Roles = "User")]
-    [Api]
+    [Api("Удаляет комментарий")]
     public class DeleteCommentCommand : Command
     {
         /// <summary>

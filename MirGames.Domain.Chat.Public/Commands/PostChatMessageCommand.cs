@@ -17,7 +17,7 @@ namespace MirGames.Domain.Chat.Commands
     /// The message command.
     /// </summary>
     [Authorize(Roles = "User")]
-    [Api("Отправляет сообщение в чат")]
+    [Api("Отправляет сообщение в чат", ExecutionInterval = 200)]
     public sealed class PostChatMessageCommand : Command<int>
     {
         /// <summary>
