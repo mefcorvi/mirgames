@@ -27,7 +27,8 @@ module Account {
 
                     if (response != null) {
                         $.cookie('key', response, {
-                            expires: 365 * 24 * 60 * 60
+                            expires: 365 * 24 * 60 * 60,
+                            path: '/'
                         });
                         this.eventBus.emit('ajax-request.executing');
                         window.location.reload();

@@ -39,7 +39,8 @@ module Account {
 
                             if (sessionId != null) {
                                 $.cookie('key', sessionId, {
-                                    expires: 365 * 24 * 60 * 60
+                                    expires: 365 * 24 * 60 * 60,
+                                    path: '/'
                                 });
                                 window.location.reload();
                             }

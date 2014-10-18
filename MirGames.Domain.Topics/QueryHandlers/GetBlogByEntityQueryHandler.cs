@@ -17,9 +17,26 @@ namespace MirGames.Domain.Topics.QueryHandlers
     using MirGames.Domain.Topics.ViewModels;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Queries;
+    using MirGames.Infrastructure.Security;
+
+    using ClaimsPrincipalExtensions = MirGames.Domain.Security.ClaimsPrincipalExtensions;
 
     internal sealed class GetBlogByEntityQueryHandler : SingleItemQueryHandler<GetBlogByEntityQuery, BlogViewModel>
     {
+        /// <summary>
+        /// The authorization manager.
+        /// </summary>
+        private readonly IAuthorizationManager authorizationManager;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetBlogByEntityQueryHandler"/> class.
+        /// </summary>
+        /// <param name="authorizationManager">The authorization manager.</param>
+        public GetBlogByEntityQueryHandler(IAuthorizationManager authorizationManager)
+        {
+            this.authorizationManager = authorizationManager;
+        }
+
         /// <inheritdoc />
         protected override BlogViewModel Execute(IReadContext readContext, GetBlogByEntityQuery query, ClaimsPrincipal principal)
         {
@@ -32,13 +49,16 @@ namespace MirGames.Domain.Topics.QueryHandlers
                 return null;
             }
 
+            int userId = ClaimsPrincipalExtensions.GetUserId(principal).GetValueOrDefault();
+
             return new BlogViewModel
             {
                 BlogId = blog.Id,
                 Description = blog.Description,
                 EntityId = blog.EntityId,
                 EntityType = blog.EntityType,
-                Title = blog.Title
+                Title = blog.Title,
+                CanAddTopic = this.authorizationManager.CheckAccess(userId, "CreateTopic", "Blog", blog.Id)
             };
         }
     }

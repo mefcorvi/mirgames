@@ -39,7 +39,7 @@ namespace MirGames.Domain.UserBlogs.EventListeners
         {
             var newBlogCommand = new AddNewBlogCommand
             {
-                Alias = "user-" + @event.UserName,
+                Alias = "user-" + @event.UserId,
                 Description = "Блог " + @event.UserName,
                 EntityId = @event.UserId,
                 EntityType = "User",
@@ -50,9 +50,9 @@ namespace MirGames.Domain.UserBlogs.EventListeners
 
             this.commandProcessor.Execute(new SetPermissionCommand
             {
-                Actions = new[] { "AddNew", "Comment", "Delete", "Edit" },
+                Actions = new[] { "CreateTopic", "DeleteTopic", "EditTopic" },
                 EntityId = blogId,
-                EntityType = "Topic",
+                EntityType = "Blog",
                 UserId = @event.UserId
             });
         }

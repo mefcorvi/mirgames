@@ -51,16 +51,20 @@ namespace MirGames.Domain.Topics.EventListeners
         /// <inheritdoc />
         public override void Process(CommentCreatedEvent @event)
         {
-            var userIdentifiers = this.queryProcessor.Process(new GetUsersIdentifiersQuery()).Except(new[] { @event.AuthorId });
-            this.commandProcessor.Execute(new NotifyUsersCommand
+            if (!@event.BlogId.HasValue)
             {
-                UserIdentifiers = userIdentifiers.ToArray(),
-                Data = new NewTopicCommentNotification
+                var userIdentifiers =
+                    this.queryProcessor.Process(new GetUsersIdentifiersQuery()).Except(new[] { @event.AuthorId });
+                this.commandProcessor.Execute(new NotifyUsersCommand
                 {
-                    TopicId = @event.TopicId,
-                    CommentId = @event.CommentId
-                }
-            });
+                    UserIdentifiers = userIdentifiers.ToArray(),
+                    Data = new NewTopicCommentNotification
+                    {
+                        TopicId = @event.TopicId,
+                        CommentId = @event.CommentId
+                    }
+                });
+            }
         }
     }
 }

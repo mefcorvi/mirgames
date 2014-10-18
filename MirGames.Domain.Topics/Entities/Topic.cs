@@ -153,6 +153,11 @@ namespace MirGames.Domain.Topics.Entities
         public bool? IsTutorial { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether topic should be shown on main.
+        /// </summary>
+        public bool ShowOnMain { get; set; }
+
+        /// <summary>
         /// Gets or sets the content.
         /// </summary>
         public TopicContent Content { get; set; }

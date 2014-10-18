@@ -31,6 +31,11 @@ namespace MirGames.Domain.Topics.Events
         /// </summary>
         public int AuthorId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the blog identifier.
+        /// </summary>
+        public int? BlogId { get; set; }
+
         /// <inheritdoc />
         protected override string EventType
         {

@@ -90,5 +90,10 @@ namespace MirGames.Domain.Topics.ViewModels
         /// Gets or sets the creation date.
         /// </summary>
         public DateTime CreationDate { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether topics should be shown on main.
+        /// </summary>
+        public bool ShowOnMain { get; set; }
     }
 }

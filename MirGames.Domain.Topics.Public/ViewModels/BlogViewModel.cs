@@ -38,5 +38,10 @@ namespace MirGames.Domain.Topics.ViewModels
         /// Gets or sets the type of the entity.
         /// </summary>
         public string EntityType { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance can add topic.
+        /// </summary>
+        public bool CanAddTopic { get; set; }
     }
 }

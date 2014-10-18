@@ -106,11 +106,19 @@ namespace MirGames.Controllers
         public virtual new ActionResult Profile(int userId)
         {
             var user = this.QueryProcessor.Process(new GetUserByIdQuery { UserId = userId });
-            var wallRecords = this.QueryProcessor.Process(new GetUserWallRecordsQuery { UserId = userId }, new PaginationSettings(0, 20));
 
             if (user == null)
             {
                 return this.HttpNotFound();
+            }
+
+            var profileViewModel = new ProfileViewModel { User = user };
+            var userBlog = this.QueryProcessor.Process(new GetBlogByEntityQuery { EntityId = userId, EntityType = "User" });
+
+            if (userBlog != null)
+            {
+                profileViewModel.Blog = userBlog;
+                profileViewModel.Topics = this.QueryProcessor.Process(new GetTopicsQuery { BlogId = userBlog.BlogId }, new PaginationSettings(0, 20));
             }
 
             this.PageData["userId"] = userId;
@@ -118,7 +126,7 @@ namespace MirGames.Controllers
 
             return this.View(
                 "Profile",
-                new ProfileViewModel { User = user, WallRecords = wallRecords });
+                profileViewModel);
         }
 
         /// <inheritdoc />
@@ -308,7 +316,12 @@ namespace MirGames.Controllers
             /// <summary>
             /// Gets or sets the topics.
             /// </summary>
-            public IEnumerable<UserWallRecordViewModel> WallRecords { get; set; }
+            public IEnumerable<TopicsListItem> Topics { get; set; }
+
+            /// <summary>
+            /// Gets or sets the blog.
+            /// </summary>
+            public BlogViewModel Blog { get; set; }
         }
 
         /// <summary>

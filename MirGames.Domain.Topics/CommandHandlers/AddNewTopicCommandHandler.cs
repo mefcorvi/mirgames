@@ -114,7 +114,8 @@ namespace MirGames.Domain.Topics.CommandHandlers
                 TopicType = "topic",
                 ForbidComment = false,
                 EditDate = null,
-                BlogId = command.BlogId
+                BlogId = command.BlogId,
+                ShowOnMain = command.BlogId.GetValueOrDefault() == 0
             };
 
             authorizationManager.EnsureAccess(principal, "AddNew", "Topic");

@@ -10,10 +10,17 @@
 <div class="page-header">
     <div class="header">
         <h4>
-            <a href="@Url.Action(MVC.Topics.Topics.Index())">Блог</a>
+            @if (Model.ShowOnMain)
+            {
+                <a href="@Url.Action(MVC.Topics.Topics.Index())">Блог</a>
+            }
+            @if (Model.ShowOnMain && Model.Blog.BlogId != null)
+            {
+                <span> / </span>
+            }
             @if (Model.Blog.BlogId != null)
             {
-                <span> / </span><a href="@EntityLinkProvider.GetLink(Model.Blog.EntityId, Model.Blog.EntityType)" class="back-to-topics">@Model.Blog.Description</a>
+                <a href="@EntityLinkProvider.GetLink(Model.Blog.EntityId, Model.Blog.EntityType)" class="back-to-topics">@Model.Blog.Description</a>
             }
         </h4>
         <h3>@Model.Title</h3>

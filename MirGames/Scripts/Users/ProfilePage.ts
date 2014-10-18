@@ -29,7 +29,8 @@ module MirGames.Users {
             this.apiService.executeCommand('LoginAsUserCommand', command, (response) => {
                 if (response != null) {
                     $.cookie('key', response, {
-                        expires: 365 * 24 * 60 * 60
+                        expires: 365 * 24 * 60 * 60,
+                        path: '/'
                     });
                     Core.Application.getInstance().navigateToUrl(Router.action("Dashboard", "Index"));
                 }

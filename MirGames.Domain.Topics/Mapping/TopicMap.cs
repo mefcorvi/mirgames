@@ -65,6 +65,7 @@ namespace MirGames.Domain.Topics.Mapping
             this.Property(t => t.SourceAuthor).HasColumnName("moriginal_author").IsOptional();
             this.Property(t => t.SourceLink).HasColumnName("moriginal_link").IsOptional();
             this.Property(t => t.IsTutorial).HasColumnName("mtutorial").IsOptional();
+            this.Property(t => t.ShowOnMain).HasColumnName("show_on_main");
 
             // Relationships
             this.HasOptional(t => t.Content).WithRequired(t => t.Topic).WillCascadeOnDelete();

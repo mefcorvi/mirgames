@@ -15,19 +15,28 @@
     <div class="user-visit-date">Последний раз был в сети <span class="relative" datetime="@Model.User.LastVisitDate.ToString("O")">@Html.RelativeDate(Model.User.LastVisitDate)</span></div>
     <div class="user-about">@Model.User.About</div>
 </article>
-
-@*<div class="wall-records">
-    @if (Model.User.WallRecordCanBeAdded)
+<div class="user-blog">
+    <h4>Блог</h4>
+    @if (Model.Blog.CanAddTopic)
     {
-        <div class="new-wall-record">
-            <tinyeditor text="newRecord.text" entity-type="wallRecord"></tinyeditor>
-            <div class="buttons">
-                <a href="javascript:void(0)" ng-click="newRecord.post()">Оставить запись</a>
-            </div>
+        <div class="buttons">
+            <a href="javascript:void(0);" dialog="@Url.Action(MVC.Topics.Topics.AddTopicDialog())" resolve="{ 'blog-id': @Model.Blog.BlogId }"
+            dialog-controller="MirGames.Topics.AddNewTopicDialogController">Добавить пост в блог</a>
         </div>
     }
-    @foreach (var wallRecord in Model.WallRecords)
+    @if (Model.Topics != null && Model.Topics.Any())
     {
-        @Html.Partial("_WallRecord", wallRecord)
+        <div class="blog-posts">
+            @foreach (var topic in Model.Topics)
+            {
+                @Html.Partial(MVC.Topics.Topics.Views._TopicListItem, topic)
+            }
+        </div>
     }
-</div>*@
+    else
+    {
+        <div class="not-found">
+            В блоге пока нет ни одного поста.
+        </div>
+    }
+</div>

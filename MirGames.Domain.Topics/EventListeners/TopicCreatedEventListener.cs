@@ -61,16 +61,20 @@ namespace MirGames.Domain.Topics.EventListeners
         {
             this.searchEngine.Index(@event.TopicId, "Topic", @event.Title + " " + @event.Text + " " + @event.Tags);
 
-            var userIdentifiers = this.queryProcessor.Process(new GetUsersIdentifiersQuery()).Except(new[] { @event.AuthorId });
-            this.commandProcessor.Execute(new NotifyUsersCommand
+            if (!@event.BlogId.HasValue)
             {
-                UserIdentifiers = userIdentifiers.ToArray(),
-                Data = new NewBlogTopicNotification
+                var userIdentifiers = this.queryProcessor.Process(new GetUsersIdentifiersQuery()).Except(new[] { @event.AuthorId });
+
+                this.commandProcessor.Execute(new NotifyUsersCommand
                 {
-                    TopicId = @event.TopicId,
-                    BlogId = @event.BlogId
-                }
-            });
+                    UserIdentifiers = userIdentifiers.ToArray(),
+                    Data = new NewBlogTopicNotification
+                    {
+                        TopicId = @event.TopicId,
+                        BlogId = @event.BlogId
+                    }
+                });
+            }
         }
     }
 }

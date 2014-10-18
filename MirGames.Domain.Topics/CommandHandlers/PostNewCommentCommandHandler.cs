@@ -92,9 +92,11 @@ namespace MirGames.Domain.Topics.CommandHandlers
                 Date = DateTime.UtcNow
             };
 
+            Topic topic;
+
             using (var writeContext = this.writeContextFactory.Create())
             {
-                var topic = writeContext.Set<Topic>().SingleOrDefault(t => t.Id == command.TopicId);
+                topic = writeContext.Set<Topic>().SingleOrDefault(t => t.Id == command.TopicId);
 
                 if (topic == null)
                 {
@@ -131,6 +133,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
 
             this.eventBus.Raise(new CommentCreatedEvent
             {
+                BlogId = topic.BlogId,
                 TopicId = comment.TopicId,
                 CommentId = comment.CommentId,
                 AuthorId = comment.UserId.GetValueOrDefault()

@@ -166,6 +166,10 @@ namespace MirGames.Domain.Topics.QueryHandlers
             {
                 topics = topics.Where(t => t.BlogId == query.BlogId);
             }
+            else
+            {
+                topics = topics.Where(t => t.ShowOnMain);
+            }
 
             if (query.IsTutorial.HasValue)
             {

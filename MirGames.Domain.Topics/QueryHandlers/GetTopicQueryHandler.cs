@@ -92,7 +92,8 @@ namespace MirGames.Domain.Topics.QueryHandlers
                         Author = new AuthorViewModel { Id = t.AuthorId },
                         Blog = new BlogViewModel { BlogId = t.BlogId },
                         TagsList = t.TagsList,
-                        CreationDate = t.CreationDate
+                        CreationDate = t.CreationDate,
+                        ShowOnMain = t.ShowOnMain
                     })
                 .FirstOrDefault();
 
