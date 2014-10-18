@@ -18,6 +18,7 @@ namespace MirGames.Domain.Acl.CommandHandlers
     using MirGames.Domain.Acl.Public.Commands;
     using MirGames.Domain.Acl.Public.Events;
     using MirGames.Domain.Acl.Services;
+    using MirGames.Domain.Services;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Commands;
     using MirGames.Infrastructure.Events;

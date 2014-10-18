@@ -20,6 +20,7 @@ namespace MirGames.Domain
         public void Configure(IEntityMappingRegistry registry)
         {
             registry.Register(new ConfigItemMap());
+            registry.Register(new EntityTypeMap());
         }
     }
 }

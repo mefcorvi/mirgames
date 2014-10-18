@@ -63,21 +63,16 @@
     <Compile Include="CommandHandlers\SetPermissionCommandHandler.cs" />
     <Compile Include="CommandHandlers\RemovePermissionsCommandHandler.cs" />
     <Compile Include="Entities\ActionType.cs" />
-    <Compile Include="Entities\EntityType.cs" />
     <Compile Include="Entities\Permission.cs" />
     <Compile Include="EntityMapper.cs" />
     <Compile Include="Mapping\ActionTypeMap.cs" />
-    <Compile Include="Mapping\EntityTypeMap.cs" />
     <Compile Include="Mapping\PermissionMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryHandlers\GetPermissionsQueryHandler.cs" />
     <Compile Include="QueryHandlers\IsActionAllowedQueryHandler.cs" />
     <Compile Include="Services\ActionTypesResolver.cs" />
-    <Compile Include="Services\DictionaryEntityResolver.cs" />
-    <Compile Include="Services\EntityTypesResolver.cs" />
+    <Compile Include="Services\ActionTypesResolverExtensions.cs" />
     <Compile Include="Services\IActionTypesResolver.cs" />
-    <Compile Include="Services\IDictionaryEntityResolver.cs" />
-    <Compile Include="Services\IEntityTypesResolver.cs" />
     <Compile Include="Services\IPermissionsCacheManager.cs" />
   </ItemGroup>
   <ItemGroup>

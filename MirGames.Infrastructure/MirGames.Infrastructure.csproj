@@ -164,6 +164,8 @@
     <Compile Include="Queries\IQueryHandlerDecorator.cs" />
     <Compile Include="Queries\QueryCacheContainer.cs" />
     <Compile Include="QueryHandlerDecorators\CacheQueryHandlerDecorator.cs" />
+    <Compile Include="Repositories\DictionaryEntityResolver.cs" />
+    <Compile Include="Repositories\IDictionaryEntityResolver.cs" />
     <Compile Include="Security\IAuthorizationManager.cs" />
     <Compile Include="QueryHandlerDecorators\TraceQueryHandlerDecorator.cs" />
     <Compile Include="Transactions\TransactionExecutor.cs" />

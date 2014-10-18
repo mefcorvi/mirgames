@@ -7,11 +7,11 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MirGames.Domain.Acl.Mapping
+namespace MirGames.Domain.Mapping
 {
     using System.Data.Entity.ModelConfiguration;
 
-    using MirGames.Domain.Acl.Entities;
+    using MirGames.Domain.Entities;
 
     /// <summary>
     /// Mapping of the project EntityType.
@@ -23,7 +23,7 @@ namespace MirGames.Domain.Acl.Mapping
         /// </summary>
         public EntityTypeMap()
         {
-            this.ToTable("acl_entity_types");
+            this.ToTable("entity_types");
             this.HasKey(t => t.EntityTypeId);
 
             this.Property(t => t.EntityTypeId).HasColumnName("entity_type_id");

@@ -100,10 +100,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\ConfigItem.cs" />
+    <Compile Include="Entities\EntityType.cs" />
     <Compile Include="Exceptions\ItemNotFoundException.cs" />
     <Compile Include="Mapping\ConfigItemMap.cs" />
+    <Compile Include="Mapping\EntityTypeMap.cs" />
     <Compile Include="Security\AuthorizationManager.cs" />
     <Compile Include="Security\AuthorizationManagerExtensions.cs" />
+    <Compile Include="Services\EntityTypesResolver.cs" />
+    <Compile Include="Services\EntityTypesResolverExtensions.cs" />
+    <Compile Include="Services\IEntityTypesResolver.cs" />
     <Compile Include="Settings\DataStoredSettings.cs" />
     <Compile Include="TextTransform\AutoLinkTextTransform.cs" />
     <Compile Include="TextTransform\ShortTextExtractor.cs" />

@@ -7,13 +7,13 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MirGames.Domain.Acl.Services
+namespace MirGames.Domain.Services
 {
     using System.Linq;
 
-    using MirGames.Domain.Acl.Entities;
-    using MirGames.Domain.Exceptions;
+    using MirGames.Domain.Entities;
     using MirGames.Infrastructure;
+    using MirGames.Infrastructure.Repositories;
 
     internal sealed class EntityTypesResolver : DictionaryEntityResolver<string, EntityType>, IEntityTypesResolver
     {
@@ -26,13 +26,13 @@ namespace MirGames.Domain.Acl.Services
         }
 
         /// <inheritdoc />
-        public int GetEntityTypeId(string entityType)
+        public int? FindEntityTypeId(string entityType)
         {
             var entityTypeItem = this.Resolve(entityType).FirstOrDefault();
 
             if (entityTypeItem == null)
             {
-                throw new ItemNotFoundException("EntityType", entityType);
+                return null;
             }
 
             return entityTypeItem.EntityTypeId;

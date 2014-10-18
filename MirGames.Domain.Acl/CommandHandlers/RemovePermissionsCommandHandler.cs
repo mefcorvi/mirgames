@@ -17,6 +17,7 @@ namespace MirGames.Domain.Acl.CommandHandlers
     using MirGames.Domain.Acl.Entities;
     using MirGames.Domain.Acl.Public.Commands;
     using MirGames.Domain.Acl.Services;
+    using MirGames.Domain.Services;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Commands;
     using MirGames.Infrastructure.Security;
@@ -34,12 +35,12 @@ namespace MirGames.Domain.Acl.CommandHandlers
         /// <summary>
         /// The entity types resolver.
         /// </summary>
-        private readonly IDictionaryEntityResolver<string, EntityType> entityTypesResolver;
+        private readonly IEntityTypesResolver entityTypesResolver;
 
         /// <summary>
         /// The action types resolver.
         /// </summary>
-        private readonly IDictionaryEntityResolver<string, ActionType> actionTypesResolver;
+        private readonly IActionTypesResolver actionTypesResolver;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RemovePermissionsCommandHandler" /> class.
@@ -49,8 +50,8 @@ namespace MirGames.Domain.Acl.CommandHandlers
         /// <param name="actionTypesResolver">The action types resolver.</param>
         public RemovePermissionsCommandHandler(
             IWriteContextFactory writeContextFactory,
-            IDictionaryEntityResolver<string, EntityType> entityTypesResolver,
-            IDictionaryEntityResolver<string, ActionType> actionTypesResolver)
+            IEntityTypesResolver entityTypesResolver,
+            IActionTypesResolver actionTypesResolver)
         {
             Contract.Requires(writeContextFactory != null);
             Contract.Requires(entityTypesResolver != null);
@@ -114,11 +115,12 @@ namespace MirGames.Domain.Acl.CommandHandlers
         /// <returns>The action identifier.</returns>
         private int? GetActionId(RemovePermissionsCommand command, int? entityTypeId)
         {
-            return this.actionTypesResolver
-                       .Resolve(command.ActionName)
-                       .Where(a => a.EntityTypeId == entityTypeId)
-                       .Select(a => (int?)a.ActionId)
-                       .FirstOrDefault();
+            if (entityTypeId == null)
+            {
+                return null;
+            }
+
+            return this.actionTypesResolver.FindActionId(command.ActionName, entityTypeId.Value);
         }
 
         /// <summary>
@@ -128,10 +130,7 @@ namespace MirGames.Domain.Acl.CommandHandlers
         /// <returns>The entity type identifier.</returns>
         private int? GetEntityTypeId(RemovePermissionsCommand command)
         {
-            return this.entityTypesResolver
-                       .Resolve(command.EntityType)
-                       .Select(e => (int?)e.EntityTypeId)
-                       .FirstOrDefault();
+            return this.entityTypesResolver.FindEntityTypeId(command.EntityType);
         }
     }
 }

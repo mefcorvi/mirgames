@@ -7,7 +7,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MirGames.Domain.Acl.Services
+namespace MirGames.Infrastructure.Repositories
 {
     using System;
     using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace MirGames.Domain.Acl.Services
     /// </summary>
     /// <typeparam name="TKey">The type of the key.</typeparam>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    internal abstract class DictionaryEntityResolver<TKey, TEntity> : IDictionaryEntityResolver<TKey, TEntity>
+    public abstract class DictionaryEntityResolver<TKey, TEntity> : IDictionaryEntityResolver<TKey, TEntity>
         where TEntity : class
         where TKey : IEquatable<TKey>
     {
@@ -72,7 +72,7 @@ namespace MirGames.Domain.Acl.Services
         /// Loads the dictionary.
         /// </summary>
         /// <returns>The dictionary.</returns>
-        private IEnumerable<TEntity> LoadDictionary()
+        protected virtual IEnumerable<TEntity> LoadDictionary()
         {
             using (var readContext = this.readContextFactory.Create())
             {

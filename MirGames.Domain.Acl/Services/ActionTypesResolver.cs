@@ -12,8 +12,8 @@ namespace MirGames.Domain.Acl.Services
     using System.Linq;
 
     using MirGames.Domain.Acl.Entities;
-    using MirGames.Domain.Exceptions;
     using MirGames.Infrastructure;
+    using MirGames.Infrastructure.Repositories;
 
     /// <summary>
     /// Resolves action by the action name.
@@ -29,13 +29,13 @@ namespace MirGames.Domain.Acl.Services
         }
 
         /// <inheritdoc />
-        public int GetActionId(string actionName, int entityTypeId)
+        public int? FindActionId(string actionName, int entityTypeId)
         {
             var action = this.Resolve(actionName).FirstOrDefault(a => a.EntityTypeId == entityTypeId);
 
             if (action == null)
             {
-                throw new ItemNotFoundException("Action", string.Format("{0}#{1}", entityTypeId, actionName));
+                return null;
             }
 
             return action.ActionId;

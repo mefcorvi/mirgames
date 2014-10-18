@@ -7,7 +7,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MirGames.Domain.Acl.Entities
+namespace MirGames.Domain.Entities
 {
     /// <summary>
     /// The entity type.

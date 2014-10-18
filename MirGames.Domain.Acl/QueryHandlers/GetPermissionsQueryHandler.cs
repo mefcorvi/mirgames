@@ -17,6 +17,7 @@ namespace MirGames.Domain.Acl.QueryHandlers
     using MirGames.Domain.Acl.Public.Queries;
     using MirGames.Domain.Acl.Public.ViewModels;
     using MirGames.Domain.Acl.Services;
+    using MirGames.Domain.Services;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Queries;
 

@@ -20,7 +20,6 @@ namespace MirGames.Domain.Acl
         public void Configure(IEntityMappingRegistry registry)
         {
             registry.Register(new ActionTypeMap());
-            registry.Register(new EntityTypeMap());
             registry.Register(new PermissionMap());
         }
     }

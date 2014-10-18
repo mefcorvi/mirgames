@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="AclModule.cs">
+// <copyright company="MirGames" file="IDictionaryEntityResolver.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -7,26 +7,27 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MirGames.Domain.Acl
+namespace MirGames.Infrastructure.Repositories
 {
-    using Autofac;
-
-    using MirGames.Domain.Acl.Services;
-    using MirGames.Infrastructure;
+    using System.Collections.Generic;
 
     /// <summary>
-    /// The domain module.
+    /// Resolves entities by the specified key.
     /// </summary>
-    public sealed class AclModule : DomainModuleBase
+    /// <typeparam name="TKey">The type of the key.</typeparam>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
+    public interface IDictionaryEntityResolver<in TKey, out TEntity> where TEntity : class
     {
-        /// <inheritdoc />
-        protected override void Load(ContainerBuilder builder)
-        {
-            base.Load(builder);
+        /// <summary>
+        /// Gets the entities.
+        /// </summary>
+        IEnumerable<TEntity> Entities { get; }
 
-            builder.RegisterType<ActionTypesResolver>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<EntityMapper>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<PermissionsCacheManager>().AsImplementedInterfaces().SingleInstance();
-        }
+        /// <summary>
+        /// Resolves the entity by the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>Set of the entities.</returns>
+        IEnumerable<TEntity> Resolve(TKey key);
     }
 }

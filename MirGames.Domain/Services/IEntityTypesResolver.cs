@@ -7,15 +7,15 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MirGames.Domain.Acl.Services
+namespace MirGames.Domain.Services
 {
-    internal interface IEntityTypesResolver
+    public interface IEntityTypesResolver
     {
         /// <summary>
-        /// Gets the entity type identifier.
+        /// Finds the entity type identifier.
         /// </summary>
         /// <param name="entityType">Type of the entity.</param>
         /// <returns>The entity type identifier.</returns>
-        int GetEntityTypeId(string entityType);
+        int? FindEntityTypeId(string entityType);
     }
 }
