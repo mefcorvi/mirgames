@@ -8,6 +8,7 @@
     var currentTag = (string)ViewBag.Tag;
     ViewBag.Title = currentTag != null ? (currentTag.ToTitleCase() + " / Блог") :  "Блог";
     AddPageCssClass("topics-page");
+    this.PageScriptController = "MirGames.Topics.TopicsPage";
     var topics = this.Model.ToList();
     var tags = ((IEnumerable<TagViewModel>)ViewBag.Tags).OrderBy(t => t.Tag).ToList();
     var comments = (IEnumerable<CommentViewModel>)ViewBag.Comments;

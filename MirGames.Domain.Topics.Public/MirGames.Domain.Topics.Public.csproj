@@ -46,6 +46,7 @@
     <Compile Include="Commands\ReindexTopicsCommand.cs" />
     <Compile Include="Commands\RemoveBlogCommand.cs" />
     <Compile Include="Commands\SaveTopicCommand.cs" />
+    <Compile Include="Events\AllBlogTopicsReadEvent.cs" />
     <Compile Include="Events\CommentCreatedEvent.cs" />
     <Compile Include="Events\CommentDeletedEvent.cs" />
     <Compile Include="Events\CommentEditedEvent.cs" />

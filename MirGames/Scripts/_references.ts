@@ -17,7 +17,6 @@
 /// <reference path="Router.d.ts" />
 /// <reference path="TypeLite.d.ts" />
 /// <reference path="TypeLiteEnums.ts" />
-/// <reference path="Commands.ts" />
 
 /// <reference path="Core/Base64.ts" />
 /// <reference path="Core/Utils.ts" />

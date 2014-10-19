@@ -69,7 +69,7 @@ namespace System.Web.Mvc
 
             if (delta < 36 * Hour)
             {
-                return "вчера";
+                return "день назад";
             }
 
             if (delta < 25 * Day)

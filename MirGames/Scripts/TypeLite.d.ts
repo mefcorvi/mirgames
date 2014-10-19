@@ -30,6 +30,10 @@ interface SingleItemQuery1 extends MirGames.Infrastructure.Queries.Query1 {
 }
 interface Query1 extends MirGames.Infrastructure.Queries.Query {
 }
+interface SingleItemQuery1 extends MirGames.Infrastructure.Queries.Query1 {
+}
+interface Query1 extends MirGames.Infrastructure.Queries.Query {
+}
 interface Query1 extends MirGames.Infrastructure.Queries.Query {
 }
 interface Query1 extends MirGames.Infrastructure.Queries.Query {
@@ -121,6 +125,8 @@ interface EditCommentCommand extends MirGames.Infrastructure.Commands.Command {
   Text: string;
   Attachments: number[];
 }
+interface MarkAllBlogTopicsAsReadCommand extends MirGames.Infrastructure.Commands.Command {
+}
 interface PostNewCommentCommand extends MirGames.Infrastructure.Commands.Command1 {
   TopicId: number;
   Text: string;
@@ -135,6 +141,10 @@ interface SaveTopicCommand extends MirGames.Infrastructure.Commands.Command {
 }
 }
 declare module MirGames.Domain.Topics.Queries {
+interface GetBlogByEntityQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
+  EntityId: number;
+  EntityType: string;
+}
 interface GetCommentForEditQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
   CommentId: number;
 }
@@ -152,6 +162,7 @@ interface BlogViewModel {
   Description: string;
   EntityId: number;
   EntityType: string;
+  CanAddTopic: boolean;
 }
 interface CommentForEditViewModel {
   Id: number;
@@ -194,6 +205,7 @@ interface TopicViewModel {
   Tags: string[];
   TagsList: string;
   CreationDate: Date;
+  ShowOnMain: boolean;
 }
 }
 declare module MirGames.Domain.Users.ViewModels {
@@ -503,6 +515,12 @@ interface ChatMessageForEditViewModel {
 }
 }
 declare module MirGames.Domain.Notifications.ViewModels {
+interface NotificationSubscriptionViewModel {
+  SubscriptionId: number;
+  UserId: number;
+  EntityType: string;
+  NotificationType: string;
+}
 interface NotificationViewModel {
   NotificationId: string;
   NotificationType: string;

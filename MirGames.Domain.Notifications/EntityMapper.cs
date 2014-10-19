@@ -21,6 +21,7 @@ namespace MirGames.Domain.Notifications
         public void Configure(IEntityMappingRegistry registry)
         {
             registry.Register(new NotificationEventTypeMap());
+            registry.Register(new NotificationSubscriptionMap());
         }
     }
 }

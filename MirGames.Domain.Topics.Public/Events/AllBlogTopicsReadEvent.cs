@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="MarkAllBlogTopicsAsReadCommand.cs">
+// <copyright company="MirGames" file="AllBlogTopicsReadEvent.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -7,16 +7,26 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MirGames.Domain.Topics.Commands
+namespace MirGames.Domain.Topics.Events
 {
-    using MirGames.Infrastructure.Commands;
+    using MirGames.Infrastructure.Events;
 
     /// <summary>
-    /// Marks all blog topics as read.
+    /// Raised when some of topics has been read.
     /// </summary>
-    [Authorize(Roles = "User")]
-    [Api]
-    public sealed class MarkAllBlogTopicsAsReadCommand : Command
+    public sealed class AllBlogTopicsReadEvent : Event
     {
+        /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
+        public int UserId { get; set; }
+
+        /// <summary>
+        /// Gets the type of the event.
+        /// </summary>
+        protected override string EventType
+        {
+            get { return "Topics.AllBlogTopicsRead"; }
+        }
     }
 }

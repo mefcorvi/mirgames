@@ -63,6 +63,8 @@
   <ItemGroup>
     <Compile Include="Cache\NotificationQueryCacheContainer.cs" />
     <Compile Include="CommandHandlers\RemoveNotificationsCommandHandler.cs" />
+    <Compile Include="Entities\NotificationSubscription.cs" />
+    <Compile Include="Mapping\NotificationSubscriptionMap.cs" />
     <Compile Include="QueryHandlers\GetNotificationsQueryHandler.cs" />
     <Compile Include="Services\NotificationTypeResolver.cs" />
     <Compile Include="Services\INotificationTypeResolver.cs" />
