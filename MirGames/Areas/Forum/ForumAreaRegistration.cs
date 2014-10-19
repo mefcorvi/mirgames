@@ -50,9 +50,9 @@
 
             context.MapRoute(
                 "LegacyForumTopicItem",
-                "forum/{topicId}",
+                "forum/{topicId}/{page}",
                 new { controller = "Forum", action = "Topic", page = 1 },
-                new { topicId = @"\d+", forumAlias = string.Empty });
+                new { topicId = @"\d+", page = @"\d*", forumAlias = string.Empty });
 
             context.MapRoute(
                 "ForumTopicItems",
