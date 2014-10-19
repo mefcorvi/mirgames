@@ -194,6 +194,11 @@ namespace MirGames.Areas.Forum.Controllers
                 return this.HttpNotFound();
             }
 
+            if (forumAlias == null)
+            {
+                return this.RedirectPermanent(Url.Action(MVC.Forum.Forum.Topic(topic.Forum.Alias, topicId, page)));
+            }
+
             var postsQuery = new GetForumTopicPostsQuery { TopicId = topicId };
             var postsCount = this.QueryProcessor.GetItemsCount(postsQuery);
 

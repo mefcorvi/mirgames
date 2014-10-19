@@ -49,6 +49,12 @@
                 new { controller = "Forum", action = "DeletePostDialog" });
 
             context.MapRoute(
+                "LegacyForumTopicItem",
+                "forum/{topicId}",
+                new { controller = "Forum", action = "Topic", page = 1 },
+                new { topicId = @"\d+", forumAlias = string.Empty });
+
+            context.MapRoute(
                 "ForumTopicItems",
                 "forum/{forumAlias}",
                 new { controller = "Forum", action = "Topics", page = 1 });
