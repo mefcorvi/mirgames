@@ -12,10 +12,8 @@ module MirGames.Forum {
             var command: MirGames.Domain.Forum.Commands.MarkAllTopicsAsReadCommand = {
             };
 
-            this.apiService.executeCommand('MarkAllTopicsAsReadCommand', command, (response: { result: boolean }) => {
-                if (response.result) {
-                    window.location.reload();
-                }
+            this.apiService.executeCommand('MarkAllTopicsAsReadCommand', command, () => {
+                window.location.reload();
             });
         }
     }
