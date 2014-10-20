@@ -87,6 +87,7 @@ namespace MirGames
 
                         var commandProcessor = (ICommandProcessor)DependencyResolver.Current.GetService(typeof(ICommandProcessor));
                         var sessionManager = (ISessionManager)DependencyResolver.Current.GetService(typeof(ISessionManager));
+                        Thread.Sleep(3000); // we can execute login only once for a 3 seconds
                         var sessionId = commandProcessor.Execute(loginCommand);
 
                         sessionManager.SetSession(sessionId);
