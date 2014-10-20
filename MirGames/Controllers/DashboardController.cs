@@ -52,11 +52,12 @@ namespace MirGames.Controllers
             foreach (var topic in model.ForumTopics)
             {
                 int topicId = topic.TopicId;
+                string forumAlias = topic.Forum.Alias;
                 topicsPagination[topicId] =
                     new PaginationViewModel(
                         new PaginationSettings(PaginationSettings.GetItemPage(topic.PostsCount, 20), 20),
                         topic.PostsCount,
-                        p => this.GetForumTopicPageUrl(p, topicId))
+                        p => this.GetForumTopicPageUrl(p, topicId, forumAlias))
                     {
                         ShowPrevNextNavigation = false,
                         HightlightCurrentPage = false
@@ -75,13 +76,13 @@ namespace MirGames.Controllers
         /// </summary>
         /// <param name="page">The page.</param>
         /// <param name="topicId">The topic unique identifier.</param>
-        /// <returns>The topic page URL.</returns>
-        private string GetForumTopicPageUrl(int page, int topicId)
+        /// <param name="forumAlias">The forum alias.</param>
+        /// <returns>
+        /// The topic page URL.
+        /// </returns>
+        private string GetForumTopicPageUrl(int page, int topicId, string forumAlias)
         {
-            return this.Url.Action(
-                "Topic",
-                "Forum",
-                new { page, topicId }) + "#posts";
+            return this.Url.Action(MVC.Forum.Forum.Topic(forumAlias, topicId, page)) + "#posts";
         }
 
 
