@@ -49,6 +49,7 @@ declare module linqjs {
         pairwise(selector: (prev: any, current: any) => any): GenericEnumerable<T>;
         scan(func: (prev: any, current: any) => any): GenericEnumerable<T>;
         scan(seed: any, func: (prev: any, current: any) => any): GenericEnumerable<T>;
+        select<TResult>(selector: (element: T) => TResult): GenericEnumerable<TResult>;
         select<TResult>(selector: (element: T, index: number) => TResult): GenericEnumerable<TResult>;
         selectMany(collectionSelector: (element: T, index: number) => any[], resultSelector?: (outer: any, inner: any) => any): GenericEnumerable<T>;
         selectMany(collectionSelector: (element: T, index: number) => GenericEnumerable<any>, resultSelector?: (outer: any, inner: any) => any): GenericEnumerable<T>;

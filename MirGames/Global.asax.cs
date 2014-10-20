@@ -148,7 +148,7 @@ namespace MirGames
                         httpException.InnerException.Message,
                         new
                         {
-                            httpException.InnerException.StackTrace,
+                            Exception = httpException.InnerException,
                             Url = HttpContext.Current.Request.Url.ToString(),
                             IP = HttpContext.Current.Request.UserHostAddress
                         });
@@ -162,7 +162,7 @@ namespace MirGames
                         exception.Message,
                         new
                         {
-                            exception.StackTrace,
+                            Exception = exception,
                             Url = HttpContext.Current.Request.Url.ToString(),
                             IP = HttpContext.Current.Request.UserHostAddress
                         });

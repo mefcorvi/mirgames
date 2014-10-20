@@ -49,13 +49,26 @@
 </form>
 
 <div class="event-log-items">
-    <div ng-cloak ng-repeat="item in items" ng-class="{ 'event-log-item': 1, 'event-log-error': item.EventLogType == 0, 'event-log-warning': item.EventLogType == 1, 'event-log-verbose': item.EventLogType == 3 }">
-        <span class="event-log-id">#{{item.Id}}</span>
-        <span class="event-log-type">{{logTypes[item.EventLogType].key}}</span>
-        <span class="event-log-user">{{item.Login}}</span>
-        <span class="event-log-date">{{item.Date | date:'dd.MM.yy HH:mm'}}</span>
-        <span class="event-log-source" title="{{item.Source}}">{{item.Source}}</span>
-        <span class="event-log-message">{{item.Message}}</span>
-        <div class="event-log-details">{{item.Details}}</div>
+    <div ng-cloak ng-repeat="item in items" ng-class="{ 'event-log-item': 1, 'event-log-error': item.eventLogType == 0, 'event-log-warning': item.eventLogType == 1, 'event-log-verbose': item.eventLogType == 3 }">
+        <span class="event-log-id">#{{item.id}}</span>
+        <span class="event-log-type">{{logTypes[item.eventLogType].key}}</span>
+        <span class="event-log-user">{{item.login}}</span>
+        <span class="event-log-date">{{item.date | date:'dd.MM.yy HH:mm'}}</span>
+        <span class="event-log-source" title="{{item.source}}">{{item.source}}</span>
+        <span class="event-log-message">{{item.message}}</span>
+        <div class="event-log-details">
+            <div ng-show="item.details.url"><b>Url:</b> {{item.details.url}}</div>
+            <div ng-show="item.details.ip"><b>IP:</b> {{item.details.ip}}</div>
+            <div ng-show="item.details.exceptions" class="exceptions">
+                <a href="javascript:void(0)" ng-click="item.details.collapsed=!item.details.collapsed">Exceptions</a>
+                <ol ng-hide="item.details.collapsed">
+                    <li class="exception" ng-repeat="exception in item.details.exceptions">
+                        <div>{{exception.className}}</div>
+                        <div><span>{{exception.message}}</span></div>
+                        <div class="stack-trace"><b>StackTrace:</b> <span>{{exception.stackTrace}}</span></div>
+                    </li>
+                </ol>
+            </div>
+        </div>
     </div>
 </div>

@@ -35,14 +35,48 @@ module MirGames.Tools {
 
             this.apiService.getAll('GetEventLogQuery', query, 0, 50, (result: MirGames.Domain.Tools.ViewModels.EventLogViewModel[]) => {
                 this.$scope.$apply(() => {
-                    this.$scope.items = result;
+                    this.$scope.items = Enumerable.from(result).select(item => {
+                        var details: {
+                            IP: string;
+                            Url: string;
+                            Exception: ExceptionViewModel;
+                        } = JSON.parse(item.Details);
+
+                        var exceptions: IException[] = [];
+                        var exception = details.Exception;
+
+                        while (exception != null) {
+                            exceptions.push({
+                                className: exception.ClassName,
+                                message: exception.Message,
+                                stackTrace: exception.StackTraceString,
+                            });
+
+                            exception = exception.InnerException;
+                        }
+
+                        return <IEventLogItemScope>{
+                            id: item.Id,
+                            date: item.Date,
+                            details: {
+                                ip: details.IP,
+                                url: details.Url,
+                                exceptions: exceptions,
+                                collapsed: true
+                            },
+                            eventLogType: item.EventLogType,
+                            login: item.Login,
+                            message: item.Message,
+                            source: item.Source
+                        };
+                    }).toArray();
                 });
             });
         }
     }
 
     export interface IEventLogPageScope extends IPageScope {
-        items: MirGames.Domain.Tools.ViewModels.EventLogViewModel[];
+        items: IEventLogItemScope[];
         logType: MirGames.Infrastructure.Logging.EventLogType;
         username: string;
         source: string;
@@ -53,8 +87,36 @@ module MirGames.Tools {
         filter(): void;
     }
 
+    export interface IEventLogItemScope {
+        id: number;
+        eventLogType: MirGames.Infrastructure.Logging.EventLogType;
+        login: string;
+        message: string;
+        source: string;
+        details: {
+            exceptions: IException[];
+            url: string;
+            ip: string;
+            collapsed: boolean;
+        };
+        date: Date;
+    }
+
+    export interface IException {
+        className: string;
+        message: string;
+        stackTrace: string;
+    }
+
     export interface LogTypeScope {
         key: string;
         value: number;
+    }
+
+    interface ExceptionViewModel {
+        ClassName: string;
+        StackTraceString: string;
+        Message: string;
+        InnerException: ExceptionViewModel;
     }
 }
