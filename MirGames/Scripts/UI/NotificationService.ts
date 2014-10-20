@@ -3,7 +3,7 @@ module UI {
     export interface INotificationService {
         setBubble(count: number, playSound?: boolean): void;
         reset(): void;
-        notifyEvent(playSound?: boolean): void;
+        notifyEvent(playSound?: boolean, showMenu?: boolean): void;
     }
 
     class NotificationService implements INotificationService {
@@ -33,7 +33,7 @@ module UI {
 
         public setBubble(count: number, playSound: boolean = true): void {
             if (playSound && (this.lastPlayDate === null || new Date().getTime() - this.lastPlayDate.getTime() > 5000)) {
-                $.ionSound.play('notify');
+                this.notifyEvent(true, false);
                 this.lastPlayDate = new Date();
             }
 
@@ -46,12 +46,14 @@ module UI {
             Tinycon.setBubble('');
         }
 
-        public notifyEvent(playSound: boolean = true) {
+        public notifyEvent(playSound: boolean = true, showMenu: boolean = false) {
             if (playSound) {
                 $.ionSound.play('notify');
             }
 
-            headroom.pin();
+            if (showMenu) {
+                headroom.pin();
+            }
         }
 
         private setTitle(count: number) {

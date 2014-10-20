@@ -11,7 +11,7 @@ module MirGames.Forum {
                 if (data.NotificationType == 'Forum.NewAnswer' || data.NotificationType == 'Forum.NewTopic') {
                     $scope.$apply(() => {
                         $scope.unreadCount++;
-                        this.notificationService.notifyEvent(true);
+                        this.notificationService.notifyEvent(true, true);
                     });
                 }
             });
@@ -20,7 +20,7 @@ module MirGames.Forum {
                 if (data.NotificationType == 'Forum.NewAnswer' || data.NotificationType == 'Forum.NewTopic') {
                     $scope.$apply(() => {
                         $scope.unreadCount--;
-                        this.notificationService.notifyEvent(false);
+                        this.notificationService.notifyEvent(false, false);
                     });
                 }
             });
