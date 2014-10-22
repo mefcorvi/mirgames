@@ -40,7 +40,9 @@ module MirGames.Tools {
                             IP: string;
                             Url: string;
                             Exception: ExceptionViewModel;
-                        } = JSON.parse(item.Details);
+                            Referrer: string;
+                            Browser: string;
+                        } = JSON.parse(item.Details) || {};
 
                         var exceptions: IException[] = [];
                         var exception = details.Exception;
@@ -62,7 +64,9 @@ module MirGames.Tools {
                                 ip: details.IP,
                                 url: details.Url,
                                 exceptions: exceptions,
-                                collapsed: true
+                                collapsed: true,
+                                browser: details.Browser,
+                                referrer: details.Referrer
                             },
                             eventLogType: item.EventLogType,
                             login: item.Login,
@@ -98,6 +102,8 @@ module MirGames.Tools {
             url: string;
             ip: string;
             collapsed: boolean;
+            browser: string;
+            referrer: string;
         };
         date: Date;
     }

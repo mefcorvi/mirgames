@@ -131,16 +131,20 @@ namespace MirGames
         protected void Application_Error()
         {
             Exception exception = Server.GetLastError();
-            var httpException = exception as HttpException;
+            var httpRequest = HttpContext.Current.Request;
 
-            if (httpException != null && httpException.InnerException is ItemNotFoundException)
+            if (IsNotFoundException(exception))
             {
-                httpException = new HttpException(404, httpException.Message, httpException.InnerException);
+                exception = new HttpException(404, string.Format("Page {0} not found", httpRequest.Url), exception);
             }
 
+            var httpException = exception as HttpException;
             var eventLog = DependencyResolver.Current.GetService<IEventLog>();
 
-            if (httpException != null && httpException.GetHttpCode() == 500)
+            bool is404 = httpException != null && httpException.GetHttpCode() == 404;
+            bool is500 = httpException != null && httpException.GetHttpCode() == 500;
+
+            if (is500)
             {
                 eventLog
                     .Log(
@@ -150,22 +154,26 @@ namespace MirGames
                         new
                         {
                             Exception = httpException.InnerException,
-                            Url = HttpContext.Current.Request.Url.ToString(),
-                            IP = HttpContext.Current.Request.UserHostAddress
+                            Url = httpRequest.Url.ToString(),
+                            IP = httpRequest.UserHostAddress,
+                            Referrer = httpRequest.UrlReferrer != null ? httpRequest.UrlReferrer.ToString() : string.Empty,
+                            Browser = httpRequest.Browser.Browser
                         });
             }
             else
             {
                 eventLog
                     .Log(
-                        EventLogType.Error,
+                        is404 ? EventLogType.Warning : EventLogType.Error,
                         "Web",
                         exception.Message,
                         new
                         {
                             Exception = exception,
-                            Url = HttpContext.Current.Request.Url.ToString(),
-                            IP = HttpContext.Current.Request.UserHostAddress
+                            Url = httpRequest.Url.ToString(),
+                            IP = httpRequest.UserHostAddress,
+                            Referrer = httpRequest.UrlReferrer != null ? httpRequest.UrlReferrer.ToString() : string.Empty,
+                            Browser = httpRequest.Browser.Browser
                         });
             }
 
@@ -173,6 +181,26 @@ namespace MirGames
             {
                 this.ShowCustomErrorPage(exception);
             }
+        }
+
+        /// <summary>
+        /// Determines whether the specified exception is not found exception.
+        /// </summary>
+        /// <param name="exception">The exception.</param>
+        /// <returns>True whether the specified exception is not found exception.</returns>
+        private static bool IsNotFoundException(Exception exception)
+        {
+            while (exception != null)
+            {
+                if (exception is ItemNotFoundException)
+                {
+                    return true;
+                }
+
+                exception = exception.InnerException;
+            }
+
+            return false;
         }
 
         /// <summary>

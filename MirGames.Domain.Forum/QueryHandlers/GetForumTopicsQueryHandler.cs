@@ -12,6 +12,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Exceptions;
     using MirGames.Domain.Forum.Entities;
     using MirGames.Domain.Forum.Notifications;
     using MirGames.Domain.Forum.Queries;
@@ -194,7 +195,13 @@ namespace MirGames.Domain.Forum.QueryHandlers
 
             if (!string.IsNullOrEmpty(query.ForumAlias))
             {
-                var forum = this.queryProcessor.Process(new GetForumsQuery()).Single(f => f.Alias.EqualsIgnoreCase(query.ForumAlias));
+                var forum = this.queryProcessor.Process(new GetForumsQuery()).FirstOrDefault(f => f.Alias.EqualsIgnoreCase(query.ForumAlias));
+
+                if (forum == null)
+                {
+                    throw new ItemNotFoundException("Forum", query.ForumAlias);
+                }
+
                 topics = topics.Where(t => t.ForumId == forum.ForumId);
             }
 

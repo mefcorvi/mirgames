@@ -59,6 +59,8 @@
         <div class="event-log-details">
             <div ng-show="item.details.url"><b>Url:</b> {{item.details.url}}</div>
             <div ng-show="item.details.ip"><b>IP:</b> {{item.details.ip}}</div>
+            <div ng-show="item.details.referrer"><b>Referrer:</b> {{item.details.referrer}}</div>
+            <div ng-show="item.details.browser"><b>Browser:</b> {{item.details.browser}}</div>
             <div ng-show="item.details.exceptions" class="exceptions">
                 <a href="javascript:void(0)" ng-click="item.details.collapsed=!item.details.collapsed">Exceptions</a>
                 <ol ng-hide="item.details.collapsed">
