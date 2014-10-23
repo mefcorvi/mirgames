@@ -23,5 +23,17 @@ namespace MirGames.Domain.Exceptions
         public ItemNotFoundException(string type, object itemId) : base("Item " + type + "#" + itemId + " have not been found")
         {
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ItemNotFoundException" /> class.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="itemId">The topic id.</param>
+        /// <param name="innerException">The inner exception.</param>
+        public ItemNotFoundException(string type, object itemId, Exception innerException)
+            : base("Item " + type + "#" + itemId + " have not been found", innerException)
+        {
+        }
+
     }
 }

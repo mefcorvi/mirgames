@@ -19,7 +19,9 @@ namespace MirGames.Domain.Wip.QueryHandlers
     using MirGames.Domain.Wip.Queries;
     using MirGames.Domain.Wip.ViewModels;
     using MirGames.Infrastructure;
+    using MirGames.Infrastructure.Exception;
     using MirGames.Infrastructure.Queries;
+    using MirGames.Services.Git.Public.Exceptions;
     using MirGames.Services.Git.Public.Queries;
     using MirGames.Services.Git.Public.ViewModels;
 
@@ -58,21 +60,33 @@ namespace MirGames.Domain.Wip.QueryHandlers
             switch (project.RepositoryType)
             {
                 case "git":
-                    return this.queryProcessor
-                               .Process(new GetRepositoryFilesQuery
-                               {
-                                   RepositoryId = project.RepositoryId.GetValueOrDefault(),
-                                   RelativePath = query.RelativePath
-                               })
-                               .Select(h => new WipProjectRepositoryItemViewModel
-                               {
-                                   Name = h.Name,
-                                   Path = h.Path,
-                                   ItemType = GetGitItemType(h.ItemType),
-                                   CommitId = h.CommitId,
-                                   Message = h.Message,
-                                   UpdatedDate = h.UpdatedDate
-                               });
+                    try
+                    {
+                        return this.queryProcessor
+                                   .Process(new GetRepositoryFilesQuery
+                                   {
+                                       RepositoryId = project.RepositoryId.GetValueOrDefault(),
+                                       RelativePath = query.RelativePath
+                                   })
+                                   .Select(h => new WipProjectRepositoryItemViewModel
+                                   {
+                                       Name = h.Name,
+                                       Path = h.Path,
+                                       ItemType = GetGitItemType(h.ItemType),
+                                       CommitId = h.CommitId,
+                                       Message = h.Message,
+                                       UpdatedDate = h.UpdatedDate
+                                   });
+                    }
+                    catch (QueryProcessingFailedException e)
+                    {
+                        if (e.InnerException is RepositoryPathNotFoundException)
+                        {
+                            throw new ItemNotFoundException("Path", query.RelativePath, e);
+                        }
+
+                        throw;
+                    }
                 default:
                     throw new IndexOutOfRangeException(string.Format("{0} is not supported type of repositories.", project.RepositoryType));
             }
