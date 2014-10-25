@@ -126,7 +126,7 @@ namespace MirGames.Infrastructure.CommandHandlerDecorators
                 this.eventLog.Log(
                     EventLogType.Verbose,
                     "CommandBus.Execute",
-                    string.Format("Execution of command \"{0}\" completed in \"{1}\" ms", commandType.Name, elapsedMilliseconds),
+                    string.Format("Execution of command \"{0}\" has completed in \"{1}\" ms", commandType.Name, elapsedMilliseconds),
                     command);
             }
         }

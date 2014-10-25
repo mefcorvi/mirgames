@@ -2,10 +2,15 @@
 moment.lang("ru");
 
 declare var Headroom: any;
+declare var pageData: MirGames.IPageData;
 
 var myElement = document.querySelector("body > header");
 var headroom = new Headroom(myElement);
-headroom.init(); 
+
+if (window.innerHeight <= 480 || (pageData.currentUser != null && pageData.currentUser.Settings.HeaderType == 'AutoHide')) {
+    headroom.init();
+}
+
 
 angular.module('mirgames', [
     'core.application',

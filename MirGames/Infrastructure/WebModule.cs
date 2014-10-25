@@ -29,9 +29,11 @@ namespace MirGames
     using MirGames.Domain.Topics;
     using MirGames.Domain.UserBlogs;
     using MirGames.Domain.Users;
+    using MirGames.Domain.Users.Services;
     using MirGames.Domain.Wip;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Events;
+    using MirGames.Infrastructure.UserSettings;
     using MirGames.OAuth;
     using MirGames.Services.Git;
 
@@ -75,6 +77,8 @@ namespace MirGames
             builder.RegisterModule<WipDomainModule>();
             builder.RegisterModule<GitModule>();
             builder.RegisterModule<UserBlogsDomainModule>();
+
+            builder.RegisterType<HeaderTypeSetting>().As<IUserSettingHandler>().SingleInstance();
 
             builder
                 .RegisterAssemblyTypes(Assembly.GetExecutingAssembly())

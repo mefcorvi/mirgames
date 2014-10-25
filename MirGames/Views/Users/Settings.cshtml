@@ -73,8 +73,16 @@
     <form class="account-settings-form">
         <div class="form-field">
             <label>Тема</label>
-            <input type="checkbox" ng-model="useDarkTheme" id="theme" />
+            <input type="checkbox" ng-model="useDarkTheme" id="theme" ng-click="updateTheme()" />
             <label for="theme">Использовать темную тему.</label>
+        </div>
+        <div class="form-field">
+            <label>Поведение меню</label>
+            <select ng-model="headerType">
+                <option value="Static">Закреплено в верху страницы</option>
+                <option value="Fixed">Всегда на экране</option>
+                <option value="AutoHide">Скрывается автоматически</option>
+            </select>
         </div>
         <div class="form-field">
             <label>Быстрые клавиши</label>

@@ -211,7 +211,7 @@ namespace MirGames.Areas.Forum.Controllers
             var pagination = new PaginationSettings(pageIdx, 20);
             var posts = this.QueryProcessor.Process(postsQuery, pagination);
 
-            if (this.User.IsInRole("User"))
+            if (this.User.IsInRole("User") && !topic.IsRead)
             {
                 this.CommandProcessor.Execute(new MarkTopicAsVisitedCommand { TopicId = topic.TopicId });
             }

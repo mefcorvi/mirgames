@@ -21,17 +21,8 @@ namespace MirGames.Infrastructure.Exception
         /// Initializes a new instance of the <see cref="CommandProcessorException" /> class.
         /// </summary>
         /// <param name="command">The command.</param>
-        public CommandProcessorException(Command command)
-            : this(command, "Execution of command have been failed")
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CommandProcessorException" /> class.
-        /// </summary>
-        /// <param name="command">The command.</param>
         /// <param name="message">The message.</param>
-        public CommandProcessorException(Command command, string message)
+        public CommandProcessorException(Command command, string message = @"Execution of command has failed")
             : base(message)
         {
             this.Command = command;
@@ -43,7 +34,7 @@ namespace MirGames.Infrastructure.Exception
         /// <param name="command">The command.</param>
         /// <param name="innerException">The inner exception.</param>
         public CommandProcessorException(Command command, Exception innerException)
-            : base("Execution of command have been failed", innerException)
+            : base("Execution of command has failed", innerException)
         {
             this.Command = command;
         }

@@ -1,5 +1,7 @@
 ﻿@using System.Diagnostics
 @using MirGames.Domain.Users.ViewModels
+@using MirGames.Infrastructure
+@using MirGames.Infrastructure.UserSettings
 @{
     Debug.Assert(Request.Url != null, "Request.Url != null");
     IEnumerable<OnlineUserViewModel> onlineUsers = ViewBag.OnlineUsers;
@@ -46,7 +48,7 @@
             </div>
         </div>
         @Html.AntiForgeryToken()
-        <header class="header-font">
+        <header @Html.Css("header-font").Add("fixed", this.UserEntity.GetSetting("HeaderType", "Fixed") != "Static")>
             <div class="wrap">
                 <h1>@Html.ActionLink("MirGames", "Index", "Dashboard", new { Area = "" }, new { title = "На главную" })</h1>
                 <nav ng-mouseleave="menuCollapsed = true" ng-class="{ 'uncollapsed': menuCollapsed === false }">

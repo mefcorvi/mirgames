@@ -26,6 +26,7 @@ module MirGames.Account {
             this.$scope.useEnterToSendChatMessage = settings.UseEnterToSendChatMessage;
             this.$scope.forumContiniousPagination = settings.ForumContiniousPagination;
             this.$scope.useDarkTheme = settings.Theme == 'dark';
+            this.$scope.headerType = settings.HeaderType || 'Fixed';
 
             this.$scope.save = this.save.bind(this);
             this.$scope.saveProfile = () => this.saveProfile();
@@ -39,6 +40,8 @@ module MirGames.Account {
 
                 return d.getFullYear() > 1900 && d.getFullYear() <= (currentYear - 10);
             }
+
+            this.$scope.updateTheme = () => setTimeout(() => this.updateTheme(), 0);
         }
 
         private linkProvider(provider: MirGames.Domain.Users.ViewModels.OAuthProviderViewModel) {
@@ -68,13 +71,25 @@ module MirGames.Account {
                     UseEnterToSendChatMessage: this.$scope.useEnterToSendChatMessage,
                     UseWebSocket: this.$scope.useWebSocket,
                     ForumContiniousPagination: this.$scope.forumContiniousPagination,
-                    Theme: this.$scope.useDarkTheme ? 'dark' : 'light'
+                    Theme: this.getTheme(),
+                    HeaderType: this.$scope.headerType
                 }
             };
 
             this.apiService.executeCommand("SaveAccountSettingsCommand", command, () => {
                 this.eventBus.emit('user.notification', 'Настройки сохранены');
             });
+        }
+
+        private getTheme(): string {
+            return this.$scope.useDarkTheme ? 'dark' : 'light';
+        }
+
+        private updateTheme(): void {
+            var theme = this.getTheme();
+            var cssHref = $('link[rel=stylesheet]').attr('href');
+            cssHref = cssHref.replace('dark', theme).replace('light', theme);
+            $('link[rel=stylesheet]').attr('href', cssHref);
         }
 
         /** Saves the user profile. */
@@ -133,6 +148,7 @@ module MirGames.Account {
         useDarkTheme: boolean;
         attachmentId?: number;
         avatarUrl: string;
+        headerType: string;
         useEnterToSendChatMessage: boolean;
         forumContiniousPagination: boolean;
         useWebSocket: boolean;
@@ -143,6 +159,7 @@ module MirGames.Account {
         linkAuthProvider: (provider: MirGames.Domain.Users.ViewModels.OAuthProviderViewModel) => void;
         unlinkAuthProvider: (provider: MirGames.Domain.Users.ViewModels.OAuthProviderViewModel) => void;
         birthdayDate: (d: Date) => boolean;
+        updateTheme: () => void;
     }
 
     export interface IUserProfileScope {

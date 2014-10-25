@@ -305,7 +305,10 @@
     <Compile Include="GitController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\RecaptchaExtensions.cs" />
+    <Compile Include="Infrastructure\HttpRequestMessageExtensions.cs" />
+    <Compile Include="Infrastructure\UserEntityExtensions.cs" />
+    <Compile Include="Infrastructure\UserSettings\HeaderType.cs" />
+    <Compile Include="Infrastructure\UserSettings\HeaderTypeSetting.cs" />
     <Compile Include="OAuthController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>

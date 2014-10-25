@@ -8,14 +8,17 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics.Contracts;
     using System.Linq;
+    using System.Net.Http;
     using System.Threading;
     using System.Web.Http;
 
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Commands;
+    using MirGames.Infrastructure.Logging;
     using MirGames.Infrastructure.Queries;
     using MirGames.Infrastructure.Security;
 
@@ -42,16 +45,27 @@ namespace MirGames.Controllers
         private readonly IAuthenticationProvider authenticationProvider;
 
         /// <summary>
+        /// The event log.
+        /// </summary>
+        private readonly IEventLog eventLog;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="WebApiController" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="commandProcessor">The command processor.</param>
         /// <param name="authenticationProvider">The authentication provider.</param>
-        public WebApiController(IQueryProcessor queryProcessor, ICommandProcessor commandProcessor, IAuthenticationProvider authenticationProvider)
+        /// <param name="eventLog">The event log.</param>
+        public WebApiController(
+            IQueryProcessor queryProcessor,
+            ICommandProcessor commandProcessor,
+            IAuthenticationProvider authenticationProvider,
+            IEventLog eventLog)
         {
             this.queryProcessor = queryProcessor;
             this.commandProcessor = commandProcessor;
             this.authenticationProvider = authenticationProvider;
+            this.eventLog = eventLog;
         }
 
         /// <inheritdoc />
@@ -82,12 +96,34 @@ namespace MirGames.Controllers
         {
             Contract.Requires(!string.IsNullOrWhiteSpace(model.Command), "Command should be specified in JSON format.");
 
-            this.Authenticate(model.SessionId);
+            try
+            {
+                this.Authenticate(model.SessionId);
 
-            var commandInstance = JsonConvert.DeserializeObject<Command>(model.Command);
-            var result = this.commandProcessor.ExecuteWithResult(commandInstance);
+                var commandInstance = JsonConvert.DeserializeObject<Command>(model.Command);
+                var result = this.commandProcessor.ExecuteWithResult(commandInstance);
 
-            return result;
+                return result;
+            }
+            catch (Exception e)
+            {
+                var httpRequest = this.Request;
+
+                this.eventLog
+                    .Log(
+                        EventLogType.Error,
+                        "API",
+                        e.Message,
+                        new
+                        {
+                            Exception = e,
+                            Command = model.Command,
+                            Url = httpRequest.RequestUri.ToString(),
+                            IP = httpRequest.GetClientIpAddress(),
+                        });
+
+                throw;
+            }
         }
 
         /// <summary>
