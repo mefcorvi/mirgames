@@ -91,6 +91,7 @@
             </nav>
         </footer>
         @Html.Partial("_OnlineUsers", onlineUsers)
+        <div class="up-nav"><span><i class="fa fa-arrow-circle-up" ng-click="document.body.scrollTop = 0"></i></span></div>
         <input type="hidden" id="page-data" value="@Html.ToJson((object)this.ViewBag.PageData).ToString()"/>
         <script type="text/javascript">
             window.config = {

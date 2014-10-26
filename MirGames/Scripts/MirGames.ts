@@ -155,11 +155,27 @@ $(() => {
     var repositionOnlineUsers = () => {
         var bodyPosition = $(document.body).offset();
         var bodyWidth = $(document.body).outerWidth();
+        var windowHeight = window.innerHeight;
 
         $('.online-users').css({
             'display': 'block',
             'top': 0,
             'left': bodyPosition.left + bodyWidth
+        });
+
+        $('.up-nav').css({
+            'left': bodyPosition.left - 40,
+            'opacity': Math.min(document.body.scrollTop / windowHeight / 5, 1),
+            'cursor': document.body.scrollTop > 0 ? 'pointer' : 'default'
+        }).click(() => {
+            document.body.scrollTop = 0;
+        });
+
+        $(window).scroll(() => {
+            $('.up-nav').css({
+                'opacity': Math.min(document.body.scrollTop / windowHeight / 5, 1),
+                'cursor': document.body.scrollTop > 0 ? 'pointer' : 'default'
+            });
         });
     };
 
