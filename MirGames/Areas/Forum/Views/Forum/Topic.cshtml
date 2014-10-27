@@ -86,20 +86,20 @@
             </div>
             <div class="author-title" ng-bind="post.Author.Title">
             </div>
-            <div class="message-bar">
-                <a class="edit-post" ng-show="{{post.CanBeEdited}}" href="javascript:void(0);" dialog="@Url.Action(MVC.Forum.Forum.EditPostDialog())"
-                   title="Редактировать"
-                   dialog-close="$parent.reloadPost(post.PostId, post.IsFirstPost)"
-                   resolve="{ 'post-id': {{post.PostId}} }" dialog-controller="MirGames.Forum.EditPostDialogController"><i class="fa fa-pencil-square-o"></i></a>
-                <a ng-show="post.CanBeDeleted" class="delete-post" href="javascript:void(0);" title="Удалить" dialog="@Url.Action(MVC.Forum.Forum.DeletePostDialog())"
-                   dialog-close="$parent.hidePost(post.PostId)" resolve="{ 'post-id': {{post.PostId}} }"
-                   dialog-controller="MirGames.Forum.DeletePostDialogController"><i class="fa fa-times"></i></a>
-            </div>
         </div>
         <div class="post-block">
             <div class="post-header">
                 <div class="created-date">
                     <i class="fa fa-clock-o"></i> <span class="topic-created-date relative" datetime="{{post.CreatedDate | date:'yyyy-MM-ddTHH:mm:ssZ'}}">{{post.CreatedDate | date:'dd.MM.yy HH:mm'}}</span>
+                </div>
+                <div class="message-bar">
+                    <a class="edit-post" ng-show="{{post.CanBeEdited}}" href="javascript:void(0);" dialog="@Url.Action(MVC.Forum.Forum.EditPostDialog())"
+                       title="Редактировать"
+                       dialog-close="$parent.reloadPost(post.PostId, post.IsFirstPost)"
+                       resolve="{ 'post-id': {{post.PostId}} }" dialog-controller="MirGames.Forum.EditPostDialogController"><i class="fa fa-pencil-square-o"></i></a>
+                    <a ng-show="post.CanBeDeleted" class="delete-post" href="javascript:void(0);" title="Удалить" dialog="@Url.Action(MVC.Forum.Forum.DeletePostDialog())"
+                       dialog-close="$parent.hidePost(post.PostId)" resolve="{ 'post-id': {{post.PostId}} }"
+                       dialog-controller="MirGames.Forum.DeletePostDialogController"><i class="fa fa-times"></i></a>
                 </div>
                 <div class="votes-block" ng-controller="MirGames.Forum.PostRatingController" ng-class="{ 'voted-down': votedDown, 'voted-up': votedUp }" data-post-id="{{post.PostId}}">
                     <i class="fa fa-thumbs-down vote-down" ng-click="voteDown()"></i>

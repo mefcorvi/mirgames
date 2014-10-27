@@ -58,19 +58,7 @@ namespace MirGames.Domain.Users.QueryHandlers
         /// <inheritdoc />
         protected override IEnumerable<UserListItemViewModel> Execute(IReadContext readContext, GetUsersQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
-            var users = this.GetUsersQuery(readContext, query).Select(
-                u => new
-                {
-                    u.AvatarUrl,
-                    u.Id,
-                    u.Login,
-                    u.Location,
-                    u.Name,
-                    u.RegistrationDate,
-                    u.UserRating,
-                    u.LastVisitDate,
-                    u.Mail
-                });
+            var users = this.GetUsersQuery(readContext, query);
 
             var onlineUserIdentifiers = new HashSet<int>(this.onlineUsersManager.GetOnlineUsers().Select(user => user.Id.GetValueOrDefault()));
 
