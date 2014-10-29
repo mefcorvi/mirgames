@@ -68,6 +68,16 @@ namespace MirGames.Infrastructure.Queries
         }
 
         /// <inheritdoc />
+        public IEnumerable<T> ProcessAsync<T>(Query<T> query, PaginationSettings pagination = null)
+        {
+            Contract.Requires(query != null);
+
+            return this.CallQueryHandler(
+                query,
+                (handler, principal, readContext) => handler.Execute(readContext, query, principal, pagination).Cast<T>().EnsureCollection());
+        }
+
+        /// <inheritdoc />
         public IEnumerable<T> Process<T>(Query<T> query, PaginationSettings pagination = null)
         {
             Contract.Requires(query != null);

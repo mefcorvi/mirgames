@@ -119,7 +119,7 @@ gulp.task('compile-ts', function () {
 
     return gulp.src(filePath.scripts, { base: '../' })
         .pipe(tsFilter)
-        .pipe(typescript({ sourcemap: true, noImplicitAny: true, outDir: '../public/js', target: 'ES5' }))
+        .pipe(typescript({ sourcemap: true, noImplicitAny: true, outDir: '../public/js', target: 'ES3' }))
         .pipe(tsFilter.restore())
         .pipe(jsFilter)
         .pipe(sourcemaps.init({ loadMaps: true }))

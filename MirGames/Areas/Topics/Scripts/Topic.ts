@@ -32,10 +32,10 @@ module MirGames.Topics {
             this.loadTopicTitles();
         }
 
-        get commentsCount(): number {
+        getCommentsCount(): number {
             return parseInt($('body > nav > h1 .comments-count').text());
         }
-        set commentsCount(value: number) {
+        setCommentsCount(value: number) {
             $('body > nav > h1 .comments-count').text(value.toString());
         }
 
@@ -195,7 +195,7 @@ module MirGames.Topics {
         }
 
         private commentAdded(comment: MirGames.Domain.Topics.ViewModels.CommentViewModel) {
-            this.commentsCount++;
+            this.setCommentsCount(this.getCommentsCount() + 1);
             this.$scope.comments.push(comment);
             this.$scope.$apply();
             $('.comments-list').show();
