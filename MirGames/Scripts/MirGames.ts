@@ -3,6 +3,7 @@ moment.lang("ru");
 
 declare var Headroom: any;
 declare var pageData: MirGames.IPageData;
+declare var hljs: any;
 
 var myElement = document.querySelector("body > header");
 var headroom = new Headroom(myElement);
@@ -11,6 +12,7 @@ if (window.innerHeight <= 480 || (pageData.currentUser != null && pageData.curre
     headroom.init();
 }
 
+hljs.initHighlightingOnLoad();
 
 angular.module('mirgames', [
     'core.application',

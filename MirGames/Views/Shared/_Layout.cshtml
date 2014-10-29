@@ -100,9 +100,6 @@
             };
             window.pageData = JSON.parse(document.getElementById('page-data').value);
         </script>
-        <script src="@Url.Script("scripts.js")"></script>
-        <script type="text/javascript">
-            hljs.initHighlightingOnLoad();
-        </script>
+        <script src="@Url.Script("scripts.js")" async="true"></script>
     </body>
 </html>
