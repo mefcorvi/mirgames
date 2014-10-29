@@ -9,6 +9,7 @@
 namespace MirGames.Infrastructure
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Core.Objects;
@@ -33,7 +34,7 @@ namespace MirGames.Infrastructure
         /// <summary>
         /// The properties.
         /// </summary>
-        private static readonly IDictionary<Type, PropertyInfo[]> Properties = new Dictionary<Type, PropertyInfo[]>();
+        private static readonly ConcurrentDictionary<Type, PropertyInfo[]> Properties = new ConcurrentDictionary<Type, PropertyInfo[]>();
 
         /// <summary>
         /// The entity mappers.
@@ -91,16 +92,16 @@ namespace MirGames.Infrastructure
         private static void ReadAllDateTimeValuesAsUtc(object sender, ObjectMaterializedEventArgs e)
         {
             var entityType = e.Entity.GetType();
-            if (!Properties.ContainsKey(entityType))
-            {
-                var entityProperties = entityType.GetProperties()
-                    .Where(property => property.PropertyType == typeof(DateTime) || property.PropertyType == typeof(DateTime?))
-                    .ToArray();
+            var properties = Properties.GetOrAdd(
+                entityType,
+                type => type.GetProperties()
+                            .Where(
+                                property =>
+                                property.PropertyType == typeof(DateTime)
+                                || property.PropertyType == typeof(DateTime?))
+                            .ToArray());
 
-                Properties.Add(entityType, entityProperties);
-            }
-
-            Properties[entityType].ForEach(property => SpecifyUtcKind(property, e.Entity));
+            properties.ForEach(property => SpecifyUtcKind(property, e.Entity));
         }
 
         /// <summary>
