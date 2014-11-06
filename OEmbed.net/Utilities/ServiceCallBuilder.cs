@@ -50,6 +50,9 @@ namespace OEmbed.Net.Utilities
             builder.Append(Url);
             builder.Append("&format=");
             builder.Append(Type);
+            builder.Append("&autoplay=1");
+            builder.Append("&maxwidth=480");
+            builder.Append("&maxheight=320");
 
             return builder.ToString();
         }

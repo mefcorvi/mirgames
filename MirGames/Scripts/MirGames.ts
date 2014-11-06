@@ -100,6 +100,16 @@ angular
             }
         }
     })
+    .directive('embed', () => {
+        return {
+            restrict: 'A',
+            link: (scope: any, element: JQuery, attrs: any) => {
+                element.one('click', () => {
+                    element.html(attrs.embed);
+                });
+            }
+        }
+    })
     .directive("selectize", ($timeout: ng.ITimeoutService) => {
         return {
             restrict: "AE",

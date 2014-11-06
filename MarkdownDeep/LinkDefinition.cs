@@ -17,6 +17,8 @@ using System.Text;
 
 namespace Xilium.MarkdownDeep
 {
+    using System.Web;
+
     using OEmbed.Net.Domain;
 
     public class LinkDefinition
@@ -115,7 +117,13 @@ namespace Xilium.MarkdownDeep
 
             if (video != null)
             {
-                b.Append(video.Html.Replace("http://", "https://"));
+                b.AppendFormat(
+                    "<div class=\"video-embed\" embed=\"{3}\"><div class=\"video-thumb\" style=\"background: url('{0}') no-repeat center center; width: {1}px; height: {2}px\"><span class=\"video-title\">{4}</span><i class=\"fa fa-play-circle-o\"></i></div></div>",
+                    video.ThumbnailUrl.Replace("http://", "https://"),
+                    video.Width,
+                    video.Height,
+                    HttpUtility.HtmlEncode(video.Html.Replace("http://", "https://").Replace("feature=oembed", "feature=oembed&autoplay=1")),
+                    video.Title);
                 return;
             }
 

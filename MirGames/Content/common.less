@@ -749,3 +749,48 @@ body > .online-users {
         color: @link-color-hover;
     }
 }
+
+.video-embed {
+    display: inline-block;
+    max-width: 100%;
+
+    iframe {
+        max-width: 100%;
+    }
+
+    & > .video-thumb {
+        position: relative;
+        max-width: 100%;
+
+        & > .video-title {
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            .header-font();
+            .font-size(1.5);
+            padding: @indent/2;
+            display: block;
+        }
+
+        & > i {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            bottom: 0;
+            right: 0;
+            font-size: 100px;
+            margin-top: -50px;
+            color: @font-color;
+            text-shadow: 0px 0px @indent/2 @background-color;
+            text-align: center;
+        }
+
+        &:hover {
+            cursor: pointer;
+
+            i {
+                color: @link-color-hover;
+                text-shadow: 0px 0px @indent/2 @font-color;
+            }
+        }
+    }
+}
