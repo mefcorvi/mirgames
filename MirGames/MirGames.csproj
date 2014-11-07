@@ -179,7 +179,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="NewRelic.Api.Agent">
-      <HintPath>..\packages\NewRelic.Agent.Api.3.6.177.0\lib\NewRelic.Api.Agent.dll</HintPath>
+      <HintPath>..\packages\NewRelic.Agent.Api.3.9.146.0\lib\NewRelic.Api.Agent.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">

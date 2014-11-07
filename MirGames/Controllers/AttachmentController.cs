@@ -65,7 +65,7 @@ namespace MirGames.Controllers
 
             if (!attachment.IsImage || string.IsNullOrEmpty(size) || !this.sizesDictionary.ContainsKey(size))
             {
-                return this.File(attachment.FilePath, attachment.ContentType, attachment.FileName);
+                return this.File(attachment.FilePath, attachment.ContentType, attachment.IsImage ? null : attachment.FileName);
             }
 
             string targetPath = string.Format("{0}-{1}.thb", attachment.FilePath, size);

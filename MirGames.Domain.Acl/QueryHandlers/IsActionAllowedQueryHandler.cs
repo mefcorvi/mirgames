@@ -75,34 +75,28 @@ namespace MirGames.Domain.Acl.QueryHandlers
                 return isAllow;
             }
 
-            if (query.EntityId.HasValue)
-            {
-                var permissions =
-                    readContext.Query<Permission>()
-                               .Where(
-                                   p =>
-                                   (p.ExpirationDate >= DateTime.UtcNow || p.ExpirationDate == null) &&
-                                   (p.UserId == query.UserId || p.UserId == null)
-                                   && p.EntityTypeId == entityTypeId
-                                   && (p.EntityId >= query.EntityId - 50 && p.EntityId <= query.EntityId + 50));
-
-                permissions.ForEach(this.permissionsCacheManager.AddToCache);
-            }
-
-            if (this.permissionsCacheManager.TryGetFromCache(query.UserId, actionId, entityTypeId, query.EntityId, out isAllow))
-            {
-                return isAllow;
-            }
-
-            var commonPermissions =
+            var permissions =
                 readContext.Query<Permission>()
                            .Where(
                                p =>
-                               (p.ExpirationDate >= DateTime.UtcNow || p.ExpirationDate == null) &&
-                               (p.UserId == query.UserId || p.UserId == null) && (p.EntityTypeId == entityTypeId)
-                               && p.EntityId == null);
+                               (p.ExpirationDate >= DateTime.UtcNow || p.ExpirationDate == null)
+                               && (p.UserId == query.UserId || p.UserId == null)
+                               && p.EntityTypeId == entityTypeId);
 
-            commonPermissions.ForEach(this.permissionsCacheManager.AddToCache);
+
+            if (query.EntityId.HasValue)
+            {
+                permissions =
+                    permissions.Where(
+                        p =>
+                        (p.EntityId >= query.EntityId - 50 && p.EntityId <= query.EntityId + 50) || p.EntityId == null);
+            }
+            else
+            {
+                permissions = permissions.Where(p => p.EntityId == null);
+            }
+
+            permissions.ForEach(this.permissionsCacheManager.AddToCache);
 
             if (this.permissionsCacheManager.TryGetFromCache(query.UserId, actionId, entityTypeId, query.EntityId, out isAllow))
             {
@@ -112,11 +106,12 @@ namespace MirGames.Domain.Acl.QueryHandlers
             this.permissionsCacheManager.AddToCache(new Permission
             {
                 ActionId = actionId,
-                CreatedDate = DateTime.Now,
+                CreatedDate = DateTime.UtcNow,
                 EntityId = query.EntityId,
                 EntityTypeId = entityTypeId,
                 UserId = query.UserId,
-                IsDenied = true
+                IsDenied = true,
+                ExpirationDate = DateTime.UtcNow.AddDays(1)
             });
 
             return false;
