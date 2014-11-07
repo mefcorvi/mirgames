@@ -51,7 +51,7 @@ module UI {
                 $.ionSound.play('notify');
             }
 
-            if (showMenu) {
+            if (showMenu && headroom) {
                 headroom.pin();
             }
         }

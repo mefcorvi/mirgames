@@ -102,9 +102,9 @@
                        dialog-controller="MirGames.Forum.DeletePostDialogController"><i class="fa fa-times"></i></a>
                 </div>
                 <div class="votes-block" ng-controller="MirGames.Forum.PostRatingController" ng-class="{ 'voted-down': votedDown, 'voted-up': votedUp }" data-post-id="{{post.PostId}}">
-                    <i class="fa fa-thumbs-down vote-down" ng-click="voteDown()"></i>
+                    <i class="fa fa-thumbs-down vote-down" ng-click="voteDown()" ng-show="post.CanBeVoted"></i>
                     <span class="vote-rating" ng-class="{ 'positive': voteRating > 0, 'negative': voteRating < 0 }">{{post.VotesRating}}</span>
-                    <i class="fa fa-thumbs-up vote-up" ng-click="voteUp()"></i>
+                    <i class="fa fa-thumbs-up vote-up" ng-click="voteUp()" ng-show="post.CanBeVoted"></i>
                 </div>
             </div>
             <div class="text" ng-bind-html="post.Text | unsafe"></div>

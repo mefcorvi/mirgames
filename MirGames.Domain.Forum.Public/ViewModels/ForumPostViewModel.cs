@@ -81,5 +81,10 @@ namespace MirGames.Domain.Forum.ViewModels
         /// Gets or sets the current user vote.
         /// </summary>
         public int? UserVote { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance can vote.
+        /// </summary>
+        public bool CanBeVoted { get; set; }
     }
 }

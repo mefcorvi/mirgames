@@ -5,12 +5,15 @@ declare var Headroom: any;
 declare var pageData: MirGames.IPageData;
 declare var hljs: any;
 
-var myElement = document.querySelector("body > header");
-var headroom = new Headroom(myElement);
+var headroom: any = null;
 
-if (window.innerHeight <= 480 || (pageData.currentUser != null && pageData.currentUser.Settings.HeaderType == 'AutoHide')) {
-    headroom.init();
-}
+$(() => {
+    if (window.innerHeight <= 480 || (pageData.currentUser != null && pageData.currentUser.Settings.HeaderType == 'AutoHide')) {
+        var myElement = document.querySelector("body > header");
+        headroom = new Headroom(myElement);
+        headroom.init();
+    }
+});
 
 hljs.initHighlightingOnLoad();
 

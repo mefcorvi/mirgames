@@ -84,7 +84,8 @@ namespace MirGames.Domain.Forum.QueryHandlers
                     Index = idx + startIndex,
                     VotesRating = p.VotesRating,
                     CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "ForumPost", p.PostId) && !p.IsStartPost,
-                    CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "ForumPost", p.PostId)
+                    CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "ForumPost", p.PostId),
+                    CanBeVoted = principal.IsInRole("User") && principal.GetUserId() != p.AuthorId
                 })
                 .ToList();
 

@@ -82,7 +82,8 @@ namespace MirGames.Domain.Forum.QueryHandlers
                 IsRead = true,
                 FirstUnread = false,
                 CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "ForumPost", post.PostId),
-                CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "ForumPost", post.PostId)
+                CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "ForumPost", post.PostId),
+                CanBeVoted = principal.IsInRole("User") && principal.GetUserId() != post.AuthorId
             };
         }
     }

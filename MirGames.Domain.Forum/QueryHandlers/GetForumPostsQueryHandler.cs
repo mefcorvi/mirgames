@@ -71,7 +71,8 @@ namespace MirGames.Domain.Forum.QueryHandlers
                         UpdatedDate = p.UpdatedDate,
                         TopicTitle = t.Title,
                         ForumId = t.ForumId,
-                        VotesRating = p.VotesRating
+                        VotesRating = p.VotesRating,
+                        CanBeVoted = false
                     });
 
             var posts = postsQuery.ToList();
@@ -87,6 +88,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
                 posts.ForEach(post =>
                 {
                     post.UserVote = userVotes.ContainsKey(post.PostId) ? userVotes[post.PostId].Vote : (int?)null;
+                    post.CanBeVoted = post.Author.Id != userId;
                 });
             }
 

@@ -9,6 +9,7 @@
 
 namespace MirGames.Domain.Forum.CommandHandlers
 {
+    using System.ComponentModel.DataAnnotations;
     using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
@@ -54,6 +55,11 @@ namespace MirGames.Domain.Forum.CommandHandlers
                 if (forumPost == null)
                 {
                     throw new ItemNotFoundException("ForumPost", command.PostId);
+                }
+
+                if (forumPost.AuthorId == userId)
+                {
+                    throw new ValidationException("User could not vote for himself");
                 }
 
                 var forumPostVote = writeContext.Set<ForumPostVote>().FirstOrDefault(p => p.PostId == command.PostId && p.UserId == userId);

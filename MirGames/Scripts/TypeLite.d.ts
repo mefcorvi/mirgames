@@ -413,6 +413,7 @@ interface ForumPostViewModel {
   ForumAlias: string;
   VotesRating: number;
   UserVote: number;
+  CanBeVoted: boolean;
 }
 interface ForumPostsListItemViewModel {
   PostId: number;
@@ -431,6 +432,7 @@ interface ForumPostsListItemViewModel {
   IsFirstPost: boolean;
   CanBeEdited: boolean;
   CanBeDeleted: boolean;
+  CanBeVoted: boolean;
 }
 interface ForumTopicsListItemViewModel {
   TopicId: number;

@@ -374,7 +374,7 @@ module MirGames.Chat {
 
         /** Adjusts text area height */
         private adjustTextAreaHeight() {
-            var newHeight = $('body > .chat-answer .new-answer-form').height() + 10;
+            var newHeight = $('body > .chat-answer .new-answer-form').outerHeight() + 10;
 
             if (newHeight > 10) {
                 var oldScrollTop = this.getScrollTop();

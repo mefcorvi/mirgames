@@ -96,5 +96,10 @@ namespace MirGames.Domain.Forum.ViewModels
         /// Gets or sets a value indicating whether can be deleted.
         /// </summary>
         public bool CanBeDeleted { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance can be voted.
+        /// </summary>
+        public bool CanBeVoted { get; set; }
     }
 }
