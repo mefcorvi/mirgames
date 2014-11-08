@@ -49,33 +49,33 @@ namespace MirGames.Domain.Forum.QueryHandlers
         /// <inheritdoc />
         protected override IEnumerable<ForumPostViewModel> Execute(IReadContext readContext, GetForumPostsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
-            var postsWithPagination = this.ApplyPagination(this.GetForumPostsQuery(readContext, query).OrderByDescending(p => p.PostId), pagination);
+            var postsWithPagination = this.GetForumPostsQuery(readContext, query);
             var topics = readContext.Query<ForumTopic>();
             var postsQuery = postsWithPagination.Join(
                 topics,
                 p => p.TopicId,
                 t => t.TopicId,
                 (p, t) => new ForumPostViewModel
+                {
+                    Author = new AuthorViewModel
                     {
-                        Author = new AuthorViewModel
-                            {
-                                Id = p.AuthorId,
-                                Login = p.AuthorLogin
-                            },
-                        AuthorIP = p.AuthorIP,
-                        CreatedDate = p.CreatedDate,
-                        IsHidden = p.IsHidden,
-                        Text = p.Text,
-                        PostId = p.PostId,
-                        TopicId = p.TopicId,
-                        UpdatedDate = p.UpdatedDate,
-                        TopicTitle = t.Title,
-                        ForumId = t.ForumId,
-                        VotesRating = p.VotesRating,
-                        CanBeVoted = false
-                    });
+                        Id = p.AuthorId,
+                        Login = p.AuthorLogin
+                    },
+                    AuthorIP = p.AuthorIP,
+                    CreatedDate = p.CreatedDate,
+                    IsHidden = p.IsHidden,
+                    Text = p.Text,
+                    PostId = p.PostId,
+                    TopicId = p.TopicId,
+                    UpdatedDate = p.UpdatedDate,
+                    TopicTitle = t.Title,
+                    ForumId = t.ForumId,
+                    VotesRating = p.VotesRating,
+                    CanBeVoted = false
+                }).OrderByDescending(p => p.PostId);
 
-            var posts = postsQuery.ToList();
+            var posts = this.ApplyPagination(postsQuery, pagination).ToList();
 
             if (principal.IsInRole("User"))
             {

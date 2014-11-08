@@ -10,7 +10,7 @@ module Account {
             $scope.isLoginMode = true;
             $scope.isFocused = true;
 
-            $scope.processLogin = url => {
+            $scope.processLogin = () => {
                 if ($scope.loginForm.$invalid) {
                     return;
                 }
@@ -91,7 +91,7 @@ module Account {
         wrongLogin: boolean;
 
         auth(provider: string): void;
-        processLogin(url: string): void;
+        processLogin(): void;
         processRestore(): void;
         restorePassword(): void;
         close(): void;

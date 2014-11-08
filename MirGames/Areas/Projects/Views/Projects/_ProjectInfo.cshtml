@@ -21,7 +21,7 @@
                 <span class="updated-date" title="Последнее обновление"><i class="fa fa-clock-o"></i>@(Model.UpdatedDate.Format())</span>
             </div>
             <footer>
-                <a href="@Url.Action("Profile", "Users", new { userId = Model.Author.Id })" class="user-login avatar-link"><img src="@Model.Author.AvatarUrl" class="avatar avatar-tiny" /><span>@Model.Author.Login</span></a>
+                <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login avatar-link"><img src="@Model.Author.AvatarUrl" class="avatar avatar-tiny" /><span>@Model.Author.Login</span></a>
             </footer>
             <ul class="tags">
                 @foreach (var tag in Model.Tags)
@@ -40,25 +40,25 @@
                     @if (Model.CanCreateBug)
                     {
                         <li>
-                            <a dialog="@Url.Action(MVC.Projects.Projects.AddWorkItemDialog())" resolve="{ 'item-type': 1, 'project-alias': '@Model.Alias' }" dialog-controller="MirGames.Projects.AddNewWorkItemDialogController"><i class="fa fa-bug"></i>Багу</a>
+                            <a dialog="@Url.ActionCached(MVC.Projects.Projects.AddWorkItemDialog())" resolve="{ 'item-type': 1, 'project-alias': '@Model.Alias' }" dialog-controller="MirGames.Projects.AddNewWorkItemDialogController"><i class="fa fa-bug"></i>Багу</a>
                         </li>
                     }
                     @if (Model.CanCreateTask)
                     {
                         <li>
-                            <a dialog="@Url.Action(MVC.Projects.Projects.AddWorkItemDialog())" resolve="{ 'item-type': 2, 'project-alias': '@Model.Alias' }" dialog-controller="MirGames.Projects.AddNewWorkItemDialogController"><i class="fa fa-tasks"></i>Задачу</a>
+                            <a dialog="@Url.ActionCached(MVC.Projects.Projects.AddWorkItemDialog())" resolve="{ 'item-type': 2, 'project-alias': '@Model.Alias' }" dialog-controller="MirGames.Projects.AddNewWorkItemDialogController"><i class="fa fa-tasks"></i>Задачу</a>
                         </li>
                     }
                     @if (Model.CanCreateFeature)
                     {
                         <li>
-                            <a dialog="@Url.Action(MVC.Projects.Projects.AddWorkItemDialog())" resolve="{ 'item-type': 3, 'project-alias': '@Model.Alias' }" dialog-controller="MirGames.Projects.AddNewWorkItemDialogController"><i class="fa fa-lightbulb-o"></i>Фичу</a>
+                            <a dialog="@Url.ActionCached(MVC.Projects.Projects.AddWorkItemDialog())" resolve="{ 'item-type': 3, 'project-alias': '@Model.Alias' }" dialog-controller="MirGames.Projects.AddNewWorkItemDialogController"><i class="fa fa-lightbulb-o"></i>Фичу</a>
                         </li>
                     }
                     @if (Model.CanCreateBlogTopic)
                     {
                         <li>
-                            <a dialog="@Url.Action(MVC.Topics.Topics.AddTopicDialog())" resolve="{ 'blog-id': @Model.BlogId }"
+                            <a dialog="@Url.ActionCached(MVC.Topics.Topics.AddTopicDialog())" resolve="{ 'blog-id': @Model.BlogId }"
                                dialog-controller="MirGames.Topics.AddNewTopicDialogController">Пост в блог</a>
                         </li>
                     }
@@ -66,9 +66,9 @@
             </div>
         }
         <div class="work-items">
-            <div class="bug-type"><i class="fa fa-bug"></i><a title="Открытые баги" href="@Url.Action("WorkItems", "Projects", new { itemType = WorkItemType.Bug, projectAlias = Model.Alias })">@statistics.OpenBugsCount</a></div>
-            <div class="task-type"><i class="fa fa-tasks"></i><a title="Открытые таски" href="@Url.Action("WorkItems", "Projects", new { itemType = WorkItemType.Task, projectAlias = Model.Alias })">@statistics.OpenTasksCount</a></div>
-            <div class="feature-type"><i class="fa fa-lightbulb-o"></i><a title="Открытые фичи" href="@Url.Action("WorkItems", "Projects", new { itemType = WorkItemType.Feature, projectAlias = Model.Alias })">@statistics.OpenFeaturesCount</a></div>
+            <div class="bug-type"><i class="fa fa-bug"></i><a title="Открытые баги" href="@Url.ActionCached(MVC.Projects.Projects.WorkItems(Model.Alias, null, WorkItemType.Bug))">@statistics.OpenBugsCount</a></div>
+            <div class="task-type"><i class="fa fa-tasks"></i><a title="Открытые таски" href="@Url.ActionCached(MVC.Projects.Projects.WorkItems(Model.Alias, null, WorkItemType.Task))">@statistics.OpenTasksCount</a></div>
+            <div class="feature-type"><i class="fa fa-lightbulb-o"></i><a title="Открытые фичи" href="@Url.ActionCached(MVC.Projects.Projects.WorkItems(Model.Alias, null, WorkItemType.Feature))">@statistics.OpenFeaturesCount</a></div>
         </div>
     </div>
 </div>

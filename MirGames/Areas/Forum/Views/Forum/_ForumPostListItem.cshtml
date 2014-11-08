@@ -31,13 +31,13 @@
             <div class="message-bar">
                 @if (Model.CanBeEdited)
                 {
-                    <a class="edit-post" href="javascript:void(0);" dialog="@Url.Action(MVC.Forum.Forum.EditPostDialog())" title="Редактировать"
+                    <a class="edit-post" href="javascript:void(0);" dialog="@Url.ActionCached(MVC.Forum.Forum.EditPostDialog())" title="Редактировать"
                        dialog-close="reloadPost(@Model.PostId, @(Model.IsFirstPost ? "true" : "false"))"
                        resolve="{ 'post-id': @Model.PostId }" dialog-controller="MirGames.Forum.EditPostDialogController"><i class="fa fa-pencil-square-o"></i></a>
                 }
                 @if (Model.CanBeDeleted)
                 {
-                    <a class="delete-post" href="javascript:void(0);" title="Удалить" dialog="@Url.Action(MVC.Forum.Forum.DeletePostDialog())"
+                    <a class="delete-post" href="javascript:void(0);" title="Удалить" dialog="@Url.ActionCached(MVC.Forum.Forum.DeletePostDialog())"
                        dialog-close="hidePost(@Model.PostId)" resolve="{ 'post-id': @Model.PostId }"
                        dialog-controller="MirGames.Forum.DeletePostDialogController"><i class="fa fa-times"></i></a>
                 }

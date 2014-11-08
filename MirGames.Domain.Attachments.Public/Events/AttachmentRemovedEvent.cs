@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="ProjectLinkRegistrar.cs">
+// <copyright company="MirGames" file="AttachmentRemovedEvent.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -7,32 +7,17 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MirGames.Areas.Projects
+namespace MirGames.Domain.Attachments.Events
 {
-    using System.Diagnostics.Contracts;
-    using System.Web;
-    using System.Web.Mvc;
-    using System.Web.Routing;
-
-    using MirGames.Infrastructure;
-
     /// <summary>
-    /// Registrar of projects link.
+    /// Raised when attachment has been removed.
     /// </summary>
-    internal sealed class ProjectLinkRegistrar : IEntityLinkRegistrar
+    public sealed class AttachmentRemovedEvent : AttachmentBaseEvent
     {
         /// <inheritdoc />
-        public bool CanProcess(string entityType)
+        protected override string EventType
         {
-            Contract.Requires(entityType != null);
-            return entityType.EqualsIgnoreCase("Project");
-        }
-
-        /// <inheritdoc />
-        public string GetLink(int? entityId, string entityType)
-        {
-            var urlHelper = new UrlHelper(new RequestContext(new HttpContextWrapper(HttpContext.Current), new RouteData()));
-            return urlHelper.ActionCached(MVC.Projects.Projects.RedirectToProject(entityId.GetValueOrDefault()));
+            get { return "Attachments.AttachmentRemoved"; }
         }
     }
 }

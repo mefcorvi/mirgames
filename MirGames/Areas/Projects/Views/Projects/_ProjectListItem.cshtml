@@ -1,14 +1,14 @@
 ﻿@model MirGames.Domain.Wip.ViewModels.WipProjectViewModel
 <article @Html.Css("project")>
     <div class="project-info">
-        <a class="avatar-link" href="@Url.Action(MVC.Projects.Projects.Project(Model.Alias))"><img src="@Model.LogoUrl" class="avatar avatar-small" /></a>
+        <a class="avatar-link" href="@Url.ActionCached(MVC.Projects.Projects.Project(Model.Alias))"><img src="@Model.LogoUrl" class="avatar avatar-small" /></a>
         <div class="project-title">
-            <a class="project-title" href="@Url.Action(MVC.Projects.Projects.Project(Model.Alias))">@Model.Title</a>
+            <a class="project-title" href="@Url.ActionCached(MVC.Projects.Projects.Project(Model.Alias))">@Model.Title</a>
             <div class="short-description">@Model.ShortDescription</div>
             <div class="tags">
                 @foreach (var tag in Model.Tags)
                 {
-                    <span><a href="@Url.Action(MVC.Projects.Projects.Index(tag.Trim()))">@tag.Trim()</a></span>
+                    <span><a href="@Url.ActionCached(MVC.Projects.Projects.Index(tag.Trim()))">@tag.Trim()</a></span>
                 }
             </div>
         </div>

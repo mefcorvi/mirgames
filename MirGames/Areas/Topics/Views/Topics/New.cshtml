@@ -8,7 +8,7 @@
 
 <div class="page-header">
     <div class="header">
-        <h4><a href="@Url.Action(MVC.Topics.Topics.Index())">Блог</a></h4>
+        <h4><a href="@Url.ActionCached(MVC.Topics.Topics.Index())">Блог</a></h4>
         <h3>Новый пост</h3>
     </div>
     <div class="buttons">
@@ -52,7 +52,7 @@
     <div class="form-field">
         <label>Текст</label>
         <div class="form-field-description">
-            Текст форматируется с использованием <a href="@Url.Action(MVC.Pages.Markdown())" target="_blank" tabindex="-1">markdown</a> разметки.<br />
+            Текст форматируется с использованием <a href="@Url.ActionCached(MVC.Pages.Markdown())" target="_blank" tabindex="-1">markdown</a> разметки.<br />
             Картинки могут быть вставлены непосредственно из буфера обмена.<br />
             Для прикрепления файлов, можно использовать drag&amp;drop или специальную кнопку в панели инструментов.<br />
             Для вставки видео может быть использован тот же синтаксис, что и для вставки картинки.

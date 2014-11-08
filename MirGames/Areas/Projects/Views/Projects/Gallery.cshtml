@@ -16,7 +16,7 @@
     <div class="wip-gallery-items">
         @foreach (var attachment in images)
         {
-            <a href="javascript:void(0)" class="gallery-item" dialog="@Url.Action(MVC.Projects.Projects.GalleryItemDialog())" resolve="{ 'attachment-id': @attachment.AttachmentId, 'attachment-url': '@attachment.AttachmentUrl', 'entity-id': @Model.ProjectId }"
+            <a href="javascript:void(0)" class="gallery-item" dialog="@Url.ActionCached(MVC.Projects.Projects.GalleryItemDialog())" resolve="{ 'attachment-id': @attachment.AttachmentId, 'attachment-url': '@attachment.AttachmentUrl', 'entity-id': @Model.ProjectId }"
                dialog-controller="MirGames.Projects.GalleryItemDialogController">
                 <img src="@attachment.AttachmentUrl?size=s" />
             </a>
@@ -27,7 +27,7 @@
                 Ни одного изображения ещё не было добавлено
             </div>
         }
-        <a ng-cloak ng-repeat="image in images" href="javascript:void(0)" class="gallery-item" dialog="@Url.Action(MVC.Projects.Projects.GalleryItemDialog())" resolve="{ 'attachment-id': '{{image.attachmentId}}', 'attachment-url': '{{image.attachmentUrl}}', 'entity-id': @Model.ProjectId }"
+        <a ng-cloak ng-repeat="image in images" href="javascript:void(0)" class="gallery-item" dialog="@Url.ActionCached(MVC.Projects.Projects.GalleryItemDialog())" resolve="{ 'attachment-id': '{{image.attachmentId}}', 'attachment-url': '{{image.attachmentUrl}}', 'entity-id': @Model.ProjectId }"
            dialog-controller="MirGames.Projects.GalleryItemDialogController">
             <img ng-src="{{image.attachmentUrl}}?size=s" />
         </a>

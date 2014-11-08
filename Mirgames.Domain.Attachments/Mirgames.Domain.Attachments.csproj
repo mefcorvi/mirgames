@@ -95,6 +95,7 @@
     <Compile Include="AccessRules\AttachmentCreateAccessRule.cs" />
     <Compile Include="AccessRules\AttachmentRemoveAccessRule.cs" />
     <Compile Include="Cache\AttachmentInfoCacheContainer.cs" />
+    <Compile Include="Cache\AttachmentsCacheContainer.cs" />
     <Compile Include="CommandHandlers\RemoveAttachmentsCommandHandler.cs" />
     <Compile Include="CommandHandlers\PublishAttachmentsCommandHandler.cs" />
     <Compile Include="CommandHandlers\CreateAttachmentCommandHandler.cs" />

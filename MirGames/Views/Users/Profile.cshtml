@@ -20,7 +20,7 @@
     @if (Model.Blog.CanAddTopic)
     {
         <div class="buttons">
-            <a href="javascript:void(0);" dialog="@Url.Action(MVC.Topics.Topics.AddTopicDialog())" resolve="{ 'blog-id': @Model.Blog.BlogId }"
+            <a href="javascript:void(0);" dialog="@Url.ActionCached(MVC.Topics.Topics.AddTopicDialog())" resolve="{ 'blog-id': @Model.Blog.BlogId }"
             dialog-controller="MirGames.Topics.AddNewTopicDialogController">Добавить пост в блог</a>
         </div>
     }

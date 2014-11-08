@@ -15,7 +15,7 @@
     <div class="header">
         @if (currentTag != null)
         {
-            <h4><a href="@Url.Action(MVC.Projects.Projects.Index())">Проекты</a></h4>
+            <h4><a href="@Url.ActionCached(MVC.Projects.Projects.Index())">Проекты</a></h4>
             <h3>@currentTag.ToTitleCase()</h3>
         }
         else {
@@ -25,7 +25,7 @@
     <div class="buttons">
         @if (User.Can("Create", "WipProject"))
         {
-            <a href="@Url.Action("New", "Projects")" class="add-wip-project"><i class="fa fa-plus"></i>Новый проект</a>
+            <a href="@Url.ActionCached(MVC.Projects.Projects.New())" class="add-wip-project"><i class="fa fa-plus"></i>Новый проект</a>
         }
     </div>
 </div>
@@ -74,7 +74,7 @@
         }
         @foreach (var tag in tags)
         {
-            <a href="@Url.Action(MVC.Projects.Projects.Index(tag.Tag.Trim()))" @Html.Css(string.Format("tag-size-{0}", (tag.Count * 5 / maxTagsCount))).Add("selected", tag.Tag.EqualsIgnoreCase(currentTag))>@tag.Tag.Trim()</a>
+            <a href="@Url.ActionCached(MVC.Projects.Projects.Index(tag.Tag.Trim()))" @Html.Css(string.Format("tag-size-{0}", (tag.Count * 5 / maxTagsCount))).Add("selected", tag.Tag.EqualsIgnoreCase(currentTag))>@tag.Tag.Trim()</a>
         }
     </div>
 </div>

@@ -10,13 +10,13 @@
     
 <div class="page-header">
     <div class="header">
-        <h4><a href="@Url.Action(MVC.Forum.Forum.Index())">Форумы</a></h4>
+        <h4><a href="@Url.ActionCached(MVC.Forum.Forum.Index())">Форумы</a></h4>
         <h3>@ViewBag.Forum.Title</h3>
     </div>
     <div class="buttons">
         @if (User.Can("Create", "ForumTopic"))
         {
-            <a href="@Url.Action(MVC.Forum.Forum.New((string)ViewBag.Forum.Alias))"><i class="fa fa-pencil"></i>Новая тема</a>
+            <a href="@Url.ActionCached(MVC.Forum.Forum.New((string)ViewBag.Forum.Alias))"><i class="fa fa-pencil"></i>Новая тема</a>
         }
     </div>
 </div>

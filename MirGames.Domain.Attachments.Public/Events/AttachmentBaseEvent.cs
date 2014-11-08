@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="ProjectLinkRegistrar.cs">
+// <copyright company="MirGames" file="AttachmentBaseEvent.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -7,32 +7,33 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace MirGames.Areas.Projects
+namespace MirGames.Domain.Attachments.Events
 {
-    using System.Diagnostics.Contracts;
-    using System.Web;
-    using System.Web.Mvc;
-    using System.Web.Routing;
-
-    using MirGames.Infrastructure;
+    using MirGames.Infrastructure.Events;
 
     /// <summary>
-    /// Registrar of projects link.
+    /// Base class of attachment events.
     /// </summary>
-    internal sealed class ProjectLinkRegistrar : IEntityLinkRegistrar
+    public abstract class AttachmentBaseEvent : Event
     {
-        /// <inheritdoc />
-        public bool CanProcess(string entityType)
-        {
-            Contract.Requires(entityType != null);
-            return entityType.EqualsIgnoreCase("Project");
-        }
+        /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
+        public int? UserId { get; set; }
 
-        /// <inheritdoc />
-        public string GetLink(int? entityId, string entityType)
-        {
-            var urlHelper = new UrlHelper(new RequestContext(new HttpContextWrapper(HttpContext.Current), new RouteData()));
-            return urlHelper.ActionCached(MVC.Projects.Projects.RedirectToProject(entityId.GetValueOrDefault()));
-        }
+        /// <summary>
+        /// Gets or sets the entity identifier.
+        /// </summary>
+        public int? EntityId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the entity.
+        /// </summary>
+        public string EntityType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the attachment identifier.
+        /// </summary>
+        public int AttachmentId { get; set; }
     }
 }

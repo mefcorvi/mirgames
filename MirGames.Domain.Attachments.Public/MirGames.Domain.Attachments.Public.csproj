@@ -40,6 +40,10 @@
     <Compile Include="Commands\RemoveAttachmentsCommand.cs" />
     <Compile Include="Commands\CreateAttachmentCommand.cs" />
     <Compile Include="Commands\PublishAttachmentsCommand.cs" />
+    <Compile Include="Events\AttachmentBaseEvent.cs" />
+    <Compile Include="Events\AttachmentCreatedEvent.cs" />
+    <Compile Include="Events\AttachmentPublishedEvent.cs" />
+    <Compile Include="Events\AttachmentRemovedEvent.cs" />
     <Compile Include="Exceptions\EntityTypeIsNotSupportedException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\AttachmentsOrderingType.cs" />

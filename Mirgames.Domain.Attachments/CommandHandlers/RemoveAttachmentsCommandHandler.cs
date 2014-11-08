@@ -8,15 +8,18 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Attachments.CommandHandlers
 {
+    using System.Collections.Generic;
     using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
     using MirGames.Domain.Attachments.Commands;
     using MirGames.Domain.Attachments.Entities;
+    using MirGames.Domain.Attachments.Events;
     using MirGames.Domain.Security;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Commands;
+    using MirGames.Infrastructure.Events;
     using MirGames.Infrastructure.Security;
 
     /// <summary>
@@ -30,22 +33,32 @@ namespace MirGames.Domain.Attachments.CommandHandlers
         private readonly IWriteContextFactory writeContextFactory;
 
         /// <summary>
+        /// The event bus.
+        /// </summary>
+        private readonly IEventBus eventBus;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="RemoveAttachmentsCommandHandler" /> class.
         /// </summary>
         /// <param name="writeContextFactory">The write context factory.</param>
-        public RemoveAttachmentsCommandHandler(IWriteContextFactory writeContextFactory)
+        /// <param name="eventBus">The event bus.</param>
+        public RemoveAttachmentsCommandHandler(IWriteContextFactory writeContextFactory, IEventBus eventBus)
         {
             Contract.Requires(writeContextFactory != null);
+            Contract.Requires(eventBus != null);
 
             this.writeContextFactory = writeContextFactory;
+            this.eventBus = eventBus;
         }
 
         /// <inheritdoc />
         protected override void Execute(RemoveAttachmentsCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
+            List<Attachment> attachments;
+
             using (var writeContext = this.writeContextFactory.Create())
             {
-                var attachments = writeContext.Set<Attachment>().Where(x => x.EntityId == command.EntityId && x.EntityType == command.EntityType).ToList();
+                attachments = writeContext.Set<Attachment>().Where(x => x.EntityId == command.EntityId && x.EntityType == command.EntityType).ToList();
 
                 foreach (var attachment in attachments)
                 {
@@ -55,6 +68,14 @@ namespace MirGames.Domain.Attachments.CommandHandlers
 
                 writeContext.SaveChanges();
             }
+
+            attachments.ForEach(attachment => this.eventBus.Raise(new AttachmentRemovedEvent
+            {
+                AttachmentId = attachment.AttachmentId,
+                EntityId = attachment.EntityId,
+                EntityType = attachment.EntityType,
+                UserId = attachment.UserId
+            }));
         }
     }
 }

@@ -5,7 +5,7 @@
     @foreach (OnlineUserViewModel user in Model.Reverse())
     {
         <div class="user" ng-show="false">
-            <a href="@Url.Action("Profile", "Users", new { userId = user.Id })" title="@user.Login"><img src="@user.AvatarUrl" class="avatar avatar-small" /></a>
+            <a href="@Url.ActionCached(MVC.Users.Profile(user.Id.GetValueOrDefault()))" title="@user.Login"><img src="@user.AvatarUrl" class="avatar avatar-small" /></a>
         </div>
     }
     <div ng-class="{ 'user': 1, 'user-in-chat': user.tags.indexOf('in-chat') != -1, 'chat-writing': user.tags.indexOf('chat-writing') != -1 }" class="user" ng-repeat="user in users" ng-cloak>

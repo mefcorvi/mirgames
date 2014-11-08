@@ -82,7 +82,7 @@ namespace MirGames.Controllers
         /// </returns>
         private string GetForumTopicPageUrl(int page, int topicId, string forumAlias)
         {
-            return this.Url.Action(MVC.Forum.Forum.Topic(forumAlias, topicId, page)) + "#posts";
+            return this.Url.ActionCached(MVC.Forum.Forum.Topic(forumAlias, topicId, page)) + "#posts";
         }
 
 

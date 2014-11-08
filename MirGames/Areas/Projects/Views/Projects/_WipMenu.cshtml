@@ -1,10 +1,10 @@
 ﻿@using MirGames.Domain.Security
 @if (User.Can("Create", "WipProject"))
 {
-    <a href="@Url.Action("New", "Projects")" class="add-wip-project"><i class="fa fa-plus"></i>Новый проект</a>
+    <a href="@Url.ActionCached(MVC.Projects.Projects.New())" class="add-wip-project"><i class="fa fa-plus"></i>Новый проект</a>
 }
 
-<a href="@Url.Action(MVC.Projects.Projects.Index())" class="projects">Проекты</a>
+<a href="@Url.ActionCached(MVC.Projects.Projects.Index())" class="projects">Проекты</a>
 
 
 @*@foreach (string tag in ViewBag.Tags)

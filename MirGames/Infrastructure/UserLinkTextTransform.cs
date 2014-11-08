@@ -62,7 +62,7 @@ namespace MirGames
                         }
 
                         var url = new UrlHelper(requestContext);
-                        var link = url.Action(MVC.Users.Profile(int.Parse(m.Groups[1].Value)));
+                        var link = url.ActionCached(MVC.Users.Profile(int.Parse(m.Groups[1].Value)));
 
                         return string.Format("[{0}]({1})", m.Groups[2].Value, link);
                     });

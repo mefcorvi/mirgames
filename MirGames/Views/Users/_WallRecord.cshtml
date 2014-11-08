@@ -1,7 +1,7 @@
 ﻿@model MirGames.Domain.Users.ViewModels.UserWallRecordViewModel
 <article class="wall-record">
     <div class="record-author">
-        <a href="@Url.Action("Profile", new { userId = Model.Author.Id })" class="user-login">
+        <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login">
             <img class="avatar avatar-small" src="@Model.Author.AvatarUrl"/>
             <span>@Model.Author.Login</span>
         </a>

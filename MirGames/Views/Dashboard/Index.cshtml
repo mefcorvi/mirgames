@@ -13,7 +13,7 @@
 }
 
 <section class="blog-subsection">
-    <h3><a href="@Url.Action(MVC.Topics.Topics.Index())">Блог</a></h3>
+    <h3><a href="@Url.ActionCached(MVC.Topics.Topics.Index())">Блог</a></h3>
     <div class="topics-list">
     @foreach(var topic in Model.Topics)
     {
@@ -22,32 +22,32 @@
     </div>
 </section>
 <section class="projects-subsection">
-    <h3><a href="@Url.Action(MVC.Projects.Projects.Index())">Проекты</a></h3>
+    <h3><a href="@Url.ActionCached(MVC.Projects.Projects.Index())">Проекты</a></h3>
     <div class="projects-list">
         @foreach (var project in Model.Projects)
         {
             <article @Html.Css("project")>
                 <div class="project-info">
                     <div class="project-title">
-                        <a class="project-title" href="@Url.Action(MVC.Projects.Projects.Project(project.Alias))">@project.Title</a>
+                        <a class="project-title" href="@Url.ActionCached(MVC.Projects.Projects.Project(project.Alias))">@project.Title</a>
                         <span class="project-rating">@project.Votes&nbsp;<i class="fa fa-thumbs-up"></i></span>
                         <span class="followers-count">@project.FollowersCount&nbsp;<i class="fa fa-eye"></i></span>
                         <div class="short-description">@project.ShortDescription</div>
                         <div class="tags">
                             @foreach (var tag in project.Tags)
                             {
-                                <span><a href="@Url.Action(MVC.Projects.Projects.Index(tag.Trim()))">@tag.Trim()</a></span>
+                                <span><a href="@Url.ActionCached(MVC.Projects.Projects.Index(tag.Trim()))">@tag.Trim()</a></span>
                             }
                         </div>
                     </div>
-                    <a class="avatar-link" href="@Url.Action(MVC.Projects.Projects.Project(project.Alias))"><img src="@project.LogoUrl" class="avatar avatar-small" /></a>
+                    <a class="avatar-link" href="@Url.ActionCached(MVC.Projects.Projects.Project(project.Alias))"><img src="@project.LogoUrl" class="avatar avatar-small" /></a>
                 </div>
             </article>
         }
     </div>
 </section>
 <section class="forum-subsection">
-    <h3><a href="@Url.Action(MVC.Forum.Forum.Index())">Форум</a></h3>
+    <h3><a href="@Url.ActionCached(MVC.Forum.Forum.Index())">Форум</a></h3>
     <div class="forum-topics-list">
         @foreach (var topic in Model.ForumTopics)
         {
@@ -56,12 +56,12 @@
                     <div class="topic-title-block">
                         @if (@topic.UnreadPostsCount.HasValue)
                         {
-                            <a href="@(Url.Action(MVC.Forum.Forum.Topic(topic.Forum.Alias, topic.TopicId, PaginationSettings.GetItemPage(topic.PostsCount - topic.UnreadPostsCount.Value, 20) + 1)) + "#first-unread")"
+                            <a href="@(Url.ActionCached(MVC.Forum.Forum.Topic(topic.Forum.Alias, topic.TopicId, PaginationSettings.GetItemPage(topic.PostsCount - topic.UnreadPostsCount.Value, 20) + 1)) + "#first-unread")"
                                class="topic-title">@topic.Title<span>(+@topic.UnreadPostsCount.GetValueOrDefault())</span></a>
                         }
                         else
                         {
-                            <a href="@Url.Action(MVC.Forum.Forum.Topic(topic.Forum.Alias, topic.TopicId, 1))" class="topic-title">@topic.Title</a>
+                            <a href="@Url.ActionCached(MVC.Forum.Forum.Topic(topic.Forum.Alias, topic.TopicId, 1))" class="topic-title">@topic.Title</a>
                         }
                         <div class="topic-pagination">
                             @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.TopicsPagination[topic.TopicId])

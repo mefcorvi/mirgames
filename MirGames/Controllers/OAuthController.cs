@@ -48,7 +48,7 @@ namespace MirGames.Controllers
         public virtual ActionResult Index()
         {
             GoogleOAuth2Client.RewriteRequest();
-            var authenticationResult = OAuthWebSecurity.VerifyAuthentication(Url.Action("Index", "OAuth"));
+            var authenticationResult = OAuthWebSecurity.VerifyAuthentication(Url.ActionCached(MVC.OAuth.Index()));
 
             if (authenticationResult.IsSuccessful)
             {
@@ -90,7 +90,7 @@ namespace MirGames.Controllers
         [AntiForgery]
         public virtual ActionResult Authorize(string provider)
         {
-            OAuthWebSecurity.RequestAuthentication(provider, Url.Action("Index", "OAuth"));
+            OAuthWebSecurity.RequestAuthentication(provider, Url.ActionCached(MVC.OAuth.Index()));
             return null;
         }
     }

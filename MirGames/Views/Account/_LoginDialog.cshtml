@@ -17,7 +17,7 @@
 
 @section DialogContent
 {
-    <form class="login-form" ng-submit="processLogin('@Url.Action("ProcessLogin", "Account")')" novalidate name="loginForm" ng-show="!restoreRequestSent">
+    <form class="login-form" ng-submit="processLogin()" novalidate name="loginForm" ng-show="!restoreRequestSent">
         <div class="form-field">
             <label for="emailOrLogin">E-mail или логин</label>
             <input type="text" ng-model="emailOrLogin" maxlength="50" required ng-focused="isFocused" name="emailOrLogin" ng-autofill />
@@ -40,7 +40,7 @@
 @section DialogButtons
 {
     <a href="javascript:void(0)" ng-class="{ 'button-disabled': loginForm.$invalid }"
-        ng-click="processLogin('@Url.Action("ProcessLogin", "Account")')" ng-show="isLoginMode" ng-cloak>Войти</a>
+        ng-click="processLogin()" ng-show="isLoginMode" ng-cloak>Войти</a>
     <a href="javascript:void(0)" ng-class="{ 'button-disabled': loginForm.$invalid }"
         ng-click="processRestore()" ng-show="isRestoreMode && !restoreRequestSent" ng-cloak>Восстановить</a>
     <a href="javascript:void(0)" class="cancel" ng-click="close()" ng-show="!restoreRequestSent">Отмена</a>

@@ -16,9 +16,11 @@ namespace MirGames.Domain.Attachments.CommandHandlers
     using MirGames.Domain.Acl.Public.Commands;
     using MirGames.Domain.Attachments.Commands;
     using MirGames.Domain.Attachments.Entities;
+    using MirGames.Domain.Attachments.Events;
     using MirGames.Domain.Security;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Commands;
+    using MirGames.Infrastructure.Events;
     using MirGames.Infrastructure.Security;
 
     /// <summary>
@@ -37,17 +39,28 @@ namespace MirGames.Domain.Attachments.CommandHandlers
         private readonly ICommandProcessor commandProcessor;
 
         /// <summary>
+        /// The event bus.
+        /// </summary>
+        private readonly IEventBus eventBus;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PublishAttachmentsCommandHandler" /> class.
         /// </summary>
         /// <param name="writeContextFactory">The write context factory.</param>
         /// <param name="commandProcessor">The command processor.</param>
-        public PublishAttachmentsCommandHandler(IWriteContextFactory writeContextFactory, ICommandProcessor commandProcessor)
+        /// <param name="eventBus">The event bus.</param>
+        public PublishAttachmentsCommandHandler(
+            IWriteContextFactory writeContextFactory,
+            ICommandProcessor commandProcessor,
+            IEventBus eventBus)
         {
             Contract.Requires(writeContextFactory != null);
             Contract.Requires(commandProcessor != null);
+            Contract.Requires(eventBus != null);
 
             this.writeContextFactory = writeContextFactory;
             this.commandProcessor = commandProcessor;
+            this.eventBus = eventBus;
         }
 
         /// <inheritdoc />
@@ -74,13 +87,24 @@ namespace MirGames.Domain.Attachments.CommandHandlers
                 writeContext.SaveChanges();
             }
 
-            attachments.ForEach(attachment => this.commandProcessor.Execute(new RemovePermissionsCommand
+            attachments.ForEach(attachment =>
             {
-                ActionName = "Publish",
-                EntityId = attachment.AttachmentId,
-                EntityType = "Attachment",
-                UserId = userId
-            }));
+                this.commandProcessor.Execute(new RemovePermissionsCommand
+                {
+                    ActionName = "Publish",
+                    EntityId = attachment.AttachmentId,
+                    EntityType = "Attachment",
+                    UserId = userId
+                });
+
+                this.eventBus.Raise(new AttachmentPublishedEvent
+                {
+                    AttachmentId = attachment.AttachmentId,
+                    EntityId = attachment.EntityId,
+                    EntityType = attachment.EntityType,
+                    UserId = attachment.UserId
+                });
+            });
         }
     }
 }

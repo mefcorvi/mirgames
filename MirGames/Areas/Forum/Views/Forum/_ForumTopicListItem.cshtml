@@ -7,12 +7,12 @@
             @if (@Model.UnreadPostsCount.HasValue)
             {
                 <a
-                    href="@(Url.Action(MVC.Forum.Forum.Topic(Model.Forum.Alias, Model.TopicId, PaginationSettings.GetItemPage(Model.PostsCount - Model.UnreadPostsCount.Value, 20) + 1)) + "#first-unread")"
+                    href="@(Url.ActionCached(MVC.Forum.Forum.Topic(Model.Forum.Alias, Model.TopicId, PaginationSettings.GetItemPage(Model.PostsCount - Model.UnreadPostsCount.Value, 20) + 1)) + "#first-unread")"
                    class="topic-title">@Model.Title <span>(+@Model.UnreadPostsCount.GetValueOrDefault())</span></a>
             }
             else
             {
-                <a href="@Url.Action(MVC.Forum.Forum.Topic(Model.Forum.Alias, Model.TopicId, 1))" class="topic-title">@Model.Title</a>
+                <a href="@Url.ActionCached(MVC.Forum.Forum.Topic(Model.Forum.Alias, Model.TopicId, 1))" class="topic-title">@Model.Title</a>
             }
             <div class="topic-pagination">
                 @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.TopicsPagination[Model.TopicId])

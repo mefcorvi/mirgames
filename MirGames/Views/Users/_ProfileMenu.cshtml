@@ -2,7 +2,7 @@
 
 <div class="page-header">
     <div class="header">
-        <h4><a href="@Url.Action(MVC.Users.Index())">Пользователи</a></h4>
+        <h4><a href="@Url.ActionCached(MVC.Users.Index())">Пользователи</a></h4>
         <h3>@Model.Login</h3>
     </div>
     <div class="buttons">
@@ -18,22 +18,22 @@
         
         @if (UserEntity != null && Model.Id == UserEntity.Id)
         {
-            <a href="@Url.Action(MVC.Account.Logout())" class="account-signout">Выйти</a>
+            <a href="@Url.ActionCached(MVC.Account.Logout())" class="account-signout">Выйти</a>
         }
     </div>
 </div>
 
 <nav class="toolbar">
-    <a href="@Url.Action("Profile", "Users", new { userId = Model.Id })" class="@(ViewBag.SectionMode == "Profile" ? "selected" : string.Empty)"><i class="fa fa-info-circle"></i>Профиль</a>
+    <a href="@Url.ActionCached(MVC.Users.Profile(Model.Id))" class="@(ViewBag.SectionMode == "Profile" ? "selected" : string.Empty)"><i class="fa fa-info-circle"></i>Профиль</a>
 
     @if (UserEntity != null && UserEntity.Id == Model.Id)
     {
-        <a href="@Url.Action("Settings", "Users")" class="@(ViewBag.SectionMode == "Settings" ? "selected" : string.Empty)"><i class="fa fa-cog"></i>Настройки</a>
+        <a href="@Url.ActionCached(MVC.Users.Settings())" class="@(ViewBag.SectionMode == "Settings" ? "selected" : string.Empty)"><i class="fa fa-cog"></i>Настройки</a>
     }
 
-    <a href="@Url.Action("Topics", "Users", new { userId = Model.Id })" class="@(ViewBag.SectionMode == "Topics" ? "selected" : string.Empty)">Топики пользователя</a>
-    <a href="@Url.Action("Comments", "Users", new { userId = Model.Id })" class="@(ViewBag.SectionMode == "Comments" ? "selected" : string.Empty)">Комментарии пользователя</a>
-    <a href="@Url.Action("Forum", "Users", new { userId = Model.Id })" class="@(ViewBag.SectionMode == "Forum" ? "selected" : string.Empty)">Ответы на форуме</a>
+    <a href="@Url.ActionCached(MVC.Users.Topics(Model.Id))" class="@(ViewBag.SectionMode == "Topics" ? "selected" : string.Empty)">Топики пользователя</a>
+    <a href="@Url.ActionCached(MVC.Users.Comments(Model.Id))" class="@(ViewBag.SectionMode == "Comments" ? "selected" : string.Empty)">Комментарии пользователя</a>
+    <a href="@Url.ActionCached(MVC.Users.Forum(Model.Id))" class="@(ViewBag.SectionMode == "Forum" ? "selected" : string.Empty)">Ответы на форуме</a>
 
     @if (Model.CanReceiveMessage)
     {

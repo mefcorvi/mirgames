@@ -86,9 +86,9 @@ namespace MirGames.Areas.Forum.Controllers
                     };
             }
 
-            this.ViewBag.RssUrl = this.Url.Action(MVC.Forum.Forum.Rss());
+            this.ViewBag.RssUrl = this.Url.ActionCached(MVC.Forum.Forum.Rss());
             this.ViewBag.Pagination = new PaginationViewModel(
-                 paginationSettings, topicsCount, p => this.Url.Action(MVC.Forum.Forum.Unread(tag, searchString, page: p)));
+                 paginationSettings, topicsCount, p => this.Url.ActionCached(MVC.Forum.Forum.Unread(tag, searchString, page: p)));
             this.ViewBag.TopicsPagination = topicsPagination;
 
             this.ViewBag.PageData["tag"] = tag;
@@ -137,9 +137,9 @@ namespace MirGames.Areas.Forum.Controllers
                         };
             }
 
-            this.ViewBag.RssUrl = this.Url.Action(MVC.Forum.Forum.Rss());
+            this.ViewBag.RssUrl = this.Url.ActionCached(MVC.Forum.Forum.Rss());
             this.ViewBag.Pagination = new PaginationViewModel(
-                 paginationSettings, topicsCount, p => this.Url.Action(MVC.Forum.Forum.Topics(forumAlias, tag, searchString, page: p)));
+                 paginationSettings, topicsCount, p => this.Url.ActionCached(MVC.Forum.Forum.Topics(forumAlias, tag, searchString, page: p)));
             this.ViewBag.TopicsPagination = topicsPagination;
             
             this.ViewBag.PageData["tag"] = tag;
@@ -158,7 +158,7 @@ namespace MirGames.Areas.Forum.Controllers
 
             var posts = this.QueryProcessor.Process(topicsQuery, new PaginationSettings(0, 20));
             var feed = new SyndicationFeed(
-                "Новые сообщения на форуме MirGames.ru", "Новые сообщения", this.GetAbsoluteUri(this.Url.Action(MVC.Forum.Forum.Topics())))
+                "Новые сообщения на форуме MirGames.ru", "Новые сообщения", this.GetAbsoluteUri(this.Url.ActionCached(MVC.Forum.Forum.Topics())))
             {
                 Items = posts.Select(this.CreateTopicSyndicationItem).ToList()
             };
@@ -196,7 +196,7 @@ namespace MirGames.Areas.Forum.Controllers
 
             if (forumAlias == null)
             {
-                return this.RedirectPermanent(Url.Action(MVC.Forum.Forum.Topic(topic.Forum.Alias, topicId, page)));
+                return this.RedirectPermanent(Url.ActionCached(MVC.Forum.Forum.Topic(topic.Forum.Alias, topicId, page)));
             }
 
             var postsQuery = new GetForumTopicPostsQuery { TopicId = topicId };
@@ -269,7 +269,7 @@ namespace MirGames.Areas.Forum.Controllers
         /// <returns>The syndication item.</returns>
         private SyndicationItem CreateTopicSyndicationItem(ForumPostViewModel post)
         {
-            var topicUrl = this.Url.Action(MVC.Forum.Forum.Topic(post.ForumAlias, post.TopicId));
+            var topicUrl = this.Url.ActionCached(MVC.Forum.Forum.Topic(post.ForumAlias, post.TopicId));
 
             var item = new SyndicationItem(
                 string.Format("{0} > {1} (#{2})", post.TopicTitle, post.Author.Login, post.PostId),
@@ -296,7 +296,7 @@ namespace MirGames.Areas.Forum.Controllers
             return new SyndicationPerson(
                 null,
                 author.Login,
-                this.Url.Action(MVC.Users.Profile(author.Id.GetValueOrDefault())));
+                this.Url.ActionCached(MVC.Users.Profile(author.Id.GetValueOrDefault())));
         }
 
         /// <summary>
@@ -310,7 +310,7 @@ namespace MirGames.Areas.Forum.Controllers
         /// </returns>
         private string GetTopicPageUrl(int page, int topicId, string forumAlias)
         {
-            return this.Url.Action(MVC.Forum.Forum.Topic(forumAlias, topicId, page)) + "#posts";
+            return this.Url.ActionCached(MVC.Forum.Forum.Topic(forumAlias, topicId, page)) + "#posts";
         }
     }
 }

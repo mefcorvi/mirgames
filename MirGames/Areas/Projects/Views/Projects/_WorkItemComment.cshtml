@@ -2,21 +2,21 @@
 
 <div class="comment" comment-id="@Model.CommentId">
     <header id="@("c" + Model.CommentId)">
-        <a href="@Url.Action("Profile", "Users", new { userId = Model.Author.Id })" class="avatar-link">
+        <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="avatar-link">
             <img src="@Model.Author.AvatarUrl" class="avatar" />
         </a>
-        <a href="@Url.Action("Profile", "Users", new { userId = Model.Author.Id })" class="user-login">@Model.Author.Login</a>
+        <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login">@Model.Author.Login</a>
         <span class="comment-date">(@Html.DisplayFor(c => c.Date))</span>
         <div class="message-bar">
             @if (Model.CanBeEdited)
             {
-                <a class="edit-post" href="javascript:void(0);" dialog="@Url.Action("EditCommentDialog", "Topics")" title="Редактировать"
+                <a class="edit-post" href="javascript:void(0);" dialog="@Url.ActionCached(MVC.Topics.Topics.EditCommentDialog())" title="Редактировать"
                     dialog-close="reloadComment(@Model.CommentId)"
                     resolve="{ 'comment-id': @Model.CommentId }" dialog-controller="MirGames.Topics.EditCommentDialogController"><i class="fa fa-pencil-square-o"></i></a>
             }
             @if (Model.CanBeDeleted)
             {
-                <a class="delete-post" href="javascript:void(0);" title="Удалить" dialog="@Url.Action("DeleteCommentDialog", "Topics")"
+                <a class="delete-post" href="javascript:void(0);" title="Удалить" dialog="@Url.ActionCached(MVC.Topics.Topics.DeleteCommentDialog())"
                    dialog-close="hideComment(@Model.CommentId)" resolve="{ 'comment-id': @Model.CommentId }"
                    dialog-controller="MirGames.Topics.DeleteCommentDialogController"><i class="fa fa-times"></i></a>
             }

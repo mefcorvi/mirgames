@@ -5,9 +5,9 @@
     @foreach (var comment in Model)
     {
         <div class="comment-item">
-            <a href="@Url.Action(MVC.Topics.Topics.Topic(comment.TopicId))">@comment.TopicTitle</a>
+            <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(comment.TopicId))">@comment.TopicTitle</a>
             <div class="short-text">@comment.Text</div>
-            <div class="topic-info"><span class="date relative" datetime="@comment.CreationDate.ToString("O")">@Html.RelativeDate(comment.CreationDate)</span>, <a href="@Url.Action(MVC.Users.Profile(comment.Author.Id.GetValueOrDefault()))">@comment.Author.Login</a></div>
+            <div class="topic-info"><span class="date relative" datetime="@comment.CreationDate.ToString("O")">@Html.RelativeDate(comment.CreationDate)</span>, <a href="@Url.ActionCached(MVC.Users.Profile(comment.Author.Id.GetValueOrDefault()))">@comment.Author.Login</a></div>
         </div>
     }
 </div>

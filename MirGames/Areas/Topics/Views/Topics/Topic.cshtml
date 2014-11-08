@@ -12,7 +12,7 @@
         <h4>
             @if (Model.ShowOnMain)
             {
-                <a href="@Url.Action(MVC.Topics.Topics.Index())">Блог</a>
+                <a href="@Url.ActionCached(MVC.Topics.Topics.Index())">Блог</a>
             }
             @if (Model.ShowOnMain && Model.Blog.BlogId != null)
             {
@@ -43,13 +43,13 @@
     <ul class="tags">
         @foreach (var tag in Model.Tags)
         {
-            <li><a href="@Url.Action(MVC.Topics.Topics.Index(tag.Trim()))">@tag.Trim()</a></li>
+            <li><a href="@Url.ActionCached(MVC.Topics.Topics.Index(tag.Trim()))">@tag.Trim()</a></li>
         }
     </ul>
     <div class="message-bar">
         @if (Model.CanBeEdited)
         {
-            <a href="@Url.Action("Edit", new { topicId = Model.Id })" class="edit-topic" title="Редактировать"><i class="fa fa-pencil-square-o"></i></a>
+            <a href="@Url.ActionCached(MVC.Topics.Topics.Edit(Model.Id))" class="edit-topic" title="Редактировать"><i class="fa fa-pencil-square-o"></i></a>
         }
 
         @if (Model.CanBeDeleted)
@@ -74,10 +74,10 @@
             <a author-link="comment.Author.Id" class="user-login">{{comment.Author.Login}}</a>
             <span class="comment-date">({{comment.CreationDate | date:'dd.MM.yy HH:mm'}})</span>
             <div class="message-bar">
-                <a ng-show="comment.CanBeEdited" class="edit-post" href="javascript:void(0);" dialog="@Url.Action(MVC.Topics.Topics.EditCommentDialog())" title="Редактировать"
+                <a ng-show="comment.CanBeEdited" class="edit-post" href="javascript:void(0);" dialog="@Url.ActionCached(MVC.Topics.Topics.EditCommentDialog())" title="Редактировать"
                    dialog-close="$parent.reloadComment(comment.Id)"
                    resolve="{ 'comment-id': {{comment.Id}} }" dialog-controller="MirGames.Topics.EditCommentDialogController"><i class="fa fa-pencil-square-o"></i></a>
-                <a ng-show="comment.CanBeDeleted" class="delete-post" href="javascript:void(0);" title="Удалить" dialog="@Url.Action(MVC.Topics.Topics.DeleteCommentDialog())"
+                <a ng-show="comment.CanBeDeleted" class="delete-post" href="javascript:void(0);" title="Удалить" dialog="@Url.ActionCached(MVC.Topics.Topics.DeleteCommentDialog())"
                    dialog-close="hideComment(comment.Id)" resolve="{ 'comment-id': {{comment.Id}} }"
                    dialog-controller="MirGames.Topics.DeleteCommentDialogController"><i class="fa fa-times"></i></a>
                 <div ng-show="comment.UpdatedDate > comment.CreationDate" class="edited">Отредактировано: {{comment.UpdatedDate | date:'dd.MM.yy HH:mm'}}</div>

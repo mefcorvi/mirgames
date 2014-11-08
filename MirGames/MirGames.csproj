@@ -306,6 +306,7 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\HttpRequestMessageExtensions.cs" />
+    <Compile Include="Infrastructure\T4MvcCachedExtensions.cs" />
     <Compile Include="Infrastructure\UserEntityExtensions.cs" />
     <Compile Include="Infrastructure\UserSettings\HeaderType.cs" />
     <Compile Include="Infrastructure\UserSettings\HeaderTypeSetting.cs" />
@@ -603,7 +604,6 @@
     <None Include="Content\text.less" />
     <None Include="Content\common.less" />
     <None Include="Content\settings.less" />
-    <Content Include="App_Code\Account.cshtml" />
     <None Include="Content\avatars.less" />
     <None Include="Areas\Topics\Content\topic.less" />
     <Content Include="Content\fonts\droidsans-webfont.eot" />

@@ -85,9 +85,9 @@
         @RenderSection("SectionFooter", required: false)
         <footer>
             <nav>
-                <a href="@Url.Action(MVC.Pages.About())">О сайте</a>
-                <a href="@Url.Action(MVC.Pages.Rules())">Пользовательское соглашение</a>
-                <a href="@Url.Action(MVC.Pages.Help())">Помощь</a>
+                <a href="@Url.ActionCached(MVC.Pages.About())">О сайте</a>
+                <a href="@Url.ActionCached(MVC.Pages.Rules())">Пользовательское соглашение</a>
+                <a href="@Url.ActionCached(MVC.Pages.Help())">Помощь</a>
             </nav>
         </footer>
         @Html.Partial("_OnlineUsers", onlineUsers)

@@ -62,7 +62,7 @@ namespace MirGames.Areas.Projects.Controllers
             this.ViewBag.Pagination = new PaginationViewModel(
                 paginationSettings,
                 projectsCount,
-                p => this.Url.Action("Project", "Projects", new { tag, page = p }));
+                p => this.Url.ActionCached(MVC.Projects.Projects.Index(tag, p)));
 
             this.ViewBag.PageData["tag"] = tag;
 
@@ -374,7 +374,7 @@ namespace MirGames.Areas.Projects.Controllers
             return this.HttpContext.Request.UrlReferrer != null
                    && this.HttpContext.Request.UrlReferrer.IsRouteMatch("Wip", "Index")
                        ? this.HttpContext.Request.UrlReferrer.ToString()
-                       : this.Url.Action("Index", "Projects");
+                       : this.Url.ActionCached(MVC.Projects.Projects.Index());
         }
     }
 }

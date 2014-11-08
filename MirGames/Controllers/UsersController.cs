@@ -150,7 +150,7 @@ namespace MirGames.Controllers
             this.ViewBag.Pagination = new PaginationViewModel(
                 paginationSettings,
                 topicsCount,
-                p => this.Url.Action("Topics", "Users", new { page = p }));
+                p => this.Url.ActionCached(MVC.Users.Topics(userId, p)));
 
             return this.View(
                 "Topics",
@@ -174,7 +174,7 @@ namespace MirGames.Controllers
             this.ViewBag.Pagination = new PaginationViewModel(
                 paginationSettings,
                 commentsCount,
-                p => this.Url.Action("Comments", "Users", new { page = p }));
+                p => this.Url.ActionCached(MVC.Users.Comments(userId, p)));
 
             this.PageData["userId"] = userId;
             this.ViewBag.SectionMode = "Comments";
@@ -201,7 +201,7 @@ namespace MirGames.Controllers
             this.ViewBag.Pagination = new PaginationViewModel(
                 paginationSettings,
                 postsCount,
-                p => this.Url.Action("Forum", "Users", new { page = p }));
+                p => this.Url.ActionCached(MVC.Users.Forum(userId, p)));
 
             this.PageData["userId"] = userId;
             this.ViewBag.SectionMode = "Forum";
@@ -296,7 +296,7 @@ namespace MirGames.Controllers
             this.ViewBag.Pagination = new PaginationViewModel(
                 paginationSettings,
                 usersCount,
-                p => this.Url.Action("Index", "Users", new { page = p }));
+                p => this.Url.ActionCached(MVC.Users.Index(p, usersQuery.SearchString)));
 
             this.PageData["searchString"] = usersQuery.SearchString;
 

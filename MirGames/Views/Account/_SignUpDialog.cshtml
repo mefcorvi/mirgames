@@ -17,7 +17,7 @@
 
 @section DialogContent
 {
-    <form novalidate="novalidate" ng-submit="processSignUp('@Url.Action("ProcessSignUp", "Account")')" name="signUpForm" class="sign-up-form">
+    <form novalidate="novalidate" ng-submit="processSignUp()" name="signUpForm" class="sign-up-form">
         <div class="form-field">
             <label for="emailOrLogin">Логин</label>
             <input type="text" ng-model="login" maxlength="30" required ng-focused="isFocused" />
@@ -33,13 +33,13 @@
         <div vc-recaptcha ng-model="captcha" key="@RecapchaPublicKey" theme="clean"></div>
         <div class="agreement">
             <input type="checkbox" ng-model="agreement" name="agreement" />
-            <label for="agreement">Я принимаю условия <a href="@Url.Action(MVC.Pages.Rules())" target="_blank">пользовательского соглашения</a></label>
+            <label for="agreement">Я принимаю условия <a href="@Url.ActionCached(MVC.Pages.Rules())" target="_blank">пользовательского соглашения</a></label>
         </div>
     </form>
 }
 
 @section DialogButtons
 {
-    <a href="javascript:void(0)" ng-class="{ 'button-disabled': signUpForm.$invalid || !agreement }" ng-click="processSignUp('@Url.Action("ProcessSignUp", "Account")')">Зарегистрироваться</a>
+    <a href="javascript:void(0)" ng-class="{ 'button-disabled': signUpForm.$invalid || !agreement }" ng-click="processSignUp()">Зарегистрироваться</a>
     <a href="javascript:void(0)" class="cancel" ng-click="close()">Отмена</a>
 }

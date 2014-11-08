@@ -11,7 +11,7 @@
     PageScriptController = "MirGames.Wip.ProjectCodeFilePage";
     AddPageCssClass("wip-code-file-page");
     Func<string, string> getFileUrl =
-        path => string.Format(@"{0}/{1}", Url.Action("Code", "Projects", new { projectAlias = Model.Alias, path = "/" }), path.TrimStart('/'));
+        path => string.Format(@"{0}/{1}", Url.ActionCached(MVC.Projects.Projects.Code(Model.Alias, "/")), path.TrimStart('/'));
 }
 
 @Html.Partial("_ProjectInfo", Model)

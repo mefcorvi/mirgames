@@ -5,7 +5,7 @@
             <div class="tags">
                 @foreach (var tag in Model.TagsSet)
                 {
-                    @Html.ActionLink(tag.Trim(), MVC.Topics.Topics.Index(tag.Trim()), null)
+                    <a href="@Url.ActionCached(MVC.Topics.Topics.Index(tag.Trim()))">@tag.Trim()</a>
                 }
             </div>
             <div class="title-block">
@@ -13,16 +13,16 @@
                 {
                     <span class="blog-link"><a href="@EntityLinkProvider.GetLink(Model.Blog.EntityId, Model.Blog.EntityType)" title="@Model.Blog.Description">@Model.Blog.Title</a></span>
                 }
-                @Html.ActionLink(Model.Title, MVC.Topics.Topics.Topic(Model.TopicId), new { @class = "topic-title" })
+                <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))" class="topic-title">@Model.Title</a>
                 @if (Model.IsTutorial == true)
                 {
                     <i class="fa fa-graduation-cap"></i>
                 }
             </div>
             <div class="author-info">
-                <a href="@Url.Action(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="avatar-link"><img src="@Model.Author.AvatarUrl" class="avatar" /></a>
-                <span class="creation-date">@Html.DisplayFor(m => Model.CreationDate)</span>, опубликовал
-                <a href="@Url.Action(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login"><span>@Model.Author.Login</span></a>
+                <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="avatar-link"><img src="@Model.Author.AvatarUrl" class="avatar" /></a>
+                <span class="creation-date">@Model.CreationDate.Format()</span>, опубликовал
+                <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login"><span>@Model.Author.Login</span></a>
                 @if (!string.IsNullOrEmpty(Model.SourceAuthor))
                 {
                     <span class="original-author">
@@ -43,12 +43,12 @@
             @Html.Raw(Model.ShortText)
         </div>
         <footer>
-            <a href="@Url.Action(MVC.Topics.Topics.Topic(Model.TopicId))#read-more" class="read-more">Читать дальше</a>
-            <a href="@Url.Action(MVC.Topics.Topics.Topic(Model.TopicId))#comments" class="answers-link"><i class="fa fa-comment-o"></i>@Model.CommentsCount.Pluralize("комментарий", "комментария", "комментариев", "{0} {1}")</a>
+            <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))#read-more" class="read-more">Читать дальше</a>
+            <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))#comments" class="answers-link"><i class="fa fa-comment-o"></i>@Model.CommentsCount.Pluralize("комментарий", "комментария", "комментариев", "{0} {1}")</a>
 
             @if (Model.UnreadCommentsCount > 0)
             {
-                <a href="@Url.Action(MVC.Topics.Topics.Topic(Model.TopicId))#unread" class="unread-comments">+ @Model.UnreadCommentsCount</a>
+                <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))#unread" class="unread-comments">+ @Model.UnreadCommentsCount</a>
             }
         </footer>
     </div>

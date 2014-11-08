@@ -12,7 +12,7 @@
 
 <div class="page-header">
     <div class="header">
-        <h4><a href="@Url.Action(MVC.Forum.Forum.Index())">Форумы</a> / <a href="@Url.Action(MVC.Forum.Forum.Topics(Model.Forum.Alias))">@Model.Forum.Title</a></h4>
+        <h4><a href="@Url.ActionCached(MVC.Forum.Forum.Index())">Форумы</a> / <a href="@Url.ActionCached(MVC.Forum.Forum.Topics(Model.Forum.Alias))">@Model.Forum.Title</a></h4>
         <h3>@Model.Title</h3>
     </div>
     <div class="buttons"></div>
@@ -40,19 +40,19 @@
     <ul class="tags">
         @foreach (var tag in Model.Tags)
         {
-            <li><a href="@Url.Action(MVC.Forum.Forum.Topics(Model.Forum.Alias, tag.Trim()))">@tag.Trim()</a></li>
+            <li><a href="@Url.ActionCached(MVC.Forum.Forum.Topics(Model.Forum.Alias, tag.Trim()))">@tag.Trim()</a></li>
         }
     </ul>
     <div class="message-bar">
         @if (startPost.CanBeEdited)
         {
-            <a class="edit-topic" href="javascript:void(0);" dialog="@Url.Action(MVC.Forum.Forum.EditPostDialog())" title="Редактировать"
+            <a class="edit-topic" href="javascript:void(0);" dialog="@Url.ActionCached(MVC.Forum.Forum.EditPostDialog())" title="Редактировать"
                dialog-close="reloadPost(@startPost.PostId, false)"
                resolve="{ 'post-id': @startPost.PostId }" dialog-controller="MirGames.Forum.EditPostDialogController"><i class="fa fa-pencil-square-o"></i></a>
         }
         @if (Model.CanBeDeleted)
         {
-            <a href="javascript:void(0);" class="delete-topic" dialog="@Url.Action(MVC.Forum.Forum.DeleteTopicDialog())" title="Удалить топик"
+            <a href="javascript:void(0);" class="delete-topic" dialog="@Url.ActionCached(MVC.Forum.Forum.DeleteTopicDialog())" title="Удалить топик"
                dialog-close="returnBack()" resolve="{ 'topic-id': @Model.TopicId }"
                dialog-controller="MirGames.Forum.DeleteTopicDialogController"><i class="fa fa-times"></i></a>
         }
@@ -93,11 +93,11 @@
                     <i class="fa fa-clock-o"></i> <span class="topic-created-date relative" datetime="{{post.CreatedDate | date:'yyyy-MM-ddTHH:mm:ssZ'}}">{{post.CreatedDate | date:'dd.MM.yy HH:mm'}}</span>
                 </div>
                 <div class="message-bar">
-                    <a class="edit-post" ng-show="{{post.CanBeEdited}}" href="javascript:void(0);" dialog="@Url.Action(MVC.Forum.Forum.EditPostDialog())"
+                    <a class="edit-post" ng-show="{{post.CanBeEdited}}" href="javascript:void(0);" dialog="@Url.ActionCached(MVC.Forum.Forum.EditPostDialog())"
                        title="Редактировать"
                        dialog-close="$parent.reloadPost(post.PostId, post.IsFirstPost)"
                        resolve="{ 'post-id': {{post.PostId}} }" dialog-controller="MirGames.Forum.EditPostDialogController"><i class="fa fa-pencil-square-o"></i></a>
-                    <a ng-show="post.CanBeDeleted" class="delete-post" href="javascript:void(0);" title="Удалить" dialog="@Url.Action(MVC.Forum.Forum.DeletePostDialog())"
+                    <a ng-show="post.CanBeDeleted" class="delete-post" href="javascript:void(0);" title="Удалить" dialog="@Url.ActionCached(MVC.Forum.Forum.DeletePostDialog())"
                        dialog-close="$parent.hidePost(post.PostId)" resolve="{ 'post-id': {{post.PostId}} }"
                        dialog-controller="MirGames.Forum.DeletePostDialogController"><i class="fa fa-times"></i></a>
                 </div>

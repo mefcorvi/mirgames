@@ -4,7 +4,7 @@
     Title = "Новый проект";
     PageScriptController = "MirGames.Wip.NewProjectPage";
     AddPageCssClass("new-project-page");
-    string baseUrl = new Uri(Request.Url, Url.Action("Project", "Projects", new { projectAlias = "!" })).ToString();
+    string baseUrl = new Uri(Request.Url, Url.ActionCached(MVC.Projects.Projects.Project("!"))).ToString();
 }
 
 @section Nav { @Html.Partial("_WipMenu") }
@@ -50,6 +50,6 @@
     </div>
     <div class="buttons">
         <a class="button" href="javascript:void(0)" ng-click="save()" ng-class="{ 'button-disabled': newProjectForm.$invalid }">Создать</a>
-        <a class="button" href="@Url.Action("Index", "Projects")">Отмена</a>
+        <a class="button" href="@Url.ActionCached(MVC.Projects.Projects.Index())">Отмена</a>
     </div>
 </form>

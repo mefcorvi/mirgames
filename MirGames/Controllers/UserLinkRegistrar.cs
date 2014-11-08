@@ -35,7 +35,7 @@ namespace MirGames.Controllers
             Contract.Requires(entityType != null);
 
             var urlHelper = new UrlHelper(new RequestContext(new HttpContextWrapper(HttpContext.Current), new RouteData()));
-            return urlHelper.Action(MVC.Users.Profile(entityId.GetValueOrDefault()));
+            return urlHelper.ActionCached(MVC.Users.Profile(entityId.GetValueOrDefault()));
         }
     }
 }

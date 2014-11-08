@@ -1,28 +1,28 @@
 ﻿@if (UserEntity != null)
 {
-    <a href="@Url.Action(MVC.Users.Profile(UserEntity.Id))" @Html.Css("avatar-link").Add("selected", ViewBag.CurrentSection == "CurrentUser")><img src="@UserEntity.AvatarUrl" class="avatar avatar-small" /><span>@UserEntity.Login</span></a>
+    <a href="@Url.ActionCached(MVC.Users.Profile(UserEntity.Id))" @Html.Css("avatar-link").Add("selected", ViewBag.CurrentSection == "CurrentUser")><img src="@UserEntity.AvatarUrl" class="avatar avatar-small" /><span>@UserEntity.Login</span></a>
 }
 
 <span ng-controller="MirGames.Topics.UnreadMenuItemController">
-    <a href="@Url.Action(MVC.Topics.Topics.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Topics")>
+    <a href="@Url.ActionCached(MVC.Topics.Topics.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Topics")>
         Блог
     </a>
     <a @Html.Css("updates-count").Add("counter").Add("ng-hide", @ViewBag.BlogTopicsUnread == 0) title="Новые темы блога"
-       ng-show="unreadCount > 0" ng-bind="'+' + unreadCount" href="@Url.Action(MVC.Topics.Topics.Index(onlyUnread:true))">+@ViewBag.BlogTopicsUnread</a>
+       ng-show="unreadCount > 0" ng-bind="'+' + unreadCount" href="@Url.ActionCached(MVC.Topics.Topics.Index(onlyUnread:true))">+@ViewBag.BlogTopicsUnread</a>
 </span>
 <span ng-controller="MirGames.Forum.UnreadMenuItemController">
-    <a href="@Url.Action(MVC.Forum.Forum.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Forum")>
+    <a href="@Url.ActionCached(MVC.Forum.Forum.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Forum")>
         Форум
     </a>
     <a @Html.Css("updates-count").Add("counter").Add("ng-hide", @ViewBag.ForumTopicsUnread == 0) title="Новые темы форума"
-       ng-show="unreadCount > 0" ng-bind="'+' + unreadCount" href="@Url.Action(MVC.Forum.Forum.Unread())">+@ViewBag.ForumTopicsUnread</a>
+       ng-show="unreadCount > 0" ng-bind="'+' + unreadCount" href="@Url.ActionCached(MVC.Forum.Forum.Unread())">+@ViewBag.ForumTopicsUnread</a>
 </span>
-<a href="@Url.Action(MVC.Projects.Projects.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "WIP")>Проекты</a>
-<a href="@Url.Action(MVC.Users.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Users")>Пользователи</a>
+<a href="@Url.ActionCached(MVC.Projects.Projects.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "WIP")>Проекты</a>
+<a href="@Url.ActionCached(MVC.Users.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Users")>Пользователи</a>
 
 @if (User.IsInRole("Administrator"))
 {
-    <a href="@Url.Action(MVC.Tools.Events())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Tools")>Управление</a>
+    <a href="@Url.ActionCached(MVC.Tools.Events())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Tools")>Управление</a>
 }
 
-<a href="@Url.Action(MVC.Chat.Chat.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Chat")>Чат</a>
+<a href="@Url.ActionCached(MVC.Chat.Chat.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Chat")>Чат</a>

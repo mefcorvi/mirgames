@@ -26,6 +26,6 @@
     </div>
     <div class="buttons">
         <a href="javascript:void(0);" ng-click="save()" class="button" ng-class="{ 'button-disabled': editTopicForm.$invalid }">Сохранить</a>
-        <a href="@Url.Action("Topic", new { topicId = Model.Id  })" class="button">Отмена</a>
+        <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.Id))" class="button">Отмена</a>
     </div>
 </form>

@@ -41,16 +41,16 @@
             <div class="repository-url">
                 <span>Адрес репозитория:</span>
                 <input type="text" value="@Model.RepositoryUrl" readonly="true" />
-                <a href="@Url.Action(MVC.Projects.Projects.Archive(Model.Alias))">Скачать ZIP архив</a>
+                <a href="@Url.ActionCached(MVC.Projects.Projects.Archive(Model.Alias))">Скачать ZIP архив</a>
             </div>
         }
         @if (images.Any())
         {
-            <h4><a href="@Url.Action(MVC.Projects.Projects.Gallery(Model.Alias))">Скриншоты</a></h4>
+            <h4><a href="@Url.ActionCached(MVC.Projects.Projects.Gallery(Model.Alias))">Скриншоты</a></h4>
             <ul class="screenshots">
                 @foreach (var attachment in images)
                 {
-                    <li dialog ="@Url.Action(MVC.Projects.Projects.GalleryItemDialog())" resolve="{ 'attachment-id': @attachment.AttachmentId, 'attachment-url': '@attachment.AttachmentUrl', 'entity-id': @Model.ProjectId }"
+                    <li dialog ="@Url.ActionCached(MVC.Projects.Projects.GalleryItemDialog())" resolve="{ 'attachment-id': @attachment.AttachmentId, 'attachment-url': '@attachment.AttachmentUrl', 'entity-id': @Model.ProjectId }"
                               dialog-controller="MirGames.Projects.GalleryItemDialogController">
                         <img src="@attachment.AttachmentUrl?size=s" />
                     </li>
@@ -69,7 +69,7 @@
                             @commit.Message
                         </div>
                         <span class="user-name">@commit.Author.Login</span>
-                        @*<a href="@Url.Action("Profile", "Users", new { userId = commit.Author.Id })" class="user-login avatar-link"><img src="@commit.Author.AvatarUrl" class="avatar avatar-tiny" /><span>@commit.Author.Login</span></a>*@
+                        @*<a href="@Url.ActionCached("Profile", "Users", new { userId = commit.Author.Id })" class="user-login avatar-link"><img src="@commit.Author.AvatarUrl" class="avatar avatar-tiny" /><span>@commit.Author.Login</span></a>*@
                     </div>
                 }
             </div>

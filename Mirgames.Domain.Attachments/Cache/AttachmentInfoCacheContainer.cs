@@ -11,9 +11,9 @@ namespace MirGames.Domain.Attachments.Cache
 {
     using System.Collections.Generic;
     using System.Globalization;
-    using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Attachments.Events;
     using MirGames.Domain.Attachments.Queries;
     using MirGames.Infrastructure.Cache;
     using MirGames.Infrastructure.Events;
@@ -35,7 +35,10 @@ namespace MirGames.Domain.Attachments.Cache
         {
             get
             {
-                return Enumerable.Empty<string>();
+                return new[]
+                {
+                    "Attachments.AttachmentRemoved"
+                };
             }
         }
 
@@ -57,8 +60,13 @@ namespace MirGames.Domain.Attachments.Cache
         /// <inheritdoc />
         protected override void Invalidate(Event @event)
         {
-            var cacheManager = this.GetCacheManager("GetAttachmentInfoQuery");
-            cacheManager.Clear();
+            var attachmentRemovedEvent = @event as AttachmentRemovedEvent;
+
+            if (attachmentRemovedEvent != null)
+            {
+                var cacheManager = this.GetCacheManager("GetAttachmentInfoQuery");
+                cacheManager.Remove(attachmentRemovedEvent.AttachmentId.ToString(CultureInfo.InvariantCulture));
+            }
         }
     }
 }

@@ -18,11 +18,13 @@ namespace MirGames.Domain.Attachments.CommandHandlers
     using MirGames.Domain.Acl.Public.Commands;
     using MirGames.Domain.Attachments.Commands;
     using MirGames.Domain.Attachments.Entities;
+    using MirGames.Domain.Attachments.Events;
     using MirGames.Domain.Attachments.Exceptions;
     using MirGames.Domain.Attachments.Services;
     using MirGames.Domain.Security;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Commands;
+    using MirGames.Infrastructure.Events;
     using MirGames.Infrastructure.Security;
     using MirGames.Infrastructure.Utilities;
 
@@ -52,6 +54,11 @@ namespace MirGames.Domain.Attachments.CommandHandlers
         private readonly ICommandProcessor commandProcessor;
 
         /// <summary>
+        /// The event bus.
+        /// </summary>
+        private readonly IEventBus eventBus;
+
+        /// <summary>
         /// The upload processors.
         /// </summary>
         private readonly IEnumerable<IUploadProcessor> uploadProcessors;
@@ -64,22 +71,26 @@ namespace MirGames.Domain.Attachments.CommandHandlers
         /// <param name="settings">The settings.</param>
         /// <param name="commandProcessor">The command processor.</param>
         /// <param name="uploadProcessors">The upload processors.</param>
+        /// <param name="eventBus">The event bus.</param>
         public CreateAttachmentCommandHandler(
             IWriteContextFactory writeContextFactory,
             IContentTypeProvider contentTypeProvider,
             ISettings settings,
             ICommandProcessor commandProcessor,
-            IEnumerable<IUploadProcessor> uploadProcessors)
+            IEnumerable<IUploadProcessor> uploadProcessors,
+            IEventBus eventBus)
         {
             Contract.Requires(writeContextFactory != null);
             Contract.Requires(contentTypeProvider != null);
             Contract.Requires(settings != null);
             Contract.Requires(commandProcessor != null);
+            Contract.Requires(eventBus != null);
 
             this.writeContextFactory = writeContextFactory;
             this.contentTypeProvider = contentTypeProvider;
             this.settings = settings;
             this.commandProcessor = commandProcessor;
+            this.eventBus = eventBus;
             this.uploadProcessors = uploadProcessors.EnsureCollection();
         }
 
@@ -145,6 +156,14 @@ namespace MirGames.Domain.Attachments.CommandHandlers
                 IsDenied = false,
                 EntityType = "Attachment",
                 UserId = userId
+            });
+
+            this.eventBus.Raise(new AttachmentCreatedEvent
+            {
+                AttachmentId = attachment.AttachmentId,
+                EntityId = attachment.EntityId,
+                EntityType = attachment.EntityType,
+                UserId = attachment.UserId
             });
 
             return attachment.AttachmentId;

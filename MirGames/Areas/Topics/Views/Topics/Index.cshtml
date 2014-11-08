@@ -32,7 +32,7 @@
         }
         @foreach (var tag in tags)
         {
-            <a href="@Url.Action(MVC.Topics.Topics.Index(tag.Tag.Trim(), (string)ViewBag.SearchString, 1, false))" @Html.Css(string.Format("tag-size-{0}", (tag.Count * 5 / maxTagsCount))).Add("selected", tag.Tag.EqualsIgnoreCase(currentTag))>@tag.Tag.Trim()</a>
+            <a href="@Url.ActionCached(MVC.Topics.Topics.Index(tag.Tag.Trim(), (string)ViewBag.SearchString, 1, false))" @Html.Css(string.Format("tag-size-{0}", (tag.Count * 5 / maxTagsCount))).Add("selected", tag.Tag.EqualsIgnoreCase(currentTag))>@tag.Tag.Trim()</a>
         }
     </div>
 </div>

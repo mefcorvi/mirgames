@@ -50,7 +50,7 @@ namespace MirGames.Areas.Topics.Controllers
             var topics = this.QueryProcessor.Process(topicsQuery, new PaginationSettings(0, 20));
 
             var feed = new SyndicationFeed(
-                "MirGames.ru", "Новые посты на MirGames.ru", this.GetAbsoluteUri(this.Url.Action(MVC.Topics.Topics.Index())))
+                "MirGames.ru", "Новые посты на MirGames.ru", this.GetAbsoluteUri(this.Url.ActionCached(MVC.Topics.Topics.Index())))
                 {
                     Items = topics.Select(this.CreateTopicSyndicationItem).ToList()
                 };
@@ -68,7 +68,7 @@ namespace MirGames.Areas.Topics.Controllers
             var comments = this.QueryProcessor.Process(commentsQuery, new PaginationSettings(0, 20));
 
             var feed = new SyndicationFeed(
-                "Новые комментарии на MirGames.ru", "Новые комментарии на MirGames.ru", this.GetAbsoluteUri(this.Url.Action(MVC.Topics.Topics.Index())))
+                "Новые комментарии на MirGames.ru", "Новые комментарии на MirGames.ru", this.GetAbsoluteUri(this.Url.ActionCached(MVC.Topics.Topics.Index())))
             {
                 Items = comments.Select(this.CreateCommentSyndicationItem).ToList()
             };
@@ -101,9 +101,9 @@ namespace MirGames.Areas.Topics.Controllers
             this.ViewBag.Tags = tags;
             this.ViewBag.Tag = tag;
             this.ViewBag.TopicsCount = topicsCount;
-            this.ViewBag.RssUrl = this.Url.Action("Rss", "Topics", new { tag, searchString });
+            this.ViewBag.RssUrl = this.Url.ActionCached(MVC.Topics.Topics.Rss(tag, searchString));
             this.ViewBag.Pagination = new PaginationViewModel(
-                paginationSettings, topicsCount, p => this.Url.Action(MVC.Topics.Topics.Index(tag, searchString, p, onlyUnread)));
+                paginationSettings, topicsCount, p => this.Url.ActionCached(MVC.Topics.Topics.Index(tag, searchString, p, onlyUnread)));
 
             var comments = this.QueryProcessor.Process(new GetCommentsQuery { LoadOnlyShortText = true }, new PaginationSettings(0, 10));
             this.ViewBag.Comments = comments;
@@ -144,9 +144,9 @@ namespace MirGames.Areas.Topics.Controllers
             this.ViewBag.Tags = tags;
             this.ViewBag.Tag = tag;
             this.ViewBag.TopicsCount = topicsCount;
-            this.ViewBag.RssUrl = this.Url.Action("Rss", "Topics", new { tag, searchString });
+            this.ViewBag.RssUrl = this.Url.ActionCached(MVC.Topics.Topics.Rss(tag, searchString));
             this.ViewBag.Pagination = new PaginationViewModel(
-                paginationSettings, topicsCount, p => this.Url.Action(MVC.Topics.Topics.Tutorials(tag, searchString, p)));
+                paginationSettings, topicsCount, p => this.Url.ActionCached(MVC.Topics.Topics.Tutorials(tag, searchString, p)));
 
             var comments = this.QueryProcessor.Process(new GetCommentsQuery { LoadOnlyShortText = true }, new PaginationSettings(0, 10));
             this.ViewBag.Comments = comments;
@@ -184,7 +184,7 @@ namespace MirGames.Areas.Topics.Controllers
             this.ViewBag.BackUrl = this.HttpContext.Request.UrlReferrer != null
                                    && this.HttpContext.Request.UrlReferrer.IsRouteMatch("Topics", "Index")
                                        ? this.HttpContext.Request.UrlReferrer.ToString()
-                                       : this.Url.Action(MVC.Topics.Topics.Index());
+                                       : this.Url.ActionCached(MVC.Topics.Topics.Index());
 
             this.ViewBag.PageData["topicId"] = topicId;
             return this.View(topic);
@@ -307,7 +307,7 @@ namespace MirGames.Areas.Topics.Controllers
         /// <returns>The syndication item.</returns>
         private SyndicationItem CreateTopicSyndicationItem(TopicsListItem topic)
         {
-            var topicUrl = this.Url.Action("Topic", "Topics", new { topicId = topic.TopicId });
+            var topicUrl = this.Url.ActionCached(MVC.Topics.Topics.Topic(topic.TopicId));
 
             var item = new SyndicationItem(
                 topic.Title,
@@ -335,7 +335,7 @@ namespace MirGames.Areas.Topics.Controllers
             return new SyndicationPerson(
                 null,
                 author.Login,
-                this.Url.Action("Profile", "Users", new { userId = author.Id }));
+                this.Url.ActionCached(MVC.Users.Profile(author.Id.GetValueOrDefault())));
         }
 
         /// <summary>
@@ -345,7 +345,7 @@ namespace MirGames.Areas.Topics.Controllers
         /// <returns>The syndication item.</returns>
         private SyndicationItem CreateCommentSyndicationItem(CommentViewModel comment)
         {
-            var topicUrl = this.Url.Action("Topic", "Topics", new { topicId = comment.TopicId }) + "#c" + comment.Id;
+            var topicUrl = this.Url.ActionCached(MVC.Topics.Topics.Topic(comment.TopicId)) + "#c" + comment.Id;
 
             var item = new SyndicationItem(
                 string.Format("{0} > {1} (#{2})", comment.TopicTitle, comment.Author.Login, comment.Id),
