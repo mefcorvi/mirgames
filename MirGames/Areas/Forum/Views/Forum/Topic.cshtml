@@ -31,7 +31,7 @@
 </article>
 <div class="topic-bar">
     <div class="created-date">
-        @Html.DisplayFor(m => m.CreatedDate)
+        @Model.CreatedDate.Format()
     </div>
     @Author.UserAvatarLink(startPost.Author, "avatar-tiny")
     <div class="author">

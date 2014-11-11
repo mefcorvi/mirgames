@@ -89,11 +89,17 @@ namespace MirGames.Controllers
         /// <inheritdoc />
         protected override void OnResultExecuting(ResultExecutingContext filterContext)
         {
-            var forumNotificationsCountQuery = new GetForumNotificationsCountQuery();
-            int forumTopicsUnread = this.QueryProcessor.Process(forumNotificationsCountQuery);
+            int forumTopicsUnread = 0;
+            int blogTopicsUnread = 0;
 
-            var topicsNotificationsCountQuery = new GetTopicsNotificationsCountQuery();
-            int blogTopicsUnread = this.QueryProcessor.Process(topicsNotificationsCountQuery);
+            if (this.User.Identity.IsAuthenticated)
+            {
+                var forumNotificationsCountQuery = new GetForumNotificationsCountQuery();
+                forumTopicsUnread = this.QueryProcessor.Process(forumNotificationsCountQuery);
+
+                var topicsNotificationsCountQuery = new GetTopicsNotificationsCountQuery();
+                blogTopicsUnread = this.QueryProcessor.Process(topicsNotificationsCountQuery);
+            }
 
             this.ViewBag.ForumTopicsUnread = forumTopicsUnread;
             this.PageData["forumTopicsUnreadCount"] = forumTopicsUnread;

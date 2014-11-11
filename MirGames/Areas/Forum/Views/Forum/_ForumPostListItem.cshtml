@@ -60,7 +60,7 @@
         </div>
         @if (Model.UpdatedDate > Model.CreatedDate)
         {
-            <div class="edited">Отредактировано: @Html.DisplayFor(m => m.UpdatedDate)</div>
+            <div class="edited">Отредактировано: @Model.UpdatedDate.Format()</div>
         }
     </div>
     @if (Model.IsFirstPost)
