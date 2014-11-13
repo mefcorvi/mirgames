@@ -107,8 +107,6 @@ namespace MirGames.Areas.Forum.Controllers
                 page = 1;
             }
 
-            var forum = this.QueryProcessor.Process(new GetForumsQuery()).FirstOrDefault(f => f.Alias.EqualsIgnoreCase(forumAlias));
-
             var topicsQuery = new GetForumTopicsQuery
                 {
                     Tag = tag,
@@ -126,11 +124,13 @@ namespace MirGames.Areas.Forum.Controllers
             foreach (var topic in topics)
             {
                 int topicId = topic.TopicId;
+                string topicForumAlias = topic.Forum.Alias;
+
                 topicsPagination[topicId] =
                     new PaginationViewModel(
                         new PaginationSettings(PaginationSettings.GetItemPage(topic.PostsCount, 20), 20),
                         topic.PostsCount,
-                        p => this.GetTopicPageUrl(p, topicId, forumAlias))
+                        p => this.GetTopicPageUrl(p, topicId, topicForumAlias))
                         {
                             ShowPrevNextNavigation = false,
                             HightlightCurrentPage = false
@@ -144,7 +144,12 @@ namespace MirGames.Areas.Forum.Controllers
             
             this.ViewBag.PageData["tag"] = tag;
             this.ViewBag.PageData["searchString"] = searchString;
-            this.ViewBag.Forum = forum;
+
+            if (!forumAlias.IsNullOrEmpty())
+            {
+                var forum = this.QueryProcessor.Process(new GetForumsQuery()).FirstOrDefault(f => f.Alias.EqualsIgnoreCase(forumAlias));
+                this.ViewBag.Forum = forum;
+            }
 
             this.ViewBag.TopicsCount = topicsCount;
 

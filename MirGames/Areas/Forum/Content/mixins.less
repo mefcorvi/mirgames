@@ -137,29 +137,18 @@
 
             & > .replies-count {
                 .header-font();
-                color: @font-color;
-                text-align: center;
+                color: mix(@background-color, @font-color, 60%);
+                text-align: left;
                 white-space: nowrap;
                 padding-left: 5px;
-                padding-right: 5px;
-                width: 10%;
-                min-width: 100px;
+                padding-right: @indent/2;
+                width: 100px;
                 display: table-cell;
                 vertical-align: middle;
-            }
 
-            & > .visits-count {
-                .header-font();
-                color: @font-color;
-                text-align: center;
-                white-space: nowrap;
-                padding-left: 5px;
-                padding-right: 5px;
-                width: 10%;
-                min-width: 100px;
-                display: table-cell;
-                vertical-align: middle;
-                .visible-when(@show-post-info);
+                span {
+                    color: @font-color;
+                }
             }
 
             & > .last-post-info {

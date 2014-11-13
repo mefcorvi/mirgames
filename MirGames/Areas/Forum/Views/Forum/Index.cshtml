@@ -13,6 +13,7 @@
         <h3>Форумы</h3>
     </div>
     <div class="buttons">
+             <a href="@Url.ActionCached(MVC.Forum.Forum.Topics())"><i class="fa fa-comments-o"></i>Все обсуждения</a>
     </div>
 </div>
 
@@ -21,12 +22,7 @@
         <div class="forum-title-block">
             Форум
         </div>
-        <div class="topics-count">
-            Тем
-        </div>
-        <div class="replies-count">
-            Ответов
-        </div>
+        <div class="replies-count">&nbsp;</div>
         <div class="last-topic-info">
             Последнее сообщение
         </div>
@@ -43,11 +39,9 @@
                     @forum.Description
                 </footer>
             </div>
-            <div @Html.Css("topics-count")>
-                <span>@(forum.TopicsCount)</span>
-            </div>
             <div @Html.Css("replies-count")>
-                <span>@(forum.PostsCount)</span>
+                <div><span>@forum.TopicsCount</span> @forum.TopicsCount.Pluralize("тема", "темы", "тем")</div>
+                <div><span>@forum.PostsCount</span> @forum.PostsCount.Pluralize("ответ", "ответа", "ответов")</div>
             </div>
             <div class="last-topic-info">
                 @Author.UserAvatarLink(forum.LastAuthor, "avatar-tiny", "user-login", true)

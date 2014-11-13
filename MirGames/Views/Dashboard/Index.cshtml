@@ -68,9 +68,9 @@
                         </div>
                         <div class="short-description text">@topic.ShortDescription</div>
                         <footer>
-                            <span class="created-date"><span class="topic-created-date relative" datetime="@topic.CreatedDate.ToString("O")">@Html.RelativeDate(topic.CreatedDate)</span></span>,
-                            <span class="author">@Author.UserLink(topic.Author, "topic-author")</span>,
-                            <span class="replies-count">Ответов: @(topic.PostsCount - 1)</span>
+                            <span class="created-date"><span class="topic-created-date relative" datetime="@topic.UpdatedDate.ToString("O")">@Html.RelativeDate(topic.UpdatedDate)</span></span>,
+                            <span class="author">@Author.UserLink(topic.LastPostAuthor, "topic-author")</span>,
+                            <span class="replies-count">@(topic.PostsCount - 1) <span>@((topic.PostsCount - 1).Pluralize("ответ", "ответа", "ответов"))</span></span>
                         </footer>
                     </div>
                 </div>

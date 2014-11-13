@@ -19,17 +19,13 @@
             </div>
             <div class="short-description text">@Model.ShortDescription</div>
             <footer>
-                <span class="created-date"><span class="topic-created-date relative" datetime="@Model.CreatedDate.ToString("O")">@Html.RelativeDate(Model.CreatedDate)</span></span>,
-                <span class="author">
-                    @Author.UserLink(Model.Author, "topic-author")
-                </span>
+                <span class="author">Автор @Author.UserLink(Model.Author, "topic-author")</span>,
+                <span class="created-date"><span class="topic-created-date relative" datetime="@Model.CreatedDate.ToString("O")">@Html.RelativeDate(Model.CreatedDate)</span></span>
             </footer>
         </div>
         <div @Html.Css("replies-count")>
-            <span>@(Model.PostsCount - 1)</span>
-        </div>
-        <div @Html.Css("visits-count")>
-            @Model.Visits
+            <div><span>@(Model.PostsCount - 1)</span> @((Model.PostsCount - 1).Pluralize("ответ", "ответа", "ответов"))</div>
+            <div><span>@Model.Visits</span> @Model.Visits.Pluralize("просмотр", "просмотра", "просмотров")</div>
         </div>
         <div class="last-post-info">
             @Author.UserAvatarLink(Model.LastPostAuthor, "avatar-small", "user-login", true)

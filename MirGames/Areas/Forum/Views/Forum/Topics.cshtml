@@ -1,4 +1,5 @@
-﻿@using MirGames.Domain.Security
+﻿@using System.Web.UI.WebControls
+@using MirGames.Domain.Security
 @using MirGames.Models
 @model IEnumerable<MirGames.Domain.Forum.ViewModels.ForumTopicsListItemViewModel>
 
@@ -11,14 +12,17 @@
 <div class="page-header">
     <div class="header">
         <h4><a href="@Url.ActionCached(MVC.Forum.Forum.Index())">Форумы</a></h4>
-        <h3>@ViewBag.Forum.Title</h3>
+        <h3>@(ViewBag.Forum != null ? ViewBag.Forum.Title : "Все обсуждения")</h3>
     </div>
-    <div class="buttons">
-        @if (User.Can("Create", "ForumTopic"))
-        {
-            <a href="@Url.ActionCached(MVC.Forum.Forum.New((string)ViewBag.Forum.Alias))"><i class="fa fa-pencil"></i>Новая тема</a>
-        }
-    </div>
+    @if (ViewBag.Forum != null)
+    {
+        <div class="buttons">
+            @if (User.Can("Create", "ForumTopic"))
+            {
+                <a href="@Url.ActionCached(MVC.Forum.Forum.New((string)ViewBag.Forum.Alias))"><i class="fa fa-pencil"></i>Новая тема</a>
+            }
+        </div>
+    }
 </div>
 
 @if (!Model.Any())
@@ -34,11 +38,7 @@ else
             <div class="topic-title-block">
                 Темы
             </div>
-            <div class="replies-count">
-                Ответов
-            </div>
-            <div class="visits-count">
-                Просмотров
+            <div class="replies-count">&nbsp;
             </div>
             <div class="last-post-info">
                 Последнее сообщение
