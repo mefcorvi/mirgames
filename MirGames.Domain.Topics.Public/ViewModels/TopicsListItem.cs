@@ -110,5 +110,15 @@ namespace MirGames.Domain.Topics.ViewModels
         /// Gets or sets the source link.
         /// </summary>
         public string SourceLink { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is micro topic.
+        /// </summary>
+        public bool IsMicroTopic { get; set; }
+
+        /// <summary>
+        /// Gets or sets the read more text.
+        /// </summary>
+        public string ReadMoreText { get; set; }
     }
 }

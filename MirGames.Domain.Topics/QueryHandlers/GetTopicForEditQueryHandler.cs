@@ -63,7 +63,8 @@ namespace MirGames.Domain.Topics.QueryHandlers
                     Id = topic.Id,
                     Text = topic.Content.TopicTextSource,
                     Title = topic.TopicTitle,
-                    Tags = topic.TagsList
+                    Tags = topic.TagsList,
+                    IsMicroTopic = topic.IsMicroTopic
                 };
         }
     }

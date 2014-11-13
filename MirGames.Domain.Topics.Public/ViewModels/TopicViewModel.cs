@@ -95,5 +95,10 @@ namespace MirGames.Domain.Topics.ViewModels
         /// Gets or sets a value indicating whether topics should be shown on main.
         /// </summary>
         public bool ShowOnMain { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is micro topic.
+        /// </summary>
+        public bool IsMicroTopic { get; set; }
     }
 }

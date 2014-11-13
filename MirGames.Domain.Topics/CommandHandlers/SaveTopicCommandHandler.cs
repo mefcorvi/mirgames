@@ -95,6 +95,9 @@ namespace MirGames.Domain.Topics.CommandHandlers
                 topic = writeContext.Set<Topic>().SingleOrDefault(t => t.Id == command.TopicId);
                 authorizationManager.EnsureAccess(principal, "Edit", "Topic", command.TopicId);
 
+                string topicText = this.textProcessor.GetHtml(command.Text);
+                string topicTextShort = this.textProcessor.GetShortHtml(command.Text);
+
                 if (topic == null)
                 {
                     throw new ItemNotFoundException("Topic", command.TopicId);
@@ -105,6 +108,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
                 topic.TagsList = command.Tags;
                 topic.EditDate = DateTime.UtcNow;
                 topic.UserIp = principal.GetHostAddress();
+                topic.CutText = topicText.Length == topicTextShort.Length ? null : "Читать дальше";
 
                 foreach (var oldTag in writeContext.Set<TopicTag>().Where(t => t.TopicId == command.TopicId))
                 {
@@ -112,9 +116,10 @@ namespace MirGames.Domain.Topics.CommandHandlers
                 }
 
                 var topicContent = writeContext.Set<TopicContent>().Single(content => content.TopicId == command.TopicId);
-                topicContent.TopicText = this.textProcessor.GetHtml(command.Text);
+
+                topicContent.TopicText = topicText;
                 topicContent.TopicTextSource = command.Text;
-                topicContent.TopicTextShort = this.textProcessor.GetShortHtml(command.Text);
+                topicContent.TopicTextShort = topicTextShort;
                 
                 foreach (var tag in command.Tags.Split(','))
                 {

@@ -223,7 +223,9 @@ namespace MirGames.Domain.Topics.QueryHandlers
                 SourceLink = x.SourceLink,
                 IsTutorial = x.IsTutorial,
                 IsRepost = x.IsRepost,
-                CommentsCount = x.CountComment
+                CommentsCount = x.CountComment,
+                ReadMoreText = x.CutText,
+                IsMicroTopic = x.IsMicroTopic
             });
         }
 

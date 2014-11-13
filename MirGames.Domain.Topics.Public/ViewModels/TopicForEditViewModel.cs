@@ -32,5 +32,10 @@ namespace MirGames.Domain.Topics.ViewModels
         /// Gets or sets the text.
         /// </summary>
         public string Text { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is micro topic.
+        /// </summary>
+        public bool IsMicroTopic { get; set; }
     }
 }

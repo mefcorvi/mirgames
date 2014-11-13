@@ -161,5 +161,10 @@ namespace MirGames.Domain.Topics.Entities
         /// Gets or sets the content.
         /// </summary>
         public TopicContent Content { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is micro topic.
+        /// </summary>
+        public bool IsMicroTopic { get; set; }
     }
 }

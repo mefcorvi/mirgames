@@ -93,7 +93,8 @@ namespace MirGames.Domain.Topics.QueryHandlers
                         Blog = new BlogViewModel { BlogId = t.BlogId },
                         TagsList = t.TagsList,
                         CreationDate = t.CreationDate,
-                        ShowOnMain = t.ShowOnMain
+                        ShowOnMain = t.ShowOnMain,
+                        IsMicroTopic = t.IsMicroTopic
                     })
                 .FirstOrDefault();
 

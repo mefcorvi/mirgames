@@ -149,7 +149,9 @@ namespace MirGames.Domain.Topics.QueryHandlers
                     IsTutorial = topic.IsTutorial,
                     IsRepost = topic.IsRepost,
                     SourceAuthor = topic.SourceAuthor,
-                    SourceLink = topic.SourceLink
+                    SourceLink = topic.SourceLink,
+                    ReadMoreText = topic.CutText,
+                    IsMicroTopic = topic.IsMicroTopic
                 };
         }
     }

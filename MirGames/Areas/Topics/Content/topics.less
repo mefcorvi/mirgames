@@ -42,13 +42,8 @@ body > nav > h1 {
             border-right: 1px solid @border-color;
             float: left;
             .box-sizing(border-box);
-            padding-right: @indent;
+            padding: 0 @indent;
             margin-bottom: @indent;
-
-            & > .message {
-                padding-left: @indent;
-                padding-right: @indent;
-            }
 
             & > .message > .message-content > header {
                 .font-size(2);

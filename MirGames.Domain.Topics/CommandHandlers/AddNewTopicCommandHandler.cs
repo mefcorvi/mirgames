@@ -87,6 +87,16 @@ namespace MirGames.Domain.Topics.CommandHandlers
         {
             Contract.Requires(principal.GetUserId() != null);
 
+            authorizationManager.EnsureAccess(principal, "AddNew", "Topic");
+
+            if (command.BlogId.HasValue)
+            {
+                authorizationManager.EnsureAccess(principal, "CreateTopic", "Blog", command.BlogId);
+            }
+
+            string topicText = this.textProcessor.GetHtml(command.Text);
+            string topicTextShort = this.textProcessor.GetShortHtml(command.Text);
+
             var topic = new Topic
             {
                 AuthorId = principal.GetUserId().GetValueOrDefault(),
@@ -102,7 +112,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
                 CountVoteAbstain = 0,
                 CountVoteDown = 0,
                 CountVoteUp = 0,
-                CutText = "Read more...",
+                CutText = topicText.Length == topicTextShort.Length ? null : "Читать дальше",
                 IsPublished = true,
                 IsPublishedDraft = false,
                 IsPublishedIndex = false,
@@ -117,13 +127,6 @@ namespace MirGames.Domain.Topics.CommandHandlers
                 BlogId = command.BlogId,
                 ShowOnMain = command.BlogId.GetValueOrDefault() == 0
             };
-
-            authorizationManager.EnsureAccess(principal, "AddNew", "Topic");
-
-            if (command.BlogId.HasValue)
-            {
-                authorizationManager.EnsureAccess(principal, "CreateTopic", "Blog", command.BlogId);
-            }
 
             if (command.IsRepost)
             {
@@ -146,9 +149,9 @@ namespace MirGames.Domain.Topics.CommandHandlers
                     new TopicContent
                         {
                             Topic = topic,
-                            TopicText = this.textProcessor.GetHtml(command.Text),
+                            TopicText = topicText,
                             TopicTextSource = command.Text,
-                            TopicTextShort = this.textProcessor.GetShortHtml(command.Text),
+                            TopicTextShort = topicTextShort,
                             TopicExtra = "Read more..."
                         });
 

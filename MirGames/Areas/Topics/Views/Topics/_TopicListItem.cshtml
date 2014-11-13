@@ -1,55 +1,95 @@
 ﻿@model MirGames.Domain.Topics.ViewModels.TopicsListItem
-<article @Html.Css("message").Add("unread-message", !Model.IsRead)>
-    <div class="message-content">
-        <div class="message-header">
+@if (!Model.IsMicroTopic)
+{
+    <article @Html.Css("message").Add("unread-message", !Model.IsRead)>
+        <div class="message-content">
+            <div class="message-header">
+                <div class="title-block">
+                    @if (@Model.Blog.BlogId != null)
+                    {
+                        <span class="blog-link"><a href="@EntityLinkProvider.GetLink(Model.Blog.EntityId, Model.Blog.EntityType)" title="@Model.Blog.Description">@Model.Blog.Title</a></span>
+                    }
+                    <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))" class="topic-title">@Model.Title</a>
+                    @if (Model.IsTutorial == true)
+                    {
+                        <i class="fa fa-graduation-cap"></i>
+                    }
+                </div>
+                <div class="author-info">
+                    <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="avatar-link"><img src="@Model.Author.AvatarUrl" class="avatar" /></a>
+                    <span class="creation-date">@Model.CreationDate.Format()</span>, опубликовал
+                    <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login"><span>@Model.Author.Login</span></a>
+                    @if (!string.IsNullOrEmpty(Model.SourceAuthor))
+                    {
+                        <span class="original-author">
+                            (Автор оригинала:
+                            @if (!string.IsNullOrEmpty(Model.SourceLink))
+                            {
+                                <a href="@Model.SourceLink">@Model.SourceAuthor</a>
+                            }
+                            else
+                            {
+                                @Model.SourceAuthor
+                            })
+                        </span>
+                    }
+                </div>
+            </div>
+            <div class="text">
+                @Html.Raw(Model.ShortText)
+            </div>
+            @if (!string.IsNullOrEmpty(Model.ReadMoreText))
+            {
+                <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))#read-more" class="read-more">@Model.ReadMoreText<i class="fa fa-long-arrow-right"></i></a>
+            }
+            <footer>
+                @if (Model.UnreadCommentsCount > 0)
+                {
+                    <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))#unread" class="answers-link unread-comments"><i class="fa fa-comment-o"></i>@Model.CommentsCount +@Model.UnreadCommentsCount</a>
+                }
+                else
+                {
+                    <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))#comments" class="answers-link"><i class="fa fa-comment-o"></i>@Model.CommentsCount</a>
+                }
+                
+                <div class="tags">
+                    @foreach (var tag in Model.TagsSet)
+                    {
+                        <a href="@Url.ActionCached(MVC.Topics.Topics.Index(tag.Trim()))">@tag.Trim()</a>
+                    }
+                </div>
+            </footer>
+        </div>
+    </article>
+}
+else
+{
+    <article @Html.Css("micro-message").Add("unread-message", !Model.IsRead)>
+        <div class="author-avatar">
+            <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="avatar-link"><img src="@Model.Author.AvatarUrl" class="avatar" /></a>
+        </div>
+        <div class="micro-message-content">
+            <div class="micro-message-author">
+                <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login"><span>@Model.Author.Login</span></a>
+                <span class="creation-date">@Model.CreationDate.Format()</span>
+            </div>
+            <div class="text">@Html.Raw(Model.ShortText)</div>
+        </div>
+        <footer>
+            @if (Model.UnreadCommentsCount > 0)
+            {
+                <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))#unread" class="answers-link unread-comments"><i class="fa fa-comment-o"></i>@Model.CommentsCount +@Model.UnreadCommentsCount</a>
+            }
+            else
+            {
+                <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))#comments" class="answers-link"><i class="fa fa-comment-o"></i>@Model.CommentsCount</a>
+            }
             <div class="tags">
                 @foreach (var tag in Model.TagsSet)
                 {
                     <a href="@Url.ActionCached(MVC.Topics.Topics.Index(tag.Trim()))">@tag.Trim()</a>
                 }
             </div>
-            <div class="title-block">
-                @if (@Model.Blog.BlogId != null)
-                {
-                    <span class="blog-link"><a href="@EntityLinkProvider.GetLink(Model.Blog.EntityId, Model.Blog.EntityType)" title="@Model.Blog.Description">@Model.Blog.Title</a></span>
-                }
-                <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))" class="topic-title">@Model.Title</a>
-                @if (Model.IsTutorial == true)
-                {
-                    <i class="fa fa-graduation-cap"></i>
-                }
-            </div>
-            <div class="author-info">
-                <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="avatar-link"><img src="@Model.Author.AvatarUrl" class="avatar" /></a>
-                <span class="creation-date">@Model.CreationDate.Format()</span>, опубликовал
-                <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login"><span>@Model.Author.Login</span></a>
-                @if (!string.IsNullOrEmpty(Model.SourceAuthor))
-                {
-                    <span class="original-author">
-                        (Автор оригинала:
-                        @if (!string.IsNullOrEmpty(Model.SourceLink))
-                        {
-                            <a href="@Model.SourceLink">@Model.SourceAuthor</a>
-                        }
-                        else
-                        {
-                            @Model.SourceAuthor
-                        })
-                    </span>
-                }
-            </div>
-        </div>
-        <div class="text">
-            @Html.Raw(Model.ShortText)
-        </div>
-        <footer>
-            <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))#read-more" class="read-more">Читать дальше</a>
-            <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))#comments" class="answers-link"><i class="fa fa-comment-o"></i>@Model.CommentsCount.Pluralize("комментарий", "комментария", "комментариев", "{0} {1}")</a>
-
-            @if (Model.UnreadCommentsCount > 0)
-            {
-                <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))#unread" class="unread-comments">+ @Model.UnreadCommentsCount</a>
-            }
         </footer>
-    </div>
-</article>
+    </article>
+}
