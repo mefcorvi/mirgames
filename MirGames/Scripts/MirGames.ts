@@ -180,16 +180,17 @@ $(() => {
 
         $('.up-nav').css({
             'left': bodyPosition.left - 40,
-            'opacity': Math.min(document.body.scrollTop / windowHeight / 5, 1),
-            'cursor': document.body.scrollTop > 0 ? 'pointer' : 'default'
+            'opacity': Math.min($('html, body').scrollTop() / windowHeight / 5, 1),
+            'cursor': $('html, body').scrollTop() > 0 ? 'pointer' : 'default'
         }).click(() => {
-            document.body.scrollTop = 0;
+            $('html, body').scrollTop(0);
         });
 
         $(window).scroll(() => {
+            console.log('test');
             $('.up-nav').css({
-                'opacity': Math.min(document.body.scrollTop / windowHeight / 5, 1),
-                'cursor': document.body.scrollTop > 0 ? 'pointer' : 'default'
+                'opacity': Math.min($('html, body').scrollTop() / windowHeight / 5, 1),
+                'cursor': $('html, body').scrollTop() > 0 ? 'pointer' : 'default'
             });
         });
     };
