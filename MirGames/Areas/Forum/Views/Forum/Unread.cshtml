@@ -35,11 +35,7 @@ else
             <div class="topic-title-block">
                 Темы
             </div>
-            <div class="replies-count">
-                Ответов
-            </div>
-            <div class="visits-count">
-                Просмотров
+            <div class="replies-count">&nbsp;
             </div>
             <div class="last-post-info">
                 Последнее сообщение
@@ -73,10 +69,8 @@ else
                     </footer>
                 </div>
                 <div @Html.Css("replies-count")>
-                    <span>@(topic.PostsCount - 1)</span>
-                </div>
-                <div @Html.Css("visits-count")>
-                    @topic.Visits
+                    <div><span>@(topic.PostsCount - 1)</span> @((topic.PostsCount - 1).Pluralize("ответ", "ответа", "ответов"))</div>
+                    <div><span>@topic.Visits</span> @topic.Visits.Pluralize("просмотр", "просмотра", "просмотров")</div>
                 </div>
                 <div class="last-post-info">
                     @Author.UserAvatarLink(topic.LastPostAuthor, "avatar-small", "user-login", true)
