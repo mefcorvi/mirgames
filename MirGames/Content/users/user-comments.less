@@ -8,18 +8,44 @@
             margin-bottom: 0;
         }
 
+        & > .user-info {
+            .user-info();
+        }
+
+        & > .pagination {
+            padding: 0 @indent/2;
+        }
+
         & > .comments-list {
-           padding: 0 @indent;
-             .topic-title {
-                .header-font();
-                .font-size(1.5);
-            }
+            padding: 0 @indent;
 
-            .comments-list-item();
+            & > .comment-item {
+                display: table;
+                table-layout: fixed;
+                padding-top: @indent;
+                padding-bottom: @indent;
+                border-bottom: 1px solid @border-color;
 
-            & > .comment {
-                margin-top: @indent/4;
-                margin-bottom: @indent/2;
+                .topic-title {
+                    display: table-cell;
+                    width: 250px;
+                    min-width: 250px;
+                    vertical-align: middle;
+                    padding-right: @indent;
+                    text-align: right;
+
+                    a {
+                        .font-size(1.1);
+                        color: mix(@background-color, @main-color, 60%);
+                    }
+                }
+
+                .comments-list-item();
+
+                & > .comment {
+                    display: table-cell;
+                    width: 100%;
+                }
             }
         }
     }

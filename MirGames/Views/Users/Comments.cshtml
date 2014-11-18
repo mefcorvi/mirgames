@@ -6,13 +6,18 @@
 }
 
 @Html.Partial("_ProfileMenu", Model.User)
-
 @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
+
 <div class="comments-list">
-    @foreach(var comment in Model.Comments)
+    @foreach (var comment in Model.Comments)
     {
-        <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(comment.TopicId))" class="topic-title">@comment.TopicTitle</a>
-        @Html.Partial(MVC.Topics.Topics.Views._Comment, comment)
+        <div class="comment-item">
+            <div class="topic-title">
+                <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(comment.TopicId))">@comment.TopicTitle</a>
+            </div>
+            @Html.Partial(MVC.Topics.Topics.Views._Comment, comment)
+        </div>
     }
 </div>
+
 @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)

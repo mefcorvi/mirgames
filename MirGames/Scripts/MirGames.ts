@@ -172,6 +172,10 @@ $(() => {
         var bodyWidth = $(document.body).outerWidth();
         var windowHeight = window.innerHeight;
 
+        var getScrollTop = () => {
+            return $('html').scrollTop() || $('body').scrollTop();
+        }
+
         $('.online-users').css({
             'display': 'block',
             'top': 0,
@@ -180,17 +184,16 @@ $(() => {
 
         $('.up-nav').css({
             'left': bodyPosition.left - 40,
-            'opacity': Math.min($('html, body').scrollTop() / windowHeight / 5, 1),
-            'cursor': $('html, body').scrollTop() > 0 ? 'pointer' : 'default'
+            'opacity': Math.min(getScrollTop() / windowHeight / 5, 1),
+            'cursor': getScrollTop() > 0 ? 'pointer' : 'default'
         }).click(() => {
-            $('html, body').scrollTop(0);
+            $('body, html').scrollTop(0);
         });
 
         $(window).scroll(() => {
-            console.log('test');
             $('.up-nav').css({
-                'opacity': Math.min($('html, body').scrollTop() / windowHeight / 5, 1),
-                'cursor': $('html, body').scrollTop() > 0 ? 'pointer' : 'default'
+                'opacity': Math.min(getScrollTop() / windowHeight / 5, 1),
+                'cursor': getScrollTop() > 0 ? 'pointer' : 'default'
             });
         });
     };

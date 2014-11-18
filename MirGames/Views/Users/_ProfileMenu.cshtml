@@ -1,30 +1,54 @@
-﻿@model MirGames.Domain.Users.ViewModels.UserViewModel
+﻿@using MirGames.Infrastructure
+@model MirGames.Domain.Users.ViewModels.UserViewModel
 
-<div class="page-header">
-    <div class="header">
-        <h4><a href="@Url.ActionCached(MVC.Users.Index())">Пользователи</a></h4>
-        <h3>@Model.Login</h3>
+<article class="user-info">
+    <div class="main-info">
+        <div class="user-avatar">
+            <img src="@Model.AvatarUrl" class="avatar" />
+        </div>
+        <div class="info">
+            <h4>
+                @if (string.IsNullOrEmpty(Model.Name) || Model.Login.EqualsIgnoreCase(Model.Name))
+                {
+                    @Model.Login
+                }
+                else
+                {
+                    @Model.Login
+                    <span class="user-name">@Model.Name</span>
+                }
+            </h4>
+            <div class="user-about">@Model.About</div>
+        </div>
+        <div class="details">
+            <div class="user-location">@Model.GetAddress()</div>
+            <div class="user-registration-date">Зарегистрирован @Html.RelativeDate(Model.RegistrationDate, "{0} {1}")</div>
+            <div class="user-visit-date">Последний раз был в сети <span class="relative" datetime="@Model.LastVisitDate.ToString("O")">@Html.RelativeDate(Model.LastVisitDate)</span></div>
+        </div>
     </div>
-    <div class="buttons">
-        @if (User.IsInRole("Administrator"))
-        {
-            <a href="javascript:void(0);" ng-click="switchUser()">Войти как пользователь</a>
-        }
+    <div class="toolbar">
+        <div class="user-rating">@Model.Rating&nbsp;<i class="fa fa-thumbs-up"></i></div>
+        <div class="icon-buttons">
+            @if (User.IsInRole("Administrator"))
+            {
+                <a href="javascript:void(0);" ng-click="switchUser()" title="Войти как пользователь"><i class="fa fa-sign-in"></i></a>
+            }
 
-        @if (Model.CanBeDeleted)
-        {
-            <a href="javascript:void(0);" ng-click="deleteUser()">Удалить</a>
-        }
+            @if (Model.CanBeDeleted)
+            {
+                <a href="javascript:void(0);" ng-click="deleteUser()" title="Удалить"><i class="fa fa-times"></i></a>
+            }
         
-        @if (UserEntity != null && Model.Id == UserEntity.Id)
-        {
-            <a href="@Url.ActionCached(MVC.Account.Logout())" class="account-signout">Выйти</a>
-        }
+            @if (UserEntity != null && Model.Id == UserEntity.Id)
+            {
+                <a href="@Url.ActionCached(MVC.Account.Logout())" class="account-signout" title="Выйти"><i class="fa fa-sign-out"></i></a>
+            }
+        </div>
     </div>
-</div>
+</article>
 
 <nav class="toolbar">
-    <a href="@Url.ActionCached(MVC.Users.Profile(Model.Id))" class="@(ViewBag.SectionMode == "Profile" ? "selected" : string.Empty)"><i class="fa fa-info-circle"></i>Профиль</a>
+    <a href="@Url.ActionCached(MVC.Users.Profile(Model.Id))" class="@(ViewBag.SectionMode == "Profile" ? "selected" : string.Empty)"><i class="fa fa-info-circle"></i>Блог</a>
 
     @if (UserEntity != null && UserEntity.Id == Model.Id)
     {

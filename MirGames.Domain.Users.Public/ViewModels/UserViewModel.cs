@@ -88,14 +88,5 @@ namespace MirGames.Domain.Users.ViewModels
         {
             return (this.Location ?? string.Empty).Trim();
         }
-
-        /// <summary>
-        /// Gets the name.
-        /// </summary>
-        /// <returns>The name.</returns>
-        public string GetName()
-        {
-            return this.Name ?? this.Login;
-        }
     }
 }

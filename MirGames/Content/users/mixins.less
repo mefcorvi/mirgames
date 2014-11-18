@@ -1,29 +1,94 @@
 ﻿body {} @import "../settings.less";
 
 .user-info() {
-    overflow: hidden;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid @border-color;
+    & > .main-info {
+        overflow: hidden;
+        padding: @indent;
+        display: table;
+        table-layout: fixed;
+        
+        & > .user-avatar {
+            display: table-cell;
+            vertical-align: middle;
+            padding-right: 10px;
+            width: @avatar-big;
+            .box-sizing(border-box);
 
-    & .user-rating {
-        display: inline;
-        margin-left: 10px;
-        .font-size(1.5);
-        background: desaturate(@main-color, 20%);
-        padding: 3px;
-        color: contrast(desaturate(@main-color, 20%));
+            & > img.avatar {
+                .avatar-big();
+            }
+        }
+
+        & > .info {
+            display: table-cell;
+            vertical-align: middle;
+            width: 300px;
+            min-width: 300px;
+            
+            & > h4 {
+                .header-font();
+                .font-size(2);
+
+                & .user-name {
+                    .font-size(1.5);
+                    color: mix(@background-color, @font-color, 60%);
+                    display: block;
+                }
+            }
+
+            & .user-about {
+                .header-font();
+                .font-size(1.3);
+            }
+        }
+
+        & > .details {
+            display: table-cell;
+            width: 100%;
+            vertical-align: middle;
+            text-align: right;
+            color: mix(@background-color, @font-color, 80%);
+        }
     }
 
-    & > img.avatar {
-        float: left;
-        margin-right: 10px;
-    }
+    & > .toolbar {
+        clear: left;
+        .page-block(@indent/2, @indent);
+        background: mix(@background-color, @main-color, 95%);
+        border: 0;
+        border-top: 1px solid mix(@background-color, @main-color, 90%);
+        border-bottom: 5px solid @sub-background;
+        overflow: hidden;
+        
+        & .user-rating {
+            display: inline-block;
+            .font-size(1.5);
+            background: desaturate(@main-color, 20%);
+            padding: 3px;
+            color: contrast(desaturate(@main-color, 20%));
+        }
 
-    & > h4 {
-        .header-font();
-        .font-size(2);
-        margin-bottom: 10px;
+        & > .icon-buttons {
+            float: right;
+        }
+
+        & > .icon-buttons a {
+            @bgr: mix(@background-color, @main-color, 80%);
+            font-size: 14px;
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            text-align: center;
+            line-height: 14px;
+            background: @bgr;
+            color: contrast(@bgr);
+            padding: 5px;
+
+            &:hover {
+                background: @link-color-hover;
+                color: contrast(@link-color-hover);
+            }
+        }
     }
 }
         

@@ -57,10 +57,10 @@
     & > .micro-message {
         .page-block();
         padding-top: 0;
-        padding-bottom: @indent;
+        padding-bottom: @indent/2;
         overflow: hidden;
-        margin-bottom: @indent;
-        margin-top: @indent;
+        margin-bottom: @indent/2;
+        margin-top: @indent/2;
         border-bottom: 1px solid mix(@background-color, @font-color, 96%);
 
         & > .author-avatar {
@@ -68,6 +68,7 @@
                 .avatar-medium();
             }
 
+            font-family: Tahoma;
             float: left;
         }
 
@@ -84,7 +85,7 @@
             margin-left: @avatar-medium + @indent/2;
 
             & > .micro-message-author {
-                margin-bottom: @indent/2;
+                margin-bottom: @indent/4;
 
                 .user-login {
                     font-weight: bold;
@@ -100,6 +101,8 @@
 
         & > footer {
             .message-footer();
+            margin-top: @indent/4;
+            margin-left: @avatar-medium + @indent/2;
         }
     }
 

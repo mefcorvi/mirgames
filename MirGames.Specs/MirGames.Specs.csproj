@@ -91,6 +91,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PasswordReset.feature</DependentUpon>
     </Compile>
+    <Compile Include="Markdown\MarkdownTextTransformTest.cs" />
     <Compile Include="Steps\ChatSteps.cs" />
     <Compile Include="Steps\DialogSteps.cs" />
     <Compile Include="Steps\FormsSteps.cs" />
@@ -198,6 +199,10 @@
     <ProjectReference Include="..\MirGames.Services.Git\MirGames.Services.Git.csproj">
       <Project>{8eb1b018-625c-4c22-93c8-13c629fa34af}</Project>
       <Name>MirGames.Services.Git</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MirGames\MirGames.csproj">
+      <Project>{e58f3ea9-4d88-4c43-8398-43fceb6a150a}</Project>
+      <Name>MirGames</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

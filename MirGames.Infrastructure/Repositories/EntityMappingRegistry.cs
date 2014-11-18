@@ -30,6 +30,7 @@ namespace MirGames.Infrastructure.Repositories
         {
             Contract.Requires(modelBuilder != null);
             this.modelBuilder = modelBuilder;
+            this.modelBuilder.Properties<string>().Configure(p => p.IsUnicode(true));
         }
 
         /// <summary>

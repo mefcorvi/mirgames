@@ -12,9 +12,11 @@ namespace MirGames.Domain.Topics.QueryHandlers
     using System.Linq;
     using System.Security.Claims;
 
+    using MirGames.Domain.Notifications.Queries;
     using MirGames.Domain.Security;
     using MirGames.Domain.TextTransform;
     using MirGames.Domain.Topics.Entities;
+    using MirGames.Domain.Topics.Notifications;
     using MirGames.Domain.Topics.Queries;
     using MirGames.Domain.Topics.ViewModels;
     using MirGames.Domain.Users.Queries;
@@ -91,7 +93,8 @@ namespace MirGames.Domain.Topics.QueryHandlers
                         TopicTitle = topics.ContainsKey(c.TopicId) ? topics[c.TopicId] : null,
                         CanBeDeleted =
                             this.authorizationManager.CheckAccess(principal, "Delete", "Comment", c.CommentId),
-                        CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "Comment", c.CommentId)
+                        CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "Comment", c.CommentId),
+                        IsRead = true
                     }).ToList();
 
             this.queryProcessor.Process(new ResolveAuthorsQuery { Authors = commentViewModels.Select(c => c.Author) });

@@ -9,8 +9,11 @@
         }
 
         & > .user-info {
-            padding: 0 @indent;
             .user-info();
+        }
+
+        & > .toolbar {
+            margin-bottom: @indent;
         }
 
         & > .user-blog {
@@ -21,8 +24,12 @@
                 .page-subtitle();
             }
 
-            & > .buttons {
-                margin-bottom: @indent/2;
+            & > .write-new-post {
+                .form-input();
+                cursor: text;
+                color: mix(@background-color, @main-color, 60%);
+                margin-top: @indent/2;
+                margin-bottom: @indent;
             }
 
             & > .blog-posts {
