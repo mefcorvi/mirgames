@@ -94,13 +94,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessRules\ForumPostDeleteAccessRule.cs" />
-    <Compile Include="AccessRules\ForumPostEditAccessRule.cs" />
-    <Compile Include="AccessRules\ForumTopicCreateAccessRule.cs" />
-    <Compile Include="AccessRules\ForumTopicDeleteAccessRule.cs" />
-    <Compile Include="AccessRules\ForumTopicEditAccessRule.cs" />
-    <Compile Include="AccessRules\ForumTopicMarkAsReadAccessRule.cs" />
-    <Compile Include="AccessRules\ForumTopicReplyAccessRule.cs" />
     <Compile Include="Cache\ForumsQueryCacheContainer.cs" />
     <Compile Include="ClaimsProviders\ForumClaimsProvider.cs" />
     <Compile Include="CommandHandlers\DeleteForumTopicCommandHandler.cs" />

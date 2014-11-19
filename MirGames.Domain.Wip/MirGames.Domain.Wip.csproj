@@ -55,16 +55,6 @@
     <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessRules\ProjectCreateAccessRule.cs" />
-    <Compile Include="AccessRules\ProjectCreateBugAccessRule.cs" />
-    <Compile Include="AccessRules\ProjectCreateFeatureAccessRule.cs" />
-    <Compile Include="AccessRules\ProjectCreateTaskAccessRule.cs" />
-    <Compile Include="AccessRules\ProjectEditAccessRule.cs" />
-    <Compile Include="AccessRules\ProjectViewStatisticsAccessRule.cs" />
-    <Compile Include="AccessRules\ProjectWorkItemChangeStateAccessRule.cs" />
-    <Compile Include="AccessRules\ProjectWorkItemCommentAccessRule.cs" />
-    <Compile Include="AccessRules\ProjectWorkItemEditAccessRule.cs" />
-    <Compile Include="AccessRules\ProjectWorkItemDeleteAccessRule.cs" />
     <Compile Include="ClaimsProviders\WipClaimsProvider.cs" />
     <Compile Include="CommandHandlers\AddWipGalleryImageCommandHandler.cs" />
     <Compile Include="CommandHandlers\ArchiveProjectRepositoryCommandHandler.cs" />

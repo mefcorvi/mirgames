@@ -52,12 +52,6 @@ namespace MirGames.Infrastructure
 
             builder
                 .RegisterAssemblyTypes(currentAssembly)
-                .AssignableTo<IAccessRule>()
-                .AsImplementedInterfaces()
-                .InstancePerLifetimeScope();
-
-            builder
-                .RegisterAssemblyTypes(currentAssembly)
                 .AssignableTo<IEventListener>()
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();

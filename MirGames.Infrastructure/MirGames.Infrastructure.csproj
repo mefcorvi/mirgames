@@ -229,7 +229,6 @@
     <Compile Include="Repositories\WriteContext.cs" />
     <Compile Include="SearchEngine\SearchEngine.cs" />
     <Compile Include="SearchEngine\SearchResult.cs" />
-    <Compile Include="Security\IAccessRule.cs" />
     <Compile Include="Security\IAuthenticationProvider.cs" />
     <Compile Include="Security\IPasswordHashProvider.cs" />
     <Compile Include="Security\ITextHashProvider.cs" />

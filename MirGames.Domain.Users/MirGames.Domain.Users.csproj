@@ -94,10 +94,6 @@
     <Reference Include="System.Runtime.Caching" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessRules\AccountSwitchUserAccessRule.cs" />
-    <Compile Include="AccessRules\UserCanSendMessageAccessRule.cs" />
-    <Compile Include="AccessRules\UserDeleteAccessRule.cs" />
-    <Compile Include="AccessRules\UserPostNewWallRecordAccessRule.cs" />
     <Compile Include="AvatarProvider.cs" />
     <Compile Include="CommandHandlers\ActivateUserCommandHandler.cs" />
     <Compile Include="CommandHandlers\AttachOAuthProviderCommandHandler.cs" />

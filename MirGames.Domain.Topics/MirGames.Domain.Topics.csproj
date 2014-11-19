@@ -88,12 +88,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessRules\CommentDeleteAccessRule.cs" />
-    <Compile Include="AccessRules\CommentEditAccessRule.cs" />
-    <Compile Include="AccessRules\TopicCommentAccessRule.cs" />
-    <Compile Include="AccessRules\TopicCreateAccessRule.cs" />
-    <Compile Include="AccessRules\TopicDeleteAccessRule.cs" />
-    <Compile Include="AccessRules\TopicEditAccessRule.cs" />
     <Compile Include="Cache\TagsQueryCacheContainer.cs" />
     <Compile Include="ClaimsProviders\TopicsClaimsProvider.cs" />
     <Compile Include="CommandHandlers\AddNewBlogCommandHandler.cs" />

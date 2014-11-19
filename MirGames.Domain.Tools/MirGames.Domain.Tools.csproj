@@ -49,7 +49,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessRules\EventLogViewAccessRule.cs" />
     <Compile Include="Entities\EventLog.cs" />
     <Compile Include="EntityMapper.cs" />
     <Compile Include="Mapping\EventLogMap.cs" />

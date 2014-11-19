@@ -58,9 +58,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessRules\ChatMessageDeleteAccessRule.cs" />
-    <Compile Include="AccessRules\ChatMessagePostAccessRule.cs" />
-    <Compile Include="AccessRules\ChatMessageEditAccessRule.cs" />
     <Compile Include="ClaimsProviders\ChatClaimsProvider.cs" />
     <Compile Include="CommandHandlers\UpdateNewMessageCommandHandler.cs" />
     <Compile Include="CommandHandlers\PostNewMessageCommandHandler.cs" />

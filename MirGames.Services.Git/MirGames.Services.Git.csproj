@@ -99,7 +99,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessRules\RepositoryCreateAccessRule.cs" />
     <Compile Include="CommandHandlers\ArchiveRepositoryCommandHandler.cs" />
     <Compile Include="CommandHandlers\DeleteRepositoryCommandHandler.cs" />
     <Compile Include="CommandHandlers\InitRepositoryCommandHandler.cs" />
