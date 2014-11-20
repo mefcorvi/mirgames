@@ -81,7 +81,7 @@ module MirGames.Wip {
     }
 
     angular
-        .module('ng')
+        .module('mirgames')
         .directive('uniqueProjectName', ['apiService',
             (apiService: Core.IApiService) => {
                 var toId: number;

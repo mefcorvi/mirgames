@@ -98,7 +98,7 @@ module MirGames.Wip {
     }
 
     angular
-        .module('ng')
+        .module('mirgames')
         .directive('workItemsList', () => {
             return {
                 restrict: 'E',
@@ -114,7 +114,7 @@ module MirGames.Wip {
         });
 
     angular
-        .module('ng')
+        .module('mirgames')
         .directive('workItemBlocks', () => {
             return {
                 restrict: 'E',

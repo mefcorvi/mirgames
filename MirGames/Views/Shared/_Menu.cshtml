@@ -8,14 +8,14 @@
         Блог
     </a>
     <a @Html.Css("updates-count").Add("counter").Add("ng-hide", @ViewBag.BlogTopicsUnread == 0) title="Новые темы блога"
-       ng-show="unreadCount > 0" ng-bind="'+' + unreadCount" href="@Url.ActionCached(MVC.Topics.Topics.Index(onlyUnread:true))">+@ViewBag.BlogTopicsUnread</a>
+       ng-if="unreadCount > 0" ng-bind="'+' + unreadCount" href="@Url.ActionCached(MVC.Topics.Topics.Index(onlyUnread:true))">+@ViewBag.BlogTopicsUnread</a>
 </span>
 <span ng-controller="MirGames.Forum.UnreadMenuItemController">
     <a href="@Url.ActionCached(MVC.Forum.Forum.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Forum")>
         Форум
     </a>
     <a @Html.Css("updates-count").Add("counter").Add("ng-hide", @ViewBag.ForumTopicsUnread == 0) title="Новые темы форума"
-       ng-show="unreadCount > 0" ng-bind="'+' + unreadCount" href="@Url.ActionCached(MVC.Forum.Forum.Unread())">+@ViewBag.ForumTopicsUnread</a>
+       ng-if="unreadCount > 0" ng-bind="'+' + unreadCount" href="@Url.ActionCached(MVC.Forum.Forum.Unread())">+@ViewBag.ForumTopicsUnread</a>
 </span>
 <a href="@Url.ActionCached(MVC.Projects.Projects.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "WIP")>Проекты</a>
 <a href="@Url.ActionCached(MVC.Users.Index())" @Html.Css("selected", (string)ViewBag.CurrentSection == "Users")>Пользователи</a>

@@ -480,6 +480,7 @@
     <None Include="Scripts\Account\LoginFormController.ts" />
     <None Include="Scripts\Account\SignUpFormController.ts" />
     <None Include="Scripts\Libs\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\Libs\angular.js" />
     <Content Include="Scripts\Libs\headroom.js" />
     <Content Include="Scripts\Libs\jquery-2.1.1.js" />
     <None Include="Scripts\Libs\jquery.d.ts" />
@@ -562,8 +563,6 @@
     <None Include="Scripts\Libs\jquery.naturalWidth.d.ts" />
     <None Include="Scripts\Libs\tinycon.js" />
     <None Include="Scripts\Libs\angular-recaptcha.js" />
-    <None Include="Scripts\Libs\angular.d.ts" />
-    <None Include="Scripts\Libs\angular.js" />
     <None Include="Scripts\Libs\eventEmitter.d.ts" />
     <None Include="Scripts\Libs\markdown\MarkdownDeep.d.ts" />
     <None Include="Scripts\Libs\eventEmitter.js" />
@@ -898,6 +897,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Projects\Scripts\ProjectPage.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\Libs\angular.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
