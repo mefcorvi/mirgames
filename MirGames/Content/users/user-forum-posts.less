@@ -19,31 +19,39 @@
           padding: 0 @indent;
 
              & > .message {
-                .page-block(@indent/2, @indent);
-                overflow: hidden;
-                position: relative;
-                margin-bottom: @indent/2;
+                display: table;
+                table-layout: fixed;
+                padding-top: @indent;
+                padding-bottom: @indent;
+                border-bottom: 1px solid @border-color;
 
                 & > header {
-                    margin-left: 0px;
-                    margin-bottom: @indent/2;
-                    overflow: hidden;
+                    display: table-cell;
+                    width: 250px;
+                    min-width: 250px;
+                    vertical-align: middle;
+                    padding-right: @indent;
+                    text-align: right;
 
-                    .topic-title {
-                        .header-font();
-                        .font-size(1.5);
+                    a {
+                        .font-size(1.1);
+                        color: mix(@background-color, @main-color, 60%);
                     }
+                }
 
-                    .comment-date {
+                & > .message-content {
+                    display: table-cell;
+
+                    & > .comment-date {
                         .date-small();
                         line-height: 15px;
                         display: block;
                         margin-top: 8px;
                     }
-                }
 
-                & > .text {
-                    margin-left: 0px;
+                    & > .text {
+                        margin-left: 0px;
+                    }
                 }
             }
         }
