@@ -484,6 +484,7 @@ var MarkdownDeepEditor = new function () {
 
     priv.onKeyDown = function(e) {
         var newMode = null;
+        debugger;
 
         // Normal keys only
         if (e.ctrlKey || e.metaKey) {
@@ -508,8 +509,8 @@ var MarkdownDeepEditor = new function () {
             }
         } else {
             switch (e.keyCode) {
-            case keycode_tab:
-                if (!this.disableTabHandling) {
+                case keycode_tab:
+                if (!this.disableTabHandling && this.m_textarea.selectionStart != this.m_textarea.selectionEnd) {
                     this.InvokeCommand(e.shiftKey ? "untab" : "tab");
                     return PreventEventDefault(e);
                 } else {

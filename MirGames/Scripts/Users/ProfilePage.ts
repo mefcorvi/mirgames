@@ -90,8 +90,6 @@ module MirGames.Users {
         }
 
         private postRecord(): void {
-            debugger;
-
             var command: MirGames.Domain.Topics.Commands.AddNewTopicCommand = {
                 Attachments: this.$scope.newRecord.attachments,
                 BlogId: this.pageData.blogId,
