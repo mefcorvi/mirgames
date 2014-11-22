@@ -36,6 +36,20 @@ module UI {
 
             this.initializeFileUploading();
             this.initializePreviewMode();
+
+            $scope.$watch('autoresize', (newValue) => {
+                if (newValue) {
+                    textArea.autosize({
+                        callback: () => {
+                            if ($scope.sizeChanged) {
+                                $scope.sizeChanged();
+                            }
+                        }
+                    });
+                } else {
+                    textArea.trigger('autosize.destroy');
+                }
+            });
         }
 
         private initializePreviewMode() {
@@ -162,6 +176,8 @@ module UI {
         focus: boolean;
         useEnterToPost: string;
         showPreview: boolean;
+        sizeChanged: () => void;
+        autoresize?: boolean;
     }
 
     export interface ICaretScope extends ng.IScope {
@@ -204,7 +220,9 @@ module UI {
                     'caret': '=?caret',
                     'focus': '=focus',
                     'entityType': '@',
-                    'useEnterToPost': '@useEnterToPost'
+                    'useEnterToPost': '@useEnterToPost',
+                    'sizeChanged': '&sizeChanged',
+                    'autoresize': '=?autoresize'
                 },
                 controller: TinyEditorController,
                 transclude: false,

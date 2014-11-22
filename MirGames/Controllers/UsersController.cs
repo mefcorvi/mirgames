@@ -122,6 +122,7 @@ namespace MirGames.Controllers
             }
 
             this.PageData["userId"] = userId;
+            this.PageData["blogId"] = profileViewModel.Blog.BlogId;
             this.ViewBag.SectionMode = "Profile";
 
             return this.View(

@@ -50,6 +50,8 @@ module UI {
         post: () => void;
         focus: boolean;
         useEnterToPost: boolean;
+        sizeChanged: () => void;
+        autoresize?: boolean;
     }
 
     angular
@@ -68,12 +70,14 @@ module UI {
                     'focus': '=?focus',
                     'caret': '=?caret',
                     'entityType': '@',
-                    'useEnterToPost': '@useEnterToPost'
+                    'useEnterToPost': '@useEnterToPost',
+                    'sizeChanged': '&sizeChanged',
+                    'autoresize': '=?autoresize'
                 },
                 transclude: false,
                 template:
                     '<div ng-class="{ \'text-editor-field\': true, \'text-editor-show-preview\': showPreview }">' +
-                        '<tinyeditor text="text" post="post()" focus="focus" attachments="attachments" entity-type="{{entityType}}" required="required" use-enter-to-post="{{useEnterToPost}}" caret="caret"></tinyeditor>' +
+                        '<tinyeditor text="text" post="post()" sizeChanged="sizeChanged()" autoresize="autoresize" focus="focus" attachments="attachments" entity-type="{{entityType}}" required="required" use-enter-to-post="{{useEnterToPost}}" caret="caret"></tinyeditor>' +
                     '</div>'
             }
     });

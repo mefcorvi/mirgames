@@ -9,6 +9,7 @@
 namespace MirGames.Domain.Topics.CommandHandlers
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Diagnostics.Contracts;
     using System.Security.Claims;
 
@@ -102,7 +103,7 @@ namespace MirGames.Domain.Topics.CommandHandlers
                 AuthorId = principal.GetUserId().GetValueOrDefault(),
                 CountComment = 0,
                 TextHash = this.textHashProvider.GetHash(command.Text),
-                TopicTitle = command.Title,
+                TopicTitle = command.Title ?? string.Empty,
                 TagsList = command.Tags,
                 CreationDate = DateTime.UtcNow,
                 UserIp = principal.GetHostAddress(),
@@ -125,8 +126,14 @@ namespace MirGames.Domain.Topics.CommandHandlers
                 ForbidComment = false,
                 EditDate = null,
                 BlogId = command.BlogId,
+                IsMicroTopic = command.Text.Length <= 512,
                 ShowOnMain = command.BlogId.GetValueOrDefault() == 0
             };
+
+            if (!topic.IsMicroTopic && string.IsNullOrEmpty(topic.TopicTitle))
+            {
+                throw new ValidationException("Title must be specified in case whether topic is not micro-topic");
+            }
 
             if (command.IsRepost)
             {

@@ -34,11 +34,13 @@ module MirGames.Chat {
                 attachments: [],
                 post: this.reply.bind(this),
                 focus: true,
-                caret: 0
+                caret: 0,
+                adjustTextAreaHeight: () => this.adjustTextAreaHeight()
             };
 
             this.$scope.loadHistory = () => this.loadHistory();
             this.$scope.focusAnswer = () => this.focusAnswer();
+
             this.socketService.addHandler('chatHub', 'addNewMessageToPage', this.processReceivedMessage.bind(this));
             this.socketService.addHandler('chatHub', 'updateMessage', this.processUpdatedMessage.bind(this));
 
@@ -72,9 +74,7 @@ module MirGames.Chat {
                 this.adjustTextAreaHeight();
                 $('.new-answer-form .mdd_button').click(() => this.handleTextEditorToolbarClick());
 
-                this.$textArea.css('max-height', '300px').autosize({
-                    callback: () => this.adjustTextAreaHeight()
-                });
+                this.$textArea.css('max-height', '300px');
             });
         }
 
@@ -533,6 +533,7 @@ module MirGames.Chat {
             post(): void;
             focus: boolean;
             caret: number;
+            adjustTextAreaHeight: () => void;
         };
         editedMessage?: IChatMessageScope;
         editMode: boolean;
