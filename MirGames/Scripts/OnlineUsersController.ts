@@ -3,10 +3,26 @@ module MirGames {
     export class OnlineUsersController {
         static $inject = ['$scope', '$element', 'socketService'];
 
+        private isActive: boolean;
+
         constructor(private $scope: IOnlineUsersScope, private $element: JQuery, private socketService: Core.ISocketService) {
             var eventsHub = (<any>$).connection.eventsHub;
             var pageData = <IPageData>window['pageData'];
             this.$scope.users = [];
+
+            if (pageData.currentUser != null && pageData.currentUser.Id > 0) {
+                this.handleActivation();
+                $(window).focus(() => this.handleActivation());
+                $(window).blur(() => this.handleDeactivation());
+
+                setInterval(() => {
+                    if (this.isActive) {
+                        this.handleActivation();
+                    } else {
+                        this.handleDeactivation();
+                    }
+                }, 5000);
+            }
 
             for (var i = 0; i < pageData.onlineUsers.length; i++) {
                 var onlineUser = pageData.onlineUsers[i];
@@ -57,13 +73,20 @@ module MirGames {
         }
 
         private convertUser(user: MirGames.Domain.Users.ViewModels.OnlineUserViewModel): IOnlineUserScope {
-            return {
+            var userScope: IOnlineUserScope;
+
+            userScope = {
                 avatarUrl: user.AvatarUrl,
                 id: user.Id,
                 login: user.Login,
                 userUrl: Router.action('Users', 'Profile', { userId: user.Id }),
-                tags: []
+                tags: [],
+                hasTag: (tag) => {
+                    return userScope.tags.indexOf(tag) != -1;
+                }
             };
+
+            return userScope;
         }
 
         private addUser(user: MirGames.Domain.Users.ViewModels.OnlineUserViewModel, tags: string[] = []) {
@@ -82,6 +105,24 @@ module MirGames {
                 }
             }
         }
+
+        private handleActivation() {
+            this.isActive = true;
+            var command: MirGames.Domain.Users.Commands.RemoveOnlineUserTagCommand = {
+                Tag: 'away',
+                ExpirationTime: 10000
+            };
+            this.socketService.executeCommand('RemoveOnlineUserTagCommand', command);
+        }
+
+        private handleDeactivation() {
+            this.isActive = false;
+            var command: MirGames.Domain.Users.Commands.AddOnlineUserTagCommand = {
+                Tag: 'away',
+                ExpirationTime: 10000
+            };
+            this.socketService.executeCommand('AddOnlineUserTagCommand', command);
+        }
     }
 
     export interface IOnlineUsersScope extends ng.IScope {
@@ -94,5 +135,6 @@ module MirGames {
         id: number;
         userUrl: string;
         tags: string[];
+        hasTag: (tag: string) => boolean;
     }
 }

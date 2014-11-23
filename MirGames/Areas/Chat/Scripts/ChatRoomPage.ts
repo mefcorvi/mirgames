@@ -64,7 +64,7 @@ module MirGames.Chat {
             $(window).blur(() => this.handleChatDeactivation());
 
             this.currentUserEnteredChat();
-            setInterval(this.currentUserEnteredChat.bind(this), 10000);
+            setInterval(this.currentUserEnteredChat.bind(this), 5000);
 
             this.attachToTextEditor();
             $(window).on('beforeunload', this.currentUserLeavedChat.bind(this));

@@ -8,11 +8,12 @@
             <a href="@Url.ActionCached(MVC.Users.Profile(user.Id.GetValueOrDefault()))" title="@user.Login"><img src="@user.AvatarUrl" class="avatar avatar-small" /></a>
         </div>
     }
-    <div ng-class="{ 'user': 1, 'user-in-chat': user.tags.indexOf('in-chat') != -1, 'chat-writing': user.tags.indexOf('chat-writing') != -1 }" class="user" ng-repeat="user in users" ng-cloak>
+    <div ng-class="{ 'user': 1, 'user-in-chat': user.hasTag('in-chat'), 'chat-writing': user.hasTag('chat-writing'), 'user-away': user.hasTag('away') }" class="user" ng-repeat="user in users" ng-cloak>
         <a ng-href="{{user.userUrl}}" title="{{user.login}}">
             <img ng-src="{{user.avatarUrl}}" class="avatar avatar-small" />
-            <i class="fa fa-comments"></i>
-            <i class="fa fa-pencil"></i>
+            <i class="fa fa-comments" title="В чате"></i>
+            <i class="fa fa-pencil" title="Пишет"></i>
+            <i class="fa fa-clock-o" title="Отошел"></i>
         </a>
     </div>
 </div>

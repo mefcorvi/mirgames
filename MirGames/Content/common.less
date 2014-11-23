@@ -267,6 +267,8 @@ body {
                 }
 
                 & > .menu-items {
+                    overflow: hidden;
+
                     & a {
                         color: @menu-link-color;
 
@@ -642,6 +644,13 @@ body > .online-users {
         position: relative;
         margin-top: @indent/4;
 
+        &.user-away {
+            .fa-clock-o { display: block; }
+            .fa-pencil { display: none; }
+            .fa-comments { display: none; }
+            opacity: 0.8;
+        }
+
         &.user-in-chat {
             img {
                 border: 1px solid lighten(@link-color, 30%);
@@ -649,6 +658,13 @@ body > .online-users {
 
             .fa-comments { display: block; }
             .fa-pencil { display: none; }
+            .fa-clock-o { display: none; }
+        }
+
+        &.user-away.user-in-chat {
+            .fa-clock-o { display: block; }
+            .fa-pencil { display: none; }
+            .fa-comments { display: none; }
         }
 
         &.chat-writing {
@@ -656,8 +672,9 @@ body > .online-users {
                 border: 1px solid @link-color-hover;
             }
             
-            .fa-comments { display: none; }
             .fa-pencil { display: block; }
+            .fa-comments { display: none; }
+            .fa-clock-o { display: none; }
         }
 
         i.fa {
@@ -676,6 +693,10 @@ body > .online-users {
         
         .fa-pencil {
             color: lighten(@date-color, 40%);
+        }
+
+        .fa-clock-o {
+            color: @background-color;
         }
     }
 
