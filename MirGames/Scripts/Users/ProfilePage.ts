@@ -120,6 +120,7 @@ module MirGames.Users {
 
                 this.$http.get(url).then((result) => {
                     $('.blog-posts').prepend(result.data);
+                    $('.user-blog .not-found').hide();
                     this.cancelNewRecord();
                     this.eventBus.emit('user.notification', 'Пост успешно добавлен');
                 });

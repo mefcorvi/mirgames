@@ -44,19 +44,19 @@
             </form>
         </div>
     }
-    @if (Model.Topics != null && Model.Topics.Any())
-    {
-        <div class="blog-posts">
-            @foreach (var topic in Model.Topics)
+    <div class="blog-posts">
+        @if (Model.Topics != null && Model.Topics.Any())
+        {
+            foreach (var topic in Model.Topics)
             {
                 @Html.Partial(MVC.Topics.Topics.Views._TopicListItem, topic)
             }
-        </div>
-    }
-    else
-    {
-        <div class="not-found">
-            В блоге пока нет ни одного поста.
-        </div>
-    }
+        }
+        else
+        {
+            <div class="not-found">
+                В блоге пока нет ни одного поста.
+            </div>
+        }
+    </div>
 </div>
