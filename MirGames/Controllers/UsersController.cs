@@ -125,6 +125,11 @@ namespace MirGames.Controllers
             this.PageData["blogId"] = profileViewModel.Blog.BlogId;
             this.ViewBag.SectionMode = "Profile";
 
+            if (this.CurrentUser != null && userId == this.CurrentUser.Id)
+            {
+                this.ViewBag.CurrentSection = "CurrentUser";
+            }
+
             return this.View(
                 "Profile",
                 profileViewModel);
@@ -153,6 +158,11 @@ namespace MirGames.Controllers
                 topicsCount,
                 p => this.Url.ActionCached(MVC.Users.Topics(userId, p)));
 
+            if (this.CurrentUser != null && userId == this.CurrentUser.Id)
+            {
+                this.ViewBag.CurrentSection = "CurrentUser";
+            }
+
             return this.View(
                 "Topics",
                 new TopicsPageViewModel { User = user, Topics = topics });
@@ -179,6 +189,11 @@ namespace MirGames.Controllers
 
             this.PageData["userId"] = userId;
             this.ViewBag.SectionMode = "Comments";
+
+            if (this.CurrentUser != null && userId == this.CurrentUser.Id)
+            {
+                this.ViewBag.CurrentSection = "CurrentUser";
+            }
 
             return this.View(
                 "Comments",
@@ -207,6 +222,11 @@ namespace MirGames.Controllers
             this.PageData["userId"] = userId;
             this.ViewBag.SectionMode = "Forum";
 
+            if (this.CurrentUser != null && userId == this.CurrentUser.Id)
+            {
+                this.ViewBag.CurrentSection = "CurrentUser";
+            }
+
             return this.View(
                 "ForumPosts",
                 new ForumPageViewModel { User = user, Posts = posts });
@@ -223,6 +243,7 @@ namespace MirGames.Controllers
             var authProviders = this.QueryProcessor.Process(new GetOAuthProvidersQuery());
 
             this.ViewBag.SectionMode = "Settings";
+            this.ViewBag.CurrentSection = "CurrentUser";
             this.PageData["timeZone"] = this.CurrentUser.TimeZone;
             this.PageData["user"] = user;
             this.PageData["oauthProviders"] = authProviders;
