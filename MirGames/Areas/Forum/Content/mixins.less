@@ -73,6 +73,7 @@
                     .font-size(1.1);
                     color: @font-second-color;
                     margin-top: @indent/4;
+                    overflow: hidden;
 
                     a {
                         color: @link-color;
@@ -84,12 +85,31 @@
                         }
                     }
                     
-                    & > span.created-date {
+                    & span.created-date {
                         color: @date-color;
                     }
 
-                    & > .replies-count {
-                        color: @font-color;
+                    & > .topic-info {
+                        float: left;
+                    }
+
+                    & > .tags {
+                        float: left;
+                        border-left: 1px solid @border-color;
+                        margin-left: @indent/2;
+                        padding-left: @indent/2;
+
+                        a {
+                            .font-size(1.1);
+                            color: mix(@background-color, @font-color, 60%);
+                            margin-right: @indent/2;
+                            text-decoration: none;
+                            .active-link-color(@link-color-hover);
+
+                            &:hover {
+                                text-decoration: underline;
+                            }
+                        }
                     }
                 }
 

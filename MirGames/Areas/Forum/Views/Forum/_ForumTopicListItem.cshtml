@@ -19,8 +19,16 @@
             </div>
             <div class="short-description text">@Model.ShortDescription</div>
             <footer>
-                <span class="author">Автор @Author.UserLink(Model.Author, "topic-author")</span>,
-                <span class="created-date"><span class="topic-created-date relative" datetime="@Model.CreatedDate.ToString("O")">@Html.RelativeDate(Model.CreatedDate)</span></span>
+                <div class="topic-info">
+                    <span class="author">Автор @Author.UserLink(Model.Author, "topic-author")</span>,
+                    <span class="created-date"><span class="topic-created-date relative" datetime="@Model.CreatedDate.ToString("O")">@Html.RelativeDate(Model.CreatedDate)</span></span>
+                </div>
+                <div class="tags">
+                    @foreach (var tag in Model.Tags)
+                    {
+                        <a href="@Url.ActionCached(MVC.Forum.Forum.Topics(null, tag.Trim()))">@tag.Trim()</a>
+                    }
+                </div>
             </footer>
         </div>
         <div @Html.Css("replies-count")>
