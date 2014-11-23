@@ -167,7 +167,7 @@ namespace MirGames.Domain.Users
         private void CheckAliveUsers(object state)
         {
             var keys = this.onlineUsers.Keys;
-            DateTime onlineBoundary = DateTime.UtcNow.AddMinutes(-5);
+            DateTime onlineBoundary = DateTime.UtcNow.AddMinutes(-2);
 
             foreach (var key in keys)
             {

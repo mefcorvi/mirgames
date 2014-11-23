@@ -21,7 +21,7 @@ module MirGames {
                     } else {
                         this.handleDeactivation();
                     }
-                }, 5000);
+                }, 45000);
             }
 
             for (var i = 0; i < pageData.onlineUsers.length; i++) {
@@ -109,8 +109,7 @@ module MirGames {
         private handleActivation() {
             this.isActive = true;
             var command: MirGames.Domain.Users.Commands.RemoveOnlineUserTagCommand = {
-                Tag: 'away',
-                ExpirationTime: 10000
+                Tag: 'away'
             };
             this.socketService.executeCommand('RemoveOnlineUserTagCommand', command);
         }
@@ -119,7 +118,7 @@ module MirGames {
             this.isActive = false;
             var command: MirGames.Domain.Users.Commands.AddOnlineUserTagCommand = {
                 Tag: 'away',
-                ExpirationTime: 10000
+                ExpirationTime: 60000
             };
             this.socketService.executeCommand('AddOnlineUserTagCommand', command);
         }
