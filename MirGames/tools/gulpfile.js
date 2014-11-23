@@ -29,7 +29,7 @@ var filePath = {
         "../temp/highlight.min.js",
         "../temp/recaptcha_ajax.js",
         "../Scripts/Libs/jquery-2.1.1.js",
-        "../Scripts/Libs/jquery.signalR-2.1.2.js",
+        "../Scripts/Libs/jquery.signalR-2.1.1.js",
         "../Scripts/Libs/jquery.cookie.js",
         "../Scripts/Libs/jquery.nanoscroller.js",
         "../Scripts/Libs/jquery.naturalWidth.js",

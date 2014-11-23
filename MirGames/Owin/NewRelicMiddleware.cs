@@ -1,39 +1,39 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="MarkdownHelper.cs">
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright company="MirGames" file="NewRelicMiddleware.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace MirGames
+namespace MirGames.Owin
 {
-    using System.Web;
-    using System.Web.Mvc;
+    using System.Threading.Tasks;
 
-    using MarkdownDeep;
+    using Microsoft.Owin;
 
     /// <summary>
-    /// The markdown helper.
+    /// The new relic middleware.
     /// </summary>
-    public static class MarkdownHelper
+    public class NewRelicMiddleware : OwinMiddleware
     {
         /// <summary>
-        /// Markdowns the specified text.
+        /// Initializes a new instance of the <see cref="NewRelicMiddleware"/> class.
         /// </summary>
-        /// <param name="helper">The helper.</param>
-        /// <param name="text">The text.</param>
-        /// <returns>Return processed text.</returns>
-        public static IHtmlString Markdown(this HtmlHelper helper, string text)
+        /// <param name="next">The next middleware.</param>
+        public NewRelicMiddleware(OwinMiddleware next) : base(next)
         {
-            var markdown = new Markdown
-                {
-                    SafeMode = true,
-                    NoFollowLinks = true,
-                    ExtraMode = true,
-                    AutoHeadingIDs = false
-                };
-            return helper.Raw(markdown.Transform(text));
+        }
+
+        /// <inheritdoc />
+        public override async Task Invoke(IOwinContext context)
+        {
+            if (context.Request.Path.HasValue && context.Request.Path.Value.Contains("signalr"))
+            {
+                NewRelic.Api.Agent.NewRelic.IgnoreTransaction();
+            }
+
+            await this.Next.Invoke(context);
         }
     }
 }
