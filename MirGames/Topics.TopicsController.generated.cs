@@ -62,6 +62,12 @@ namespace MirGames.Areas.Topics.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult TopicListItem()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TopicListItem);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Edit()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
@@ -105,6 +111,7 @@ namespace MirGames.Areas.Topics.Controllers
             public readonly string Index = "Index";
             public readonly string Tutorials = "Tutorials";
             public readonly string Topic = "Topic";
+            public readonly string TopicListItem = "TopicListItem";
             public readonly string New = "New";
             public readonly string Edit = "Edit";
             public readonly string AddTopic = "AddTopic";
@@ -123,6 +130,7 @@ namespace MirGames.Areas.Topics.Controllers
             public const string Index = "Index";
             public const string Tutorials = "Tutorials";
             public const string Topic = "Topic";
+            public const string TopicListItem = "TopicListItem";
             public const string New = "New";
             public const string Edit = "Edit";
             public const string AddTopic = "AddTopic";
@@ -169,6 +177,14 @@ namespace MirGames.Areas.Topics.Controllers
         public ActionParamsClass_Topic TopicParams { get { return s_params_Topic; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Topic
+        {
+            public readonly string topicId = "topicId";
+        }
+        static readonly ActionParamsClass_TopicListItem s_params_TopicListItem = new ActionParamsClass_TopicListItem();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_TopicListItem TopicListItemParams { get { return s_params_TopicListItem; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_TopicListItem
         {
             public readonly string topicId = "topicId";
         }
@@ -311,6 +327,18 @@ namespace MirGames.Areas.Topics.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Topic);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "topicId", topicId);
             TopicOverride(callInfo, topicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void TopicListItemOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int topicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult TopicListItem(int topicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TopicListItem);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "topicId", topicId);
+            TopicListItemOverride(callInfo, topicId);
             return callInfo;
         }
 

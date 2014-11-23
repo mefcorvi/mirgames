@@ -8,6 +8,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Topics.Queries
 {
+    using System.Collections.Generic;
+
     using MirGames.Domain.Topics.ViewModels;
     using MirGames.Infrastructure.Queries;
 
@@ -23,6 +25,11 @@ namespace MirGames.Domain.Topics.Queries
         {
             this.IsPublished = true;
         }
+
+        /// <summary>
+        /// Gets or sets the identifiers.
+        /// </summary>
+        public IEnumerable<int> Identifiers { get; set; }
 
         /// <summary>
         /// Gets or sets the tag.
@@ -48,6 +55,11 @@ namespace MirGames.Domain.Topics.Queries
         /// Gets or sets the blog identifier.
         /// </summary>
         public int? BlogId { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether show on main.
+        /// </summary>
+        public bool ShowOnMain { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether only unread topics should be returned.

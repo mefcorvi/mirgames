@@ -155,7 +155,6 @@ namespace Links
         }
     
         public static readonly string BasePage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BasePage.min.js") ? Url("BasePage.min.js") : Url("BasePage.js");
-        public static readonly string Commands_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Commands.min.js") ? Url("Commands.min.js") : Url("Commands.js");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class Core {
             private const string URLPATH = "~/Scripts/Core";
@@ -638,6 +637,7 @@ namespace Links
                 public static readonly string NewTopic_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/NewTopic.min.js") ? Url("NewTopic.min.js") : Url("NewTopic.js");
                 public static readonly string SearchPanelController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SearchPanelController.min.js") ? Url("SearchPanelController.min.js") : Url("SearchPanelController.js");
                 public static readonly string Topic_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Topic.min.js") ? Url("Topic.min.js") : Url("Topic.js");
+                public static readonly string Topics_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Topics.min.js") ? Url("Topics.min.js") : Url("Topics.js");
                 public static readonly string UnreadMenuItemController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/UnreadMenuItemController.min.js") ? Url("UnreadMenuItemController.min.js") : Url("UnreadMenuItemController.js");
             }
         

@@ -14,6 +14,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
     using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
+    using System.Security.Cryptography.X509Certificates;
 
     using MirGames.Domain.Notifications.Queries;
     using MirGames.Domain.Security;
@@ -166,9 +167,16 @@ namespace MirGames.Domain.Topics.QueryHandlers
             {
                 topics = topics.Where(t => t.BlogId == query.BlogId);
             }
-            else
+
+            if (query.ShowOnMain)
             {
                 topics = topics.Where(t => t.ShowOnMain);
+            }
+
+            var identifiers = (query.Identifiers ?? new int[0]).EnsureCollection();
+            if (identifiers.Count > 0)
+            {
+                topics = topics.Where(t => identifiers.Contains(t.Id));
             }
 
             if (query.IsTutorial.HasValue)

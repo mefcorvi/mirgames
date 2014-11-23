@@ -1,4 +1,4 @@
-/// <reference path="../_references.ts" />
+﻿/// <reference path="../_references.ts" />
 module MirGames.Users {
     export interface IProfilePageData {
         userId: number;
@@ -6,11 +6,12 @@ module MirGames.Users {
     }
 
     export class ProfilePage extends MirGames.BasePage<IProfilePageData, IProfilePageScope> {
-        static $inject = ['$scope', 'apiService', 'eventBus'];
+        static $inject = ['$scope', 'apiService', 'eventBus', '$http'];
 
         private userId: number;
+        private intervalId: number;
 
-        constructor($scope: IProfilePageScope, private apiService: Core.IApiService, eventBus: Core.IEventBus) {
+        constructor($scope: IProfilePageScope, private apiService: Core.IApiService, eventBus: Core.IEventBus, private $http: ng.IHttpService) {
             super($scope, eventBus);
             this.userId = this.pageData.userId;
 
@@ -66,11 +67,22 @@ module MirGames.Users {
 
         private focusNewRecord(): void {
             this.$scope.newRecord.focused = true;
+            this.$scope.newRecord.text = null;
+            this.$scope.newRecord.tags = null;
+            this.$scope.newRecord.title = null;
+            this.$scope.newRecord.sourceAuthor = null;
+            this.$scope.newRecord.sourceLink = null;
+            this.$scope.newRecord.isRepost = false;
+            this.$scope.newRecord.isTutorial = false;
+            this.$scope.newRecord.charsCount = 0;
+            this.$scope.newRecord.isMicroPost = true;
+            this.$scope.newRecord.attachments = [];
+
             setTimeout(() => {
                 var $textarea = $('.new-topic-form textarea');
                 $textarea.trigger('autosize.resize');
 
-                setInterval(() => {
+                this.intervalId = setInterval(() => {
                     var length = $textarea.val().length;
                     this.$scope.newRecord.isMicroPost = length <= this.$scope.newRecord.maxChars;
 
@@ -87,6 +99,7 @@ module MirGames.Users {
 
         private cancelNewRecord(): void {
             this.$scope.newRecord.focused = false;
+            clearInterval(this.intervalId);
         }
 
         private postRecord(): void {
@@ -103,7 +116,13 @@ module MirGames.Users {
             };
 
             this.apiService.executeCommand('AddNewTopicCommand', command, (topicId: number) => {
-                Core.Application.getInstance().navigateToUrl(Router.action("Topics", "Topic", { topicId: topicId, area: 'Topics' }));
+                var url = Router.action("Topics", "TopicListItem", { topicId: topicId, area: 'Topics' });
+
+                this.$http.get(url).then((result) => {
+                    $('.blog-posts').prepend(result.data);
+                    this.cancelNewRecord();
+                    this.eventBus.emit('user.notification', 'Пост успешно добавлен');
+                });
             });
         }
 

@@ -46,7 +46,7 @@ namespace MirGames.Areas.Topics.Controllers
         /// <returns>The feed.</returns>
         public virtual RssActionResult Rss(string tag = null, string searchString = null)
         {
-            var topicsQuery = new GetTopicsQuery { IsPublished = true, Tag = tag, SearchString = searchString };
+            var topicsQuery = new GetTopicsQuery { IsPublished = true, Tag = tag, SearchString = searchString, ShowOnMain = true };
             var topics = this.QueryProcessor.Process(topicsQuery, new PaginationSettings(0, 20));
 
             var feed = new SyndicationFeed(
@@ -91,7 +91,8 @@ namespace MirGames.Areas.Topics.Controllers
                 IsPublished = true,
                 Tag = tag,
                 SearchString = searchString,
-                OnlyUnread = onlyUnread
+                OnlyUnread = onlyUnread,
+                ShowOnMain = true
             };
 
             var topics = this.QueryProcessor.Process(topicsQuery, paginationSettings);
@@ -134,7 +135,8 @@ namespace MirGames.Areas.Topics.Controllers
                 Tag = tag,
                 SearchString = searchString,
                 OnlyUnread = false,
-                IsTutorial = true
+                IsTutorial = true,
+                ShowOnMain = true
             };
 
             var topics = this.QueryProcessor.Process(topicsQuery, paginationSettings);
@@ -181,13 +183,25 @@ namespace MirGames.Areas.Topics.Controllers
                 this.CommandProcessor.Execute(new MarkBlogTopicAsReadCommand { TopicId = topic.Id });
             }
 
-            this.ViewBag.BackUrl = this.HttpContext.Request.UrlReferrer != null
-                                   && this.HttpContext.Request.UrlReferrer.IsRouteMatch("Topics", "Index")
-                                       ? this.HttpContext.Request.UrlReferrer.ToString()
-                                       : this.Url.ActionCached(MVC.Topics.Topics.Index());
-
             this.ViewBag.PageData["topicId"] = topicId;
             return this.View(topic);
+        }
+
+        /// <summary>
+        /// Renders the topics list item partial view.
+        /// </summary>
+        /// <param name="topicId">The topic identifier.</param>
+        /// <returns>The topics list item.</returns>
+        public virtual ActionResult TopicListItem(int topicId)
+        {
+            var topic = this.QueryProcessor.Process(new GetTopicsQuery { Identifiers = new[] { topicId } }).FirstOrDefault();
+
+            if (topic == null)
+            {
+                return this.HttpNotFound();
+            }
+
+            return this.PartialView("_TopicListItem", topic);
         }
 
         /// <summary>

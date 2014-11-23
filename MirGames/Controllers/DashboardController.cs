@@ -41,7 +41,7 @@ namespace MirGames.Controllers
         {
             var model = new DashboardViewModel();
 
-            var topicsQuery = new GetTopicsQuery { IsPublished = true };
+            var topicsQuery = new GetTopicsQuery { IsPublished = true, ShowOnMain = true };
             model.Topics = this.QueryProcessor.Process(topicsQuery, new PaginationSettings(0, 10));
 
             var paginationSettings = new PaginationSettings(0, 40);

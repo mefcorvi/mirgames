@@ -29,7 +29,7 @@ module MirGames.Topics {
             $scope.reloadComment = this.reloadComment.bind(this);
             $scope.hideComment = this.hideComment.bind(this);
 
-            this.loadTopicTitles();
+            // this.loadTopicTitles();
         }
 
         getCommentsCount(): number {

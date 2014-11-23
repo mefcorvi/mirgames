@@ -29,6 +29,12 @@ namespace MirGames.Areas.Topics
                 new { topicId = @"\d+" });
 
             context.MapRoute(
+                "TopicListItem",
+                "topics/listitem/{topicId}",
+                new { controller = "Topics", action = "TopicListItem" },
+                new { topicId = @"\d+" });
+
+            context.MapRoute(
                 "Tutorials",
                 "topics/tutorials",
                 new { controller = "Topics", action = "Tutorials", page = 1 });
