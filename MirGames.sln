@@ -71,6 +71,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirGames.Domain.UserBlogs",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirGames.Domain.UserBlogs.Public", "MirGames.Domain.UserBlogs.Public\MirGames.Domain.UserBlogs.Public.csproj", "{FD1403A6-1FB2-4781-B18F-3A61F9478EA0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{479EB136-D886-45F6-8A52-144C93B907A8}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
