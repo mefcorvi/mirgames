@@ -1,4 +1,4 @@
-﻿@using MirGames.Domain.Security
+﻿@using MirGames.Areas.Topics.Controllers
 @using MirGames.Domain.Topics.ViewModels
 @using MirGames.Infrastructure
 @using MirGames.Models
@@ -10,7 +10,7 @@
     AddPageCssClass("topics-page");
     this.PageScriptController = "MirGames.Topics.TopicsPage";
     var topics = this.Model.ToList();
-    var tags = ((IEnumerable<TagViewModel>)ViewBag.Tags).OrderBy(t => t.Tag).ToList();
+    var tags = ((IEnumerable<TopicsController.TagLinkViewModel>)ViewBag.Tags).ToList();
     var comments = (IEnumerable<CommentViewModel>)ViewBag.Comments;
 }
 
@@ -26,12 +26,9 @@
 <div class="last-activities">
     <h3>Тэги</h3>
     <div class="tags tags-cloud">
-        @{
-            var maxTagsCount = tags.Max(t => t.Count);
-        }
         @foreach (var tag in tags)
         {
-            <a href="@Url.ActionCached(MVC.Topics.Topics.Index(tag.Tag.Trim(), (string)ViewBag.SearchString, 1, false))" @Html.Css(string.Format("tag-size-{0}", (tag.Count * 5 / maxTagsCount))).Add("selected", tag.Tag.EqualsIgnoreCase(currentTag))>@tag.Tag.Trim()</a>
+            <a href="@tag.Url" @Html.Css(string.Format("tag-size-{0}", tag.Size)).Add("selected", tag.IsSelected)>@tag.Tag</a>
         }
     </div>
     @Html.Partial("_LastComments", comments)

@@ -34,7 +34,18 @@ namespace MirGames.Areas.Topics
                 new { controller = "Topics", action = "TopicListItem" },
                 new { topicId = @"\d+" });
 
-            context.MapRoute(
+            context.MapRouteLowercase(
+                "AllPosts",
+                "topics/all",
+                new { controller = "Topics", action = "AllPosts", page = 1 });
+
+            context.MapRouteLowercase(
+                "AllPostsPaged",
+                "topics/all/page{page}",
+                new { controller = "Topics", action = "AllPosts" },
+                new { page = @"\d+" });
+
+            context.MapRouteLowercase(
                 "Tutorials",
                 "topics/tutorials",
                 new { controller = "Topics", action = "Tutorials", page = 1 });

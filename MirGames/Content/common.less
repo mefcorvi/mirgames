@@ -732,11 +732,11 @@ body > .online-users {
 }
 
 .tags-cloud {
-    .generate-tag(@counter) when (@counter > 0) {
+    .generate-tag(@counter) when (@counter >= 0) {
         .generate-tag((@counter - 1));    // next iteration
         .tag-size-@{counter} {
-            .font-size(1.3 + (@counter - 1) / 5);
-            color: mix(@link-color, @background-color, @counter * 20%);
+            .font-size(1.3 + (@counter) / 5);
+            color: mix(@link-color, @background-color, 25% + @counter * 15%);
             margin-right: 5px;
 
             .active-link-color(@link-color-hover);

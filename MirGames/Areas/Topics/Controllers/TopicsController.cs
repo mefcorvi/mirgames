@@ -8,6 +8,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Areas.Topics.Controllers
 {
+    using System;
     using System.Diagnostics.Contracts;
     using System.Linq;
     using System.ServiceModel.Syndication;
@@ -79,13 +80,6 @@ namespace MirGames.Areas.Topics.Controllers
         /// <inheritdoc />
         public virtual ActionResult Index(string tag = null, string searchString = null, int page = 1, bool onlyUnread = false)
         {
-            if (page < 1)
-            {
-                page = 1;
-            }
-
-            var paginationSettings = new PaginationSettings(page - 1, 20);
-            
             var topicsQuery = new GetTopicsQuery
             {
                 IsPublished = true,
@@ -95,40 +89,39 @@ namespace MirGames.Areas.Topics.Controllers
                 ShowOnMain = true
             };
 
-            var topics = this.QueryProcessor.Process(topicsQuery, paginationSettings);
-            var topicsCount = this.QueryProcessor.GetItemsCount(topicsQuery);
-            
-            var tags = this.QueryProcessor.Process(new GetMainTagsQuery(), new PaginationSettings(0, 50));
-            this.ViewBag.Tags = tags;
-            this.ViewBag.Tag = tag;
-            this.ViewBag.TopicsCount = topicsCount;
-            this.ViewBag.RssUrl = this.Url.ActionCached(MVC.Topics.Topics.Rss(tag, searchString));
-            this.ViewBag.Pagination = new PaginationViewModel(
-                paginationSettings, topicsCount, p => this.Url.ActionCached(MVC.Topics.Topics.Index(tag, searchString, p, onlyUnread)));
+            return this.ShowTopics(
+                topicsQuery,
+                tag,
+                searchString,
+                page,
+                "Main",
+                p => this.Url.ActionCached(MVC.Topics.Topics.Index(tag, searchString, p)),
+                t => this.Url.ActionCached(MVC.Topics.Topics.Index(t.Tag.Trim(), searchString)));
+        }
 
-            var comments = this.QueryProcessor.Process(new GetCommentsQuery { LoadOnlyShortText = true }, new PaginationSettings(0, 10));
-            this.ViewBag.Comments = comments;
+        /// <inheritdoc />
+        public virtual ActionResult AllPosts(string tag = null, string searchString = null, int page = 1)
+        {
+            var topicsQuery = new GetTopicsQuery
+            {
+                IsPublished = true,
+                Tag = tag,
+                SearchString = searchString
+            };
 
-            this.ViewBag.Subsection = "All";
-            this.ViewBag.PageData["tag"] = tag;
-            this.ViewBag.PageData["searchString"] = searchString;
-            this.ViewBag.OnlyUnread = onlyUnread;
-            this.ViewBag.OnlyTutorial = false;
-            this.ViewBag.SearchString = searchString;
-
-            return this.View(topics);
+            return this.ShowTopics(
+                topicsQuery,
+                tag,
+                searchString,
+                page,
+                "All",
+                p => this.Url.ActionCached(MVC.Topics.Topics.AllPosts(tag, searchString, p)),
+                t => this.Url.ActionCached(MVC.Topics.Topics.AllPosts(t.Tag.Trim(), searchString)));
         }
 
         /// <inheritdoc />
         public virtual ActionResult Tutorials(string tag = null, string searchString = null, int page = 1)
         {
-            if (page < 1)
-            {
-                page = 1;
-            }
-
-            var paginationSettings = new PaginationSettings(page - 1, 20);
-
             var topicsQuery = new GetTopicsQuery
             {
                 IsPublished = true,
@@ -139,29 +132,14 @@ namespace MirGames.Areas.Topics.Controllers
                 ShowOnMain = true
             };
 
-            var topics = this.QueryProcessor.Process(topicsQuery, paginationSettings);
-            var topicsCount = this.QueryProcessor.GetItemsCount(topicsQuery);
-
-            var tags = this.QueryProcessor.Process(new GetMainTagsQuery(), new PaginationSettings(0, 50));
-            this.ViewBag.Tags = tags;
-            this.ViewBag.Tag = tag;
-            this.ViewBag.TopicsCount = topicsCount;
-            this.ViewBag.RssUrl = this.Url.ActionCached(MVC.Topics.Topics.Rss(tag, searchString));
-            this.ViewBag.Pagination = new PaginationViewModel(
-                paginationSettings, topicsCount, p => this.Url.ActionCached(MVC.Topics.Topics.Tutorials(tag, searchString, p)));
-
-            var comments = this.QueryProcessor.Process(new GetCommentsQuery { LoadOnlyShortText = true }, new PaginationSettings(0, 10));
-            this.ViewBag.Comments = comments;
-
-            this.ViewBag.Subsection = "All";
-            this.ViewBag.PageData["tag"] = tag;
-            this.ViewBag.PageData["searchString"] = searchString;
-            this.ViewBag.OnlyUnread = false;
-            this.ViewBag.OnlyTutorial = true;
-            this.ViewBag.SearchString = searchString;
-            this.ViewBag.Subsection = "Tutorials";
-
-            return this.View("Index", topics);
+            return this.ShowTopics(
+                topicsQuery,
+                tag,
+                searchString,
+                page,
+                "Tutorials",
+                p => this.Url.ActionCached(MVC.Topics.Topics.Tutorials(tag, searchString, p)),
+                t => this.Url.ActionCached(MVC.Topics.Topics.Tutorials(t.Tag.Trim(), searchString)));
         }
 
         /// <summary>
@@ -315,6 +293,77 @@ namespace MirGames.Areas.Topics.Controllers
         }
 
         /// <summary>
+        /// Shows the topics.
+        /// </summary>
+        /// <param name="topicsQuery">The topics query.</param>
+        /// <param name="tag">The tag.</param>
+        /// <param name="searchString">The search string.</param>
+        /// <param name="page">The page.</param>
+        /// <param name="subsection">The subsection.</param>
+        /// <param name="paginationUrlFactory">The pagination URL factory.</param>
+        /// <param name="tagsUrlFactory">The tags URL factory.</param>
+        /// <returns>The topics view.</returns>
+        private ActionResult ShowTopics(
+            GetTopicsQuery topicsQuery,
+            string tag,
+            string searchString,
+            int page,
+            string subsection,
+            Func<int, string> paginationUrlFactory,
+            Func<TagViewModel, string> tagsUrlFactory)
+        {
+            if (page < 1)
+            {
+                page = 1;
+            }
+
+            var paginationSettings = new PaginationSettings(page - 1, 20);
+
+            var topics = this.QueryProcessor.Process(topicsQuery, paginationSettings);
+            var topicsCount = this.QueryProcessor.GetItemsCount(topicsQuery);
+
+            var tags =
+                this.QueryProcessor.Process(new GetMainTagsQuery(), new PaginationSettings(0, 50)).EnsureCollection();
+
+            var maxTagsCount = tags.Max(t => t.Count);
+
+            this.ViewBag.Tags = tags
+                .Select(t => new TagLinkViewModel
+                {
+                    IsSelected = t.Tag.EqualsIgnoreCase(tag),
+                    Tag = t.Tag.Trim(),
+                    Size = t.Count * 5 / maxTagsCount,
+                    Url = tagsUrlFactory(t)
+                })
+                .OrderBy(t => t.Tag)
+                .ToList();
+
+            this.ViewBag.Tag = tag;
+            this.ViewBag.TopicsCount = topicsCount;
+            this.ViewBag.RssUrl = this.Url.ActionCached(MVC.Topics.Topics.Rss(tag, searchString));
+            this.ViewBag.Pagination = new PaginationViewModel(
+                paginationSettings,
+                topicsCount,
+                paginationUrlFactory);
+
+            var comments = this.QueryProcessor.Process(
+                new GetCommentsQuery { LoadOnlyShortText = true },
+                new PaginationSettings(0, 10));
+
+            this.ViewBag.Comments = comments;
+
+            this.ViewBag.Subsection = subsection;
+            this.ViewBag.PageData["tag"] = tag;
+            this.ViewBag.PageData["searchString"] = searchString;
+            this.ViewBag.OnlyUnread = false;
+            this.ViewBag.OnlyTutorial = true;
+            this.ViewBag.SearchString = searchString;
+            this.ViewBag.Subsection = subsection;
+
+            return this.View("Index", topics);
+        }
+
+        /// <summary>
         /// Creates the topic syndication item.
         /// </summary>
         /// <param name="topic">The topic.</param>
@@ -374,6 +423,29 @@ namespace MirGames.Areas.Topics.Controllers
             item.Authors.Add(this.GetSyndicationPerson(comment.Author));
 
             return item;
+        }
+
+        public class TagLinkViewModel
+        {
+            /// <summary>
+            /// Gets or sets the size.
+            /// </summary>
+            public int Size { get; set; }
+
+            /// <summary>
+            /// Gets or sets the tag.
+            /// </summary>
+            public string Tag { get; set; }
+
+            /// <summary>
+            /// Gets or sets a value indicating whether this instance is selected.
+            /// </summary>
+            public bool IsSelected { get; set; }
+
+            /// <summary>
+            /// Gets or sets the URL.
+            /// </summary>
+            public string Url { get; set; }
         }
     }
 }

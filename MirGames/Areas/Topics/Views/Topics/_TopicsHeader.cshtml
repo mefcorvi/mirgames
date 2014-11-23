@@ -36,6 +36,7 @@
     </div>
 </div>
 <nav class="toolbar">
-    <a href="@Url.ActionCached(MVC.Topics.Topics.Index())" @Html.Css("selected", subsection == "All")>Все посты</a>
+    <a href="@Url.ActionCached(MVC.Topics.Topics.Index())" @Html.Css("selected", subsection == "Main")>Основная лента</a>
+    <a href="@Url.ActionCached(MVC.Topics.Topics.AllPosts())" @Html.Css("selected", subsection == "All")>Все посты</a>
     <a href="@Url.ActionCached(MVC.Topics.Topics.Tutorials())" @Html.Css("selected", subsection == "Tutorials")><i class="fa fa-graduation-cap"></i>Обучающие статьи</a>
 </nav>
