@@ -66,6 +66,12 @@ namespace MirGames.Domain.Topics.QueryHandlers
                 topics = topics.Where(p => p.IsTutorial == isTutorial);
             }
 
+            if (query.IsMicroTopic.HasValue)
+            {
+                var isMicroTopic = query.IsMicroTopic.Value;
+                topics = topics.Where(p => p.IsMicroTopic == isMicroTopic);
+            }
+
             return tags
                 .Join(topics, t => t.TopicId, t => t.Id, (tag, topic) => tag)
                 .GroupBy(t => t.TagText, (tag, rows) => new { Tag = tag, Count = rows.Count() })

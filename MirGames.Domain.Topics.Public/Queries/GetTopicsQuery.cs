@@ -65,5 +65,10 @@ namespace MirGames.Domain.Topics.Queries
         /// Gets or sets a value indicating whether only unread topics should be returned.
         /// </summary>
         public bool OnlyUnread { get; set; }
+
+        /// <summary>
+        /// Gets or sets the micro topic.
+        /// </summary>
+        public bool? IsMicroTopic { get; set; }
     }
 }

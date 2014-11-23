@@ -110,6 +110,7 @@ namespace MirGames.Areas.Topics.Controllers
             public readonly string CommentsRss = "CommentsRss";
             public readonly string Index = "Index";
             public readonly string AllPosts = "AllPosts";
+            public readonly string MicroTopics = "MicroTopics";
             public readonly string Tutorials = "Tutorials";
             public readonly string Topic = "Topic";
             public readonly string TopicListItem = "TopicListItem";
@@ -130,6 +131,7 @@ namespace MirGames.Areas.Topics.Controllers
             public const string CommentsRss = "CommentsRss";
             public const string Index = "Index";
             public const string AllPosts = "AllPosts";
+            public const string MicroTopics = "MicroTopics";
             public const string Tutorials = "Tutorials";
             public const string Topic = "Topic";
             public const string TopicListItem = "TopicListItem";
@@ -169,6 +171,16 @@ namespace MirGames.Areas.Topics.Controllers
         public ActionParamsClass_AllPosts AllPostsParams { get { return s_params_AllPosts; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_AllPosts
+        {
+            public readonly string tag = "tag";
+            public readonly string searchString = "searchString";
+            public readonly string page = "page";
+        }
+        static readonly ActionParamsClass_MicroTopics s_params_MicroTopics = new ActionParamsClass_MicroTopics();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_MicroTopics MicroTopicsParams { get { return s_params_MicroTopics; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_MicroTopics
         {
             public readonly string tag = "tag";
             public readonly string searchString = "searchString";
@@ -327,6 +339,20 @@ namespace MirGames.Areas.Topics.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "searchString", searchString);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "page", page);
             AllPostsOverride(callInfo, tag, searchString, page);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void MicroTopicsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string tag, string searchString, int page);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult MicroTopics(string tag, string searchString, int page)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MicroTopics);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "tag", tag);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "searchString", searchString);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "page", page);
+            MicroTopicsOverride(callInfo, tag, searchString, page);
             return callInfo;
         }
 

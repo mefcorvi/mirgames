@@ -32,5 +32,10 @@ namespace MirGames.Domain.Topics.Queries
         /// Gets or sets the is tutorial.
         /// </summary>
         public bool? IsTutorial { get; set; }
+
+        /// <summary>
+        /// Gets or sets the micro topic.
+        /// </summary>
+        public bool? IsMicroTopic { get; set; }
     }
 }

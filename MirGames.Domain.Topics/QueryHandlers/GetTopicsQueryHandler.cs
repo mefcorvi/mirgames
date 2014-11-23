@@ -173,6 +173,12 @@ namespace MirGames.Domain.Topics.QueryHandlers
                 topics = topics.Where(t => t.ShowOnMain);
             }
 
+            if (query.IsMicroTopic.HasValue)
+            {
+                bool isMicroTopic = query.IsMicroTopic.Value;
+                topics = topics.Where(t => t.IsMicroTopic == isMicroTopic);
+            }
+
             var identifiers = (query.Identifiers ?? new int[0]).EnsureCollection();
             if (identifiers.Count > 0)
             {

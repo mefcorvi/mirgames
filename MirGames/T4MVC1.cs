@@ -196,7 +196,7 @@ namespace Links
             public static readonly string jquery_nanoscroller_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.nanoscroller.min.js") ? Url("jquery.nanoscroller.min.js") : Url("jquery.nanoscroller.js");
             public static readonly string jquery_naturalWidth_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.naturalWidth.d.min.js") ? Url("jquery.naturalWidth.d.min.js") : Url("jquery.naturalWidth.d.js");
             public static readonly string jquery_naturalWidth_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.naturalWidth.min.js") ? Url("jquery.naturalWidth.min.js") : Url("jquery.naturalWidth.js");
-            public static readonly string jquery_signalR_2_1_1_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.signalR-2.1.1.min.js") ? Url("jquery.signalR-2.1.1.min.js") : Url("jquery.signalR-2.1.1.js");
+            public static readonly string jquery_signalR_2_1_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.signalR-2.1.2.min.js") ? Url("jquery.signalR-2.1.2.min.js") : Url("jquery.signalR-2.1.2.js");
             public static readonly string linq_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/linq.d.min.js") ? Url("linq.d.min.js") : Url("linq.d.js");
             public static readonly string linq_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/linq.min.js") ? Url("linq.min.js") : Url("linq.js");
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

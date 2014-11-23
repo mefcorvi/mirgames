@@ -46,6 +46,15 @@
         }
     </div>
 </section>
+<section class="micro-topics-subsection">
+    <h3><a href="@Url.ActionCached(MVC.Topics.Topics.MicroTopics())">Микроблоги</a></h3>
+    <div class="topics-list">
+        @foreach (var topic in Model.MicroTopics)
+        {
+            @Html.Partial("../../Areas/Topics/Views/Topics/_TopicListItem", topic)
+        }
+    </div>
+</section>
 <section class="forum-subsection">
     <h3><a href="@Url.ActionCached(MVC.Forum.Forum.Index())">Форум</a></h3>
     <div class="forum-topics-list">

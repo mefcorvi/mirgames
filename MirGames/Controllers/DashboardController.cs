@@ -41,8 +41,11 @@ namespace MirGames.Controllers
         {
             var model = new DashboardViewModel();
 
-            var topicsQuery = new GetTopicsQuery { IsPublished = true, ShowOnMain = true };
+            var topicsQuery = new GetTopicsQuery { IsPublished = true, ShowOnMain = true, IsMicroTopic = false };
             model.Topics = this.QueryProcessor.Process(topicsQuery, new PaginationSettings(0, 10));
+
+            var microTopicsQuery = new GetTopicsQuery { IsPublished = true, IsMicroTopic = true };
+            model.MicroTopics = this.QueryProcessor.Process(microTopicsQuery, new PaginationSettings(0, 10));
 
             var paginationSettings = new PaginationSettings(0, 40);
             var froumTopicsQuery = new GetForumTopicsQuery();
@@ -85,7 +88,9 @@ namespace MirGames.Controllers
             return this.Url.ActionCached(MVC.Forum.Forum.Topic(forumAlias, topicId, page)) + "#posts";
         }
 
-
+        /// <summary>
+        /// The dashboard view model.
+        /// </summary>
         public class DashboardViewModel
         {
             /// <summary>
@@ -102,6 +107,11 @@ namespace MirGames.Controllers
             /// Gets or sets the projects.
             /// </summary>
             public IEnumerable<WipProjectViewModel> Projects { get; set; }
+
+            /// <summary>
+            /// Gets or sets the micro topics.
+            /// </summary>
+            public IEnumerable<TopicsListItem> MicroTopics { get; set; }
         }
     }
 }

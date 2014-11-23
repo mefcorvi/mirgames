@@ -55,10 +55,11 @@ namespace MirGames.Domain.Topics.Cache
             PaginationSettings pagination)
         {
             return string.Format(
-                "{0}#{1}#{2}#{3}",
+                "{0}#{1}#{2}#{3}#{4}",
                 query.Filter,
                 query.ShowOnMain,
                 query.IsTutorial,
+                query.IsMicroTopic,
                 (pagination != null ? pagination.GetHashCode() : 0).ToString(CultureInfo.InvariantCulture));
         }
 

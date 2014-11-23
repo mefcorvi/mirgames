@@ -46,11 +46,22 @@ namespace MirGames.Areas.Topics
                 new { page = @"\d+" });
 
             context.MapRouteLowercase(
+                "Microtopics",
+                "topics/microblog",
+                new { controller = "Topics", action = "MicroTopics", page = 1 });
+
+            context.MapRouteLowercase(
+                "MicrotopicsPaged",
+                "topics/microblog/page{page}",
+                new { controller = "Topics", action = "MicroTopics" },
+                new { page = @"\d+" });
+
+            context.MapRouteLowercase(
                 "Tutorials",
                 "topics/tutorials",
                 new { controller = "Topics", action = "Tutorials", page = 1 });
 
-            context.MapRoute(
+            context.MapRouteLowercase(
                 "TutorialsPaged",
                 "topics/tutorials/page{page}",
                 new { controller = "Topics", action = "Tutorials" },

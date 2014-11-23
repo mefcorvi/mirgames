@@ -122,6 +122,28 @@ namespace MirGames.Areas.Topics.Controllers
         }
 
         /// <inheritdoc />
+        public virtual ActionResult MicroTopics(string tag = null, string searchString = null, int page = 1)
+        {
+            var topicsQuery = new GetTopicsQuery
+            {
+                IsPublished = true,
+                Tag = tag,
+                SearchString = searchString,
+                IsMicroTopic = true
+            };
+
+            return this.ShowTopics(
+                topicsQuery,
+                new GetMainTagsQuery { IsMicroTopic = true },
+                tag,
+                searchString,
+                page,
+                "Microtopics",
+                p => this.Url.ActionCached(MVC.Topics.Topics.MicroTopics(tag, searchString, p)),
+                t => this.Url.ActionCached(MVC.Topics.Topics.MicroTopics(t.Tag.Trim(), searchString)));
+        }
+
+        /// <inheritdoc />
         public virtual ActionResult Tutorials(string tag = null, string searchString = null, int page = 1)
         {
             var topicsQuery = new GetTopicsQuery
