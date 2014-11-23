@@ -1,12 +1,12 @@
-﻿@using System.Web.Mvc
-@using System.Web.Mvc.Html
+﻿@* Generator: MvcHelper *@
+
+@using System.Web.Mvc
 @using MirGames.Domain.Users.ViewModels
-@inherits Helper
 
 @helper UserAvatarLink(AuthorViewModel model, string className, string linkClass = "avatar-link", bool showLogin = false) {
     if (model.Id > 0)
     {
-        <a href="@Url.ActionCached(MVC.Users.Profile(model.Id.GetValueOrDefault()))" class="@linkClass">
+        <a href="@MirGames.Infrastructure.Helper.Url.ActionCached(MVC.Users.Profile(model.Id.GetValueOrDefault()))" class="@linkClass">
             <img src="@(model.AvatarUrl)" class="avatar @className" />
             @if (showLogin) { @(model.Login) }
         </a>
@@ -22,6 +22,6 @@
 
 @helper UserLink(AuthorViewModel model, string className)
 {
-    if (model.Id > 0) {<a href="@Url.ActionCached(MVC.Users.Profile(model.Id.GetValueOrDefault()))" class="@className">@(model.Login)</a>}
+    if (model.Id > 0) {<a href="@MirGames.Infrastructure.Helper.Url.ActionCached(MVC.Users.Profile(model.Id.GetValueOrDefault()))" class="@className">@(model.Login)</a>}
     else{<span class="@className">@(model.Login)</span>}
 }

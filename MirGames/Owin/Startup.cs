@@ -28,7 +28,6 @@ namespace MirGames.Owin
         /// <param name="app">The application.</param>
         public void Configuration(IAppBuilder app)
         {
-            app.Use<NewRelicMiddleware>();
             app.MapSignalR();
         }
     }
