@@ -21,6 +21,12 @@
     {
         @Html.Partial("_TopicListItem", topic)
     }
+    @if (!topics.Any())
+    {
+        <div class="items-not-found">
+            Посты не найдены
+        </div>
+    }
     @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
 </div>
 <div class="last-activities">

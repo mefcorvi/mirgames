@@ -91,6 +91,7 @@ namespace MirGames.Areas.Topics.Controllers
 
             return this.ShowTopics(
                 topicsQuery,
+                new GetMainTagsQuery { ShowOnMain = true },
                 tag,
                 searchString,
                 page,
@@ -111,6 +112,7 @@ namespace MirGames.Areas.Topics.Controllers
 
             return this.ShowTopics(
                 topicsQuery,
+                new GetMainTagsQuery(),
                 tag,
                 searchString,
                 page,
@@ -134,6 +136,7 @@ namespace MirGames.Areas.Topics.Controllers
 
             return this.ShowTopics(
                 topicsQuery,
+                new GetMainTagsQuery { IsTutorial = true, ShowOnMain = true },
                 tag,
                 searchString,
                 page,
@@ -296,6 +299,7 @@ namespace MirGames.Areas.Topics.Controllers
         /// Shows the topics.
         /// </summary>
         /// <param name="topicsQuery">The topics query.</param>
+        /// <param name="tagsQuery">The tags query.</param>
         /// <param name="tag">The tag.</param>
         /// <param name="searchString">The search string.</param>
         /// <param name="page">The page.</param>
@@ -305,6 +309,7 @@ namespace MirGames.Areas.Topics.Controllers
         /// <returns>The topics view.</returns>
         private ActionResult ShowTopics(
             GetTopicsQuery topicsQuery,
+            GetMainTagsQuery tagsQuery,
             string tag,
             string searchString,
             int page,
@@ -323,7 +328,7 @@ namespace MirGames.Areas.Topics.Controllers
             var topicsCount = this.QueryProcessor.GetItemsCount(topicsQuery);
 
             var tags =
-                this.QueryProcessor.Process(new GetMainTagsQuery(), new PaginationSettings(0, 50)).EnsureCollection();
+                this.QueryProcessor.Process(tagsQuery, new PaginationSettings(0, 50)).EnsureCollection();
 
             var maxTagsCount = tags.Max(t => t.Count);
 

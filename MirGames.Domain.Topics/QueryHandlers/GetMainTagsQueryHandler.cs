@@ -53,7 +53,21 @@ namespace MirGames.Domain.Topics.QueryHandlers
                 tags = tags.Where(t => t.TagText.StartsWith(query.Filter));
             }
 
+            var topics = readContext.Query<Topic>();
+
+            if (query.ShowOnMain)
+            {
+                topics = topics.Where(p => p.ShowOnMain);
+            }
+
+            if (query.IsTutorial.HasValue)
+            {
+                var isTutorial = query.IsTutorial.Value;
+                topics = topics.Where(p => p.IsTutorial == isTutorial);
+            }
+
             return tags
+                .Join(topics, t => t.TopicId, t => t.Id, (tag, topic) => tag)
                 .GroupBy(t => t.TagText, (tag, rows) => new { Tag = tag, Count = rows.Count() })
                 .OrderByDescending(t => t.Count)
                 .Select(t => new TagViewModel

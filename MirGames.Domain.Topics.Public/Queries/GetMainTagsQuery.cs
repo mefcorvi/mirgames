@@ -22,5 +22,15 @@ namespace MirGames.Domain.Topics.Queries
         /// Gets or sets the filter.
         /// </summary>
         public string Filter { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether show on main.
+        /// </summary>
+        public bool ShowOnMain { get; set; }
+
+        /// <summary>
+        /// Gets or sets the is tutorial.
+        /// </summary>
+        public bool? IsTutorial { get; set; }
     }
 }

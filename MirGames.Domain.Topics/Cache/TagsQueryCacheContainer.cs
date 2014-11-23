@@ -54,7 +54,12 @@ namespace MirGames.Domain.Topics.Cache
             GetMainTagsQuery query,
             PaginationSettings pagination)
         {
-            return string.Format("{0}#{1}", query.Filter, (pagination != null ? pagination.GetHashCode() : 0).ToString(CultureInfo.InvariantCulture));
+            return string.Format(
+                "{0}#{1}#{2}#{3}",
+                query.Filter,
+                query.ShowOnMain,
+                query.IsTutorial,
+                (pagination != null ? pagination.GetHashCode() : 0).ToString(CultureInfo.InvariantCulture));
         }
 
         /// <inheritdoc />
