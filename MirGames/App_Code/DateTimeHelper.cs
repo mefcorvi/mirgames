@@ -54,7 +54,7 @@ namespace System.Web.Mvc
 
             if (delta < 45 * Minute)
             {
-                return Math.Max(ts.Minutes, 2).Pluralize("минуту", "минуты", "минут", format);
+                return Math.Max(Round(ts.TotalMinutes), 2).Pluralize("минуту", "минуты", "минут", format);
             }
 
             if (delta < 90 * Minute)
@@ -64,7 +64,7 @@ namespace System.Web.Mvc
 
             if (delta < 22 * Hour)
             {
-                return Math.Max(ts.Hours, 2).Pluralize("час", "часа", "часов", format);
+                return Math.Max(Round(ts.TotalHours), 2).Pluralize("час", "часа", "часов", format);
             }
 
             if (delta < 36 * Hour)
@@ -74,7 +74,7 @@ namespace System.Web.Mvc
 
             if (delta < 25 * Day)
             {
-                return ts.Days.Pluralize("день", "дня", "дней", format);
+                return Round(ts.TotalDays).Pluralize("день", "дня", "дней", format);
             }
 
             return date.Format();
@@ -99,6 +99,16 @@ namespace System.Web.Mvc
         public static string Format(this DateTime date)
         {
             return string.Format("{0:dd.MM.yy HH:mm}", date.UserDate());
+        }
+
+        /// <summary>
+        /// Rounds the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The rounded value.</returns>
+        private static int Round(double value)
+        {
+            return ((int)Math.Round(value));
         }
     }
 }
