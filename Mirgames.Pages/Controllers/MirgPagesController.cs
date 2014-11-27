@@ -66,6 +66,8 @@ namespace MirGames.Areas.Projects.Controllers
                 path += "index.html";
             }
 
+            path = Path.Combine("site/", path);
+
             var projectAlias = urlParts[0];
 
             var project = this.queryProcessor.Process(
