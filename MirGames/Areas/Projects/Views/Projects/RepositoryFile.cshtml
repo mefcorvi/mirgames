@@ -1,4 +1,6 @@
 ﻿@using MirGames.Domain.Wip.ViewModels
+@using RestSharp.Extensions
+@using StringExtensions = MirGames.Infrastructure.StringExtensions
 @model WipProjectViewModel
 @{
     var file = (WipProjectFileViewModel)this.ViewBag.File;
@@ -39,6 +41,6 @@
         <span class="date">
             @file.UpdatedDate.Format()
         </span>
-        <pre><code @Html.Css("file-content").Add(Path.GetExtension(file.FileName).TrimStart('.'))>@file.Content</code></pre>
+        <pre><code @Html.Css("file-content").Add(Path.GetExtension(file.FileName).TrimStart('.'))>@StringExtensions.ReadAsString(file.Content)</code></pre>
     </div>
 </section>

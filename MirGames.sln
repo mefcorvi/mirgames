@@ -76,6 +76,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{479EB1
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirgames.Pages", "Mirgames.Pages\Mirgames.Pages.csproj", "{5CF2166F-1420-41C9-B4A5-7E1D5FEC7C30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -206,6 +208,10 @@ Global
 		{FD1403A6-1FB2-4781-B18F-3A61F9478EA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD1403A6-1FB2-4781-B18F-3A61F9478EA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD1403A6-1FB2-4781-B18F-3A61F9478EA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CF2166F-1420-41C9-B4A5-7E1D5FEC7C30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CF2166F-1420-41C9-B4A5-7E1D5FEC7C30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CF2166F-1420-41C9-B4A5-7E1D5FEC7C30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CF2166F-1420-41C9-B4A5-7E1D5FEC7C30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,6 +11,7 @@ namespace MirGames.Infrastructure
     using System;
     using System.Diagnostics.Contracts;
     using System.Globalization;
+    using System.IO;
     using System.Security.Cryptography;
     using System.Text;
 
@@ -19,6 +20,22 @@ namespace MirGames.Infrastructure
     /// </summary>
     public static class StringExtensions
     {
+        /// <summary>
+        /// Reads as string.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <param name="encoding">The encoding.</param>
+        /// <returns>The string.</returns>
+        public static string ReadAsString(this Stream stream, Encoding encoding = null)
+        {
+            Contract.Requires(stream != null);
+
+            using (var streamReader = new StreamReader(stream, encoding ?? Encoding.UTF8, encoding == null))
+            {
+                return streamReader.ReadToEnd();
+            }
+        }
+
         /// <summary>
         /// Gets the hash.
         /// </summary>

@@ -9,6 +9,7 @@
 namespace MirGames.Domain.Wip.ViewModels
 {
     using System;
+    using System.IO;
 
     public class WipProjectFileViewModel
     {
@@ -35,7 +36,7 @@ namespace MirGames.Domain.Wip.ViewModels
         /// <summary>
         /// Gets or sets the content.
         /// </summary>
-        public string Content { get; set; }
+        public Stream Content { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is preview.

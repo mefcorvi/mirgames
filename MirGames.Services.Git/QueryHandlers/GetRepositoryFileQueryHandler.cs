@@ -66,6 +66,11 @@ namespace MirGames.Services.Git.QueryHandlers
             var repositoryPath = this.repositoryPathProvider.GetPath(repository.Name);
             var gitRepository = new Repository(repositoryPath);
 
+            if (gitRepository.Head == null || gitRepository.Head.Tip == null)
+            {
+                throw new RepositoryPathNotFoundException(query.FilePath);                
+            }
+
             var treeEntry = gitRepository.Head.Tip[query.FilePath];
 
             if (treeEntry == null)
@@ -81,7 +86,7 @@ namespace MirGames.Services.Git.QueryHandlers
                 return new GitRepositoryFileViewModel
                 {
                     FileName = treeEntry.Name,
-                    Content = blob.GetContentText(),
+                    Content = blob.GetContentStream(),
                     CommitId = commit.Sha,
                     Message = commit.MessageShort,
                     UpdatedDate = commit.Author.When.UtcDateTime

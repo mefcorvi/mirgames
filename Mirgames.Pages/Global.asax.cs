@@ -1,41 +1,45 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="GitRepositoryFileViewModel.cs">
+// <copyright company="MirGames" file="Global.asax.cs">
 // Copyright 2014 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace MirGames.Services.Git.Public.ViewModels
+
+namespace Mirgames.Pages
 {
-    using System;
-    using System.IO;
+    using System.Web.Mvc;
+    using System.Web.Routing;
 
-    public sealed class GitRepositoryFileViewModel
+    using Autofac;
+
+    using MirGames;
+
+    using AutofacDependencyResolver = Autofac.Integration.Mvc.AutofacDependencyResolver;
+
+    public class MvcApplication : System.Web.HttpApplication
     {
-        /// <summary>
-        /// Gets or sets the name of the file.
-        /// </summary>
-        public string FileName { get; set; }
+        /// <inheritdoc />
+        protected void Application_Start()
+        {
+            this.InitContainer();
+
+            AreaRegistration.RegisterAllAreas();
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+        }
 
         /// <summary>
-        /// Gets or sets the updated date.
+        /// Initializes the container.
         /// </summary>
-        public DateTime UpdatedDate { get; set; }
+        private void InitContainer()
+        {
+            var builder = new ContainerBuilder();
+            builder.RegisterModule<WebModule>();
 
-        /// <summary>
-        /// Gets or sets the message.
-        /// </summary>
-        public string Message { get; set; }
-
-        /// <summary>
-        /// Gets or sets the commit identifier.
-        /// </summary>
-        public string CommitId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the content.
-        /// </summary>
-        public Stream Content { get; set; }
+            var container = builder.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+        }
     }
 }
