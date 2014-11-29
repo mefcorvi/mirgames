@@ -15,6 +15,9 @@ module MirGames.Wip {
             this.$scope.description = this.pageData.project.Description;
             this.$scope.logoUrl = this.pageData.project.LogoUrl;
             this.$scope.isPrivate = this.pageData.project.IsRepositoryPrivate;
+            this.$scope.isSiteEnabled = this.pageData.project.IsSiteEnabled;
+            this.$scope.shortDescription = this.pageData.project.ShortDescription;
+            this.$scope.projectAlias = this.pageData.project.Alias;
 
             this.$scope.save = () => this.save();
             this.$scope.fileUploaded = (attachmentId) => this.fileUploaded(attachmentId);
@@ -27,7 +30,7 @@ module MirGames.Wip {
         }
 
         private save() {
-            var command: MirGames.Domain.Wip.Commands.SaveWipProjectCommand = 
+            var command: MirGames.Domain.Wip.Commands.SaveWipProjectCommand =
             {
                 Title: this.$scope.title,
                 Alias: this.pageData.project.Alias,
@@ -35,7 +38,9 @@ module MirGames.Wip {
                 LogoAttachmentId: this.$scope.attachmentId,
                 Attachments: this.$scope.attachments,
                 Description: this.$scope.description,
-                IsRepositoryPrivate: this.$scope.isPrivate
+                IsRepositoryPrivate: this.$scope.isPrivate,
+                IsSiteEnabled: this.$scope.isSiteEnabled,
+                ShortDescription: this.$scope.shortDescription
             };
 
             this.apiService.executeCommand("SaveWipProjectCommand", command, () => {
@@ -54,6 +59,9 @@ module MirGames.Wip {
         attachmentId: number;
         attachments: number[];
         description: string;
+        shortDescription: string;
+        isSiteEnabled: boolean;
+        projectAlias: string;
 
         isPrivate: boolean;
         logoUrl: string;

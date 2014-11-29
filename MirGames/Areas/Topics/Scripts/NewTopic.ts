@@ -19,7 +19,10 @@ module MirGames.Topics {
             $('.topic-tags').selectize({
                 load: (query, callback) => {
                     var command: MirGames.Domain.Topics.Queries.GetMainTagsQuery = {
-                        Filter: query
+                        Filter: query,
+                        IsMicroTopic: null,
+                        IsTutorial: null,
+                        ShowOnMain: null
                     };
 
                     this.apiService.getAll('GetMainTagsQuery', command, 0, 30, (result: MirGames.Domain.Topics.ViewModels.TagViewModel[]) => {

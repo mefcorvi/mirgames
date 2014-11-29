@@ -105,7 +105,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
                             Id = project.AuthorId
                         },
                     Description = project.Description,
-                    ShortDescription = this.textProcessor.GetShortText(project.Description),
+                    ShortDescription = project.ShortDescription,
                     Genre = project.Genre,
                     Alias = project.Alias,
                     FollowersCount = project.FollowersCount,
@@ -125,6 +125,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
                     CanReadRepository = this.authorizationManager.CheckAccess(principal, "Read", "GitRepository", project.RepositoryId),
                     CanEditGallery = this.authorizationManager.CheckAccess(principal, "EditGallery", "Project", project.ProjectId),
                     IsRepositoryPrivate = !this.authorizationManager.CheckAccess(0, "Read", "GitRepository", project.RepositoryId),
+                    IsSiteEnabled = project.IsSiteEnabled,
                     CanCreateBlogTopic = project.BlogId.HasValue && this.authorizationManager.CheckAccess(principal, "CreateTopic", "Blog", project.BlogId),
                     BlogId = project.BlogId
                 };

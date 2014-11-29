@@ -31,6 +31,11 @@ namespace MirGames.Domain.Wip.Entities
         public string Alias { get; set; }
 
         /// <summary>
+        /// Gets or sets the short description.
+        /// </summary>
+        public string ShortDescription { get; set; }
+
+        /// <summary>
         /// Gets or sets the description.
         /// </summary>
         public string Description { get; set; }
@@ -99,5 +104,10 @@ namespace MirGames.Domain.Wip.Entities
         /// Gets or sets the blog identifier.
         /// </summary>
         public int? BlogId { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is site enabled.
+        /// </summary>
+        public bool IsSiteEnabled { get; set; }
     }
 }

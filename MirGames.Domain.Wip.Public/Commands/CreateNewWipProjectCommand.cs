@@ -8,6 +8,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Wip.Commands
 {
+    using System.ComponentModel.DataAnnotations;
+
     using MirGames.Infrastructure.Commands;
 
     /// <summary>
@@ -19,16 +21,23 @@ namespace MirGames.Domain.Wip.Commands
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
+        [Required]
+        [MaxLength(255)]
         public string Title { get; set; }
 
         /// <summary>
         /// Gets or sets the alias.
         /// </summary>
+        [Required]
+        [RegularExpression(@"^[a-z0-9\-_]{3,}$")]
+        [MaxLength(255)]
         public string Alias { get; set; }
 
         /// <summary>
         /// Gets or sets the tags.
         /// </summary>
+        [Required]
+        [MaxLength(255)]
         public string Tags { get; set; }
 
         /// <summary>
@@ -44,11 +53,13 @@ namespace MirGames.Domain.Wip.Commands
         /// <summary>
         /// Gets or sets the attachments.
         /// </summary>
+        [Required]
         public int[] Attachments { get; set; }
 
         /// <summary>
         /// Gets or sets the description.
         /// </summary>
+        [Required]
         public string Description { get; set; }
     }
 }

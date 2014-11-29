@@ -74,6 +74,8 @@ export enum WipProjectRepositoryItemType {
 }
 module System {
 }
+module System.IO {
+}
 module MirGames.Infrastructure.Logging {
 export enum EventLogType {
   Error = 0,

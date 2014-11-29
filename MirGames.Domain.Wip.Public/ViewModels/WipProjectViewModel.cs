@@ -145,6 +145,11 @@ namespace MirGames.Domain.Wip.ViewModels
         public bool IsRepositoryPrivate { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this instance is site enabled.
+        /// </summary>
+        public bool IsSiteEnabled { get; set; }
+
+        /// <summary>
         /// Gets or sets the blog identifier.
         /// </summary>
         public int? BlogId { get; set; }

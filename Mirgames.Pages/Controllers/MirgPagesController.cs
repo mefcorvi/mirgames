@@ -67,14 +67,31 @@ namespace MirGames.Areas.Projects.Controllers
             }
 
             path = Path.Combine("site/", path);
-
             var projectAlias = urlParts[0];
+            WipProjectViewModel project;
 
-            var project = this.queryProcessor.Process(
-                new GetWipProjectQuery
+            try
+            {
+                project = this.queryProcessor.Process(
+                    new GetWipProjectQuery
+                    {
+                        Alias = projectAlias
+                    });
+            }
+            catch (QueryProcessingFailedException ex)
+            {
+                if (ex.InnerException is ItemNotFoundException)
                 {
-                    Alias = projectAlias
-                });
+                    return this.HttpNotFound();
+                }
+
+                throw ex.InnerException;
+            }
+
+            if (!project.IsSiteEnabled || project.IsRepositoryPrivate)
+            {
+                return this.HttpNotFound();
+            }
 
             return this.RepositoryFile(path, project);
         }

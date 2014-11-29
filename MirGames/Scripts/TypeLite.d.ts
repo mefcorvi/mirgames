@@ -153,6 +153,9 @@ interface GetCommentByIdQuery extends MirGames.Infrastructure.Queries.SingleItem
 }
 interface GetMainTagsQuery extends MirGames.Infrastructure.Queries.Query1 {
   Filter: string;
+  ShowOnMain: boolean;
+  IsTutorial: boolean;
+  IsMicroTopic: boolean;
 }
 }
 declare module MirGames.Domain.Topics.ViewModels {
@@ -189,6 +192,7 @@ interface TopicForEditViewModel {
   Title: string;
   Tags: string;
   Text: string;
+  IsMicroTopic: boolean;
 }
 interface TopicViewModel {
   Id: number;
@@ -206,6 +210,7 @@ interface TopicViewModel {
   TagsList: string;
   CreationDate: Date;
   ShowOnMain: boolean;
+  IsMicroTopic: boolean;
 }
 }
 declare module MirGames.Domain.Users.ViewModels {
@@ -587,6 +592,8 @@ interface SaveWipProjectCommand extends MirGames.Infrastructure.Commands.Command
   Attachments: number[];
   Description: string;
   IsRepositoryPrivate: boolean;
+  IsSiteEnabled: boolean;
+  ShortDescription: string;
 }
 interface CreateNewWipProjectCommand extends MirGames.Infrastructure.Commands.Command1 {
   Title: string;
@@ -700,7 +707,7 @@ interface WipProjectFileViewModel {
   UpdatedDate: Date;
   CommitId: string;
   Message: string;
-  Content: string;
+  Content: System.IO.Stream;
   IsPreview: boolean;
 }
 interface WipProjectViewModel {
@@ -729,6 +736,7 @@ interface WipProjectViewModel {
   LastCommitMessage: string;
   ShortDescription: string;
   IsRepositoryPrivate: boolean;
+  IsSiteEnabled: boolean;
   BlogId: number;
   CanEditGallery: boolean;
 }
@@ -746,6 +754,20 @@ interface TimeSpan {
   TotalMilliseconds: number;
   TotalMinutes: number;
   TotalSeconds: number;
+}
+interface MarshalByRefObject {
+}
+}
+declare module System.IO {
+interface Stream extends System.MarshalByRefObject {
+  CanRead: boolean;
+  CanSeek: boolean;
+  CanTimeout: boolean;
+  CanWrite: boolean;
+  Length: number;
+  Position: number;
+  ReadTimeout: number;
+  WriteTimeout: number;
 }
 }
 declare module MirGames.Infrastructure.Logging {

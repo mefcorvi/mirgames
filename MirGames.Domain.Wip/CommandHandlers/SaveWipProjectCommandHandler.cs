@@ -84,6 +84,8 @@ namespace MirGames.Domain.Wip.CommandHandlers
                 project.Description = command.Description;
                 project.TagsList = string.Join(", ", tags);
                 project.UpdatedDate = DateTime.UtcNow;
+                project.IsSiteEnabled = command.IsSiteEnabled;
+                project.ShortDescription = command.ShortDescription;
 
                 writeContext.SaveChanges();
 

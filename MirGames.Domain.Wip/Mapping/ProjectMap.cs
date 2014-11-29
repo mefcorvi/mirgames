@@ -42,6 +42,8 @@ namespace MirGames.Domain.Wip.Mapping
             this.Property(t => t.RepositoryType).HasColumnName("repository_type").IsOptional();
             this.Property(t => t.BlogId).HasColumnName("blog_id").IsOptional();
             this.Property(t => t.Genre).HasColumnName("genre").IsOptional();
+            this.Property(t => t.IsSiteEnabled).HasColumnName("is_site_enabled");
+            this.Property(t => t.ShortDescription).HasColumnName("short_description").IsRequired().HasMaxLength(1024);
         }
     }
 }

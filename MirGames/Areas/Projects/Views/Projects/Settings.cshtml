@@ -17,6 +17,11 @@
         <div class="form-field-description">Название вашего проекта.</div>
     </div>
     <div class="form-field">
+        <label>Краткое описание</label>
+        <input type="text" class="topic-short-description" ng-model="shortDescription" required="required" maxlength="1024" />
+        <div class="form-field-description">Краткое описание вашего проекта.</div>
+    </div>
+    <div class="form-field">
         <label>Метки</label>
         <input type="text" class="topic-tags" ng-model="tags" required="required" pattern="([^,]+,?){1,5}" />
         <div class="form-field-description">
@@ -28,6 +33,16 @@
         <div>
             <input type="checkbox" ng-model="isPrivate" id="isRepositoryPrivate" />
             <label for="isRepositoryPrivate">Доступ разрешен только для членов команды</label>
+        </div>
+    </div>
+    <div class="form-field">
+        <label>Хостинг</label>
+        <div>
+            <input type="checkbox" ng-model="isSiteEnabled" id="isSiteEnabled" />
+            <label for="isSiteEnabled">Включить хостинг</label>
+        </div>
+        <div class="form-field-description">
+            Файлы из папки "/site/" будут доступны по адресу http://{{projectAlias}}.mirg.ru/
         </div>
     </div>
     <div class="form-field logo-field">
