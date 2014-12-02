@@ -86,6 +86,7 @@ namespace MirGames.Domain.Wip.CommandHandlers
                     CreationDate = DateTime.UtcNow,
                     UpdatedDate = DateTime.UtcNow,
                     Description = command.Description,
+                    ShortDescription = command.ShortDescription,
                     FollowersCount = 0,
                     RepositoryType = command.RepositoryType,
                     TagsList = string.Join(", ", tags),

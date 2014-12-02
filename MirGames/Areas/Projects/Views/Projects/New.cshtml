@@ -16,6 +16,11 @@
         <div class="form-field-description">Название вашего проекта.</div>
     </div>
     <div class="form-field">
+        <label>Краткое описание</label>
+        <input type="text" class="topic-short-description" ng-model="shortDescription" required="required" maxlength="1024" />
+        <div class="form-field-description">Краткое описание вашего проекта.</div>
+    </div>
+    <div class="form-field">
         <label>Адрес</label>
         <span>@baseUrl.TrimEnd('!')</span>
         <input class="project-address" type="text" name="projectName" ng-model="name" required="required" maxlength="50" pattern="[a-z0-9]+" unique-project-name />

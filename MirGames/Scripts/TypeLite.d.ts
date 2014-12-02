@@ -603,6 +603,7 @@ interface CreateNewWipProjectCommand extends MirGames.Infrastructure.Commands.Co
   LogoAttachmentId: number;
   Attachments: number[];
   Description: string;
+  ShortDescription: string;
 }
 interface PostWorkItemCommentCommand extends MirGames.Infrastructure.Commands.Command1 {
   WorkItemId: number;

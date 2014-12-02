@@ -61,5 +61,11 @@ namespace MirGames.Domain.Wip.Commands
         /// </summary>
         [Required]
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the short description.
+        /// </summary>
+        [Required]
+        public string ShortDescription { get; set; }
     }
 }

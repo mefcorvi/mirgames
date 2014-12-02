@@ -36,7 +36,7 @@
             <a class="user-login" href="javascript:void(0)" ng-click="quoteLogin(message.login)" ng-if="message.showAuthor">{{message.login}}</a>
             <div class="text" ng-bind-html="message.text | unsafe"></div>
         </div>
-        <div ng-class="{ 'date': !message.editDate, 'edit-date': message.editDate }" class="relative" ng-if="message.showDate" datetime="{{(message.editDate || message.date) | date:'yyyy-MM-ddTHH:mm:ssZ'}}">{{(message.editDate || message.date) | date:message.dateFormat}}</div>
+        <div ng-class="{ 'date': !message.editDate, 'edit-date': message.editDate }" ng-if="message.showDate">{{(message.editDate || message.date)}}</div>
         <div class="message-toolbar">
             <a href="javascript:void(0)" ng-click="$parent.editMessage(message)" ng-if="message.canBeEdited"><i class="fa fa-pencil-square-o"></i></a>
         </div>

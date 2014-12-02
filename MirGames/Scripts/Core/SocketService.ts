@@ -65,6 +65,10 @@ module Core {
                     }
                 });
 
+                SocketService.connection.reconnected(() => {
+                    this.eventBus.emit('socket.connected');
+                });
+
                 SocketService.connection.connectionSlow(() => {
                     this.eventBus.emit('socket.connection-slow');
                 });

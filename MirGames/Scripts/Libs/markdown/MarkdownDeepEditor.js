@@ -484,7 +484,6 @@ var MarkdownDeepEditor = new function () {
 
     priv.onKeyDown = function(e) {
         var newMode = null;
-        debugger;
 
         // Normal keys only
         if (e.ctrlKey || e.metaKey) {

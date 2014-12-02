@@ -53,6 +53,7 @@ module MirGames.Wip {
                 LogoAttachmentId: this.$scope.attachmentId,
                 Attachments: this.$scope.attachments,
                 Description: this.$scope.description,
+                ShortDescription: this.$scope.shortDescription
             };
 
             this.apiService.executeCommand("CreateNewWipProjectCommand", command, () => {
@@ -69,6 +70,7 @@ module MirGames.Wip {
         attachmentId: number;
         attachments: number[];
         description: string;
+        shortDescription: string;
 
         logoUrl: string;
         showPreview: boolean;

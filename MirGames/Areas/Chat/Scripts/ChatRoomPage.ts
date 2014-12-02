@@ -97,20 +97,18 @@ module MirGames.Chat {
 
         /** Adds the system message. */
         private addSystemMessage(message: string) {
-            var lastMessage = Enumerable.from(this.$scope.messages).lastOrDefault();
-
             this.$scope.$apply(() => {
                 var scopeMessage: IChatMessageScope = {
+                    createdDate: moment(),
                     authorId: -1,
                     avatarUrl: null,
-                    date: lastMessage != null ? lastMessage.date : new Date(),
+                    date: null,
                     editDate: null,
                     id: -1,
                     login: null,
                     showAuthor: false,
-                    showDate: true,
+                    showDate: false,
                     text: message,
-                    dateFormat: 'HH:mm',
                     firstInChain: false,
                     isEditing: false,
                     ownMessage: false,
@@ -165,14 +163,13 @@ module MirGames.Chat {
             if (anchorItem != null && anchorItem.length > 0) {
                 oldTop = anchorItem.position().top;
                 oldScrollTop = this.getScrollTop();
-                console.log(oldTop);
             }
 
             this.apiService.getAll('GetChatMessagesQuery', query, 0, 50, (result: MirGames.Domain.Chat.ViewModels.ChatMessageViewModel[]) => {
                 this.$scope.messages = Enumerable.from(result)
                     .select(message => this.convertMessage(message))
                     .concat(this.$scope.messages)
-                    .orderBy(message => message.date)
+                    .orderBy(message => message.id)
                     .toArray();
 
                 this.$scope.historyAvailable = result.length == 50;
@@ -181,7 +178,6 @@ module MirGames.Chat {
 
                 if (oldTop != null) {
                     var newTop = anchorItem.position().top;
-                    console.log(newTop);
                     this.setScrollTop(oldScrollTop + newTop - oldTop);
                 } else {
                     this.scrollToBottom();
@@ -340,8 +336,9 @@ module MirGames.Chat {
         private processUpdatedMessage(message: MirGames.Domain.Chat.ViewModels.ChatMessageViewModel): void {
             var scopeMessage = Enumerable.from(this.$scope.messages).single(item => item.id == message.MessageId);
             this.$scope.$apply(() => {
-                scopeMessage.text = message.Text;
-                scopeMessage.editDate = new Date(message.UpdatedDate.toString());
+                var newScopeMessage = this.convertMessage(message);
+                scopeMessage.text = newScopeMessage.text;
+                scopeMessage.editDate = newScopeMessage.editDate;
             });
         }
 
@@ -420,11 +417,8 @@ module MirGames.Chat {
             }
 
             if (prevMessage && !prevMessage.isSystem) {
-                var currentDate = moment(message.date);
-                var prevDate = moment(prevMessage.date);
-
                 message.showAuthor = message.authorId != prevMessage.authorId;
-                message.showDate = this.getDateDiff(currentDate, moment()) != this.getDateDiff(prevDate, moment());
+                message.showDate = message.date != prevMessage.date;
 
                 if (message.showAuthor) {
                     message.firstInChain = true;
@@ -432,27 +426,34 @@ module MirGames.Chat {
             }
         }
 
-        private getDateDiff(a: Moment, b: Moment) {
-            if (Math.abs(a.clone().startOf('day').diff(b, 'days', true)) < 25)
-                return a.from(b);
-            else
-                return a.format('DD.MM.YY HH:mm');
-        }
-
 
         /** Converts message from viewmodel to scope */
         private convertMessage(message: MirGames.Domain.Chat.ViewModels.ChatMessageViewModel): IChatMessageScope {
+            var createdDate = moment(message.CreatedDate.toString());
+            var editDate = message.UpdatedDate ? moment(message.UpdatedDate.toString()) : createdDate;
+
+            var createdDateString = createdDate.format('HH:mm');
+            var editDateString = editDate.format('HH:mm');
+
+            if (moment().diff(createdDate, 'days') >= 1) {
+                createdDateString = createdDate.format('DD.MM HH:mm');
+            }
+
+            if (moment().diff(editDate, 'days') >= 1) {
+                editDateString = editDate.format('DD.MM HH:mm');
+            }
+
             var scopeMessage: IChatMessageScope = {
+                createdDate: createdDate,
                 authorId: message.Author.Id,
                 avatarUrl: message.Author.AvatarUrl,
-                date: new Date(message.CreatedDate.toString()),
-                editDate: message.UpdatedDate ? new Date(message.UpdatedDate.toString()) : null,
+                date: createdDateString,
+                editDate: editDateString,
                 id: message.MessageId,
                 login: message.Author.Login,
                 showAuthor: true,
                 showDate: true,
                 text: message.Text,
-                dateFormat: 'HH:mm',
                 firstInChain: false,
                 isEditing: false,
                 ownMessage: message.Author.Id == this.currentUser.getUserId(),
@@ -469,7 +470,7 @@ module MirGames.Chat {
 
         /** Checks whether user still have an access to the message */
         private updateAccessRight(message: IChatMessageScope) {
-            var messageFreezeMoment = moment(message.date).add('m', 5);
+            var messageFreezeMoment = message.createdDate.add('m', 5);
             var isMessageFrozen = messageFreezeMoment.isBefore();
 
             message.canBeDeleted = this.pageData.isAdmin || (!isMessageFrozen && message.canBeEdited);
@@ -556,13 +557,13 @@ module MirGames.Chat {
         avatarUrl: string;
         login: string;
         authorId: number;
-        date: Date;
-        editDate?: Date;
+        createdDate: Moment;
+        date: string;
+        editDate?: string;
         showDate: boolean;
         showAuthor: boolean;
         firstInChain: boolean;
         isSystem: boolean;
-        dateFormat: string;
         ownMessage: boolean;
         isEditing: boolean;
         firstUnreadMessage: boolean;
