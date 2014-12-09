@@ -17,7 +17,7 @@
     </div>
 </div>
 
-<a href="javascript:void(0);" ng-click="loadHistory()" ng-class="{ 'load-more': 1, 'button-disabled': !historyAvailable }"><i class="fa fa-arrow-circle-up"></i>Загрузить предыдущие</a>
+<a href="javascript:void(0);" ng-click="loadHistory()" ng-cloak ng-class="{ 'load-more': 1, 'button-disabled': !historyAvailable }"><i class="fa fa-arrow-circle-up"></i>Загрузить предыдущие</a>
 
 <div class="socket-notification page-notification" ng-controller="MirGames.SocketNotificationController" ng-cloak>
     <div ng-show="state == 'connecting'" class="socket-connecting notification info">Подключение к серверу...</div>
@@ -25,8 +25,11 @@
     <div ng-show="state == 'disconnected'" class="socket-disconnected notification error">Соединение разорвано</div>
     <div ng-show="state == 'connection-slow'" class="connection-slow notification warning">Соединение неустойчиво</div>
 </div>
-<div class="chat-messages">
-    <article message-id="{{message.id}}" ng-class="{ 'message': 1, 'message-chain-first': message.firstInChain, 'own-message': message.ownMessage, 'first-unread': message.firstUnreadMessage, 'editing': message.isEditing, 'system-message': message.isSystem }" ng-repeat="message in messages track by message.id" ng-cloak>
+<div class="chat-messages" ng-cloak>
+    <div class="first-in-day" ng-if="message.firstInDay" ng-repeat-start="message in messages">
+        {{(message.createdDate.format('LL'))}}
+    </div>
+    <article message-id="{{message.id}}" ng-class="{ 'message': 1, 'message-chain-first': message.firstInChain, 'own-message': message.ownMessage, 'first-unread': message.firstUnreadMessage, 'editing': message.isEditing, 'system-message': message.isSystem, 'message-hide-author': !message.showAuthor }" ng-repeat-end>
         <header>
             <a author-link="message.authorId" class="avatar-link" ng-if="message.showAuthor">
                 <img ng-src="{{message.avatarUrl}}" class="avatar avatar-small" />
@@ -36,10 +39,10 @@
             <a class="user-login" href="javascript:void(0)" ng-click="quoteLogin(message.login)" ng-if="message.showAuthor">{{message.login}}</a>
             <div class="text" ng-bind-html="message.text | unsafe"></div>
         </div>
-        <div ng-class="{ 'date': !message.editDate, 'edit-date': message.editDate }" ng-if="message.showDate">{{(message.editDate || message.date)}}</div>
         <div class="message-toolbar">
             <a href="javascript:void(0)" ng-click="$parent.editMessage(message)" ng-if="message.canBeEdited"><i class="fa fa-pencil-square-o"></i></a>
         </div>
+        <div ng-class="{ 'date': !message.editDate, 'edit-date': message.editDate }" ng-if="message.showDate">{{(message.editDate || message.date)}}</div>
     </article>
 </div>
 

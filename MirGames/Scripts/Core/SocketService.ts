@@ -28,7 +28,7 @@ module Core {
             var hubProxy = this.getProxy("CommandsHub");
 
             this.start(connection => {
-                hubProxy.invoke('Execute', JSON.stringify(command))
+                hubProxy.invoke('Execute', JSON.stringify(command));
             });
         }
 
@@ -54,7 +54,6 @@ module Core {
                             this.eventBus.emit('socket.connecting');
                             break;
                         case $.signalR.connectionState.connected:
-                            this.eventBus.emit('socket.connected');
                             break;
                         case $.signalR.connectionState.reconnecting:
                             this.eventBus.emit('socket.reconnecting');
@@ -102,6 +101,7 @@ module Core {
                 SocketService.connectionPromise = SocketService.connection.start(settings).done(() => {
                     SocketService.isConnected = true;
                     SocketService.connectionPromise = null;
+                    this.eventBus.emit('socket.connected');
                 }).fail(() => {
                     SocketService.isConnected = false;
                     SocketService.connectionPromise = null;

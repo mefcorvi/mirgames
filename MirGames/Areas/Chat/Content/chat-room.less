@@ -29,12 +29,18 @@
             }
         }
 
+        @media (max-width: @screen-ts-max) {
+            & > header {
+                display: none;
+            }
+        }
+
         & > .chat-message {
             display: table-cell;
             width: 100%;
             vertical-align: top;
             position: relative;
-            padding-right: 100px;
+            padding-right: @indent;
 
             & > .user-login {
                 margin-right: @indent/2;
@@ -49,7 +55,7 @@
             color: @date-color;
             display: table-cell;
             vertical-align: middle;
-            width: 80px;
+            width: 30px;
         }
 
         & > .edit-date {
@@ -61,9 +67,9 @@
             vertical-align: middle;
             .font-size(1.5);
             color: @date-color;
-            width: 20px;
+            width: 20px + @indent/2;
             visibility: hidden;
-            text-align: right;
+            text-align: left;
         }
 
         &:hover {
@@ -211,6 +217,15 @@
         & > .chat-messages {
             .message();
             padding-bottom: @indent/2;
+
+            .first-in-day {
+                display: block;
+                .header-font();
+                .font-size(1.4);
+                padding: @indent/3 @indent;
+                margin: @indent/2 0;
+                background: mix(@main-color, @background-color, 3%);
+            }
         }
 
         & > h4 {

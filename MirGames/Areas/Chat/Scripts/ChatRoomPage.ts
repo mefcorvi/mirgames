@@ -110,6 +110,7 @@ module MirGames.Chat {
                     showDate: false,
                     text: message,
                     firstInChain: false,
+                    firstInDay: false,
                     isEditing: false,
                     ownMessage: false,
                     firstUnreadMessage: false,
@@ -419,6 +420,7 @@ module MirGames.Chat {
             if (prevMessage && !prevMessage.isSystem) {
                 message.showAuthor = message.authorId != prevMessage.authorId;
                 message.showDate = message.date != prevMessage.date;
+                message.firstInDay = message.createdDate.startOf('day').diff(prevMessage.createdDate.startOf('day')) > 0;
 
                 if (message.showAuthor) {
                     message.firstInChain = true;
@@ -430,18 +432,10 @@ module MirGames.Chat {
         /** Converts message from viewmodel to scope */
         private convertMessage(message: MirGames.Domain.Chat.ViewModels.ChatMessageViewModel): IChatMessageScope {
             var createdDate = moment(message.CreatedDate.toString());
-            var editDate = message.UpdatedDate ? moment(message.UpdatedDate.toString()) : createdDate;
+            var editDate = message.UpdatedDate ? moment(message.UpdatedDate.toString()) : null;
 
             var createdDateString = createdDate.format('HH:mm');
-            var editDateString = editDate.format('HH:mm');
-
-            if (moment().diff(createdDate, 'days') >= 1) {
-                createdDateString = createdDate.format('DD.MM HH:mm');
-            }
-
-            if (moment().diff(editDate, 'days') >= 1) {
-                editDateString = editDate.format('DD.MM HH:mm');
-            }
+            var editDateString = editDate != null ? editDate.format('HH:mm') : null;
 
             var scopeMessage: IChatMessageScope = {
                 createdDate: createdDate,
@@ -455,6 +449,7 @@ module MirGames.Chat {
                 showDate: true,
                 text: message.Text,
                 firstInChain: false,
+                firstInDay: false,
                 isEditing: false,
                 ownMessage: message.Author.Id == this.currentUser.getUserId(),
                 firstUnreadMessage: false,
@@ -563,6 +558,7 @@ module MirGames.Chat {
         showDate: boolean;
         showAuthor: boolean;
         firstInChain: boolean;
+        firstInDay: boolean;
         isSystem: boolean;
         ownMessage: boolean;
         isEditing: boolean;
