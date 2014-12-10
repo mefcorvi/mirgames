@@ -170,13 +170,62 @@
             color: mix(@background-color, @font-color, 60%);
         }
     }
+
+    @media (max-width: @screen-ts-max) {
+        & > .message-index {
+            display: block;
+            float: left;
+            line-height: @avatar-tiny;
+        }
+
+        & > .author-block {
+            display: block;
+            margin-left: @index-width;
+            width: auto;
+            text-align: left;
+            overflow: hidden;
+            line-height: @avatar-tiny;
+            position: relative;
+
+            & > .avatar {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+
+            & > .author-name {
+                margin-left: @avatar-tiny + @indent/2;
+            }
+
+            img.avatar {
+                .avatar-tiny();
+            }
+
+            & > .author-title {
+                display: none;
+            }
+        }
+
+        &.first-post {
+            & > .message-index {
+                display: none;
+            }
+
+            & > .author-block {
+                margin-left: 0;
+            }
+        }
+
+        & > .post-block {
+            display: block;
+        }
+    }
 }
 
 .forum-topic-page {
     & > section {
         & > .first-post {
             .message();
-            .indent();
             padding-top: 0;
             padding-bottom: 0;
             margin-top: @indent;

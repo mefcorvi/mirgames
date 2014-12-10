@@ -18,7 +18,7 @@
     <div class="buttons"></div>
 </div>
 
-<article post-id="@startPost.PostId" id="@(startPost.FirstUnread ? "first-unread": null )" @Html.Css("message").Add("unread", !startPost.IsRead).Add("first-post")>
+@*<article post-id="@startPost.PostId" id="@(startPost.FirstUnread ? "first-unread": null )" @Html.Css("message").Add("unread", !startPost.IsRead).Add("first-post")>
     <div class="post-block">
         <div class="text">
             @Html.Raw(startPost.Text)
@@ -57,6 +57,77 @@
                dialog-controller="MirGames.Forum.DeleteTopicDialogController"><i class="fa fa-times"></i></a>
         }
     </div>
+    @Html.Partial("_SocialButtons")
+</div>*@
+
+<article post-id="@startPost.PostId" id="@(startPost.FirstUnread ? "first-unread" : null)" @Html.Css("message").Add("unread", !startPost.IsRead).Add("first-post", startPost.IsFirstPost)>
+    <div class="message-index"></div>
+    <div class="author-block">
+        <div class="author-name">
+            @if (startPost.Author.Id > 0)
+            {
+                <a href="javascript:void(0)" ng-click="addMention('@startPost.Author.Login')" class="topic-author" title="Вставить логин в форму ответа">@(startPost.Author.Login)</a>
+            }
+            else
+            {
+                <span class="topic-author">@(startPost.Author.Login)</span>
+            }
+        </div>
+        <div class="avatar">
+            @Author.UserAvatarLink(startPost.Author, "author-avatar")
+        </div>
+        <div class="author-title">
+            @startPost.Author.Title
+        </div>
+    </div>
+    <div class="post-block">
+        <div class="post-header">
+            <div class="created-date">
+                <i class="fa fa-clock-o"></i> <span class="topic-created-date relative" datetime="@startPost.CreatedDate.ToString("O")">@Html.RelativeDate(startPost.CreatedDate)</span>
+            </div>
+            <div class="message-bar">
+                @if (startPost.CanBeEdited)
+                {
+                    <a class="edit-topic" href="javascript:void(0);" dialog="@Url.ActionCached(MVC.Forum.Forum.EditPostDialog())" title="Редактировать"
+                       dialog-close="reloadPost(@startPost.PostId, false)"
+                       resolve="{ 'post-id': @startPost.PostId }" dialog-controller="MirGames.Forum.EditPostDialogController"><i class="fa fa-pencil-square-o"></i></a>
+                }
+                @if (Model.CanBeDeleted)
+                {
+                    <a href="javascript:void(0);" class="delete-topic" dialog="@Url.ActionCached(MVC.Forum.Forum.DeleteTopicDialog())" title="Удалить топик"
+                       dialog-close="returnBack()" resolve="{ 'topic-id': @Model.TopicId }"
+                       dialog-controller="MirGames.Forum.DeleteTopicDialogController"><i class="fa fa-times"></i></a>
+                }
+            </div>
+            <div @Html.Css("votes-block").Add("voted-down", startPost.UserVote < 0).Add("voted-up", startPost.UserVote > 0) ng-controller="MirGames.Forum.PostRatingController" ng-class="{ 'voted-down': votedDown, 'voted-up': votedUp }" data-post-id="@startPost.PostId">
+                @if (startPost.CanBeVoted)
+                {
+                    <i class="fa fa-thumbs-down vote-down" ng-click="votedDown || voteDown()"></i>
+                }
+                <span @Html.Css("vote-rating").Add("positive", startPost.VotesRating > 0).Add("negative", startPost.VotesRating < 0)
+                      ng-class="{ 'positive': voteRating > 0, 'negative': voteRating < 0 }">@startPost.VotesRating</span>
+                @if (startPost.CanBeVoted)
+                {
+                    <i class="fa fa-thumbs-up vote-up" ng-click="votedUp || voteUp()"></i>
+                }
+            </div>
+        </div>
+        <div class="text">
+            @Html.Raw(startPost.Text)
+        </div>
+        @if (startPost.UpdatedDate > startPost.CreatedDate)
+        {
+            <div class="edited">Отредактировано: @startPost.UpdatedDate.Format()</div>
+        }
+    </div>
+</article>
+<div class="topic-bar">
+    <ul class="tags">
+        @foreach (var tag in Model.Tags)
+        {
+            <li><a href="@Url.ActionCached(MVC.Forum.Forum.Topics(Model.Forum.Alias, tag.Trim()))">@tag.Trim()</a></li>
+        }
+    </ul>
     @Html.Partial("_SocialButtons")
 </div>
 

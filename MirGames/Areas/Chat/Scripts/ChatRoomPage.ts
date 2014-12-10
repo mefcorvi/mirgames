@@ -420,7 +420,7 @@ module MirGames.Chat {
             if (prevMessage && !prevMessage.isSystem) {
                 message.showAuthor = message.authorId != prevMessage.authorId;
                 message.showDate = message.date != prevMessage.date;
-                message.firstInDay = message.createdDate.startOf('day').diff(prevMessage.createdDate.startOf('day')) > 0;
+                message.firstInDay = message.createdDate.format('L') != prevMessage.createdDate.format('L');
 
                 if (message.showAuthor) {
                     message.firstInChain = true;
