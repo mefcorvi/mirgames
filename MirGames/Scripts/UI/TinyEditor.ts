@@ -20,7 +20,7 @@ module UI {
                 help_location: "/Content/mdd_help.html",
                 onPreTransform: () => {
                     setTimeout(() => {
-                        this.$scope.text = textArea.val();
+                        this.$scope.text = textArea.val() || '';
                         this.$scope.$digest();
                     }, 0);
                 }
@@ -28,7 +28,10 @@ module UI {
 
             this.markdownEditor = textArea.data('mdd');
 
-            this.$scope.$watch('text', () => {
+            this.$scope.$watch('text', (val) => {
+                if (typeof (val) == 'undefined') {
+                    this.$scope.text = '';
+                }
                 setTimeout(() => {
                     this.markdownEditor.onMarkdownChanged();
                 }, 0);
