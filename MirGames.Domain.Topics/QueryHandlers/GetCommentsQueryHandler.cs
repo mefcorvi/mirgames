@@ -9,14 +9,13 @@
 namespace MirGames.Domain.Topics.QueryHandlers
 {
     using System.Collections.Generic;
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
-    using MirGames.Domain.Notifications.Queries;
     using MirGames.Domain.Security;
     using MirGames.Domain.TextTransform;
     using MirGames.Domain.Topics.Entities;
-    using MirGames.Domain.Topics.Notifications;
     using MirGames.Domain.Topics.Queries;
     using MirGames.Domain.Topics.ViewModels;
     using MirGames.Domain.Users.Queries;
@@ -46,32 +45,59 @@ namespace MirGames.Domain.Topics.QueryHandlers
         private readonly IAuthorizationManager authorizationManager;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetCommentsQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="textProcessor">The text transform.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
-        public GetCommentsQueryHandler(IQueryProcessor queryProcessor, ITextProcessor textProcessor, IAuthorizationManager authorizationManager)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetCommentsQueryHandler(
+            IQueryProcessor queryProcessor,
+            ITextProcessor textProcessor,
+            IAuthorizationManager authorizationManager,
+            IReadContextFactory readContextFactory)
         {
+            Contract.Requires(queryProcessor != null);
+            Contract.Requires(textProcessor != null);
+            Contract.Requires(authorizationManager != null);
+            Contract.Requires(readContextFactory != null);
+
             this.queryProcessor = queryProcessor;
             this.textProcessor = textProcessor;
             this.authorizationManager = authorizationManager;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override int GetItemsCount(IReadContext readContext, GetCommentsQuery query, ClaimsPrincipal principal)
+        protected override int GetItemsCount(GetCommentsQuery query, ClaimsPrincipal principal)
         {
-            return GetCommentsSet(readContext, query).Count();
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return GetCommentsSet(readContext, query).Count();
+            }
         }
 
         /// <inheritdoc />
-        protected override IEnumerable<CommentViewModel> Execute(IReadContext readContext, GetCommentsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
+        protected override IEnumerable<CommentViewModel> Execute(GetCommentsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
-            var comments =
-                this.ApplyPagination(GetCommentsSet(readContext, query).OrderByDescending(c => c.Date), pagination).ToList();
+            List<Comment> comments;
+            Dictionary<int, string> topics;
+            
+            using (var readContext = this.readContextFactory.Create())
+            {
+                comments = this.ApplyPagination(GetCommentsSet(readContext, query).OrderByDescending(c => c.Date), pagination)
+                               .ToList();
 
-            var topicIds = comments.Select(c => c.TopicId).ToArray();
-            var topics = readContext.Query<Topic>().Where(t => topicIds.Contains(t.Id)).ToDictionary(t => t.Id, t => t.TopicTitle);
+                var topicIds = comments.Select(c => c.TopicId).ToArray();
+                topics = readContext.Query<Topic>()
+                                    .Where(t => topicIds.Contains(t.Id))
+                                    .ToDictionary(t => t.Id, t => t.TopicTitle);
+            }
 
             var commentViewModels = comments
                 .Select(

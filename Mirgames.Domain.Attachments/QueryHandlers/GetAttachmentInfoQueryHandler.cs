@@ -36,26 +36,37 @@ namespace MirGames.Domain.Attachments.QueryHandlers
         private readonly IContentTypeProvider contentTypeProvider;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetAttachmentInfoQueryHandler" /> class.
         /// </summary>
         /// <param name="settings">The settings.</param>
         /// <param name="contentTypeProvider">The content type provider.</param>
-        public GetAttachmentInfoQueryHandler(ISettings settings, IContentTypeProvider contentTypeProvider)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetAttachmentInfoQueryHandler(ISettings settings, IContentTypeProvider contentTypeProvider, IReadContextFactory readContextFactory)
         {
             Contract.Requires(settings != null);
             Contract.Requires(contentTypeProvider != null);
+            Contract.Requires(readContextFactory != null);
 
             this.settings = settings;
             this.contentTypeProvider = contentTypeProvider;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override AttachmentViewModel Execute(IReadContext readContext, GetAttachmentInfoQuery query, ClaimsPrincipal principal)
+        protected override AttachmentViewModel Execute(GetAttachmentInfoQuery query, ClaimsPrincipal principal)
         {
-            var attachment = readContext
-                .Query<Attachment>()
-                .Where(a => a.AttachmentId == query.AttachmentId)
-                .Select(a => new AttachmentViewModel
+            AttachmentViewModel attachment;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                attachment = readContext
+                    .Query<Attachment>()
+                    .Where(a => a.AttachmentId == query.AttachmentId)
+                    .Select(a => new AttachmentViewModel
                     {
                         AttachmentId = a.AttachmentId,
                         IsImage = a.AttachmentType == "image",
@@ -67,7 +78,8 @@ namespace MirGames.Domain.Attachments.QueryHandlers
                         FileSize = a.FileSize,
                         UserId = a.UserId
                     })
-                .FirstOrDefault();
+                    .FirstOrDefault();
+            }
 
             if (attachment == null)
             {

@@ -44,35 +44,54 @@ namespace MirGames.Domain.Wip.QueryHandlers
         private readonly ITextProcessor textProcessor;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetProjectWorkItemsQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
         /// <param name="textProcessor">The text processor.</param>
-        public GetProjectWorkItemsQueryHandler(IQueryProcessor queryProcessor, IAuthorizationManager authorizationManager, ITextProcessor textProcessor)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetProjectWorkItemsQueryHandler(
+            IQueryProcessor queryProcessor,
+            IAuthorizationManager authorizationManager,
+            ITextProcessor textProcessor,
+            IReadContextFactory readContextFactory)
         {
             Contract.Requires(queryProcessor != null);
             Contract.Requires(authorizationManager != null);
+            Contract.Requires(textProcessor != null);
+            Contract.Requires(readContextFactory != null);
 
             this.queryProcessor = queryProcessor;
             this.authorizationManager = authorizationManager;
             this.textProcessor = textProcessor;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override int GetItemsCount(IReadContext readContext, GetProjectWorkItemsQuery query, ClaimsPrincipal principal)
+        protected override int GetItemsCount(GetProjectWorkItemsQuery query, ClaimsPrincipal principal)
         {
-            return this.GetQuery(readContext, query).Count();
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return this.GetQuery(readContext, query).Count();
+            }
         }
 
         /// <inheritdoc />
         protected override IEnumerable<ProjectWorkItemViewModel> Execute(
-            IReadContext readContext,
             GetProjectWorkItemsQuery query,
             ClaimsPrincipal principal,
             PaginationSettings pagination)
         {
-            var workItems = this.ApplyPagination(this.GetQuery(readContext, query), pagination).ToList();
+            List<ProjectWorkItem> workItems;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                workItems = this.ApplyPagination(this.GetQuery(readContext, query), pagination).ToList();
+            }
 
             var workItemViewModels = workItems
                 .Select(x => new ProjectWorkItemViewModel

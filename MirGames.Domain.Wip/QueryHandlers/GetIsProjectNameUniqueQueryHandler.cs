@@ -8,6 +8,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Wip.QueryHandlers
 {
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
@@ -21,12 +22,30 @@ namespace MirGames.Domain.Wip.QueryHandlers
     /// </summary>
     internal sealed class GetIsProjectNameUniqueQueryHandler : SingleItemQueryHandler<GetIsProjectNameUniqueQuery, bool>
     {
-        /// <inheritdoc />
-        protected override bool Execute(IReadContext readContext, GetIsProjectNameUniqueQuery query, ClaimsPrincipal principal)
+        /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetIsProjectNameUniqueQueryHandler"/> class.
+        /// </summary>
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetIsProjectNameUniqueQueryHandler(IReadContextFactory readContextFactory)
         {
-            return !readContext
-                .Query<Project>()
-                .Any(p => p.Alias == query.Alias);
+            Contract.Requires(readContextFactory != null);
+            this.readContextFactory = readContextFactory;
+        }
+
+        /// <inheritdoc />
+        protected override bool Execute(GetIsProjectNameUniqueQuery query, ClaimsPrincipal principal)
+        {
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return !readContext
+                            .Query<Project>()
+                            .Any(p => p.Alias == query.Alias);
+            }
         }
     }
 }

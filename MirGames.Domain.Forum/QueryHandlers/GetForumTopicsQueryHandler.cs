@@ -9,6 +9,7 @@
 namespace MirGames.Domain.Forum.QueryHandlers
 {
     using System.Collections.Generic;
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
@@ -41,38 +42,57 @@ namespace MirGames.Domain.Forum.QueryHandlers
         private readonly ISearchEngine searchEngine;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetForumTopicsQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="searchEngine">The search engine.</param>
-        public GetForumTopicsQueryHandler(IQueryProcessor queryProcessor, ISearchEngine searchEngine)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetForumTopicsQueryHandler(IQueryProcessor queryProcessor, ISearchEngine searchEngine, IReadContextFactory readContextFactory)
         {
+            Contract.Requires(queryProcessor != null);
+            Contract.Requires(searchEngine != null);
+            Contract.Requires(readContextFactory != null);
+
             this.queryProcessor = queryProcessor;
             this.searchEngine = searchEngine;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override int GetItemsCount(IReadContext readContext, GetForumTopicsQuery query, ClaimsPrincipal principal)
+        protected override int GetItemsCount(GetForumTopicsQuery query, ClaimsPrincipal principal)
         {
-            var topics = this.GetTopicsQueryable(readContext, query, principal.GetUserId());
-
-            if (!string.IsNullOrWhiteSpace(query.SearchString))
+            using (var readContext = this.readContextFactory.Create())
             {
-                var searchResults = this.searchEngine.Search("ForumTopic", query.SearchString).Select(sr => sr.Id).ToArray();
-                return topics.Count(t => searchResults.Contains(t.TopicId));
-            }
+                var topics = this.GetTopicsQueryable(readContext, query, principal.GetUserId());
 
-            return topics.Count();
+                if (!string.IsNullOrWhiteSpace(query.SearchString))
+                {
+                    var searchResults =
+                        this.searchEngine.Search("ForumTopic", query.SearchString).Select(sr => sr.Id).ToArray();
+                    return topics.Count(t => searchResults.Contains(t.TopicId));
+                }
+
+                return topics.Count();
+            }
         }
 
         /// <inheritdoc />
-        protected override IEnumerable<ForumTopicsListItemViewModel> Execute(IReadContext readContext, GetForumTopicsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
+        protected override IEnumerable<ForumTopicsListItemViewModel> Execute(GetForumTopicsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
-            var set = this.GetTopicsQueryable(readContext, query, principal.GetUserId());
+            ICollection<ForumTopic> topics;
 
-            ICollection<ForumTopic> topics = string.IsNullOrWhiteSpace(query.SearchString)
-                                                 ? this.ApplyPagination(set, pagination).EnsureCollection()
-                                                 : this.GetSearchResult(query, pagination, set).EnsureCollection();
+            using (var readContext = this.readContextFactory.Create())
+            {
+                var set = this.GetTopicsQueryable(readContext, query, principal.GetUserId());
+                topics = string.IsNullOrWhiteSpace(query.SearchString)
+                             ? this.ApplyPagination(set, pagination).EnsureCollection()
+                             : this.GetSearchResult(query, pagination, set).EnsureCollection();
+            }
 
             var forums = this.queryProcessor.Process(new GetForumsQuery()).ToList();
 
@@ -113,8 +133,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
 
                 var newTopicsNotifications =
                     this.queryProcessor.Process(
-                        new GetNotificationsQuery().WithFilter<NewForumTopicNotification>(
-                            n => topicIdentifiers.Contains(n.TopicId)))
+                        new GetNotificationsQuery { IsRead = false }.WithFilter<NewForumTopicNotification>(n => topicIdentifiers.Contains(n.TopicId)))
                         .Select(n => n.Data)
                         .Cast<NewForumTopicNotification>()
                         .Select(n => n.TopicId)
@@ -122,8 +141,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
 
                 var answerNotifications =
                     this.queryProcessor.Process(
-                        new GetNotificationsQuery().WithFilter<NewForumAnswerNotification>(
-                            n => topicIdentifiers.Contains(n.TopicId)));
+                        new GetNotificationsQuery { IsRead = false }.WithFilter<NewForumAnswerNotification>(n => topicIdentifiers.Contains(n.TopicId)));
 
                 var unreadPosts =
                     answerNotifications.GroupBy(n => ((NewForumAnswerNotification)n.Data).TopicId).Select(g => new
@@ -161,7 +179,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
         /// </returns>
         private IQueryable<ForumTopic> GetTopicsQueryable(IReadContext readContext, GetForumTopicsQuery query, int? userId)
         {
-            IQueryable<ForumTopic> topics = readContext.Query<ForumTopic>().Where(f => f.ForumId != null);
+            IQueryable<ForumTopic> topics = readContext.Query<ForumTopic>();
 
             if (!string.IsNullOrWhiteSpace(query.Tag))
             {
@@ -177,7 +195,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
             {
                 var newTopicsNotifications =
                     this.queryProcessor.Process(
-                        new GetNotificationsQuery { Filter = n => n is NewForumTopicNotification || n is NewForumAnswerNotification })
+                        new GetNotificationsQuery { IsRead = false, Filter = n => n is NewForumTopicNotification || n is NewForumAnswerNotification })
                         .Select(n => n.Data)
                         .ToArray();
 

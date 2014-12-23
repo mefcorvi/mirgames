@@ -261,6 +261,7 @@ namespace Links
             public static readonly string NotificationService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/NotificationService.min.js") ? Url("NotificationService.min.js") : Url("NotificationService.js");
             public static readonly string TextEditor_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/TextEditor.min.js") ? Url("TextEditor.min.js") : Url("TextEditor.js");
             public static readonly string TinyEditor_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/TinyEditor.min.js") ? Url("TinyEditor.min.js") : Url("TinyEditor.js");
+            public static readonly string UnreadMenuItemController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/UnreadMenuItemController.min.js") ? Url("UnreadMenuItemController.min.js") : Url("UnreadMenuItemController.js");
         }
     
         public static readonly string UserNotificationController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/UserNotificationController.min.js") ? Url("UserNotificationController.min.js") : Url("UserNotificationController.js");
@@ -509,7 +510,6 @@ namespace Links
                 public static readonly string SearchPanelController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SearchPanelController.min.js") ? Url("SearchPanelController.min.js") : Url("SearchPanelController.js");
                 public static readonly string TopicPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/TopicPage.min.js") ? Url("TopicPage.min.js") : Url("TopicPage.js");
                 public static readonly string TopicsPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/TopicsPage.min.js") ? Url("TopicsPage.min.js") : Url("TopicsPage.js");
-                public static readonly string UnreadMenuItemController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/UnreadMenuItemController.min.js") ? Url("UnreadMenuItemController.min.js") : Url("UnreadMenuItemController.js");
             }
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

@@ -8,6 +8,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Chat.QueryHandlers
 {
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
@@ -44,22 +45,42 @@ namespace MirGames.Domain.Chat.QueryHandlers
         private readonly IAuthorizationManager authorizationManager;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetChatMessageQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="textProcessor">The text processor.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
-        public GetChatMessageQueryHandler(IQueryProcessor queryProcessor, ITextProcessor textProcessor, IAuthorizationManager authorizationManager)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetChatMessageQueryHandler(
+            IQueryProcessor queryProcessor,
+            ITextProcessor textProcessor,
+            IAuthorizationManager authorizationManager,
+            IReadContextFactory readContextFactory)
         {
+            Contract.Requires(queryProcessor != null);
+            Contract.Requires(textProcessor != null);
+            Contract.Requires(authorizationManager != null);
+            Contract.Requires(readContextFactory != null);
+
             this.queryProcessor = queryProcessor;
             this.textProcessor = textProcessor;
             this.authorizationManager = authorizationManager;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override ChatMessageViewModel Execute(IReadContext readContext, GetChatMessageQuery query, ClaimsPrincipal principal)
+        protected override ChatMessageViewModel Execute(GetChatMessageQuery query, ClaimsPrincipal principal)
         {
-            var messageEntity = readContext.Query<ChatMessage>().FirstOrDefault(m => m.MessageId == query.MessageId);
+            ChatMessage messageEntity;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                messageEntity = readContext.Query<ChatMessage>().FirstOrDefault(m => m.MessageId == query.MessageId);
+            }
 
             if (messageEntity == null)
             {

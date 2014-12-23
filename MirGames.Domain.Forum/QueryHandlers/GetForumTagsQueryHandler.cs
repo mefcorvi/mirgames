@@ -9,6 +9,7 @@
 namespace MirGames.Domain.Forum.QueryHandlers
 {
     using System.Collections.Generic;
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
@@ -22,16 +23,37 @@ namespace MirGames.Domain.Forum.QueryHandlers
     /// </summary>
     internal sealed class GetForumTagsQueryHandler : QueryHandler<GetForumTagsQuery, string>
     {
-        /// <inheritdoc />
-        protected override IEnumerable<string> Execute(IReadContext readContext, GetForumTagsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
+        /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetForumTagsQueryHandler"/> class.
+        /// </summary>
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetForumTagsQueryHandler(IReadContextFactory readContextFactory)
         {
-            return this.GetTagsQuery(readContext).Take(20).OrderBy(t => t);
+            Contract.Requires(readContextFactory != null);
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override int GetItemsCount(IReadContext readContext, GetForumTagsQuery query, ClaimsPrincipal principal)
+        protected override IEnumerable<string> Execute(GetForumTagsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
-            return this.GetTagsQuery(readContext).Count();
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return this.GetTagsQuery(readContext).Take(20).OrderBy(t => t);
+            }
+        }
+
+        /// <inheritdoc />
+        protected override int GetItemsCount(GetForumTagsQuery query, ClaimsPrincipal principal)
+        {
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return this.GetTagsQuery(readContext).Count();
+            }
         }
 
         /// <summary>

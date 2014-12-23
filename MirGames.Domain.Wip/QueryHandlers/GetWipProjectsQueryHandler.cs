@@ -15,7 +15,6 @@ namespace MirGames.Domain.Wip.QueryHandlers
 
     using MirGames.Domain.Attachments.Queries;
     using MirGames.Domain.Security;
-    using MirGames.Domain.TextTransform;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
     using MirGames.Domain.Wip.Entities;
@@ -36,12 +35,10 @@ namespace MirGames.Domain.Wip.QueryHandlers
         /// </summary>
         private readonly IQueryProcessor queryProcessor;
 
-        private readonly IAuthorizationManager authorizationManager;
-
         /// <summary>
-        /// The text processor.
+        /// The authorization manager.
         /// </summary>
-        private readonly ITextProcessor textProcessor;
+        private readonly IAuthorizationManager authorizationManager;
 
         /// <summary>
         /// The empty logo provider.
@@ -49,41 +46,54 @@ namespace MirGames.Domain.Wip.QueryHandlers
         private readonly IProjectEmptyLogoProvider emptyLogoProvider;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetWipProjectsQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
-        /// <param name="textProcessor">The text processor.</param>
         /// <param name="emptyLogoProvider">The empty logo provider.</param>
+        /// <param name="readContextFactory">The read context factory.</param>
         public GetWipProjectsQueryHandler(
             IQueryProcessor queryProcessor,
             IAuthorizationManager authorizationManager,
-            ITextProcessor textProcessor,
-            IProjectEmptyLogoProvider emptyLogoProvider)
+            IProjectEmptyLogoProvider emptyLogoProvider,
+            IReadContextFactory readContextFactory)
         {
             Contract.Requires(queryProcessor != null);
             Contract.Requires(authorizationManager != null);
-            Contract.Requires(textProcessor != null);
             Contract.Requires(emptyLogoProvider != null);
+            Contract.Requires(readContextFactory != null);
 
             this.queryProcessor = queryProcessor;
             this.authorizationManager = authorizationManager;
-            this.textProcessor = textProcessor;
             this.emptyLogoProvider = emptyLogoProvider;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override int GetItemsCount(IReadContext readContext, GetWipProjectsQuery query, ClaimsPrincipal principal)
+        protected override int GetItemsCount(GetWipProjectsQuery query, ClaimsPrincipal principal)
         {
-            return this.GetQuery(readContext, query).Count();
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return this.GetQuery(readContext, query).Count();
+            }
         }
 
         /// <inheritdoc />
-        protected override IEnumerable<WipProjectViewModel> Execute(IReadContext readContext, GetWipProjectsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
+        protected override IEnumerable<WipProjectViewModel> Execute(GetWipProjectsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
-            var projects =
-                this.ApplyPagination(this.GetQuery(readContext, query).OrderByDescending(p => p.UpdatedDate), pagination)
-                    .ToList()
+            List<Project> projectsData;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                projectsData = this.ApplyPagination(this.GetQuery(readContext, query).OrderByDescending(p => p.UpdatedDate), pagination)
+                                   .ToList();
+            }
+
+            var projects = projectsData
                     .Select(
                         p => new WipProjectViewModel
                         {

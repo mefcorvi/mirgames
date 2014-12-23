@@ -37,26 +37,37 @@ namespace MirGames.Services.Git.QueryHandlers
         private readonly IRepositorySecurity repositorySecurity;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetRepositoryFileQueryHandler" /> class.
         /// </summary>
         /// <param name="repositoryPathProvider">The repository path provider.</param>
         /// <param name="repositorySecurity">The repository security.</param>
-        public GetRepositoryFileQueryHandler(IRepositoryPathProvider repositoryPathProvider, IRepositorySecurity repositorySecurity)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetRepositoryFileQueryHandler(
+            IRepositoryPathProvider repositoryPathProvider,
+            IRepositorySecurity repositorySecurity,
+            IReadContextFactory readContextFactory)
         {
             Contract.Requires(repositoryPathProvider != null);
             Contract.Requires(repositorySecurity != null);
+            Contract.Requires(readContextFactory != null);
 
             this.repositoryPathProvider = repositoryPathProvider;
             this.repositorySecurity = repositorySecurity;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override GitRepositoryFileViewModel Execute(IReadContext readContext, GetRepositoryFileQuery query, ClaimsPrincipal principal)
+        protected override GitRepositoryFileViewModel Execute(GetRepositoryFileQuery query, ClaimsPrincipal principal)
         {
             Contract.Requires(query != null);
             Contract.Requires(!string.IsNullOrWhiteSpace(query.FilePath));
             
-            var repository = GetRepository(readContext, query);
+            var repository = this.GetRepository(query);
 
             if (!this.repositorySecurity.CanRead(repository.Name))
             {
@@ -99,19 +110,22 @@ namespace MirGames.Services.Git.QueryHandlers
         /// <summary>
         /// Gets the repository.
         /// </summary>
-        /// <param name="readContext">The read context.</param>
         /// <param name="query">The query.</param>
         /// <returns>The repository.</returns>
-        private static Entities.Repository GetRepository(IReadContext readContext, GetRepositoryFileQuery query)
+        private Entities.Repository GetRepository(GetRepositoryFileQuery query)
         {
-            var repository = readContext.Query<Entities.Repository>().SingleOrDefault(r => r.Id == query.RepositoryId);
-
-            if (repository == null)
+            using (var readContext = this.readContextFactory.Create())
             {
-                throw new ItemNotFoundException("GitRepository", query.RepositoryId);
-            }
+                var repository =
+                    readContext.Query<Entities.Repository>().SingleOrDefault(r => r.Id == query.RepositoryId);
 
-            return repository;
+                if (repository == null)
+                {
+                    throw new ItemNotFoundException("GitRepository", query.RepositoryId);
+                }
+
+                return repository;
+            }
         }
     }
 }

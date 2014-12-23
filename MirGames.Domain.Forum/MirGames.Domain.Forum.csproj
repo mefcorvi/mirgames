@@ -132,7 +132,6 @@
     <Compile Include="Mapping\ForumTopicMap.cs" />
     <Compile Include="Mapping\ForumTopicReadMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueryHandlers\GetForumNotificationsCountQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetForumsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetForumTopicPostsQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetForumPostForEditQueryHandler.cs" />

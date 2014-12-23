@@ -41,27 +41,45 @@ namespace MirGames.Domain.Forum.QueryHandlers
         private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetForumTopicPostsQueryHandler" /> class.
         /// </summary>
         /// <param name="authorizationManager">The authorization manager.</param>
         /// <param name="queryProcessor">The query processor.</param>
-        public GetForumTopicPostsQueryHandler(IAuthorizationManager authorizationManager, IQueryProcessor queryProcessor)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetForumTopicPostsQueryHandler(IAuthorizationManager authorizationManager, IQueryProcessor queryProcessor, IReadContextFactory readContextFactory)
         {
-            Contract.Assert(authorizationManager != null);
+            Contract.Requires(authorizationManager != null);
+            Contract.Requires(queryProcessor != null);
+            Contract.Requires(readContextFactory != null);
+
             this.authorizationManager = authorizationManager;
             this.queryProcessor = queryProcessor;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override int GetItemsCount(IReadContext readContext, GetForumTopicPostsQuery query, ClaimsPrincipal principal)
+        protected override int GetItemsCount(GetForumTopicPostsQuery query, ClaimsPrincipal principal)
         {
-            return this.GetPostsQuery(readContext, query).Count();
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return this.GetPostsQuery(readContext, query).Count();
+            }
         }
 
         /// <inheritdoc />
-        protected override IEnumerable<ForumPostsListItemViewModel> Execute(IReadContext readContext, GetForumTopicPostsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
+        protected override IEnumerable<ForumPostsListItemViewModel> Execute(GetForumTopicPostsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
-            var postsQuery = this.ApplyPagination(this.GetPostsQuery(readContext, query), pagination).ToList();
+            List<ForumPost> postsQuery;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                postsQuery = this.ApplyPagination(this.GetPostsQuery(readContext, query), pagination).ToList();
+            }
+
             var startIndex = (pagination != null ? pagination.PageNum * pagination.PageSize : 0) + 1;
 
             var posts = postsQuery.Select(
@@ -93,13 +111,18 @@ namespace MirGames.Domain.Forum.QueryHandlers
             {
                 int userId = principal.GetUserId().GetValueOrDefault();
                 int[] postIdentifiers = posts.Select(p => p.PostId).ToArray();
-                
-                var userVotes = readContext
-                    .Query<ForumPostVote>()
-                    .Where(v => v.UserId == userId && postIdentifiers.Contains(v.PostId)).ToDictionary(v => v.PostId);
+                Dictionary<int, ForumPostVote> userVotes;
+
+                using (var readContext = this.readContextFactory.Create())
+                {
+                    userVotes = readContext
+                        .Query<ForumPostVote>()
+                        .Where(v => v.UserId == userId && postIdentifiers.Contains(v.PostId))
+                        .ToDictionary(v => v.PostId);
+                }
 
                 var answerNotifications = this.queryProcessor
-                    .Process(new GetNotificationsQuery().WithFilter<NewForumAnswerNotification>(n => n.TopicId == query.TopicId))
+                    .Process(new GetNotificationsQuery { IsRead = false }.WithFilter<NewForumAnswerNotification>(n => n.TopicId == query.TopicId))
                     .Select(n => ((NewForumAnswerNotification)n.Data).PostId)
                     .ToArray();
 

@@ -15,7 +15,6 @@ namespace MirGames.Domain.Users.QueryHandlers
 
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
-    using MirGames.Infrastructure;
     using MirGames.Infrastructure.Queries;
 
     /// <summary>
@@ -40,13 +39,13 @@ namespace MirGames.Domain.Users.QueryHandlers
         }
 
         /// <inheritdoc />
-        protected override int GetItemsCount(IReadContext readContext, GetOnlineUsersQuery query, ClaimsPrincipal principal)
+        protected override int GetItemsCount(GetOnlineUsersQuery query, ClaimsPrincipal principal)
         {
             return this.GetOnlineUsers().Count();
         }
 
         /// <inheritdoc />
-        protected override IEnumerable<OnlineUserViewModel> Execute(IReadContext readContext, GetOnlineUsersQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
+        protected override IEnumerable<OnlineUserViewModel> Execute(GetOnlineUsersQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
             return this.GetOnlineUsers().OrderBy(u => u.LastRequestDate);
         }

@@ -8,6 +8,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Topics.QueryHandlers
 {
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
@@ -22,18 +23,36 @@ namespace MirGames.Domain.Topics.QueryHandlers
     /// </summary>
     internal sealed class GetCommentForEditQueryHandler : SingleItemQueryHandler<GetCommentForEditQuery, CommentForEditViewModel>
     {
-        /// <inheritdoc />
-        protected override CommentForEditViewModel Execute(IReadContext readContext, GetCommentForEditQuery query, ClaimsPrincipal principal)
+        /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetCommentForEditQueryHandler"/> class.
+        /// </summary>
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetCommentForEditQueryHandler(IReadContextFactory readContextFactory)
         {
-            return readContext
-                .Query<Comment>()
-                .Where(c => c.CommentId == query.CommentId)
-                .Select(c => new CommentForEditViewModel
+            Contract.Requires(readContextFactory != null);
+            this.readContextFactory = readContextFactory;
+        }
+
+        /// <inheritdoc />
+        protected override CommentForEditViewModel Execute(GetCommentForEditQuery query, ClaimsPrincipal principal)
+        {
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return readContext
+                    .Query<Comment>()
+                    .Where(c => c.CommentId == query.CommentId)
+                    .Select(c => new CommentForEditViewModel
                     {
                         Id = c.CommentId,
                         SourceText = c.SourceText
                     })
-                .FirstOrDefault();
+                    .FirstOrDefault();
+            }
         }
     }
 }

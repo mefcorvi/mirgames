@@ -9,6 +9,7 @@
 namespace MirGames.Domain.Tools.QueryHandlers
 {
     using System.Collections.Generic;
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
@@ -31,27 +32,43 @@ namespace MirGames.Domain.Tools.QueryHandlers
         private readonly IAuthorizationManager authorizationManager;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetEventLogQueryHandler" /> class.
         /// </summary>
         /// <param name="authorizationManager">The authorization manager.</param>
-        public GetEventLogQueryHandler(IAuthorizationManager authorizationManager)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetEventLogQueryHandler(IAuthorizationManager authorizationManager, IReadContextFactory readContextFactory)
         {
+            Contract.Requires(authorizationManager != null);
+            Contract.Requires(readContextFactory != null);
+
             this.authorizationManager = authorizationManager;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override IEnumerable<EventLogViewModel> Execute(IReadContext readContext, GetEventLogQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
+        protected override IEnumerable<EventLogViewModel> Execute(GetEventLogQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
             this.authorizationManager.EnsureAccess(principal, "View", "EventLog");
 
-            var topics = this.GetItemsQueryable(readContext, query);
-            return this.ApplyPagination(topics, pagination).ToList().Select(this.Convert);
+            using (var readContext = this.readContextFactory.Create())
+            {
+                var topics = this.GetItemsQueryable(readContext, query);
+                return this.ApplyPagination(topics, pagination).ToList();
+            }
         }
 
         /// <inheritdoc />
-        protected override int GetItemsCount(IReadContext readContext, GetEventLogQuery query, ClaimsPrincipal principal)
+        protected override int GetItemsCount(GetEventLogQuery query, ClaimsPrincipal principal)
         {
-            return this.GetItemsQueryable(readContext, query).Count();
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return this.GetItemsQueryable(readContext, query).Count();
+            }
         }
 
         /// <summary>
@@ -62,9 +79,10 @@ namespace MirGames.Domain.Tools.QueryHandlers
         /// <returns>
         /// The prepared query.
         /// </returns>
-        private IQueryable<EventLog> GetItemsQueryable(IReadContext readContext, GetEventLogQuery query)
+        private IQueryable<EventLogViewModel> GetItemsQueryable(IReadContext readContext, GetEventLogQuery query)
         {
-            IQueryable<EventLog> eventLogs = readContext.Query<EventLog>().Where(e => e.Date >= query.From);
+            IQueryable<EventLog> eventLogs =
+                readContext.Query<EventLog>().Where(e => e.Date >= query.From);
 
             if (query.To.HasValue)
             {
@@ -91,17 +109,9 @@ namespace MirGames.Domain.Tools.QueryHandlers
                 eventLogs = eventLogs.Where(e => e.Message.Contains(query.Message));
             }
 
-            return eventLogs.OrderByDescending(t => t.Date);
-        }
-
-        /// <summary>
-        /// Converts the specified topic.
-        /// </summary>
-        /// <param name="eventLog">The event log.</param>
-        /// <returns>The specified list item.</returns>
-        private EventLogViewModel Convert(EventLog eventLog)
-        {
-            return new EventLogViewModel
+            return eventLogs
+                .OrderByDescending(t => t.Date)
+                .Select(eventLog => new EventLogViewModel
                 {
                     Details = eventLog.Details,
                     EventLogType = eventLog.EventLogType,
@@ -110,7 +120,7 @@ namespace MirGames.Domain.Tools.QueryHandlers
                     Message = eventLog.Message,
                     Source = eventLog.Source,
                     Date = eventLog.Date
-                };
+                });
         }
     }
 }

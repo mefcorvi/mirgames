@@ -38,25 +38,36 @@ namespace MirGames.Services.Git.QueryHandlers
         private readonly IRepositorySecurity repositorySecurity;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetRepositoryFilesQueryHandler" /> class.
         /// </summary>
         /// <param name="repositoryPathProvider">The repository path provider.</param>
         /// <param name="repositorySecurity">The repository security.</param>
-        public GetRepositoryFilesQueryHandler(IRepositoryPathProvider repositoryPathProvider, IRepositorySecurity repositorySecurity)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetRepositoryFilesQueryHandler(
+            IRepositoryPathProvider repositoryPathProvider,
+            IRepositorySecurity repositorySecurity,
+            IReadContextFactory readContextFactory)
         {
             Contract.Requires(repositoryPathProvider != null);
+            Contract.Requires(repositorySecurity != null);
+            Contract.Requires(readContextFactory != null);
 
             this.repositoryPathProvider = repositoryPathProvider;
             this.repositorySecurity = repositorySecurity;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
         protected override int GetItemsCount(
-            IReadContext readContext,
             GetRepositoryFilesQuery query,
             ClaimsPrincipal principal)
         {
-            var repository = GetRepository(readContext, query);
+            var repository = this.GetRepository(query);
             var repositoryPath = this.repositoryPathProvider.GetPath(repository.Name);
             var gitRepository = new Repository(repositoryPath);
 
@@ -65,12 +76,11 @@ namespace MirGames.Services.Git.QueryHandlers
 
         /// <inheritdoc />
         protected override IEnumerable<GitRepositoryFileItemViewModel> Execute(
-            IReadContext readContext,
             GetRepositoryFilesQuery query,
             ClaimsPrincipal principal,
             PaginationSettings pagination)
         {
-            var repository = GetRepository(readContext, query);
+            var repository = this.GetRepository(query);
 
             if (!this.repositorySecurity.CanRead(repository.Name))
             {
@@ -120,24 +130,6 @@ namespace MirGames.Services.Git.QueryHandlers
         }
 
         /// <summary>
-        /// Gets the repository.
-        /// </summary>
-        /// <param name="readContext">The read context.</param>
-        /// <param name="query">The query.</param>
-        /// <returns>The repository.</returns>
-        private static Entities.Repository GetRepository(IReadContext readContext, GetRepositoryFilesQuery query)
-        {
-            var repository = readContext.Query<Entities.Repository>().SingleOrDefault(r => r.Id == query.RepositoryId);
-
-            if (repository == null)
-            {
-                throw new ItemNotFoundException("GitRepository", query.RepositoryId);
-            }
-
-            return repository;
-        }
-
-        /// <summary>
         /// Gets the type of the item.
         /// </summary>
         /// <param name="indexEntry">The index entry.</param>
@@ -154,6 +146,26 @@ namespace MirGames.Services.Git.QueryHandlers
                     return GitRepositoryFileItemType.Link;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        /// <summary>
+        /// Gets the repository.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <returns>The repository.</returns>
+        private Entities.Repository GetRepository(GetRepositoryFilesQuery query)
+        {
+            using (var readContext = this.readContextFactory.Create())
+            {
+                var repository =
+                    readContext.Query<Entities.Repository>().SingleOrDefault(r => r.Id == query.RepositoryId);
+                if (repository == null)
+                {
+                    throw new ItemNotFoundException("GitRepository", query.RepositoryId);
+                }
+
+                return repository;
             }
         }
     }

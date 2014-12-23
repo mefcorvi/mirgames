@@ -10,6 +10,7 @@ namespace MirGames.Domain.Users.QueryHandlers
 {
     using System.Collections.Generic;
     using System.Data.Entity;
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
@@ -30,50 +31,66 @@ namespace MirGames.Domain.Users.QueryHandlers
         private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetUserWallRecordsQueryHandler"/> class.
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetUserWallRecordsQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
-        public GetUserWallRecordsQueryHandler(IQueryProcessor queryProcessor)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetUserWallRecordsQueryHandler(IQueryProcessor queryProcessor, IReadContextFactory readContextFactory)
         {
+            Contract.Requires(queryProcessor != null);
+            Contract.Requires(readContextFactory != null);
+
             this.queryProcessor = queryProcessor;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override IEnumerable<UserWallRecordViewModel> Execute(IReadContext readContext, GetUserWallRecordsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
+        protected override IEnumerable<UserWallRecordViewModel> Execute(GetUserWallRecordsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
-            var set = readContext
-                .Query<WallRecord>()
-                .Include(r => r.Author)
-                .Where(r => r.WallUserId == query.UserId)
-                .OrderByDescending(r => r.DateAdd);
+            using (var readContext = this.readContextFactory.Create())
+            {
+                var set = readContext
+                    .Query<WallRecord>()
+                    .Include(r => r.Author)
+                    .Where(r => r.WallUserId == query.UserId)
+                    .OrderByDescending(r => r.DateAdd);
 
-            var wallRecords =
-                this.ApplyPagination(set, pagination)
-                    .Select(
-                        r => new UserWallRecordViewModel
+                var wallRecords =
+                    this.ApplyPagination(set, pagination)
+                        .Select(
+                            r => new UserWallRecordViewModel
                             {
                                 Author = new AuthorViewModel
-                                    {
-                                        Id = r.AuthorId
-                                    },
+                                {
+                                    Id = r.AuthorId
+                                },
                                 DateAdd = r.DateAdd,
                                 Text = r.Text
                             })
-                    .ToList();
+                        .ToList();
 
-            this.queryProcessor.Process(
-                new ResolveAuthorsQuery
+                this.queryProcessor.Process(
+                    new ResolveAuthorsQuery
                     {
                         Authors = wallRecords.Select(r => r.Author)
                     });
 
-            return wallRecords;
+                return wallRecords;
+            }
         }
 
         /// <inheritdoc />
-        protected override int GetItemsCount(IReadContext readContext, GetUserWallRecordsQuery query, ClaimsPrincipal principal)
+        protected override int GetItemsCount(GetUserWallRecordsQuery query, ClaimsPrincipal principal)
         {
-            return readContext.Query<WallRecord>().Count(r => r.WallUserId == query.UserId);
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return readContext.Query<WallRecord>().Count(r => r.WallUserId == query.UserId);
+            }
         }
     }
 }

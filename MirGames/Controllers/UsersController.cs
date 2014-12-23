@@ -14,6 +14,8 @@ namespace MirGames.Controllers
 
     using MirGames.Domain.Forum.Queries;
     using MirGames.Domain.Forum.ViewModels;
+    using MirGames.Domain.Notifications.Queries;
+    using MirGames.Domain.Notifications.ViewModels;
     using MirGames.Domain.Topics.Queries;
     using MirGames.Domain.Topics.ViewModels;
     using MirGames.Domain.Users.Commands;
@@ -249,6 +251,12 @@ namespace MirGames.Controllers
             this.PageData["oauthProviders"] = authProviders;
 
             return this.View(user);
+        }
+
+        public virtual ActionResult Feed()
+        {
+            var notifications = this.QueryProcessor.Process(new GetNotificationsQuery());
+            return this.View(notifications);
         }
 
         /// <summary>

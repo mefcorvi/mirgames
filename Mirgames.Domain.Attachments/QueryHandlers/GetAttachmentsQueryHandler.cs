@@ -37,50 +37,61 @@ namespace MirGames.Domain.Attachments.QueryHandlers
         /// </summary>
         private readonly IContentTypeProvider contentTypeProvider;
 
+        private readonly IReadContextFactory readContextFactory;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GetAttachmentsQueryHandler" /> class.
         /// </summary>
         /// <param name="settings">The settings.</param>
         /// <param name="contentTypeProvider">The content type provider.</param>
-        public GetAttachmentsQueryHandler(ISettings settings, IContentTypeProvider contentTypeProvider)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetAttachmentsQueryHandler(ISettings settings, IContentTypeProvider contentTypeProvider, IReadContextFactory readContextFactory)
         {
             Contract.Requires(settings != null);
             Contract.Requires(contentTypeProvider != null);
+            Contract.Requires(readContextFactory != null);
 
             this.settings = settings;
             this.contentTypeProvider = contentTypeProvider;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override int GetItemsCount(IReadContext readContext, GetAttachmentsQuery query, ClaimsPrincipal principal)
+        protected override int GetItemsCount(GetAttachmentsQuery query, ClaimsPrincipal principal)
         {
-            return GetAttachmentQuery(readContext, query).Count();
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return GetAttachmentQuery(readContext, query).Count();
+            }
         }
 
         /// <inheritdoc />
-        protected override IEnumerable<AttachmentViewModel> Execute(IReadContext readContext, GetAttachmentsQuery query, ClaimsPrincipal principal, PaginationSettings paginationSettings)
+        protected override IEnumerable<AttachmentViewModel> Execute(GetAttachmentsQuery query, ClaimsPrincipal principal, PaginationSettings paginationSettings)
         {
-            var attachmentQuery = GetAttachmentQuery(readContext, query);
+            using (var readContext = this.readContextFactory.Create())
+            {
+                var attachmentQuery = GetAttachmentQuery(readContext, query);
 
-            var attachmentsUrl = this.settings.GetValue<string>("Attachments.Url");
-            var directory = this.settings.GetValue<string>("Attachments.Directory");
+                var attachmentsUrl = this.settings.GetValue<string>("Attachments.Url");
+                var directory = this.settings.GetValue<string>("Attachments.Directory");
 
-            return this.ApplyPagination(attachmentQuery, paginationSettings)
-                .ToList()
-                .Select(a => new AttachmentViewModel
-                {
-                    AttachmentId = a.AttachmentId,
-                    IsImage = a.AttachmentType == "image",
-                    CreatedDate = a.CreatedDate,
-                    EntityId = a.EntityId,
-                    EntityType = a.EntityType,
-                    FileName = a.FileName,
-                    FileSize = a.FileSize,
-                    UserId = a.UserId,
-                    AttachmentUrl = string.Format(attachmentsUrl, a.AttachmentId),
-                    FilePath = Path.Combine(directory, a.FilePath),
-                    ContentType = this.contentTypeProvider.GetContentType(Path.GetExtension(a.FileName))
-                });
+                return this.ApplyPagination(attachmentQuery, paginationSettings)
+                           .ToList()
+                           .Select(a => new AttachmentViewModel
+                           {
+                               AttachmentId = a.AttachmentId,
+                               IsImage = a.AttachmentType == "image",
+                               CreatedDate = a.CreatedDate,
+                               EntityId = a.EntityId,
+                               EntityType = a.EntityType,
+                               FileName = a.FileName,
+                               FileSize = a.FileSize,
+                               UserId = a.UserId,
+                               AttachmentUrl = string.Format(attachmentsUrl, a.AttachmentId),
+                               FilePath = Path.Combine(directory, a.FilePath),
+                               ContentType = this.contentTypeProvider.GetContentType(Path.GetExtension(a.FileName))
+                           });
+            }
         }
 
         /// <summary>

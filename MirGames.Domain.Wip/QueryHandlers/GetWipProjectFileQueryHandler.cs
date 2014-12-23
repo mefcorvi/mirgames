@@ -31,23 +31,30 @@ namespace MirGames.Domain.Wip.QueryHandlers
         private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetWipProjectFileQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
-        public GetWipProjectFileQueryHandler(IQueryProcessor queryProcessor)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetWipProjectFileQueryHandler(IQueryProcessor queryProcessor, IReadContextFactory readContextFactory)
         {
             Contract.Requires(queryProcessor != null);
+            Contract.Requires(readContextFactory != null);
 
             this.queryProcessor = queryProcessor;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
         protected override WipProjectFileViewModel Execute(
-            IReadContext readContext,
             GetWipProjectFileQuery query,
             ClaimsPrincipal principal)
         {
-            var project = GetProject(readContext, query);
+            var project = this.GetProject(query);
 
             if (!project.RepositoryId.HasValue || string.IsNullOrEmpty(project.RepositoryType))
             {
@@ -93,19 +100,21 @@ namespace MirGames.Domain.Wip.QueryHandlers
         /// <summary>
         /// Gets the project.
         /// </summary>
-        /// <param name="readContext">The read context.</param>
         /// <param name="query">The query.</param>
         /// <returns>The project.</returns>
-        private static Project GetProject(IReadContext readContext, GetWipProjectFileQuery query)
+        private Project GetProject(GetWipProjectFileQuery query)
         {
-            var project = readContext.Query<Project>().SingleOrDefault(p => p.Alias == query.Alias);
-
-            if (project == null)
+            using (var readContext = this.readContextFactory.Create())
             {
-                throw new ItemNotFoundException("Project", query.Alias);
-            }
+                var project = readContext.Query<Project>().SingleOrDefault(p => p.Alias == query.Alias);
 
-            return project;
+                if (project == null)
+                {
+                    throw new ItemNotFoundException("Project", query.Alias);
+                }
+
+                return project;
+            }
         }
     }
 }

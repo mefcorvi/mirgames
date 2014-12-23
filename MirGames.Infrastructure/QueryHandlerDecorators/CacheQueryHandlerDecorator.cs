@@ -83,36 +83,36 @@ namespace MirGames.Infrastructure.QueryHandlerDecorators
             }
 
             /// <inheritdoc />
-            public IEnumerable Execute(IReadContext readContext, Query query, ClaimsPrincipal principal, PaginationSettings pagination)
+            public IEnumerable Execute(Query query, ClaimsPrincipal principal, PaginationSettings pagination)
             {
                 var cacheContainer = this.queryCacheContainers.FirstOrDefault(c => c.CanHandle(query));
 
                 if (cacheContainer == null)
                 {
-                    return this.inner.Execute(readContext, query, principal, pagination);
+                    return this.inner.Execute(query, principal, pagination);
                 }
 
                 return cacheContainer.GetOrAdd(
                     query,
                     principal,
                     pagination,
-                    () => this.inner.Execute(readContext, query, principal, pagination));
+                    () => this.inner.Execute(query, principal, pagination));
             }
 
             /// <inheritdoc />
-            public int GetItemsCount(IReadContext readContext, Query query, ClaimsPrincipal principal)
+            public int GetItemsCount(Query query, ClaimsPrincipal principal)
             {
                 var cacheContainer = this.queryCacheContainers.FirstOrDefault(c => c.CanHandle(query));
 
                 if (cacheContainer == null)
                 {
-                    return this.inner.GetItemsCount(readContext, query, principal);
+                    return this.inner.GetItemsCount(query, principal);
                 }
 
                 return cacheContainer.GetOrAddItemsCount(
                     query,
                     principal,
-                    () => this.inner.GetItemsCount(readContext, query, principal));
+                    () => this.inner.GetItemsCount(query, principal));
             }
         }
     }

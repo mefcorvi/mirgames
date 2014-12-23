@@ -31,27 +31,41 @@ namespace MirGames.Domain.Users.QueryHandlers
         private readonly IOnlineUsersManager onlineUsersManager;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetUsersIdentifiersQueryHandler"/> class.
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetUsersIdentifiersQueryHandler" /> class.
         /// </summary>
         /// <param name="onlineUsersManager">The online users manager.</param>
-        public GetUsersIdentifiersQueryHandler(IOnlineUsersManager onlineUsersManager)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetUsersIdentifiersQueryHandler(IOnlineUsersManager onlineUsersManager, IReadContextFactory readContextFactory)
         {
             Contract.Requires(onlineUsersManager != null);
+            Contract.Requires(readContextFactory != null);
+
             this.onlineUsersManager = onlineUsersManager;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override int GetItemsCount(IReadContext readContext, GetUsersIdentifiersQuery query, ClaimsPrincipal principal)
+        protected override int GetItemsCount(GetUsersIdentifiersQuery query, ClaimsPrincipal principal)
         {
-            return this.GetUsersQuery(readContext, query).Count();
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return this.GetUsersQuery(readContext, query).Count();
+            }
         }
 
         /// <inheritdoc />
-        protected override IEnumerable<int> Execute(IReadContext readContext, GetUsersIdentifiersQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
+        protected override IEnumerable<int> Execute(GetUsersIdentifiersQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
-            var users = this.GetUsersQuery(readContext, query).Select(u => u.Id);
-
-            return this.ApplyPagination(users, pagination).ToList();
+            using (var readContext = this.readContextFactory.Create())
+            {
+                var users = this.GetUsersQuery(readContext, query).Select(u => u.Id);
+                return this.ApplyPagination(users, pagination).ToList();
+            }
         }
 
         /// <summary>

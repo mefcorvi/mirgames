@@ -465,7 +465,6 @@
     <None Include="Areas\Forum\Scripts\_references.ts" />
     <None Include="Areas\Projects\Scripts\_references.ts" />
     <None Include="Areas\Topics\Scripts\AddNewTopicDialogController.ts" />
-    <None Include="Areas\Topics\Scripts\UnreadMenuItemController.ts" />
     <None Include="Areas\Topics\Scripts\_references.ts" />
     <Content Include="Content\ui\selectize.less" />
     <Content Include="Content\variables-light.less" />
@@ -510,7 +509,7 @@
     <None Include="Areas\Forum\Scripts\SearchPanelController.ts" />
     <None Include="Scripts\Core\Base64.ts" />
     <None Include="Scripts\Attachment\AttachmentService.ts" />
-    <None Include="Areas\Forum\Scripts\UnreadMenuItemController.ts" />
+    <None Include="Scripts\UI\UnreadMenuItemController.ts" />
     <None Include="Areas\Chat\Scripts\ChatRoomPage.ts" />
     <None Include="Scripts\Account\AccountSettingsPage.ts" />
     <None Include="Scripts\OnlineUsersController.ts" />
@@ -751,6 +750,7 @@
     <Content Include="Views\Pages\Help.cshtml" />
     <Content Include="Views\Pages\Markdown.cshtml" />
     <Content Include="Views\Pages\Api.cshtml" />
+    <Content Include="Views\Users\Feed.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

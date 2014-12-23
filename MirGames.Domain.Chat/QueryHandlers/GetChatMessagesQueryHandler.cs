@@ -44,28 +44,48 @@ namespace MirGames.Domain.Chat.QueryHandlers
         private readonly IAuthorizationManager authorizationManager;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetChatMessagesQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="textProcessor">The text transform.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
-        public GetChatMessagesQueryHandler(IQueryProcessor queryProcessor, ITextProcessor textProcessor, IAuthorizationManager authorizationManager)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetChatMessagesQueryHandler(
+            IQueryProcessor queryProcessor,
+            ITextProcessor textProcessor,
+            IAuthorizationManager authorizationManager,
+            IReadContextFactory readContextFactory)
         {
             this.queryProcessor = queryProcessor;
             this.textProcessor = textProcessor;
             this.authorizationManager = authorizationManager;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override int GetItemsCount(IReadContext readContext, GetChatMessagesQuery query, ClaimsPrincipal principal)
+        protected override int GetItemsCount(GetChatMessagesQuery query, ClaimsPrincipal principal)
         {
-            return this.GetMessagesQuery(readContext, query).Count();
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return this.GetMessagesQuery(readContext, query).Count();
+            }
         }
 
         /// <inheritdoc />
-        protected override IEnumerable<ChatMessageViewModel> Execute(IReadContext readContext, GetChatMessagesQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
+        protected override IEnumerable<ChatMessageViewModel> Execute(GetChatMessagesQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
-            var messages = this.ApplyPagination(this.GetMessagesQuery(readContext, query).OrderByDescending(m => m.MessageId), pagination).ToList();
+            List<ChatMessage> messages;
+
+            using (var readContext = this.readContextFactory.Create())
+            {
+                var queryable = this.GetMessagesQuery(readContext, query).OrderByDescending(m => m.MessageId);
+                messages = this.ApplyPagination(queryable, pagination).ToList();
+            }
 
             var viewModels = messages
                 .Select(

@@ -20,22 +20,41 @@ namespace MirGames.Services.Git.QueryHandlers
 
     internal sealed class GetRepositoryQueryHandler : SingleItemQueryHandler<GetRepositoryQuery, GitRepositoryViewModel>
     {
+        /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetRepositoryQueryHandler"/> class.
+        /// </summary>
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetRepositoryQueryHandler(IReadContextFactory readContextFactory)
+        {
+            Contract.Requires(readContextFactory != null);
+            this.readContextFactory = readContextFactory;
+        }
+
         /// <inheritdoc />
-        protected override GitRepositoryViewModel Execute(IReadContext readContext, GetRepositoryQuery query, ClaimsPrincipal principal)
+        protected override GitRepositoryViewModel Execute(GetRepositoryQuery query, ClaimsPrincipal principal)
         {
             Contract.Requires(query != null);
 
-            var repository = readContext.Query<Entities.Repository>().SingleOrDefault(r => r.Id == query.RepositoryId);
-
-            if (repository == null)
+            using (var readContext = this.readContextFactory.Create())
             {
-                throw new ItemNotFoundException("GitRepository", query.RepositoryId);
+                var repository =
+                    readContext.Query<Entities.Repository>().SingleOrDefault(r => r.Id == query.RepositoryId);
+
+                if (repository == null)
+                {
+                    throw new ItemNotFoundException("GitRepository", query.RepositoryId);
+                }
+
+                return new GitRepositoryViewModel
+                {
+                    RepositoryName = repository.Name
+                };
             }
-
-            return new GitRepositoryViewModel
-            {
-                RepositoryName = repository.Name
-            };
         }
     }
 }

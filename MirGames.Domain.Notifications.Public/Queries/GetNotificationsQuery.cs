@@ -28,6 +28,11 @@ namespace MirGames.Domain.Notifications.Queries
         public string NotificationType { get; set; }
 
         /// <summary>
+        /// Gets or sets the is read.
+        /// </summary>
+        public bool? IsRead { get; set; }
+
+        /// <summary>
         /// Gets or sets the entity identifiers.
         /// </summary>
         public Expression<Func<NotificationData, bool>> Filter { get; set; }

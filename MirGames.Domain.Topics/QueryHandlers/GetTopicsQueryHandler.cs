@@ -14,7 +14,6 @@ namespace MirGames.Domain.Topics.QueryHandlers
     using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
-    using System.Security.Cryptography.X509Certificates;
 
     using MirGames.Domain.Notifications.Queries;
     using MirGames.Domain.Security;
@@ -56,42 +55,50 @@ namespace MirGames.Domain.Topics.QueryHandlers
         private readonly IBlogResolver blogResolver;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetTopicsQueryHandler" /> class.
         /// </summary>
         /// <param name="searchEngine">The search engine.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="blogResolver">The blog resolver.</param>
+        /// <param name="readContextFactory">The read context factory.</param>
         public GetTopicsQueryHandler(
             ISearchEngine searchEngine,
             IAuthorizationManager authorizationManager,
             IQueryProcessor queryProcessor,
-            IBlogResolver blogResolver)
+            IBlogResolver blogResolver,
+            IReadContextFactory readContextFactory)
         {
             Contract.Requires(searchEngine != null);
             Contract.Requires(authorizationManager != null);
             Contract.Requires(queryProcessor != null);
             Contract.Requires(blogResolver != null);
+            Contract.Requires(readContextFactory != null);
 
             this.searchEngine = searchEngine;
             this.authorizationManager = authorizationManager;
             this.queryProcessor = queryProcessor;
             this.blogResolver = blogResolver;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override IEnumerable<TopicsListItem> Execute(IReadContext readContext, GetTopicsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
+        protected override IEnumerable<TopicsListItem> Execute(GetTopicsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
-            var topicsQuery = this.GetTopicsQueryable(readContext, query);
             ICollection<TopicsListItem> topics;
 
-            if (string.IsNullOrWhiteSpace(query.SearchString))
+            using (var readContext = this.readContextFactory.Create())
             {
-                topics = this.ApplyPagination(topicsQuery, pagination).EnsureCollection();
-            }
-            else
-            {
-                topics = this.GetSearchResult(query, pagination, topicsQuery).EnsureCollection();
+                var topicsQuery = this.GetTopicsQueryable(readContext, query);
+
+                topics = string.IsNullOrWhiteSpace(query.SearchString)
+                             ? this.ApplyPagination(topicsQuery, pagination).EnsureCollection()
+                             : this.GetSearchResult(query, pagination, topicsQuery).EnsureCollection();
             }
 
             this.queryProcessor.Process(
@@ -104,7 +111,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
 
             var newTopics =
                 this.queryProcessor.Process(
-                    new GetNotificationsQuery().WithFilter<NewBlogTopicNotification>(
+                    new GetNotificationsQuery { IsRead = false }.WithFilter<NewBlogTopicNotification>(
                         n => topicIdentifiers.Contains(n.TopicId)))
                     .Select(t => (NewBlogTopicNotification)t.Data)
                     .Select(t => t.TopicId)
@@ -112,7 +119,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
 
             var newComments =
                 this.queryProcessor.Process(
-                    new GetNotificationsQuery().WithFilter<NewTopicCommentNotification>(
+                    new GetNotificationsQuery { IsRead = false }.WithFilter<NewTopicCommentNotification>(
                         n => topicIdentifiers.Contains(n.TopicId)))
                         .Select(t => (NewTopicCommentNotification)t.Data)
                         .GroupBy(t => t.TopicId)
@@ -135,17 +142,21 @@ namespace MirGames.Domain.Topics.QueryHandlers
         }
 
         /// <inheritdoc />
-        protected override int GetItemsCount(IReadContext readContext, GetTopicsQuery query, ClaimsPrincipal principal)
+        protected override int GetItemsCount(GetTopicsQuery query, ClaimsPrincipal principal)
         {
-            var topics = this.GetTopicsQueryable(readContext, query);
-
-            if (!string.IsNullOrWhiteSpace(query.SearchString))
+            using (var readContext = this.readContextFactory.Create())
             {
-                var searchResults = this.searchEngine.Search("Topic", query.SearchString).Select(sr => sr.Id).ToArray();
-                return topics.Count(t => searchResults.Contains(t.TopicId));
-            }
+                var topics = this.GetTopicsQueryable(readContext, query);
 
-            return topics.Count();
+                if (!string.IsNullOrWhiteSpace(query.SearchString))
+                {
+                    var searchResults =
+                        this.searchEngine.Search("Topic", query.SearchString).Select(sr => sr.Id).ToArray();
+                    return topics.Count(t => searchResults.Contains(t.TopicId));
+                }
+
+                return topics.Count();
+            }
         }
 
         /// <summary>
@@ -206,6 +217,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
                     this.queryProcessor.Process(
                         new GetNotificationsQuery
                         {
+                            IsRead = false,
                             Filter = n => n is NewBlogTopicNotification || n is NewTopicCommentNotification
                         })
                         .Select(t => t.Data)

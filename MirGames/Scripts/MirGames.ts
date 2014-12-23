@@ -8,10 +8,12 @@ declare var hljs: any;
 var headroom: any = null;
 
 $(() => {
-    if (window.innerHeight <= 480 || (pageData.currentUser != null && pageData.currentUser.Settings.HeaderType == 'AutoHide')) {
+    if (pageData.currentUser != null && pageData.currentUser.Settings.HeaderType == 'AutoHide') {
         var myElement = document.querySelector("body > header");
         headroom = new Headroom(myElement);
         headroom.init();
+    } else if (window.innerHeight <= 480) {
+        $('body > header').removeClass('fixed');
     }
 });
 

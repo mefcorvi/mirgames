@@ -33,41 +33,59 @@ namespace MirGames.Domain.Acl.QueryHandlers
         /// </summary>
         private readonly IActionTypesResolver actionTypesResolver;
 
+        /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetPermissionsQueryHandler"/> class.
+        /// </summary>
+        /// <param name="entityTypesResolver">The entity types resolver.</param>
+        /// <param name="actionTypesResolver">The action types resolver.</param>
+        /// <param name="readContextFactory">The read context factory.</param>
         public GetPermissionsQueryHandler(
             IEntityTypesResolver entityTypesResolver,
-            IActionTypesResolver actionTypesResolver)
+            IActionTypesResolver actionTypesResolver,
+            IReadContextFactory readContextFactory)
         {
             this.entityTypesResolver = entityTypesResolver;
             this.actionTypesResolver = actionTypesResolver;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override int GetItemsCount(IReadContext readContext, GetPermissionsQuery query, ClaimsPrincipal principal)
+        protected override int GetItemsCount(GetPermissionsQuery query, ClaimsPrincipal principal)
         {
-            return this.GetPermissions(readContext, query).Count();
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return this.GetPermissions(readContext, query).Count();
+            }
         }
 
         /// <inheritdoc />
         protected override IEnumerable<PermissionViewModel> Execute(
-            IReadContext readContext,
             GetPermissionsQuery query,
             ClaimsPrincipal principal,
             PaginationSettings pagination)
         {
-            return
-                this.ApplyPagination(this.GetPermissions(readContext, query), pagination)
-                    .Select(p => new PermissionViewModel
-                    {
-                        ActionId = p.ActionId,
-                        CreatedDate = p.CreatedDate,
-                        EntityId = p.EntityId,
-                        EntityTypeId = p.EntityTypeId,
-                        ExpirationDate = p.ExpirationDate,
-                        IsDenied = p.IsDenied,
-                        PermissionId = p.PermissionId,
-                        UserId = p.UserId
-                    })
-                    .ToList();
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return
+                    this.ApplyPagination(this.GetPermissions(readContext, query), pagination)
+                        .Select(p => new PermissionViewModel
+                        {
+                            ActionId = p.ActionId,
+                            CreatedDate = p.CreatedDate,
+                            EntityId = p.EntityId,
+                            EntityTypeId = p.EntityTypeId,
+                            ExpirationDate = p.ExpirationDate,
+                            IsDenied = p.IsDenied,
+                            PermissionId = p.PermissionId,
+                            UserId = p.UserId
+                        })
+                        .ToList();
+            }
         }
 
         /// <summary>

@@ -9,6 +9,7 @@
 
 namespace MirGames.Domain.Topics.QueryHandlers
 {
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
@@ -29,20 +30,34 @@ namespace MirGames.Domain.Topics.QueryHandlers
         private readonly IAuthorizationManager authorizationManager;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetBlogByEntityQueryHandler"/> class.
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetBlogByEntityQueryHandler" /> class.
         /// </summary>
         /// <param name="authorizationManager">The authorization manager.</param>
-        public GetBlogByEntityQueryHandler(IAuthorizationManager authorizationManager)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetBlogByEntityQueryHandler(IAuthorizationManager authorizationManager, IReadContextFactory readContextFactory)
         {
+            Contract.Requires(authorizationManager != null);
+            Contract.Requires(readContextFactory != null);
+
             this.authorizationManager = authorizationManager;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override BlogViewModel Execute(IReadContext readContext, GetBlogByEntityQuery query, ClaimsPrincipal principal)
+        protected override BlogViewModel Execute(GetBlogByEntityQuery query, ClaimsPrincipal principal)
         {
-            var blog = readContext
-                .Query<Blog>()
-                .FirstOrDefault(b => b.EntityId == query.EntityId && b.EntityType == query.EntityType);
+            Blog blog;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                blog = readContext
+                    .Query<Blog>()
+                    .FirstOrDefault(b => b.EntityId == query.EntityId && b.EntityType == query.EntityType);
+            }
 
             if (blog == null)
             {

@@ -12,7 +12,6 @@ namespace MirGames.Domain.Users.QueryHandlers
     using System.Security.Claims;
 
     using MirGames.Domain.Users.Queries;
-    using MirGames.Infrastructure;
     using MirGames.Infrastructure.Queries;
 
     /// <summary>
@@ -35,7 +34,7 @@ namespace MirGames.Domain.Users.QueryHandlers
         }
 
         /// <inheritdoc />
-        protected override IDictionary<int, IEnumerable<string>> Execute(IReadContext readContext, GetOnlineUserTagsQuery query, ClaimsPrincipal principal)
+        protected override IDictionary<int, IEnumerable<string>> Execute(GetOnlineUserTagsQuery query, ClaimsPrincipal principal)
         {
             return this.onlineUsersManager.GetUserTags();
         }

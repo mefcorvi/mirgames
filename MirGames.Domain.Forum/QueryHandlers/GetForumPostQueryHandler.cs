@@ -8,6 +8,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Forum.QueryHandlers
 {
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
@@ -37,21 +38,39 @@ namespace MirGames.Domain.Forum.QueryHandlers
         private readonly IAuthorizationManager authorizationManager;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetForumPostQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
-        public GetForumPostQueryHandler(IQueryProcessor queryProcessor, IAuthorizationManager authorizationManager)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetForumPostQueryHandler(
+            IQueryProcessor queryProcessor,
+            IAuthorizationManager authorizationManager,
+            IReadContextFactory readContextFactory)
         {
+            Contract.Requires(queryProcessor != null);
+            Contract.Requires(authorizationManager != null);
+            Contract.Requires(readContextFactory != null);
+
             this.queryProcessor = queryProcessor;
             this.authorizationManager = authorizationManager;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override ForumPostsListItemViewModel Execute(IReadContext readContext, GetForumPostQuery query, ClaimsPrincipal principal)
+        protected override ForumPostsListItemViewModel Execute(GetForumPostQuery query, ClaimsPrincipal principal)
         {
-            var post = readContext.Query<ForumPost>()
-                .SingleOrDefault(t => t.PostId == query.PostId);
+            ForumPost post;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                post = readContext.Query<ForumPost>()
+                                  .SingleOrDefault(t => t.PostId == query.PostId);
+            }
 
             if (post == null)
             {
@@ -64,9 +83,13 @@ namespace MirGames.Domain.Forum.QueryHandlers
                         Authors = new[] { new AuthorViewModel { Login = post.AuthorLogin, Id = post.AuthorId } }
                     }).Single();
 
-            var postIndex = readContext
-                .Query<ForumPost>()
-                .Count(p => p.TopicId == post.TopicId && p.PostId < post.PostId);
+            int postIndex;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                postIndex = readContext
+                    .Query<ForumPost>()
+                    .Count(p => p.TopicId == post.TopicId && p.PostId < post.PostId);
+            }
 
             return new ForumPostsListItemViewModel
             {

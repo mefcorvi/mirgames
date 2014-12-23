@@ -9,6 +9,7 @@
 namespace MirGames.Domain.Forum.QueryHandlers
 {
     using System.Data.Entity;
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
@@ -31,20 +32,36 @@ namespace MirGames.Domain.Forum.QueryHandlers
         private readonly IAuthorizationManager authorizationManager;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetForumPostForEditQueryHandler" /> class.
         /// </summary>
         /// <param name="authorizationManager">The authorization manager.</param>
-        public GetForumPostForEditQueryHandler(IAuthorizationManager authorizationManager)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetForumPostForEditQueryHandler(
+            IAuthorizationManager authorizationManager,
+            IReadContextFactory readContextFactory)
         {
+            Contract.Requires(authorizationManager != null);
+            Contract.Requires(readContextFactory != null);
+
             this.authorizationManager = authorizationManager;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override ForumPostForEditViewModel Execute(IReadContext readContext, GetForumPostForEditQuery query, ClaimsPrincipal principal)
+        protected override ForumPostForEditViewModel Execute(GetForumPostForEditQuery query, ClaimsPrincipal principal)
         {
-            var post = readContext.Query<ForumPost>()
-                .Include(p => p.Topic)
-                .FirstOrDefault(p => p.PostId == query.PostId);
+            ForumPost post;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                post = readContext.Query<ForumPost>()
+                                  .Include(p => p.Topic)
+                                  .FirstOrDefault(p => p.PostId == query.PostId);
+            }
 
             if (post == null)
             {

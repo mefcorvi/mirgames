@@ -15,7 +15,6 @@ namespace MirGames.Domain.Wip.QueryHandlers
     using MirGames.Domain.Attachments.Queries;
     using MirGames.Domain.Exceptions;
     using MirGames.Domain.Security;
-    using MirGames.Domain.TextTransform;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
     using MirGames.Domain.Wip.Entities;
@@ -48,14 +47,14 @@ namespace MirGames.Domain.Wip.QueryHandlers
         private readonly IAuthorizationManager authorizationManager;
 
         /// <summary>
-        /// The text processor.
-        /// </summary>
-        private readonly ITextProcessor textProcessor;
-
-        /// <summary>
         /// The empty logo provider.
         /// </summary>
         private readonly IProjectEmptyLogoProvider emptyLogoProvider;
+
+        /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetWipProjectQueryHandler" /> class.
@@ -63,34 +62,38 @@ namespace MirGames.Domain.Wip.QueryHandlers
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="settings">The settings.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
-        /// <param name="textProcessor">The text processor.</param>
         /// <param name="emptyLogoProvider">The empty logo provider.</param>
+        /// <param name="readContextFactory">The read context factory.</param>
         public GetWipProjectQueryHandler(
             IQueryProcessor queryProcessor,
             ISettings settings,
             IAuthorizationManager authorizationManager,
-            ITextProcessor textProcessor,
-            IProjectEmptyLogoProvider emptyLogoProvider)
+            IProjectEmptyLogoProvider emptyLogoProvider,
+            IReadContextFactory readContextFactory)
         {
             Contract.Requires(queryProcessor != null);
             Contract.Requires(settings != null);
             Contract.Requires(authorizationManager != null);
-            Contract.Requires(textProcessor != null);
             Contract.Requires(emptyLogoProvider != null);
+            Contract.Requires(readContextFactory != null);
 
             this.queryProcessor = queryProcessor;
             this.settings = settings;
             this.authorizationManager = authorizationManager;
-            this.textProcessor = textProcessor;
             this.emptyLogoProvider = emptyLogoProvider;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override WipProjectViewModel Execute(IReadContext readContext, GetWipProjectQuery query, ClaimsPrincipal principal)
+        protected override WipProjectViewModel Execute(GetWipProjectQuery query, ClaimsPrincipal principal)
         {
-            var project = readContext
-                .Query<Project>()
-                .SingleOrDefault(p => p.ProjectId == query.ProjectId || p.Alias == query.Alias);
+            Project project;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                project = readContext
+                    .Query<Project>()
+                    .SingleOrDefault(p => p.ProjectId == query.ProjectId || p.Alias == query.Alias);
+            }
 
             if (project == null)
             {

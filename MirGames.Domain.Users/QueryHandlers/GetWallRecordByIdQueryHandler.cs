@@ -9,6 +9,7 @@
 namespace MirGames.Domain.Users.QueryHandlers
 {
     using System.Data.Entity;
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
@@ -29,21 +30,35 @@ namespace MirGames.Domain.Users.QueryHandlers
         private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetWallRecordByIdQueryHandler"/> class.
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetWallRecordByIdQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
-        public GetWallRecordByIdQueryHandler(IQueryProcessor queryProcessor)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetWallRecordByIdQueryHandler(IQueryProcessor queryProcessor, IReadContextFactory readContextFactory)
         {
+            Contract.Requires(queryProcessor != null);
+            Contract.Requires(readContextFactory != null);
+
             this.queryProcessor = queryProcessor;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override UserWallRecordViewModel Execute(IReadContext readContext, GetWallRecordByIdQuery query, ClaimsPrincipal principal)
+        protected override UserWallRecordViewModel Execute(GetWallRecordByIdQuery query, ClaimsPrincipal principal)
         {
-            var wallRecord = readContext
-                .Query<WallRecord>()
-                .Include(r => r.Author)
-                .SingleOrDefault(r => r.Id == query.WallRecordId);
+            WallRecord wallRecord;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                wallRecord = readContext
+                    .Query<WallRecord>()
+                    .Include(r => r.Author)
+                    .SingleOrDefault(r => r.Id == query.WallRecordId);
+            }
 
             if (wallRecord == null)
             {

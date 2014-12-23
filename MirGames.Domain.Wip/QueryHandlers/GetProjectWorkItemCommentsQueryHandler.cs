@@ -21,29 +21,43 @@ namespace MirGames.Domain.Wip.QueryHandlers
         private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetProjectWorkItemCommentsQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
-        public GetProjectWorkItemCommentsQueryHandler(IQueryProcessor queryProcessor)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetProjectWorkItemCommentsQueryHandler(IQueryProcessor queryProcessor, IReadContextFactory readContextFactory)
         {
             Contract.Requires(queryProcessor != null);
+            Contract.Requires(readContextFactory != null);
 
             this.queryProcessor = queryProcessor;
+            this.readContextFactory = readContextFactory;
         }
 
-        protected override int GetItemsCount(IReadContext readContext, GetProjectWorkItemCommentsQuery query, ClaimsPrincipal principal)
+        protected override int GetItemsCount(GetProjectWorkItemCommentsQuery query, ClaimsPrincipal principal)
         {
-            return this.GetComments(readContext, query).Count();
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return this.GetComments(readContext, query).Count();
+            }
         }
 
         /// <inheritdoc />
         protected override IEnumerable<ProjectWorkItemCommentViewModel> Execute(
-            IReadContext readContext,
             GetProjectWorkItemCommentsQuery query,
             ClaimsPrincipal principal,
             PaginationSettings pagination)
         {
-            var comments = this.ApplyPagination(this.GetComments(readContext, query), pagination).ToList();
+            List<ProjectWorkItemComment> comments;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                comments = this.ApplyPagination(this.GetComments(readContext, query), pagination).ToList();
+            }
 
             var commentViewModels = comments
                 .Select(c => new ProjectWorkItemCommentViewModel

@@ -96,12 +96,12 @@ namespace MirGames.Infrastructure.QueryHandlerDecorators
             }
 
             /// <inheritdoc />
-            public IEnumerable Execute(IReadContext readContext, Query query, ClaimsPrincipal principal, PaginationSettings pagination)
+            public IEnumerable Execute(Query query, ClaimsPrincipal principal, PaginationSettings pagination)
             {
                 var sw = new Stopwatch();
                 sw.Start();
 
-                var result = this.inner.Execute(readContext, query, principal, pagination);
+                var result = this.inner.Execute(query, principal, pagination);
 
                 sw.Stop();
                 this.TraceQuery(query, sw.ElapsedMilliseconds);
@@ -110,12 +110,12 @@ namespace MirGames.Infrastructure.QueryHandlerDecorators
             }
 
             /// <inheritdoc />
-            public int GetItemsCount(IReadContext readContext, Query query, ClaimsPrincipal principal)
+            public int GetItemsCount(Query query, ClaimsPrincipal principal)
             {
                 var sw = new Stopwatch();
                 sw.Start();
 
-                var result = this.inner.GetItemsCount(readContext, query, principal);
+                var result = this.inner.GetItemsCount(query, principal);
 
                 sw.Stop();
                 this.TraceQuery(query, sw.ElapsedMilliseconds);

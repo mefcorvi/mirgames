@@ -8,6 +8,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Users.QueryHandlers
 {
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
@@ -35,21 +36,40 @@ namespace MirGames.Domain.Users.QueryHandlers
         private readonly IAvatarProvider avatarProvider;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetUserByIdQueryHandler" /> class.
         /// </summary>
         /// <param name="authorizationManager">The authorization manager.</param>
         /// <param name="avatarProvider">The avatar provider.</param>
-        public GetUserByIdQueryHandler(IAuthorizationManager authorizationManager, IAvatarProvider avatarProvider)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetUserByIdQueryHandler(
+            IAuthorizationManager authorizationManager,
+            IAvatarProvider avatarProvider,
+            IReadContextFactory readContextFactory)
         {
+            Contract.Requires(authorizationManager != null);
+            Contract.Requires(avatarProvider != null);
+            Contract.Requires(readContextFactory != null);
+
             this.authorizationManager = authorizationManager;
             this.avatarProvider = avatarProvider;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override UserViewModel Execute(IReadContext readContext, GetUserByIdQuery query, ClaimsPrincipal principal)
+        protected override UserViewModel Execute(GetUserByIdQuery query, ClaimsPrincipal principal)
         {
-            var user = readContext
-                .Query<User>().SingleOrDefault(u => u.Id == query.UserId);
+            User user;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                user = readContext
+                    .Query<User>()
+                    .SingleOrDefault(u => u.Id == query.UserId);
+            }
 
             if (user == null)
             {

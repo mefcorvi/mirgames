@@ -14,7 +14,6 @@ namespace MirGames.Domain.Topics.QueryHandlers
     using System.Security.Claims;
 
     using MirGames.Domain.Notifications.Queries;
-    using MirGames.Domain.Notifications.ViewModels;
     using MirGames.Domain.Security;
     using MirGames.Domain.TextTransform;
     using MirGames.Domain.Topics.Entities;
@@ -53,6 +52,8 @@ namespace MirGames.Domain.Topics.QueryHandlers
         /// </summary>
         private readonly IBlogResolver blogResolver;
 
+        private readonly IReadContextFactory readContextFactory;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GetTopicQueryHandler" /> class.
         /// </summary>
@@ -60,30 +61,37 @@ namespace MirGames.Domain.Topics.QueryHandlers
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="textProcessor">The text processor.</param>
         /// <param name="blogResolver">The blog resolver.</param>
+        /// <param name="readContextFactory">The read context factory.</param>
         public GetTopicQueryHandler(
             IAuthorizationManager authorizationManager,
             IQueryProcessor queryProcessor,
             ITextProcessor textProcessor,
-            IBlogResolver blogResolver)
+            IBlogResolver blogResolver,
+            IReadContextFactory readContextFactory)
         {
             Contract.Requires(authorizationManager != null);
             Contract.Requires(queryProcessor != null);
             Contract.Requires(textProcessor != null);
             Contract.Requires(blogResolver != null);
+            Contract.Requires(readContextFactory != null);
 
             this.authorizationManager = authorizationManager;
             this.queryProcessor = queryProcessor;
             this.textProcessor = textProcessor;
             this.blogResolver = blogResolver;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override TopicViewModel Execute(IReadContext readContext, GetTopicQuery query, ClaimsPrincipal principal)
+        protected override TopicViewModel Execute(GetTopicQuery query, ClaimsPrincipal principal)
         {
-            TopicViewModel topic = readContext
-                .Query<Topic>()
-                .Where(t => t.Id == query.TopicId)
-                .Select(t => new TopicViewModel
+            TopicViewModel topic;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                topic = readContext
+                    .Query<Topic>()
+                    .Where(t => t.Id == query.TopicId)
+                    .Select(t => new TopicViewModel
                     {
                         Id = t.Id,
                         Text = t.Content.TopicText,
@@ -96,7 +104,8 @@ namespace MirGames.Domain.Topics.QueryHandlers
                         ShowOnMain = t.ShowOnMain,
                         IsMicroTopic = t.IsMicroTopic
                     })
-                .FirstOrDefault();
+                    .FirstOrDefault();
+            }
 
             if (topic == null)
             {
@@ -105,11 +114,11 @@ namespace MirGames.Domain.Topics.QueryHandlers
 
             var newTopics =
                 this.queryProcessor.GetItemsCount(
-                    new GetNotificationsQuery().WithFilter<NewBlogTopicNotification>(n => n.TopicId == topic.Id));
+                    new GetNotificationsQuery { IsRead = false }.WithFilter<NewBlogTopicNotification>(n => n.TopicId == topic.Id));
 
             var newComments =
                 this.queryProcessor.Process(
-                    new GetNotificationsQuery().WithFilter<NewTopicCommentNotification>(n => n.TopicId == topic.Id))
+                    new GetNotificationsQuery { IsRead = false }.WithFilter<NewTopicCommentNotification>(n => n.TopicId == topic.Id))
                     .Select(t => (NewTopicCommentNotification)t.Data)
                     .Select(t => t.CommentId)
                     .ToArray();
@@ -120,7 +129,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
             topic.CanBeEdited = this.authorizationManager.CheckAccess(principal, "Edit", "Topic", topic.Id);
             topic.CanBeDeleted = this.authorizationManager.CheckAccess(principal, "Delete", "Topic", topic.Id);
             topic.CanBeCommented = this.authorizationManager.CheckAccess(principal, "Comment", "Topic", topic.Id);
-            topic.Comments = this.GetComments(readContext, query, principal, newComments);
+            topic.Comments = this.GetComments(query, principal, newComments);
             topic.IsRead = (newTopics + newComments.Length) == 0;
 
             return topic;
@@ -129,24 +138,26 @@ namespace MirGames.Domain.Topics.QueryHandlers
         /// <summary>
         /// Gets the comments.
         /// </summary>
-        /// <param name="readContext">The read context.</param>
         /// <param name="query">The query.</param>
         /// <param name="principal">The principal.</param>
-        /// <param name="newComments"></param>
+        /// <param name="newComments">The new comments.</param>
         /// <returns>
         /// The comments list.
         /// </returns>
         private IEnumerable<CommentViewModel> GetComments(
-            IReadContext readContext,
             GetTopicQuery query,
             ClaimsPrincipal principal,
             int[] newComments)
         {
-            var comments = readContext
-                .Query<Comment>()
-                .Where(c => c.TopicId == query.TopicId)
-                .OrderBy(c => c.Date)
-                .ToList();
+            List<Comment> comments;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                comments = readContext
+                    .Query<Comment>()
+                    .Where(c => c.TopicId == query.TopicId)
+                    .OrderBy(c => c.Date)
+                    .ToList();
+            }
 
             var commentViewModels = comments
                 .Select(

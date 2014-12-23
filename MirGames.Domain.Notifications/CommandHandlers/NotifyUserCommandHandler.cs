@@ -83,6 +83,7 @@ namespace MirGames.Domain.Notifications.CommandHandlers
             notificationsCollection.CreateIndex("EventTypeId");
             notificationsCollection.CreateIndex("UserId");
             notificationsCollection.CreateIndex("Data._t");
+            notificationsCollection.CreateIndex("IsRead");
             notificationsCollection.InsertBatch(notifications);
 
             this.eventBus.Raise(new NotificationsAddedEvent
@@ -92,7 +93,8 @@ namespace MirGames.Domain.Notifications.CommandHandlers
                     Data = n.Data,
                     NotificationType = command.Data.NotificationType,
                     NotificationId = n.Id.ToString(),
-                    UserId = n.UserId
+                    UserId = n.UserId,
+                    IsRead = n.IsRead
                 }).ToList()
             });
         }

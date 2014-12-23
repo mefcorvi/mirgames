@@ -39,22 +39,15 @@ namespace MirGames.Infrastructure.Queries
         private readonly Func<ClaimsPrincipal> claimsPrincipalProvider;
 
         /// <summary>
-        /// The read context factory.
-        /// </summary>
-        private readonly IReadContextFactory readContextFactory;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="QueryProcessor" /> class.
         /// </summary>
         /// <param name="queryHandlers">The query handlers.</param>
         /// <param name="queryHandlerDecorators">The query handler decorators.</param>
         /// <param name="claimsPrincipalProvider">The claims principal provider.</param>
-        /// <param name="readContextFactory">The read context factory.</param>
         public QueryProcessor(
             Lazy<IEnumerable<IQueryHandler>> queryHandlers,
             IEnumerable<IQueryHandlerDecorator> queryHandlerDecorators,
-            Func<ClaimsPrincipal> claimsPrincipalProvider,
-            IReadContextFactory readContextFactory)
+            Func<ClaimsPrincipal> claimsPrincipalProvider)
         {
             Contract.Requires(queryHandlers != null);
             Contract.Requires(claimsPrincipalProvider != null);
@@ -64,7 +57,6 @@ namespace MirGames.Infrastructure.Queries
                 new Lazy<Dictionary<Type, IQueryHandler>>(() => queryHandlers.Value.ToDictionary(c => c.QueryType));
             this.queryHandlerDecorators = queryHandlerDecorators.OrderBy(q => q.Order).ToList();
             this.claimsPrincipalProvider = claimsPrincipalProvider;
-            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
@@ -74,7 +66,7 @@ namespace MirGames.Infrastructure.Queries
 
             return this.CallQueryHandler(
                 query,
-                (handler, principal, readContext) => handler.Execute(readContext, query, principal, pagination).Cast<T>().EnsureCollection());
+                (handler, principal) => handler.Execute(query, principal, pagination).Cast<T>().EnsureCollection());
         }
 
         /// <inheritdoc />
@@ -84,7 +76,7 @@ namespace MirGames.Infrastructure.Queries
 
             return this.CallQueryHandler(
                 query,
-                (handler, principal, readContext) => handler.Execute(readContext, query, principal, pagination).Cast<T>().EnsureCollection());
+                (handler, principal) => handler.Execute(query, principal, pagination).Cast<T>().EnsureCollection());
         }
 
         /// <inheritdoc />
@@ -94,7 +86,7 @@ namespace MirGames.Infrastructure.Queries
 
             return this.CallQueryHandler(
                 query,
-                (handler, principal, readContext) => handler.Execute(readContext, query, principal, pagination).Cast<object>().EnsureCollection());
+                (handler, principal) => handler.Execute(query, principal, pagination).Cast<object>().EnsureCollection());
         }
 
         /// <inheritdoc />
@@ -104,7 +96,7 @@ namespace MirGames.Infrastructure.Queries
 
             return this.CallQueryHandler(
                 query,
-                (handler, principal, readContext) => handler.GetItemsCount(readContext, query, principal));
+                (handler, principal) => handler.GetItemsCount(query, principal));
         }
 
         /// <inheritdoc />
@@ -114,7 +106,7 @@ namespace MirGames.Infrastructure.Queries
 
             return this.CallQueryHandler(
                 query,
-                (handler, principal, readContext) => handler.Execute(readContext, query, principal, null).Cast<T>().SingleOrDefault());
+                (handler, principal) => handler.Execute(query, principal, null).Cast<T>().SingleOrDefault());
         }
 
         /// <summary>
@@ -127,7 +119,7 @@ namespace MirGames.Infrastructure.Queries
         /// The result.
         /// </returns>
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1126:PrefixCallsCorrectly", Justification = "Reviewed. Suppression is OK here.")]
-        private T CallQueryHandler<T>(Query query, Func<IQueryHandler, ClaimsPrincipal, IReadContext, T> queryAction)
+        private T CallQueryHandler<T>(Query query, Func<IQueryHandler, ClaimsPrincipal, T> queryAction)
         {
             Contract.Requires(query != null);
             Contract.Requires(queryAction != null);
@@ -142,10 +134,7 @@ namespace MirGames.Infrastructure.Queries
 
                 try
                 {
-                    using (var readContext = this.readContextFactory.Create())
-                    {
-                        return queryAction(queryHandler, claimsPrincipal, readContext);
-                    }
+                    return queryAction(queryHandler, claimsPrincipal);
                 }
                 catch (SecurityException)
                 {

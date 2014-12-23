@@ -33,24 +33,31 @@ namespace MirGames.Domain.Wip.QueryHandlers
         private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetWipProjectFilesQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
-        public GetWipProjectFilesQueryHandler(IQueryProcessor queryProcessor)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetWipProjectFilesQueryHandler(IQueryProcessor queryProcessor, IReadContextFactory readContextFactory)
         {
             Contract.Requires(queryProcessor != null);
+            Contract.Requires(readContextFactory != null);
 
             this.queryProcessor = queryProcessor;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
         protected override IEnumerable<WipProjectRepositoryItemViewModel> Execute(
-            IReadContext readContext,
             GetWipProjectFilesQuery query,
             ClaimsPrincipal principal,
             PaginationSettings pagination)
         {
-            var project = GetProject(readContext, query);
+            var project = this.GetProject(query);
 
             if (!project.RepositoryId.HasValue || string.IsNullOrEmpty(project.RepositoryType))
             {
@@ -94,11 +101,10 @@ namespace MirGames.Domain.Wip.QueryHandlers
 
         /// <inheritdoc />
         protected override int GetItemsCount(
-            IReadContext readContext,
             GetWipProjectFilesQuery query,
             ClaimsPrincipal principal)
         {
-            var project = GetProject(readContext, query);
+            var project = this.GetProject(query);
 
             if (!project.RepositoryId.HasValue || string.IsNullOrEmpty(project.RepositoryType))
             {
@@ -119,24 +125,6 @@ namespace MirGames.Domain.Wip.QueryHandlers
             }
         }
 
-        /// <summary>
-        /// Gets the project.
-        /// </summary>
-        /// <param name="readContext">The read context.</param>
-        /// <param name="query">The query.</param>
-        /// <returns>The project.</returns>
-        private static Project GetProject(IReadContext readContext, GetWipProjectFilesQuery query)
-        {
-            var project = readContext.Query<Project>().SingleOrDefault(p => p.Alias == query.Alias);
-
-            if (project == null)
-            {
-                throw new ItemNotFoundException("Project", query.Alias);
-            }
-
-            return project;
-        }
-
         private static WipProjectRepositoryItemType GetGitItemType(GitRepositoryFileItemType itemType)
         {
             switch (itemType)
@@ -149,6 +137,26 @@ namespace MirGames.Domain.Wip.QueryHandlers
                     return WipProjectRepositoryItemType.Other;
                 default:
                     throw new ArgumentOutOfRangeException("itemType");
+            }
+        }
+
+        /// <summary>
+        /// Gets the project.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <returns>The project.</returns>
+        private Project GetProject(GetWipProjectFilesQuery query)
+        {
+            using (var readContext = this.readContextFactory.Create())
+            {
+                var project = readContext.Query<Project>().SingleOrDefault(p => p.Alias == query.Alias);
+
+                if (project == null)
+                {
+                    throw new ItemNotFoundException("Project", query.Alias);
+                }
+
+                return project;
             }
         }
     }

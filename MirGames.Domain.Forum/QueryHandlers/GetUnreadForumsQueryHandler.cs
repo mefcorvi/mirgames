@@ -38,14 +38,13 @@ namespace MirGames.Domain.Forum.QueryHandlers
         }
 
         /// <inheritdoc />
-        protected override int GetItemsCount(IReadContext readContext, GetUnreadForumsQuery query, ClaimsPrincipal principal)
+        protected override int GetItemsCount(GetUnreadForumsQuery query, ClaimsPrincipal principal)
         {
             return this.GetNotifications().Count();
         }
 
         /// <inheritdoc />
         protected override IEnumerable<int> Execute(
-            IReadContext readContext,
             GetUnreadForumsQuery query,
             ClaimsPrincipal principal,
             PaginationSettings pagination)
@@ -62,6 +61,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
             return this.queryProcessor
                        .Process(new GetNotificationsQuery
                        {
+                           IsRead = false,
                            Filter = n => n is NewForumAnswerNotification || n is NewForumTopicNotification
                        })
                        .Select(n => ((ForumTopicNotificationData)n.Data).ForumId)

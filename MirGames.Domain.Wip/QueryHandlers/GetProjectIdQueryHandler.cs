@@ -28,22 +28,33 @@ namespace MirGames.Domain.Wip.QueryHandlers
         private readonly IAuthorizationManager authorizationManager;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetProjectIdQueryHandler"/> class.
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetProjectIdQueryHandler" /> class.
         /// </summary>
         /// <param name="authorizationManager">The authorization manager.</param>
-        public GetProjectIdQueryHandler(IAuthorizationManager authorizationManager)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetProjectIdQueryHandler(IAuthorizationManager authorizationManager, IReadContextFactory readContextFactory)
         {
             Contract.Requires(authorizationManager != null);
+            Contract.Requires(readContextFactory != null);
 
             this.authorizationManager = authorizationManager;
+            this.readContextFactory = readContextFactory;
         }
 
         protected override int Execute(
-            IReadContext readContext,
             GetProjectIdQuery query,
             ClaimsPrincipal principal)
         {
-            var project = readContext.Query<Project>().FirstOrDefault(p => p.Alias == query.ProjectAlias);
+            Project project;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                project = readContext.Query<Project>().FirstOrDefault(p => p.Alias == query.ProjectAlias);
+            }
 
             if (project == null)
             {

@@ -58,14 +58,13 @@ namespace MirGames.Domain.Notifications.QueryHandlers
         }
 
         /// <inheritdoc />
-        protected override int GetItemsCount(IReadContext readContext, GetNotificationsQuery query, ClaimsPrincipal principal)
+        protected override int GetItemsCount(GetNotificationsQuery query, ClaimsPrincipal principal)
         {
             return this.GetQuery(query, principal).Count();
         }
 
         /// <inheritdoc />
         protected override IEnumerable<NotificationViewModel> Execute(
-            IReadContext readContext,
             GetNotificationsQuery query,
             ClaimsPrincipal principal,
             PaginationSettings pagination)
@@ -74,10 +73,11 @@ namespace MirGames.Domain.Notifications.QueryHandlers
                        .ToList()
                        .Select(n => new NotificationViewModel
                        {
-                           NotificationType = query.NotificationType,
+                           NotificationType = n.Data.NotificationType,
                            Data = n.Data,
                            NotificationId = n.Id.ToString(),
-                           UserId = n.UserId
+                           UserId = n.UserId,
+                           IsRead = n.IsRead
                        })
                        .ToList();
         }
@@ -101,6 +101,11 @@ namespace MirGames.Domain.Notifications.QueryHandlers
             {
                 var notificationTypeId = this.notificationTypeResolver.GetIdentifier(query.NotificationType);
                 notificationsQuery = notificationsQuery.Where(n => n.NotificationTypeId == notificationTypeId);
+            }
+
+            if (query.IsRead.HasValue)
+            {
+                notificationsQuery = notificationsQuery.Where(n => n.IsRead == query.IsRead.Value);
             }
 
             if (query.Filter != null)

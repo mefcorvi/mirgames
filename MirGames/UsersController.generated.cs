@@ -115,6 +115,7 @@ namespace MirGames.Controllers
             public readonly string Comments = "Comments";
             public readonly string Forum = "Forum";
             public readonly string Settings = "Settings";
+            public readonly string Feed = "Feed";
             public readonly string DeleteUser = "DeleteUser";
             public readonly string NewWallRecord = "NewWallRecord";
         }
@@ -131,6 +132,7 @@ namespace MirGames.Controllers
             public const string Comments = "Comments";
             public const string Forum = "Forum";
             public const string Settings = "Settings";
+            public const string Feed = "Feed";
             public const string DeleteUser = "DeleteUser";
             public const string NewWallRecord = "NewWallRecord";
         }
@@ -239,6 +241,7 @@ namespace MirGames.Controllers
                 public readonly string _UsersMenu = "_UsersMenu";
                 public readonly string _WallRecord = "_WallRecord";
                 public readonly string Comments = "Comments";
+                public readonly string Feed = "Feed";
                 public readonly string ForumPosts = "ForumPosts";
                 public readonly string Index = "Index";
                 public readonly string Profile = "Profile";
@@ -251,6 +254,7 @@ namespace MirGames.Controllers
             public readonly string _UsersMenu = "~/Views/Users/_UsersMenu.cshtml";
             public readonly string _WallRecord = "~/Views/Users/_WallRecord.cshtml";
             public readonly string Comments = "~/Views/Users/Comments.cshtml";
+            public readonly string Feed = "~/Views/Users/Feed.cshtml";
             public readonly string ForumPosts = "~/Views/Users/ForumPosts.cshtml";
             public readonly string Index = "~/Views/Users/Index.cshtml";
             public readonly string Profile = "~/Views/Users/Profile.cshtml";
@@ -375,6 +379,17 @@ namespace MirGames.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Settings);
             SettingsOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void FeedOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Feed()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Feed);
+            FeedOverride(callInfo);
             return callInfo;
         }
 

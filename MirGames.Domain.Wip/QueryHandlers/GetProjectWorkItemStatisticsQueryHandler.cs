@@ -35,32 +35,42 @@ namespace MirGames.Domain.Wip.QueryHandlers
         private readonly IAuthorizationManager authorizationManager;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetProjectWorkItemStatisticsQueryHandler"/> class.
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetProjectWorkItemStatisticsQueryHandler" /> class.
         /// </summary>
         /// <param name="authorizationManager">The authorization manager.</param>
-        public GetProjectWorkItemStatisticsQueryHandler(IAuthorizationManager authorizationManager)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetProjectWorkItemStatisticsQueryHandler(IAuthorizationManager authorizationManager, IReadContextFactory readContextFactory)
         {
             Contract.Requires(authorizationManager != null);
+            Contract.Requires(readContextFactory != null);
+
             this.authorizationManager = authorizationManager;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
         protected override ProjectWorkItemStatisticsViewModel Execute(
-            IReadContext readContext,
             GetProjectWorkItemStatisticsQuery query,
             ClaimsPrincipal principal)
         {
-            var project = readContext.Query<Project>().FirstOrDefault(t => t.Alias == query.ProjectAlias);
-
-            if (project == null)
+            Dictionary<WorkItemType, int> statistics;
+            using (var readContext = this.readContextFactory.Create())
             {
-                throw new ItemNotFoundException("Project", query.ProjectAlias);
-            }
+                var project = readContext.Query<Project>().FirstOrDefault(t => t.Alias == query.ProjectAlias);
 
-            this.authorizationManager.EnsureAccess(principal, "ViewStatistics", "Project", project.ProjectId);
+                if (project == null)
+                {
+                    throw new ItemNotFoundException("Project", query.ProjectAlias);
+                }
 
-            var statistics =
-                readContext
+                this.authorizationManager.EnsureAccess(principal, "ViewStatistics", "Project", project.ProjectId);
+
+                statistics = readContext
                     .Query<ProjectWorkItem>()
                     .Where(
                         t =>
@@ -68,6 +78,7 @@ namespace MirGames.Domain.Wip.QueryHandlers
                         && t.State != WorkItemState.Removed)
                     .GroupBy(t => t.ItemType, (key, value) => new { Type = key, Count = value.Count() })
                     .ToDictionary(t => t.Type, t => t.Count);
+            }
 
             return new ProjectWorkItemStatisticsViewModel
             {

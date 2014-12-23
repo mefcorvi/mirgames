@@ -36,33 +36,48 @@ namespace MirGames.Domain.Users.QueryHandlers
         private readonly IOnlineUsersManager onlineUsersManager;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetUsersQueryHandler" /> class.
         /// </summary>
         /// <param name="avatarProvider">The avatar provider.</param>
         /// <param name="onlineUsersManager">The online users manager.</param>
-        public GetUsersQueryHandler(IAvatarProvider avatarProvider, IOnlineUsersManager onlineUsersManager)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetUsersQueryHandler(IAvatarProvider avatarProvider, IOnlineUsersManager onlineUsersManager, IReadContextFactory readContextFactory)
         {
             Contract.Requires(avatarProvider != null);
             Contract.Requires(onlineUsersManager != null);
+            Contract.Requires(readContextFactory != null);
 
             this.avatarProvider = avatarProvider;
             this.onlineUsersManager = onlineUsersManager;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override int GetItemsCount(IReadContext readContext, GetUsersQuery query, ClaimsPrincipal principal)
+        protected override int GetItemsCount(GetUsersQuery query, ClaimsPrincipal principal)
         {
-            return this.GetUsersQuery(readContext, query).Count();
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return this.GetUsersQuery(readContext, query).Count();
+            }
         }
 
         /// <inheritdoc />
-        protected override IEnumerable<UserListItemViewModel> Execute(IReadContext readContext, GetUsersQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
+        protected override IEnumerable<UserListItemViewModel> Execute(GetUsersQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
-            var users = this.GetUsersQuery(readContext, query);
+            using (var readContext = this.readContextFactory.Create())
+            {
+                var users = this.GetUsersQuery(readContext, query);
 
-            var onlineUserIdentifiers = new HashSet<int>(this.onlineUsersManager.GetOnlineUsers().Select(user => user.Id.GetValueOrDefault()));
+                var onlineUserIdentifiers =
+                    new HashSet<int>(this.onlineUsersManager.GetOnlineUsers()
+                                         .Select(user => user.Id.GetValueOrDefault()));
 
-            return this.ApplyPagination(users, pagination).ToList().Select(u => new UserListItemViewModel
+                return this.ApplyPagination(users, pagination).ToList().Select(u => new UserListItemViewModel
                 {
                     AvatarUrl = u.AvatarUrl ?? this.avatarProvider.GetAvatarUrl(u.Mail, u.Login),
                     Id = u.Id,
@@ -74,6 +89,7 @@ namespace MirGames.Domain.Users.QueryHandlers
                     LastVisit = u.LastVisitDate,
                     IsOnline = onlineUserIdentifiers.Contains(u.Id)
                 });
+            }
         }
 
         /// <summary>

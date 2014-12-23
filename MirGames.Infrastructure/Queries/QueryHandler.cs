@@ -31,30 +31,30 @@ namespace MirGames.Infrastructure.Queries
         }
 
         /// <inheritdoc />
-        IEnumerable IQueryHandler.Execute(IReadContext readContext, Query query, ClaimsPrincipal principal, PaginationSettings pagination)
+        IEnumerable IQueryHandler.Execute(Query query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
             Contract.Requires(query != null);
             Contract.Requires(principal != null);
             
-            return ((IQueryHandler<TResult>)this).Execute(readContext, (T)query, principal, pagination);
+            return ((IQueryHandler<TResult>)this).Execute((T)query, principal, pagination);
         }
 
         /// <inheritdoc />
-        int IQueryHandler.GetItemsCount(IReadContext readContext, Query query, ClaimsPrincipal principal)
+        int IQueryHandler.GetItemsCount(Query query, ClaimsPrincipal principal)
         {
             Contract.Requires(query != null);
             Contract.Requires(principal != null);
 
-            return this.GetItemsCount(readContext, (T)query, principal);
+            return this.GetItemsCount((T)query, principal);
         }
 
         /// <inheritdoc />
-        IEnumerable<TResult> IQueryHandler<TResult>.Execute(IReadContext readContext, Query<TResult> query, ClaimsPrincipal principal, PaginationSettings pagination)
+        IEnumerable<TResult> IQueryHandler<TResult>.Execute(Query<TResult> query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
             Contract.Requires(query != null);
             Contract.Requires(principal != null);
 
-            return this.Execute(readContext, (T)query, principal, pagination).EnsureCollection();
+            return this.Execute((T)query, principal, pagination).EnsureCollection();
         }
 
         /// <summary>
@@ -84,20 +84,22 @@ namespace MirGames.Infrastructure.Queries
         /// <summary>
         /// Gets the items count.
         /// </summary>
-        /// <param name="readContext">The read context.</param>
         /// <param name="query">The query.</param>
         /// <param name="principal">The principal.</param>
-        /// <returns>The items count.</returns>
-        protected abstract int GetItemsCount(IReadContext readContext, T query, ClaimsPrincipal principal);
+        /// <returns>
+        /// The items count.
+        /// </returns>
+        protected abstract int GetItemsCount(T query, ClaimsPrincipal principal);
 
         /// <summary>
         /// Executes the specified query.
         /// </summary>
-        /// <param name="readContext">The read context.</param>
         /// <param name="query">The query.</param>
         /// <param name="principal">The principal.</param>
         /// <param name="pagination">The pagination.</param>
-        /// <returns>The set of result items.</returns>
-        protected abstract IEnumerable<TResult> Execute(IReadContext readContext, T query, ClaimsPrincipal principal, PaginationSettings pagination);
+        /// <returns>
+        /// The set of result items.
+        /// </returns>
+        protected abstract IEnumerable<TResult> Execute(T query, ClaimsPrincipal principal, PaginationSettings pagination);
     }
 }

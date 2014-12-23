@@ -39,27 +39,36 @@ namespace MirGames.Domain.Acl.QueryHandlers
         private readonly IPermissionsCacheManager permissionsCacheManager;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="IsActionAllowedQueryHandler" /> class.
         /// </summary>
         /// <param name="entityTypesResolver">The entity types resolver.</param>
         /// <param name="actionTypesResolver">The action types resolver.</param>
         /// <param name="permissionsCacheManager">The permissions cache manager.</param>
+        /// <param name="readContextFactory">The read context factory.</param>
         public IsActionAllowedQueryHandler(
             IEntityTypesResolver entityTypesResolver,
             IActionTypesResolver actionTypesResolver,
-            IPermissionsCacheManager permissionsCacheManager)
+            IPermissionsCacheManager permissionsCacheManager,
+            IReadContextFactory readContextFactory)
         {
             Contract.Requires(actionTypesResolver != null);
             Contract.Requires(entityTypesResolver != null);
             Contract.Requires(permissionsCacheManager != null);
+            Contract.Requires(readContextFactory != null);
 
             this.entityTypesResolver = entityTypesResolver;
             this.actionTypesResolver = actionTypesResolver;
             this.permissionsCacheManager = permissionsCacheManager;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override bool Execute(IReadContext readContext, IsActionAllowedQuery query, ClaimsPrincipal principal)
+        protected override bool Execute(IsActionAllowedQuery query, ClaimsPrincipal principal)
         {
             if (principal.IsInRole("Administrator"))
             {
@@ -75,28 +84,30 @@ namespace MirGames.Domain.Acl.QueryHandlers
                 return isAllow;
             }
 
-            var permissions =
-                readContext.Query<Permission>()
-                           .Where(
-                               p =>
-                               (p.ExpirationDate >= DateTime.UtcNow || p.ExpirationDate == null)
-                               && (p.UserId == query.UserId || p.UserId == null)
-                               && p.EntityTypeId == entityTypeId);
-
-
-            if (query.EntityId.HasValue)
+            using (var readContext = this.readContextFactory.Create())
             {
-                permissions =
-                    permissions.Where(
-                        p =>
-                        (p.EntityId >= query.EntityId - 50 && p.EntityId <= query.EntityId + 50) || p.EntityId == null);
-            }
-            else
-            {
-                permissions = permissions.Where(p => p.EntityId == null);
-            }
+                var permissions = readContext.Query<Permission>()
+                                         .Where(
+                                             p =>
+                                             (p.ExpirationDate >= DateTime.UtcNow || p.ExpirationDate == null)
+                                             && (p.UserId == query.UserId || p.UserId == null)
+                                             && p.EntityTypeId == entityTypeId);
 
-            permissions.ForEach(this.permissionsCacheManager.AddToCache);
+                if (query.EntityId.HasValue)
+                {
+                    permissions =
+                        permissions.Where(
+                            p =>
+                            (p.EntityId >= query.EntityId - 50 && p.EntityId <= query.EntityId + 50)
+                            || p.EntityId == null);
+                }
+                else
+                {
+                    permissions = permissions.Where(p => p.EntityId == null);
+                }
+
+                permissions.ForEach(this.permissionsCacheManager.AddToCache);
+            }
 
             if (this.permissionsCacheManager.TryGetFromCache(query.UserId, actionId, entityTypeId, query.EntityId, out isAllow))
             {

@@ -38,21 +38,29 @@ namespace MirGames.Domain.Users.QueryHandlers
         private readonly IAvatarProvider avatarProvider;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ResolveAuthorsQueryHandler" /> class.
         /// </summary>
         /// <param name="cacheManagerFactory">The cache manager factory.</param>
         /// <param name="avatarProvider">The avatar provider.</param>
-        public ResolveAuthorsQueryHandler(ICacheManagerFactory cacheManagerFactory, IAvatarProvider avatarProvider)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public ResolveAuthorsQueryHandler(ICacheManagerFactory cacheManagerFactory, IAvatarProvider avatarProvider, IReadContextFactory readContextFactory)
         {
             Contract.Requires(avatarProvider != null);
             Contract.Requires(cacheManagerFactory != null);
+            Contract.Requires(readContextFactory != null);
 
             this.cacheManager = cacheManagerFactory.Create("Users");
             this.avatarProvider = avatarProvider;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override IEnumerable<AuthorViewModel> Execute(IReadContext readContext, ResolveAuthorsQuery query, ClaimsPrincipal principal)
+        protected override IEnumerable<AuthorViewModel> Execute(ResolveAuthorsQuery query, ClaimsPrincipal principal)
         {
             Contract.Requires(query.Authors != null);
 
@@ -78,25 +86,28 @@ namespace MirGames.Domain.Users.QueryHandlers
 
             if (userIdentifiers.Any())
             {
-                resolvedUsers.AddRange(
-                    this.GetUsersQuery(readContext, userIdentifiers)
-                    .Select(x => new 
-                        {
-                            x.AvatarUrl,
-                            x.Mail,
-                            x.Login,
-                            x.Id,
-                            x.About
-                        })
-                        .ToList()
-                        .Select(
-                            x => new AuthorViewModel
+                using (var readContext = this.readContextFactory.Create())
+                {
+                    resolvedUsers.AddRange(
+                        this.GetUsersQuery(readContext, userIdentifiers)
+                            .Select(x => new
                             {
-                                AvatarUrl = x.AvatarUrl ?? this.avatarProvider.GetAvatarUrl(x.Mail, x.Login),
-                                Id = x.Id,
-                                Login = x.Login,
-                                Title = x.About
-                            }));
+                                x.AvatarUrl,
+                                x.Mail,
+                                x.Login,
+                                x.Id,
+                                x.About
+                            })
+                            .ToList()
+                            .Select(
+                                x => new AuthorViewModel
+                                {
+                                    AvatarUrl = x.AvatarUrl ?? this.avatarProvider.GetAvatarUrl(x.Mail, x.Login),
+                                    Id = x.Id,
+                                    Login = x.Login,
+                                    Title = x.About
+                                }));
+                }
             }
 
             foreach (var user in resolvedUsers)

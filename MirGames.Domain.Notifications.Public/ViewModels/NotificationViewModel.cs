@@ -9,8 +9,6 @@
 
 namespace MirGames.Domain.Notifications.ViewModels
 {
-    using System.Collections.Generic;
-
     /// <summary>
     /// The notification view model.
     /// </summary>
@@ -32,9 +30,9 @@ namespace MirGames.Domain.Notifications.ViewModels
         public int UserId { get; set; }
 
         /// <summary>
-        /// Gets or sets the identifier of the related entity.
+        /// Gets or sets a value indicating whether this instance is read.
         /// </summary>
-        public int? EntityId { get; set; }
+        public bool IsRead { get; set; }
 
         /// <summary>
         /// Gets or sets the data.

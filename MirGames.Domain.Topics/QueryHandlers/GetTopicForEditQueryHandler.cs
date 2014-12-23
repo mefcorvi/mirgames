@@ -9,6 +9,7 @@
 namespace MirGames.Domain.Topics.QueryHandlers
 {
     using System.Data.Entity;
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security;
     using System.Security.Claims;
@@ -32,21 +33,35 @@ namespace MirGames.Domain.Topics.QueryHandlers
         private readonly IAuthorizationManager authorizationManager;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetTopicForEditQueryHandler"/> class.
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetTopicForEditQueryHandler" /> class.
         /// </summary>
         /// <param name="authorizationManager">The authorization manager.</param>
-        public GetTopicForEditQueryHandler(IAuthorizationManager authorizationManager)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetTopicForEditQueryHandler(IAuthorizationManager authorizationManager, IReadContextFactory readContextFactory)
         {
+            Contract.Requires(authorizationManager != null);
+            Contract.Requires(readContextFactory != null);
+
             this.authorizationManager = authorizationManager;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override TopicForEditViewModel Execute(IReadContext readContext, GetTopicForEditQuery query, ClaimsPrincipal principal)
+        protected override TopicForEditViewModel Execute(GetTopicForEditQuery query, ClaimsPrincipal principal)
         {
-            Topic topic = readContext
-                .Query<Topic>()
-                .Include(t => t.Content)
-                .SingleOrDefault(t => t.Id == query.TopicId);
+            Topic topic;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                topic = readContext
+                    .Query<Topic>()
+                    .Include(t => t.Content)
+                    .SingleOrDefault(t => t.Id == query.TopicId);
+            }
 
             if (topic == null)
             {

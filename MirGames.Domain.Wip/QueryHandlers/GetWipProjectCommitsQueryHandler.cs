@@ -31,24 +31,31 @@ namespace MirGames.Domain.Wip.QueryHandlers
         private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetWipProjectCommitsQueryHandler"/> class.
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetWipProjectCommitsQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
-        public GetWipProjectCommitsQueryHandler(IQueryProcessor queryProcessor)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetWipProjectCommitsQueryHandler(IQueryProcessor queryProcessor, IReadContextFactory readContextFactory)
         {
             Contract.Requires(queryProcessor != null);
+            Contract.Requires(readContextFactory != null);
 
             this.queryProcessor = queryProcessor;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
         protected override IEnumerable<WipProjectCommitViewModel> Execute(
-            IReadContext readContext,
             GetWipProjectCommitsQuery query,
             ClaimsPrincipal principal,
             PaginationSettings pagination)
         {
-            var project = GetProject(readContext, query);
+            var project = this.GetProject(query);
 
             if (!project.RepositoryId.HasValue || string.IsNullOrEmpty(project.RepositoryType))
             {
@@ -80,12 +87,9 @@ namespace MirGames.Domain.Wip.QueryHandlers
         }
 
         /// <inheritdoc />
-        protected override int GetItemsCount(
-            IReadContext readContext,
-            GetWipProjectCommitsQuery query,
-            ClaimsPrincipal principal)
+        protected override int GetItemsCount(GetWipProjectCommitsQuery query, ClaimsPrincipal principal)
         {
-            var project = GetProject(readContext, query);
+            var project = this.GetProject(query);
 
             if (!project.RepositoryId.HasValue || string.IsNullOrEmpty(project.RepositoryType))
             {
@@ -108,19 +112,21 @@ namespace MirGames.Domain.Wip.QueryHandlers
         /// <summary>
         /// Gets the project.
         /// </summary>
-        /// <param name="readContext">The read context.</param>
         /// <param name="query">The query.</param>
         /// <returns>The project.</returns>
-        private static Project GetProject(IReadContext readContext, GetWipProjectCommitsQuery query)
+        private Project GetProject(GetWipProjectCommitsQuery query)
         {
-            var project = readContext.Query<Project>().SingleOrDefault(p => p.Alias == query.Alias);
-
-            if (project == null)
+            using (var readContext = this.readContextFactory.Create())
             {
-                throw new ItemNotFoundException("Project", query.Alias);
-            }
+                var project = readContext.Query<Project>().SingleOrDefault(p => p.Alias == query.Alias);
 
-            return project;
+                if (project == null)
+                {
+                    throw new ItemNotFoundException("Project", query.Alias);
+                }
+
+                return project;
+            }
         }
     }
 }

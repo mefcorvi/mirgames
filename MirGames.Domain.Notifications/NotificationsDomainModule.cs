@@ -9,10 +9,17 @@
 
 namespace MirGames.Domain.Notifications
 {
+    using System;
+    using System.Linq;
+    using System.Reflection;
+
     using Autofac;
 
     using MirGames.Domain.Notifications.Services;
+    using MirGames.Domain.Notifications.ViewModels;
     using MirGames.Infrastructure;
+
+    using MongoDB.Bson.Serialization;
 
     /// <summary>
     /// The notifications domain module.
@@ -26,6 +33,18 @@ namespace MirGames.Domain.Notifications
             builder.RegisterType<EntityMapper>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<NotificationTypeResolver>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<MongoDatabaseFactory>().AsImplementedInterfaces().SingleInstance();
+
+            var notifications = AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName.Contains("MirGames.Domain"))
+                                         .SelectMany(assembly => assembly.GetTypes(), (assembly, type) => new { assembly, type })
+                                         .Where(@t => typeof(NotificationData).IsAssignableFrom(@t.type))
+                                         .Select(@t => @t.type);
+
+            foreach (var type in notifications)
+            {
+                MethodInfo method = typeof(BsonClassMap).GetMethod("RegisterClassMap", new Type[0]);
+                MethodInfo generic = method.MakeGenericMethod(type);
+                generic.Invoke(null, null);
+            }
         }
     }
 }

@@ -43,32 +43,44 @@ namespace MirGames.Domain.Wip.QueryHandlers
         private readonly ITextProcessor textProcessor;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetProjectWorkItemQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
         /// <param name="textProcessor">The text processor.</param>
-        public GetProjectWorkItemQueryHandler(IQueryProcessor queryProcessor, IAuthorizationManager authorizationManager, ITextProcessor textProcessor)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetProjectWorkItemQueryHandler(IQueryProcessor queryProcessor, IAuthorizationManager authorizationManager, ITextProcessor textProcessor, IReadContextFactory readContextFactory)
         {
             Contract.Requires(queryProcessor != null);
             Contract.Requires(authorizationManager != null);
+            Contract.Requires(textProcessor != null);
+            Contract.Requires(readContextFactory != null);
 
             this.queryProcessor = queryProcessor;
             this.authorizationManager = authorizationManager;
             this.textProcessor = textProcessor;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
         protected override ProjectWorkItemViewModel Execute(
-            IReadContext readContext,
             GetProjectWorkItemQuery query,
             ClaimsPrincipal principal)
         {
             var projectId = this.GetProjectId(query);
 
-            var workItem = readContext
-                .Query<ProjectWorkItem>()
-                .FirstOrDefault(p => p.ProjectId == projectId && p.InternalId == query.InternalId);
+            ProjectWorkItem workItem;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                workItem = readContext
+                    .Query<ProjectWorkItem>()
+                    .FirstOrDefault(p => p.ProjectId == projectId && p.InternalId == query.InternalId);
+            }
 
             if (workItem == null)
             {

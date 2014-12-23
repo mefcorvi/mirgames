@@ -40,21 +40,38 @@ namespace MirGames.Domain.Forum.QueryHandlers
         private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetForumTopicQueryHandler" /> class.
         /// </summary>
         /// <param name="authorizationManager">The authorization manager.</param>
         /// <param name="queryProcessor">The query processor.</param>
-        public GetForumTopicQueryHandler(IAuthorizationManager authorizationManager, IQueryProcessor queryProcessor)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetForumTopicQueryHandler(
+            IAuthorizationManager authorizationManager,
+            IQueryProcessor queryProcessor,
+            IReadContextFactory readContextFactory)
         {
-            Contract.Assert(authorizationManager != null);
+            Contract.Requires(authorizationManager != null);
+            Contract.Requires(queryProcessor != null);
+            Contract.Requires(readContextFactory != null);
+
             this.authorizationManager = authorizationManager;
             this.queryProcessor = queryProcessor;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override ForumTopicViewModel Execute(IReadContext readContext, GetForumTopicQuery query, ClaimsPrincipal principal)
+        protected override ForumTopicViewModel Execute(GetForumTopicQuery query, ClaimsPrincipal principal)
         {
-            var topic = this.GetTopic(readContext, query);
+            ForumTopic topic;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                topic = this.GetTopic(readContext, query);
+            }
 
             if (topic == null)
             {
@@ -76,7 +93,11 @@ namespace MirGames.Domain.Forum.QueryHandlers
                     UpdatedDate = topic.UpdatedDate
                 };
 
-            var post = readContext.Query<ForumPost>().First(p => p.TopicId == topic.TopicId && p.IsStartPost);
+            ForumPost post;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                post = readContext.Query<ForumPost>().First(p => p.TopicId == topic.TopicId && p.IsStartPost);
+            }
 
             topicViewModel.StartPost = new ForumPostsListItemViewModel
                 {
@@ -113,12 +134,12 @@ namespace MirGames.Domain.Forum.QueryHandlers
                 var newTopicsNotifications =
                     this.queryProcessor
                         .GetItemsCount(
-                            new GetNotificationsQuery().WithFilter<NewForumTopicNotification>(
+                            new GetNotificationsQuery { IsRead = false }.WithFilter<NewForumTopicNotification>(
                                 n => n.TopicId == topicViewModel.TopicId));
 
                 var answerNotifications =
                     this.queryProcessor.GetItemsCount(
-                        new GetNotificationsQuery().WithFilter<NewForumAnswerNotification>(
+                        new GetNotificationsQuery { IsRead = false }.WithFilter<NewForumAnswerNotification>(
                             n => n.TopicId == topicViewModel.TopicId));
 
                 topicViewModel.IsRead = (newTopicsNotifications + answerNotifications) == 0;

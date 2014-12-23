@@ -30,23 +30,36 @@ namespace MirGames.Domain.Wip.QueryHandlers
         private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetProjectWorkItemCommentQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
-        public GetProjectWorkItemCommentQueryHandler(IQueryProcessor queryProcessor)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetProjectWorkItemCommentQueryHandler(IQueryProcessor queryProcessor, IReadContextFactory readContextFactory)
         {
             Contract.Requires(queryProcessor != null);
+            Contract.Requires(readContextFactory != null);
 
             this.queryProcessor = queryProcessor;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
         protected override ProjectWorkItemCommentViewModel Execute(
-            IReadContext readContext,
             GetProjectWorkItemCommentQuery query,
             ClaimsPrincipal principal)
         {
-            var comment = readContext.Query<ProjectWorkItemComment>().FirstOrDefault(p => p.CommentId == query.CommentId);
+            ProjectWorkItemComment comment;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                comment = readContext
+                    .Query<ProjectWorkItemComment>()
+                    .FirstOrDefault(p => p.CommentId == query.CommentId);
+            }
 
             if (comment == null)
             {

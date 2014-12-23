@@ -14,6 +14,7 @@ namespace MirGames.Controllers
     using System.Web.Mvc;
 
     using MirGames.Domain.Forum.Queries;
+    using MirGames.Domain.Notifications.Queries;
     using MirGames.Domain.Topics.Queries;
     using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Users.ViewModels;
@@ -89,23 +90,16 @@ namespace MirGames.Controllers
         /// <inheritdoc />
         protected override void OnResultExecuting(ResultExecutingContext filterContext)
         {
-            int forumTopicsUnread = 0;
-            int blogTopicsUnread = 0;
+            int notificationsCount = 0;
 
             if (this.User.Identity.IsAuthenticated)
             {
-                var forumNotificationsCountQuery = new GetForumNotificationsCountQuery();
-                forumTopicsUnread = this.QueryProcessor.Process(forumNotificationsCountQuery);
-
-                var topicsNotificationsCountQuery = new GetTopicsNotificationsCountQuery();
-                blogTopicsUnread = this.QueryProcessor.Process(topicsNotificationsCountQuery);
+                var forumNotificationsCountQuery = new GetNotificationsQuery { IsRead = false };
+                notificationsCount = this.QueryProcessor.GetItemsCount(forumNotificationsCountQuery);
             }
 
-            this.ViewBag.ForumTopicsUnread = forumTopicsUnread;
-            this.PageData["forumTopicsUnreadCount"] = forumTopicsUnread;
-
-            this.ViewBag.BlogTopicsUnread = blogTopicsUnread;
-            this.PageData["blogTopicsUnreadCount"] = blogTopicsUnread;
+            this.ViewBag.NotificationsCount = notificationsCount;
+            this.PageData["notificationsCount"] = notificationsCount;
 
             this.ViewBag.User = this.CurrentUser;
             base.OnResultExecuting(filterContext);

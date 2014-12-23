@@ -32,58 +32,78 @@ namespace MirGames.Domain.Forum.QueryHandlers
         private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetForumPostsQueryHandler"/> class.
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetForumPostsQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
-        public GetForumPostsQueryHandler(IQueryProcessor queryProcessor)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetForumPostsQueryHandler(IQueryProcessor queryProcessor, IReadContextFactory readContextFactory)
         {
             this.queryProcessor = queryProcessor;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override int GetItemsCount(IReadContext readContext, GetForumPostsQuery query, ClaimsPrincipal principal)
+        protected override int GetItemsCount(GetForumPostsQuery query, ClaimsPrincipal principal)
         {
-            return this.GetForumPostsQuery(readContext, query).Count();
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return this.GetForumPostsQuery(readContext, query).Count();
+            }
         }
 
         /// <inheritdoc />
-        protected override IEnumerable<ForumPostViewModel> Execute(IReadContext readContext, GetForumPostsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
+        protected override IEnumerable<ForumPostViewModel> Execute(GetForumPostsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
-            var postsWithPagination = this.GetForumPostsQuery(readContext, query);
-            var topics = readContext.Query<ForumTopic>();
-            var postsQuery = postsWithPagination.Join(
-                topics,
-                p => p.TopicId,
-                t => t.TopicId,
-                (p, t) => new ForumPostViewModel
-                {
-                    Author = new AuthorViewModel
+            List<ForumPostViewModel> posts;
+
+            using (var readContext = this.readContextFactory.Create())
+            {
+                var postsWithPagination = this.GetForumPostsQuery(readContext, query);
+                var topics = readContext.Query<ForumTopic>();
+                var postsQuery = postsWithPagination.Join(
+                    topics,
+                    p => p.TopicId,
+                    t => t.TopicId,
+                    (p, t) => new ForumPostViewModel
                     {
-                        Id = p.AuthorId,
-                        Login = p.AuthorLogin
-                    },
-                    AuthorIP = p.AuthorIP,
-                    CreatedDate = p.CreatedDate,
-                    IsHidden = p.IsHidden,
-                    Text = p.Text,
-                    PostId = p.PostId,
-                    TopicId = p.TopicId,
-                    UpdatedDate = p.UpdatedDate,
-                    TopicTitle = t.Title,
-                    ForumId = t.ForumId,
-                    VotesRating = p.VotesRating,
-                    CanBeVoted = false
-                }).OrderByDescending(p => p.PostId);
+                        Author = new AuthorViewModel
+                        {
+                            Id = p.AuthorId,
+                            Login = p.AuthorLogin
+                        },
+                        AuthorIP = p.AuthorIP,
+                        CreatedDate = p.CreatedDate,
+                        IsHidden = p.IsHidden,
+                        Text = p.Text,
+                        PostId = p.PostId,
+                        TopicId = p.TopicId,
+                        UpdatedDate = p.UpdatedDate,
+                        TopicTitle = t.Title,
+                        ForumId = t.ForumId,
+                        VotesRating = p.VotesRating,
+                        CanBeVoted = false
+                    }).OrderByDescending(p => p.PostId);
 
-            var posts = this.ApplyPagination(postsQuery, pagination).ToList();
+                posts = this.ApplyPagination(postsQuery, pagination).ToList();
+            }
 
             if (principal.IsInRole("User"))
             {
                 int userId = principal.GetUserId().GetValueOrDefault();
                 int[] postIdentifiers = posts.Select(p => p.PostId).ToArray();
-                var userVotes =
-                    readContext.Query<ForumPostVote>()
-                               .Where(v => v.UserId == userId && postIdentifiers.Contains(v.PostId)).ToDictionary(v => v.PostId);
+                Dictionary<int, ForumPostVote> userVotes;
+
+                using (var readContext = this.readContextFactory.Create())
+                {
+                    userVotes = readContext.Query<ForumPostVote>()
+                                           .Where(v => v.UserId == userId && postIdentifiers.Contains(v.PostId))
+                                           .ToDictionary(v => v.PostId);
+                }
 
                 posts.ForEach(post =>
                 {

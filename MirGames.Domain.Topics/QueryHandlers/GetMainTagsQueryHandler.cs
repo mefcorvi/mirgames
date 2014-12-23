@@ -9,6 +9,7 @@
 namespace MirGames.Domain.Topics.QueryHandlers
 {
     using System.Collections.Generic;
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
@@ -23,16 +24,38 @@ namespace MirGames.Domain.Topics.QueryHandlers
     /// </summary>
     internal sealed class GetMainTagsQueryHandler : QueryHandler<GetMainTagsQuery, TagViewModel>
     {
-        /// <inheritdoc />
-        protected override IEnumerable<TagViewModel> Execute(IReadContext readContext, GetMainTagsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
+        /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetMainTagsQueryHandler"/> class.
+        /// </summary>
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetMainTagsQueryHandler(IReadContextFactory readContextFactory)
         {
-            return this.ApplyPagination(this.GetTagsQuery(readContext, query), pagination).ToList();
+            Contract.Requires(readContextFactory != null);
+
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override int GetItemsCount(IReadContext readContext, GetMainTagsQuery query, ClaimsPrincipal principal)
+        protected override IEnumerable<TagViewModel> Execute(GetMainTagsQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
-            return this.GetTagsQuery(readContext, query).Count();
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return this.ApplyPagination(this.GetTagsQuery(readContext, query), pagination).ToList();
+            }
+        }
+
+        /// <inheritdoc />
+        protected override int GetItemsCount(GetMainTagsQuery query, ClaimsPrincipal principal)
+        {
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return this.GetTagsQuery(readContext, query).Count();
+            }
         }
 
         /// <summary>

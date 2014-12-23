@@ -9,6 +9,7 @@
 namespace MirGames.Domain.Users.QueryHandlers
 {
     using System.Collections.Generic;
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
@@ -24,37 +25,64 @@ namespace MirGames.Domain.Users.QueryHandlers
     /// </summary>
     internal sealed class GetOAuthProvidersQueryHandler : QueryHandler<GetOAuthProvidersQuery, OAuthProviderViewModel>
     {
-        /// <inheritdoc />
-        protected override int GetItemsCount(IReadContext readContext, GetOAuthProvidersQuery query, ClaimsPrincipal principal)
+        /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetOAuthProvidersQueryHandler"/> class.
+        /// </summary>
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetOAuthProvidersQueryHandler(IReadContextFactory readContextFactory)
         {
-            return readContext.Query<OAuthProvider>().Count();
+            Contract.Requires(readContextFactory != null);
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override IEnumerable<OAuthProviderViewModel> Execute(IReadContext readContext, GetOAuthProvidersQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
+        protected override int GetItemsCount(GetOAuthProvidersQuery query, ClaimsPrincipal principal)
         {
-            var providers = readContext
-                .Query<OAuthProvider>()
-                .OrderBy(p => p.Id)
-                .Select(
-                    p => new OAuthProviderViewModel
+            using (var readContext = this.readContextFactory.Create())
+            {
+                return readContext.Query<OAuthProvider>().Count();
+            }
+        }
+
+        /// <inheritdoc />
+        protected override IEnumerable<OAuthProviderViewModel> Execute(GetOAuthProvidersQuery query, ClaimsPrincipal principal, PaginationSettings pagination)
+        {
+            List<OAuthProviderViewModel> providers;
+            
+            using (var readContext = this.readContextFactory.Create())
+            {
+                providers = readContext
+                    .Query<OAuthProvider>()
+                    .OrderBy(p => p.Id)
+                    .Select(
+                        p => new OAuthProviderViewModel
                         {
                             DisplayName = p.DisplayName,
                             ProviderName = p.Name,
                             IsLinked = false,
                             ProviderId = p.Id
                         })
-                .ToList();
+                    .ToList();
+            }
 
             if (principal.GetUserId().HasValue)
             {
                 int userId = principal.GetUserId().GetValueOrDefault();
+                List<int> linkedProviders;
 
-                var linkedProviders = readContext
-                    .Query<OAuthToken>()
-                    .Where(t => t.UserId == userId)
-                    .Select(p => p.ProviderId)
-                    .ToList();
+                using (var readContext = this.readContextFactory.Create())
+                {
+                    linkedProviders = readContext
+                        .Query<OAuthToken>()
+                        .Where(t => t.UserId == userId)
+                        .Select(p => p.ProviderId)
+                        .ToList();
+                }
 
                 providers.ForEach(p => p.IsLinked = linkedProviders.Contains(p.ProviderId));
             }

@@ -33,11 +33,13 @@ namespace MirGames.Domain.Users.QueryHandlers
         /// <param name="queryProcessor">The query handler.</param>
         public GetAuthorQueryHandler(IQueryProcessor queryProcessor)
         {
+            Contract.Requires(queryProcessor != null);
+
             this.queryProcessor = queryProcessor;
         }
 
         /// <inheritdoc />
-        protected override AuthorViewModel Execute(IReadContext readContext, GetAuthorQuery query, ClaimsPrincipal principal)
+        protected override AuthorViewModel Execute(GetAuthorQuery query, ClaimsPrincipal principal)
         {
             Contract.Requires(query != null);
 

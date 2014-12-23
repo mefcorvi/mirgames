@@ -26,6 +26,8 @@ namespace MirGames.Domain.Notifications.CommandHandlers
     using MirGames.Infrastructure.Security;
 
     using MongoDB.Bson;
+    using MongoDB.Driver;
+    using MongoDB.Driver.Builders;
     using MongoDB.Driver.Linq;
 
     /// <summary>
@@ -76,7 +78,7 @@ namespace MirGames.Domain.Notifications.CommandHandlers
         {
             var collection = this.mongoDatabaseFactory.CreateDatabase().GetCollection<Notification>("notifications");
 
-            var notificationsQuery = collection.AsQueryable();
+            var notificationsQuery = collection.AsQueryable().Where(n => !n.IsRead);
 
             if (!string.IsNullOrEmpty(command.NotificationType))
             {
@@ -111,7 +113,8 @@ namespace MirGames.Domain.Notifications.CommandHandlers
                     Data = n.Data,
                     NotificationId = n.Id.ToString(),
                     NotificationType = this.notificationTypeResolver.GetNotificationType(n.NotificationTypeId),
-                    UserId = n.UserId
+                    UserId = n.UserId,
+                    IsRead = true
                 })
                 .ToArray();
 
@@ -119,7 +122,7 @@ namespace MirGames.Domain.Notifications.CommandHandlers
             {
                 var mongoQuery =
                     new MongoQueryProvider(collection).BuildMongoQuery((MongoQueryable<Notification>)notificationsQuery);
-                collection.Remove(mongoQuery);
+                collection.Update(mongoQuery, Update.Set("IsRead", new BsonBoolean(true)), UpdateFlags.Multi);
 
                 this.eventBus.Raise(new NotificationsRemovedEvent
                 {

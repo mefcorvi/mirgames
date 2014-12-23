@@ -25,9 +25,10 @@ module Core {
         public executeCommand(commandType: string, command: any): void {
             command.$_type = commandType;
 
-            var hubProxy = this.getProxy("CommandsHub");
+            this.ensureConnection();
 
-            this.start(connection => {
+            this.start(() => {
+                var hubProxy = this.getProxy("CommandsHub");
                 hubProxy.invoke('Execute', JSON.stringify(command));
             });
         }

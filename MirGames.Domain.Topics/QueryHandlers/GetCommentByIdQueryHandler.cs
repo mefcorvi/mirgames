@@ -44,25 +44,40 @@ namespace MirGames.Domain.Topics.QueryHandlers
         private readonly ITextProcessor textProcessor;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetCommentByIdQueryHandler" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="authorizationManager">The authorization manager.</param>
         /// <param name="textProcessor">The text processor.</param>
-        public GetCommentByIdQueryHandler(IQueryProcessor queryProcessor, IAuthorizationManager authorizationManager, ITextProcessor textProcessor)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetCommentByIdQueryHandler(
+            IQueryProcessor queryProcessor,
+            IAuthorizationManager authorizationManager,
+            ITextProcessor textProcessor,
+            IReadContextFactory readContextFactory)
         {
             this.queryProcessor = queryProcessor;
             this.authorizationManager = authorizationManager;
             this.textProcessor = textProcessor;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override CommentViewModel Execute(IReadContext readContext, GetCommentByIdQuery query, ClaimsPrincipal principal)
+        protected override CommentViewModel Execute(GetCommentByIdQuery query, ClaimsPrincipal principal)
         {
-            var comment = readContext
-                .Query<Comment>()
-                .Include(c => c.Topic)
-                .FirstOrDefault(c => c.CommentId == query.CommentId);
+            Comment comment;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                comment = readContext
+                    .Query<Comment>()
+                    .Include(c => c.Topic)
+                    .FirstOrDefault(c => c.CommentId == query.CommentId);
+            }
 
             if (comment == null)
             {

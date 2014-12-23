@@ -82,6 +82,11 @@ namespace MirGames
                 new { controller = "Users", action = "Settings" });
 
             routes.MapRoute(
+                "AccountFeed",
+                "feed",
+                new { controller = "Users", action = "Feed" });
+
+            routes.MapRoute(
                 "UsersItem",
                 "users/{userId}",
                 new { controller = "Users", action = "Profile" },

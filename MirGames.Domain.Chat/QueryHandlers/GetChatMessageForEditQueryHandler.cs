@@ -8,6 +8,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Chat.QueryHandlers
 {
+    using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
 
@@ -31,19 +32,33 @@ namespace MirGames.Domain.Chat.QueryHandlers
         private readonly IAuthorizationManager authorizationManager;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetChatMessageForEditQueryHandler" /> class.
         /// </summary>
         /// <param name="authorizationManager">The authorization manager.</param>
-        public GetChatMessageForEditQueryHandler(IAuthorizationManager authorizationManager)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetChatMessageForEditQueryHandler(IAuthorizationManager authorizationManager, IReadContextFactory readContextFactory)
         {
+            Contract.Requires(authorizationManager != null);
+            Contract.Requires(readContextFactory != null);
+
             this.authorizationManager = authorizationManager;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override ChatMessageForEditViewModel Execute(IReadContext readContext, GetChatMessageForEditQuery query, ClaimsPrincipal principal)
+        protected override ChatMessageForEditViewModel Execute(GetChatMessageForEditQuery query, ClaimsPrincipal principal)
         {
-            var message = readContext.Query<ChatMessage>().First(m => m.MessageId == query.MessageId);
-            
+            ChatMessage message;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                message = readContext.Query<ChatMessage>().First(m => m.MessageId == query.MessageId);
+            }
+
             if (message == null)
             {
                 throw new ItemNotFoundException("ChatMessage", query.MessageId);

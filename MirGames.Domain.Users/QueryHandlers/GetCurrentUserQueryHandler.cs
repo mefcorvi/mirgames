@@ -39,35 +39,53 @@ namespace MirGames.Domain.Users.QueryHandlers
         private readonly IAvatarProvider avatarProvider;
 
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetCurrentUserQueryHandler" /> class.
         /// </summary>
         /// <param name="userSettingHandlers">The user setting handlers.</param>
         /// <param name="avatarProvider">The avatar provider.</param>
-        public GetCurrentUserQueryHandler(IEnumerable<IUserSettingHandler> userSettingHandlers, IAvatarProvider avatarProvider)
+        /// <param name="readContextFactory">The read context factory.</param>
+        public GetCurrentUserQueryHandler(IEnumerable<IUserSettingHandler> userSettingHandlers, IAvatarProvider avatarProvider, IReadContextFactory readContextFactory)
         {
             Contract.Requires(userSettingHandlers != null);
             Contract.Requires(avatarProvider != null);
+            Contract.Requires(readContextFactory != null);
 
             this.userSettingHandlers = userSettingHandlers;
             this.avatarProvider = avatarProvider;
+            this.readContextFactory = readContextFactory;
         }
 
         /// <inheritdoc />
-        protected override CurrentUserViewModel Execute(IReadContext readContext, GetCurrentUserQuery query, ClaimsPrincipal principal)
+        protected override CurrentUserViewModel Execute(GetCurrentUserQuery query, ClaimsPrincipal principal)
         {
             var userId = principal.GetUserId().GetValueOrDefault();
-            var user = readContext.Query<User>().Where(u => u.Id == userId).Select(
-                u => new
-                    {
-                        u.AvatarUrl,
-                        u.Id,
-                        u.Login,
-                        u.Name,
-                        u.SettingsJson,
-                        u.Timezone,
-                        u.IsActivated,
-                        u.Mail
-                    }).FirstOrDefault();
+
+            UserInfo user;
+            using (var readContext = this.readContextFactory.Create())
+            {
+                user = readContext
+                    .Query<User>()
+                    .Where(u => u.Id == userId)
+                    .Select(
+                        u =>
+                        new UserInfo
+                        {
+                            AvatarUrl = u.AvatarUrl,
+                            Id = u.Id,
+                            Login = u.Login,
+                            Name = u.Name,
+                            SettingsJson = u.SettingsJson,
+                            Timezone = u.Timezone,
+                            IsActivated = u.IsActivated,
+                            Mail = u.Mail
+                        })
+                    .FirstOrDefault();
+            }
 
             if (user == null)
             {
@@ -95,6 +113,52 @@ namespace MirGames.Domain.Users.QueryHandlers
                     IsActivated = user.IsActivated,
                     TimeZone = user.Timezone
                 };
+        }
+
+        /// <summary>
+        /// The user info.
+        /// </summary>
+        private sealed class UserInfo
+        {
+            /// <summary>
+            /// Gets or sets the avatar URL.
+            /// </summary>
+            public string AvatarUrl { get; set; }
+
+            /// <summary>
+            /// Gets or sets the identifier.
+            /// </summary>
+            public int Id { get; set; }
+
+            /// <summary>
+            /// Gets or sets the login.
+            /// </summary>
+            public string Login { get; set; }
+
+            /// <summary>
+            /// Gets or sets the name.
+            /// </summary>
+            public string Name { get; set; }
+
+            /// <summary>
+            /// Gets or sets the settings json.
+            /// </summary>
+            public string SettingsJson { get; set; }
+
+            /// <summary>
+            /// Gets or sets the timezone.
+            /// </summary>
+            public string Timezone { get; set; }
+
+            /// <summary>
+            /// Gets or sets a value indicating whether this instance is activated.
+            /// </summary>
+            public bool IsActivated { get; set; }
+
+            /// <summary>
+            /// Gets or sets the mail.
+            /// </summary>
+            public string Mail { get; set; }
         }
     }
 }

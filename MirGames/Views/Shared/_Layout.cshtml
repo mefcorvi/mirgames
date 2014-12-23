@@ -38,7 +38,7 @@
             }
         </script>
     </head>
-    <body ng-controller="@this.PageScriptController" @Html.Css(string.Join(" ", this.CssClasses)).Add("nav-hidden", !this.IsSectionDefined("Nav"))>
+    <body ng-controller="@this.PageScriptController" @Html.Css(string.Join(" ", this.CssClasses))>
         <div class="ajax-request" ng-class="{ 'ajax-request': 1, 'ajax-request-executing': requestsExecutingCount > 0 }" ng-controller="MirGames.RequestNotificationController">
             <div class="ajax-request-notification">&nbsp;</div>
         </div>

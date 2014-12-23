@@ -28,23 +28,23 @@ namespace MirGames.Infrastructure.Queries
         }
 
         /// <inheritdoc />
-        IEnumerable<TResult> IQueryHandler<TResult>.Execute(IReadContext readContext, Query<TResult> query, ClaimsPrincipal principal, PaginationSettings pagination)
+        IEnumerable<TResult> IQueryHandler<TResult>.Execute(Query<TResult> query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
             Contract.Requires(query != null);
             Contract.Requires(principal != null);
-            return new[] { this.Execute(readContext, (T)query, principal) };
+            return new[] { this.Execute((T)query, principal) };
         }
 
         /// <inheritdoc />
-        IEnumerable IQueryHandler.Execute(IReadContext readContext, Query query, ClaimsPrincipal principal, PaginationSettings pagination)
+        IEnumerable IQueryHandler.Execute(Query query, ClaimsPrincipal principal, PaginationSettings pagination)
         {
             Contract.Requires(query != null);
             Contract.Requires(principal != null);
-            return new[] { this.Execute(readContext, (T)query, principal) };
+            return new[] { this.Execute((T)query, principal) };
         }
 
         /// <inheritdoc />
-        int IQueryHandler.GetItemsCount(IReadContext readContext, Query query, ClaimsPrincipal principal)
+        int IQueryHandler.GetItemsCount(Query query, ClaimsPrincipal principal)
         {
             return 1;
         }
@@ -52,10 +52,9 @@ namespace MirGames.Infrastructure.Queries
         /// <summary>
         /// Executes the specified query.
         /// </summary>
-        /// <param name="readContext">The read context.</param>
         /// <param name="query">The query.</param>
         /// <param name="principal">The principal.</param>
         /// <returns>The result.</returns>
-        protected abstract TResult Execute(IReadContext readContext, T query, ClaimsPrincipal principal);
+        protected abstract TResult Execute(T query, ClaimsPrincipal principal);
     }
 }
