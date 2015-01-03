@@ -9,14 +9,39 @@
 
 namespace MirGames.Domain.Notifications.ViewModels
 {
+    using System;
+
     /// <summary>
     /// The notification data.
     /// </summary>
-    public abstract class NotificationData
+    public abstract class NotificationData : ICloneable
     {
+        /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
+        public int UserId { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is read.
+        /// </summary>
+        public bool IsRead { get; set; }
+
+        /// <summary>
+        /// Gets or sets the notification date.
+        /// </summary>
+        public DateTime NotificationDate { get; set; }
+
         /// <summary>
         /// Gets the type of the notification.
         /// </summary>
         public abstract string NotificationType { get; }
+
+        /// <summary>
+        /// Gets or sets the event type identifier.
+        /// </summary>
+        public int NotificationTypeId { get; set; }
+
+        /// <inheritdoc />
+        public abstract object Clone();
     }
 }

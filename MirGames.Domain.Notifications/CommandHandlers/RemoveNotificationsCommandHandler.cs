@@ -78,12 +78,12 @@ namespace MirGames.Domain.Notifications.CommandHandlers
         {
             var collection = this.mongoDatabaseFactory.CreateDatabase().GetCollection<Notification>("notifications");
 
-            var notificationsQuery = collection.AsQueryable().Where(n => !n.IsRead);
+            var notificationsQuery = collection.AsQueryable().Where(n => !n.Data.IsRead);
 
             if (!string.IsNullOrEmpty(command.NotificationType))
             {
                 var notificationTypeId = this.notificationTypeResolver.GetIdentifier(command.NotificationType);
-                notificationsQuery = notificationsQuery.Where(n => n.NotificationTypeId == notificationTypeId);
+                notificationsQuery = notificationsQuery.Where(n => n.Data.NotificationTypeId == notificationTypeId);
             }
 
             if (command.NotificationIdentifiers != null && command.NotificationIdentifiers.Length > 0)
@@ -94,7 +94,7 @@ namespace MirGames.Domain.Notifications.CommandHandlers
 
             if (command.UserIdentifiers != null)
             {
-                notificationsQuery = notificationsQuery.Where(n => command.UserIdentifiers.Contains(n.UserId));
+                notificationsQuery = notificationsQuery.Where(n => command.UserIdentifiers.Contains(n.Data.UserId));
             }
 
             if (command.Filter != null)
@@ -110,11 +110,7 @@ namespace MirGames.Domain.Notifications.CommandHandlers
                 .ToArray()
                 .Select(n => new NotificationViewModel
                 {
-                    Data = n.Data,
-                    NotificationId = n.Id.ToString(),
-                    NotificationType = this.notificationTypeResolver.GetNotificationType(n.NotificationTypeId),
-                    UserId = n.UserId,
-                    IsRead = true
+                    Data = n.Data
                 })
                 .ToArray();
 
@@ -122,7 +118,7 @@ namespace MirGames.Domain.Notifications.CommandHandlers
             {
                 var mongoQuery =
                     new MongoQueryProvider(collection).BuildMongoQuery((MongoQueryable<Notification>)notificationsQuery);
-                collection.Update(mongoQuery, Update.Set("IsRead", new BsonBoolean(true)), UpdateFlags.Multi);
+                collection.Update(mongoQuery, Update.Set("Data.IsRead", new BsonBoolean(true)), UpdateFlags.Multi);
 
                 this.eventBus.Raise(new NotificationsRemovedEvent
                 {

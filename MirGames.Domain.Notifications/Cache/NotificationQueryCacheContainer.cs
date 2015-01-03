@@ -56,9 +56,10 @@ namespace MirGames.Domain.Notifications.Cache
             PaginationSettings pagination)
         {
             return string.Format(
-                "{0}_{1}_{2}",
+                "{0}_{1}_{2}_{3}",
                 pagination != null ? pagination.GetHashCode() : 0,
                 query.NotificationType,
+                query.IsRead,
                 query.Filter);
         }
 
@@ -70,13 +71,13 @@ namespace MirGames.Domain.Notifications.Cache
             var notificationsAddedEvent = @event as NotificationsAddedEvent;
             if (notificationsAddedEvent != null)
             {
-                users = notificationsAddedEvent.Notifications.Select(n => n.UserId).ToArray();
+                users = notificationsAddedEvent.Notifications.Select(n => n.Data.UserId).ToArray();
             }
 
             var notificationsRemovedEvent = @event as NotificationsRemovedEvent;
             if (notificationsRemovedEvent != null)
             {
-                users = notificationsRemovedEvent.Notifications.Select(n => n.UserId).ToArray();
+                users = notificationsRemovedEvent.Notifications.Select(n => n.Data.UserId).ToArray();
             }
 
             if (users != null)

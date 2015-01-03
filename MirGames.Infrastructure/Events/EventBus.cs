@@ -140,7 +140,10 @@ namespace MirGames.Infrastructure.Events
                                         EventLogType.Error,
                                         "EventBus",
                                         string.Format("Exception occured during processing of event {0}", @event.EventType),
-                                        e);
+                                        new 
+                                        {
+                                            Exception = e
+                                        });
                                 }
                             }
                         }

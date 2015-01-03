@@ -58,7 +58,7 @@ namespace MirGames.Domain.Topics.EventListeners
                 this.commandProcessor.Execute(new NotifyUsersCommand
                 {
                     UserIdentifiers = userIdentifiers.ToArray(),
-                    Data = new NewTopicCommentNotification
+                    NotificationTemplate = new NewTopicCommentNotification
                     {
                         TopicId = @event.TopicId,
                         CommentId = @event.CommentId

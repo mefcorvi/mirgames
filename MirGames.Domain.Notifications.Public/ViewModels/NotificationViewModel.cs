@@ -15,26 +15,6 @@ namespace MirGames.Domain.Notifications.ViewModels
     public sealed class NotificationViewModel
     {
         /// <summary>
-        /// Gets or sets the notification identifier.
-        /// </summary>
-        public string NotificationId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the type of the notification.
-        /// </summary>
-        public string NotificationType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user identifier.
-        /// </summary>
-        public int UserId { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is read.
-        /// </summary>
-        public bool IsRead { get; set; }
-
-        /// <summary>
         /// Gets or sets the data.
         /// </summary>
         public NotificationData Data { get; set; } 

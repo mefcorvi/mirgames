@@ -73,11 +73,7 @@ namespace MirGames.Domain.Notifications.QueryHandlers
                        .ToList()
                        .Select(n => new NotificationViewModel
                        {
-                           NotificationType = n.Data.NotificationType,
-                           Data = n.Data,
-                           NotificationId = n.Id.ToString(),
-                           UserId = n.UserId,
-                           IsRead = n.IsRead
+                           Data = n.Data
                        })
                        .ToList();
         }
@@ -95,17 +91,17 @@ namespace MirGames.Domain.Notifications.QueryHandlers
             var notificationsQuery =
                 this.mongoDatabaseFactory.CreateDatabase().GetCollection<Notification>("notifications").AsQueryable();
 
-            notificationsQuery = notificationsQuery.Where(n => n.UserId == userId);
+            notificationsQuery = notificationsQuery.Where(n => n.Data.UserId == userId);
 
             if (query.NotificationType != null)
             {
                 var notificationTypeId = this.notificationTypeResolver.GetIdentifier(query.NotificationType);
-                notificationsQuery = notificationsQuery.Where(n => n.NotificationTypeId == notificationTypeId);
+                notificationsQuery = notificationsQuery.Where(n => n.Data.NotificationTypeId == notificationTypeId);
             }
 
             if (query.IsRead.HasValue)
             {
-                notificationsQuery = notificationsQuery.Where(n => n.IsRead == query.IsRead.Value);
+                notificationsQuery = notificationsQuery.Where(n => n.Data.IsRead == query.IsRead.Value);
             }
 
             if (query.Filter != null)
@@ -117,7 +113,7 @@ namespace MirGames.Domain.Notifications.QueryHandlers
                 notificationsQuery = notificationsQuery.Where(convertedExpression);
             }
 
-            return notificationsQuery;
+            return notificationsQuery.OrderByDescending(n => n.Data.NotificationDate);
         }
     }
 }

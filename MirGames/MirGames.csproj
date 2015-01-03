@@ -301,6 +301,7 @@
     <Compile Include="GitController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\NotificationsRemovedEventListener.cs" />
     <Compile Include="Infrastructure\HttpRequestMessageExtensions.cs" />
     <Compile Include="Infrastructure\T4MvcCachedExtensions.cs" />
     <Compile Include="Infrastructure\UserEntityExtensions.cs" />
@@ -469,6 +470,7 @@
     <Content Include="Content\ui\selectize.less" />
     <Content Include="Content\variables-light.less" />
     <Content Include="Content\variables-dark.less" />
+    <Content Include="Content\users\feed.less" />
     <None Include="Scripts\BasePage.ts" />
     <None Include="Scripts\Core\Application.ts" />
     <None Include="Scripts\Account\LoginFormController.ts" />
@@ -751,6 +753,11 @@
     <Content Include="Views\Pages\Markdown.cshtml" />
     <Content Include="Views\Pages\Api.cshtml" />
     <Content Include="Views\Users\Feed.cshtml" />
+    <Content Include="Views\Users\Feed\Forum.NewAnswer.cshtml" />
+    <Content Include="Views\Users\Feed\Forum.NewTopic.cshtml" />
+    <Content Include="Views\Users\Feed\Topics.NewBlogTopic.cshtml" />
+    <Content Include="Views\Users\Feed\Topics.NewTopicComment.cshtml" />
+    <Content Include="Views\Users\Feed\Chat.UserMentioned.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -163,6 +163,7 @@
     <Compile Include="Queries\IQueryCacheContainer.cs" />
     <Compile Include="Queries\IQueryHandlerDecorator.cs" />
     <Compile Include="Queries\QueryCacheContainer.cs" />
+    <Compile Include="QueryProcessorExtensions.cs" />
     <Compile Include="QueryHandlerDecorators\CacheQueryHandlerDecorator.cs" />
     <Compile Include="Repositories\DictionaryEntityResolver.cs" />
     <Compile Include="Repositories\IDictionaryEntityResolver.cs" />

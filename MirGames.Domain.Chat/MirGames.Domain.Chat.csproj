@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClaimsProviders\ChatClaimsProvider.cs" />
+    <Compile Include="EventListeners\NewChatMessageEventListener.cs" />
     <Compile Include="CommandHandlers\UpdateNewMessageCommandHandler.cs" />
     <Compile Include="CommandHandlers\PostNewMessageCommandHandler.cs" />
     <Compile Include="Entities\ChatMessage.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="QueryHandlers\GetChatMessageForEditQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetChatMessageQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetChatMessagesQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetChatUserMentionedNotificationDetailsQueryHandler.cs" />
     <Compile Include="Services\ForumPostUploadProcessor.cs" />
     <Compile Include="UserSettings\UseWebSocketSetting.cs" />
     <Compile Include="UserSettings\UseEnterToSendChatMessageSetting.cs" />
@@ -86,6 +88,10 @@
     <ProjectReference Include="..\MirGames.Domain.Chat.Public\MirGames.Domain.Chat.Public.csproj">
       <Project>{f8388307-7114-4fa3-9db2-412b3e6cd0aa}</Project>
       <Name>MirGames.Domain.Chat.Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MirGames.Domain.Notifications.Public\MirGames.Domain.Notifications.Public.csproj">
+      <Project>{24821dd1-09a0-48cd-903c-b24d4cc41636}</Project>
+      <Name>MirGames.Domain.Notifications.Public</Name>
     </ProjectReference>
     <ProjectReference Include="..\MirGames.Domain.Users.Public\MirGames.Domain.Users.Public.csproj">
       <Project>{630bd3d7-d7c8-40e0-bc01-2cf139c16051}</Project>

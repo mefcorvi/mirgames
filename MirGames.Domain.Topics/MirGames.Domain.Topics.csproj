@@ -102,6 +102,8 @@
     <Compile Include="CommandHandlers\RemoveBlogCommandHandler.cs" />
     <Compile Include="CommandHandlers\SaveTopicCommandHandler.cs" />
     <Compile Include="QueryHandlers\GetBlogByEntityQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Notifications\GetNewTopicCommentNotificationDetailsQueryHandler.cs" />
+    <Compile Include="QueryHandlers\Notifications\GetNewBlogTopicNotificationDetailsQueryHandler.cs" />
     <Compile Include="TopicsDomainModule.cs" />
     <Compile Include="Entities\Blog.cs" />
     <Compile Include="Entities\Comment.cs" />

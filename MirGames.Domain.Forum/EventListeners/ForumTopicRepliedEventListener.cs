@@ -55,7 +55,7 @@ namespace MirGames.Domain.Forum.EventListeners
 
             this.commandProcessor.Execute(new NotifyUsersCommand
             {
-                Data = new NewForumAnswerNotification { TopicId = @event.TopicId, PostId = @event.PostId, ForumId = @event.ForumId },
+                NotificationTemplate = new NewForumAnswerNotification { TopicId = @event.TopicId, PostId = @event.PostId, ForumId = @event.ForumId },
                 UserIdentifiers = users.ToArray()
             });
 

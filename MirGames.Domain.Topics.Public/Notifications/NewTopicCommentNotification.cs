@@ -28,5 +28,19 @@ namespace MirGames.Domain.Topics.Notifications
         {
             get { return "Topics.NewTopicComment"; }
         }
+
+        /// <inheritdoc />
+        public override object Clone()
+        {
+            return new NewTopicCommentNotification
+            {
+                CommentId = this.CommentId,
+                IsRead = this.IsRead,
+                NotificationDate = this.NotificationDate,
+                NotificationTypeId = this.NotificationTypeId,
+                TopicId = this.TopicId,
+                UserId = this.UserId
+            };
+        }
     }
 }

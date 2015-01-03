@@ -23,8 +23,8 @@ namespace MirGames.Domain.Notifications.Commands
         public int[] UserIdentifiers { get; set; }
 
         /// <summary>
-        /// Gets or sets the data.
+        /// Gets or sets the notification template.
         /// </summary>
-        public NotificationData Data { get; set; }
+        public NotificationData NotificationTemplate { get; set; }
     }
 }

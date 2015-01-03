@@ -54,7 +54,7 @@
     <Compile Include="Commands\SetUserAvatarCommand.cs" />
     <Compile Include="Commands\SignUpCommand.cs" />
     <Compile Include="Commands\SignUpResult.cs" />
-    <Compile Include="Commands\TransformMentionsCommand.cs" />
+    <Compile Include="Queries\GetMentionsFromTextQuery.cs" />
     <Compile Include="Events\OnlineUserTagAddedEvent.cs" />
     <Compile Include="Events\OnlineUserTagRemovedEvent.cs" />
     <Compile Include="Events\PasswordRestoredEvent.cs" />
@@ -77,6 +77,7 @@
     <Compile Include="Queries\GetUsersQuery.cs" />
     <Compile Include="Queries\GetUserWallRecordsQuery.cs" />
     <Compile Include="Queries\GetWallRecordByIdQuery.cs" />
+    <Compile Include="ViewModels\MentionsInTextViewModel.cs" />
     <Compile Include="ViewModels\OAuthProviderViewModel.cs" />
     <Compile Include="Queries\ResolveAuthorsQuery.cs" />
     <Compile Include="Services\IUserSettingHandler.cs" />

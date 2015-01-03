@@ -1,0 +1,18 @@
+﻿@model MirGames.Domain.Forum.Notifications.NewForumAnswerNotificationDetailsViewModel
+
+<article @Html.Css("forum-new-answer")>
+    <div class="author-avatar">
+        <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="avatar-link"><img src="@Model.Author.AvatarUrl" class="avatar" /></a>
+    </div>
+    <div class="micro-message-content">
+        <div class="micro-message-author">
+            <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login"><span>@Model.Author.Login</span></a>
+            ответил в топике <a href="@Url.Action(MVC.Forum.Forum.Topic(Model.Forum.Alias, Model.TopicId))">"@Model.TopicTitle"</a>
+            форума <a href="@Url.ActionCached(MVC.Forum.Forum.Topics(Model.Forum.Alias))">"@Model.Forum.Title"</a>
+        </div>
+        <div class="text">@Html.Raw(Model.PostText)</div>
+    </div>
+    <footer>
+        <span class="creation-date relative" datetime="@Model.NotificationDate.UserDate().ToString("O")">@Html.RelativeDate(Model.NotificationDate)</span>
+    </footer>
+</article>

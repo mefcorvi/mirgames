@@ -1,16 +1,16 @@
-﻿@model System.Collections.Generic.IEnumerable<MirGames.Domain.Notifications.ViewModels.NotificationViewModel>
+﻿@model IEnumerable<MirGames.Domain.Notifications.ViewModels.NotificationDetailsViewModel>
 
 @{
     ViewBag.Title = "Лента";
     AddPageCssClass("notifications-page");
 }
 
-<h2>Notifications</h2>
+<h2>Лента</h2>
+<div class="notifications">
     @foreach (var notification in Model)
     {
-        <div>
-            @notification.NotificationType
-            @notification.NotificationId
-            @notification.IsRead
+        <div @Html.Css("notification-item").Add("read", notification.IsRead)>
+            @Html.Partial("Feed/" + notification.NotificationType, notification)
         </div>
     }
+</div>

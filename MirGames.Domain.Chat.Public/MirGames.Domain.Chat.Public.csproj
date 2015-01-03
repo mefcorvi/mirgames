@@ -38,6 +38,8 @@
     <Compile Include="Commands\UpdateChatMessageCommand.cs" />
     <Compile Include="Events\ChatMessageUpdatedEvent.cs" />
     <Compile Include="Events\NewChatMessageEvent.cs" />
+    <Compile Include="Notifications\ChatMentionNotification.cs" />
+    <Compile Include="Notifications\ChatMentionNotificationDetailsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetChatMessageForEditQuery.cs" />
     <Compile Include="Queries\GetChatMessageQuery.cs" />
@@ -47,6 +49,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\MirGames.Domain.Notifications.Public\MirGames.Domain.Notifications.Public.csproj">
+      <Project>{24821dd1-09a0-48cd-903c-b24d4cc41636}</Project>
+      <Name>MirGames.Domain.Notifications.Public</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MirGames.Domain.Users.Public\MirGames.Domain.Users.Public.csproj">
       <Project>{630bd3d7-d7c8-40e0-bc01-2cf139c16051}</Project>
       <Name>MirGames.Domain.Users.Public</Name>

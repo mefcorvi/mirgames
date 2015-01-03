@@ -28,26 +28,6 @@ namespace MirGames.Domain.Notifications.Entities
         public ObjectId Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the user identifier.
-        /// </summary>
-        public int UserId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the created date.
-        /// </summary>
-        public DateTime CreatedDate { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is read.
-        /// </summary>
-        public bool IsRead { get; set; }
-
-        /// <summary>
-        /// Gets or sets the event type identifier.
-        /// </summary>
-        public int NotificationTypeId { get; set; }
-
-        /// <summary>
         /// Gets or sets the data.
         /// </summary>
         public NotificationData Data { get; set; }

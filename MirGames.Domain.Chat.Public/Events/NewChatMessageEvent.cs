@@ -8,6 +8,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Chat.Events
 {
+    using System.Collections.Generic;
+
+    using MirGames.Domain.Users.ViewModels;
     using MirGames.Infrastructure.Events;
 
     /// <summary>
@@ -24,6 +27,11 @@ namespace MirGames.Domain.Chat.Events
         /// Gets or sets the author unique identifier.
         /// </summary>
         public int AuthorId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the mentions.
+        /// </summary>
+        public IEnumerable<AuthorViewModel> Mentions { get; set; }
 
         /// <summary>
         /// Gets or sets the message.

@@ -9,6 +9,7 @@
 namespace MirGames.Infrastructure
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     using MirGames.Infrastructure.Queries;
 
@@ -17,15 +18,6 @@ namespace MirGames.Infrastructure
     /// </summary>
     public interface IQueryProcessor
     {
-        /// <summary>
-        /// Processes the specified query.
-        /// </summary>
-        /// <typeparam name="T">Type of item.</typeparam>
-        /// <param name="query">The query.</param>
-        /// <param name="pagination">The pagination.</param>
-        /// <returns>A set of items.</returns>
-        IEnumerable<T> Process<T>(Query<T> query, PaginationSettings pagination = null);
-
         /// <summary>
         /// Gets the items count.
         /// </summary>
@@ -36,17 +28,19 @@ namespace MirGames.Infrastructure
         /// <summary>
         /// Processes the specified query.
         /// </summary>
-        /// <typeparam name="T">Type of item.</typeparam>
-        /// <param name="query">The query.</param>
-        /// <returns>An item.</returns>
-        T Process<T>(SingleItemQuery<T> query);
-
-        /// <summary>
-        /// Processes the specified query.
-        /// </summary>
+        /// <typeparam name="T">Type of the result item.</typeparam>
         /// <param name="query">The query.</param>
         /// <param name="pagination">The pagination.</param>
         /// <returns>The query result.</returns>
-        IEnumerable<object> Process(Query query, PaginationSettings pagination);
+        IEnumerable<T> Process<T>(Query query, PaginationSettings pagination = null);
+
+        /// <summary>
+        /// Processes the query asynchronously.
+        /// </summary>
+        /// <typeparam name="T">Type of the item.</typeparam>
+        /// <param name="query">The query.</param>
+        /// <param name="pagination">The pagination.</param>
+        /// <returns>The query result.</returns>
+        Task<ICollection<T>> ProcessAsync<T>(Query query, PaginationSettings pagination = null);
     }
 }

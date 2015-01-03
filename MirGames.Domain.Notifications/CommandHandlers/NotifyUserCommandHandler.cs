@@ -10,6 +10,7 @@
 namespace MirGames.Domain.Notifications.CommandHandlers
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security.Claims;
@@ -69,21 +70,36 @@ namespace MirGames.Domain.Notifications.CommandHandlers
             ClaimsPrincipal principal,
             IAuthorizationManager authorizationManager)
         {
-            var eventTypeId = this.notificationTypeResolver.GetIdentifier(command.Data.NotificationType);
+            var eventTypeId = this.notificationTypeResolver.GetIdentifier(command.NotificationTemplate.NotificationType);
 
-            var notifications = command.UserIdentifiers.Select(userId => new Notification
+            var notificationData = command.NotificationTemplate;
+            notificationData.NotificationDate = DateTime.UtcNow;
+            notificationData.NotificationTypeId = eventTypeId;
+            notificationData.IsRead = false;
+
+            var notifications = new List<Notification>(command.UserIdentifiers.Length);
+
+            foreach (var userId in command.UserIdentifiers)
             {
-                CreatedDate = DateTime.UtcNow,
-                NotificationTypeId = eventTypeId,
-                UserId = userId,
-                Data = command.Data
-            }).ToArray();
+                var userNotification = (NotificationData)notificationData.Clone();
+                userNotification.UserId = userId;
+                notifications.Add(new Notification
+                {
+                    Data = userNotification
+                });
+            }
+
+            if (!notifications.Any())
+            {
+                return;
+            }
 
             var notificationsCollection = this.mongoDatabaseFactory.CreateDatabase().GetCollection<Notification>("notifications");
-            notificationsCollection.CreateIndex("EventTypeId");
-            notificationsCollection.CreateIndex("UserId");
             notificationsCollection.CreateIndex("Data._t");
-            notificationsCollection.CreateIndex("IsRead");
+            notificationsCollection.CreateIndex("Data.NotificationTypeId");
+            notificationsCollection.CreateIndex("Data.UserId");
+            notificationsCollection.CreateIndex("Data.IsRead");
+            notificationsCollection.CreateIndex("Data.NotificationDate");
             notificationsCollection.InsertBatch(notifications);
 
             this.eventBus.Raise(new NotificationsAddedEvent
@@ -91,10 +107,6 @@ namespace MirGames.Domain.Notifications.CommandHandlers
                 Notifications = notifications.Select(n => new NotificationViewModel
                 {
                     Data = n.Data,
-                    NotificationType = command.Data.NotificationType,
-                    NotificationId = n.Id.ToString(),
-                    UserId = n.UserId,
-                    IsRead = n.IsRead
                 }).ToList()
             });
         }

@@ -18,7 +18,6 @@ namespace MirGames.Domain.Chat.CommandHandlers
     using MirGames.Domain.Chat.Entities;
     using MirGames.Domain.Chat.Events;
     using MirGames.Domain.Security;
-    using MirGames.Domain.Users.Commands;
     using MirGames.Domain.Users.Queries;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Commands;
@@ -57,7 +56,11 @@ namespace MirGames.Domain.Chat.CommandHandlers
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="commandProcessor">The command processor.</param>
         /// <param name="eventBus">The event bus.</param>
-        public PostNewMessageCommandHandler(IWriteContextFactory writeContextFactory, IQueryProcessor queryProcessor, ICommandProcessor commandProcessor, IEventBus eventBus)
+        public PostNewMessageCommandHandler(
+            IWriteContextFactory writeContextFactory,
+            IQueryProcessor queryProcessor,
+            ICommandProcessor commandProcessor,
+            IEventBus eventBus)
         {
             this.writeContextFactory = writeContextFactory;
             this.queryProcessor = queryProcessor;
@@ -80,7 +83,7 @@ namespace MirGames.Domain.Chat.CommandHandlers
                 throw new ValidationException("Message have to be specified.");
             }
 
-            command.Message = this.commandProcessor.Execute(new TransformMentionsCommand
+            var mentionsInText = this.queryProcessor.Process(new GetMentionsFromTextQuery
             {
                 Text = command.Message
             });
@@ -90,7 +93,7 @@ namespace MirGames.Domain.Chat.CommandHandlers
                 AuthorId = userId,
                 AuthorIp = principal.GetHostAddress(),
                 AuthorLogin = author.Login,
-                Message = command.Message,
+                Message = mentionsInText.TransformedText,
                 CreatedDate = DateTime.UtcNow
             };
 
@@ -126,7 +129,8 @@ namespace MirGames.Domain.Chat.CommandHandlers
                     {
                         AuthorId = userId,
                         Message = message.Message,
-                        MessageId = message.MessageId
+                        MessageId = message.MessageId,
+                        Mentions = mentionsInText.Users
                     });
 
             return message.MessageId;

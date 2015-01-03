@@ -10,6 +10,7 @@ namespace MirGames.Controllers
 {
     using System.Collections.Generic;
     using System.Diagnostics.Contracts;
+    using System.Linq;
     using System.Web.Mvc;
 
     using MirGames.Domain.Forum.Queries;
@@ -256,7 +257,16 @@ namespace MirGames.Controllers
         public virtual ActionResult Feed()
         {
             var notifications = this.QueryProcessor.Process(new GetNotificationsQuery());
-            return this.View(notifications);
+
+            var result = this.QueryProcessor
+                             .Process(new GetNotificationDetailsQuery
+                             {
+                                 Notifications = notifications.Select(n => n.Data).ToArray()
+                             })
+                             .OrderByDescending(n => n.NotificationDate)
+                             .ToList();
+
+            return this.View(result);
         }
 
         /// <summary>

@@ -10,11 +10,11 @@ namespace MirGames.Infrastructure.Queries
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Diagnostics.Contracts;
     using System.Linq;
     using System.Security;
     using System.Security.Claims;
+    using System.Threading.Tasks;
 
     using MirGames.Infrastructure.Exception;
 
@@ -26,7 +26,7 @@ namespace MirGames.Infrastructure.Queries
         /// <summary>
         /// The command handlers.
         /// </summary>
-        private readonly Lazy<Dictionary<Type, IQueryHandler>> queryHandlers;
+        private readonly Lazy<ILookup<Type, IQueryHandler>> queryHandlers;
 
         /// <summary>
         /// The query handler decorators.
@@ -54,39 +54,9 @@ namespace MirGames.Infrastructure.Queries
             Contract.Requires(queryHandlerDecorators != null);
 
             this.queryHandlers =
-                new Lazy<Dictionary<Type, IQueryHandler>>(() => queryHandlers.Value.ToDictionary(c => c.QueryType));
+                new Lazy<ILookup<Type, IQueryHandler>>(() => queryHandlers.Value.ToLookup(k => k.QueryType));
             this.queryHandlerDecorators = queryHandlerDecorators.OrderBy(q => q.Order).ToList();
             this.claimsPrincipalProvider = claimsPrincipalProvider;
-        }
-
-        /// <inheritdoc />
-        public IEnumerable<T> ProcessAsync<T>(Query<T> query, PaginationSettings pagination = null)
-        {
-            Contract.Requires(query != null);
-
-            return this.CallQueryHandler(
-                query,
-                (handler, principal) => handler.Execute(query, principal, pagination).Cast<T>().EnsureCollection());
-        }
-
-        /// <inheritdoc />
-        public IEnumerable<T> Process<T>(Query<T> query, PaginationSettings pagination = null)
-        {
-            Contract.Requires(query != null);
-
-            return this.CallQueryHandler(
-                query,
-                (handler, principal) => handler.Execute(query, principal, pagination).Cast<T>().EnsureCollection());
-        }
-
-        /// <inheritdoc />
-        public IEnumerable<object> Process(Query query, PaginationSettings pagination)
-        {
-            Contract.Requires(query != null);
-
-            return this.CallQueryHandler(
-                query,
-                (handler, principal) => handler.Execute(query, principal, pagination).Cast<object>().EnsureCollection());
         }
 
         /// <inheritdoc />
@@ -94,58 +64,87 @@ namespace MirGames.Infrastructure.Queries
         {
             Contract.Requires(query != null);
 
-            return this.CallQueryHandler(
-                query,
-                (handler, principal) => handler.GetItemsCount(query, principal));
+            var claimsPrincipal = this.GetPrincipal();
+            var registeredQueryHandlers = this.GetQueryHandlers(query);
+
+            try
+            {
+                return registeredQueryHandlers.Sum(h => h.GetItemsCount(query, claimsPrincipal));
+            }
+            catch (SecurityException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new QueryProcessingFailedException(query, e);
+            }
         }
 
         /// <inheritdoc />
-        public T Process<T>(SingleItemQuery<T> query)
+        public IEnumerable<T> Process<T>(Query query, PaginationSettings pagination = null)
         {
             Contract.Requires(query != null);
 
-            return this.CallQueryHandler(
-                query,
-                (handler, principal) => handler.Execute(query, principal, null).Cast<T>().SingleOrDefault());
+            var claimsPrincipal = this.GetPrincipal();
+            var registeredQueryHandlers = this.GetQueryHandlers(query);
+
+            try
+            {
+                return registeredQueryHandlers.SelectMany(h => (IEnumerable<T>)h.Execute(query, claimsPrincipal, pagination));
+            }
+            catch (SecurityException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new QueryProcessingFailedException(query, e);
+            }
+        }
+
+        /// <inheritdoc />
+        public Task<ICollection<T>> ProcessAsync<T>(Query query, PaginationSettings pagination = null)
+        {
+            Contract.Requires(query != null);
+
+            return Task.Factory.StartNew(() => (ICollection<T>)this.Process<T>(query, pagination).ToList());
         }
 
         /// <summary>
-        /// Invokes the query.
+        /// Gets the principal.
         /// </summary>
-        /// <typeparam name="T">The type of result.</typeparam>
-        /// <param name="query">The query.</param>
-        /// <param name="queryAction">The query action.</param>
-        /// <returns>
-        /// The result.
-        /// </returns>
-        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1126:PrefixCallsCorrectly", Justification = "Reviewed. Suppression is OK here.")]
-        private T CallQueryHandler<T>(Query query, Func<IQueryHandler, ClaimsPrincipal, T> queryAction)
+        /// <returns>The principal.</returns>
+        private ClaimsPrincipal GetPrincipal()
         {
-            Contract.Requires(query != null);
-            Contract.Requires(queryAction != null);
+            return this.claimsPrincipalProvider.Invoke();
+        }
 
-            var claimsPrincipal = this.claimsPrincipalProvider.Invoke();
+        /// <summary>
+        /// Decorates the query handler.
+        /// </summary>
+        /// <param name="queryHandler">The query handler.</param>
+        /// <returns>The decorated query handler.</returns>
+        private IQueryHandler DecorateQueryHandler(IQueryHandler queryHandler)
+        {
+            return this.queryHandlerDecorators.Aggregate(queryHandler, (current, handlerDecorator) => handlerDecorator.Decorate(current));
+        }
+
+        /// <summary>
+        /// Gets the query handlers.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <returns>The query handlers that could process the query.</returns>
+        private IEnumerable<IQueryHandler> GetQueryHandlers(Query query)
+        {
             var queryType = query.GetType();
+            var handlers = this.queryHandlers.Value[queryType].EnsureCollection();
 
-            if (this.queryHandlers.Value.ContainsKey(queryType))
+            if (handlers.Any())
             {
-                var queryHandler = this.queryHandlers.Value[queryType];
-                queryHandler = this.queryHandlerDecorators.Aggregate(queryHandler, (current, handlerDecorator) => handlerDecorator.Decorate(current));
-
-                try
-                {
-                    return queryAction(queryHandler, claimsPrincipal);
-                }
-                catch (SecurityException)
-                {
-                    throw;
-                }
-                catch (Exception e)
-                {
-                    throw new QueryProcessingFailedException(query, e);
-                }
+                return handlers.Select(this.DecorateQueryHandler);
             }
-
+            
             throw new InvalidOperationException("Query handler for queries of type " + queryType.FullName + " have not been found.");
         }
     }

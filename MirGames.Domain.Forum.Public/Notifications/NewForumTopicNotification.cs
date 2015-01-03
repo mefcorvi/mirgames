@@ -16,5 +16,19 @@ namespace MirGames.Domain.Forum.Notifications
         {
             get { return "Forum.NewTopic"; }
         }
+
+        /// <inheritdoc />
+        public override object Clone()
+        {
+            return new NewForumTopicNotification
+            {
+                ForumId = this.ForumId,
+                IsRead = this.IsRead,
+                NotificationDate = this.NotificationDate,
+                NotificationTypeId = this.NotificationTypeId,
+                TopicId = this.TopicId,
+                UserId = this.UserId
+            };
+        }
     }
 }
