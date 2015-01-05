@@ -254,8 +254,16 @@ namespace MirGames.Controllers
             return this.View(user);
         }
 
+        /// <summary>
+        /// Shows the user feed.
+        /// </summary>
+        /// <returns>The action result.</returns>
+        [Authorize(Roles = "User, ReadOnlyUser")]
         public virtual ActionResult Feed()
         {
+            var user = this.QueryProcessor.Process(new GetUserByIdQuery { UserId = this.CurrentUser.Id });
+            this.ViewBag.UserModel = user;
+
             var notifications = this.QueryProcessor.Process(new GetNotificationsQuery());
 
             var result = this.QueryProcessor
@@ -265,6 +273,9 @@ namespace MirGames.Controllers
                              })
                              .OrderByDescending(n => n.NotificationDate)
                              .ToList();
+
+            this.ViewBag.SectionMode = "Feed";
+            this.ViewBag.CurrentSection = "CurrentUser";
 
             return this.View(result);
         }

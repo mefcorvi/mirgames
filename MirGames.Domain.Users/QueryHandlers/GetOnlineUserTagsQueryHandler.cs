@@ -36,7 +36,22 @@ namespace MirGames.Domain.Users.QueryHandlers
         /// <inheritdoc />
         protected override IDictionary<int, IEnumerable<string>> Execute(GetOnlineUserTagsQuery query, ClaimsPrincipal principal)
         {
-            return this.onlineUsersManager.GetUserTags();
+            var userTags = this.onlineUsersManager.GetUserTags();
+
+            if (query.UserId.HasValue)
+            {
+                int userId = query.UserId.Value;
+                var tags = new Dictionary<int, IEnumerable<string>>();
+
+                if (userTags.ContainsKey(userId))
+                {
+                    tags[userId] = userTags[userId];
+                }
+
+                return tags;
+            }
+
+            return userTags;
         }
     }
 }

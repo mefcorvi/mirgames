@@ -758,6 +758,7 @@
     <Content Include="Views\Users\Feed\Topics.NewBlogTopic.cshtml" />
     <Content Include="Views\Users\Feed\Topics.NewTopicComment.cshtml" />
     <Content Include="Views\Users\Feed\Chat.UserMentioned.cshtml" />
+    <Content Include="Views\Users\Feed\Wip.NewCommit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

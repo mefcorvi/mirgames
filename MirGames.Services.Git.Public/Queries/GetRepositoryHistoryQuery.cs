@@ -17,5 +17,10 @@ namespace MirGames.Services.Git.Public.Queries
         /// Gets or sets the name of the repository.
         /// </summary>
         public int RepositoryId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the commit identifier.
+        /// </summary>
+        public string CommitId { get; set; }
     }
 }

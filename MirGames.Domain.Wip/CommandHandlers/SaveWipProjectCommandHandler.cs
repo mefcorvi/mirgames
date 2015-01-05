@@ -19,8 +19,10 @@ namespace MirGames.Domain.Wip.CommandHandlers
     using MirGames.Domain.Security;
     using MirGames.Domain.Wip.Commands;
     using MirGames.Domain.Wip.Entities;
+    using MirGames.Domain.Wip.Events;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Commands;
+    using MirGames.Infrastructure.Events;
     using MirGames.Infrastructure.Security;
 
     internal sealed class SaveWipProjectCommandHandler : CommandHandler<SaveWipProjectCommand>
@@ -36,19 +38,27 @@ namespace MirGames.Domain.Wip.CommandHandlers
         private readonly ICommandProcessor commandProcessor;
 
         /// <summary>
+        /// The event bus.
+        /// </summary>
+        private readonly IEventBus eventBus;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SaveWipProjectCommandHandler" /> class.
         /// </summary>
         /// <param name="writeContextFactory">The write context factory.</param>
         /// <param name="commandProcessor">The command processor.</param>
+        /// <param name="eventBus">The event bus.</param>
         public SaveWipProjectCommandHandler(
             IWriteContextFactory writeContextFactory,
-            ICommandProcessor commandProcessor)
+            ICommandProcessor commandProcessor,
+            IEventBus eventBus)
         {
             Contract.Requires(writeContextFactory != null);
             Contract.Requires(commandProcessor != null);
 
             this.writeContextFactory = writeContextFactory;
             this.commandProcessor = commandProcessor;
+            this.eventBus = eventBus;
         }
 
         /// <inheritdoc />
@@ -124,6 +134,12 @@ namespace MirGames.Domain.Wip.CommandHandlers
             {
                 EntityId = project.ProjectId,
                 Identifiers = command.Attachments
+            });
+
+            this.eventBus.Raise(new ProjectUpdatedEvent
+            {
+                ProjectAlias = project.Alias,
+                ProjectId = project.ProjectId
             });
         }
 

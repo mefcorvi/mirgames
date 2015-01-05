@@ -1,37 +1,32 @@
-// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="WipProjectCommitViewModel.cs">
-// Copyright 2014 Bulat Aykaev
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright company="MirGames" file="ProjectUpdatedEvent.cs">
+// Copyright 2015 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace MirGames.Domain.Wip.ViewModels
+
+namespace MirGames.Domain.Wip.Events
 {
-    using System;
+    using MirGames.Infrastructure.Events;
 
-    using MirGames.Domain.Users.ViewModels;
-
-    public sealed class WipProjectCommitViewModel
+    public sealed class ProjectUpdatedEvent : Event
     {
         /// <summary>
-        /// Gets or sets the identifier.
+        /// Gets or sets the project identifier.
         /// </summary>
-        public string Id { get; set; }
+        public int ProjectId { get; set; }
 
         /// <summary>
-        /// Gets or sets the author.
+        /// Gets or sets the project alias.
         /// </summary>
-        public AuthorViewModel Author { get; set; }
+        public string ProjectAlias { get; set; }
 
-        /// <summary>
-        /// Gets or sets the message.
-        /// </summary>
-        public string Message { get; set; }
-
-        /// <summary>
-        /// Gets or sets the date.
-        /// </summary>
-        public DateTime Date { get; set; }
+        /// <inheritdoc />
+        protected override string EventType
+        {
+            get { return "Wip.ProjectUpdated"; }
+        }
     }
 }

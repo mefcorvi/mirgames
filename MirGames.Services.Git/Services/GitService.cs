@@ -12,7 +12,9 @@ namespace MirGames.Services.Git.Services
     using System.Diagnostics.Contracts;
     using System.IO;
     using System.Linq;
+    using System.Security.Claims;
 
+    using MirGames.Domain.Security;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Events;
     using MirGames.Services.Git.Public.Events;
@@ -48,6 +50,11 @@ namespace MirGames.Services.Git.Services
         private readonly IReadContextFactory readContextFactory;
 
         /// <summary>
+        /// The principal provider.
+        /// </summary>
+        private readonly Func<ClaimsPrincipal> principalProvider;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GitService" /> class.
         /// </summary>
         /// <param name="repositoryPathProvider">The repository path provider.</param>
@@ -55,32 +62,38 @@ namespace MirGames.Services.Git.Services
         /// <param name="repositorySecurity">The repository security.</param>
         /// <param name="eventBus">The event bus.</param>
         /// <param name="readContextFactory">The read context factory.</param>
+        /// <param name="principalProvider">The principal provider.</param>
         public GitService(
             IRepositoryPathProvider repositoryPathProvider,
             ISettings settings,
             IRepositorySecurity repositorySecurity,
             IEventBus eventBus,
-            IReadContextFactory readContextFactory)
+            IReadContextFactory readContextFactory,
+            Func<ClaimsPrincipal> principalProvider)
         {
             Contract.Requires(repositoryPathProvider != null);
             Contract.Requires(settings != null);
             Contract.Requires(repositorySecurity != null);
             Contract.Requires(eventBus != null);
+            Contract.Requires(principalProvider != null);
 
             this.repositoryPathProvider = repositoryPathProvider;
             this.settings = settings;
             this.repositorySecurity = repositorySecurity;
             this.eventBus = eventBus;
             this.readContextFactory = readContextFactory;
+            this.principalProvider = principalProvider;
         }
 
         /// <inheritdoc />
         public void ReceivePack(string repositoryName, Stream input, Stream output)
         {
-            if (!this.repositorySecurity.CanWrite(repositoryName))
+            int? userId = this.principalProvider.Invoke().GetUserId();
+
+            if (!userId.HasValue || !this.repositorySecurity.CanWrite(repositoryName))
             {
                 throw new UnauthorizedAccessException(
-                    string.Format("Current user have no rights to write repository {0}", repositoryName));
+                    string.Format("Current user has no rights to write repository {0}", repositoryName));
             }
 
             string repositoryPath = this.repositoryPathProvider.GetPath(repositoryName);
@@ -89,7 +102,8 @@ namespace MirGames.Services.Git.Services
             this.RunGitCmd("receive-pack", false, repositoryPath, input, output);
 
             int repositoryId = this.GetRepositoryId(repositoryName);
-            this.eventBus.Raise(new RepositoryUpdatedEvent { RepositoryId = repositoryId });
+
+            this.eventBus.Raise(new RepositoryUpdatedEvent { RepositoryId = repositoryId, AuthorId = userId.Value });
         }
 
         /// <inheritdoc />
@@ -110,6 +124,8 @@ namespace MirGames.Services.Git.Services
         /// <inheritdoc />
         public void GetInfoRefs(string repositoryName, string service, Stream input, Stream output)
         {
+            int? userId = this.principalProvider.Invoke().GetUserId();
+
             if (service.EqualsIgnoreCase("git-upload-pack"))
             {
                 if (!this.repositorySecurity.CanRead(repositoryName))
@@ -118,7 +134,7 @@ namespace MirGames.Services.Git.Services
                         string.Format("Current user have no rights to read repository {0}", repositoryName));
                 }
             }
-            else if (!this.repositorySecurity.CanWrite(repositoryName))
+            else if (!userId.HasValue || !this.repositorySecurity.CanWrite(repositoryName))
             {
                 throw new UnauthorizedAccessException(
                     string.Format("Current user have no rights to write repository {0}", repositoryName));
@@ -135,12 +151,6 @@ namespace MirGames.Services.Git.Services
             }
 
             this.RunGitCmd(service.Substring(4), true, repositoryPath, input, output);
-
-            if (!service.EqualsIgnoreCase("git-upload-pack"))
-            {
-                int repositoryId = this.GetRepositoryId(repositoryName);
-                this.eventBus.Raise(new RepositoryUpdatedEvent { RepositoryId = repositoryId });
-            }
         }
 
         private static void EnsureIsRepository(string repositoryPath)

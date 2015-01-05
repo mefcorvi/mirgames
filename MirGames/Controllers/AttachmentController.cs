@@ -59,6 +59,11 @@ namespace MirGames.Controllers
         {
             var attachment = this.QueryProcessor.Process(new GetAttachmentInfoQuery { AttachmentId = attachmentId });
 
+            if (attachment == null)
+            {
+                return this.HttpNotFound();
+            }
+
             this.Response.Cache.SetCacheability(HttpCacheability.Public);
             this.Response.Cache.SetMaxAge(TimeSpan.FromDays(7));
             this.Response.Cache.SetExpires(DateTime.UtcNow.AddDays(7));

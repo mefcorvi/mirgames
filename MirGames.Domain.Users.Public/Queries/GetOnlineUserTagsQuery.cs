@@ -17,5 +17,9 @@ namespace MirGames.Domain.Users.Queries
     /// </summary>
     public sealed class GetOnlineUserTagsQuery : SingleItemQuery<IDictionary<int, IEnumerable<string>>>
     {
+        /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
+        public int? UserId { get; set; }
     }
 }

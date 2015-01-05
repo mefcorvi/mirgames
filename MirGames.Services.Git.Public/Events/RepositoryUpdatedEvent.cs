@@ -17,6 +17,11 @@ namespace MirGames.Services.Git.Public.Events
         /// </summary>
         public int RepositoryId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the author identifier.
+        /// </summary>
+        public int AuthorId { get; set; }
+
         /// <inheritodc />
         protected override string EventType
         {

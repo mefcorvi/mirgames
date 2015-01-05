@@ -13,6 +13,11 @@ namespace MirGames.Services.Git.Public.ViewModels
     public class GitRepositoryHistoryItemViewModel
     {
         /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
         /// Gets or sets the author.
         /// </summary>
         public string Author { get; set; }

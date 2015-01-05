@@ -1,4 +1,5 @@
 ﻿@import "../settings.less";
+@import "mixins.less";
 
 .notifications-page {
     & > section {
@@ -6,15 +7,29 @@
             padding: @indent;
             .page-title();
         }
+
+        & > .user-info {
+            .user-info();
+        }
     }
 
     .notification-item {
+        &:first-of-type {
+            margin-top: 0;
+        }
+
+        &:last-of-type {
+            border-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        margin-bottom: @indent;
+        margin-top: @indent;
+        border-bottom: 1px solid mix(@background-color, @font-color, 96%);
+
         & > article {
             padding: 0 @indent @indent @indent;
             overflow: hidden;
-            margin-bottom: @indent;
-            margin-top: @indent;
-            border-bottom: 1px solid mix(@background-color, @font-color, 96%);
 
             & > .author-avatar {
                 img {
@@ -23,15 +38,6 @@
 
                 font-family: Tahoma;
                 float: left;
-            }
-
-            &:first-of-type {
-                margin-top: 0;
-            }
-
-            &:last-of-type {
-                border-bottom: 0;
-                margin-bottom: 0;
             }
 
             .text img {
@@ -43,10 +49,15 @@
 
                 & > .micro-message-author {
                     margin-bottom: @indent/4;
+                    .font-size(1.3);
 
                     .user-login {
                         font-weight: bold;
                     }
+                }
+
+                .text {
+                    color: #666;
                 }
             }
 

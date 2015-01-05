@@ -14,6 +14,7 @@ namespace MirGames.Domain.Chat.EventListeners
     using MirGames.Domain.Chat.Events;
     using MirGames.Domain.Chat.Notifications;
     using MirGames.Domain.Notifications.Commands;
+    using MirGames.Domain.Users.Queries;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Events;
 
@@ -28,14 +29,21 @@ namespace MirGames.Domain.Chat.EventListeners
         private readonly ICommandProcessor commandProcessor;
 
         /// <summary>
+        /// The query processor.
+        /// </summary>
+        private readonly IQueryProcessor queryProcessor;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="NewChatMessageEventListener" /> class.
         /// </summary>
         /// <param name="commandProcessor">The command processor.</param>
-        public NewChatMessageEventListener(ICommandProcessor commandProcessor)
+        /// <param name="queryProcessor">The query processor.</param>
+        public NewChatMessageEventListener(ICommandProcessor commandProcessor, IQueryProcessor queryProcessor)
         {
             Contract.Requires(commandProcessor != null);
 
             this.commandProcessor = commandProcessor;
+            this.queryProcessor = queryProcessor;
         }
 
         /// <inheritdoc />
@@ -45,12 +53,29 @@ namespace MirGames.Domain.Chat.EventListeners
 
             if (@event.Mentions.Any())
             {
+                var users = @event.Mentions.Where(m => m.Id.HasValue && !this.IsUserInChat(m.Id.Value)).Select(m => m.Id.Value).ToArray();
+
                 this.commandProcessor.Execute(new NotifyUsersCommand
                 {
                     NotificationTemplate = new ChatMentionNotification { MessageId = @event.MessageId },
-                    UserIdentifiers = @event.Mentions.Where(m => m.Id.HasValue).Select(m => m.Id.Value).ToArray()
+                    UserIdentifiers = users
                 });
             }
+        }
+
+        /// <summary>
+        /// Checks whether user is in the chat.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns>True whether user is in the chat.</returns>
+        private bool IsUserInChat(int userId)
+        {
+            var userTags = this.queryProcessor.Process(new GetOnlineUserTagsQuery
+            {
+                UserId = userId
+            });
+
+            return userTags.ContainsKey(userId) && userTags[userId].Contains("in-chat");
         }
     }
 }

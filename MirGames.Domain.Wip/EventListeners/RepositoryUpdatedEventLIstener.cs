@@ -9,9 +9,15 @@
 namespace MirGames.Domain.Wip.EventListeners
 {
     using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.Contracts;
     using System.Linq;
 
+    using MirGames.Domain.Notifications.Commands;
+    using MirGames.Domain.Users.Queries;
     using MirGames.Domain.Wip.Entities;
+    using MirGames.Domain.Wip.Events;
+    using MirGames.Domain.Wip.Notifications;
     using MirGames.Domain.Wip.Queries;
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Events;
@@ -31,36 +37,93 @@ namespace MirGames.Domain.Wip.EventListeners
         private readonly IQueryProcessor queryProcessor;
 
         /// <summary>
+        /// The command processor.
+        /// </summary>
+        private readonly ICommandProcessor commandProcessor;
+
+        /// <summary>
+        /// The event bus.
+        /// </summary>
+        private readonly IEventBus eventBus;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="RepositoryUpdatedEventListener" /> class.
         /// </summary>
         /// <param name="writeContextFactory">The write context factory.</param>
         /// <param name="queryProcessor">The query processor.</param>
-        public RepositoryUpdatedEventListener(IWriteContextFactory writeContextFactory, IQueryProcessor queryProcessor)
+        /// <param name="commandProcessor">The command processor.</param>
+        /// <param name="eventBus">The event bus.</param>
+        public RepositoryUpdatedEventListener(
+            IWriteContextFactory writeContextFactory,
+            IQueryProcessor queryProcessor,
+            ICommandProcessor commandProcessor,
+            IEventBus eventBus)
         {
+            Contract.Requires(writeContextFactory != null);
+            Contract.Requires(queryProcessor != null);
+            Contract.Requires(commandProcessor != null);
+
             this.writeContextFactory = writeContextFactory;
             this.queryProcessor = queryProcessor;
+            this.commandProcessor = commandProcessor;
+            this.eventBus = eventBus;
         }
 
         /// <inheritdoc />
         public override void Process(RepositoryUpdatedEvent @event)
         {
+            var users = this.queryProcessor
+                            .Process(new GetUsersIdentifiersQuery())
+                            .Except(new[] { @event.AuthorId })
+                            .ToArray();
+
+            List<NewCommitNotification> notifications;
+
             using (var writeContext = this.writeContextFactory.Create())
             {
                 var projects = writeContext
                     .Set<Project>()
-                    .Where(p => p.RepositoryType == "git" && p.RepositoryId == @event.RepositoryId);
+                    .Where(p => p.RepositoryType == "git" && p.RepositoryId == @event.RepositoryId)
+                    .ToList();
 
-                projects.ForEach(p =>
+                notifications = new List<NewCommitNotification>(projects.Count);
+
+                foreach (var project in projects)
                 {
                     var lastCommit = this.queryProcessor
-                        .Process(new GetWipProjectCommitsQuery { Alias = p.Alias }, new PaginationSettings(0, 1))
+                        .Process(new GetWipProjectCommitsQuery { Alias = project.Alias }, new PaginationSettings(0, 1))
                         .FirstOrDefault();
 
-                    p.UpdatedDate = DateTime.UtcNow;
-                    p.LastCommitMessage = lastCommit != null ? this.CutString(lastCommit.Message, 255) : null;
-                });
+                    project.UpdatedDate = DateTime.UtcNow;
+                    project.LastCommitMessage = lastCommit != null ? this.CutString(lastCommit.Message, 255) : null;
+
+                    if (lastCommit != null)
+                    {
+                        notifications.Add(new NewCommitNotification
+                        {
+                            CommitId = lastCommit.Id,
+                            ComiteerId = @event.AuthorId,
+                            ProjectAlias = project.Alias
+                        });
+
+                        this.eventBus.Raise(new ProjectUpdatedEvent
+                        {
+                            ProjectId = project.ProjectId,
+                            ProjectAlias = project.Alias
+                        });
+                    }
+                }
 
                 writeContext.SaveChanges();
+            }
+
+            foreach (var notification in notifications)
+            {
+                this.commandProcessor.Execute(new NotifyUsersCommand
+                {
+                    UserIdentifiers = users,
+                    NotificationTemplate = notification
+                });
             }
         }
 

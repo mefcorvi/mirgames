@@ -101,37 +101,39 @@ namespace MirGames.Domain.Wip.QueryHandlers
             }
 
             var projectViewModel = new WipProjectViewModel
+            {
+                CreationDate = project.CreationDate,
+                Author = new AuthorViewModel
                 {
-                    CreationDate = project.CreationDate,
-                    Author = new AuthorViewModel
-                        {
-                            Id = project.AuthorId
-                        },
-                    Description = project.Description,
-                    ShortDescription = project.ShortDescription,
-                    Genre = project.Genre,
-                    Alias = project.Alias,
-                    FollowersCount = project.FollowersCount,
-                    ProjectId = project.ProjectId,
-                    Title = project.Title,
-                    RepositoryType = project.RepositoryType,
-                    UpdatedDate = project.UpdatedDate,
-                    Version = project.Version,
-                    Votes = project.Votes,
-                    LastCommitMessage = project.LastCommitMessage,
-                    VotesCount = project.VotesCount,
-                    Tags = project.TagsList.Split(',').Select(t => t.Trim()).ToArray(),
-                    CanEdit = this.authorizationManager.CheckAccess(principal, "Edit", "Project", project.ProjectId),
-                    CanCreateBug = this.authorizationManager.CheckAccess(principal, "CreateBug", "Project", project.ProjectId),
-                    CanCreateTask = this.authorizationManager.CheckAccess(principal, "CreateTask", "Project", project.ProjectId),
-                    CanCreateFeature = this.authorizationManager.CheckAccess(principal, "CreateFeature", "Project", project.ProjectId),
-                    CanReadRepository = this.authorizationManager.CheckAccess(principal, "Read", "GitRepository", project.RepositoryId),
-                    CanEditGallery = this.authorizationManager.CheckAccess(principal, "EditGallery", "Project", project.ProjectId),
-                    IsRepositoryPrivate = !this.authorizationManager.CheckAccess(0, "Read", "GitRepository", project.RepositoryId),
-                    IsSiteEnabled = project.IsSiteEnabled,
-                    CanCreateBlogTopic = project.BlogId.HasValue && this.authorizationManager.CheckAccess(principal, "CreateTopic", "Blog", project.BlogId),
-                    BlogId = project.BlogId
-                };
+                    Id = project.AuthorId
+                },
+                Description = project.Description,
+                ShortDescription = project.ShortDescription,
+                Genre = project.Genre,
+                Alias = project.Alias,
+                FollowersCount = project.FollowersCount,
+                ProjectId = project.ProjectId,
+                Title = project.Title,
+                RepositoryType = project.RepositoryType,
+                UpdatedDate = project.UpdatedDate,
+                Version = project.Version,
+                Votes = project.Votes,
+                LastCommitMessage = project.LastCommitMessage,
+                VotesCount = project.VotesCount,
+                Tags = project.TagsList.Split(',').Select(t => t.Trim()).ToArray(),
+                CanEdit = this.authorizationManager.CheckAccess(principal, "Edit", "Project", project.ProjectId),
+                CanCreateBug = this.authorizationManager.CheckAccess(principal, "CreateBug", "Project", project.ProjectId),
+                CanCreateTask = this.authorizationManager.CheckAccess(principal, "CreateTask", "Project", project.ProjectId),
+                CanCreateFeature = this.authorizationManager.CheckAccess(principal, "CreateFeature", "Project", project.ProjectId),
+                CanReadRepository = this.authorizationManager.CheckAccess(principal, "Read", "GitRepository", project.RepositoryId),
+                CanEditGallery = this.authorizationManager.CheckAccess(principal, "EditGallery", "Project", project.ProjectId),
+                IsRepositoryPrivate = !this.authorizationManager.CheckAccess(0, "Read", "GitRepository", project.RepositoryId),
+                IsSiteEnabled = project.IsSiteEnabled,
+                CanCreateBlogTopic =
+                    project.BlogId.HasValue
+                    && this.authorizationManager.CheckAccess(principal, "CreateTopic", "Blog", project.BlogId),
+                BlogId = project.BlogId
+            };
 
             var attachment = this.queryProcessor.Process(new GetAttachmentsQuery
             {
@@ -157,9 +159,9 @@ namespace MirGames.Domain.Wip.QueryHandlers
 
             this.queryProcessor.Process(
                 new ResolveAuthorsQuery
-                    {
-                        Authors = new[] { projectViewModel.Author }
-                    });
+                {
+                    Authors = new[] { projectViewModel.Author }
+                });
 
             return projectViewModel;
         }

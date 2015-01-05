@@ -16,6 +16,14 @@ namespace MirGames.Domain.Wip.Queries
     /// </summary>
     public sealed class GetWipProjectCommitsQuery : Query<WipProjectCommitViewModel>
     {
+        /// <summary>
+        /// Gets or sets the alias.
+        /// </summary>
         public string Alias { get; set; }
+
+        /// <summary>
+        /// Gets or sets the commit identifier.
+        /// </summary>
+        public string CommitId { get; set; }
     }
 }

@@ -43,7 +43,10 @@
     <Compile Include="Commands\SaveWipProjectCommand.cs" />
     <Compile Include="Commands\CreateNewWipProjectCommand.cs" />
     <Compile Include="Commands\PostWorkItemCommentCommand.cs" />
+    <Compile Include="Events\ProjectUpdatedEvent.cs" />
     <Compile Include="Exceptions\ProjectAlreadyCreatedException.cs" />
+    <Compile Include="Notifications\NewCommitNotificationDetailsViewModel.cs" />
+    <Compile Include="Notifications\NewCommitNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetIsProjectNameUniqueQuery.cs" />
     <Compile Include="Queries\GetProjectIdQuery.cs" />
@@ -75,6 +78,10 @@
     <Compile Include="ViewModels\WorkItemType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MirGames.Domain.Notifications.Public\MirGames.Domain.Notifications.Public.csproj">
+      <Project>{24821dd1-09a0-48cd-903c-b24d4cc41636}</Project>
+      <Name>MirGames.Domain.Notifications.Public</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MirGames.Domain.Topics.Public\MirGames.Domain.Topics.Public.csproj">
       <Project>{8B957815-7F29-4D6E-B983-B527342D8DA5}</Project>
       <Name>MirGames.Domain.Topics.Public</Name>
@@ -88,9 +95,7 @@
       <Name>MirGames.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Events\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

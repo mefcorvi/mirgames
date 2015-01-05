@@ -1,28 +1,28 @@
-// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="WipProjectCommitViewModel.cs">
-// Copyright 2014 Bulat Aykaev
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright company="MirGames" file="NewCommitNotificationDetailsViewModel.cs">
+// Copyright 2015 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace MirGames.Domain.Wip.ViewModels
-{
-    using System;
 
+namespace MirGames.Domain.Wip.Notifications
+{
+    using MirGames.Domain.Notifications.ViewModels;
     using MirGames.Domain.Users.ViewModels;
 
-    public sealed class WipProjectCommitViewModel
+    public sealed class NewCommitNotificationDetailsViewModel : NotificationDetailsViewModel
     {
         /// <summary>
-        /// Gets or sets the identifier.
+        /// Gets or sets the commit identifier.
         /// </summary>
-        public string Id { get; set; }
+        public string CommitId { get; set; }
 
         /// <summary>
-        /// Gets or sets the author.
+        /// Gets or sets the project alias.
         /// </summary>
-        public AuthorViewModel Author { get; set; }
+        public string ProjectAlias { get; set; }
 
         /// <summary>
         /// Gets or sets the message.
@@ -30,8 +30,16 @@ namespace MirGames.Domain.Wip.ViewModels
         public string Message { get; set; }
 
         /// <summary>
-        /// Gets or sets the date.
+        /// Gets or sets the author.
         /// </summary>
-        public DateTime Date { get; set; }
+        public AuthorViewModel Author { get; set; }
+
+        /// <summary>
+        /// Gets or sets the project title.
+        /// </summary>
+        public string ProjectTitle { get; set; }
+
+        /// <inheritdoc />
+        public override string NotificationType { get; set; }
     }
 }

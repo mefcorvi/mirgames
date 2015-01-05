@@ -73,10 +73,13 @@ namespace MirGames.Services.Git.QueryHandlers
             string repositoryPath = this.repositoryPathProvider.GetPath(repository.Name);
             var gitRepository = new Repository(repositoryPath);
 
-            return this.ApplyPagination(gitRepository.Commits, pagination).Select(
+            var commitsQuery = this.GetCommitsQuery(query, gitRepository);
+
+            return this.ApplyPagination(commitsQuery, pagination).Select(
                 commit =>
                 new GitRepositoryHistoryItemViewModel
                 {
+                    Id = commit.Id.Sha,
                     Author = commit.Author.Name,
                     Message = commit.Message.Trim(),
                     Date = commit.Author.When.UtcDateTime,
@@ -90,8 +93,28 @@ namespace MirGames.Services.Git.QueryHandlers
 
             string repositoryPath = this.repositoryPathProvider.GetPath(repository.Name);
             var gitRepository = new Repository(repositoryPath);
-            
-            return gitRepository.Commits.Count();
+
+            var commitsQuery = this.GetCommitsQuery(query, gitRepository);
+
+            return commitsQuery.Count();
+        }
+
+        /// <summary>
+        /// Gets the commits query.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <param name="gitRepository">The git repository.</param>
+        /// <returns>The commits query.</returns>
+        private IEnumerable<Commit> GetCommitsQuery(GetRepositoryHistoryQuery query, Repository gitRepository)
+        {
+            IEnumerable<Commit> commitsQuery = gitRepository.Commits;
+
+            if (!string.IsNullOrEmpty(query.CommitId))
+            {
+                commitsQuery = commitsQuery.Where(c => c.Sha == query.CommitId);
+            }
+
+            return commitsQuery;
         }
 
         /// <summary>

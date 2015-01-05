@@ -69,11 +69,13 @@ namespace MirGames.Domain.Wip.QueryHandlers
                                .Process(
                                    new GetRepositoryHistoryQuery
                                    {
-                                       RepositoryId = project.RepositoryId.GetValueOrDefault()
+                                       RepositoryId = project.RepositoryId.GetValueOrDefault(),
+                                       CommitId = query.CommitId
                                    },
                                    pagination)
                                .Select(h => new WipProjectCommitViewModel
                                {
+                                   Id = h.Id,
                                    Date = h.Date,
                                    Message = h.Message,
                                    Author = new AuthorViewModel
@@ -102,7 +104,8 @@ namespace MirGames.Domain.Wip.QueryHandlers
                     return this.queryProcessor
                                .GetItemsCount(new GetRepositoryHistoryQuery
                                {
-                                   RepositoryId = project.RepositoryId.GetValueOrDefault()
+                                   RepositoryId = project.RepositoryId.GetValueOrDefault(),
+                                   CommitId = query.CommitId
                                });
                 default:
                     throw new IndexOutOfRangeException(string.Format("{0} is not supported type of repositories.", project.RepositoryType));

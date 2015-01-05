@@ -1,9 +1,13 @@
-﻿@model IEnumerable<MirGames.Domain.Notifications.ViewModels.NotificationDetailsViewModel>
+﻿@using MirGames.Domain.Users.ViewModels
+@model IEnumerable<MirGames.Domain.Notifications.ViewModels.NotificationDetailsViewModel>
 
 @{
     ViewBag.Title = "Лента";
     AddPageCssClass("notifications-page");
+    var user = (UserViewModel)ViewBag.UserModel;
 }
+
+@Html.Partial("_ProfileMenu", user)
 
 <h2>Лента</h2>
 <div class="notifications">
