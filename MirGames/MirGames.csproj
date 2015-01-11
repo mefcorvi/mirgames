@@ -302,8 +302,11 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Hubs\NotificationsRemovedEventListener.cs" />
+    <Compile Include="Infrastructure\ControllerExtensions.cs" />
     <Compile Include="Infrastructure\HttpRequestMessageExtensions.cs" />
     <Compile Include="Infrastructure\T4MvcCachedExtensions.cs" />
+    <Compile Include="Infrastructure\TransferResult.cs" />
+    <Compile Include="Infrastructure\TransferToRouteResult.cs" />
     <Compile Include="Infrastructure\UserEntityExtensions.cs" />
     <Compile Include="Infrastructure\UserSettings\HeaderType.cs" />
     <Compile Include="Infrastructure\UserSettings\HeaderTypeSetting.cs" />
@@ -476,8 +479,8 @@
     <None Include="Scripts\Account\LoginFormController.ts" />
     <None Include="Scripts\Account\SignUpFormController.ts" />
     <None Include="Scripts\Libs\jquery-2.1.1.intellisense.js" />
-    <Content Include="Scripts\Libs\jquery.signalR-2.1.2.js" />
     <Content Include="Scripts\Libs\angular.js" />
+    <Content Include="Scripts\Libs\jquery.signalR-2.1.2.js" />
     <Content Include="Scripts\Libs\headroom.js" />
     <Content Include="Scripts\Libs\jquery-2.1.1.js" />
     <None Include="Scripts\Libs\jquery.d.ts" />
@@ -753,12 +756,12 @@
     <Content Include="Views\Pages\Markdown.cshtml" />
     <Content Include="Views\Pages\Api.cshtml" />
     <Content Include="Views\Users\Feed.cshtml" />
-    <Content Include="Views\Users\Feed\Forum.NewAnswer.cshtml" />
-    <Content Include="Views\Users\Feed\Forum.NewTopic.cshtml" />
-    <Content Include="Views\Users\Feed\Topics.NewBlogTopic.cshtml" />
-    <Content Include="Views\Users\Feed\Topics.NewTopicComment.cshtml" />
-    <Content Include="Views\Users\Feed\Chat.UserMentioned.cshtml" />
-    <Content Include="Views\Users\Feed\Wip.NewCommit.cshtml" />
+    <Content Include="Views\Users\FeedItems\Forum.NewAnswer.cshtml" />
+    <Content Include="Views\Users\FeedItems\Forum.NewTopic.cshtml" />
+    <Content Include="Views\Users\FeedItems\Topics.NewBlogTopic.cshtml" />
+    <Content Include="Views\Users\FeedItems\Topics.NewTopicComment.cshtml" />
+    <Content Include="Views\Users\FeedItems\Chat.UserMentioned.cshtml" />
+    <Content Include="Views\Users\FeedItems\Wip.NewCommit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -903,6 +906,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\Libs\angular.d.ts" />
+    <TypeScriptCompile Include="Scripts\UI\SinglePageService.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -140,77 +140,50 @@ interface SaveTopicCommand extends MirGames.Infrastructure.Commands.Command {
   Attachments: number[];
 }
 }
-declare module MirGames.Domain.Topics.Queries {
-interface GetBlogByEntityQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
-  EntityId: number;
-  EntityType: string;
-}
-interface GetCommentForEditQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
-  CommentId: number;
-}
-interface GetCommentByIdQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
-  CommentId: number;
-}
-interface GetMainTagsQuery extends MirGames.Infrastructure.Queries.Query1 {
-  Filter: string;
-  ShowOnMain: boolean;
-  IsTutorial: boolean;
-  IsMicroTopic: boolean;
-}
-}
-declare module MirGames.Domain.Topics.ViewModels {
-interface BlogViewModel {
-  BlogId: number;
-  Title: string;
-  Description: string;
-  EntityId: number;
-  EntityType: string;
-  CanAddTopic: boolean;
-}
-interface CommentForEditViewModel {
-  Id: number;
-  SourceText: string;
-}
-interface CommentViewModel {
-  Text: string;
-  Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
-  CreationDate: Date;
-  UpdatedDate: Date;
-  Id: number;
+declare module MirGames.Domain.Topics.Notifications {
+interface NewTopicCommentNotificationDetailsViewModel extends MirGames.Domain.Notifications.ViewModels.NotificationDetailsViewModel {
   TopicId: number;
-  TopicTitle: string;
-  CanBeEdited: boolean;
-  CanBeDeleted: boolean;
-  IsRead: boolean;
-}
-interface TagViewModel {
-  Tag: string;
-  Count: number;
-}
-interface TopicForEditViewModel {
-  Id: number;
+  CommentId: number;
   Title: string;
-  Tags: string;
+  CreationDate: Date;
   Text: string;
-  IsMicroTopic: boolean;
-}
-interface TopicViewModel {
-  Id: number;
-  Title: string;
   Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
   Blog: MirGames.Domain.Topics.ViewModels.BlogViewModel;
-  CommentsCount: number;
-  Text: string;
-  Comments: MirGames.Domain.Topics.ViewModels.CommentViewModel[];
-  CanBeEdited: boolean;
-  CanBeDeleted: boolean;
-  CanBeCommented: boolean;
-  IsRead: boolean;
-  Tags: string[];
-  TagsList: string;
+  NotificationType: string;
+}
+interface NewBlogTopicNotificationDetailsViewModel extends MirGames.Domain.Notifications.ViewModels.NotificationDetailsViewModel {
+  TopicId: number;
+  Title: string;
   CreationDate: Date;
-  ShowOnMain: boolean;
+  Text: string;
   IsMicroTopic: boolean;
+  CommentsCount: number;
+  Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
+  Blog: MirGames.Domain.Topics.ViewModels.BlogViewModel;
+  NotificationType: string;
+}
+}
+declare module MirGames.Domain.Notifications.ViewModels {
+interface NotificationDetailsViewModel {
+  NotificationType: string;
+  NotificationDate: Date;
+  IsRead: boolean;
+}
+interface NotificationSubscriptionViewModel {
+  SubscriptionId: number;
+  UserId: number;
+  EntityType: string;
+  NotificationType: string;
+}
+interface NotificationViewModel {
+  Data: MirGames.Domain.Notifications.ViewModels.NotificationData;
+}
+interface NotificationData {
+  UserId: number;
+  IsRead: boolean;
+  NotificationDate: Date;
+  NotificationType: string;
+  NotificationTypeId: number;
 }
 }
 declare module MirGames.Domain.Users.ViewModels {
@@ -219,6 +192,10 @@ interface AuthorViewModel {
   Login: string;
   Id: number;
   Title: string;
+}
+interface MentionsInTextViewModel {
+  Users: MirGames.Domain.Users.ViewModels.AuthorViewModel[];
+  TransformedText: string;
 }
 interface OAuthProviderViewModel {
   ProviderId: number;
@@ -277,6 +254,79 @@ interface UserWallRecordViewModel {
   Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
   DateAdd: Date;
   Text: string;
+}
+}
+declare module MirGames.Domain.Topics.ViewModels {
+interface BlogViewModel {
+  BlogId: number;
+  Title: string;
+  Description: string;
+  EntityId: number;
+  EntityType: string;
+  CanAddTopic: boolean;
+}
+interface CommentForEditViewModel {
+  Id: number;
+  SourceText: string;
+}
+interface CommentViewModel {
+  Text: string;
+  Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
+  CreationDate: Date;
+  UpdatedDate: Date;
+  Id: number;
+  TopicId: number;
+  TopicTitle: string;
+  CanBeEdited: boolean;
+  CanBeDeleted: boolean;
+  IsRead: boolean;
+}
+interface TagViewModel {
+  Tag: string;
+  Count: number;
+}
+interface TopicForEditViewModel {
+  Id: number;
+  Title: string;
+  Tags: string;
+  Text: string;
+  IsMicroTopic: boolean;
+}
+interface TopicViewModel {
+  Id: number;
+  Title: string;
+  Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
+  Blog: MirGames.Domain.Topics.ViewModels.BlogViewModel;
+  CommentsCount: number;
+  Text: string;
+  Comments: MirGames.Domain.Topics.ViewModels.CommentViewModel[];
+  CanBeEdited: boolean;
+  CanBeDeleted: boolean;
+  CanBeCommented: boolean;
+  IsRead: boolean;
+  Tags: string[];
+  TagsList: string;
+  CreationDate: Date;
+  ShowOnMain: boolean;
+  IsMicroTopic: boolean;
+}
+}
+declare module MirGames.Domain.Topics.Queries {
+interface GetBlogByEntityQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
+  EntityId: number;
+  EntityType: string;
+}
+interface GetCommentForEditQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
+  CommentId: number;
+}
+interface GetCommentByIdQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
+  CommentId: number;
+}
+interface GetMainTagsQuery extends MirGames.Infrastructure.Queries.Query1 {
+  Filter: string;
+  ShowOnMain: boolean;
+  IsTutorial: boolean;
+  IsMicroTopic: boolean;
 }
 }
 declare module MirGames.Domain.Users.Commands {
@@ -377,25 +427,41 @@ interface VoteForForumPostCommand extends MirGames.Infrastructure.Commands.Comma
   Positive: boolean;
 }
 }
-declare module MirGames.Domain.Forum.Queries {
-interface GetForumTopicPostsQuery extends MirGames.Infrastructure.Queries.Query1 {
+declare module MirGames.Domain.Forum.Notifications {
+interface NewForumAnswerNotificationDetailsViewModel extends MirGames.Domain.Notifications.ViewModels.NotificationDetailsViewModel {
   TopicId: number;
-  LoadStartPost: boolean;
-}
-interface GetForumPostForEditQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
+  TopicTitle: string;
   PostId: number;
+  PostDate: Date;
+  PostText: string;
+  Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
+  Forum: MirGames.Domain.Forum.ViewModels.ForumViewModel;
+  NotificationType: string;
 }
-interface GetForumPostQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
-  PostId: number;
-}
-interface GetForumTopicQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
+interface NewForumTopicNotificationDetailsViewModel extends MirGames.Domain.Notifications.ViewModels.NotificationDetailsViewModel {
   TopicId: number;
-}
-interface GetForumTagsQuery extends MirGames.Infrastructure.Queries.Query1 {
-  Filter: string;
+  TopicTitle: string;
+  Forum: MirGames.Domain.Forum.ViewModels.ForumViewModel;
+  TopicDate: Date;
+  Text: string;
+  Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
+  NotificationType: string;
 }
 }
 declare module MirGames.Domain.Forum.ViewModels {
+interface ForumViewModel {
+  ForumId: number;
+  Title: string;
+  Description: string;
+  IsRetired: boolean;
+  Alias: string;
+  LastAuthor: MirGames.Domain.Users.ViewModels.AuthorViewModel;
+  LastTopicTitle: string;
+  LastTopicId: number;
+  LastPostDate: Date;
+  TopicsCount: number;
+  PostsCount: number;
+}
 interface ForumPostForEditViewModel {
   PostId: number;
   SourceText: string;
@@ -456,19 +522,6 @@ interface ForumTopicsListItemViewModel {
   Forum: MirGames.Domain.Forum.ViewModels.ForumViewModel;
   ShortDescription: string;
 }
-interface ForumViewModel {
-  ForumId: number;
-  Title: string;
-  Description: string;
-  IsRetired: boolean;
-  Alias: string;
-  LastAuthor: MirGames.Domain.Users.ViewModels.AuthorViewModel;
-  LastTopicTitle: string;
-  LastTopicId: number;
-  LastPostDate: Date;
-  TopicsCount: number;
-  PostsCount: number;
-}
 interface ForumTopicViewModel {
   TopicId: number;
   Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
@@ -486,6 +539,24 @@ interface ForumTopicViewModel {
   Forum: MirGames.Domain.Forum.ViewModels.ForumViewModel;
 }
 }
+declare module MirGames.Domain.Forum.Queries {
+interface GetForumTopicPostsQuery extends MirGames.Infrastructure.Queries.Query1 {
+  TopicId: number;
+  LoadStartPost: boolean;
+}
+interface GetForumPostForEditQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
+  PostId: number;
+}
+interface GetForumPostQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
+  PostId: number;
+}
+interface GetForumTopicQuery extends MirGames.Infrastructure.Queries.SingleItemQuery1 {
+  TopicId: number;
+}
+interface GetForumTagsQuery extends MirGames.Infrastructure.Queries.Query1 {
+  Filter: string;
+}
+}
 declare module MirGames.Domain.Chat.Commands {
 interface PostChatMessageCommand extends MirGames.Infrastructure.Commands.Command1 {
   Message: string;
@@ -495,6 +566,14 @@ interface UpdateChatMessageCommand extends MirGames.Infrastructure.Commands.Comm
   MessageId: number;
   Message: string;
   Attachments: number[];
+}
+}
+declare module MirGames.Domain.Chat.Notifications {
+interface ChatMentionNotificationDetailsViewModel extends MirGames.Domain.Notifications.ViewModels.NotificationDetailsViewModel {
+  MessageId: number;
+  MessageText: string;
+  Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
+  NotificationType: string;
 }
 }
 declare module MirGames.Domain.Chat.Queries {
@@ -519,24 +598,6 @@ interface ChatMessageViewModel {
 interface ChatMessageForEditViewModel {
   MessageId: number;
   SourceText: string;
-}
-}
-declare module MirGames.Domain.Notifications.ViewModels {
-interface NotificationSubscriptionViewModel {
-  SubscriptionId: number;
-  UserId: number;
-  EntityType: string;
-  NotificationType: string;
-}
-interface NotificationViewModel {
-  NotificationId: string;
-  NotificationType: string;
-  UserId: number;
-  EntityId: number;
-  Data: MirGames.Domain.Notifications.ViewModels.NotificationData;
-}
-interface NotificationData {
-  NotificationType: string;
 }
 }
 declare module MirGames.Domain.Attachments.Queries {
@@ -609,6 +670,16 @@ interface PostWorkItemCommentCommand extends MirGames.Infrastructure.Commands.Co
   WorkItemId: number;
   Text: string;
   Attachments: number[];
+}
+}
+declare module MirGames.Domain.Wip.Notifications {
+interface NewCommitNotificationDetailsViewModel extends MirGames.Domain.Notifications.ViewModels.NotificationDetailsViewModel {
+  CommitId: string;
+  ProjectAlias: string;
+  Message: string;
+  Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
+  ProjectTitle: string;
+  NotificationType: string;
 }
 }
 declare module MirGames.Domain.Wip.Queries {
@@ -699,6 +770,7 @@ interface WipProjectRepositoryItemViewModel {
   ItemType: MirGames.Domain.Wip.ViewModels.WipProjectRepositoryItemType;
 }
 interface WipProjectCommitViewModel {
+  Id: string;
   Author: MirGames.Domain.Users.ViewModels.AuthorViewModel;
   Message: string;
   Date: Date;

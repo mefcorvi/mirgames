@@ -18,4 +18,11 @@ module UI {
     export interface IAppScope extends ng.IScope {
         safeApply(fn?: () => void ): void;
     }
+
+    export function safeDigest(scope: ng.IScope) {
+        var phase = scope.$$phase;
+        if (phase != '$apply' && phase != '$digest') {
+            scope.$digest();
+        }
+    }
 }

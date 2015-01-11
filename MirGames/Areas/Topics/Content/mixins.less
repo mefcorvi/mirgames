@@ -24,22 +24,12 @@
         }
 
         .answers-link {
-            float: left;
-            display: inline-block;
-            padding: @indent/4;
+            .font-size(1.2);
             text-decoration: none;
             color: mix(@background-color, @font-color, 60%);
-            font-family: Tahoma;
-            .font-size(1.3);
 
             &:hover {
-                background: @link-color-hover;
-                color: @background-color;
-            }
-
-            & > .fa {
-                margin-right: @indent/4;
-                .font-size(1.6);
+                color: @link-color-hover;
             }
         }
 
@@ -107,7 +97,7 @@
                 font-family: Tahoma;
                 line-height: 26px;
                 color: mix(@background-color, @font-color, 60%);
-                .font-size(1.1);
+                .font-size(1.2);
                 border-left: 1px solid @border-color;
                 margin-left: @indent/2;
                 padding-left: @indent/2;

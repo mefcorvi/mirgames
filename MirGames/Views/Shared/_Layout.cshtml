@@ -38,8 +38,8 @@
             }
         </script>
     </head>
-    <body ng-controller="@this.PageScriptController" @Html.Css(string.Join(" ", this.CssClasses))>
-        <div class="ajax-request" ng-class="{ 'ajax-request': 1, 'ajax-request-executing': requestsExecutingCount > 0 }" ng-controller="MirGames.RequestNotificationController">
+    <body @Html.Css(string.Join(" ", this.CssClasses))>
+        <div class="ajax-request" ng-class="{ 'ajax-request': 1, 'ajax-request-executing': showLoadingSpinner, 'ajax-request-executing-long': showLongLoading }" ng-controller="MirGames.RequestNotificationController">
             <div class="ajax-request-notification">&nbsp;</div>
         </div>
         <div class="user-notification-block" ng-controller="MirGames.UserNotificationController" ng-cloak>
@@ -79,10 +79,10 @@
                 </div>
             </div>
         }
-        <section>
+        <section ng-controller="@this.PageScriptController">
             @RenderBody()
+            <input type="hidden" id="page-data" value="@Html.ToJson((object)this.ViewBag.PageData).ToString()"/>
         </section>
-        @RenderSection("SectionFooter", required: false)
         <footer>
             <nav>
                 <a href="@Url.ActionCached(MVC.Pages.About())">О сайте</a>
@@ -92,7 +92,6 @@
         </footer>
         @Html.Partial("_OnlineUsers", onlineUsers)
         <div class="up-nav"><span><i class="fa fa-arrow-circle-up" ng-click="document.body.scrollTop = 0"></i></span></div>
-        <input type="hidden" id="page-data" value="@Html.ToJson((object)this.ViewBag.PageData).ToString()"/>
         <script type="text/javascript">
             window.config = {
                 rootUrl: '@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))',

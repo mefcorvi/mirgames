@@ -83,8 +83,9 @@ namespace MirGames.Controllers
         public class ActionNamesClass
         {
             public readonly string Login = "Login";
+            public readonly string LoginDialog = "LoginDialog";
             public readonly string Logout = "Logout";
-            public readonly string SignUp = "SignUp";
+            public readonly string SignUpDialog = "SignUpDialog";
             public readonly string Activation = "Activation";
             public readonly string RestorePassword = "RestorePassword";
         }
@@ -93,8 +94,9 @@ namespace MirGames.Controllers
         public class ActionNameConstants
         {
             public const string Login = "Login";
+            public const string LoginDialog = "LoginDialog";
             public const string Logout = "Logout";
-            public const string SignUp = "SignUp";
+            public const string SignUpDialog = "SignUpDialog";
             public const string Activation = "Activation";
             public const string RestorePassword = "RestorePassword";
         }
@@ -155,6 +157,17 @@ namespace MirGames.Controllers
         }
 
         [NonAction]
+        partial void LoginDialogOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult LoginDialog()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LoginDialog);
+            LoginDialogOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
         partial void LogoutOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
@@ -166,13 +179,13 @@ namespace MirGames.Controllers
         }
 
         [NonAction]
-        partial void SignUpOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void SignUpDialogOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult SignUp()
+        public override System.Web.Mvc.ActionResult SignUpDialog()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SignUp);
-            SignUpOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SignUpDialog);
+            SignUpDialogOverride(callInfo);
             return callInfo;
         }
 

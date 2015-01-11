@@ -38,6 +38,7 @@ module MirGames.Chat {
                 adjustTextAreaHeight: () => this.adjustTextAreaHeight()
             };
 
+            this.loadLastMessages();
             this.$scope.loadHistory = () => this.loadHistory();
             this.$scope.focusAnswer = () => this.focusAnswer();
 
@@ -56,8 +57,6 @@ module MirGames.Chat {
                 if (this.$scope.messages.length > 0) {
                     this.addSystemMessage('Соединение установлено');
                 }
-
-                this.loadLastMessages();
             });
 
             $(window).focus(() => this.handleChatActivation());

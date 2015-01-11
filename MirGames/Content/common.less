@@ -89,7 +89,6 @@ body {
         right: 0;
         background: rgba(0, 0, 0, 0);
         visibility: hidden;
-        .transition(background-color, 5s, ease-in);
 
         & > .ajax-request-notification {
             margin: auto auto;
@@ -98,17 +97,21 @@ body {
             padding: 5px;
             background: url("images/ajax-loader.gif") no-repeat center center;
             opacity: 0.0;
-            .transition(opacity, 0.5s, ease-in);
         }
     }
 
     & > .ajax-request-executing {
-        background: rgba(0, 0, 0, 0.7);
         visibility: visible;
 
         & > .ajax-request-notification {
             opacity: 1;
+            .transition(opacity, 0.5s, ease-in);
         }
+    }
+
+    & > .ajax-request-executing-long {
+        background: rgba(0, 0, 0, 0.7);
+        .transition(background-color, 5s, ease-in);
     }
 
     & > .notification-block {

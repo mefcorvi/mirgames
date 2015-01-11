@@ -8,11 +8,15 @@ module MirGames.Domain.Tools.ViewModels {
 }
 module MirGames.Domain.Topics.Commands {
 }
-module MirGames.Domain.Topics.Queries {
+module MirGames.Domain.Topics.Notifications {
+}
+module MirGames.Domain.Notifications.ViewModels {
+}
+module MirGames.Domain.Users.ViewModels {
 }
 module MirGames.Domain.Topics.ViewModels {
 }
-module MirGames.Domain.Users.ViewModels {
+module MirGames.Domain.Topics.Queries {
 }
 module MirGames.Domain.Users.Commands {
 }
@@ -22,17 +26,19 @@ module MirGames.Domain.Users.Queries {
 }
 module MirGames.Domain.Forum.Commands {
 }
-module MirGames.Domain.Forum.Queries {
+module MirGames.Domain.Forum.Notifications {
 }
 module MirGames.Domain.Forum.ViewModels {
 }
+module MirGames.Domain.Forum.Queries {
+}
 module MirGames.Domain.Chat.Commands {
+}
+module MirGames.Domain.Chat.Notifications {
 }
 module MirGames.Domain.Chat.Queries {
 }
 module MirGames.Domain.Chat.ViewModels {
-}
-module MirGames.Domain.Notifications.ViewModels {
 }
 module MirGames.Domain.Attachments.Queries {
 export enum AttachmentsOrderingType {
@@ -44,6 +50,8 @@ export enum AttachmentsOrderingType {
 module MirGames.Domain.Attachments.ViewModels {
 }
 module MirGames.Domain.Wip.Commands {
+}
+module MirGames.Domain.Wip.Notifications {
 }
 module MirGames.Domain.Wip.Queries {
 }

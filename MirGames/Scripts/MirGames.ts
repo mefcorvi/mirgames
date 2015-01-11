@@ -22,6 +22,7 @@ hljs.initHighlightingOnLoad();
 angular.module('mirgames', [
     'core.application',
     'ui.dialog',
+    'ui.singlePage',
     'ui.texteditor',
     'ui.tinyeditor',
     'ui.autofill',
@@ -40,7 +41,11 @@ angular.module('mirgames', [
     'vcRecaptcha',
     'mirgames.settings',
     'timeRelative'
-]);
+]).config(['$locationProvider', ($locationProvider: ng.ILocationProvider) => {
+    $locationProvider.html5Mode(true);
+}]).run(['singlePageService', (singlePageService: UI.ISinglePageService) => {
+    singlePageService.enable();
+}]);
 
 angular
     .module('ng')
@@ -67,7 +72,7 @@ angular
         return (scope: ng.IScope, element: JQuery, attrs: any) => {
             var templatePath = attrs.staticInclude;
 
-            $http.get(templatePath, { cache: $templateCache }).success((response) => {
+            $http.get<string>(templatePath, { cache: $templateCache }).success((response) => {
                 var contents = $('<div/>').html(response).contents();
                 element.html(contents);
                 $compile(contents)(scope);

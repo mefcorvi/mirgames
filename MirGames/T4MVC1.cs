@@ -259,6 +259,7 @@ namespace Links
             public static readonly string Draggable_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Draggable.min.js") ? Url("Draggable.min.js") : Url("Draggable.js");
             public static readonly string File_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/File.min.js") ? Url("File.min.js") : Url("File.js");
             public static readonly string NotificationService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/NotificationService.min.js") ? Url("NotificationService.min.js") : Url("NotificationService.js");
+            public static readonly string SinglePageService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SinglePageService.min.js") ? Url("SinglePageService.min.js") : Url("SinglePageService.js");
             public static readonly string TextEditor_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/TextEditor.min.js") ? Url("TextEditor.min.js") : Url("TextEditor.js");
             public static readonly string TinyEditor_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/TinyEditor.min.js") ? Url("TinyEditor.min.js") : Url("TinyEditor.js");
             public static readonly string UnreadMenuItemController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/UnreadMenuItemController.min.js") ? Url("UnreadMenuItemController.min.js") : Url("UnreadMenuItemController.js");
@@ -403,6 +404,7 @@ namespace Links
             private const string URLPATH = "~/Content/users";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string feed_less = Url("feed.less");
             public static readonly string mixins_less = Url("mixins.less");
             public static readonly string profile_page_less = Url("profile-page.less");
             public static readonly string user_comments_less = Url("user-comments.less");
@@ -638,7 +640,6 @@ namespace Links
                 public static readonly string SearchPanelController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SearchPanelController.min.js") ? Url("SearchPanelController.min.js") : Url("SearchPanelController.js");
                 public static readonly string Topic_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Topic.min.js") ? Url("Topic.min.js") : Url("Topic.js");
                 public static readonly string Topics_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Topics.min.js") ? Url("Topics.min.js") : Url("Topics.js");
-                public static readonly string UnreadMenuItemController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/UnreadMenuItemController.min.js") ? Url("UnreadMenuItemController.min.js") : Url("UnreadMenuItemController.js");
             }
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

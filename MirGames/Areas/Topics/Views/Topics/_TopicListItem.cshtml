@@ -43,15 +43,7 @@
                 <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))#read-more" class="read-more">@Model.ReadMoreText<i class="fa fa-long-arrow-right"></i></a>
             }
             <footer>
-                @if (Model.UnreadCommentsCount > 0)
-                {
-                    <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))#unread" class="answers-link unread-comments"><i class="fa fa-comment-o"></i>@Model.CommentsCount +@Model.UnreadCommentsCount</a>
-                }
-                else
-                {
-                    <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))#comments" class="answers-link"><i class="fa fa-comment-o"></i>@Model.CommentsCount</a>
-                }
-                
+                <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))#comments" class="answers-link">@Model.CommentsCount @Model.CommentsCount.Pluralize("комментарий", "комментария", "комментариев")</a>
                 <div class="tags">
                     @foreach (var tag in Model.TagsSet)
                     {
@@ -75,14 +67,7 @@ else
             <div class="text">@Html.Raw(Model.ShortText)</div>
         </div>
         <footer>
-            @if (Model.UnreadCommentsCount > 0)
-            {
-                <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))#unread" class="answers-link unread-comments"><i class="fa fa-comment-o"></i>@Model.CommentsCount +@Model.UnreadCommentsCount</a>
-            }
-            else
-            {
-                <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))#comments" class="answers-link"><i class="fa fa-comment-o"></i>@Model.CommentsCount</a>
-            }
+            <a href="@Url.ActionCached(MVC.Topics.Topics.Topic(Model.TopicId))#comments" class="answers-link">@Model.CommentsCount @Model.CommentsCount.Pluralize("комментарий", "комментария", "комментариев")</a>
             <span class="creation-date relative" datetime="@Model.CreationDate.UserDate().ToString("O")">@Html.RelativeDate(Model.CreationDate)</span>
             <div class="tags">
                 @foreach (var tag in Model.TagsSet)

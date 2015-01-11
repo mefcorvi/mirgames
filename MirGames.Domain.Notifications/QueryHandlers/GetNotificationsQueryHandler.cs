@@ -75,6 +75,11 @@ namespace MirGames.Domain.Notifications.QueryHandlers
                        {
                            Data = n.Data
                        })
+                       .Select(n =>
+                       {
+                           n.Data.NotificationDate = DateTime.SpecifyKind(n.Data.NotificationDate, DateTimeKind.Utc);
+                           return n;
+                       })
                        .ToList();
         }
 

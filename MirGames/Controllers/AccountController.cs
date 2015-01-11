@@ -45,11 +45,20 @@ namespace MirGames.Controllers
         }
 
         /// <summary>
+        /// Logins this instance.
+        /// </summary>
+        /// <returns>The action result.</returns>
+        public virtual ActionResult Login()
+        {
+            return this.TransferToAction(MVC.Dashboard.Index());
+        }
+
+        /// <summary>
         /// The login action.
         /// </summary>
         /// <returns>The action result.</returns>
         [AjaxOnly]
-        public virtual ActionResult Login()
+        public virtual ActionResult LoginDialog()
         {
             var authProviders = this.QueryProcessor.Process(new GetOAuthProvidersQuery());
 
@@ -80,7 +89,7 @@ namespace MirGames.Controllers
         /// </summary>
         /// <returns>The action result.</returns>
         [AjaxOnly]
-        public virtual ActionResult SignUp()
+        public virtual ActionResult SignUpDialog()
         {
             return this.PartialView("_SignUpDialog", new SignUpCommand());
         }

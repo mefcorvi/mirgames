@@ -1,5 +1,5 @@
 ﻿@if (!User.Identity.IsAuthenticated)
 {
-    <a href="javascript:void(0)" class="account-signin" dialog="@Url.ActionCached(MVC.Account.Login())" dialog-controller="Account.LoginFormController">Войти</a>
-    <a href="javascript:void(0)" class="account-signup" dialog="@Url.ActionCached(MVC.Account.SignUp())" dialog-controller="Account.SignUpFormController">Зарегистрироваться</a>
+    <a href="javascript:void(0)" class="account-signin" dialog="@Url.ActionCached(MVC.Account.LoginDialog())" dialog-controller="Account.LoginFormController">Войти</a>
+    <a href="javascript:void(0)" class="account-signup" dialog="@Url.ActionCached(MVC.Account.SignUpDialog())" dialog-controller="Account.SignUpFormController">Зарегистрироваться</a>
 }

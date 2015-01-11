@@ -31,6 +31,7 @@
 /// <reference path="UI/TextEditor.ts" />
 /// <reference path="UI/AppScope.ts" />
 /// <reference path="UI/Dialog.ts" />
+/// <reference path="UI/SinglePageService.ts" />
 
 /// <reference path="Settings.ts" />
 /// <reference path="BasePage.ts" />

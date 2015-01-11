@@ -374,6 +374,8 @@ module UI {
 
                 return service;
             }];
+
+        return this;
     });
 
     angular

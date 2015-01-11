@@ -260,6 +260,29 @@ namespace MirGames.Controllers
             public readonly string Profile = "~/Views/Users/Profile.cshtml";
             public readonly string Settings = "~/Views/Users/Settings.cshtml";
             public readonly string Topics = "~/Views/Users/Topics.cshtml";
+            static readonly _FeedItemsClass s_FeedItems = new _FeedItemsClass();
+            public _FeedItemsClass FeedItems { get { return s_FeedItems; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _FeedItemsClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string Chat_UserMentioned = "Chat.UserMentioned";
+                    public readonly string Forum_NewAnswer = "Forum.NewAnswer";
+                    public readonly string Forum_NewTopic = "Forum.NewTopic";
+                    public readonly string Topics_NewBlogTopic = "Topics.NewBlogTopic";
+                    public readonly string Topics_NewTopicComment = "Topics.NewTopicComment";
+                    public readonly string Wip_NewCommit = "Wip.NewCommit";
+                }
+                public readonly string Chat_UserMentioned = "~/Views/Users/FeedItems/Chat.UserMentioned.cshtml";
+                public readonly string Forum_NewAnswer = "~/Views/Users/FeedItems/Forum.NewAnswer.cshtml";
+                public readonly string Forum_NewTopic = "~/Views/Users/FeedItems/Forum.NewTopic.cshtml";
+                public readonly string Topics_NewBlogTopic = "~/Views/Users/FeedItems/Topics.NewBlogTopic.cshtml";
+                public readonly string Topics_NewTopicComment = "~/Views/Users/FeedItems/Topics.NewTopicComment.cshtml";
+                public readonly string Wip_NewCommit = "~/Views/Users/FeedItems/Wip.NewCommit.cshtml";
+            }
         }
     }
 

@@ -50,7 +50,7 @@
 <nav class="toolbar">
     @if (UserEntity != null && UserEntity.Id == Model.Id)
     {
-        <a href="@Url.ActionCached(MVC.Users.Feed())" class="@(ViewBag.SectionMode == "Feed" ? "selected" : string.Empty)"><i class="fa fa-newspaper-o"></i>Лента</a>
+        <a href="@Url.ActionCached(MVC.Users.Feed())" class="@(ViewBag.SectionMode == "Feed" ? "selected" : string.Empty)"><i class="fa fa-globe"></i>Лента</a>
     }
     
     <a href="@Url.ActionCached(MVC.Users.Profile(Model.Id))" class="@(ViewBag.SectionMode == "Profile" ? "selected" : string.Empty)"><i class="fa fa-pencil-square"></i>Блог</a>

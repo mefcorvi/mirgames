@@ -14,7 +14,7 @@
     @foreach (var notification in Model)
     {
         <div @Html.Css("notification-item").Add("read", notification.IsRead)>
-            @Html.Partial("Feed/" + notification.NotificationType, notification)
+            @Html.Partial("FeedItems/" + notification.NotificationType, notification)
         </div>
     }
 </div>
