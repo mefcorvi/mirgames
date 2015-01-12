@@ -40,7 +40,9 @@ angular.module('mirgames', [
     'core.eventBus',
     'vcRecaptcha',
     'mirgames.settings',
-    'timeRelative'
+    'timeRelative',
+    'ui.pageData',
+    'ui.unreadItems'
 ]).config(['$locationProvider', ($locationProvider: ng.ILocationProvider) => {
     $locationProvider.html5Mode(true);
 }]).run(['singlePageService', (singlePageService: UI.ISinglePageService) => {

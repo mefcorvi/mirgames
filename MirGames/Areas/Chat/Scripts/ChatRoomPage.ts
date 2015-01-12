@@ -11,6 +11,8 @@ module MirGames.Chat {
         private $footer: JQuery;
         private textWriting: boolean;
         private loadedPageNum: number;
+        private newMessageHandler: Core.ISocketHandler;
+        private updatedMessageHandler: Core.ISocketHandler;
 
         constructor($scope: IChatRoomPageScope, eventBus: Core.IEventBus, private socketService: Core.ISocketService, private notificationService: UI.INotificationService, private apiService: Core.IApiService, private currentUser: Core.ICurrentUser, private $timeout: ng.ITimeoutService) {
             super($scope, eventBus);
@@ -24,6 +26,8 @@ module MirGames.Chat {
             this.$scope.useEnterToPost = this.pageData.currentUser ? this.pageData.currentUser.Settings.UseEnterToSendChatMessage : false;
             this.$scope.changeSendKey = () => this.changeSendKey();
             this.$scope.quoteLogin = text => this.quoteLogin(text);
+            this.$scope.loadHistory = () => this.loadHistory();
+            this.$scope.focusAnswer = () => this.focusAnswer();
 
             this.$textArea = $('.new-answer-form textarea');
             this.$footer = $('body > .chat-answer > .answer-form');
@@ -39,34 +43,11 @@ module MirGames.Chat {
             };
 
             this.loadLastMessages();
-            this.$scope.loadHistory = () => this.loadHistory();
-            this.$scope.focusAnswer = () => this.focusAnswer();
-
-            this.socketService.addHandler('chatHub', 'addNewMessageToPage', this.processReceivedMessage.bind(this));
-            this.socketService.addHandler('chatHub', 'updateMessage', this.processUpdatedMessage.bind(this));
-
-            this.eventBus.on('socket.disconnected', () => {
-                this.addSystemMessage('Соединение разорвано');
-            });
-
-            this.eventBus.on('socket.reconnecting', () => {
-                this.addSystemMessage('Переподключение...');
-            });
-
-            this.eventBus.on('socket.connected', () => {
-                if (this.$scope.messages.length > 0) {
-                    this.addSystemMessage('Соединение установлено');
-                }
-            });
-
-            $(window).focus(() => this.handleChatActivation());
-            $(window).blur(() => this.handleChatDeactivation());
 
             this.currentUserEnteredChat();
             setInterval(this.currentUserEnteredChat.bind(this), 5000);
 
             this.attachToTextEditor();
-            $(window).on('beforeunload', this.currentUserLeavedChat.bind(this));
 
             $(() => {
                 this.scrollToBottom();
@@ -75,6 +56,45 @@ module MirGames.Chat {
 
                 this.$textArea.css('max-height', '300px');
             });
+
+            this.attachHandlers();
+            this.$scope.$on('$destroy', () => {
+                this.detachHandlers();
+            });
+        }
+
+        private attachHandlers() {
+            this.newMessageHandler = this.socketService.addHandler('chatHub', 'addNewMessageToPage', this.processReceivedMessage.bind(this));
+            this.updatedMessageHandler = this.socketService.addHandler('chatHub', 'updateMessage', this.processUpdatedMessage.bind(this));
+
+            this.eventBus.on('socket.disconnected.chatPage', () => {
+                this.addSystemMessage('Соединение разорвано');
+            });
+
+            this.eventBus.on('socket.reconnecting.chatPage', () => {
+                this.addSystemMessage('Переподключение...');
+            });
+
+            this.eventBus.on('socket.connected.chatPage', () => {
+                if (this.$scope.messages.length > 0) {
+                    this.addSystemMessage('Соединение установлено');
+                }
+            });
+
+            $(window).bind('focus.chatPage', () => this.handleChatActivation());
+            $(window).bind('blur.chatPage', () => this.handleChatDeactivation());
+            $(window).bind('beforeunload.chatPage', this.currentUserLeavedChat.bind(this));
+        }
+
+        private detachHandlers() {
+            $(window).unbind('focus.chatPage');
+            $(window).unbind('blur.chatPage');
+            $(window).unbind('beforeunload.chatPage');
+            this.eventBus.removeAllListeners('socket.disconnected.chatPage');
+            this.eventBus.removeAllListeners('socket.reconnecting.chatPage');
+            this.eventBus.removeAllListeners('socket.connected.chatPage');
+            this.socketService.removeHandler(this.newMessageHandler);
+            this.socketService.removeHandler(this.updatedMessageHandler);
         }
 
         private quoteLogin(text: string): void {
@@ -96,30 +116,29 @@ module MirGames.Chat {
 
         /** Adds the system message. */
         private addSystemMessage(message: string) {
-            this.$scope.$apply(() => {
-                var scopeMessage: IChatMessageScope = {
-                    createdDate: moment(),
-                    authorId: -1,
-                    avatarUrl: null,
-                    date: null,
-                    editDate: null,
-                    id: -1,
-                    login: null,
-                    showAuthor: false,
-                    showDate: false,
-                    text: message,
-                    firstInChain: false,
-                    firstInDay: false,
-                    isEditing: false,
-                    ownMessage: false,
-                    firstUnreadMessage: false,
-                    canBeDeleted: false,
-                    canBeEdited: false,
-                    isSystem: true
-                };
+            var scopeMessage: IChatMessageScope = {
+                createdDate: moment(),
+                authorId: -1,
+                avatarUrl: null,
+                date: null,
+                editDate: null,
+                id: -1,
+                login: null,
+                showAuthor: false,
+                showDate: false,
+                text: message,
+                firstInChain: false,
+                firstInDay: false,
+                isEditing: false,
+                ownMessage: false,
+                firstUnreadMessage: false,
+                canBeDeleted: false,
+                canBeEdited: false,
+                isSystem: true
+            };
 
-                this.$scope.messages.push(scopeMessage);
-            });
+            this.$scope.messages.push(scopeMessage);
+            this.$scope.$digest();
 
             if (this.isScrollBottom()) {
                 this.scrollToBottom();
@@ -174,7 +193,7 @@ module MirGames.Chat {
 
                 this.$scope.historyAvailable = result.length == 50;
                 this.prepareMessages(0, this.$scope.messages.length);
-                this.$scope.$apply();
+                this.$scope.$digest();
 
                 if (oldTop != null) {
                     var newTop = anchorItem.position().top;
@@ -203,14 +222,13 @@ module MirGames.Chat {
             };
 
             this.apiService.getOne('GetChatMessageForEditQuery', query, (result: MirGames.Domain.Chat.ViewModels.ChatMessageForEditViewModel) => {
-                this.$scope.$apply(() => {
-                    this.$scope.reply.message = result.SourceText;
-                    this.$scope.editMode = true;
-                    message.isEditing = true;
-                    this.$scope.editedMessage = message;
-                    this.$scope.reply.caret = result.SourceText.length;
-                    this.focusAnswer();
-                });
+                this.$scope.reply.message = result.SourceText;
+                this.$scope.editMode = true;
+                message.isEditing = true;
+                this.$scope.editedMessage = message;
+                this.$scope.reply.caret = result.SourceText.length;
+                this.focusAnswer();
+                this.$scope.$digest();
                 this.$textArea.trigger('autosize.resize');
             });
         }
@@ -249,7 +267,7 @@ module MirGames.Chat {
 
                 if (ev.which == 27 && this.$scope.editMode) {
                     this.cancelEdit();
-                    this.$scope.$apply();
+                    this.$scope.$digest();
                 }
 
                 setTimeout(() => {
@@ -314,22 +332,21 @@ module MirGames.Chat {
                 }
             }
 
-            this.$scope.$apply(() => {
-                this.$scope.messages.push(message);
+            this.$scope.messages.push(message);
 
-                var prevMessage = this.$scope.messages[this.$scope.messages.length - 2];
-                this.prepareMessage(message, prevMessage);
+            var prevMessage = this.$scope.messages[this.$scope.messages.length - 2];
+            this.prepareMessage(message, prevMessage);
 
-                if (this.isActive) {
-                    if (this.isScrollBottom()) {
-                        this.scrollToBottom();
-                    }
-                } else {
-                    setTimeout(() => {
-                        this.scrollToItem($('article.first-unread.message:last'));
-                    }, 0);
+            if (this.isActive) {
+                if (this.isScrollBottom()) {
+                    this.scrollToBottom();
                 }
-            });
+            } else {
+                setTimeout(() => {
+                    this.scrollToItem($('article.first-unread.message:last'));
+                }, 0);
+            }
+            this.$scope.$digest();
         }
 
         /** Processes update message. */
@@ -503,16 +520,16 @@ module MirGames.Chat {
                 this.socketService.executeCommand('PostChatMessageCommand', command);
             }
 
-            this.$scope.safeApply(() => {
-                this.$scope.editedMessage = null;
-                this.$scope.editMode = false;
-                this.$scope.reply.attachments = [];
-                this.$scope.reply.message = "";
+            this.$scope.editedMessage = null;
+            this.$scope.editMode = false;
+            this.$scope.reply.attachments = [];
+            this.$scope.reply.message = "";
 
-                setTimeout(() => {
-                    this.$textArea.trigger('autosize.resize');
-                }, 0);
-            });
+            setTimeout(() => {
+                this.$textArea.trigger('autosize.resize');
+            }, 0);
+
+            this.$scope.$digest();
 
             this.sendTextWritingStopped();
         }

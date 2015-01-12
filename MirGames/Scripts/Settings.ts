@@ -1,7 +1,10 @@
 /// <reference path="_references.ts" />
 module MirGames {
     class Settings implements ISettings {
-        constructor(private service: Core.IService, private pageData: IPageData) {
+        private pageData: IPageData;
+
+        constructor(private service: Core.IService) {
+            this.pageData = window.pageData;
         }
 
         public setIsMenuCollapsed(value: boolean) {
@@ -32,5 +35,5 @@ module MirGames {
 
     angular
         .module('mirgames.settings', ['core.service'])
-        .factory('settings', ['service', 'pageData', (service: Core.IService, pageData: IPageData) => new Settings(service, pageData)]);
+        .factory('settings', ['service', (service: Core.IService) => new Settings(service)]);
 }

@@ -34,10 +34,5 @@ module Core {
 
     angular
         .module('core.application', ['core.config', 'core.service'])
-        .factory('application', ['config', 'service', (config: IConfig, service: IService) => new Application(config, service)])
-        .factory('pageData', [() => window['pageData']]);
-}
-
-interface Window {
-    pageData: any;
+        .factory('application', ['config', 'service', (config: IConfig, service: IService) => new Application(config, service)]);
 }

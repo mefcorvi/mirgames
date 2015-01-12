@@ -2,9 +2,11 @@
 /// <reference path="../_references.ts" />
 module MirGames.Users {
     export class SearchPanelController {
-        static $inject = ['$scope', '$element', 'pageData'];
+        static $inject = ['$scope', '$element', 'pageDataService'];
 
-        constructor(private $scope: ISearchPanelController, $element: JQuery, public pageData: IUsersPageData) {
+        constructor(private $scope: ISearchPanelController, $element: JQuery, pageDataService: IPageDataProvider) {
+            var pageData = pageDataService.getPageData<IUsersPageData>();
+
             this.$scope.search = this.search.bind(this);
             this.$scope.searchQuery = pageData.searchString;
             this.$scope.action = pageData.action;

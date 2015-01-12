@@ -1,7 +1,14 @@
 module Core {
     export interface ISocketService {
-        addHandler(hub: string, messageType: string, callback: (...msg: any[]) => void): void;
+        addHandler(hub: string, messageType: string, callback: (...msg: any[]) => void): ISocketHandler;
+        removeHandler(handler: ISocketHandler): void;
         executeCommand(commandType: string, command: any): void;
+    }
+
+    export interface ISocketHandler {
+        hub: string;
+        messageType: string;
+        callback: (...msg: any[]) => void;
     }
 
     class SocketService implements ISocketService {
@@ -13,13 +20,26 @@ module Core {
         constructor(private eventBus: IEventBus) {
         }
 
-        public addHandler(hub: string, messageType: string, callback: (...msg: any[]) => void): void {
+        public addHandler(hub: string, messageType: string, callback: (...msg: any[]) => void): ISocketHandler {
             this.ensureConnection();
 
             var hubProxy = this.getProxy(hub);
             hubProxy.on(messageType, callback);
 
             this.start();
+
+            var socketHandler: ISocketHandler = {
+                hub: hub,
+                messageType: messageType,
+                callback: callback
+            };
+
+            return socketHandler;
+        }
+
+        public removeHandler(handler: ISocketHandler) {
+            var hubProxy = this.getProxy(handler.hub);
+            hubProxy.off(handler.messageType, handler.callback);
         }
 
         public executeCommand(commandType: string, command: any): void {

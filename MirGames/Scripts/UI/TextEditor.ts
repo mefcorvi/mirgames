@@ -16,8 +16,18 @@ module UI {
             this.initializeScrollSynchronization();
             this.onResize();
 
-            $(window).bind('resize', this.onResize.bind(this));
-            this.eventBus.on('section.resized', this.onResize.bind(this));
+            var onResizeCallback = () => {
+                this.onResize();
+            }
+
+            $(window).bind('resize', onResizeCallback);
+            this.eventBus.on('section.resized', onResizeCallback);
+
+            $scope.$on('$destroy', () => {
+                $(window).unbind('resize', onResizeCallback);
+                this.eventBus.off('section.resized', onResizeCallback);
+                this.topicEditor.unbind('scroll');
+            });
         }
 
         private initializeScrollSynchronization() {

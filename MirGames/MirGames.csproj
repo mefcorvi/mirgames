@@ -514,7 +514,7 @@
     <None Include="Areas\Forum\Scripts\SearchPanelController.ts" />
     <None Include="Scripts\Core\Base64.ts" />
     <None Include="Scripts\Attachment\AttachmentService.ts" />
-    <None Include="Scripts\UI\UnreadMenuItemController.ts" />
+    <None Include="Scripts\UI\UnreadItemsController.ts" />
     <None Include="Areas\Chat\Scripts\ChatRoomPage.ts" />
     <None Include="Scripts\Account\AccountSettingsPage.ts" />
     <None Include="Scripts\OnlineUsersController.ts" />
@@ -563,9 +563,7 @@
     <None Include="Scripts\Libs\jquery.naturalWidth.d.ts" />
     <None Include="Scripts\Libs\tinycon.js" />
     <None Include="Scripts\Libs\angular-recaptcha.js" />
-    <None Include="Scripts\Libs\eventEmitter.d.ts" />
     <None Include="Scripts\Libs\markdown\MarkdownDeep.d.ts" />
-    <None Include="Scripts\Libs\eventEmitter.js" />
     <None Include="Scripts\Libs\linq.d.ts" />
     <None Include="Scripts\Libs\linq.js" />
     <None Include="Scripts\Libs\markdown\MarkdownDeepEditorUI.js" />
@@ -905,8 +903,10 @@
     <Content Include="Areas\Projects\Scripts\ProjectPage.ts" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Scripts\Core\EventEmitter.ts" />
     <TypeScriptCompile Include="Scripts\Libs\angular.d.ts" />
     <TypeScriptCompile Include="Scripts\UI\SinglePageService.ts" />
+    <TypeScriptCompile Include="Scripts\UI\UnreadItemsService.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -11,7 +11,8 @@ module Core {
 
         private userId: number;
 
-        constructor(private pageData: ICurrentUserPageData) {
+        constructor() {
+            var pageData = <ICurrentUserPageData>window.pageData;
             this.userId = pageData.currentUser ? pageData.currentUser.Id : 0;
         }
 
@@ -26,5 +27,5 @@ module Core {
 
     angular
         .module('core.currentUser', ['core.application'])
-        .factory('currentUser', ['pageData', (pageDate: ICurrentUserPageData) => new CurrentUser(pageDate)]);
+        .service('currentUser', CurrentUser);
 } 

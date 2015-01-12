@@ -3,10 +3,10 @@ module MirGames.Topics {
     declare var ace: any;
 
     export class EditTopicPage {
-        static $inject = ['$scope', '$element', 'apiService', 'pageData'];
+        static $inject = ['$scope', '$element', 'apiService', 'pageDataService'];
 
-        constructor(private $scope: IEditTopicPageScope, private $element: JQuery, private apiService: Core.IApiService, private pageData: IEditTopicPageData) {
-
+        constructor(private $scope: IEditTopicPageScope, private $element: JQuery, private apiService: Core.IApiService, pageDataService: IPageDataProvider) {
+            var pageData = pageDataService.getPageData<IEditTopicPageData>();
             this.$scope.topicId = pageData.topicId;
             this.$scope.title = pageData.title;
             this.$scope.text = pageData.text;

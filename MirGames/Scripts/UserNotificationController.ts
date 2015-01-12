@@ -7,7 +7,7 @@ module MirGames {
         constructor(private $scope: IUserNotificationControllerScope, private $element: JQuery, private eventBus: Core.IEventBus, private $timeout: ng.ITimeoutService) {
             this.$scope.notifications = [];
 
-            eventBus.addListener('user.notification', (arg: string) => this.onUserNotification(arg));
+            eventBus.on('user.notification', (arg: string) => this.onUserNotification(arg));
         }
 
         private onUserNotification(notification: string): void {

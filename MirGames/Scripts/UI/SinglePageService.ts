@@ -10,6 +10,7 @@ module UI {
         static $inject = ['$rootScope', '$location', '$http', '$compile', 'eventBus'];
 
         private disregistrationFunction: Function;
+        private httpConfig: ng.IRequestShortcutConfig;
 
         constructor(
             private $rootScope: ng.IRootScopeService,
@@ -17,6 +18,9 @@ module UI {
             private $http: ng.IHttpService,
             private $compile: ng.ICompileService,
             private eventBus: Core.IEventBus) {
+            this.httpConfig = {
+                cache: false
+            };
         }
 
         public enable(): void {
@@ -44,9 +48,15 @@ module UI {
             this.saveScrollPosition();
 
             this.eventBus.emit('ajax-request.executing');
-            this.$http.get<string>(this.$location.url()).then(response => {
+            this.$http.get<string>(this.$location.url(), {
+                cache: false,
+                params: {
+                    '_uid': new Date().getTime()
+                }
+            }).then(response => {
                 this.eventBus.emit('ajax-request.executed');
                 this.pageLoaded(response.data);
+                delete response.data;
             });
         }
 
@@ -58,19 +68,28 @@ module UI {
             var bodyRegexp = /<body([^>]*)>([\s\S]*)<\/body>/i;
             var bodyHtml = bodyRegexp.exec(html);
 
-            var result = $('<div' + bodyHtml[1] + '>' + bodyHtml[2] + '</div>');
-            $('body').attr('class', result.attr('class'));
-            $('body > section').replaceWith(result.children('section'));
-            $('body > header').replaceWith(result.children('header'));
+            var result = angular.element('<div' + bodyHtml[1] + '>' + bodyHtml[2] + '</div>');
+            angular.element('body').attr('class', result.attr('class'));
+
+            var oldSectionScope = angular.element('body > section').scope();
+            var oldHeaderScope = angular.element('body > header').scope();
+
+            angular.element('body > section').replaceWith(result.children('section'));
+            angular.element('body > header').replaceWith(result.children('header'));
             this.restoreScrollPosition(false);
 
             window.pageData = JSON.parse((<HTMLInputElement>document.getElementById('page-data')).value);
 
             setTimeout(() => {
-                var scope = this.$rootScope.$new();
-                this.$compile($('body > section'))(scope);
-                this.$compile($('body > header'))(scope);
-                scope.$digest();
+                oldSectionScope.$destroy();
+                oldHeaderScope.$destroy();
+
+                var sectionScope = this.$rootScope.$new(true);
+                var headerScope = this.$rootScope.$new(true);
+                this.$compile($('body > section'))(sectionScope);
+                this.$compile($('body > header'))(headerScope);
+                sectionScope.$digest();
+                headerScope.$digest();
                 this.restoreScrollPosition(true);
             }, 0);            
         }

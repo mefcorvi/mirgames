@@ -72,7 +72,56 @@
                     exports(mod);
                 }
 
-                function directive(moment) {
+                function diffString(a, b, withoutSuffix) {
+                    if (Math.abs(a.clone().startOf('day').diff(b, 'days', true)) < 25)
+                        return a.from(b, withoutSuffix);
+                    else
+                        return a.format('DD.MM.YY HH:mm');
+                }
+
+                function nextUpdateIn(date) {
+                    var delta = Math.abs(moment().diff(date));
+                    if (delta < 45e3) return 45e3 - delta;
+                    if (delta < 90e3) return 90e3 - delta;
+                    if (delta < 45 * 60e3) return 60e3 - (delta + 30e3) % 60e3;
+                    return 3660e3 - delta % 3600e3;
+                }
+
+                var watchHandler = function (dateString, element, attrs, timeout) {
+                    if (timeout) {
+                        var idx = queue.indexOf(timeout);
+                        queue.splice(idx, 1);
+                        timeout = null;
+                    }
+
+                    var date = moment(dateString);
+                    if (!date) {
+                        return timeout;
+                    }
+
+                    var withoutSuffix = 'withoutSuffix' in attrs;
+
+                    if (!attrs.title) {
+                        element.attr('title', date.format('LLL'));
+                    }
+
+                    function updateLater() {
+                        element.text(diffString(date, moment(attrs.to), withoutSuffix));
+
+                        if (!timeout) {
+                            timeout = { callback: updateLater };
+                            queue[queue.length] = timeout;
+                        }
+
+                        timeout.time = new Date().getTime() + nextUpdateIn(date);
+                        queue.sort(queueSort);
+                    }
+
+                    updateLater();
+                    return timeout;
+                }
+
+                function directive() {
                     return {
                         restrict: 'AC',
                         scope: {
@@ -81,61 +130,16 @@
                         link: function(scope, element, attrs) {
                             var timeout;
 
-                            scope.$watch('datetime', function(dateString) {
+                            scope.$watch('datetime', function(datetime) {
+                                timeout = watchHandler(datetime, element, attrs, timeout);
+                            });
+
+                            scope.$on('$destroy', function () {
                                 if (timeout) {
                                     var idx = queue.indexOf(timeout);
                                     queue.splice(idx, 1);
                                     timeout = null;
                                 }
-
-                                var date = moment(dateString);
-                                if (!date) return;
-                                var to = function() { return moment(attrs.to); };
-                                var withoutSuffix = 'withoutSuffix' in attrs;
-
-                                if (!attrs.title)
-                                    element.attr('title', date.format('LLL'));
-
-                                function updateTime() {
-                                    element.text(diffString(date, to()));
-                                }
-
-                                function diffString(a, b) {
-                                    if (Math.abs(a.clone().startOf('day').diff(b, 'days', true)) < 25)
-                                        return a.from(b, withoutSuffix);
-                                    else
-                                        return a.format('DD.MM.YY HH:mm');
-                                }
-
-                                function updateLater() {
-                                    updateTime();
-
-                                    if (!timeout) {
-                                        timeout = { callback: updateLater };
-                                        queue[queue.length] = timeout;
-                                    }
-
-                                    timeout.time = new Date().getTime() + nextUpdateIn();
-                                    queue.sort(queueSort);
-                                }
-
-                                function nextUpdateIn() {
-                                    var delta = Math.abs(moment().diff(date));
-                                    if (delta < 45e3) return 45e3 - delta;
-                                    if (delta < 90e3) return 90e3 - delta;
-                                    if (delta < 45 * 60e3) return 60e3 - (delta + 30e3) % 60e3;
-                                    return 3660e3 - delta % 3600e3;
-                                }
-
-                                element.bind('$destroy', function() {
-                                    if (timeout) {
-                                        var idx = queue.indexOf(timeout);
-                                        queue.splice(idx, 1);
-                                        timeout = null;
-                                    }
-                                });
-
-                                updateLater();
                             });
                         }
                     };

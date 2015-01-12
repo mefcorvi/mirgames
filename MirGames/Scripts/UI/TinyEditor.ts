@@ -53,15 +53,19 @@ module UI {
                     textArea.trigger('autosize.destroy');
                 }
             });
+
+            $scope.$on('$destroy', () => {
+                textArea.trigger('autosize.destroy');
+                textArea.unbind();
+            });
         }
 
         private initializePreviewMode() {
             var $previewButton = $('.btn-preview', this.$element);
             $previewButton.click(() => {
-                this.$scope.$apply(() => {
-                    $('.mdd_preview', this.$element).css('height', $('.mdd_editor_wrap textarea', this.$element).outerHeight());
-                    this.$scope.showPreview = !this.$scope.showPreview;
-                });
+                $('.mdd_preview', this.$element).css('height', $('.mdd_editor_wrap textarea', this.$element).outerHeight());
+                this.$scope.showPreview = !this.$scope.showPreview;
+                this.$scope.$digest();
 
                 if (this.$scope.showPreview) {
                     $previewButton.addClass('selected');

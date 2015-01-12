@@ -6,7 +6,6 @@
 /// <reference path="libs/jquery.autosize.d.ts" />
 /// <reference path="libs/angular.d.ts" />
 /// <reference path="libs/signalr.d.ts" />
-/// <reference path="libs/eventEmitter.d.ts" />
 /// <reference path="libs/linq.d.ts" />
 /// <reference path="libs/tinycon.d.ts" />
 /// <reference path="libs/ion.sound.d.ts" />
@@ -18,6 +17,7 @@
 /// <reference path="TypeLite.d.ts" />
 /// <reference path="TypeLiteEnums.ts" />
 
+/// <reference path="Core/EventEmitter.ts" />
 /// <reference path="Core/Base64.ts" />
 /// <reference path="Core/Utils.ts" />
 /// <reference path="Core/Config.ts" />
@@ -32,6 +32,8 @@
 /// <reference path="UI/AppScope.ts" />
 /// <reference path="UI/Dialog.ts" />
 /// <reference path="UI/SinglePageService.ts" />
+/// <reference path="UI/UnreadItemsService.ts" />
+/// <reference path="UI/NotificationService.ts" />
 
 /// <reference path="Settings.ts" />
 /// <reference path="BasePage.ts" />

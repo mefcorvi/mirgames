@@ -1,6 +1,6 @@
 ﻿@if (UserEntity != null)
 {
-    <span ng-controller="MirGames.UnreadMenuItemController">
+    <span ng-controller="MirGames.UnreadItemsController">
         <a href="@Url.ActionCached(MVC.Users.Profile(UserEntity.Id))" @Html.Css("user-link").Add("selected", (string)ViewBag.CurrentSection == "CurrentUser")>
             <img src="@UserEntity.AvatarUrl" class="avatar avatar-small" /><span>@UserEntity.Login</span>
         </a>

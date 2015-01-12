@@ -6,7 +6,6 @@ var csso = require('gulp-csso');
 var changed = require('gulp-changed');
 var sourcemaps = require('gulp-sourcemaps');
 var concat = require('gulp-concat');
-var gulpFilter = require('gulp-filter');
 var del = require('del');
 var runSequence = require('run-sequence');
 var download = require('gulp-download');
@@ -40,7 +39,6 @@ var filePath = {
         "../Scripts/Libs/angular-recaptcha.js",
         "../Scripts/Libs/ng-quick-date.js",
         "../Scripts/Libs/ui-bootstrap-custom-0.5.0.js",
-        "../Scripts/Libs/eventEmitter.js",
         "../Scripts/Libs/linq.js",
         "../Scripts/Libs/tinycon.js",
         "../Scripts/Libs/ion.sound.js",
@@ -61,8 +59,10 @@ var filePath = {
         "../Scripts/Core/CurrentUser.ts",
         "../Scripts/Core/ApiService.ts",
         "../Scripts/Core/Service.ts",
+        "../Scripts/Core/EventEmitter.ts",
         "../Scripts/Core/EventBus.ts",
         "../Scripts/Core/SocketService.ts",
+        "../Scripts/MirGames.ts",
         "../Scripts/Account/*.ts",
         "../Scripts/UI/*.ts",
         "../Areas/Chat/Scripts/*.ts",
@@ -72,7 +72,6 @@ var filePath = {
         "../Areas/Forum/Scripts/*.ts",
         "../Areas/Projects/Scripts/*.ts",
         "../Scripts/Attachment/*.ts",
-        "../Scripts/MirGames.ts",
         "../Scripts/ActivationNotificationController.ts",
         "../Scripts/NavigationController.ts",
         "../Scripts/OnlineUsersController.ts",
@@ -114,23 +113,42 @@ gulp.task('clean:maps', function(cb) {
 });
 
 gulp.task('compile-ts', function () {
-    var tsFilter = gulpFilter('**/*.ts');
-    var jsFilter = gulpFilter('**/*.js');
+    var tsFiles = [];
+    for (var i = 0; i < filePath.scripts.length; i++) {
+        if (filePath.scripts[i].indexOf('.ts') >= 0) {
+            tsFiles.push(filePath.scripts[i]);
+        }
+    }
 
-    return gulp.src(filePath.scripts, { base: '../' })
-        .pipe(tsFilter)
+    return gulp.src(tsFiles, { base: '../' })
         .pipe(typescript({ sourcemap: true, noImplicitAny: true, outDir: '../public/js', target: 'ES3' }))
-        .pipe(tsFilter.restore())
-        .pipe(jsFilter)
+        .pipe(gulp.dest('../public/js'));
+});
+
+gulp.task('merge-scripts', function () {
+    var scripts = [];
+    for (var i = 0; i < filePath.scripts.length; i++) {
+        var path = filePath.scripts[i];
+        if (path.indexOf('.ts') >= 0) {
+            scripts.push(path.replace('.ts', '.js').replace('../', '../public/js/'));
+        } else {
+            scripts.push(path);
+        }
+    }
+    console.log(scripts);
+
+    return gulp.src(scripts, { base: '../' })
         .pipe(sourcemaps.init({ loadMaps: true }))
         .pipe(concat('scripts.js', { newLine: ';\r\n' }))
-        .pipe(jsFilter.restore())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('../public/js'));
 });
 
+gulp.task('compile-scripts', function (cb) {
+    runSequence('compile-ts', 'merge-scripts', cb);
+});
 
-var lessWithTheme = function(theme) {
+var lessWithTheme = function (theme) {
     gulp.task('compile-less-' + theme, function () {
         return gulp.src(filePath.less, { base: '../' })
             .pipe(sourcemaps.init())
@@ -158,7 +176,7 @@ gulp.task('minimize-css', function () {
 });
 
 gulp.task('dev', function(cb) {
-    runSequence('clean:temp', ['download', 'clean'], ['compile-less', 'compile-ts'], ['clean:maps'], cb);
+    runSequence('clean:temp', ['download', 'clean'], ['compile-less', 'compile-scripts'], ['clean:maps'], cb);
 });
 
 gulp.task('publish', function (cb) {

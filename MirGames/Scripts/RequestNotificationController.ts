@@ -8,9 +8,9 @@ module MirGames {
         constructor(private $scope: IRequestNotificationControllerScope, private $element: JQuery, private eventBus: Core.IEventBus) {
             this.$scope.requestsExecutingCount = 0;
 
-            eventBus.addListener('ajax-request.executing', this.onRequestExecuting.bind(this));
-            eventBus.addListener('ajax-request.executed', this.onRequestExecuted.bind(this));
-            eventBus.addListener('ajax-request.failed', this.onRequestExecuted.bind(this));
+            eventBus.on('ajax-request.executing', this.onRequestExecuting.bind(this));
+            eventBus.on('ajax-request.executed', this.onRequestExecuted.bind(this));
+            eventBus.on('ajax-request.failed', this.onRequestExecuted.bind(this));
         }
 
         private onRequestExecuting(): void {

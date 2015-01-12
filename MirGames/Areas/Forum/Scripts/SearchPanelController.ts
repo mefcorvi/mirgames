@@ -1,12 +1,25 @@
 
 /// <reference path="_references.ts" />
 module MirGames.Forum {
-    export class SearchPanelController {
-        static $inject = ['$scope', '$element', 'pageData'];
+    export interface ITopicsPageData extends IPageData {
+        tag: string;
+        searchString: string;
+    }
 
-        constructor(private $scope: ISearchPanelController, $element: JQuery, public pageData: ITopicsPageData) {
+    export interface ISearchPanelController extends ng.IScope {
+        searchQuery: string;
+        search(): void;
+    }
+
+    export class SearchPanelController {
+        static $inject = ['$scope', '$element', 'pageDataService'];
+
+        private pageData: ITopicsPageData;
+
+        constructor(private $scope: ISearchPanelController, $element: JQuery, pageDataService: IPageDataProvider) {
+            this.pageData = pageDataService.getPageData<ITopicsPageData>();
             this.$scope.search = this.search.bind(this);
-            this.$scope.searchQuery = pageData.searchString;
+            this.$scope.searchQuery = this.pageData.searchString;
         }
 
         private search() {
@@ -25,15 +38,5 @@ module MirGames.Forum {
             }
             Core.Application.getInstance().navigateToUrl(Router.action("Forum", "Index", params));
         }
-    }
-
-    export interface ITopicsPageData {
-        tag: string;
-        searchString: string;
-    }
-
-    export interface ISearchPanelController extends ng.IScope {
-        searchQuery: string;
-        search(): void;
     }
 }
