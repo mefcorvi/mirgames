@@ -26,5 +26,11 @@
             @Html.Partial("FeedItems/" + notification.NotificationType, notification)
         </div>
     }
+    @if (!Model.Any())
+    {
+        <div class="not-found">
+            Пока у вас нет никаких нотификаций.
+        </div>
+    }
 </div>
 @Html.Partial("_Pagination", (PaginationViewModel)ViewBag.Pagination)
