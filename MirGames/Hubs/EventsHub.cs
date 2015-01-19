@@ -31,6 +31,11 @@ namespace MirGames.Hubs
         private static readonly ConcurrentDictionary<int, HashSet<string>> Users = new ConcurrentDictionary<int, HashSet<string>>();
 
         /// <summary>
+        /// The connections.
+        /// </summary>
+        private static readonly ConcurrentDictionary<string, int> Connections = new ConcurrentDictionary<string, int>();
+
+        /// <summary>
         /// The principal provider.
         /// </summary>
         private readonly Func<ClaimsPrincipal> principalProvider;
@@ -56,6 +61,26 @@ namespace MirGames.Hubs
             return Users.TryGetValue(userId, out connections) ? connections.ToArray() : Enumerable.Empty<string>();
         }
 
+        /// <summary>
+        /// Gets the user by connection.
+        /// </summary>
+        /// <param name="connectionId">The connection identifier.</param>
+        /// <returns>The user identifier.</returns>
+        public static int? GetUserByConnection(string connectionId)
+        {
+            int userId;
+            return Connections.TryGetValue(connectionId, out userId) ? userId : (int?)null;
+        }
+
+        /// <summary>
+        /// Gets the connections.
+        /// </summary>
+        /// <returns>The connections.</returns>
+        public static IEnumerable<string> GetConnections()
+        {
+            return Connections.Keys.ToArray();
+        }
+
         /// <inheritdoc />
         public override Task OnConnected()
         {
@@ -69,6 +94,7 @@ namespace MirGames.Hubs
             int userId = principal.GetUserId().GetValueOrDefault();
             string connectionId = Context.ConnectionId;
 
+            Connections.AddOrUpdate(connectionId, userId, (id, newValue) => userId);
             var connections = Users.GetOrAdd(userId, id => new HashSet<string>());
 
             lock (connections)

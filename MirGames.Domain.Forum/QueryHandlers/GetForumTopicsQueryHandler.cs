@@ -73,7 +73,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
                 if (!string.IsNullOrWhiteSpace(query.SearchString))
                 {
                     var searchResults =
-                        this.searchEngine.Search("ForumTopic", query.SearchString).Select(sr => sr.Id).ToArray();
+                        this.searchEngine.Search(string.Format("ForumTopic#{0}", query.ForumAlias), query.SearchString).Select(sr => sr.Id).ToArray();
                     return topics.Count(t => searchResults.Contains(t.TopicId));
                 }
 
@@ -235,7 +235,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
         /// <returns>The search result.</returns>
         private IEnumerable<ForumTopic> GetSearchResult(GetForumTopicsQuery query, PaginationSettings pagination, IQueryable<ForumTopic> topics)
         {
-            var searchResults = this.ApplyPagination(this.searchEngine.Search("ForumTopic", query.SearchString), pagination);
+            var searchResults = this.ApplyPagination(this.searchEngine.Search(string.Format("ForumTopic#{0}", query.ForumAlias), query.SearchString), pagination);
 
             var searchResultsCollection = searchResults.ToList();
             var searchIdentifiers = searchResultsCollection.Select(sr => sr.Id).ToArray();

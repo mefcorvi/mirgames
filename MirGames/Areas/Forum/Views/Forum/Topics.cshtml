@@ -21,6 +21,9 @@
             {
                 <a href="@Url.ActionCached(MVC.Forum.Forum.New((string)ViewBag.Forum.Alias))"><i class="fa fa-pencil"></i>Новая тема</a>
             }
+            <form class="search-form" ng-submit="search()" novalidate name="searchForm">
+                <input type="text" ng-model="searchString" value="@ViewBag.SearchString" placeholder="Поиск..." />
+            </form>
         </div>
     }
 </div>

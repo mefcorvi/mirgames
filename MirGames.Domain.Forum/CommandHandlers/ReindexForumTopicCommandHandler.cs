@@ -47,8 +47,11 @@ namespace MirGames.Domain.Forum.CommandHandlers
         /// <inheritdoc />
         protected override void Execute(ReindexForumTopicCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
+            var topic = this.queryProcessor.Process(new GetForumTopicQuery { TopicId = command.TopicId });
+
             var posts = this.queryProcessor.Process(new GetForumTopicPostsQuery { TopicId = command.TopicId });
             var sb = new StringBuilder();
+            sb.AppendLine(topic.Title);
 
             foreach (var post in posts)
             {
@@ -56,7 +59,7 @@ namespace MirGames.Domain.Forum.CommandHandlers
             }
 
             this.searchEngine.Remove(command.TopicId, "ForumTopic");
-            this.searchEngine.Index(command.TopicId, "ForumTopic", sb.ToString());
+            this.searchEngine.Index(command.TopicId, string.Format("ForumTopic#{0}", topic.Forum.Alias), sb.ToString());
         }
     }
 }

@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\MarkAllAsReadCommand.cs" />
     <Compile Include="Commands\NotifyUsersCommand.cs" />
     <Compile Include="Commands\RemoveNotificationsCommand.cs" />
     <Compile Include="Events\NotificationsAddedEvent.cs" />

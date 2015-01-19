@@ -16,7 +16,7 @@
             <span>Новый пост</span>
         </div>
         <div class="new-post" ng-if="newRecord.focused" ng-cloak>
-            <form class="new-topic-form" name="newTopicForm">
+            <form class="new-topic-form" name="newTopicForm" ng-submit="newRecord.save()">
                 <div class="form-field">
                     <div>
                         <texteditor text="newRecord.text" autoresize="true" required="true" post="newRecord.save()" focus="newRecord.isTextFocused" attachments="newRecord.attachments" entity-type="topic" />

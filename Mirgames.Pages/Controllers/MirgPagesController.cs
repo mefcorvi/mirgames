@@ -35,14 +35,21 @@ namespace MirGames.Areas.Projects.Controllers
         private readonly IContentTypeProvider contentTypeProvider;
 
         /// <summary>
+        /// The settings.
+        /// </summary>
+        private readonly ISettings settings;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PagesController" /> class.
         /// </summary>
         /// <param name="queryProcessor">The query processor.</param>
         /// <param name="contentTypeProvider">The content type provider.</param>
-        public PagesController(IQueryProcessor queryProcessor, IContentTypeProvider contentTypeProvider)
+        /// <param name="settings">The settings.</param>
+        public PagesController(IQueryProcessor queryProcessor, IContentTypeProvider contentTypeProvider, ISettings settings)
         {
             this.queryProcessor = queryProcessor;
             this.contentTypeProvider = contentTypeProvider;
+            this.settings = settings;
         }
 
         /// <inheritdoc />
@@ -90,7 +97,7 @@ namespace MirGames.Areas.Projects.Controllers
 
             if (!project.IsSiteEnabled || project.IsRepositoryPrivate)
             {
-                return this.HttpNotFound();
+                return this.Redirect(string.Format(this.settings.GetValue<string>("Wip.ProjectUrl"), project.Alias));
             }
 
             return this.RepositoryFile(path, project);

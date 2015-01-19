@@ -25,6 +25,11 @@ namespace MirGames.Domain.Forum.CommandHandlers
     internal sealed class ReindexForumTopicsCommandHandler : CommandHandler<ReindexForumTopicsCommand>
     {
         /// <summary>
+        /// The read context factory.
+        /// </summary>
+        private readonly IReadContextFactory readContextFactory;
+
+        /// <summary>
         /// The write context factory
         /// </summary>
         private readonly IWriteContextFactory writeContextFactory;
@@ -37,10 +42,12 @@ namespace MirGames.Domain.Forum.CommandHandlers
         /// <summary>
         /// Initializes a new instance of the <see cref="ReindexForumTopicsCommandHandler" /> class.
         /// </summary>
+        /// <param name="readContextFactory">The read context factory.</param>
         /// <param name="writeContextFactory">The write context factory.</param>
         /// <param name="commandProcessor">The command processor.</param>
-        public ReindexForumTopicsCommandHandler(IWriteContextFactory writeContextFactory, Lazy<ICommandProcessor> commandProcessor)
+        public ReindexForumTopicsCommandHandler(IReadContextFactory readContextFactory, IWriteContextFactory writeContextFactory, Lazy<ICommandProcessor> commandProcessor)
         {
+            this.readContextFactory = readContextFactory;
             this.writeContextFactory = writeContextFactory;
             this.commandProcessor = commandProcessor;
         }
@@ -48,14 +55,18 @@ namespace MirGames.Domain.Forum.CommandHandlers
         /// <inheritdoc />
         protected override void Execute(ReindexForumTopicsCommand command, ClaimsPrincipal principal, IAuthorizationManager authorizationManager)
         {
-            ICollection<ForumTopic> topics;
+            ICollection<int> topics;
 
-            using (var writeContext = this.writeContextFactory.Create())
+            using (var readContext = this.readContextFactory.Create())
             {
-                topics = writeContext.Set<ForumTopic>().ToList();
-                
-                foreach (var topic in topics)
+                topics = readContext.Query<ForumTopic>().Select(t => t.TopicId).ToList();
+            }
+
+            foreach (var topicId in topics)
+            {
+                using (var writeContext = this.writeContextFactory.Create())
                 {
+                    var topic = writeContext.Set<ForumTopic>().Single(t => t.TopicId == topicId);
                     topic.PostsCount = writeContext.Set<ForumPost>().Count(p => p.TopicId == topic.TopicId);
 
                     var lastPost = writeContext
@@ -70,32 +81,14 @@ namespace MirGames.Domain.Forum.CommandHandlers
                         topic.LastPostAuthorLogin = lastPost.AuthorLogin;
                         topic.UpdatedDate = lastPost.CreatedDate;
                     }
+
+                    writeContext.SaveChanges();
                 }
 
-                writeContext.SaveChanges();
-            }
-
-            foreach (var topic in topics)
-            {
-                this.commandProcessor.Value.Execute(new ReindexForumTopicCommand { TopicId = topic.TopicId });
-            }
-
-            this.ReindexTags(topics);
-        }
-
-        /// <summary>
-        /// Re-indexes the tags.
-        /// </summary>
-        /// <param name="topics">The topics.</param>
-        private void ReindexTags(IEnumerable<ForumTopic> topics)
-        {
-            foreach (var topic in topics)
-            {
                 using (var writeContext = this.writeContextFactory.Create())
                 {
-                    int topicId = topic.TopicId;
-                    
-                    var tags = writeContext.Set<ForumTag>().Where(t => t.TopicId == topicId);
+                    var topic = writeContext.Set<ForumTopic>().Single(t => t.TopicId == topicId);
+                    var tags = writeContext.Set<ForumTag>().Where(t => t.TopicId == topic.TopicId);
                     writeContext.Set<ForumTag>().RemoveRange(tags);
                     writeContext.SaveChanges();
 
@@ -103,14 +96,19 @@ namespace MirGames.Domain.Forum.CommandHandlers
                     {
                         writeContext.Set<ForumTag>().Add(
                             new ForumTag
-                                {
-                                    TagText = tag.Trim(),
-                                    TopicId = topicId
-                                });
+                            {
+                                TagText = tag.Trim(),
+                                TopicId = topicId
+                            });
                     }
 
                     writeContext.SaveChanges();
                 }
+            }
+
+            foreach (var topicId in topics)
+            {
+                this.commandProcessor.Value.Execute(new ReindexForumTopicCommand { TopicId = topicId });
             }
         }
     }

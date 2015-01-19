@@ -71,7 +71,7 @@ module Core {
 
             for (var i = 0; i < eventNode.listeners.length; i++) {
                 var listener = eventNode.listeners[i];
-                listener.listener(args);
+                listener.listener.apply(listener.listener, args);
 
                 if (listener.numberOfTimes) {
                     listener.numberOfTimes--;

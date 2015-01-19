@@ -13,6 +13,7 @@ module MirGames.Chat {
         private loadedPageNum: number;
         private newMessageHandler: Core.ISocketHandler;
         private updatedMessageHandler: Core.ISocketHandler;
+        private pingInterval: number;
 
         constructor($scope: IChatRoomPageScope, eventBus: Core.IEventBus, private socketService: Core.ISocketService, private notificationService: UI.INotificationService, private apiService: Core.IApiService, private currentUser: Core.ICurrentUser, private $timeout: ng.ITimeoutService) {
             super($scope, eventBus);
@@ -43,10 +44,7 @@ module MirGames.Chat {
             };
 
             this.loadLastMessages();
-
             this.currentUserEnteredChat();
-            setInterval(this.currentUserEnteredChat.bind(this), 5000);
-
             this.attachToTextEditor();
 
             $(() => {
@@ -59,13 +57,16 @@ module MirGames.Chat {
 
             this.attachHandlers();
             this.$scope.$on('$destroy', () => {
+                this.currentUserLeavedChat();
                 this.detachHandlers();
             });
         }
 
         private attachHandlers() {
-            this.newMessageHandler = this.socketService.addHandler('chatHub', 'addNewMessageToPage', this.processReceivedMessage.bind(this));
-            this.updatedMessageHandler = this.socketService.addHandler('chatHub', 'updateMessage', this.processUpdatedMessage.bind(this));
+            this.pingInterval = setInterval(this.currentUserEnteredChat.bind(this), 5000);
+
+            this.newMessageHandler = this.socketService.addHandler('eventsHub', 'newChatMessage', this.processReceivedMessage.bind(this));
+            this.updatedMessageHandler = this.socketService.addHandler('eventsHub', 'updateChatMessage', this.processUpdatedMessage.bind(this));
 
             this.eventBus.on('socket.disconnected.chatPage', () => {
                 this.addSystemMessage('Соединение разорвано');
@@ -95,6 +96,7 @@ module MirGames.Chat {
             this.eventBus.removeAllListeners('socket.connected.chatPage');
             this.socketService.removeHandler(this.newMessageHandler);
             this.socketService.removeHandler(this.updatedMessageHandler);
+            clearInterval(this.pingInterval);
         }
 
         private quoteLogin(text: string): void {

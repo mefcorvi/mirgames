@@ -53,11 +53,11 @@ namespace MirGames.Hubs
                     MessageId = @event.MessageId
                 });
 
-            var context = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
+            var context = GlobalHost.ConnectionManager.GetHubContext<EventsHub>();
 
-            foreach (string connectionId in ChatHub.GetConnections())
+            foreach (string connectionId in EventsHub.GetConnections())
             {
-                int? userId = ChatHub.GetUserByConnection(connectionId);
+                int? userId = EventsHub.GetUserByConnection(connectionId);
 
                 message.CanBeDeleted = this.authorizationManager.CheckAccess(
                     userId.GetValueOrDefault(),
@@ -71,7 +71,7 @@ namespace MirGames.Hubs
                     "ChatMessage",
                     message.MessageId);
 
-                context.Clients.Client(connectionId).addNewMessageToPage(JsonConvert.SerializeObject(message));
+                context.Clients.Client(connectionId).newChatMessage(JsonConvert.SerializeObject(message));
             }
         }
     }

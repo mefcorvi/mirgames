@@ -4,7 +4,7 @@
         <a href="@Url.ActionCached(MVC.Users.Profile(UserEntity.Id))" @Html.Css("user-link").Add("selected", (string)ViewBag.CurrentSection == "CurrentUser")>
             <img src="@UserEntity.AvatarUrl" class="avatar avatar-small" /><span>@UserEntity.Login</span>
         </a>
-        <a @Html.Css("updates-count").Add("counter").Add("ng-hide", @ViewBag.NotificationsCount == 0) title="Новое"
+        <a @Html.Css("updates-count").Add("counter").Add("ng-cloak", @ViewBag.NotificationsCount == 0) title="Новое"
            ng-if="unreadCount > 0" ng-bind="'+' + unreadCount" href="@Url.ActionCached(MVC.Users.Feed())">+@ViewBag.NotificationsCount</a>
     </span>
 }

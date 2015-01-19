@@ -600,6 +600,10 @@ interface ChatMessageForEditViewModel {
   SourceText: string;
 }
 }
+declare module MirGames.Domain.Notifications.Commands {
+interface MarkAllAsReadCommand extends MirGames.Infrastructure.Commands.Command {
+}
+}
 declare module MirGames.Domain.Attachments.Queries {
 interface GetAttachmentsQuery extends MirGames.Infrastructure.Queries.Query1 {
   EntityId: number;

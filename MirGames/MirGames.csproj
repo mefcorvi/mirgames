@@ -370,13 +370,9 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\WebApiController.cs" />
     <Compile Include="Areas\Projects\Controllers\ProjectsController.cs" />
-    <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Hubs\ChatMessagesListener.cs" />
     <Compile Include="Hubs\ChatMessageUpdatedEventListener.cs" />
     <Compile Include="Hubs\CommandsHub.cs" />
-    <Compile Include="Hubs\ForumTopicCreatedEventListener.cs" />
-    <Compile Include="Hubs\ForumTopicReadEventListener.cs" />
-    <Compile Include="Hubs\ForumTopicUnreadEventListener.cs" />
     <Compile Include="Hubs\UserOfflineListener.cs" />
     <Compile Include="Hubs\UserOnlineListener.cs" />
     <Compile Include="Hubs\EventsHub.cs" />
@@ -907,6 +903,7 @@
     <TypeScriptCompile Include="Scripts\Libs\angular.d.ts" />
     <TypeScriptCompile Include="Scripts\UI\SinglePageService.ts" />
     <TypeScriptCompile Include="Scripts\UI\UnreadItemsService.ts" />
+    <Content Include="Scripts\Users\FeedPage.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

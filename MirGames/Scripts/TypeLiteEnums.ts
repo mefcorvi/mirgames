@@ -40,6 +40,8 @@ module MirGames.Domain.Chat.Queries {
 }
 module MirGames.Domain.Chat.ViewModels {
 }
+module MirGames.Domain.Notifications.Commands {
+}
 module MirGames.Domain.Attachments.Queries {
 export enum AttachmentsOrderingType {
   CreationDateAscending = 0,

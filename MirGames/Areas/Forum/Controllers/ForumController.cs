@@ -141,9 +141,11 @@ namespace MirGames.Areas.Forum.Controllers
             this.ViewBag.Pagination = new PaginationViewModel(
                  paginationSettings, topicsCount, p => this.Url.ActionCached(MVC.Forum.Forum.Topics(forumAlias, tag, searchString, page: p)));
             this.ViewBag.TopicsPagination = topicsPagination;
+            this.ViewBag.SearchString = searchString;
             
             this.ViewBag.PageData["tag"] = tag;
             this.ViewBag.PageData["searchString"] = searchString;
+            this.ViewBag.PageData["forumAlias"] = forumAlias;
 
             if (!forumAlias.IsNullOrEmpty())
             {

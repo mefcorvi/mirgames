@@ -15,8 +15,6 @@ namespace MirGames.Hubs
     using MirGames.Infrastructure;
     using MirGames.Infrastructure.Events;
 
-    using Newtonsoft.Json;
-
     /// <summary>
     /// Listens the new chat messages.
     /// </summary>
@@ -45,8 +43,8 @@ namespace MirGames.Hubs
                         MessageId = @event.MessageId
                     });
 
-            var context = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
-            context.Clients.All.updateMessage(message);
+            var context = GlobalHost.ConnectionManager.GetHubContext<EventsHub>();
+            context.Clients.All.updateChatMessage(message);
         }
     }
 }

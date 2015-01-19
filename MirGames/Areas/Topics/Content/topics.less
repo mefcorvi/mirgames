@@ -54,6 +54,11 @@ body > nav > h1 {
                 padding-left: @indent;
                 padding-right: @indent;
             }
+
+            @media (max-width: 786px) {
+                width: 100%;
+                float: none;
+            }
         }
 
         & > .last-activities {
@@ -62,6 +67,11 @@ body > nav > h1 {
             .box-sizing(border-box);
             padding: 0 @indent;
             margin-bottom: @indent;
+
+            @media (max-width: 786px) {
+                width: 100%;
+                float: none;
+            }
 
             & > h3 {
                .page-subtitle();

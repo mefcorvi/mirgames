@@ -209,6 +209,14 @@ namespace MirGames.Controllers
             public readonly string userId = "userId";
             public readonly string page = "page";
         }
+        static readonly ActionParamsClass_Feed s_params_Feed = new ActionParamsClass_Feed();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Feed FeedParams { get { return s_params_Feed; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Feed
+        {
+            public readonly string page = "page";
+        }
         static readonly ActionParamsClass_DeleteUser s_params_DeleteUser = new ActionParamsClass_DeleteUser();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_DeleteUser DeleteUserParams { get { return s_params_DeleteUser; } }
@@ -406,13 +414,14 @@ namespace MirGames.Controllers
         }
 
         [NonAction]
-        partial void FeedOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void FeedOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int page);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Feed()
+        public override System.Web.Mvc.ActionResult Feed(int page)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Feed);
-            FeedOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "page", page);
+            FeedOverride(callInfo, page);
             return callInfo;
         }
 

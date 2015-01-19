@@ -166,6 +166,7 @@ namespace Links
             public static readonly string Config_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Config.min.js") ? Url("Config.min.js") : Url("Config.js");
             public static readonly string CurrentUser_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CurrentUser.min.js") ? Url("CurrentUser.min.js") : Url("CurrentUser.js");
             public static readonly string EventBus_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/EventBus.min.js") ? Url("EventBus.min.js") : Url("EventBus.js");
+            public static readonly string EventEmitter_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/EventEmitter.min.js") ? Url("EventEmitter.min.js") : Url("EventEmitter.js");
             public static readonly string Service_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Service.min.js") ? Url("Service.min.js") : Url("Service.js");
             public static readonly string SocketService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SocketService.min.js") ? Url("SocketService.min.js") : Url("SocketService.js");
             public static readonly string Utils_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Utils.min.js") ? Url("Utils.min.js") : Url("Utils.js");
@@ -179,8 +180,6 @@ namespace Links
             public static readonly string angular_recaptcha_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/angular-recaptcha.min.js") ? Url("angular-recaptcha.min.js") : Url("angular-recaptcha.js");
             public static readonly string angular_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/angular.d.min.js") ? Url("angular.d.min.js") : Url("angular.d.js");
             public static readonly string angular_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/angular.min.js") ? Url("angular.min.js") : Url("angular.js");
-            public static readonly string eventEmitter_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/eventEmitter.d.min.js") ? Url("eventEmitter.d.min.js") : Url("eventEmitter.d.js");
-            public static readonly string eventEmitter_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/eventEmitter.min.js") ? Url("eventEmitter.min.js") : Url("eventEmitter.js");
             public static readonly string headroom_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/headroom.min.js") ? Url("headroom.min.js") : Url("headroom.js");
             public static readonly string ion_sound_d_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ion.sound.d.min.js") ? Url("ion.sound.d.min.js") : Url("ion.sound.d.js");
             public static readonly string ion_sound_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ion.sound.min.js") ? Url("ion.sound.min.js") : Url("ion.sound.js");
@@ -262,7 +261,8 @@ namespace Links
             public static readonly string SinglePageService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SinglePageService.min.js") ? Url("SinglePageService.min.js") : Url("SinglePageService.js");
             public static readonly string TextEditor_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/TextEditor.min.js") ? Url("TextEditor.min.js") : Url("TextEditor.js");
             public static readonly string TinyEditor_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/TinyEditor.min.js") ? Url("TinyEditor.min.js") : Url("TinyEditor.js");
-            public static readonly string UnreadMenuItemController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/UnreadMenuItemController.min.js") ? Url("UnreadMenuItemController.min.js") : Url("UnreadMenuItemController.js");
+            public static readonly string UnreadItemsController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/UnreadItemsController.min.js") ? Url("UnreadItemsController.min.js") : Url("UnreadItemsController.js");
+            public static readonly string UnreadItemsService_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/UnreadItemsService.min.js") ? Url("UnreadItemsService.min.js") : Url("UnreadItemsService.js");
         }
     
         public static readonly string UserNotificationController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/UserNotificationController.min.js") ? Url("UserNotificationController.min.js") : Url("UserNotificationController.js");

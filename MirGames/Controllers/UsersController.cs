@@ -258,14 +258,22 @@ namespace MirGames.Controllers
         /// <summary>
         /// Shows the user feed.
         /// </summary>
+        /// <param name="page">The page.</param>
         /// <returns>The action result.</returns>
         [Authorize(Roles = "User, ReadOnlyUser")]
-        public virtual ActionResult Feed()
+        public virtual ActionResult Feed(int page = 1)
         {
+            if (page < 1)
+            {
+                page = 1;
+            }
+
             var user = this.QueryProcessor.Process(new GetUserByIdQuery { UserId = this.CurrentUser.Id });
             this.ViewBag.UserModel = user;
 
-            var notifications = this.QueryProcessor.Process(new GetNotificationsQuery());
+            var paginationSettings = new PaginationSettings(page - 1, 30);
+            var notifications = this.QueryProcessor.Process(new GetNotificationsQuery(), paginationSettings).ToList();
+            var notificationsСount = this.QueryProcessor.GetItemsCount(new GetNotificationsQuery());
 
             var result = this.QueryProcessor
                              .Process(new GetNotificationDetailsQuery
@@ -274,6 +282,11 @@ namespace MirGames.Controllers
                              })
                              .OrderByDescending(n => n.NotificationDate)
                              .ToList();
+
+            this.ViewBag.Pagination = new PaginationViewModel(
+                paginationSettings,
+                notificationsСount,
+                p => this.Url.ActionCached(MVC.Users.Feed(p)));
 
             this.ViewBag.SectionMode = "Feed";
             this.ViewBag.CurrentSection = "CurrentUser";

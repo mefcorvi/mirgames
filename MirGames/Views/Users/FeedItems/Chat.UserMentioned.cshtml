@@ -1,6 +1,9 @@
 ﻿@model MirGames.Domain.Chat.Notifications.ChatMentionNotificationDetailsViewModel
 
 <article @Html.Css("forum-new-answer")>
+    <div class="icon">
+        <i class="fa fa-at"></i>
+    </div>
     <div class="author-avatar">
         <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="avatar-link"><img src="@Model.Author.AvatarUrl" class="avatar" /></a>
     </div>
@@ -9,8 +12,8 @@
             <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login"><span>@Model.Author.Login</span></a> упомянул вас в чате
         </div>
         <div class="text">@Html.Raw(Model.MessageText)</div>
+        <footer>
+            <span class="creation-date relative" datetime="@Model.NotificationDate.UserDate().ToString("O")">@Html.RelativeDate(Model.NotificationDate)</span>
+        </footer>
     </div>
-    <footer>
-        <span class="creation-date relative" datetime="@Model.NotificationDate.UserDate().ToString("O")">@Html.RelativeDate(Model.NotificationDate)</span>
-    </footer>
 </article>

@@ -2,6 +2,9 @@
 
 
 <article @Html.Css("blog-new-comment")>
+    <div class="icon">
+        <i class="fa fa-comment"></i>
+    </div>
     <div class="author-avatar">
         <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="avatar-link"><img src="@Model.Author.AvatarUrl" class="avatar" /></a>
     </div>
@@ -11,8 +14,8 @@
             прокомментировал пост <a href="@Url.Action(MVC.Topics.Topics.Topic(Model.TopicId))">"@Model.Title"</a>
         </div>
         <div class="text">@Html.Raw(Model.Text)</div>
+        <footer>
+            <span class="creation-date relative" datetime="@Model.NotificationDate.UserDate().ToString("O")">@Html.RelativeDate(Model.NotificationDate)</span>
+        </footer>
     </div>
-    <footer>
-        <span class="creation-date relative" datetime="@Model.NotificationDate.UserDate().ToString("O")">@Html.RelativeDate(Model.NotificationDate)</span>
-    </footer>
 </article>

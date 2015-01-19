@@ -194,7 +194,7 @@
     border: @button-border;
     text-shadow: @button-text-shadow;
     margin-right: @indent/5;
-    line-height: 20px;
+    line-height: @indent;
     min-width: 60px;
     min-width: 3vw;
     text-align: center;
@@ -333,13 +333,8 @@
     .box-sizing(border-box);
     padding-bottom: @indent/2 - 1px;
     // border-bottom: 1px solid @border-color;
-    display: table;
-    table-layout: fixed;
 
     & > .header {
-        display: table-cell;
-        width: 100%;
-
         & > h4 {
             .header-font();
             margin-bottom: 0;
@@ -354,7 +349,7 @@
     }
 
     & > .buttons {
-        display: table-cell;
+        margin-top: @indent/2;
         vertical-align: middle;
         white-space: nowrap;
 
@@ -363,6 +358,12 @@
             float: none;
             display: inline-block;
         }
+    }
+
+    .search-form input {
+        .form-input();
+        margin-top: @indent/2;
+        margin-bottom: 0;
     }
 }
 

@@ -61,7 +61,7 @@ namespace MirGames.Infrastructure.Queries
             Func<IEnumerable> resultFactory)
         {
             var cacheManager = this.GetCacheManager(this.GetCacheDomain(principal, (TQuery)query));
-            var cacheKey = this.GetCacheKey(principal, (TQuery)query, null);
+            var cacheKey = this.GetCacheKey(principal, (TQuery)query, pagination);
 
             return cacheManager.GetOrAdd(
                 cacheKey,

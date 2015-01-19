@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache\NotificationQueryCacheContainer.cs" />
+    <Compile Include="CommandHandlers\MarkAllAsReadCommandHandler.cs" />
     <Compile Include="CommandHandlers\RemoveNotificationsCommandHandler.cs" />
     <Compile Include="Entities\NotificationSubscription.cs" />
     <Compile Include="Mapping\NotificationSubscriptionMap.cs" />
