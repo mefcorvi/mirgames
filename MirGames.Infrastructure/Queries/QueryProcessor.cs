@@ -91,7 +91,7 @@ namespace MirGames.Infrastructure.Queries
 
             try
             {
-                return registeredQueryHandlers.SelectMany(h => (IEnumerable<T>)h.Execute(query, claimsPrincipal, pagination));
+                return registeredQueryHandlers.SelectMany(h => (IEnumerable<T>)h.Execute(query, claimsPrincipal, pagination)).EnsureCollection();
             }
             catch (SecurityException)
             {
