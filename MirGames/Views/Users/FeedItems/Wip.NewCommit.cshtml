@@ -9,7 +9,8 @@
     </div>
     <div class="micro-message-content">
         <div class="micro-message-author">
-            <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login"><span>@Model.Author.Login</span></a> закомитил изменения в проект @Model.ProjectAlias
+            <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login"><span>@Model.Author.Login</span></a>
+            закомитил изменения в проект <a href="@Url.ActionCached(MVC.Projects.Projects.Project(Model.ProjectAlias))">@Model.ProjectAlias</a>
         </div>
         <div class="text">@Model.Message</div>
         <footer>
