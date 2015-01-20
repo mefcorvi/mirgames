@@ -163,6 +163,7 @@ namespace MirGames.Areas.Forum.Controllers
             public readonly string forumAlias = "forumAlias";
             public readonly string topicId = "topicId";
             public readonly string page = "page";
+            public readonly string postId = "postId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -273,16 +274,17 @@ namespace MirGames.Areas.Forum.Controllers
         }
 
         [NonAction]
-        partial void TopicOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string forumAlias, int topicId, int page);
+        partial void TopicOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string forumAlias, int topicId, int page, int? postId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Topic(string forumAlias, int topicId, int page)
+        public override System.Web.Mvc.ActionResult Topic(string forumAlias, int topicId, int page, int? postId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Topic);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "forumAlias", forumAlias);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "topicId", topicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "page", page);
-            TopicOverride(callInfo, forumAlias, topicId, page);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "postId", postId);
+            TopicOverride(callInfo, forumAlias, topicId, page, postId);
             return callInfo;
         }
 

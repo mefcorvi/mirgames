@@ -10,7 +10,7 @@
     <div class="micro-message-content">
         <div class="micro-message-author">
             <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login"><span>@Model.Author.Login</span></a>
-            ответил в топике <a href="@Url.Action(MVC.Forum.Forum.Topic(Model.Forum.Alias, Model.TopicId))">"@Model.TopicTitle"</a>
+            ответил в топике <a href="@(Url.ActionCached(MVC.Forum.Forum.Topic(Model.Forum.Alias, Model.TopicId, 1, Model.PostId)) + "#p" + @Model.PostId)">"@Model.TopicTitle"</a>
             форума <a href="@Url.ActionCached(MVC.Forum.Forum.Topics(Model.Forum.Alias))">"@Model.Forum.Title"</a>
         </div>
         <div class="text">@Html.Raw(Model.PostText)</div>

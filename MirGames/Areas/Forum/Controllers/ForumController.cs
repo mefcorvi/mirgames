@@ -192,7 +192,7 @@ namespace MirGames.Areas.Forum.Controllers
         }
 
         /// <inheritdoc />
-        public virtual ActionResult Topic(string forumAlias, int topicId, int page = 1)
+        public virtual ActionResult Topic(string forumAlias, int topicId, int page = 1, int? postId = null)
         {
             var topic = this.QueryProcessor.Process(new GetForumTopicQuery { TopicId = topicId });
 
@@ -209,13 +209,21 @@ namespace MirGames.Areas.Forum.Controllers
             var postsQuery = new GetForumTopicPostsQuery { TopicId = topicId };
             var postsCount = this.QueryProcessor.GetItemsCount(postsQuery);
 
+            var pageSize = 20;
+
             int pageIdx = page - 1;
             if (page < 1)
             {
-                pageIdx = PaginationSettings.GetItemPage(postsCount, 20);
+                pageIdx = PaginationSettings.GetItemPage(postsCount, pageSize);
             }
 
-            var pagination = new PaginationSettings(pageIdx, 20);
+            if (postId.HasValue)
+            {
+                var forumPost = this.QueryProcessor.Process(new GetForumPostQuery { PostId = postId.Value });
+                pageIdx = PaginationSettings.GetItemPage(forumPost.Index, pageSize);
+            }
+
+            var pagination = new PaginationSettings(pageIdx, pageSize);
             var posts = this.QueryProcessor.Process(postsQuery, pagination);
 
             if (this.User.IsInRole("User") && !topic.IsRead)
@@ -227,8 +235,8 @@ namespace MirGames.Areas.Forum.Controllers
             this.ViewBag.Posts = posts;
             this.ViewBag.PageData["topicId"] = topicId;
             this.ViewBag.PageData["pagesCount"] = this.ViewBag.Pagination.PagesCount;
-            this.ViewBag.PageData["page"] = page;
-            this.ViewBag.PageData["pageSize"] = 20;
+            this.ViewBag.PageData["page"] = pageIdx + 1;
+            this.ViewBag.PageData["pageSize"] = pageSize;
 
             return this.View(topic);
         }

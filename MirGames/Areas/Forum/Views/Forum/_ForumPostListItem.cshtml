@@ -23,7 +23,7 @@
             @Model.Author.Title
         </div>
     </div>
-    <div class="post-block">
+    <div class="post-block" id="@("p" + Model.PostId)">
         <div class="post-header">
             <div class="created-date">
                 <i class="fa fa-clock-o"></i> <span class="topic-created-date relative" datetime="@Model.CreatedDate.ToString("O")">@Html.RelativeDate(Model.CreatedDate)</span>
