@@ -14,6 +14,11 @@
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRouteLowercase(
+                "ChatMessage",
+                "chat/{messageId}",
+                new { controller = "Chat", action = "Index" });
+
+            context.MapRouteLowercase(
                 "Chat_default",
                 "chat/{action}/{id}",
                 new { controller = "Chat", action = "Index", id = UrlParameter.Optional });

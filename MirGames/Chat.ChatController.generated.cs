@@ -88,6 +88,14 @@ namespace MirGames.Areas.Chat.Controllers
         }
 
 
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string messageId = "messageId";
+        }
         static readonly ActionParamsClass_Post s_params_Post = new ActionParamsClass_Post();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Post PostParams { get { return s_params_Post; } }
@@ -118,13 +126,14 @@ namespace MirGames.Areas.Chat.Controllers
         public T4MVC_ChatController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? messageId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index()
+        public override System.Web.Mvc.ActionResult Index(int? messageId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            IndexOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "messageId", messageId);
+            IndexOverride(callInfo, messageId);
             return callInfo;
         }
 

@@ -28,8 +28,10 @@ module UI {
                 this.disable();
             }
 
-            this.disregistrationFunction = this.$rootScope.$on('$locationChangeStart', () => {
-                this.handleLocationChange();
+            this.disregistrationFunction = this.$rootScope.$on('$locationChangeStart', (ev: ng.IAngularEvent, oldUrl: string, newUrl: string) => {
+                if (oldUrl != newUrl) {
+                    this.handleLocationChange();
+                }
             });
         }
 

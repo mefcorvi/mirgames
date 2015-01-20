@@ -9,7 +9,7 @@
     </div>
     <div class="micro-message-content">
         <div class="micro-message-author">
-            <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login"><span>@Model.Author.Login</span></a> упомянул вас в чате
+            <a href="@Url.ActionCached(MVC.Users.Profile(Model.Author.Id.GetValueOrDefault()))" class="user-login"><span>@Model.Author.Login</span></a> упомянул вас в <a href="@Url.ActionCached(MVC.Chat.Chat.Index(Model.MessageId))">чате</a>
         </div>
         <div class="text">@Html.Raw(Model.MessageText)</div>
         <footer>

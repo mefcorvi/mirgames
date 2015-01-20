@@ -31,7 +31,7 @@ namespace MirGames.Areas.Chat.Controllers
         }
 
         /// <inheritdoc />
-        public virtual ActionResult Index()
+        public virtual ActionResult Index(int? messageId = null)
         {
             return this.View();
         }

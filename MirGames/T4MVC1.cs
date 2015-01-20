@@ -271,6 +271,7 @@ namespace Links
             private const string URLPATH = "~/Scripts/Users";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string FeedPage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/FeedPage.min.js") ? Url("FeedPage.min.js") : Url("FeedPage.js");
             public static readonly string ProfilePage_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProfilePage.min.js") ? Url("ProfilePage.min.js") : Url("ProfilePage.js");
             public static readonly string SearchPanelController_ts = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SearchPanelController.min.js") ? Url("SearchPanelController.min.js") : Url("SearchPanelController.js");
         }
