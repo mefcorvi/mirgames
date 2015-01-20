@@ -16,7 +16,7 @@
         <h3>Лента</h3>
     </div>
     <div class="buttons">
-        <a href="javascript:void(0)" ng-click="markAllAsRead()">Отметить всё как прочитанное</a>
+        <a href="javascript:void(0)" ng-click="markAllAsRead()" ng-if="unreadItemsCount > 0" @Html.Css("ng-cloak", (int)@ViewBag.NotificationsCount == 0)>Отметить всё как прочитанное</a>
     </div>
 </div>
 <div class="notifications">
