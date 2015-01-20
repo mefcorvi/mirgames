@@ -31,7 +31,7 @@ module MirGames.Chat {
             this.$scope.focusAnswer = () => this.focusAnswer();
 
             this.$textArea = $('.new-answer-form textarea');
-            this.$footer = $('body > .chat-answer > .answer-form');
+            this.$footer = $('body .chat-answer > .answer-form');
             this.$chatMessages = $('.chat-messages');
 
             $scope.reply = {
@@ -390,7 +390,7 @@ module MirGames.Chat {
 
         /** Adjusts text area height */
         private adjustTextAreaHeight() {
-            var newHeight = $('body > .chat-answer .new-answer-form').outerHeight() + 10;
+            var newHeight = $('body .chat-answer .new-answer-form').outerHeight() + 10;
 
             if (newHeight > 10) {
                 var oldScrollTop = this.getScrollTop();
