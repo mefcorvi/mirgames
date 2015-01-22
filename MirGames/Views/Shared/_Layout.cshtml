@@ -48,7 +48,7 @@
             </div>
         </div>
         @Html.AntiForgeryToken()
-        <header @Html.Css("header-font").Add("fixed", this.UserEntity.GetSetting("HeaderType", "Fixed") != "Static")>
+        <header @Html.Css("header-font").Add("fixed", this.UserEntity.GetSetting("HeaderType", "Fixed") != "Static") headroom>
             <div class="wrap">
                 <h1>@Html.ActionLink("MirGames", "Index", "Dashboard", new { Area = "" }, new { title = "На главную" })</h1>
                 <nav ng-mouseleave="menuCollapsed = true" ng-class="{ 'uncollapsed': menuCollapsed === false }">

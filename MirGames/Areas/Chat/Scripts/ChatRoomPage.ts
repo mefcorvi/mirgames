@@ -14,6 +14,7 @@ module MirGames.Chat {
         private newMessageHandler: Core.ISocketHandler;
         private updatedMessageHandler: Core.ISocketHandler;
         private pingInterval: number;
+        private initialBodyPadding: string;
 
         constructor($scope: IChatRoomPageScope, eventBus: Core.IEventBus, private socketService: Core.ISocketService, private notificationService: UI.INotificationService, private apiService: Core.IApiService, private currentUser: Core.ICurrentUser, private $timeout: ng.ITimeoutService) {
             super($scope, eventBus);
@@ -29,6 +30,7 @@ module MirGames.Chat {
             this.$scope.quoteLogin = text => this.quoteLogin(text);
             this.$scope.loadHistory = () => this.loadHistory();
             this.$scope.focusAnswer = () => this.focusAnswer();
+            this.initialBodyPadding = $('body').css('padding-bottom') || '';
 
             this.$textArea = $('.new-answer-form textarea');
             this.$footer = $('body .chat-answer > .answer-form');
@@ -47,16 +49,16 @@ module MirGames.Chat {
             this.currentUserEnteredChat();
             this.attachToTextEditor();
 
-            $(() => {
-                this.scrollToBottom();
+            setTimeout(() => {
+                this.$textArea.css('max-height', '300px');
                 this.adjustTextAreaHeight();
                 $('.new-answer-form .mdd_button').click(() => this.handleTextEditorToolbarClick());
-
-                this.$textArea.css('max-height', '300px');
-            });
+            }, 0);
 
             this.attachHandlers();
             this.$scope.$on('$destroy', () => {
+                debugger;
+                $('body').css('padding-bottom', this.initialBodyPadding);
                 this.currentUserLeavedChat();
                 this.detachHandlers();
             });
@@ -399,10 +401,12 @@ module MirGames.Chat {
                 $('body').css('padding-bottom', newHeight);
                 this.$footer.css('height', newHeight);
 
-                if (isBottom) {
-                    this.scrollToBottom(0);
-                } else {
-                    this.scrollTo(oldScrollTop, 0);
+                if (this.$textArea.is(':focus')) {
+                    if (isBottom) {
+                        this.scrollToBottom(0);
+                    } else {
+                        this.scrollTo(oldScrollTop, 0);
+                    }
                 }
             }
         }

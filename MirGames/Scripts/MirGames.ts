@@ -7,16 +7,6 @@ declare var hljs: any;
 
 var headroom: any = null;
 
-$(() => {
-    if (pageData.currentUser != null && pageData.currentUser.Settings.HeaderType == 'AutoHide') {
-        var myElement = document.querySelector("body > header");
-        headroom = new Headroom(myElement);
-        headroom.init();
-    } else if (window.innerHeight <= 480) {
-        $('body > header').removeClass('fixed');
-    }
-});
-
 hljs.initHighlightingOnLoad();
 
 angular.module('mirgames', [
@@ -109,6 +99,29 @@ angular
             },
             link: (scope: any, element: JQuery, attrs: any) => {
                 element.attr('href', Router.action('Users', 'Profile', { userId: scope.userId }));
+            }
+        }
+    })
+    .directive('headroom', () => {
+        return {
+            restrict: 'A',
+            link: (scope: ng.IScope, element: JQuery) => {
+                var myElement = element[0];
+                if (element.hasClass('fixed')) {
+                    element.css('position', 'absolute').css('position', 'fixed');
+                }
+
+                if (pageData.currentUser != null && pageData.currentUser.Settings.HeaderType == 'AutoHide') {
+                    headroom = new Headroom(myElement);
+                    headroom.init();
+
+                    scope.$on('$destroy', () => {
+                        headroom.destroy();
+                    });
+                }
+                else if (window.innerHeight <= 480) {
+                    element.removeClass('fixed');
+                }
             }
         }
     })

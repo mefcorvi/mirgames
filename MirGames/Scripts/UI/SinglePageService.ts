@@ -120,8 +120,10 @@ module UI {
                 scrollTop = hashOffset.top - (parseInt($('body').css('padding-top'), 10) || 0);
             }
 
-            document.body.scrollTop = scrollTop;
-            document.documentElement.scrollTop = scrollTop;            
+            if (scrollTop || !dropState) {
+                document.body.scrollTop = scrollTop;
+                document.documentElement.scrollTop = scrollTop;
+            }
         }
     }
 
