@@ -82,27 +82,62 @@ namespace MirGames.Hubs
         }
 
         /// <inheritdoc />
-        public override Task OnConnected()
+        public override Task OnDisconnected(bool stopCalled)
         {
             var principal = this.principalProvider.Invoke();
 
-            if (!principal.Identity.IsAuthenticated)
+            if (principal.Identity.IsAuthenticated)
             {
-                return base.OnConnected();
+                int userId = principal.GetUserId().GetValueOrDefault();
+                string connectionId = this.Context.ConnectionId;
+                int value;
+                Connections.TryRemove(connectionId, out value);
+                
+                var connections = Users.GetOrAdd(userId, id => new HashSet<string>());
+
+                lock (connections)
+                {
+                    connections.Remove(connectionId);
+                }
             }
 
-            int userId = principal.GetUserId().GetValueOrDefault();
-            string connectionId = Context.ConnectionId;
+            return base.OnDisconnected(stopCalled);
+        }
 
-            Connections.AddOrUpdate(connectionId, userId, (id, newValue) => userId);
-            var connections = Users.GetOrAdd(userId, id => new HashSet<string>());
+        /// <inheritdoc />
+        public override Task OnReconnected()
+        {
+            this.HandleUserConnection();
+            return base.OnReconnected();
+        }
 
-            lock (connections)
-            {
-                connections.Add(connectionId);
-            }
-
+        /// <inheritdoc />
+        public override Task OnConnected()
+        {
+            this.HandleUserConnection();
             return base.OnConnected();
+        }
+
+        /// <summary>
+        /// Handles the user connection.
+        /// </summary>
+        private void HandleUserConnection()
+        {
+            var principal = this.principalProvider.Invoke();
+
+            if (principal.Identity.IsAuthenticated)
+            {
+                int userId = principal.GetUserId().GetValueOrDefault();
+                string connectionId = this.Context.ConnectionId;
+
+                Connections.AddOrUpdate(connectionId, userId, (id, newValue) => userId);
+                var connections = Users.GetOrAdd(userId, id => new HashSet<string>());
+
+                lock (connections)
+                {
+                    connections.Add(connectionId);
+                }
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ module MirGames.Chat {
         private updatedMessageHandler: Core.ISocketHandler;
         private pingInterval: number;
         private initialBodyPadding: string;
+        private loadingInProgress: boolean;
 
         constructor($scope: IChatRoomPageScope, eventBus: Core.IEventBus, private socketService: Core.ISocketService, private notificationService: UI.INotificationService, private apiService: Core.IApiService, private currentUser: Core.ICurrentUser, private $timeout: ng.ITimeoutService) {
             super($scope, eventBus);
@@ -82,6 +83,8 @@ module MirGames.Chat {
                 if (this.$scope.messages.length > 0) {
                     this.addSystemMessage('Соединение установлено');
                 }
+
+                this.loadLastMessages();
             });
 
             $(window).bind('focus.chatPage', () => this.handleChatActivation());
@@ -168,6 +171,11 @@ module MirGames.Chat {
 
         /** Loads last messages */
         private loadLastMessages() {
+            if (this.loadingInProgress) {
+                return;
+            }
+            this.loadingInProgress = true;
+
             var currentLast = Enumerable.from(this.$scope.messages).lastOrDefault(item => !item.isSystem);
 
             var query: MirGames.Domain.Chat.Queries.GetChatMessagesQuery = {
@@ -198,6 +206,7 @@ module MirGames.Chat {
                 this.$scope.historyAvailable = result.length == 50;
                 this.prepareMessages(0, this.$scope.messages.length);
                 this.$scope.$digest();
+                this.loadingInProgress = false;
 
                 if (oldTop != null) {
                     var newTop = anchorItem.position().top;
