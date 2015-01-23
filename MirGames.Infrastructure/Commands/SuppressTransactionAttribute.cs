@@ -1,21 +1,21 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright company="MirGames" file="ReindexForumTopicsCommand.cs">
-// Copyright 2014 Bulat Aykaev
+// <copyright company="MirGames" file="SuppressTransactionAttribute.cs">
+// Copyright 2015 Bulat Aykaev
 // This file is part of MirGames.
 // MirGames is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 // MirGames is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with MirGames. If not, see http://www.gnu.org/licenses/.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace MirGames.Domain.Forum.Commands
+
+namespace MirGames.Infrastructure.Commands
 {
-    using MirGames.Infrastructure.Commands;
+    using System;
 
     /// <summary>
-    /// Re-indexes the forum topic.
+    /// Marks the command as non-transactional
     /// </summary>
-    [Authorize(Roles = "Administrator")]
-    [SuppressTransaction]
-    public sealed class ReindexForumTopicsCommand : Command
+    [AttributeUsage(AttributeTargets.Class)]
+    public class SuppressTransactionAttribute : Attribute
     {
     }
 }

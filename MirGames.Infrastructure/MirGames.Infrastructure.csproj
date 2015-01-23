@@ -145,6 +145,7 @@
   <ItemGroup>
     <Compile Include="Cache\CacheManagerFactory.cs" />
     <Compile Include="Cache\ICacheManagerFactory.cs" />
+    <Compile Include="Commands\SuppressTransactionAttribute.cs" />
     <Compile Include="Exception\ExecutionIntervalException.cs" />
     <Compile Include="CommandHandlerDecorators\IntervalAnalyzerCommandHandlerDecorator.cs" />
     <Compile Include="CommandHandlerDecorators\ValidationCommandHandlerDecorator.cs" />

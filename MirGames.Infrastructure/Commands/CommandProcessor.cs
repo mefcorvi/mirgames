@@ -12,6 +12,7 @@ namespace MirGames.Infrastructure.Commands
     using System.Collections.Generic;
     using System.Diagnostics.Contracts;
     using System.Linq;
+    using System.Reflection;
     using System.Security.Claims;
     using System.Transactions;
 
@@ -94,6 +95,11 @@ namespace MirGames.Infrastructure.Commands
 
                 try
                 {
+                    if (commandType.GetCustomAttribute<SuppressTransactionAttribute>() != null)
+                    {
+                        return commandHandler.Execute(command, principal, this.authorizationManager);
+                    }
+
                     using (var transaction = this.CreateTransactionScope())
                     {
                         var commandResult = commandHandler.Execute(command, principal, this.authorizationManager);
