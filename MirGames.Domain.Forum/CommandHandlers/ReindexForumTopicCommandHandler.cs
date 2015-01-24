@@ -58,8 +58,9 @@ namespace MirGames.Domain.Forum.CommandHandlers
                 sb.AppendLine(post.Text);
             }
 
-            this.searchEngine.Remove(command.TopicId, "ForumTopic");
-            this.searchEngine.Index(command.TopicId, string.Format("ForumTopic#{0}", topic.Forum.Alias), sb.ToString());
+            var documentType = string.Format("ForumTopic#{0}", topic.Forum.Alias);
+            this.searchEngine.Remove(command.TopicId, documentType);
+            this.searchEngine.Index(command.TopicId, documentType, sb.ToString());
         }
     }
 }
