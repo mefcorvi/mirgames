@@ -127,12 +127,17 @@
 
         & > .page-header {
             .page-header();
+            padding-bottom: 0;
         }
 
         & > .message-header {
             & > div > div {
                 .header-font();
                 .font-size(1.4);
+            }
+
+            .message-content {
+                padding-top: @indent;
             }
         }
     }

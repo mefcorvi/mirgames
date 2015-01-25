@@ -58,7 +58,6 @@ module MirGames.Chat {
 
             this.attachHandlers();
             this.$scope.$on('$destroy', () => {
-                debugger;
                 $('body').css('padding-bottom', this.initialBodyPadding);
                 this.currentUserLeavedChat();
                 this.detachHandlers();

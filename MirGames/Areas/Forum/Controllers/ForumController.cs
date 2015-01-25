@@ -42,10 +42,7 @@ namespace MirGames.Areas.Forum.Controllers
         public virtual ActionResult Index()
         {
             var forums = this.QueryProcessor.Process(new GetForumsQuery()).ToList();
-            var unreadForums = new HashSet<int>(this.QueryProcessor.Process(new GetUnreadForumsQuery()));
-
-            this.ViewBag.UnreadForums = unreadForums;
-            this.ViewBag.Subsection = "All";
+            this.ViewBag.Subsection = "Forums";
 
             return this.View(forums.Where(f => f.IsRetired == false));
         }
@@ -90,6 +87,7 @@ namespace MirGames.Areas.Forum.Controllers
             this.ViewBag.Pagination = new PaginationViewModel(
                  paginationSettings, topicsCount, p => this.Url.ActionCached(MVC.Forum.Forum.Unread(tag, searchString, page: p)));
             this.ViewBag.TopicsPagination = topicsPagination;
+            this.ViewBag.Subsection = "Unread";
 
             this.ViewBag.PageData["tag"] = tag;
             this.ViewBag.PageData["searchString"] = searchString;
@@ -142,6 +140,7 @@ namespace MirGames.Areas.Forum.Controllers
                  paginationSettings, topicsCount, p => this.Url.ActionCached(MVC.Forum.Forum.Topics(forumAlias, tag, searchString, page: p)));
             this.ViewBag.TopicsPagination = topicsPagination;
             this.ViewBag.SearchString = searchString;
+            this.ViewBag.Subsection = "Topics";
             
             this.ViewBag.PageData["tag"] = tag;
             this.ViewBag.PageData["searchString"] = searchString;

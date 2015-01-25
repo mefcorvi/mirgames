@@ -103,13 +103,6 @@ namespace MirGames
         /// <param name="args">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Application_PostAuthenticateRequest(object sender, EventArgs args)
         {
-            var ignoredExtensions = new[] { ".less", ".css", ".js", ".ts", ".map" };
-
-            if (ignoredExtensions.Any(ignoredExtension => this.Context.Request.Url.AbsolutePath.EndsWith(ignoredExtension)))
-            {
-                return;
-            }
-
             var controller = this.Context.Request.Url.GetRouteParameterValue("controller");
             if (controller == null || controller.EqualsIgnoreCase("WebApi"))
             {

@@ -1,6 +1,4 @@
-﻿@using System.Web.UI.WebControls
-@using MirGames.Domain.Security
-@using MirGames.Models
+﻿@using MirGames.Models
 @model IEnumerable<MirGames.Domain.Forum.ViewModels.ForumTopicsListItemViewModel>
 
 @{
@@ -8,26 +6,9 @@
     PageScriptController = "MirGames.Forum.TopicsPage";
     AddPageCssClass("forum-topics-page");
 }
-    
-<div class="page-header">
-    <div class="header">
-        <h4><a href="@Url.ActionCached(MVC.Forum.Forum.Index())">Форумы</a></h4>
-        <h3>@(ViewBag.Forum != null ? ViewBag.Forum.Title : "Все обсуждения")</h3>
-    </div>
-    @if (ViewBag.Forum != null)
-    {
-        <div class="buttons">
-            @if (User.Can("Create", "ForumTopic"))
-            {
-                <a href="@Url.ActionCached(MVC.Forum.Forum.New((string)ViewBag.Forum.Alias))"><i class="fa fa-pencil"></i>Новая тема</a>
-            }
-            <form class="search-form" ng-submit="search()" novalidate name="searchForm">
-                <input type="text" ng-model="searchString" value="@ViewBag.SearchString" placeholder="Поиск..." />
-            </form>
-        </div>
-    }
-</div>
 
+@Html.Partial("_ForumsHeader")
+    
 @if (!Model.Any())
 {
     <div class="topics-not-found">

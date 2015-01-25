@@ -37,6 +37,13 @@
             .box-sizing(border-box);
             table-layout: fixed;
 
+            & > .author-info {
+                display: table-cell;
+                width: @avatar-small;
+                padding-right: @indent/2;
+                vertical-align: top;
+            }
+
             & > .topic-title-block {
                 margin-bottom: 2px;
                 display: table-cell;

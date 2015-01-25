@@ -1,42 +1,48 @@
 
 /// <reference path="_references.ts" />
 module MirGames.Forum {
-    export interface ITopicsPageData extends IPageData {
-        tag: string;
-        searchString: string;
-    }
-
     export interface ISearchPanelController extends ng.IScope {
-        searchQuery: string;
+        searchString: string;
         search(): void;
     }
 
     export class SearchPanelController {
-        static $inject = ['$scope', '$element', 'pageDataService'];
+        static $inject = ['$scope', '$element', 'pageDataService', '$location'];
 
-        private pageData: ITopicsPageData;
+        private pageData: ISearchPanelPageData;
 
-        constructor(private $scope: ISearchPanelController, $element: JQuery, pageDataService: IPageDataProvider) {
-            this.pageData = pageDataService.getPageData<ITopicsPageData>();
-            this.$scope.search = this.search.bind(this);
-            this.$scope.searchQuery = this.pageData.searchString;
+        constructor(private $scope: ISearchPanelController, $element: JQuery, pageDataService: IPageDataProvider, private $location: ng.ILocationService) {
+            this.pageData = pageDataService.getPageData<ISearchPanelPageData>();
+            this.$scope.searchString = this.pageData.searchString;
+            this.$scope.search = () => this.search();
         }
 
         private search() {
-            var params : {
-                searchString?: string;
-                tag?: string;
-            } = {};
+            var args: any = {
+                area: 'Forum'
+            };
 
-            if (!Utils.isNullOrEmpty(this.$scope.searchQuery)) {
-                params['searchString'] = this.$scope.searchQuery;
+            if (this.$scope.searchString) {
+                args.searchString = this.$scope.searchString;
             }
 
-            if (!Utils.isNullOrEmpty(this.pageData.tag)) {
-                params['tag'] = this.pageData.tag;
-
+            if (this.pageData.forumAlias) {
+                args.forumAlias = this.pageData.forumAlias;
             }
-            Core.Application.getInstance().navigateToUrl(Router.action("Forum", "Index", params));
+
+            if (this.pageData.tag) {
+                args.tag = this.pageData.tag;
+            }
+
+            var address = Router.action('Forum', 'Topics', args);
+
+            this.$location.url(address);
         }
+    }
+
+    export interface ISearchPanelPageData {
+        searchString: string;
+        forumAlias: string;
+        tag: string;
     }
 }

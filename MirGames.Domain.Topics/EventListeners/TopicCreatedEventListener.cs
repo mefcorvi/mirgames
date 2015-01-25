@@ -59,7 +59,11 @@ namespace MirGames.Domain.Topics.EventListeners
         /// <inheritdoc />
         public override void Process(TopicCreatedEvent @event)
         {
-            this.searchEngine.Index(@event.TopicId, "Topic", @event.Title + " " + @event.Text + " " + @event.Tags);
+            this.searchEngine.Index(
+                @event.TopicId,
+                "Topic",
+                @event.Title + " " + @event.Text,
+                new SearchIndexTerm("tags", @event.Tags) { IsIndexed = true, IsNormalized = false });
 
             if (!@event.BlogId.HasValue)
             {

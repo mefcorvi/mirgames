@@ -31,44 +31,47 @@
             </ul>
         </div>
     </div>
-    <div class="project-short-info">
-        @if (Model.CanCreateBug || Model.CanCreateFeature || Model.CanCreateTask)
-        {
-            <div class="add-to-tracker dropdown">
-                <a href="javascript:void(0);" class="dropdown-toggle"><i class="fa fa-plus"></i>Добавить...</a>
-                <ul class="dropdown-menu">
-                    @if (Model.CanCreateBug)
-                    {
-                        <li>
-                            <a dialog="@Url.ActionCached(MVC.Projects.Projects.AddWorkItemDialog())" resolve="{ 'item-type': 1, 'project-alias': '@Model.Alias' }" dialog-controller="MirGames.Projects.AddNewWorkItemDialogController"><i class="fa fa-bug"></i>Багу</a>
-                        </li>
-                    }
-                    @if (Model.CanCreateTask)
-                    {
-                        <li>
-                            <a dialog="@Url.ActionCached(MVC.Projects.Projects.AddWorkItemDialog())" resolve="{ 'item-type': 2, 'project-alias': '@Model.Alias' }" dialog-controller="MirGames.Projects.AddNewWorkItemDialogController"><i class="fa fa-tasks"></i>Задачу</a>
-                        </li>
-                    }
-                    @if (Model.CanCreateFeature)
-                    {
-                        <li>
-                            <a dialog="@Url.ActionCached(MVC.Projects.Projects.AddWorkItemDialog())" resolve="{ 'item-type': 3, 'project-alias': '@Model.Alias' }" dialog-controller="MirGames.Projects.AddNewWorkItemDialogController"><i class="fa fa-lightbulb-o"></i>Фичу</a>
-                        </li>
-                    }
-                    @if (Model.CanCreateBlogTopic)
-                    {
-                        <li>
-                            <a dialog="@Url.ActionCached(MVC.Topics.Topics.AddTopicDialog())" resolve="{ 'blog-id': @Model.BlogId }"
-                               dialog-controller="MirGames.Topics.AddNewTopicDialogController">Пост в блог</a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        }
-        <div class="work-items">
+    <div class="project-short-info page-toolbar">
+        <div class="work-items block">
             <div class="bug-type"><i class="fa fa-bug"></i><a title="Открытые баги" href="@Url.ActionCached(MVC.Projects.Projects.WorkItems(Model.Alias, null, WorkItemType.Bug))">@statistics.OpenBugsCount</a></div>
             <div class="task-type"><i class="fa fa-tasks"></i><a title="Открытые таски" href="@Url.ActionCached(MVC.Projects.Projects.WorkItems(Model.Alias, null, WorkItemType.Task))">@statistics.OpenTasksCount</a></div>
             <div class="feature-type"><i class="fa fa-lightbulb-o"></i><a title="Открытые фичи" href="@Url.ActionCached(MVC.Projects.Projects.WorkItems(Model.Alias, null, WorkItemType.Feature))">@statistics.OpenFeaturesCount</a></div>
+        </div>
+        <span class="separator">&nbsp;</span>
+        <div class="icon-buttons full-width">
+            @if (Model.CanCreateBug || Model.CanCreateFeature || Model.CanCreateTask)
+            {
+                <div class="add-to-tracker dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle icon-button"><i class="fa fa-plus"></i>Добавить...</a>
+                    <ul class="dropdown-menu">
+                        @if (Model.CanCreateBug)
+                        {
+                            <li>
+                                <a dialog="@Url.ActionCached(MVC.Projects.Projects.AddWorkItemDialog())" resolve="{ 'item-type': 1, 'project-alias': '@Model.Alias' }" dialog-controller="MirGames.Projects.AddNewWorkItemDialogController"><i class="fa fa-bug"></i>Багу</a>
+                            </li>
+                        }
+                        @if (Model.CanCreateTask)
+                        {
+                            <li>
+                                <a dialog="@Url.ActionCached(MVC.Projects.Projects.AddWorkItemDialog())" resolve="{ 'item-type': 2, 'project-alias': '@Model.Alias' }" dialog-controller="MirGames.Projects.AddNewWorkItemDialogController"><i class="fa fa-tasks"></i>Задачу</a>
+                            </li>
+                        }
+                        @if (Model.CanCreateFeature)
+                        {
+                            <li>
+                                <a dialog="@Url.ActionCached(MVC.Projects.Projects.AddWorkItemDialog())" resolve="{ 'item-type': 3, 'project-alias': '@Model.Alias' }" dialog-controller="MirGames.Projects.AddNewWorkItemDialogController"><i class="fa fa-lightbulb-o"></i>Фичу</a>
+                            </li>
+                        }
+                        @if (Model.CanCreateBlogTopic)
+                        {
+                            <li>
+                                <a dialog="@Url.ActionCached(MVC.Topics.Topics.AddTopicDialog())" resolve="{ 'blog-id': @Model.BlogId }"
+                                   dialog-controller="MirGames.Topics.AddNewTopicDialogController">Пост в блог</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
         </div>
     </div>
 </div>

@@ -22,13 +22,13 @@
             <h3>Проекты</h3>
         }
     </div>
-    <div class="buttons">
-        @if (User.Can("Create", "WipProject"))
-        {
-            <a href="@Url.ActionCached(MVC.Projects.Projects.New())" class="add-wip-project"><i class="fa fa-plus"></i>Новый проект</a>
-        }
-    </div>
 </div>
+<div class="page-toolbar">@if (User.Can("Create", "WipProject"))
+    {
+        <div class="icon-buttons">
+            <a href="@Url.ActionCached(MVC.Projects.Projects.New())" class="add-wip-project icon-button"><i class="fa fa-plus"></i>Новый проект</a>
+        </div>
+    }</div>
 
 @if (!Model.Any())
 {

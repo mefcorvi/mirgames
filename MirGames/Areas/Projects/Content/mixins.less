@@ -138,25 +138,13 @@
 
 .project-short-info() {
     & > .project-short-info {
-        .page-block(@indent/2, @indent);
-        .make-row();
-        background: mix(@background-color, @main-color, 95%);
-        border: 0;
-        border-top: 1px solid mix(@background-color, @main-color, 90%);
-        border-bottom: 5px solid @sub-background;
-
-        .fa {
-            margin-right: 5px;
-        }
-
         & > .work-items {
             overflow: hidden;
 
             & > div {
-                display: block;
+                display: inline-block;
                 width: @indent * 1.5;
                 .box-sizing(border-box);
-                float: left;
                 border: 1px solid @border-color;
                 text-align: center;
                 height: @indent * 1.5;
@@ -176,9 +164,6 @@
                     color: #fff;
                     text-decoration: none;
                     text-shadow: 0 0 10px contrast(#fff);
-
-                    &:hover {
-                    }
                 }
 
                 & > .fa {
@@ -217,19 +202,7 @@
             }
         }
 
-        & > .add-to-tracker {
-            &.open {
-                & > .dropdown-toggle {
-                    .button-focused();
-                    padding: 3px 10px;
-                }
-            }
-
-            & > .dropdown-toggle {
-                .button();
-                padding: 3px 10px;
-            }
-
+        .add-to-tracker {
             & > .dropdown-menu {
                 left: 0;
 

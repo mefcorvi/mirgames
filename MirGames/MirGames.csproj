@@ -405,7 +405,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\Inputs.cshtml" />
     <Content Include="App_Code\Author.cshtml" />
+    <Content Include="Areas\Forum\Views\Forum\_ForumsHeader.cshtml" />
     <None Include="Areas\Topics\Scripts\Topics.ts" />
     <Content Include="Areas\Topics\Views\Web.config" />
     <Content Include="Areas\Topics\Views\_ViewStart.cshtml" />
@@ -575,7 +577,6 @@
     <None Include="Scripts\Core\Utils.ts" />
     <None Include="Areas\Projects\Scripts\ProjectCodeFilePage.ts" />
     <None Include="Scripts\_references.ts" />
-    <None Include="Areas\Topics\Scripts\SearchPanelController.ts" />
     <None Include="Areas\Topics\Scripts\EditTopic.ts" />
     <None Include="Scripts\UI\AppScope.ts" />
     <None Include="Scripts\Users\ProfilePage.ts" />
@@ -899,6 +900,7 @@
     <Content Include="Areas\Projects\Scripts\ProjectPage.ts" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Areas\Topics\Scripts\SearchPanelController.ts" />
     <TypeScriptCompile Include="Scripts\Core\EventEmitter.ts" />
     <TypeScriptCompile Include="Scripts\Libs\angular.d.ts" />
     <TypeScriptCompile Include="Scripts\UI\SinglePageService.ts" />

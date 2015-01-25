@@ -54,7 +54,12 @@ namespace MirGames.Domain.Topics.CommandHandlers
                 
                 foreach (var topic in topics)
                 {
-                    this.searchEngine.Index(topic.Id, "Topic", topic.TopicTitle + " " + topic.Content.TopicText + " " + topic.TagsList);
+                    this.searchEngine.Remove(topic.Id, "Topic");
+                    this.searchEngine.Index(
+                        topic.Id,
+                        "Topic",
+                        topic.TopicTitle + " " + topic.Content.TopicText,
+                        new SearchIndexTerm("tags", topic.TagsList) { IsIndexed = true, IsNormalized = false });
                 }
             }
         }

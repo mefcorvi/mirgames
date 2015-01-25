@@ -65,9 +65,6 @@
                 </nav>
             </div>
         </header>
-        <nav class="toolbar">
-            @RenderSection("Nav", required: false)
-        </nav>
         @if (this.UserEntity != null && !this.UserEntity.IsActivated)
         {
             <div ng-controller="MirGames.ActivationNotificationController" class="notification-block">

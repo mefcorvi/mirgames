@@ -1,38 +1,56 @@
 /// <reference path="_references.ts" />
 module MirGames.Topics {
     export class SearchPanelController {
-        static $inject = ['$scope', '$element', 'pageData'];
+        static $inject = ['$scope', '$element', 'pageDataService', '$location'];
 
-        constructor(private $scope: ISearchPanelController, $element: JQuery, public pageData: ITopicsPageData) {
-            this.$scope.search = this.search.bind(this);
-            this.$scope.searchQuery = pageData.searchString;
+        private pageData: ISearchPanelPageData;
+
+        constructor(private $scope: ISearchPanelController, $element: JQuery, pageDataService: IPageDataProvider, private $location: ng.ILocationService) {
+            this.pageData = pageDataService.getPageData<ISearchPanelPageData>();
+            this.$scope.searchString = this.pageData.searchString;
+            this.$scope.search = () => this.search();
         }
 
         private search() {
-            var params: {
-                searchString?: string;
-                tag?: string;
-            } = {};
+            var args: any = {
+                area: 'Topics'
+            };
 
-            if (!Utils.isNullOrEmpty(this.$scope.searchQuery)) {
-                params['searchString'] = this.$scope.searchQuery;
+            var action: string = 'Index';
+
+            if (this.$scope.searchString) {
+                args.searchString = this.$scope.searchString;
             }
 
-            if (!Utils.isNullOrEmpty(this.pageData.tag)) {
-                params['tag'] = this.pageData.tag;
-
+            if (this.pageData.tag) {
+                args.tag = this.pageData.tag;
             }
-            Core.Application.getInstance().navigateToUrl(Router.action("Topics", "Index", params));
+
+            switch (this.pageData.subsection) {
+                case 'Microtopics':
+                    action = 'MicroTopics';
+                    break;
+                case 'Tutorials':
+                    action = 'Tutorials';
+                    break;
+                case 'All':
+                    action = 'AllPosts';
+                    break;
+            }
+
+            var address = Router.action('Topics', action, args);
+            this.$location.url(address);
         }
     }
 
-    export interface ITopicsPageData {
-        tag: string;
+    export interface ISearchPanelPageData {
         searchString: string;
+        tag: string;
+        subsection: string;
     }
 
     export interface ISearchPanelController extends ng.IScope {
-        searchQuery: string;
         search(): void;
+        searchString: string;
     }
 }

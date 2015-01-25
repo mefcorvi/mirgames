@@ -41,7 +41,7 @@
             <div class="repository-url">
                 <span>Адрес репозитория:</span>
                 <input type="text" value="@Model.RepositoryUrl" readonly="true" />
-                <a href="@Url.ActionCached(MVC.Projects.Projects.Archive(Model.Alias))">Скачать ZIP архив</a>
+                <a href="@Url.ActionCached(MVC.Projects.Projects.Archive(Model.Alias))" target="_self">Скачать ZIP архив</a>
             </div>
         }
         @if (images.Any())

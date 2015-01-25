@@ -41,7 +41,7 @@ namespace MirGames.Infrastructure.SearchEngine
         }
 
         /// <inheritdoc />
-        public void Index(int id, string documentType, string text)
+        public void Index(int id, string documentType, string text, params SearchIndexTerm[] terms)
         {
             using (var analyzer = GetAnalyzer())
             using (var directory = this.GetIndexDirectory())
@@ -51,6 +51,32 @@ namespace MirGames.Infrastructure.SearchEngine
                 doc.Add(new Field("id", id.ToString(CultureInfo.InvariantCulture), Field.Store.YES, Field.Index.NOT_ANALYZED));
                 doc.Add(new Field("text", text, Field.Store.NO, Field.Index.ANALYZED));
                 doc.Add(new Field("type", documentType, Field.Store.YES, Field.Index.NOT_ANALYZED));
+
+                if (terms != null)
+                {
+                    foreach (var term in terms)
+                    {
+                        var indexState = Field.Index.NOT_ANALYZED;
+
+                        if (term.IsIndexed && term.IsNormalized)
+                        {
+                            indexState = Field.Index.ANALYZED;
+                        }
+
+                        if (term.IsIndexed && !term.IsNormalized)
+                        {
+                            indexState = Field.Index.ANALYZED_NO_NORMS;
+                        }
+
+                        if (!term.IsIndexed)
+                        {
+                            indexState = Field.Index.NOT_ANALYZED;
+                        }
+
+                        doc.Add(new Field(term.Key, term.Value, Field.Store.NO, indexState));
+                    }
+                }
+
                 writer.AddDocument(doc);
                 writer.Commit();
             }
@@ -81,25 +107,17 @@ namespace MirGames.Infrastructure.SearchEngine
         }
 
         /// <inheritdoc />
-        public IEnumerable<SearchResult> Search(string documentType, string searchString)
+        public IEnumerable<SearchResult> Search(string documentType, string searchString, params SearchIndexTerm[] terms)
         {
             using (var analyzer = GetAnalyzer())
             using (var directory = this.GetIndexDirectory())
             {
-                var parser = new QueryParser(Version.LUCENE_30, "text", analyzer);
-                Query textQuery = parser.Parse(searchString);
-
-                var query = new BooleanQuery
-                    {
-                        new BooleanClause(textQuery, Occur.MUST),
-                        new BooleanClause(new TermQuery(new Term("type", documentType)), Occur.MUST)
-                    };
-
+                var query = GetQuery(documentType, searchString, terms, analyzer);
                 var results = new List<SearchResult>();
 
                 using (var searcher = new IndexSearcher(directory, true))
                 {
-                    TopDocs hits = searcher.Search(query, 100);
+                    TopDocs hits = searcher.Search(query, 1000);
 
                     foreach (var scoreDoc in hits.ScoreDocs)
                     {
@@ -118,26 +136,52 @@ namespace MirGames.Infrastructure.SearchEngine
         }
 
         /// <inheritdoc />
-        public int GetCount(string documentType, string searchString)
+        public int GetCount(string documentType, string searchString, params SearchIndexTerm[] terms)
         {
             using (var analyzer = GetAnalyzer())
             using (var directory = this.GetIndexDirectory())
             {
-                var parser = new QueryParser(Version.LUCENE_30, "text", analyzer);
-                Query textQuery = parser.Parse(searchString);
-
-                var query = new BooleanQuery
-                    {
-                        new BooleanClause(textQuery, Occur.MUST),
-                        new BooleanClause(new TermQuery(new Term("type", documentType)), Occur.MUST)
-                    };
-
+                var query = GetQuery(documentType, searchString, terms, analyzer);
                 using (var searcher = new IndexSearcher(directory, true))
                 {
-                    TopDocs hits = searcher.Search(query, 100);
+                    TopDocs hits = searcher.Search(query, 1000);
                     return hits.TotalHits;
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets the query.
+        /// </summary>
+        /// <param name="documentType">Type of the document.</param>
+        /// <param name="searchString">The search string.</param>
+        /// <param name="terms">The terms.</param>
+        /// <param name="analyzer">The analyzer.</param>
+        /// <returns>The query.</returns>
+        private static BooleanQuery GetQuery(
+            string documentType,
+            string searchString,
+            IEnumerable<SearchIndexTerm> terms,
+            RussianAnalyzer analyzer)
+        {
+            var parser = new QueryParser(Version.LUCENE_30, "text", analyzer);
+            Query textQuery = parser.Parse(searchString);
+
+            var query = new BooleanQuery
+            {
+                new BooleanClause(textQuery, Occur.MUST),
+                new BooleanClause(new TermQuery(new Term("type", documentType)), Occur.MUST)
+            };
+
+            if (terms != null)
+            {
+                foreach (var term in terms)
+                {
+                    query.Add(new BooleanClause(new TermQuery(new Term(term.Key, term.Value)), Occur.MUST));
+                }
+            }
+
+            return query;
         }
 
         /// <summary>

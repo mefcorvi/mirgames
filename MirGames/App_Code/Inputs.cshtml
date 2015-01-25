@@ -1,0 +1,9 @@
+﻿@using System.Web.Mvc.Html
+@inherits Helper
+
+@helper SearchInput(string searchString, string searchAction, string searchModel) {
+    <form class="search-form" ng-submit="@searchAction" novalidate>
+        <input type="text" ng-model="@searchModel" value="@searchString" placeholder="Поиск..." />
+        <a href="javascript:void(0);" ng-click="@string.Format("{0} = ''; {1};", searchModel, searchAction)" class="cancel-search" ng-show="@searchModel" ng-cloak><i class="fa fa-times"></i></a>
+    </form>
+}

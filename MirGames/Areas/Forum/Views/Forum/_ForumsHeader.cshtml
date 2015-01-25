@@ -1,0 +1,43 @@
+﻿@using MirGames.Domain.Security
+@{
+    var subsection = (string)ViewBag.Subsection;
+}
+
+<div class="page-header">
+    <div class="header">
+        @if (ViewBag.Forum != null)
+        {
+            <h4><a href="@Url.ActionCached(MVC.Forum.Forum.Index())">Форум</a></h4>
+            <h3>@ViewBag.Forum.Title</h3>
+            <span class="description">@ViewBag.Forum.Description</span>
+        }
+        else
+        {
+            <h3>Форум</h3>
+        }
+    </div>
+</div>
+<div class="page-toolbar">
+    <div ng-controller="MirGames.Forum.SearchPanelController" class="full-width block">
+        @Inputs.SearchInput((string)ViewBag.SearchString, "search()", "searchString")
+    </div>
+    <span class="separator">&nbsp;</span>
+    <div class="icon-buttons">
+        @if (User.Can("Create", "ForumTopic") && ViewBag.Forum != null)
+        {
+            <a href="@Url.ActionCached(MVC.Forum.Forum.New((string)ViewBag.Forum.Alias))" class="icon-button"><i class="fa fa-pencil"></i>Новая тема</a>
+        }
+    </div>
+</div>
+@if (ViewBag.Forum == null)
+{
+    <nav class="toolbar">
+        <a href="@Url.ActionCached(MVC.Forum.Forum.Index())" @Html.Css("selected", subsection == "Forums")>Список форумов</a>
+        <a href="@Url.ActionCached(MVC.Forum.Forum.Topics())" @Html.Css("selected", subsection == "Topics")>Все обсуждения</a>
+        
+        @if (User.IsInRole("User"))
+        {
+            <a href="@Url.ActionCached(MVC.Forum.Forum.Unread())" @Html.Css("selected", subsection == "Unread")>Непрочитанные</a>
+        }
+    </nav>
+}

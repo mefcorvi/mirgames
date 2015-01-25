@@ -3,6 +3,9 @@
 @model MirGames.Domain.Forum.ViewModels.ForumTopicsListItemViewModel
 <article @Html.Css("message").Add("unread", !Model.IsRead).Add("read", Model.IsRead)>
     <div class="message-content">
+        <div class="author-info">
+            @Author.UserAvatarLink(Model.Author, "avatar-small", "user-login")
+        </div>
         <div class="topic-title-block">
             @if (@Model.UnreadPostsCount.HasValue)
             {

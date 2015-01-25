@@ -50,45 +50,5 @@
             color: mix(@background-color, @font-color, 80%);
         }
     }
-
-    & > .toolbar {
-        clear: left;
-        .page-block(@indent/2, @indent);
-        background: mix(@background-color, @main-color, 95%);
-        border: 0;
-        border-top: 1px solid mix(@background-color, @main-color, 90%);
-        border-bottom: 5px solid @sub-background;
-        overflow: hidden;
-        
-        & .user-rating {
-            display: inline-block;
-            .font-size(1.5);
-            background: desaturate(@main-color, 20%);
-            padding: 3px;
-            color: contrast(desaturate(@main-color, 20%));
-        }
-
-        & > .icon-buttons {
-            float: right;
-        }
-
-        & > .icon-buttons a {
-            @bgr: mix(@background-color, @main-color, 80%);
-            font-size: 14px;
-            display: inline-block;
-            width: 14px;
-            height: 14px;
-            text-align: center;
-            line-height: 14px;
-            background: @bgr;
-            color: contrast(@bgr);
-            padding: 5px;
-
-            &:hover {
-                background: @link-color-hover;
-                color: contrast(@link-color-hover);
-            }
-        }
-    }
 }
         

@@ -21,7 +21,8 @@ namespace MirGames.Infrastructure.SearchEngine
         /// <param name="id">The id.</param>
         /// <param name="documentType">Type of the document.</param>
         /// <param name="text">The text.</param>
-        void Index(int id, string documentType, string text);
+        /// <param name="terms">The terms.</param>
+        void Index(int id, string documentType, string text, params SearchIndexTerm[] terms);
 
         /// <summary>
         /// Removes the document with the specified id.
@@ -40,15 +41,21 @@ namespace MirGames.Infrastructure.SearchEngine
         /// </summary>
         /// <param name="documentType">Type of the document.</param>
         /// <param name="searchString">The search string.</param>
-        /// <returns>A set of document identifiers</returns>
-        IEnumerable<SearchResult> Search(string documentType, string searchString);
+        /// <param name="terms">The terms.</param>
+        /// <returns>
+        /// A set of document identifiers
+        /// </returns>
+        IEnumerable<SearchResult> Search(string documentType, string searchString, params SearchIndexTerm[] terms);
 
         /// <summary>
         /// Gets the count of documents.
         /// </summary>
         /// <param name="documentType">Type of the document.</param>
         /// <param name="searchString">The search string.</param>
-        /// <returns>The count of documents.</returns>
-        int GetCount(string documentType, string searchString);
+        /// <param name="terms">The terms.</param>
+        /// <returns>
+        /// The count of documents.
+        /// </returns>
+        int GetCount(string documentType, string searchString, params SearchIndexTerm[] terms);
     }
 }

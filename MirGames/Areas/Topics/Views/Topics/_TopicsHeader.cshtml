@@ -24,14 +24,16 @@
             <h3>Блог</h3>
         }
     </div>
-    <div class="buttons">
+</div>
+<div class="page-toolbar">
+    <div class="full-width block" ng-controller="MirGames.Topics.SearchPanelController">
+        @Inputs.SearchInput((string)ViewBag.SearchString, "search()", "searchString")
+    </div>
+    <span class="separator">&nbsp;</span>
+    <div class="icon-buttons">
         @if (User.Can("Create", "Topic"))
         {
-            <a href="@Url.ActionCached(MVC.Topics.Topics.New())" @Html.Css("add-topic").Add("selected", ViewBag.Subsection == "New")><i class="fa fa-pencil"></i>Новый пост</a>
-        }
-        @if (ViewBag.BlogTopicsUnread > 0)
-        {
-            <a href="javascript:void(0)" ng-click="markAllTopicsAsRead()">Отметить всё как прочитанное</a>
+            <a href="@Url.ActionCached(MVC.Topics.Topics.New())" @Html.Css("add-topic").Add("icon-button").Add("selected", ViewBag.Subsection == "New")><i class="fa fa-pencil"></i>Новый пост</a>
         }
     </div>
 </div>

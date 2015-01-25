@@ -8,6 +8,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace MirGames.Domain.Forum.CommandHandlers
 {
+    using System.Collections.Generic;
     using System.Security.Claims;
     using System.Text;
 
@@ -58,9 +59,13 @@ namespace MirGames.Domain.Forum.CommandHandlers
                 sb.AppendLine(post.Text);
             }
 
-            var documentType = string.Format("ForumTopic#{0}", topic.Forum.Alias);
-            this.searchEngine.Remove(command.TopicId, documentType);
-            this.searchEngine.Index(command.TopicId, documentType, sb.ToString());
+            this.searchEngine.Remove(command.TopicId, "ForumTopic");
+            this.searchEngine.Index(
+                command.TopicId,
+                "ForumTopic",
+                sb.ToString(),
+                new SearchIndexTerm("forum", topic.Forum.Alias),
+                new SearchIndexTerm("tags", topic.TagsList) { IsIndexed = true });
         }
     }
 }

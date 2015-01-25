@@ -1,13 +1,11 @@
-/// <reference path="_references.ts" />
+﻿/// <reference path="_references.ts" />
 moment.lang("ru");
 
+declare var hljs: any;
 declare var Headroom: any;
 declare var pageData: MirGames.IPageData;
-declare var hljs: any;
 
 var headroom: any = null;
-
-hljs.initHighlightingOnLoad();
 
 angular.module('mirgames', [
     'core.application',
@@ -40,7 +38,7 @@ angular.module('mirgames', [
 }]);
 
 angular
-    .module('ng')
+    .module('mirgames')
     .directive('ngFocused', ['$timeout', ($timeout: ng.ITimeoutService) => {
         return {
             link: function (scope: ng.IScope, element: JQuery, attrs: any) {
@@ -75,6 +73,14 @@ angular
         return {
             link: (scope: ng.IScope, element: JQuery, attrs: any) => {
                 element.append('<input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>');
+            }
+        }
+    })
+    .directive('code', () => {
+        return {
+            restrict: 'E',
+            link: (scope: ng.IScope, element: JQuery) => {
+                hljs.highlightBlock(element[0]);
             }
         }
     })

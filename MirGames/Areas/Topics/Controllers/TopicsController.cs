@@ -368,6 +368,7 @@ namespace MirGames.Areas.Topics.Controllers
             this.ViewBag.Tag = tag;
             this.ViewBag.TopicsCount = topicsCount;
             this.ViewBag.RssUrl = this.Url.ActionCached(MVC.Topics.Topics.Rss(tag, searchString));
+            this.ViewBag.SearchString = searchString;
             this.ViewBag.Pagination = new PaginationViewModel(
                 paginationSettings,
                 topicsCount,
@@ -382,10 +383,8 @@ namespace MirGames.Areas.Topics.Controllers
             this.ViewBag.Subsection = subsection;
             this.ViewBag.PageData["tag"] = tag;
             this.ViewBag.PageData["searchString"] = searchString;
-            this.ViewBag.OnlyUnread = false;
-            this.ViewBag.OnlyTutorial = true;
+            this.ViewBag.PageData["subsection"] = subsection;
             this.ViewBag.SearchString = searchString;
-            this.ViewBag.Subsection = subsection;
 
             return this.View("Index", topics);
         }

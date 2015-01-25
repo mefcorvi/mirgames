@@ -150,13 +150,29 @@ namespace MirGames.Domain.Topics.QueryHandlers
 
                 if (!string.IsNullOrWhiteSpace(query.SearchString))
                 {
-                    var searchResults =
-                        this.searchEngine.Search("Topic", query.SearchString).Select(sr => sr.Id).ToArray();
+                    var searchResults = this.GetSearchResults(query).Select(sr => sr.Id).ToArray();
                     return topics.Count(t => searchResults.Contains(t.TopicId));
                 }
 
                 return topics.Count();
             }
+        }
+
+        /// <summary>
+        /// Gets the search results.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <returns>The search results.</returns>
+        private IEnumerable<SearchResult> GetSearchResults(GetTopicsQuery query)
+        {
+            var terms = new List<SearchIndexTerm>();
+
+            if (!query.Tag.IsNullOrEmpty())
+            {
+                terms.Add(new SearchIndexTerm("tags", query.Tag));
+            }
+
+            return this.searchEngine.Search("Topic", query.SearchString, terms.ToArray());
         }
 
         /// <summary>
@@ -264,7 +280,7 @@ namespace MirGames.Domain.Topics.QueryHandlers
         /// <returns>The search result.</returns>
         private IEnumerable<TopicsListItem> GetSearchResult(GetTopicsQuery query, PaginationSettings pagination, IQueryable<TopicsListItem> topics)
         {
-            var searchResults = this.ApplyPagination(this.searchEngine.Search("Topic", query.SearchString), pagination);
+            var searchResults = this.ApplyPagination(this.GetSearchResults(query), pagination);
 
             var searchResultsCollection = searchResults.ToList();
             var searchIdentifiers = searchResultsCollection.Select(sr => sr.Id).ToArray();

@@ -72,8 +72,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
 
                 if (!string.IsNullOrWhiteSpace(query.SearchString))
                 {
-                    var searchResults =
-                        this.searchEngine.Search(string.Format("ForumTopic#{0}", query.ForumAlias), query.SearchString).Select(sr => sr.Id).ToArray();
+                    var searchResults = this.GetSearchResults(query).Select(sr => sr.Id).ToArray();
                     return topics.Count(t => searchResults.Contains(t.TopicId));
                 }
 
@@ -91,7 +90,7 @@ namespace MirGames.Domain.Forum.QueryHandlers
                 var set = this.GetTopicsQueryable(readContext, query, principal.GetUserId());
                 topics = string.IsNullOrWhiteSpace(query.SearchString)
                              ? this.ApplyPagination(set, pagination).EnsureCollection()
-                             : this.GetSearchResult(query, pagination, set).EnsureCollection();
+                             : this.GetSearchResults(query, pagination, set).EnsureCollection();
             }
 
             var forums = this.queryProcessor.Process(new GetForumsQuery()).ToList();
@@ -227,15 +226,38 @@ namespace MirGames.Domain.Forum.QueryHandlers
         }
 
         /// <summary>
+        /// Gets the search results.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <returns>The search results.</returns>
+        private IEnumerable<SearchResult> GetSearchResults(GetForumTopicsQuery query)
+        {
+            var terms = new List<SearchIndexTerm>();
+
+            if (!query.ForumAlias.IsNullOrEmpty())
+            {
+                terms.Add(new SearchIndexTerm("forum", query.ForumAlias));
+            }
+
+            if (!query.Tag.IsNullOrEmpty())
+            {
+                terms.Add(new SearchIndexTerm("tags", query.Tag));
+            }
+
+            return this.searchEngine
+                       .Search("ForumTopic", query.SearchString, terms.ToArray());
+        }
+
+        /// <summary>
         /// Gets the search result.
         /// </summary>
         /// <param name="query">The query.</param>
         /// <param name="pagination">The pagination.</param>
         /// <param name="topics">The topics.</param>
         /// <returns>The search result.</returns>
-        private IEnumerable<ForumTopic> GetSearchResult(GetForumTopicsQuery query, PaginationSettings pagination, IQueryable<ForumTopic> topics)
+        private IEnumerable<ForumTopic> GetSearchResults(GetForumTopicsQuery query, PaginationSettings pagination, IQueryable<ForumTopic> topics)
         {
-            var searchResults = this.ApplyPagination(this.searchEngine.Search(string.Format("ForumTopic#{0}", query.ForumAlias), query.SearchString), pagination);
+            var searchResults = this.ApplyPagination(this.GetSearchResults(query), pagination);
 
             var searchResultsCollection = searchResults.ToList();
             var searchIdentifiers = searchResultsCollection.Select(sr => sr.Id).ToArray();
